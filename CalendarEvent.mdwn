@@ -336,9 +336,35 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
       This specifies whether the alarm will trigger relative to the start or end of the event. The value MUST be either `"start"` or `"end"`.
     - **offset**: `Duration`
       The offset from the start/end of the event to fire the alert. A positive value means an alert *after* the start/end; a negative value indicates an alert *before*. Note, if the event is in floating time (including all-day events), the server SHOULD use the user's default time zone when determining the start time.
-    - **type**: `String`
-      The value MUST be either one of the following values, prefixed with `X-`, or registered in a future RFC. Any value the client or server doesn't understand SHOULD NOT trigger any type of alert by that agent, but MUST be preserved.
-      - `"email"` – the server will send an email to the user at the specified time. The format of this email is service-specific.
-      - `"alert"` – a message SHOULD be shown to the user on any client connected to this account at the specified time. How this message is formatted (and any sound or other method of drawing the user's attention) is client specific.
-    - **isAcknowledged**: `Boolean`
-      Has the user acknowledged this alert? When a user dismisses an alert, the client should set this to `true`, so other clients can also remove the alert.
+    - **action**: `DisplayAction|EmailAction|UnknownAction`
+      How to alert the user. A *DisplayAction* means a message (which is service dependent, but SHOULD include the summary and start time of the event) SHOULD be shown to the user on any client connected to this account at the specified time. How this message is formatted (and any sound or other method of drawing the user's attention) is client specific. An *EmailAction* means the server MUST send an email as specified in the object at the specified time.
+
+      Where a **DisplayAction** object has the following properties:
+
+      - **type**: `String`
+        The value MUST be `"display"`.
+      - **isAcknowledged**: `Boolean`
+        True if the user has permanently dismissed the alert.
+      - **snoozedUntil**: `Date|null`
+        If the user temporarily dismisses the alert, this is the UTC date-time
+        after which it should be reshown.
+
+      Where an **EmailAction** object has the following properties:
+
+      - **type**: `String`
+        The value MUST be `"email"`.
+      - **to**: `Emailer[]`
+        An array of name/email objects to send the alert to. An **Emailer** object has the following properties:
+
+        - **name**: `String`
+          The name of the recipient. If not known, clients SHOULD use the empty string.
+        - **email**: `String`
+          The email address of the recipient.
+
+      - **subject**: `String` (optional)
+        The subject to use for the email. If omitted, this is implementation specific, but the server SHOULD try to choose an appropriate subject (such as "Event Summary: starting in 5 min").
+      - **textBody**: `String` (optional)
+        The plain-text body to use for the email. If omitted, the body of the email is implementation specific, but the server SHOULD include all pertinant details about the event, such as summary, location and start time.
+
+      An **UnknownAction** object is an object that contains a `type` property whose value is not `"email"` or `"string"`, plus zero or more other properties. This is for compatibility with client extensions and future RFCs. The client or server SHOULD NOT trigger any type of alert for action types they do not understand, but MUST preserve them.
+
