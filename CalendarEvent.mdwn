@@ -347,7 +347,8 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
         True if the user has permanently dismissed the alert.
       - **snoozedUntil**: `Date|null`
         If the user temporarily dismisses the alert, this is the UTC date-time
-        after which it should be reshown.
+        after which it should be reshown. This property MUST be ignored if
+        `isAcknowledged == true`.
 
       Where an **EmailAction** object has the following properties:
 
@@ -364,7 +365,7 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
       - **subject**: `String` (optional)
         The subject to use for the email. If omitted, this is implementation specific, but the server SHOULD try to choose an appropriate subject (such as "Event Summary: starting in 5 min").
       - **textBody**: `String` (optional)
-        The plain-text body to use for the email. If omitted, the body of the email is implementation specific, but the server SHOULD include all pertinant details about the event, such as summary, location and start time.
+        The plain-text body to use for the email. If omitted, the body of the email is implementation specific, but the server SHOULD include all pertinent details about the event, such as summary, location and start time.
 
       An **UnknownAction** object is an object that contains a `type` property whose value is not `"email"` or `"string"`, plus zero or more other properties. This is for compatibility with client extensions and future RFCs. The client or server SHOULD NOT trigger any type of alert for action types they do not understand, but MUST preserve them.
 
