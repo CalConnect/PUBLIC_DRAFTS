@@ -395,4 +395,17 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
 
 ## Localisation
 
+- **language**: `String`
+  The [RFC5646](https://tools.ietf.org/html/rfc5646) language tag that best describes the language used for the *title* and *description* properties in
+  this event.
+
+- **translations**: `String[Translation]`
+  A map of [RFC5646](https://tools.ietf.org/html/rfc5646) language tag to an object with translations into that language of the *title* and/or *description* properties of the event.
+
+    A **Translation** Object has the following properties:
+
+    - **title**: `String`
+      A translation of the event's title.
+    - **description**: `String|null`
+      A translation of the event's description.
 
