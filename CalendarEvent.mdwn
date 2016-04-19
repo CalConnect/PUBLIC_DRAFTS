@@ -327,6 +327,11 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
 
 ## Alerts
 
+- **useDefaultAlerts**: `Boolean`
+  If `true`, use the user's default alerts for this event and ignore the
+  *alerts* property. Fetching user defaults is dependent on the API from which
+  this object is being fetched, and is not defined in this specification.
+
 - **alerts**: `Alert[]|null`
   A list of alerts to display or send the user for this event. This maps to the VALARM property in iCalendar.
 
