@@ -22,7 +22,7 @@ The TC-API Event object has the following properties. All properties are optiona
 ## Where
 
 - **locations**: `Location[]`
-  An array of locations associated with the event. For locations not marked `isAlternate: true`, the order of the locations in the array indicate the progression during the event. So the first location would be the "start", and the last location the "end".
+  An array of locations associated with the event.
 
     A **Location** object has the following properties. All properties are optional, but every Location object MUST have at least one property:
 
@@ -32,6 +32,7 @@ The TC-API Event object has the following properties. All properties are optiona
       The relation type of this location to the event. This MUST be either one of the following values, prefixed with `X-`, or registered in a future RFC. Any value the client or server doesn't understand should be treated the same as `unknown`.
       - `start`: The event starts at this location.
       - `end`: The event ends at this location.
+      - `unknown`: The relation of this location to the event is unknown.
     - **timeZone**: `String` (Olsen name)
       A time zone for this location. If omitted, the event time zone MUST be used for this location.
     - **address**: `Address`
