@@ -175,15 +175,21 @@ If *isAllDay* is `true`, then the following restrictions apply:
 - **sequence**: `Number`
   The SEQUENCE field from iCalendar.
 
-- **status**: `String` ("confirmed"|"cancelled"|"tentative")
-  The STATUS property from iCalendar. General agreement on this.
+- **status**: `String`
+  The status of the event. MUST be one of:
+
+    - `"confirmed"`: Indicates event is definite
+    - `"cancelled"`: Indicates event was cancelled.
+    - `"tentative"`: Indicates event is tentative.
+
+    This maps from the STATUS property from iCalendar, converted to lower-case.
 
 - **showAsFree**: `Boolean`
-  If true, the even should be ignored when calculating free/busy data for the
+  If true, the event should be ignored when calculating free/busy data for the
   user. This maps to the TRANSP property in iCalendar (`false <=> OPAQUE`, `true <=> TRANSPARENT`).
 
 - **replyTo**: `String|null`
-  The email to send scheduling (iMIP) replies to.
+  The email to send scheduling (iMIP) replies to. This maps to the email address of the ORGANIZER in iCalendar.
 
 - **participants**: `String[Participant]|null`
   A map of calendar-user-id to an object describing their participation in the event. This is a combination of the ORGANIZER and ATTENDEES properties from iCalendar.
@@ -224,10 +230,10 @@ If *isAllDay* is `true`, then the following restrictions apply:
       A list of group addresses. MUST be omitted if none (rather than an empty array).
 
 - **created**: `UTCDate`
-  The CREATED field from iCalendar.
+  The time this event was created. Maps to the CREATED field in iCalendar.
 
 - **updated**: `UTCDate`
-  The LAST-MODIFIED field from iCalendar.
+  The time this event was last changed. Maps to the LAST-MODIFIED field in iCalendar.
 
 ## Alerts
 
