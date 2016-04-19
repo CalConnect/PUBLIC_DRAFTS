@@ -15,13 +15,9 @@ The TC-API Event object has the following properties. All properties are optiona
 - **title**: `String`
   A short summary of the event. This maps to the SUMMARY property in iCalendar.
 
-General agreement that this should be a simple string property. "Title" is clearer than "summary" to indicate what it is.
-
 - **description**: `String`
   A longer form description of the event. This is plain text, not HTML, but
-  a client SHOULD attempt to mark up URLs. This maps to the DESCRIPTION property in iCalendar.
-
-Consistent across all APIs.
+  a client SHOULD attempt to hyperlink URLs. This maps to the DESCRIPTION property in iCalendar.
 
 ## Where
 
@@ -75,71 +71,17 @@ When mapping from iCalendar, the LOCATION property should become a single locati
 - **duration**: `Duration`, e.g. `P2DT3H`
   The duration of the event in absolute time (i.e. ignoring DST shifts, or UTC).
 
-Duration is in a subset of RFC3339/ISO8601 format:
-* MUST NOT include decimal (fractional) values
-* MUST NOT include year or month values
+    Duration is in a subset of [RFC 3339](https://tools.ietf.org/html/rfc3339)  format:
+    * MUST NOT include decimal (fractional) values
+    * MUST NOT include year or month values
 
-Durations are in absolute time, i.e. to get the end date in the event time zone, convert start into UTC, then apply the duration, then convert the result into the appropriate time zone.
+    Durations are in absolute time, i.e. to get the end date in the event time zone, convert start into UTC, then apply the duration, then convert the result into the appropriate time zone.
 
-Restrictions if *isAllDay* is `true`:
-* the *start*/*end* properties MUST have a time component of `T00:00:00`
-* the *timeZone* property MUST be `null`
-* the *duration* MUST only include day and/or week components
+If *isAllDay* is `true`, then the following restrictions apply:
 
-### Explanations
-
-#### isAllDay vs. date format:
-
-1. Using a Boolean is easier to understand and is a closer match to what it means (the time span is the same, but it should be displayed differently). Universal agreement on this among current JSON APIs (but name always slightly different!).
-2. Single serialisation format for DateTime objects (midnight time part); you don't have to look at an unrelated property to know how to serialise the object.
-
-Advantages of date format:
-
-1. Automatically enforces 00:00:00 time.
-
-#### Local vs. UTC time for date objects:
-
-1. This is how the server has to store it. Time zone definitions can and do change. If you set up an event at 8am next year in Europe/London, it should remain at 8am in Europe/London even if daylight savings is cancelled that year after you create the event. For clients with persistent data stores, this is how they should do it too.
-2. Recurrences have to be done in local time, so all other dates on the object (e.g. RDATEs) are in LocalTime, so would be inconsistent to use UTC here.
-3. Following on from this, a client can do recurrences without having to support time zones (it can just ignore the time zone data and expand the recurrence to show every event in the event's time zone, which will normally be correct).
-4. If the server is doing the recurrences and/or time zone handling then the server would translate the local start/end time into the time zone requested, and not send the time zone fields, so again needs to send local times, not UTC.
-5. Easier for humans to read to verify the data is correct (don't have to do date-time conversions in your head!).
-
-Advantages of UTC:
-
-1. Easy to sort events by start time (but still have to resort after translating into viewing time zones because floating time events, so not a big win).
-2. Easy to calculate duration if using start/end pair (need to convert local times into UTC before subtracting to get duration in case there's a DST shift).
-
-#### Time zone as a property vs. part of date format:
-
-1. Easier serialisation: single format still for start/end properties.
-2. Can be omitted if server is doing time zone translation without changing format of a property.
-3. Are semi-independent (often fix time zone after time has been set).
-
-#### Duration vs. End:
-
-Advantages of duration:
-
-1. Should time zone definitions change, it is more likely the duration should remain fixed and the end should shift (e.g. for flights).
-2. Recurrences expand the start date and then use duration of first event to determine end date, so it's easier and more consistent if the end date is calculated from duration on normal events too.
-3. Guarantees positive duration (required for valid event).
-4. Less error prone: if you move the start of a series of events you don't need to make sure to keep the end in sync. You cannot produce a duration that puts the end before the start (negative durations are not allowed).
-
-Advantages of using end date:
-
-1. End is slightly more human-readable (depends on whether the duration is broken up into weeks/days/hours etc. or all in seconds!).
-2. Calculating end date 100% accurately requires converting start date to UTC first, then adding duration, then converting back to TZ. Quite complex, however the client will have to be able to do all the elements of this conversion regardless.
-
-Why not allow either?
-
-1. No extra expressivity in choice (or rather, expressivity will be ignored).
-2. Complicates all clients and servers that have to deal with them.
-
-#### Time zone format is Olsen name.
-
-1. Much more compact.
-2. Almost everyone is using this data.
-3. Represents all useful time zones.
+* the *start* property MUST have a time component of `T00:00:00`.
+* the *timeZone* property MUST be `null`.
+* the *duration* MUST only include day and/or week components.
 
 ## Recurrences
 
@@ -222,46 +164,6 @@ Why not allow either?
     The `op` property of the patch MUST be either `"add"` or `"remove"`. Other ops defined in RFC 6902 are not allowed.
 
     An invalid patch set (for any reason) should not exist, but in practice is likely to be seen in the wild. Calendar systems SHOULD ignore the whole patch set (treat it as though it were an empty array).
-
-### How to (conceptually) expand a recurring event:
-
-1. Apply the recurrence rule to the start date to get a set of start dates for occurrences.
-2. Iterate through recurrenceOverrides. For each start date (recurrence id):
-   - if it maps to `null`, remove this start date from the set if present.
-   - otherwise add it to the set if not present.
-
-You now have the complete list of start dates. The generated event object for each instance is identical to the master event, except:
-* The `start` property is set to the occurrence start date.
-* The `recurrenceRule` and `recurrenceOverrides` properties are set to `null`/removed.
-
-If the recurrence date maps to an array of patches in the `recurrenceOverrides` property of the master object, you then apply these patches, in order, to the instance object.
-
-### Example event with recurrence and exceptions
-
-    {
-      "title": "Team Meeting",
-      "isAllDay": false,
-      "start": "2016-01-05T10:00:00"
-      "timeZone": "Australia/Melbourne",
-      "duration": "PT1H"
-      "recurrenceRule": {
-        "frequency": "weekly"
-      },
-      "recurrenceOverrides": {
-        "2016-01-05T10:00:00": null, // Australia day!
-        "2016-02-02T10:00:00": [
-          { "op": "add", "path": "/start", "value": "2016-02-02T11:00:00" },
-          { "op": "add", "path": "/end", "value": "2016-02-02T12:00:00" },
-          { "op": "add", "path": "/description", "value": "Meeting moved 1h later than normal." },
-        ]
-      }
-    }
-
-### Explanations
-
-This representation means all data about the event, and all occurrences, are represented in a single object. This is preferable to the current CalDAV way (where exceptions are completely separate events, but with a recurrence ID + UID to link it to the parent event) as it reduces overall data transfer and makes it easier to get all the information about an event and its occurrences. The patch mechanism for exceptions can also massively reduce data transfer.
-
-In the *Recurrence* object, we chose to use full day names rather than numbers or abbreviated days (e.g. "MO"). Using a string is easier to understand without having to reference the spec, and makes it less likely to get decoding errors (which day is 0/1 etc.? You need to look it up). Using full lower-case names rather than abbreviated is consistent with the naming scheme used in the rest of the spec.
 
 ## Scheduling
 
