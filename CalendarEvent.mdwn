@@ -261,7 +261,7 @@ If the recurrence date maps to an array of patches in the `recurrenceOverrides` 
 
 This representation means all data about the event, and all occurrences, are represented in a single object. This is preferable to the current CalDAV way (where exceptions are completely separate events, but with a recurrence ID + UID to link it to the parent event) as it reduces overall data transfer and makes it easier to get all the information about an event and its occurrences. The patch mechanism for exceptions can also massively reduce data transfer.
 
-In the *Recurrence* object, we chose to use full day names rather than numbers or abbriviated days (e.g. "MO"). Using a string is easier to understand without having to reference the spec, and makes it less likely to get decoding errors (which day is 0/1 etc.? You need to look it up). Using full lower-case names rather than abbreviated is consistent with the naming scheme used in the rest of the spec.
+In the *Recurrence* object, we chose to use full day names rather than numbers or abbreviated days (e.g. "MO"). Using a string is easier to understand without having to reference the spec, and makes it less likely to get decoding errors (which day is 0/1 etc.? You need to look it up). Using full lower-case names rather than abbreviated is consistent with the naming scheme used in the rest of the spec.
 
 ## Scheduling
 
@@ -354,7 +354,7 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
         The value MUST be `"display"`.
       - **acknowledgedUntil**: `LocalDate|null`
         When the user has permanently dismissed the alert this SHOULD be set to
-        the *start* property **of the event, or occurrence if the event is recurring**. Other clients which sync this property can then automatically dismiss or supress duplicate alerts (alerts with the same alert id for an occurrence of this event that starts on or before this date).
+        the *start* property **of the event, or occurrence if the event is recurring**. Other clients which sync this property can then automatically dismiss or suppress duplicate alerts (alerts with the same alert id for an occurrence of this event that starts on or before this date).
       - **snoozedUntil**: `UTCDate|null`
         If the user temporarily dismisses the alert, this is the UTC date-time
         after which it should be reshown. This property MUST be ignored for
