@@ -380,3 +380,19 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
 
       An **UnknownAction** object is an object that contains a `type` property whose value is not `"email"` or `"string"`, plus zero or more other properties. This is for compatibility with client extensions and future RFCs. The client or server SHOULD NOT trigger any type of alert for action types they do not understand, but MUST preserve them.
 
+## Attachments
+
+- **attachments**: `File[]|null`
+  A list of file attachments to the event. This maps to the ATTACH property in iCalendar.
+
+    A **File** Object has the following properties:
+
+    - **url**: `String`
+      A URL from which the file may be accessed. This SHOULD be a download link,
+      but for online document providers MAY be a link to a web-based viewer. This MAY be a `data:` URL, but it is recommended that the file be hosted on a server.
+    - **type**: `String|null`
+      The content-type of the attachment, if known.
+    - **name**: `String|null`
+      The full file name, if known. e.g. "myworddocument.doc"
+    - **size**: `Number|null`
+      The size, in bytes, of the attachment when fully decoded (i.e. the number of bytes in the file the user would download), if known.
