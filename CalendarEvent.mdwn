@@ -8,7 +8,7 @@ Goals:
 - Fix issues we now have with iCalendar
 - Can then build multiple APIs on top to get/set, e.g. JMAP or REST-based.
 
-The TC-API Event object has the following properties:
+The TC-API Event object has the following properties. All properties are optional except for **title**, **isAllDay**, **start** and **duration**.
 
 ## What
 
