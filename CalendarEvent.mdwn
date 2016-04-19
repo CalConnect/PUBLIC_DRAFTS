@@ -38,7 +38,8 @@ The TC-API Event object has the following properties. All properties are optiona
     - **address**: `Address`
       The structured address of this location.
 
-        An **Address** object has the following properties:
+        An **Address** object has the following properties. All properties MUST
+        be included, but may be the empty string:
 
         - **street**: `String`
           The street address. This MAY be multiple lines; newlines MUST be preserved.
@@ -67,7 +68,7 @@ When mapping from iCalendar, the LOCATION property should become a single locati
   The date/time the event would start in the event's time zone. This corresponds to the DTSTART property in iCalendar.
 
 - **timeZone**: `String|null`
-  The [Olsen Time Zone Database](http://www.iana.org/time-zones) name for the event, or `null` for floating time. This corresponds to the TZID part of the DTSTART property.
+  The [Olsen Time Zone Database](http://www.iana.org/time-zones) name for the event, or `null` for floating time. This corresponds to the TZID part of the DTSTART property. If omitted, this MUST be presumed to be `null`.
 
 - **duration**: `Duration`, e.g. `P2DT3H`
   The duration of the event in absolute time (i.e. ignoring DST shifts, or UTC).
@@ -86,8 +87,8 @@ If *isAllDay* is `true`, then the following restrictions apply:
 
 ## Recurrences
 
-- **recurrenceRule**: `Recurrence|null`
-  The recurrence rule for the event, or `null` if it does not recur. This corresponds to the RRULE property in iCalendar.
+- **recurrenceRule**: `Recurrence`
+  A recurrence rule for the event. This corresponds to the RRULE property in iCalendar.
 
     A **Recurrence** object is a JSON object mapping of a RECUR value type in iCalendar. A Recurrence object has the following properties:
 
