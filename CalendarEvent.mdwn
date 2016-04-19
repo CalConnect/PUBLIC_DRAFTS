@@ -29,7 +29,7 @@ The TC-API Event object has the following properties. All properties are optiona
     - **name**: `String`
       The human-readable name of the location.
     - **rel**: `String`
-      The relation type of this location to the event. This MUST be either one of the following values, prefixed with `X-`, or registered in a future RFC. Any value the client or server doesn't understand should be treated the same as `unknown`.
+      The relation type of this location to the event. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/customrel`. Any value the client or server doesn't understand should be treated the same as `unknown`.
       - `start`: The event starts at this location.
       - `end`: The event ends at this location.
       - `unknown`: The relation of this location to the event is unknown.
@@ -194,40 +194,41 @@ If *isAllDay* is `true`, then the following restrictions apply:
 - **participants**: `String[Participant]|null`
   A map of calendar-user-id to an object describing their participation in the event. This is a combination of the ORGANIZER and ATTENDEES properties from iCalendar.
 
-    A **Participant** object has the following properties:
+    A **Participant** object has the following properties. Properties are mandatory unless marked otherwise:
 
-    - **isYou**: `Boolean`
+    - **isYou**: `Boolean` (optional, default to `false`)
       This is `true` if the participant is the logged in user (determining this is not defined and is server dependent).
     - **name**: `String`
       The display name of the calendar user (e.g. "Joe Bloggs").
     - **email**: `String`
-      The email address for the calendar user (this is the same as the calendar user id – the key for this object in the participants map – in many systems, but not in all)
+      The email address for the calendar user (in many systems, but not in all – but not all – this is the same as the calendar user id, the key for this object in the participants map).
     - **kind**: `String` (optional, defaults to "unknown")
-      What kind of entity this participant is. This is the CUTYPE parameter in iCalendar. This MUST be either one of the following values, prefixed with `X-`, or registered in a future RFC. Any value the client or server doesn't understand should be treated the same as `unknown`.
+      What kind of entity this participant is. This is the CUTYPE parameter in iCalendar. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be treated the same as `unknown`.
       - `user`: a single person
       - `group`: a collection of people invited as a whole
       - `resource`: a non-human resource, e.g. a projector
       - `location`: a physical location involved in the event that needs to be scheduled, e.g. a conference room.
       - `unknown`: no information is available about the kind of this participant.
     - **roles**: `String[]`
-      A list of roles that this participant fulfils. At least one value MUST be specified for the participant. The following roles have special meanings, but other values MAY be included too:
+      A list of roles that this participant fulfils. At least one value MUST be specified for the participant. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be preserved but ignored.
       - `owner`: The participant is an organizer of the event, and allowed to make alterations to any part of the event.
       - `attendee`: The participant is an attendee of the event.
       - `chair`: The participant is in charge of the event when it occurs.
     - **scheduleStatus**: `String` (optional, defaults to 'needs-action')
+      This maps to the PARTSTAT parameter in iCalendar, converted to lower case. The value MUST be one of the following, or defined in a future RFC or extension to iCalendar:
       - `needs-action`: No status yet set by the participant.
       - `accepted`: The participant will attend the event.
       - `declined`: The participant may attend the event.
       - `tentative`: The participant will not attend the event.
-    - **schedulePriority**: `String` (optional, defaults to "optional")
-      If included, it MUST be one of the following values, prefixed with `X-`, or registered in a future RFC. Any value the client or server doesn't understand should be treated the same as `optional`.
+    - **schedulePriority**: `String` (optional, defaults to "required")
+      This maps to the ROLE parameter in iCalendar. It MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be treated the same as `required`.
       - `non-participant`: Indicates a participant who is copied for information purposes only.
-      - `optional: Indicates a participant whose participation is optional.
+      - `optional`: Indicates a participant whose participation is optional.
       - `required`: Indicates a participant whose participation is required.
     - **scheduleRSVP**: `Boolean` (optional, defaults to `false`)
-      If `true`, the organizer is expecting the participant to notify them of their status.
+      If `true`, the organizer is expecting the participant to notify them of their status. This maps to the RSVP parameter in iCalendar.
     - **memberOf**: `String[]` (optional)
-      A list of group addresses. MUST be omitted if none (rather than an empty array).
+      A list of group addresses that were invited to this event, which caused this participant to be invited due to their membership of the group(s). MUST be omitted if none (rather than an empty array).
 
 - **created**: `UTCDate`
   The time this event was created. Maps to the CREATED field in iCalendar.
@@ -319,3 +320,6 @@ If *isAllDay* is `true`, then the following restrictions apply:
     - **description**: `String|null`
       A translation of the event's description.
 
+## Vendor-specific properties
+
+Vendors MAY add additional properties to the event object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. `fastmail.com/customprop`. Other systems that interact with events with properties they do not recognise MUST ignore them but SHOULD preserve them.
