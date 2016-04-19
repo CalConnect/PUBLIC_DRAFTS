@@ -332,15 +332,11 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
   *alerts* property. Fetching user defaults is dependent on the API from which
   this object is being fetched, and is not defined in this specification.
 
-- **alerts**: `Alert[]|null`
-  A list of alerts to display or send the user for this event. This maps to the VALARM property in iCalendar.
+- **alerts**: `String[Alert]|null`
+  A map of of alert id to Alert objects, representing alerts/reminders to display or send the user for this event. This maps to the VALARM property in iCalendar. An alert id may be any string and need only be unique to this event, although a UUID is a practical choice.
 
     An **Alert** Object has the following properties:
 
-    - **id**: `String`
-      An id for matching this alert with a previous version when the event's
-      *alerts* property is updated. A UUID is recommended, but any string that
-      is unique to the alerts **within this event** is allowed.
     - **relativeTo**: `String` (optional, defaults to `"start"`)
       This specifies whether the alarm will trigger relative to the start or end of the event. The value MUST be either `"start"` or `"end"`.
     - **offset**: `Duration`
@@ -396,3 +392,7 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
       The full file name, if known. e.g. "myworddocument.doc"
     - **size**: `Number|null`
       The size, in bytes, of the attachment when fully decoded (i.e. the number of bytes in the file the user would download), if known.
+
+## Localisation
+
+
