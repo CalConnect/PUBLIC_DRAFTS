@@ -337,6 +337,10 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
 
     An **Alert** Object has the following properties:
 
+    - **id**: `String`
+      An id for matching this alert with a previous version when the event's
+      *alerts* property is updated. A UUID is recommended, but any string that
+      is unique to the alerts **within this event** is allowed.
     - **relativeTo**: `String` (optional, defaults to `"start"`)
       This specifies whether the alarm will trigger relative to the start or end of the event. The value MUST be either `"start"` or `"end"`.
     - **offset**: `Duration`
@@ -348,12 +352,14 @@ In the *Recurrence* object, we chose to use full day names rather than numbers o
 
       - **type**: `String`
         The value MUST be `"display"`.
-      - **isAcknowledged**: `Boolean`
-        True if the user has permanently dismissed the alert.
-      - **snoozedUntil**: `Date|null`
+      - **acknowledgedUntil**: `LocalDate|null`
+        When the user has permanently dismissed the alert this SHOULD be set to
+        the *start* property **of the event, or occurrence if the event is recurring**. Other clients which sync this property can then automatically dismiss or supress duplicate alerts (alerts with the same alert id for an occurrence of this event that starts on or before this date).
+      - **snoozedUntil**: `UTCDate|null`
         If the user temporarily dismisses the alert, this is the UTC date-time
-        after which it should be reshown. This property MUST be ignored if
-        `isAcknowledged == true`.
+        after which it should be reshown. This property MUST be ignored for
+        alerts which have been permanently dismissed (see the *acknowledgedUpto*
+        property).
 
       Where an **EmailAction** object has the following properties:
 
