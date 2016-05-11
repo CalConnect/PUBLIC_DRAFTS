@@ -65,6 +65,12 @@ This representation means all data about the event, and all occurrences, are rep
 
 In the *Recurrence* object, we chose to use full day names rather than numbers or abbreviated days (e.g. "MO"). Using a string is easier to understand without having to reference the spec, and makes it less likely to get decoding errors (which day is 0/1 etc.? You need to look it up). Using full lower-case names rather than abbreviated is consistent with the naming scheme used in the rest of the spec.
 
+An Event is a representation of one or more instances in time with related attributes.
+
+To generate instance objects, you must first calculate the set of start dates from the *start*, *recurrenceRule* and *recurrenceOverrides* properties. Each start date can be converted to an instance object with that *start* property; all other properties inherit from the parent instance, and then any patches in *recurrenceOverrides* are applied.
+
+It *happens* that the result of this expansion is an instance object identical to the parent event when there is no recurrence involved. This is a *good* property, as it makes it simpler for systems that don't care about recurrences, while allowing them to keep with the spec.
+
 #### How to (conceptually) expand a recurring event:
 
 1. Apply the recurrence rule to the start date to get a set of start dates for occurrences.
