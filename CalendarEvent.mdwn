@@ -282,7 +282,7 @@ If *isAllDay* is `true`, then the following restrictions apply:
       The email address for the calendar user (in many systems, but not in all – but not all – this is the same as the calendar user id, the key for this object in the participants map).
     - **kind**: `String` (optional, defaults to "unknown")
       What kind of entity this participant is. This is the CUTYPE parameter in iCalendar. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be treated the same as `unknown`.
-      - `user`: a single person
+      - `individual`: a single person
       - `group`: a collection of people invited as a whole
       - `resource`: a non-human resource, e.g. a projector
       - `location`: a physical location involved in the event that needs to be scheduled, e.g. a conference room.
