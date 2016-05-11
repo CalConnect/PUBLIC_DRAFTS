@@ -110,8 +110,8 @@ Vendors MAY add additional properties to the event object to support their custo
 
 ### Where
 
-- **locations**: `Location[]`
-  An array of locations associated with the event.
+- **locations**: `String[Location]|null`
+  A map of of location id to Location objects, representing locations associated with the event. A location id may be any string and need only be unique to this event, although a UUID is a practical choice.
 
     A **Location** object has the following properties. All properties are optional, but every Location object MUST have at least one property:
 
@@ -289,6 +289,11 @@ If *isAllDay* is `true`, then the following restrictions apply:
       - `owner`: The participant is an organizer of the event, and allowed to make alterations to any part of the event.
       - `attendee`: The participant is an attendee of the event.
       - `chair`: The participant is in charge of the event when it occurs.
+    - **locationId**: `String|null` (optional, defaults to `null`)
+      The location at which this person is expected to be attending this event.
+      If the value does not correspond to any location id in the *locations*
+      property of the instance, this MUST be treated the same as if the
+      participant's *locationId* were specified as `null`.
     - **scheduleStatus**: `String` (optional, defaults to 'needs-action')
       This maps to the PARTSTAT parameter in iCalendar, converted to lower case. The value MUST be one of the following, or defined in a future RFC or extension to iCalendar:
       - `needs-action`: No status yet set by the participant.
