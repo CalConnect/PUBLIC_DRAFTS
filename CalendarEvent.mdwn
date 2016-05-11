@@ -274,8 +274,6 @@ If *isAllDay* is `true`, then the following restrictions apply:
 
     A **Participant** object has the following properties. Properties are mandatory unless marked otherwise:
 
-    - **isYou**: `Boolean` (optional, default to `false`)
-      This is `true` if the participant is the logged in user (determining this is not defined and is server dependent).
     - **name**: `String`
       The display name of the calendar user (e.g. "Joe Bloggs").
     - **email**: `String`
