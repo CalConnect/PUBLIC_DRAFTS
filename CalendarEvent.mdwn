@@ -117,6 +117,8 @@ Vendors MAY add additional properties to the event object to support their custo
 
     - **name**: `String`
       The human-readable name of the location.
+    - **accessInstructions**: `String`
+      Human-readable instructions for accessing this location. This may be a set of directions, door access code, etc.
     - **rel**: `String`
       The relation type of this location to the event. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/customrel`. Any value the client or server doesn't understand should be treated the same as `unknown`.
       - `start`: The event starts at this location.
