@@ -239,7 +239,6 @@ If *isAllDay* is `true`, then the following restrictions apply:
     Every `path` property of every patch MUST NOT be the empty string, and MUST NOT start with one of the following prefixes:
 
     - /uid
-    - /sequence
     - /isAllDay
     - /recurrenceRule
     - /recurrenceOverrides
