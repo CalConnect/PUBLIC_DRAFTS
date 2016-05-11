@@ -121,6 +121,7 @@ Vendors MAY add additional properties to the event object to support their custo
       The relation type of this location to the event. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/customrel`. Any value the client or server doesn't understand should be treated the same as `unknown`.
       - `start`: The event starts at this location.
       - `end`: The event ends at this location.
+      - `virtual`: This is not a physical location (e.g. this location is an online chat room where people will meet.)
       - `unknown`: The relation of this location to the event is unknown.
     - **timeZone**: `String` (IANA TZ name)
       A time zone for this location. If omitted, the event time zone MUST be used for this location.
