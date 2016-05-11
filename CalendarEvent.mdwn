@@ -38,7 +38,8 @@ A duration is represented by a subset of [RFC 3339](https://tools.ietf.org/html/
 
 ## Properties
 
-The TC-API Event object has the following properties. All properties are optional except for **uid**, **title**, **isAllDay** and **start**. Omitted properties should be treated identically to if that property had the value of `null`, unless otherwise specified.
+The TC-API Event object has the following properties. All properties are optional except for **uid**, **updated**, **isAllDay** and **start**.
+Omitted properties should be treated identically to if that property had the value of `null`, unless otherwise specified.
 
 Vendors MAY add additional properties to the event object to support their custom features. The names of these properties SHOULD be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. `fastmail.com/customprop`. Other systems that interact with events with properties they do not recognise SHOULD try to preserve them, but MUST otherwise ignore them.
 
@@ -47,10 +48,10 @@ Vendors MAY add additional properties to the event object to support their custo
 - **uid**: `String`
   The UID from iCalendar. Used to associate the event as the same across different systems, calendars and views.
 
-- **prodId**: `String`
+- **prodId**: `String|null`
   The identifier for the product that created the Event object. The vendor of the implementation SHOULD ensure that this is a globally unique identifier.
 
-- **created**: `UTCDate`
+- **created**: `UTCDate|null`
   The time this event was created. Maps to the CREATED field in iCalendar.
 
 - **updated**: `UTCDate`
@@ -58,7 +59,7 @@ Vendors MAY add additional properties to the event object to support their custo
 
 ### What
 
-- **title**: `String`
+- **title**: `String` (Defaults to `''` (the empty string) if omitted)
   A short summary of the event. This maps to the SUMMARY property in iCalendar.
 
 - **description**: `String` (Defaults to `''` (the empty string) if omitted)
