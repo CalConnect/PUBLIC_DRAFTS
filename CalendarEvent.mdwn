@@ -143,8 +143,8 @@ Vendors MAY add additional properties to the event object to support their custo
 
     - **coordinates**: `String`
       An [RFC 5870](https://tools.ietf.org/html/rfc5870) `geo:` URI for the location.
-    - **url**: `String`
-      A URL that represents how to connect to the event from this location. This may be a telephone number (represented as `tel:+1-555-555-555`) for a teleconference, a web address for online chat, or a custom URI for something like Skype (e.g. `skype:username`).
+    - **uri**: `String`
+      A URI that represents how to connect to the event from this location. This may be a telephone number (represented as `tel:+1-555-555-555`) for a teleconference, a web address for online chat, or a custom URI for something like Skype (e.g. `skype:username`).
 
 When mapping from iCalendar, the LOCATION property should become a single location with just a *name* property. If the event has a different end time zone to start time zone, this should be added as a second location with just a *timeZone* property.
 
