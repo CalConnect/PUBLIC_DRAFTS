@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt"?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'
+[
+  <!ENTITY rfc2119 PUBLIC '' 'bibxml/reference.RFC.2119.xml'>
+  <!ENTITY rfc5545 PUBLIC '' 'bibxml/reference.RFC.5545.xml'>
+  <!ENTITY rfc7159 PUBLIC '' 'bibxml/reference.RFC.7159.xml'>
+]>
+<?rfc rfcedstyle="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<?rfc strict="yes"?>
+
+<rfc category="std" ipr="trust200902" docName="draft-jenkins-jsevent-00">
+  <front>
+    <title abbrev="jsEvent">jsEvent: A modern JSON representation of calendar event data</title>
+    <author initials="N." surname="Jenkins" fullname="Neil Jenkins">
+      <organization abbrev="Fastmail">Fastmail Pty Ltd.</organization>
+      <address>
+        <postal>
+          <street>Level 1, 91 William St</street>
+          <city>Melbourne</city>
+          <code>VIC 3000</code>
+          <country>Australia</country>
+        </postal>
+        <email>neilj@fastmail.fm</email>
+        <uri>http://www.fastmail.com/</uri>
+      </address>
+    </author>
+    <author initials="P." surname="Kewisch" fullname="Philipp Kewisch">
+      <address>
+        <email>mozilla@kewis.ch</email>
+      </address>
+    </author>
+    <date month="May" year="2016" />
+    <area>Applications</area>
+    <workgroup>JSON data formats for vCard and iCalendar</workgroup>
+
+    <keyword>JSON</keyword>
+    <keyword>iCalendar</keyword>
+    <keyword>calendar</keyword>
+    <keyword>events</keyword>
+    <keyword>date</keyword>
+    <keyword>time</keyword>
+
+    <abstract>
+      <t>
+        This specification defines a JSON representation of calendar event data
+        that can be used for storage and data exchange in a calendaring and
+        scheduling environment. JSON is a lightweight, text-based,
+        language-independent data interchange format commonly used in Internet
+        applications.
+      </t>
+    </abstract>
+  </front>
+  <middle>
+
+    <section title='Introduction'>
+
+      <t>
+        The iCalendar data format <xref target='RFC5545'/>, a widely deployed
+        interchange format for calendaring and scheduling data, has served
+        calendaring vendors for a long while, but contains some ambiguities in
+        its data model that can not be overcome without backwards incompatible
+        changes.
+      </t>
+      <t>
+        The JSON format defined in <xref target='RFC7159'/> is the native
+        format for JavaScript widgets and libraries, and has been implemented
+        in several other languages.
+      </t>
+      <t>
+        This document defines a JSON-based format describing a single event
+        within a calendar, using a new data model that aims to be unambigous,
+        extendable and simple to process.
+      </t>
+
+      <t>
+        The key design considerations for this format are as follows:
+        <list>
+          <t>
+            The attributes of the event represented must be described as a
+            simple key-value pair, reducing complexity of the event
+            representation.
+          </t>
+          <t>
+            The data format should avoid all ambiguities, making it difficult
+            to make mistakes during implementation and increasing
+            interoperability.
+          </t>
+          <t>
+            The initial set of attributes should be taken from the iCalendar
+            data format, but a conversion between the data formats is not
+            guaranteed to be completed without losing semantic meaning.
+          </t>
+          <t>
+            Extensions, such as new properties and components, must not lead to
+            requiring an update to this document.
+          </t>
+        </list>
+      </t>
+
+    </section>
+
+    <section title='Conventions Used in This Document'>
+
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", 
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this 
+        document are to be interpreted as described in 
+        <xref target='RFC2119' />.
+      </t>
+
+      <t>
+        The underlying format used for this specification is JSON.
+        Consequently, the terms "object" and "array" as well as the four
+        primitive types (strings, numbers, booleans, and null) are to be
+        interpreted as described in Section 1 of <xref target="RFC7159"/>.
+      </t>
+
+      <t>
+        Some examples in this document contain "partial" JSON documents used 
+        for illustrative purposes. In these examples, three periods "..." are 
+        used to indicate a portion of the document that has been removed for 
+        compactness.
+      </t>
+    </section>
+
+    <section anchor="datatypes" title='Data Types'>
+     
+      <t>
+        In addition to the standard data types, the following data types are used in this specification:
+      </t>
+
+      <!-- todo types -->
+
+
+      <section title="Subsection">
+
+        <t>
+          <figure>
+            <preamble>Example:</preamble>
+            <artwork><![CDATA[
+{
+  "this": "is an example"
+}
+]]></artwork></figure>
+        </t>
+
+      </section>
+
+      <section title="Lists">
+        <t>
+          <list style="numbers">
+            <t>
+              Numbers
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="symbols">
+            <t>
+              Symbols
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="hanging">
+            <t hangText="this is:">hanging</t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>
+        The use of JSON as a format does have its own inherent security risks
+        as discussed in Section 12 of <xref target="RFC7159"/>. Even though JSON
+        is considered a safe subset of JavaScript, it should be kept in mind
+        that a flaw in the parser processing JSON could still impose a threat,
+        which doesn't arise with conventional iCalendar data.
+      </t>
+
+      <t>
+        With this in mind, a parser for JSON data aware of the security
+        implications should be used for the format described in this document.
+        For example, the use of JavaScript's eval() function is considered an
+        unacceptable security risk, as described in Section 12 of
+        <xref target="RFC7159"/>. A native parser with full awareness of the
+        JSON format should be preferred.
+      </t>
+    </section>
+
+    <section title="IANA Considerations">
+      <t>
+        This document defines a MIME media type for use with iCalendar in JSON
+        data. This media type SHOULD be used for the transfer of calendaring
+        data in JSON.
+      </t>
+    </section>
+
+    <section title="Acknowledgments">
+      <t>
+        The authors would like to thank the following for their valuable
+        contributions: <!-- todo names --> This specification originated from
+        the work of the API technical committee of CalConnect, the Calendaring
+        and Scheduling Consortium.
+      </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      &rfc2119;
+      &rfc5545;
+      &rfc7159;
+      <reference anchor="ISO.8601.2004" target="http://www.iso.org/iso/catalogue_detail?csnumber=40874">
+        <front>
+          <title>
+            Data elements and interchange formats -- Information interchange
+            -- Representation of dates and times
+        </title>
+          <author>
+            <organization>International Organization for Standardization</organization>
+          </author>
+          <date month="December" year="2004"/>
+        </front>
+        <seriesInfo name="ISO" value="8601"/>
+      </reference>
+    </references>
+
+    <references title="Informative References">
+     
+      <reference anchor="calconnect-artifacts"
+                 target="http://www.calconnect.org/artifacts.shtml">
+        <front>
+          <title>Code Artifacts and Schemas</title>
+          <author>
+            <organization>The Calendaring and Scheduling Consortium</organization>
+          </author>
+          <date></date>
+        </front>
+      </reference>
+    </references>
+  </back>
+</rfc>
