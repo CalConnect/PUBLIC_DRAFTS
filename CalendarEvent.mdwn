@@ -109,11 +109,11 @@ Vendors MAY add additional properties to the event object to support their custo
 - **translations**: `String[Translation]|null`
   A map of [RFC5646](https://tools.ietf.org/html/rfc5646) language tag to an object with translations into that language of the *title* and/or *description* properties of the event.
 
-    A **Translation** Object has the following properties:
+    A **Translation** Object has the following properties, all optional:
 
-    - **title**: `String`
+    - **title**: `String` (Defaults to `''` (the empty string) if omitted)
       A translation of the event's title.
-    - **description**: `String|null`
+    - **description**: `String` (Defaults to `''` (the empty string) if omitted)
       A translation of the event's description.
 
 ### Where
