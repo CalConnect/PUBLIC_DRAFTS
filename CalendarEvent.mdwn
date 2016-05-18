@@ -48,6 +48,9 @@ Vendors MAY add additional properties to the event object to support their custo
 - **uid**: `String`
   The UID from iCalendar. Used to associate the event as the same across different systems, calendars and views.
 
+- **relatedTo**: `String[]|null`
+  A list of UIDs that are part of the same series as this event. For example, if an event is split to make a "this and future" change to a recurrence, each new event should include the other's uid in its *relatedTo* property. Clients can then follow these UIDs to get the complete set of events if the user wishes to modify them all at once. Maps to the RELATED-TO field in iCalendar.
+
 - **prodId**: `String|null`
   The identifier for the product that created the Event object. The vendor of the implementation SHOULD ensure that this is a globally unique identifier.
 
@@ -250,6 +253,8 @@ If *isAllDay* is `true`, then the following restrictions apply:
     Every `path` property of every patch MUST NOT be the empty string, and MUST NOT start with one of the following prefixes:
 
     - /uid
+    - /relatedTo
+    - /prodId
     - /isAllDay
     - /recurrenceRule
     - /recurrenceOverrides
