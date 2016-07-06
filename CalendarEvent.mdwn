@@ -221,7 +221,7 @@ If *isAllDay* is `true`, then the following restrictions apply:
     - **byDate**: `Number[]` (optional)
       The BYMONTHDAY part from iCal. The array MUST have at least one entry if included.
     - **byMonth**: `String[]` (optional)
-      The BYMONTH part from iCal. Each entry is a number, starting from "1" for the first month in the calendar (e.g. "1" means "January" with Gregorian calendar), with an optional "L" suffix for leap months (this MUST be upper-case, e.g. "3L"). The array MUST have at least one entry if included.
+      The BYMONTH part from iCal. Each entry is a string representation of a number, starting from "1" for the first month in the calendar (e.g. "1" means "January" with Gregorian calendar), with an optional "L" suffix for leap months (this MUST be upper-case, e.g. "3L"). The array MUST have at least one entry if included.
     - **byYearDay**: `Number[]` (optional)
       The BYYEARDAY part from iCal. The array MUST have at least one entry if included.
     - **byWeekNo**: `Number[]` (optional)
