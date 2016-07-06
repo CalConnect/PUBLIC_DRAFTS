@@ -118,6 +118,15 @@ Vendors MAY add additional properties to the event object to support their custo
       A translation of the event's title.
     - **description**: `String` (Defaults to `''` (the empty string) if omitted)
       A translation of the event's description.
+    - **locations**: `String[LocationTranslation]|null`
+      A map of location id to a translation of human-readable components of the location.
+
+      A **LocationTranslation** Object has the following properties, all optional:
+
+      - **name**: `String`
+        A translation of the name of the location.
+      - **accessInstructions**: `String`
+        A translation of the instructions for accessing this location.
 
 ### Where
 
