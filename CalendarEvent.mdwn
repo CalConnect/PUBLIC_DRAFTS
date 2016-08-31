@@ -65,7 +65,7 @@ Vendors MAY add additional properties to the event object to support their custo
   The SEQUENCE field from iCalendar.
 
 - **method**: `String|null`
-  The iTIP method. Used for scheduling.
+  The iTIP method, in lower-case. Used for scheduling.
 
 ### What
 
