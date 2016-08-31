@@ -248,29 +248,28 @@ If *isAllDay* is `true`, then the following restrictions apply:
     - **until**: `LocalDate` (optional)
       The UNTIL part from iCal. This MUST NOT be included if a *count* property is specified. Note, as in iCal, this date is presumed to be in the timezone specified in *timeZone*. It is not a UTC time.
 
-- **recurrenceOverrides**: `LocalDate[EventPatch[]|null]|null`
+- **recurrenceOverrides**: `LocalDate[JSONPointer[*|null]|null]|null`
   A combination of RDATE and EXDATE from iCalendar, and event instances with recurrence ids.
 
-    The object is a map of the Recurrence-Id (i.e. the date-time of the start of the occurrence) to either `null`, to indicate the occurrence should be deleted, or an array of patches to apply to the generated Event occurrence object in JSON Patch format ([RFC 6902](https://tools.ietf.org/html/rfc6902)).
+    The object is a map of the Recurrence-Id (i.e. the date-time of the start of the occurrence) to either `null`, to indicate the occurrence should be deleted, or an object of patches to apply to the generated Event occurrence object.
 
-    If the recurrence-id does not match an expanded start date from a recurrence rule, it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch set may often be an empty array in this case.
+    If the recurrence-id does not match an expanded start date from a recurrence rule, it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often be empty in this case.
 
-    By default, an occurrence inherits all properties from the main event except the start time, which is shifted to the new start time, and the end time, which is shifted by the same delta (in absolute time) so the duration remains constant. However, individual properties of the occurrence can be modified by a patch, or multiple patches.
+    By default, an occurrence inherits all properties from the main event except the start time, which is shifted to the new start time. However, individual properties of the occurrence can be modified by a patch, or multiple patches.
 
-    If patches exist, they MUST all cleanly apply to the generated occurrence object. If a client modifies properties on the master event, it MUST also update the recurrenceOverrides if necessary so all of the patches continue to apply cleanly. The resulting occurrence object after applying the patch MUST conform to standard event constraints (end MUST NOT be before start etc.).
+    A PatchObject consists of keys in JSON pointer format ([RFC 6901](https://tools.ietf.org/html/rfc6901)) and a value of either `null` or the value to set there.
 
-    Every `path` property of every patch MUST NOT be the empty string, and MUST NOT start with one of the following prefixes:
+    A pointer MUST NOT be the empty string, and MUST NOT start with one of the following prefixes:
 
-    - /uid
-    - /relatedTo
-    - /prodId
-    - /isAllDay
-    - /recurrenceRule
-    - /recurrenceOverrides
+    - `/uid`
+    - `/relatedTo`
+    - `/prodId`
+    - `/isAllDay`
+    - `/recurrenceRule`
+    - `/recurrenceOverrides`
+    - `/replyTo`
 
-    The `op` property of the patch MUST be either `"add"` or `"remove"`. Other ops defined in RFC 6902 are not allowed.
-
-    An invalid patch set (for any reason) should not exist, but in practice is likely to be seen in the wild. Calendar systems SHOULD ignore the whole patch set (treat it as though it were an empty array).
+    There MUST NOT be two pointers where one is the prefix of the other, e.g. `/alerts/1` AND `/alerts`. The result in this case is undefined.
 
 ### Scheduling
 
