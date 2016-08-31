@@ -34,7 +34,7 @@ This is a date-time string with **no time zone/offset information attached**. It
 A duration is represented by a subset of [RFC 3339](https://tools.ietf.org/html/rfc3339) format:
 
 * MUST NOT include decimal (fractional) values
-* MUST NOT include year or month values
+* MUST NOT include year, month or week values
 
 ## Properties
 
