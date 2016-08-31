@@ -348,8 +348,13 @@ If *isAllDay* is `true`, then the following restrictions apply:
 
     An **Alert** Object has the following properties:
 
-    - **relativeTo**: `String` (optional, defaults to `"start"`)
-      This specifies whether the alarm will trigger relative to the start or end of the event. The value MUST be either `"start"` or `"end"`.
+    - **relativeTo**: `String` (optional, defaults to `"before-start"`)
+      This specifies where the offset is relative to for the alarm to trigger.
+      The value MUST be one of:
+      - `"before-start"`
+      - `"after-start"`
+      - `"before-end"`
+      - `"after-end"`
     - **offset**: `Duration`
       The offset from the start/end of the event to fire the alert. A positive value means an alert *after* the start/end; a negative value indicates an alert *before*. Note, if the event is in floating time (including all-day events), the server SHOULD use the user's default time zone when determining the start time.
     - **action**: `DisplayAction|EmailAction|UnknownAction`
