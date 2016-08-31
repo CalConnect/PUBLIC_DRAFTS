@@ -182,7 +182,7 @@ When mapping from iCalendar, the LOCATION property should become a single locati
 - **timeZone**: `String|null`
   The [IANA Time Zone Database](http://www.iana.org/time-zones) name for the event, or `null` for floating time. This corresponds to the TZID part of the DTSTART property. If omitted, this MUST be presumed to be `null`.
 
-- **duration**: `Duration`, e.g. `P2DT3H` (Defaults to `PT0H` if omitted)
+- **duration**: `Duration`, e.g. `P2DT3H` (Defaults to `P0D` if omitted)
   The duration of the event in absolute time (i.e. ignoring DST shifts, or UTC). To get the end date in the event time zone, convert start into UTC, then apply the duration, then convert the result into the appropriate time zone.
 
 If *isAllDay* is `true`, then the following restrictions apply:
