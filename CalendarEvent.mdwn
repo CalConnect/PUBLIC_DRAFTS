@@ -189,7 +189,7 @@ If *isAllDay* is `true`, then the following restrictions apply:
 
 * the *start* property MUST have a time component of `T00:00:00`.
 * the *timeZone* property MUST be `null`.
-* the *duration* MUST only include day and/or week components.
+* the *duration* MUST only include a day component.
 
 - **recurrenceRule**: `Recurrence|null`
   A recurrence rule for the event. This corresponds to the RRULE property in iCalendar.
