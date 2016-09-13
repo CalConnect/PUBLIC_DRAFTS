@@ -9,8 +9,10 @@ LOCATION:42 High Street\nTrentham
 DTSTART;TZID=Australia/Melbourne:20160625T123000
 DTEND;TZID=Australia/Melbourne:20160625T140000
 ORGANIZER;CN="Neil Jenkins":MAILTO:neil@nmjenkins.com
-ATTENDEE;CN="Diana H";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED:MAILTO:diana@example.com
-ATTENDEE;CN="Neil J";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED:MAILTO:neil@example.com
+ATTENDEE;CN="Diana H";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTS
+ TAMP=20160507T073308Z:MAILTO:diana@example.com
+ATTENDEE;CN="Neil J";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTSTAMP
+ =20160507T070808Z:MAILTO:neil@example.com
 END:VEVENT
 
 {
@@ -41,7 +43,7 @@ END:VEVENT
             "attendee"
          ],
          "scheduleStatus" : "accepted",
-         "scheduleUpdated" : "20160507T070808Z"
+         "scheduleUpdated" : "2016-05-07T07:08:08Z"
       },
       "diana@example.com" : {
          "email" : "diana@example.com",
@@ -51,7 +53,7 @@ END:VEVENT
             "attendee"
          ],
          "scheduleStatus" : "accepted",
-         "scheduleUpdated" : "20160507T073308Z"
+         "scheduleUpdated" : "2016-05-07T07:33:08Z"
       }
    }
 }
