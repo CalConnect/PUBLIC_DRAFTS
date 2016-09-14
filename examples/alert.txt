@@ -11,7 +11,6 @@ TRANSP:TRANSPARENT
 BEGIN:VALARM
 UID:596EF954-520D-4C36-8141-53ECE91F04CB
 TRIGGER:-PT15H
-ATTACH;VALUE=URI:Basso
 ACTION:DISPLAY
 ACKNOWLEDGED:20160802T230824Z
 END:VALARM
@@ -19,8 +18,8 @@ END:VEVENT
 
 {
    "uid" : "9ab56a09-132e-427a-8e48-e79771dec0fa",
-   "created" : "2016-07-14T03:22:56",
-   "updated" : "2016-08-02T23:08:24",
+   "created" : "2016-07-14T03:22:56Z",
+   "updated" : "2016-08-02T23:08:24Z",
    "sequence" : 0,
    "title" : "Writer's Festival",
    "isAllDay" : true,

@@ -34,7 +34,7 @@ END:VEVENT
 
 {
   "uid" : "9f8e4101-a720-4235-936b-5bfcbf3cf343",
-  "updated" : "2016-09-13T12:16:00",
+  "updated" : "2016-09-13T12:16:00Z",
   "sequence" : 0,
   "title" : "A recurrence with overrides",
   "isAllDay" : false,

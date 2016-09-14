@@ -8,7 +8,7 @@ SUMMARY:Lunch at du Fermier
 LOCATION:42 High Street\nTrentham
 DTSTART;TZID=Australia/Melbourne:20160625T123000
 DTEND;TZID=Australia/Melbourne:20160625T140000
-ORGANIZER;CN="Neil Jenkins":MAILTO:neil@nmjenkins.com
+ORGANIZER;CN="Neil J":MAILTO:neil@example.com
 ATTENDEE;CN="Diana H";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTS
  TAMP=20160507T073308Z:MAILTO:diana@example.com
 ATTENDEE;CN="Neil J";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTSTAMP
@@ -17,8 +17,8 @@ END:VEVENT
 
 {
    "uid" : "0053564f-9b21-4d0e-a3cd-185dfb9f88fe",
-   "created" : "2016-07-25T07:43:01",
-   "updated" : "2016-05-07T07:33:09",
+   "created" : "2016-07-25T07:43:01Z",
+   "updated" : "2016-05-07T07:33:09Z",
    "sequence" : 2,
    "title" : "Lunch at du Fermier",
    "isAllDay" : false,
