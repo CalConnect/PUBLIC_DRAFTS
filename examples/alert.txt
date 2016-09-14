@@ -32,7 +32,7 @@ END:VEVENT
          "relativeTo" : "before-start",
          "action": {
             "type" : "display",
-            "acknowledgedUntil": "2016-08-04T00:00:00"
+            "acknowledged": "2016-08-02T23:08:24Z"
          }
       }
    }
