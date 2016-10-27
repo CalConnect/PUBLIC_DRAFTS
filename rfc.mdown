@@ -1,0 +1,51 @@
+%%%
+    title = "JSEvent: A better JSON representation of calendar event data"
+    abbrev = "JSEvent"
+    category = "std"
+    docName = "draft-jenkins-jsevent-00"
+    ipr= "trust200902"
+    area = "Applications"
+    workgroup = "JSON data formats for vCard and iCalendar"
+    keyword = ["JSON","iCalendar", "calendar", "events", "date", "time"]
+
+    date = 2016-10-27T00:00:00Z
+
+    [[author]]
+    initials="N.M."
+    surname="Jenkins"
+    fullname="Neil Jenkins"
+    role="editor"
+    organization = "FastMail"
+        [author.address]
+        email = "neilj@fastmail.com"
+        uri = "https://www.fastmail.com"
+        [author.address.postal]
+            street = "Level 1, 91 William St"
+            city = "Melbourne"
+            code = "VIC 3000"
+            country = "Australia"
+%%%
+
+.# Abstract
+
+This specification defines a JSON representation of calendar event data that can be used for storage and data exchange in a calendaring and scheduling environment. JSON is a lightweight, text-based, language-independent data interchange format commonly used in Internet applications.
+
+{mainmatter}
+
+{{CalendarEvent.mdwn}}
+
+# Security Considerations
+
+The use of JSON as a format does have its own inherent security risks as discussed in Section 12 of [@!RFC7159]. Even though JSON is considered a safe subset of JavaScript, it should be kept in mind that a flaw in the parser processing JSON could still impose a threat, which doesn't arise with conventional iCalendar data.
+
+With this in mind, a parser for JSON data aware of the security implications should be used for the format described in this document. For example, the use of JavaScript's `eval()` function is considered an unacceptable security risk, as described in Section 12 of [@!RFC7159]. A native parser with full awareness of the JSON format should be preferred.
+
+# IANA Considerations
+
+This document defines a MIME media type for use with iCalendar in JSON
+data. This media type SHOULD be used for the transfer of calendaring
+data in JSON.
+
+# Acknowledgments
+
+The author would like to thank the following for their valuable contributions: (TODO:names). This specification originated from the work of the API technical committee of CalConnect, the Calendaring and Scheduling Consortium.
