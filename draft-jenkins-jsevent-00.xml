@@ -81,7 +81,7 @@
 </t>
 
 <section anchor="utcdate" title="UTCDate">
-<t>This is a string in <xref target="RFC3339"/> format, with the further restrictions that any letters MUST be in upper-case, the time component MUST be included and the time MUST be in UTC.
+<t>This is a string in <xref target="RFC3339"/> <spanx style="verb">date-time</spanx> format, with the further restrictions that any letters MUST be in upper-case, the time component MUST be included and the time MUST be in UTC. Fractional second values MUST NOT be included unless non-zero (so, for example <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is OK, but <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and MUST be encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>).
 </t>
 <t>In common notation, it should be of the form <spanx style="verb">YYYY-MM-DDTHH:MM:SSZ</spanx>.
 </t>
@@ -93,13 +93,18 @@
 </section>
 
 <section anchor="duration" title="Duration">
-<t>A duration is represented by a subset of <xref target="RFC3339"/> format:
+<t>A duration is represented by a subset of ISO8601 duration format, as specified by the following ABNF:
 </t>
-<t>
-<list style="symbols">
-<t>MUST NOT include decimal (fractional) values</t>
-<t>MUST NOT include year, month or week values</t>
-</list>
+<t>dur-secfrac       = &quot;.&quot; 1<spanx style="emph">DIGIT
+   dur-second        = 1</spanx>DIGIT [dur-secfrac] &quot;S&quot;
+   dur-minute        = 1<spanx style="emph">DIGIT &quot;M&quot; [dur-second]
+   dur-hour          = 1</spanx>DIGIT &quot;H&quot; [dur-minute]
+   dur-time          = &quot;T&quot; (dur-hour / dur-minute / dur-second)
+   dur-day           = 1*DIGIT &quot;D&quot;
+</t>
+<t>duration          = &quot;P&quot; (dur-day [dur-time] / dur-time)
+</t>
+<t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.
 </t>
 </section>
 </section>

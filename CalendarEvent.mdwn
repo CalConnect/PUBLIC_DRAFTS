@@ -27,7 +27,7 @@ In addition to the standard JSON data types, the following data types are used i
 
 ### UTCDate
 
-This is a string in [@!RFC3339] format, with the further restrictions that any letters MUST be in upper-case, the time component MUST be included and the time MUST be in UTC.
+This is a string in [@!RFC3339] `date-time` format, with the further restrictions that any letters MUST be in upper-case, the time component MUST be included and the time MUST be in UTC. Fractional second values MUST NOT be included unless non-zero (so, for example `2010-10-10T10:10:10.003Z` is OK, but `2010-10-10T10:10:10.000Z` is invalid and MUST be encoded as `2010-10-10T10:10:10Z`).
 
 In common notation, it should be of the form `YYYY-MM-DDTHH:MM:SSZ`.
 
@@ -37,10 +37,18 @@ This is a date-time string with **no time zone/offset information attached**. It
 
 ### Duration
 
-A duration is represented by a subset of [@!RFC3339] format:
+A duration is represented by a subset of ISO8601 duration format, as specified by the following ABNF:
 
-* MUST NOT include decimal (fractional) values
-* MUST NOT include year, month or week values
+   dur-secfrac       = "." 1*DIGIT
+   dur-second        = 1*DIGIT [dur-secfrac] "S"
+   dur-minute        = 1*DIGIT "M" [dur-second]
+   dur-hour          = 1*DIGIT "H" [dur-minute]
+   dur-time          = "T" (dur-hour / dur-minute / dur-second)
+   dur-day           = 1*DIGIT "D"
+
+   duration          = "P" (dur-day [dur-time] / dur-time)
+
+In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.
 
 ## Type signatures
 
