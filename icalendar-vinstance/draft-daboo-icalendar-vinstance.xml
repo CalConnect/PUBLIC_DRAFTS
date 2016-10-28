@@ -147,11 +147,16 @@
 
     <section title="Adding or Updating Components in an Overridden Instance" anchor="instance-components">
       <t>All sub-components in the master component MUST have a "UID" property with a value that is unique (at least within that master component). This allows such sub-components to be easily identified for the purposes of indicating whether a "VINSTANCE" is adding, updating, or deleting a sub-component.</t>
-      <t>Any iCalendar component defined in the "VINSTANCE" component (referred to here as the "instance component") is treated as either an addition to the generated instance, or as an update of an existing component in the generated instance, as follows:
+      <t>Any iCalendar component defined in the "VINSTANCE" component (referred to here as the "instance component"), other than a "PATCH" component [draft-patch], is treated as either an addition to the generated instance, or as an update of an existing component in the generated instance, as follows:
       <list style="numbers">
         <t>If the generated instance does not contain a sub-component with a "UID" property value matching that of the instance component, then the instance component is an addition to the generated instance.</t>
         <t>If a sub-component of the generated instance contains a "UID" property with a value that matches that of the instance component, then the instance component replaces the matching one in the generated instance.</t>
         </list>
+      </t>
+      <t>Alternatively, a sub-component can be "incrementally" updated by use of a "PATCH" component [draft-patch] that targets the sub-component. A "PATCH" component is created by determining the difference between the sub-component in the overridden instance and the matching sub-component in the generated instance. The "PATCH-TARGET" property value in the "PATCH" component is specified as a path relative to the overridden component targeting the sub-component by its "UID" property value (e.g., if a "VALARM" component inside a "VEVENT" component is being updated, the "PATCH-TARGET" property value would be "/VALARM[UID=1234]" (assuming that the "UID" property value of the sub-component being updated is "1234"). The "PATCH" component is then added as a sub-component of the "VINSTANCE" component representing the overridden instance.
+      </t>
+      <t>
+        When expanding a "VINSTANCE" component into an overridden component, any "PATCH" sub-components are used to update sub-components in the generated instance, by applying the patch processing rules to those sub-components.
       </t>
     </section>
 
@@ -210,7 +215,8 @@ vinstancec    = "BEGIN" ":" "VINSTANCE" CRLF
                   vinstanceprop component
                 "END" ":" "VINSTANCE" CRLF
                 ; Any sub-component allowed except for
-                ; VINSTANCE itself
+                ; VINSTANCE itself. PATCH sub-components
+                ; are used for incremental updates.
 
 vinstanceprop = *(
                  ;
@@ -420,11 +426,6 @@ DESCRIPTION;INSTANCE-ACTION="BYPARAM@LANGUAGE=en_GB";LANGUAGE=en_US:
         </section> <!-- Paction Reg -->
       </section> <!-- Param value Reg -->
     </section>
-    <section title='Acknowledgments'>
-      <t>Thanks to the following for feedback:
-      </t>
-      <t>This specification originated from work at the Calendaring and Scheduling Consortium, which has helped with the development and testing of implementations.</t>
-    </section>
   </middle>
   <back>
     <references title='Normative References'>
@@ -440,15 +441,20 @@ DESCRIPTION;INSTANCE-ACTION="BYPARAM@LANGUAGE=en_GB";LANGUAGE=en_US:
     </references>
     -->
     
-    <!--
     <section title="Change History (To be removed by RFC Editor before publication)">
-      <t>Changes in draft-daboo-icalendar-compact-01:
+      <t>Changes in draft-daboo-icalendar-vinstance-00:
       <list style='numbers'>
-        <t></t>
+        <t>Allow PATCH to be used to update sub-components.</t>
       </list>
       </t>
     </section>
-    -->
+    <section title='Acknowledgments'>
+      <t>Thanks to the following for feedback:
+        Michael Douglass,
+        Ken Murchison
+      </t>
+      <t>This specification originated from work at the Calendaring and Scheduling Consortium, which has helped with the development and testing of implementations.</t>
+    </section>
     <section title="Examples">
       <section title="Overridden instance with just the SUMMARY changed">
         <t><figure>
@@ -501,7 +507,7 @@ END:VCALENDAR
             </figure></t>
       </section>
       <section title="Overridden instance with a different trigger time for the alarm">
-        <t><figure>
+        <t>This variant shows the "VALARM" being updated by using a "PATCH" component as opposed to include the entire "VALARM" component.<figure>
               <artwork><![CDATA[
 BEGIN:VCALENDAR
 PRODID:test
@@ -521,12 +527,10 @@ DESCRIPTION:Time to leave
 END:VALARM
 BEGIN:VINSTANCE
 RECURRENCE-ID:20160903T120000Z
-BEGIN:VALARM
-UID:4567
-ACTION:DISPLAY
+BEGIN:PATCH
+PATCH-TARGET:/VALARM[UID=4567]
 TRIGGER:-PT5M
-DESCRIPTION:Time to leave - less warning
-END:VALARM
+END:PATCH
 END:VINSTANCE
 END:VEVENT
 END:VCALENDAR

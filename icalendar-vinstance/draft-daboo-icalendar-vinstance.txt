@@ -4,9 +4,9 @@
 
 Network Working Group                                           C. Daboo
 Internet-Draft                                                Apple Inc.
-Updates: 5545,draft-patch (if approved)               September 26, 2016
+Updates: 5545,draft-patch (if approved)                 October 28, 2016
 Intended status: Standards Track
-Expires: March 30, 2017
+Expires: May 1, 2017
 
 
                    The iCalendar VINSTANCE Component
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 30, 2017.
+   This Internet-Draft will expire on May 1, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Daboo                    Expires March 30, 2017                 [Page 1]
+Daboo                      Expires May 1, 2017                  [Page 1]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    to this document.  Code Components extracted from this document must
@@ -70,48 +70,48 @@ Table of Contents
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   3
    4.  VINSTANCE Component . . . . . . . . . . . . . . . . . . . . .   5
    5.  Adding or Updating Components in an Overridden Instance . . .   6
-   6.  Adding or Updating Properties in an Overridden Instance . . .   6
+   6.  Adding or Updating Properties in an Overridden Instance . . .   7
    7.  Deleting Components or Properties from an Overridden Instance   8
-   8.  iCalendar Path  . . . . . . . . . . . . . . . . . . . . . . .   8
-   9.  iCalendar Extensions  . . . . . . . . . . . . . . . . . . . .   8
-     9.1.  VINSTANCE Component . . . . . . . . . . . . . . . . . . .   8
-     9.2.  INSTANCE-DELETE Property  . . . . . . . . . . . . . . . .   9
-     9.3.  INSTANCE-ACTION Property Parameter  . . . . . . . . . . .  10
-   10. Conversion to/from VINSTANCE  . . . . . . . . . . . . . . . .  11
-   11. Use with iTIP . . . . . . . . . . . . . . . . . . . . . . . .  12
-   12. Use with CalDAV and HTTP  . . . . . . . . . . . . . . . . . .  12
-   13. Use with iCalendar VPATCH . . . . . . . . . . . . . . . . . .  12
-   14. Security Considerations . . . . . . . . . . . . . . . . . . .  12
-   15. Privacy Considerations  . . . . . . . . . . . . . . . . . . .  13
-   16. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
-     16.1.  Component Registrations  . . . . . . . . . . . . . . . .  13
-     16.2.  Property Registrations . . . . . . . . . . . . . . . . .  13
-     16.3.  Parameter Registrations  . . . . . . . . . . . . . . . .  13
-     16.4.  Parameter Value Registry . . . . . . . . . . . . . . . .  13
-   17. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  14
-   18. Normative References  . . . . . . . . . . . . . . . . . . . .  14
-   Appendix A.  Examples . . . . . . . . . . . . . . . . . . . . . .  15
-     A.1.  Overridden instance with just the SUMMARY changed . . . .  15
-     A.2.  Overridden instance with a time change and an alarm added  15
-     A.3.  Overridden instance with a different trigger time for the
-           alarm . . . . . . . . . . . . . . . . . . . . . . . . . .  16
-     A.4.  Overridden instance without the alarm . . . . . . . . . .  16
-     A.5.  Two overridden instances with parameter updates . . . . .  17
-   Appendix B.  Patch Examples . . . . . . . . . . . . . . . . . . .  18
-     B.1.  Implicit override using patch . . . . . . . . . . . . . .  18
-     B.2.  Explicit VINSTANCE override using patch . . . . . . . . .  20
-     B.3.  Implicit VINSTANCE override using patch . . . . . . . . .  21
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  23
+   8.  iCalendar Path  . . . . . . . . . . . . . . . . . . . . . . .   9
+   9.  iCalendar Extensions  . . . . . . . . . . . . . . . . . . . .   9
+     9.1.  VINSTANCE Component . . . . . . . . . . . . . . . . . . .   9
+     9.2.  INSTANCE-DELETE Property  . . . . . . . . . . . . . . . .  10
+     9.3.  INSTANCE-ACTION Property Parameter  . . . . . . . . . . .  11
+   10. Conversion to/from VINSTANCE  . . . . . . . . . . . . . . . .  12
+   11. Use with iTIP . . . . . . . . . . . . . . . . . . . . . . . .  13
+   12. Use with CalDAV and HTTP  . . . . . . . . . . . . . . . . . .  13
+   13. Use with iCalendar VPATCH . . . . . . . . . . . . . . . . . .  13
+   14. Security Considerations . . . . . . . . . . . . . . . . . . .  13
+   15. Privacy Considerations  . . . . . . . . . . . . . . . . . . .  14
+   16. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  14
+     16.1.  Component Registrations  . . . . . . . . . . . . . . . .  14
+     16.2.  Property Registrations . . . . . . . . . . . . . . . . .  14
+     16.3.  Parameter Registrations  . . . . . . . . . . . . . . . .  14
+     16.4.  Parameter Value Registry . . . . . . . . . . . . . . . .  14
+   17. Normative References  . . . . . . . . . . . . . . . . . . . .  15
+   Appendix A.  Change History (To be removed by RFC Editor before
+                publication) . . . . . . . . . . . . . . . . . . . .  15
+   Appendix B.  Acknowledgments  . . . . . . . . . . . . . . . . . .  16
+   Appendix C.  Examples . . . . . . . . . . . . . . . . . . . . . .  16
+     C.1.  Overridden instance with just the SUMMARY changed . . . .  16
+     C.2.  Overridden instance with a time change and an alarm added  16
+     C.3.  Overridden instance with a different trigger time for the
+           alarm . . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     C.4.  Overridden instance without the alarm . . . . . . . . . .  18
+     C.5.  Two overridden instances with parameter updates . . . . .  19
+   Appendix D.  Patch Examples . . . . . . . . . . . . . . . . . . .  20
+     D.1.  Implicit override using patch . . . . . . . . . . . . . .  20
+     D.2.  Explicit VINSTANCE override using patch . . . . . . . . .  22
+     D.3.  Implicit VINSTANCE override using patch . . . . . . . . .  23
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  25
 
 
 
 
 
-
-
-Daboo                    Expires March 30, 2017                 [Page 2]
+Daboo                      Expires May 1, 2017                  [Page 2]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                 [Page 3]
+Daboo                      Expires May 1, 2017                  [Page 3]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    For example, consider the following daily recurring event, with no
@@ -221,9 +221,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                 [Page 4]
+Daboo                      Expires May 1, 2017                  [Page 4]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
      BEGIN:VCALENDAR
@@ -277,9 +277,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                 [Page 5]
+Daboo                      Expires May 1, 2017                  [Page 5]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    1.  Any component appearing in "VINSTANCE" is treated as an addition
@@ -303,9 +303,10 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    deleting a sub-component.
 
    Any iCalendar component defined in the "VINSTANCE" component
-   (referred to here as the "instance component") is treated as either
-   an addition to the generated instance, or as an update of an existing
-   component in the generated instance, as follows:
+   (referred to here as the "instance component"), other than a "PATCH"
+   component [draft-patch], is treated as either an addition to the
+   generated instance, or as an update of an existing component in the
+   generated instance, as follows:
 
    1.  If the generated instance does not contain a sub-component with a
        "UID" property value matching that of the instance component,
@@ -316,6 +317,34 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
        property with a value that matches that of the instance
        component, then the instance component replaces the matching one
        in the generated instance.
+
+   Alternatively, a sub-component can be "incrementally" updated by use
+   of a "PATCH" component [draft-patch] that targets the sub-component.
+   A "PATCH" component is created by determining the difference between
+   the sub-component in the overridden instance and the matching sub-
+   component in the generated instance.  The "PATCH-TARGET" property
+   value in the "PATCH" component is specified as a path relative to the
+   overridden component targeting the sub-component by its "UID"
+   property value (e.g., if a "VALARM" component inside a "VEVENT"
+   component is being updated, the "PATCH-TARGET" property value would
+   be "/VALARM[UID=1234]" (assuming that the "UID" property value of the
+   sub-component being updated is "1234").  The "PATCH" component is
+
+
+
+
+Daboo                      Expires May 1, 2017                  [Page 6]
+
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
+
+
+   then added as a sub-component of the "VINSTANCE" component
+   representing the overridden instance.
+
+   When expanding a "VINSTANCE" component into an overridden component,
+   any "PATCH" sub-components are used to update sub-components in the
+   generated instance, by applying the patch processing rules to those
+   sub-components.
 
 6.  Adding or Updating Properties in an Overridden Instance
 
@@ -330,14 +359,6 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
    1.  If the instance property does not contain an "INSTANCE-ACTION"
        property parameter, or contains an "INSTANCE-ACTION" property
-
-
-
-Daboo                    Expires March 30, 2017                 [Page 6]
-
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
-
-
        parameter with the default value "BYNAME", then all properties
        with the same name in the generated instance are replaced by the
        instance property.
@@ -364,6 +385,15 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
        parameter with the value starting with "BYPARAM", then all
        properties with the same name and a property parameter that
        matches the one that is part of the "INSTANCE-ACTION" property
+
+
+
+
+Daboo                      Expires May 1, 2017                  [Page 7]
+
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
+
+
        value, in the generated instance are replaced by the instance
        property.
 
@@ -384,15 +414,6 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    used when the value of the property is being changed.  Instead, the
    "INSTANCE-ACTION=BYPARAM" operation can be used to identify the
    property being replaced.
-
-
-
-
-
-Daboo                    Expires March 30, 2017                 [Page 7]
-
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
-
 
    The "INSTANCE-ACTION=BYPARAM" operation is used for updating a
    specific "multi-occurring" property that can be uniquely identified
@@ -419,6 +440,16 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
    The following operations are supported:
 
+
+
+
+
+
+Daboo                      Expires May 1, 2017                  [Page 8]
+
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
+
+
    Delete components  the "INSTANCE-DELETE" path value identifies
       components only.  The matching components are removed from the
       generated instance.
@@ -440,16 +471,6 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
    Component Name:  VINSTANCE
 
-
-
-
-
-
-Daboo                    Expires March 30, 2017                 [Page 8]
-
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
-
-
    Purpose:  Provide components and properties that are used to indicate
       the difference between a generated instance and an actual
       overridden instance.
@@ -457,11 +478,40 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    Format Definition:  A "VINSTANCE" calendar component is defined by
       the following notation:
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo                      Expires May 1, 2017                  [Page 9]
+
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
+
+
    vinstancec    = "BEGIN" ":" "VINSTANCE" CRLF
                      vinstanceprop component
                    "END" ":" "VINSTANCE" CRLF
                    ; Any sub-component allowed except for
-                   ; VINSTANCE itself
+                   ; VINSTANCE itself. PATCH sub-components
+                   ; are used for incremental updates.
 
    vinstanceprop = *(
                     ;
@@ -497,15 +547,6 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    Property Parameters:  IANA and nonstandard property parameters can be
       specified on this property.
 
-
-
-
-
-Daboo                    Expires March 30, 2017                 [Page 9]
-
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
-
-
    Conformance:  This property can be specified within a "VINSTANCE"
       component only.
 
@@ -513,6 +554,13 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
       properties that will be deleted.  The path value is always a
       relative path for only immediate components and properties within
       the generated instance, and interpreted as described in Section 7.
+
+
+
+Daboo                      Expires May 1, 2017                 [Page 10]
+
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
+
 
    Format Definition:  This property is defined by the following
       notation:
@@ -557,9 +605,17 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                [Page 10]
+
+
+
+
+
+
+
+
+Daboo                      Expires May 1, 2017                 [Page 11]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    iactionparam    = "INSTANCE-ACTION" "="
@@ -613,9 +669,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                [Page 11]
+Daboo                      Expires May 1, 2017                 [Page 12]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
 11.  Use with iTIP
@@ -645,15 +701,15 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    overridden component in an iCalendar object by only including
    components and/or properties that are different from the generated
    instance.  An example of an implicit override patch is shown in
-   Appendix B.1.  Whilst it is possible to explicitly add a "VINSTANCE"
-   component using a patch operation (as shown in Appendix B.2), it
+   Appendix D.1.  Whilst it is possible to explicitly add a "VINSTANCE"
+   component using a patch operation (as shown in Appendix D.2), it
    would be more efficient to allow patch processing engines to create
    "VINSTANCE" components, rather than full overridden components, when
    doing an implicit patch operation.  This specification extends
    [draft-patch] to allow patch processing engines to implement an
    implicit recurrence override patch operation as the addition of
    appropriate "VINSTANCE" components to the master component (an
-   example is shown in Appendix B.3).
+   example is shown in Appendix D.3).
 
 14.  Security Considerations
 
@@ -669,9 +725,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                [Page 12]
+Daboo                      Expires May 1, 2017                 [Page 13]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
 15.  Privacy Considerations
@@ -725,9 +781,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                [Page 13]
+Daboo                      Expires May 1, 2017                 [Page 14]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
 16.4.1.  Instance Action Registry
@@ -744,15 +800,7 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
            | BYPARAM         | Current | RFCXXXX, Section 9.3 |
            +-----------------+---------+----------------------+
 
-17.  Acknowledgments
-
-   Thanks to the following for feedback:
-
-   This specification originated from work at the Calendaring and
-   Scheduling Consortium, which has helped with the development and
-   testing of implementations.
-
-18.  Normative References
+17.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -779,16 +827,32 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
               DOI 10.17487/RFC5546, December 2009,
               <http://www.rfc-editor.org/info/rfc5546>.
 
+Appendix A.  Change History (To be removed by RFC Editor before
+             publication)
+
+   Changes in draft-daboo-icalendar-vinstance-00:
+
+   1.  Allow PATCH to be used to update sub-components.
 
 
-Daboo                    Expires March 30, 2017                [Page 14]
+
+
+Daboo                      Expires May 1, 2017                 [Page 15]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
-Appendix A.  Examples
+Appendix B.  Acknowledgments
 
-A.1.  Overridden instance with just the SUMMARY changed
+   Thanks to the following for feedback: Michael Douglass, Ken Murchison
+
+   This specification originated from work at the Calendaring and
+   Scheduling Consortium, which has helped with the development and
+   testing of implementations.
+
+Appendix C.  Examples
+
+C.1.  Overridden instance with just the SUMMARY changed
 
    BEGIN:VCALENDAR
    PRODID:test
@@ -807,7 +871,32 @@ A.1.  Overridden instance with just the SUMMARY changed
    END:VEVENT
    END:VCALENDAR
 
-A.2.  Overridden instance with a time change and an alarm added
+C.2.  Overridden instance with a time change and an alarm added
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo                      Expires May 1, 2017                 [Page 16]
+
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:test
@@ -832,17 +921,38 @@ A.2.  Overridden instance with a time change and an alarm added
    END:VEVENT
    END:VCALENDAR
 
+C.3.  Overridden instance with a different trigger time for the alarm
+
+   This variant shows the "VALARM" being updated by using a "PATCH"
+   component as opposed to include the entire "VALARM" component.
 
 
 
 
 
-Daboo                    Expires March 30, 2017                [Page 15]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo                      Expires May 1, 2017                 [Page 17]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
-
-A.3.  Overridden instance with a different trigger time for the alarm
 
    BEGIN:VCALENDAR
    PRODID:test
@@ -862,17 +972,15 @@ A.3.  Overridden instance with a different trigger time for the alarm
    END:VALARM
    BEGIN:VINSTANCE
    RECURRENCE-ID:20160903T120000Z
-   BEGIN:VALARM
-   UID:4567
-   ACTION:DISPLAY
+   BEGIN:PATCH
+   PATCH-TARGET:/VALARM[UID=4567]
    TRIGGER:-PT5M
-   DESCRIPTION:Time to leave - less warning
-   END:VALARM
+   END:PATCH
    END:VINSTANCE
    END:VEVENT
    END:VCALENDAR
 
-A.4.  Overridden instance without the alarm
+C.4.  Overridden instance without the alarm
 
 
 
@@ -893,9 +1001,13 @@ A.4.  Overridden instance without the alarm
 
 
 
-Daboo                    Expires March 30, 2017                [Page 16]
+
+
+
+
+Daboo                      Expires May 1, 2017                 [Page 18]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    BEGIN:VCALENDAR
@@ -921,7 +1033,7 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    END:VEVENT
    END:VCALENDAR
 
-A.5.  Two overridden instances with parameter updates
+C.5.  Two overridden instances with parameter updates
 
    This examples shows two overridden instances.  The first one covers
    the case where an attendee has accepted all but one instance of a
@@ -949,9 +1061,9 @@ A.5.  Two overridden instances with parameter updates
 
 
 
-Daboo                    Expires March 30, 2017                [Page 17]
+Daboo                      Expires May 1, 2017                 [Page 19]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    BEGIN:VCALENDAR
@@ -984,9 +1096,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    END:VEVENT
    END:VCALENDAR
 
-Appendix B.  Patch Examples
+Appendix D.  Patch Examples
 
-B.1.  Implicit override using patch
+D.1.  Implicit override using patch
 
    This example shows the implicit addition of an overridden component
    which has only its "SUMMARY" property changed, via a patch operation.
@@ -1005,9 +1117,9 @@ B.1.  Implicit override using patch
 
 
 
-Daboo                    Expires March 30, 2017                [Page 18]
+Daboo                      Expires May 1, 2017                 [Page 20]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    Before:
@@ -1061,9 +1173,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                [Page 19]
+Daboo                      Expires May 1, 2017                 [Page 21]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    After:
@@ -1089,7 +1201,7 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    END:VEVENT
    END:VCALENDAR
 
-B.2.  Explicit VINSTANCE override using patch
+D.2.  Explicit VINSTANCE override using patch
 
    This example shows the explicit addition of an overridden instance
    using a "VINSTANCE" component, via a patch operation.
@@ -1117,9 +1229,9 @@ B.2.  Explicit VINSTANCE override using patch
 
 
 
-Daboo                    Expires March 30, 2017                [Page 20]
+Daboo                      Expires May 1, 2017                 [Page 22]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    Patch:
@@ -1159,7 +1271,7 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
    END:VEVENT
    END:VCALENDAR
 
-B.3.  Implicit VINSTANCE override using patch
+D.3.  Implicit VINSTANCE override using patch
 
    This example shows the implicit addition of an overridden instance
    using a "VINSTANCE" component, via a patch operation.
@@ -1173,9 +1285,9 @@ B.3.  Implicit VINSTANCE override using patch
 
 
 
-Daboo                    Expires March 30, 2017                [Page 21]
+Daboo                      Expires May 1, 2017                 [Page 23]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
    Before:
@@ -1229,9 +1341,9 @@ Internet-Draft        iCalendar VINSTANCE Component       September 2016
 
 
 
-Daboo                    Expires March 30, 2017                [Page 22]
+Daboo                      Expires May 1, 2017                 [Page 24]
 
-Internet-Draft        iCalendar VINSTANCE Component       September 2016
+Internet-Draft        iCalendar VINSTANCE Component         October 2016
 
 
 Author's Address
@@ -1285,4 +1397,4 @@ Author's Address
 
 
 
-Daboo                    Expires March 30, 2017                [Page 23]
+Daboo                      Expires May 1, 2017                 [Page 25]

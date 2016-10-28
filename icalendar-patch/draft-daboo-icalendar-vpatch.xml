@@ -204,7 +204,7 @@ prop-all-path    = prop-segment [param-segment] [value-segment]
 
 comp-segment     = "/" name comp-match
 comp-match       = [uid-match] [rid-match]
-uid-match        = "[UID=" text "]"
+uid-match        = "[UID=" value-escaped "]"
 rid-match        = "[RID=" ("M" / ridval) "]"
         ; "M" matches "master" component
 
@@ -578,7 +578,11 @@ patchtarget   = "PATCH-TARGET ptargetparam ":" ptargetpath CRLF
 
 ptargetparam  = *(";" other-param)
 
-ptargetpath   = abs-comp-path
+ptargetpath   = abs-comp-path / comp-path
+                ; This specification only defines how abs-comp-path
+                ; is used. Use of the comp-path element will be
+                ; defined by other specifications wishing to make use
+                ; of "relative" patches.
 </artwork></figure>
               </t>
               <t hangText="Example:">
@@ -1049,16 +1053,6 @@ Accept-Patch: text/calendar; component=VPATCH;
         </section> <!-- Paction Reg -->
       </section> <!-- Param value Reg -->
     </section> <!-- IANA -->
-
-    <section title='Acknowledgments'>
-      <t>Thanks to the following for feedback:
-      </t>
-      <t>
-        This specification originated from work at the Calendaring and
-        Scheduling Consortium, which has helped with the development
-        and testing of implementations.
-      </t>
-    </section>
   </middle>
 
   <back>
@@ -1077,16 +1071,26 @@ Accept-Patch: text/calendar; component=VPATCH;
     </references>
 -->
     
-<!--
     <section
       title="Change History (To be removed by RFC Editor before publication)">
-      <t>Changes in draft-daboo-icalendar-vpatch-01:
+      <t>Changes in draft-daboo-icalendar-vpatch-00:
       <list style='numbers'>
-        <t></t>
+        <t>Allow PATCH-TARGET to use comp-path relative paths.</t>
+        <t>Fix uid-match to use escaped values.</t>
       </list>
       </t>
     </section>
--->
+
+    <section title='Acknowledgments'>
+      <t>Thanks to the following for feedback:
+        Michael Douglass
+      </t>
+      <t>
+        This specification originated from work at the Calendaring and
+        Scheduling Consortium, which has helped with the development
+        and testing of implementations.
+      </t>
+    </section>
 
     <section title="VPATCH Examples">
       <t>Examples of single command patch documents for common

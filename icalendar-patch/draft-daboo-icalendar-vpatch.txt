@@ -5,8 +5,8 @@
 Network Working Group                                           C. Daboo
 Internet-Draft                                                Apple Inc.
 Intended status: Standards Track                            K. Murchison
-Expires: March 12, 2017                       Carnegie Mellon University
-                                                       September 8, 2016
+Expires: May 1, 2017                          Carnegie Mellon University
+                                                        October 28, 2016
 
 
                      The iCalendar VPATCH Component
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 12, 2017.
+   This Internet-Draft will expire on May 1, 2017.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 1]
+Daboo & Murchison          Expires May 1, 2017                  [Page 1]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 2]
+Daboo & Murchison          Expires May 1, 2017                  [Page 2]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
      16.1.  Component Registrations  . . . . . . . . . . . . . . . .  27
@@ -120,30 +120,32 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
      16.4.  Property and Parameter Value Registries  . . . . . . . .  28
        16.4.1.  Patch Version Registry . . . . . . . . . . . . . . .  28
        16.4.2.  Patch Action Registry  . . . . . . . . . . . . . . .  28
-   17. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  28
-   18. Normative References  . . . . . . . . . . . . . . . . . . . .  29
-   Appendix A.  VPATCH Examples  . . . . . . . . . . . . . . . . . .  29
-     A.1.  Add a new component . . . . . . . . . . . . . . . . . . .  29
-     A.2.  Add a new VALARM component  . . . . . . . . . . . . . . .  30
-     A.3.  Replace a component . . . . . . . . . . . . . . . . . . .  30
-     A.4.  Remove a component  . . . . . . . . . . . . . . . . . . .  31
-     A.5.  Add properties to a component . . . . . . . . . . . . . .  31
-     A.6.  Update properties in a component  . . . . . . . . . . . .  32
-     A.7.  Update a targeted property in a component . . . . . . . .  32
-     A.8.  Remove a property from a component  . . . . . . . . . . .  33
-     A.9.  Remove a property with a specific value from a component   33
-     A.10. Change a parameter on a property with a specific
+   17. Normative References  . . . . . . . . . . . . . . . . . . . .  28
+   Appendix A.  Change History (To be removed by RFC Editor before
+                publication) . . . . . . . . . . . . . . . . . . . .  29
+   Appendix B.  Acknowledgments  . . . . . . . . . . . . . . . . . .  29
+   Appendix C.  VPATCH Examples  . . . . . . . . . . . . . . . . . .  30
+     C.1.  Add a new component . . . . . . . . . . . . . . . . . . .  30
+     C.2.  Add a new VALARM component  . . . . . . . . . . . . . . .  30
+     C.3.  Replace a component . . . . . . . . . . . . . . . . . . .  31
+     C.4.  Remove a component  . . . . . . . . . . . . . . . . . . .  31
+     C.5.  Add properties to a component . . . . . . . . . . . . . .  32
+     C.6.  Update properties in a component  . . . . . . . . . . . .  32
+     C.7.  Update a targeted property in a component . . . . . . . .  33
+     C.8.  Remove a property from a component  . . . . . . . . . . .  33
+     C.9.  Remove a property with a specific value from a component   34
+     C.10. Change a parameter on a property with a specific
            value from a component  . . . . . . . . . . . . . . . . .  34
-     A.11. Remove a parameter on a property with a specific
-           value from a component  . . . . . . . . . . . . . . . . .  34
-     A.12. Remove a value from a multi-valued parameter on
+     C.11. Remove a parameter on a property with a specific
+           value from a component  . . . . . . . . . . . . . . . . .  35
+     C.12. Remove a value from a multi-valued parameter on
            a property with a specific value from a component . . . .  35
-     A.13. Remove a value from a multi-valued property from
-           a component . . . . . . . . . . . . . . . . . . . . . . .  35
-     A.14. Attendee updating their participation status  . . . . . .  36
-     A.15. Recurring event adding one override . . . . . . . . . . .  36
-     A.16. Removal of an overridden instance . . . . . . . . . . . .  38
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
+     C.13. Remove a value from a multi-valued property from
+           a component . . . . . . . . . . . . . . . . . . . . . . .  36
+     C.14. Attendee updating their participation status  . . . . . .  36
+     C.15. Recurring event adding one override . . . . . . . . . . .  37
+     C.16. Removal of an overridden instance . . . . . . . . . . . .  38
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  40
 
 1.  Introduction
 
@@ -163,11 +165,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-
-
-Daboo & Murchison        Expires March 12, 2017                 [Page 3]
+Daboo & Murchison          Expires May 1, 2017                  [Page 3]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
 2.  Conventions Used in This Document
@@ -221,9 +221,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 4]
+Daboo & Murchison          Expires May 1, 2017                  [Page 4]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    Other validity constraints can be applied if needed.  For example,
@@ -277,9 +277,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 5]
+Daboo & Murchison          Expires May 1, 2017                  [Page 5]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    o  Process all "PATCH-DELETE" properties first.
@@ -333,9 +333,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 6]
+Daboo & Murchison          Expires May 1, 2017                  [Page 6]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    property parameter present, or by property parameter value (matching
@@ -389,14 +389,14 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 7]
+Daboo & Murchison          Expires May 1, 2017                  [Page 7]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    comp-segment     = "/" name comp-match
    comp-match       = [uid-match] [rid-match]
-   uid-match        = "[UID=" text "]"
+   uid-match        = "[UID=" value-escaped "]"
    rid-match        = "[RID=" ("M" / ridval) "]"
            ; "M" matches "master" component
 
@@ -445,9 +445,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 8]
+Daboo & Murchison          Expires May 1, 2017                  [Page 8]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
       Targets any "VEVENT" components that have a "UID" property value
@@ -501,9 +501,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                 [Page 9]
+Daboo & Murchison          Expires May 1, 2017                  [Page 9]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    #ATTENDEE[=mailto:cyrus@example.com]
@@ -557,9 +557,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 10]
+Daboo & Murchison          Expires May 1, 2017                 [Page 10]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
        from the target component, and the action component is added to
@@ -613,9 +613,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 11]
+Daboo & Murchison          Expires May 1, 2017                 [Page 11]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    The "PATCH-ACTION=BYNAME" operation is used for adding or updating
@@ -669,9 +669,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 12]
+Daboo & Murchison          Expires May 1, 2017                 [Page 12]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    Property parameters  the "PATCH-DELETE" path value targets property
@@ -725,9 +725,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 13]
+Daboo & Murchison          Expires May 1, 2017                 [Page 13]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
 10.  iCalendar Extensions
@@ -781,9 +781,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 14]
+Daboo & Murchison          Expires May 1, 2017                 [Page 14]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
 10.1.1.  PATCH Component
@@ -837,9 +837,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 15]
+Daboo & Murchison          Expires May 1, 2017                 [Page 15]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    patchc     = "BEGIN" ":" "PATCH" CRLF
@@ -893,9 +893,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 16]
+Daboo & Murchison          Expires May 1, 2017                 [Page 16]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    Property Parameters:  IANA and nonstandard property parameters can be
@@ -949,9 +949,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 17]
+Daboo & Murchison          Expires May 1, 2017                 [Page 17]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    Format Definition:  This property is defined by the following
@@ -996,19 +996,23 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
    ptargetparam  = *(";" other-param)
 
-   ptargetpath   = abs-comp-path
+   ptargetpath   = abs-comp-path / comp-path
+                   ; This specification only defines how abs-comp-path
+                   ; is used. Use of the comp-path element will be
+                   ; defined by other specifications wishing to make use
+                   ; of "relative" patches.
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 18]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    Example:  The following is an example of this property:
 
    PATCH-TARGET:/VCALENDAR/VEVENT[UID=1234]
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 18]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
 10.3.2.  PATCH-DELETE Property
 
@@ -1055,16 +1059,15 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
    Value Type:  TEXT
 
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 19]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
+
    Property Parameters:  IANA and nonstandard property parameters can be
       specified on this property.
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 19]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    Conformance:  This property can be specified within a "PATCH" sub-
       component.
@@ -1114,12 +1117,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 20]
+Daboo & Murchison          Expires May 1, 2017                 [Page 20]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    pactionparam    = "PATCH-ACTION" "="
@@ -1173,9 +1173,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 21]
+Daboo & Murchison          Expires May 1, 2017                 [Page 21]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
 11.  Additional Considerations
@@ -1229,9 +1229,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 22]
+Daboo & Murchison          Expires May 1, 2017                 [Page 22]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    BEGIN:VCALENDAR
@@ -1285,9 +1285,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 23]
+Daboo & Murchison          Expires May 1, 2017                 [Page 23]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    supplied as the data.  However, the implicit override behaviour
@@ -1341,9 +1341,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 24]
+Daboo & Murchison          Expires May 1, 2017                 [Page 24]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    Any iCalendar data supplied as data items in a patch command MAY
@@ -1397,9 +1397,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 25]
+Daboo & Murchison          Expires May 1, 2017                 [Page 25]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
 12.  Use with iTIP
@@ -1453,9 +1453,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 26]
+Daboo & Murchison          Expires May 1, 2017                 [Page 26]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
    using the calendar data.  At the very least, the resulting iCalendar
@@ -1509,9 +1509,9 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-Daboo & Murchison        Expires March 12, 2017                [Page 27]
+Daboo & Murchison          Expires May 1, 2017                 [Page 27]
 
-Internet-Draft         iCalendar VPATCH Component         September 2016
+Internet-Draft         iCalendar VPATCH Component           October 2016
 
 
             +--------------+---------+-----------------------+
@@ -1552,30 +1552,23 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
             | BYPARAM      | Current | RFCXXXX, Section 10.4 |
             +--------------+---------+-----------------------+
 
-17.  Acknowledgments
-
-   Thanks to the following for feedback:
-
-   This specification originated from work at the Calendaring and
-   Scheduling Consortium, which has helped with the development and
-   testing of implementations.
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 28]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
-
-18.  Normative References
+17.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 28]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    [RFC4791]  Daboo, C., Desruisseaux, B., and L. Dusseault,
               "Calendaring Extensions to WebDAV (CalDAV)", RFC 4791,
@@ -1605,26 +1598,42 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
               RFC 7953, DOI 10.17487/RFC7953, August 2016,
               <http://www.rfc-editor.org/info/rfc7953>.
 
-Appendix A.  VPATCH Examples
+Appendix A.  Change History (To be removed by RFC Editor before
+             publication)
+
+   Changes in draft-daboo-icalendar-vpatch-00:
+
+   1.  Allow PATCH-TARGET to use comp-path relative paths.
+
+   2.  Fix uid-match to use escaped values.
+
+Appendix B.  Acknowledgments
+
+   Thanks to the following for feedback: Michael Douglass
+
+   This specification originated from work at the Calendaring and
+   Scheduling Consortium, which has helped with the development and
+   testing of implementations.
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 29]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
+
+Appendix C.  VPATCH Examples
 
    Examples of single command patch documents for common iCalendar data
    operations.
 
-A.1.  Add a new component
+C.1.  Add a new component
 
    Creates a new "VEVENT" component.
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 29]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1644,10 +1653,34 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.2.  Add a new VALARM component
+C.2.  Add a new VALARM component
 
    Creates a new "VALARM" component in the "VEVENT" component with the
    "UID" property value "1234".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 30]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1667,20 +1700,10 @@ A.2.  Add a new VALARM component
    END:VPATCH
    END:VCALENDAR
 
-A.3.  Replace a component
+C.3.  Replace a component
 
    Replace the "VEVENT" component with the "UID" property value "1234"
    with a new component.
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 30]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1700,9 +1723,20 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.4.  Remove a component
+C.4.  Remove a component
 
    Remove the "VEVENT" component with the "UID" property value "1234".
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 31]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1717,26 +1751,10 @@ A.4.  Remove a component
    END:VPATCH
    END:VCALENDAR
 
-A.5.  Add properties to a component
+C.5.  Add properties to a component
 
    Add "STATUS" and "COMPLETED" properties to the "VTODO" component with
    the "UID" property value "4321".
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 31]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1752,10 +1770,29 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.6.  Update properties in a component
+C.6.  Update properties in a component
 
    Update the "SUMMARY" and "LOCATION" properties in the "VEVENT"
    component with the "UID" property value "1234".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 32]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1771,28 +1808,10 @@ A.6.  Update properties in a component
    END:VPATCH
    END:VCALENDAR
 
-A.7.  Update a targeted property in a component
+C.7.  Update a targeted property in a component
 
    Update the "ATTENDEE" property with value "mailto:cyrus@example.com"
    in the "VEVENT" component with the "UID" property value "1234".
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 32]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1808,10 +1827,28 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.8.  Remove a property from a component
+C.8.  Remove a property from a component
 
    Remove the "URL" property from the "VEVENT" component with the "UID"
    property value "1234".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 33]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1826,29 +1863,11 @@ A.8.  Remove a property from a component
    END:VPATCH
    END:VCALENDAR
 
-A.9.  Remove a property with a specific value from a component
+C.9.  Remove a property with a specific value from a component
 
    Remove the "ATTENDEE" property with the value
    "mailto:cyrus@example.com" in the "VEVENT" component with the "UID"
    property value "1234".
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 33]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1863,12 +1882,29 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.10.  Change a parameter on a property with a specific value from a
+C.10.  Change a parameter on a property with a specific value from a
        component
 
    Change or add the "PARTSTAT" parameter on the "ATTENDEE" property
    with the value "mailto:cyrus@example.com" in the "VEVENT" component
    with the "UID" property value "1234".
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 34]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1884,27 +1920,12 @@ A.10.  Change a parameter on a property with a specific value from a
    END:VPATCH
    END:VCALENDAR
 
-A.11.  Remove a parameter on a property with a specific value from a
+C.11.  Remove a parameter on a property with a specific value from a
        component
 
    Remove the "PARTSTAT" parameter from the "ATTENDEE" property with the
    value "mailto:cyrus@example.com" in the "VEVENT" component with the
    "UID" property value "1234".
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 34]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1919,13 +1940,27 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.12.  Remove a value from a multi-valued parameter on a property with a
+C.12.  Remove a value from a multi-valued parameter on a property with a
        specific value from a component
 
    Remove the "mailto:calext@example.com" value from the "MEMBER"
    parameter on the "ATTENDEE" property with the value
    "mailto:cyrus@example.com" in the "VEVENT" component with the "UID"
    property value "1234".
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 35]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1941,26 +1976,10 @@ A.12.  Remove a value from a multi-valued parameter on a property with a
    END:VPATCH
    END:VCALENDAR
 
-A.13.  Remove a value from a multi-valued property from a component
+C.13.  Remove a value from a multi-valued property from a component
 
    Remove the value "20160903T120000Z" from the "EXDATE" property in the
    "VEVENT" component with the "UID" property value "1234".
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 35]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -1975,7 +1994,7 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VPATCH
    END:VCALENDAR
 
-A.14.  Attendee updating their participation status
+C.14.  Attendee updating their participation status
 
    When an attendee updates their participation status in an event, they
    will typically: update the "PARTSTAT" parameter on their "ATTENDEE"
@@ -1985,6 +2004,19 @@ A.14.  Attendee updating their participation status
    attendee having the calendar user address "mailto:cyrus@example.com".
    The patch targets all "VEVENT" components in the iCalendar object
    being changed.
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 36]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    BEGIN:VCALENDAR
    PRODID:Example
@@ -2002,21 +2034,10 @@ A.14.  Attendee updating their participation status
    END:VPATCH
    END:VCALENDAR
 
-A.15.  Recurring event adding one override
+C.15.  Recurring event adding one override
 
    A daily recurring "VEVENT" component with the "SUMMARY" property
    being overridden for the second instance.
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 36]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    iCalendar object before the patch:
 
@@ -2032,6 +2053,27 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VEVENT
    END:VCALENDAR
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 37]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
+
    Patch:
 
    BEGIN:VCALENDAR
@@ -2046,33 +2088,6 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:PATCH
    END:VPATCH
    END:VCALENDAR
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 37]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
 
    iCalendar object after the patch:
 
@@ -2095,10 +2110,25 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:VEVENT
    END:VCALENDAR
 
-A.16.  Removal of an overridden instance
+C.16.  Removal of an overridden instance
 
    A daily recurring "VEVENT" component has one existing instance
    override removed with an "EXDATE" added for it.
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 38]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    iCalendar object before the patch:
 
@@ -2121,15 +2151,6 @@ A.16.  Removal of an overridden instance
    END:VEVENT
    END:VCALENDAR
 
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 38]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
-
    Patch:
 
    BEGIN:VCALENDAR
@@ -2148,6 +2169,22 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
    END:PATCH
    END:VPATCH
    END:VCALENDAR
+
+
+
+
+
+
+
+
+
+
+
+
+Daboo & Murchison          Expires May 1, 2017                 [Page 39]
+
+Internet-Draft         iCalendar VPATCH Component           October 2016
+
 
    iCalendar object after the patch:
 
@@ -2176,16 +2213,6 @@ Authors' Addresses
    URI:   http://www.apple.com/
 
 
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 39]
-
-Internet-Draft         iCalendar VPATCH Component         September 2016
-
-
    Kenneth Murchison
    Carnegie Mellon University
    5000 Forbes Avenue
@@ -2210,31 +2237,4 @@ Internet-Draft         iCalendar VPATCH Component         September 2016
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo & Murchison        Expires March 12, 2017                [Page 40]
+Daboo & Murchison          Expires May 1, 2017                 [Page 40]
