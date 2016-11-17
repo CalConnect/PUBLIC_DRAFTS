@@ -179,7 +179,7 @@
         value</xref> on successful HTTP PUT and POST requests
         targeting existing calendar object resources, by returning the
         new representation of that calendar resource (including its
-        new Etag header value) in the response.</t>
+        new ETag header value) in the response.</t>
       </section>
 
       <section title="Discovering Support for Managed Attachments">
@@ -396,8 +396,7 @@
         <preamble>
           &gt;&gt; Request &lt;&lt;
         </preamble>
-        <artwork>
-          <![CDATA[
+        <artwork><![CDATA[
 POST /events/64.ics?action=attachment-add HTTP/1.1
 Host: cal.example.com
 Content-Type: text/html; charset="utf-8"
@@ -410,16 +409,13 @@ Prefer: return=representation
     <h1>Agenda</h1>
   </body>
 </html>
-
-]]>
-        </artwork>
+]]></artwork>
       </figure>
       <figure>
         <preamble>
           &gt;&gt; Response &lt;&lt;
         </preamble>
-        <artwork>
-          <![CDATA[
+        <artwork><![CDATA[
 HTTP/1.1 201 Created
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
@@ -440,8 +436,7 @@ ATTACH;MANAGED-ID=97S;FMTTYPE=text/html;SIZE=xxxx;
  FILENAME=agenda.html:https://cal.example.com/attach/64/34X22R
 END:VEVENT
 END:VCALENDAR
-]]>
-        </artwork>
+]]></artwork>
       </figure>
     </section>
 
@@ -547,8 +542,7 @@ END:VCALENDAR
           <preamble>
             &gt;&gt; Request &lt;&lt;
           </preamble>
-          <artwork>
-            <![CDATA[
+          <artwork><![CDATA[
 POST /events/64.ics?action=attachment-update&managed-id=97S HTTP/1.1
 Host: cal.example.com
 Content-Type: text/html; charset="utf-8"
@@ -562,16 +556,13 @@ Prefer: return=representation
     <p>Discuss attachment draft</p>
   </body>
 </html>
-
-]]>
-          </artwork>
+]]></artwork>
         </figure>
         <figure>
           <preamble>
             &gt;&gt; Response &lt;&lt;
           </preamble>
-          <artwork>
-            <![CDATA[
+          <artwork><![CDATA[
 HTTP/1.1 200 OK
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyz
@@ -592,8 +583,7 @@ ATTACH;MANAGED-ID=98S;FMTTYPE=text/html;SIZE=xxxy;
  FILENAME=agenda.html:https://cal.example.com/attach/64/34X22R
 END:VEVENT
 END:VCALENDAR
-]]>
-          </artwork>
+]]></artwork>
         </figure>
       </section>
 
@@ -679,14 +669,12 @@ END:VCALENDAR
           <preamble>
             &gt;&gt; Request &lt;&lt;
           </preamble>
-          <artwork>
-            <![CDATA[
+          <artwork><![CDATA[
 POST /events/64.ics?action=attachment-remove&managed-id=98S HTTP/1.1
 Host: cal.example.com
 Content-Length: 0
 
-]]>
-          </artwork>
+]]></artwork>
         </figure>
         <figure>
           <preamble>
@@ -697,8 +685,7 @@ Content-Length: 0
 HTTP/1.1 204 No Content
 Content-Length: 0
 
-]]>
-          </artwork>
+]]></artwork>
         </figure>
       </section>
 
@@ -1394,6 +1381,14 @@ Cal-Managed-ID:aUNhbGVuZGFy
     <section title="Change History (To be removed by RFC Editor before
                     publication)">
       <t>
+        Changes in calext-01:
+        <list style='numbers'>
+          <t>Switched to recommending 102 (Processing) interim
+          response to keep the client connection alive.</t>
+          <t>Minor editorial changes.</t> 
+       </list>
+      </t>
+      <t>
         Changes in calext-00:
         <list style='numbers'>
           <t>Added Murchison as editor.</t>
@@ -1466,8 +1461,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         <preamble>
           &gt;&gt; Request &lt;&lt;
         </preamble>
-        <artwork>
-          <![CDATA[
+        <artwork><![CDATA[
 POST /events/65.ics?action=attachment-add HTTP/1.1
 Host: cal.example.com
 Content-Type: text/html; charset="utf-8"
@@ -1481,16 +1475,13 @@ Prefer: return=representation
     <p>As usual</p>
   </body>
 </html>
-
-]]>
-        </artwork>
+]]></artwork>
       </figure>
       <figure>
         <preamble>
           &gt;&gt; Response &lt;&lt;
         </preamble>
-        <artwork>
-          <![CDATA[
+        <artwork><![CDATA[
 HTTP/1.1 201 Created
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
@@ -1537,8 +1528,7 @@ ATTACH;MANAGED-ID=97S;FMTTYPE=text/html;SIZE=xxxx;
  FILENAME=agenda.html:https://cal.example.com/attach/65/34X22R
 END:VEVENT
 END:VCALENDAR
-]]>
-        </artwork>
+]]></artwork>
       </figure>
       <t>
         The organizer has a more specific agenda for the 20th of
@@ -1550,8 +1540,7 @@ END:VCALENDAR
         <preamble>
           &gt;&gt; Request &lt;&lt;
         </preamble>
-        <artwork>
-          <![CDATA[
+        <artwork><![CDATA[
 POST /events/65.ics?action=attachment-add&rid=20120220T100000 HTTP/1.1
 Host: cal.example.com
 Content-Type: text/html; charset="utf-8"
@@ -1565,16 +1554,13 @@ Prefer: return=representation
     <p>Something different, for a change</p>
   </body>
 </html>
-
-]]>
-        </artwork>
+]]></artwork>
       </figure>
       <figure>
         <preamble>
           &gt;&gt; Response &lt;&lt;
         </preamble>
-        <artwork>
-          <![CDATA[
+        <artwork><![CDATA[
 HTTP/1.1 201 Created
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
@@ -1638,8 +1624,7 @@ ATTACH;MANAGED-ID=33225;FMTTYPE=text/html;SIZE=xxxx;
  FILENAME=agenda0220.html:https://cal.example.com/attach/65/FGZ225
 END:VEVENT
 END:VCALENDAR
-]]>
-        </artwork>
+]]></artwork>
       </figure>
     </section>
   </back>
