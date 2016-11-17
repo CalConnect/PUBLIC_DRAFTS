@@ -3,6 +3,7 @@
 <!DOCTYPE rfc SYSTEM 'rfc2629.dtd'
 [
 <!ENTITY rfc2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY rfc2518 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2518.xml'>
 <!ENTITY rfc3864 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3864.xml'>
 <!ENTITY rfc4331 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4331.xml'>
 <!ENTITY rfc4791 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml'>
@@ -26,7 +27,8 @@
 <?rfc subcompact="no"?>
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
-<rfc category="std" ipr='trust200902' docName='draft-ietf-calext-caldav-attachments-00'>
+<rfc category="std" ipr='trust200902'
+     docName='draft-ietf-calext-caldav-attachments-01'>
   <front>
     <title abbrev="CalDAV Managed Attachments">CalDAV Managed Attachments</title>
 
@@ -838,9 +840,9 @@ Content-Length: 0
           <t>For POST requests that add or update attachment data, the
           server MAY issue an HTTP redirect to require the client to
           re-issue the POST request using a different request-URI. As
-          a result, it is always best for clients to use the "100
-          Continue" behavior defined in Section 5.1.1 of <xref
-          target="RFC7231" />.
+          a result, it is always best for clients to use the
+          "100-continue" expectation defined in Section 5.1.1 of
+          <xref target="RFC7231" />.
           Using this mechanism ensures that, if a redirect does occur,
           the client does not needlessly send the attachment data.</t>
         </section>
@@ -864,8 +866,8 @@ Content-Length: 0
         <section title="Other Client Considerations">
           <t>Clients can expect servers to take a while to respond to
           POST requests that include large attachment bodies. Servers
-          SHOULD use the "100 Continue" behavior defined in Section
-          5.1.1 of <xref target="RFC7231" /> to keep the client
+          SHOULD use the "102 (Processing)" interim response defined
+          in Section 10.1 of <xref target="RFC2518" /> to keep the client
           connection alive if the response will take some time.</t>
           
           <t>When exporting calendar data from a CalDAV server
@@ -1371,6 +1373,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <references title='Normative References'>
       &rfc2119;
+      &rfc2518;
       &rfc3864;
       &rfc4331;
       &rfc4791;
