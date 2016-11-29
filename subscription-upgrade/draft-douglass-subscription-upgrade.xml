@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2434 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2434.xml">
+<!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
+<!ENTITY RFC4589 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4589.xml">
+<!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
+<!ENTITY RFC5546 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml">
+<!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
+<!ENTITY I-D.ietf-calext-extensions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-extensions.xml">
+<!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="5"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<rfc category="std" updates="5545,5546"
+     docName="draft-douglass-subscription-upgrade-00" ipr="trust200902">
+  <front>
+    <title abbrev="Calendar subscription upgrades">Calendar subscription upgrades</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+
+    <date month='November' year='2016' />
+
+    <area>Applications</area>
+
+    <keyword>icalendar</keyword>
+
+    <keyword>properties</keyword>
+
+    <abstract>
+      <t>
+        This specification introduces an approach to allow subscribers
+        to calendar feeds to upgrade to a more performant protocol.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>
+        Currently clients subscribe to calendar feeds as an ics file 
+        which is oftenb published as a resource accessible using the 
+        unofficila 'webcal' scheme.
+      </t>
+
+      <t>
+        The only available option  for updating that resource is the 
+        usual http polling of cached resources using etags.
+      </t>
+      
+      <t>
+        There is the usual tension between clients wishing to see
+        a timely response to changes and servers not wising to be 
+        overloaded by frequent requests for possibly large amounts of
+        data.
+      </t>
+
+      <t>
+        This specification introduces an approach whereby clients can 
+        discover a more performant access method. Given the location of 
+        the resource as an ics file, the client can download the file 
+        and inspect the returned headers which will offer a number of 
+        alternative access methods.
+      </t>
+
+      <t>
+        Given that many clients already support CalDAV this provides an
+        easy upgrade path for those clients. CalDAV and DAV subsets are 
+        specified here to allow lighter weight implementations. 
+      </t>
+      
+      <section anchor="conventions" title='Conventions Used in This Document'>
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+          NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+          "MAY", and "OPTIONAL" in this document are to be interpreted as
+          described in <xref target='RFC2119'/>.
+        </t>
+      </section>
+    </section>
+
+    <section title="Changes to the iCalendar specifications">
+      <t>
+        This speciifcation does not require any chnages to 
+        <xref target='RFC5545'/>  or its extensions. However it does
+        introduce the use of some properties to provide more information 
+        about the resource, for example the time range it covers.
+      </t>
+    </section>
+
+    <section title="Link Header">
+      <t>
+        The advertizing of other access points is achieved through the 
+        use of the LINK header as defined in <xref target='RFC5988'/>. 
+        New link relation types are 
+        defined in this specification - each being associated with a 
+        protocol or protocol subset.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_caldav"
+             title="Link relation subscribe-caldav">
+      <t>
+        This specifies an access point which is a full implementation of 
+        caldav but requires no authentication. The end point is read only
+        but allows the full range of reports as defined by the CalDAV
+        specification.
+      </t>
+      <t>
+        The client MUST follow the specification to determine exactly 
+        what operations are allowed on the access point - for example 
+        to determine if sync-report is supported.  
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_caldav_auth"
+             title="Link relation subscribe-caldav-auth">
+      <t>
+        This specifies an access point which is a full implementation of
+        caldav and requires authentication. This may allow read-write
+        access to the resource.
+      </t>
+      <t>
+        The client MUST follow the specification to determine exactly
+        what operations are allowed on the access point - for example
+        to determine if sync-report is supported.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_webdav_sync"
+             title="Link relation subscribe-webdav-sync">
+      <t>
+        This specifies an access point which supports only webdav sync.
+      </t>
+      <t>
+        This allows the client to issue a sync-report on the resource
+        to obtain updates.
+      </t>
+      <t>
+        NOTE: say somethign about initial startup - use ics to populate? 
+        Initial token?
+      </t>
+      <t>
+        The client MUST follow that specification.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_something_else"
+             title="Link relation subscribe-something-else">
+      <t>
+        This specifies an access point which supports something new.
+      </t>
+      <t>
+        The client MUST follow that specification.
+      </t>
+    </section>
+
+    <section title='Security Considerations'>
+      <t>
+       Applications using these properties need to be aware of the risks
+       entailed in using the URIs provided as values. See [RFC3986] for
+       a discussion of the security considerations relating to URIs.
+      </t>
+    </section>
+
+    <section title='Privacy Considerations' anchor='privacy'>
+      <t>
+        Properties with a "URI" value type can expose their users to 
+        privacy leaks as any network access of the URI data can be 
+        tracked. Clients SHOULD NOT automatically download data 
+        referenced by the URI without explicit instruction from users. 
+        This specification does not introduce any additional privacy 
+        concerns beyond those described in <xref target="RFC5545" />.
+      </t>
+    </section>
+
+    <section anchor="iana_considerations" title='IANA Considerations'>
+      <section anchor="link_relation_registrations"
+               title="Link Relation Registrations" >
+        <t>
+          This document defines the following new iCalendar properties to be
+          added to the registry defined in Section 8.2.3 of <xref target='RFC5545'/>:
+        </t>
+        <texttable>
+          <ttcol align="left">Relation Name</ttcol>
+          <ttcol align="left">Description</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>subscribe-caldav</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_caldav"/></c>
+
+          <c>subscribe-caldav_auth</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_caldav_auth" /></c>
+
+          <c>subscribe-webdav-sync</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_webdav_sync"/></c>
+
+          <c>subscribe-something-else</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_something_else"/></c>
+        </texttable>
+      </section>
+    </section>
+
+    <section title="Acknowledgements">
+      <t>
+        The author would also like to thank the members of the Calendaring and
+        Scheduling Consortium Calendar Sharing technical committee and the following
+        individuals for contributing their ideas and support:
+      </t>
+      <t>
+        ...
+      </t>
+      <t>
+        The authors would also like to thank the Calendaring and
+        Scheduling Consortium for advice with this specification.
+      </t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      &RFC2119;
+      &RFC2434;
+      &RFC3688;
+      &RFC3986;
+      &RFC4589;
+      &RFC5545;
+      &RFC5546;
+      &RFC5988;
+      &W3C.REC-xml-20060816;
+      &I-D.ietf-calext-extensions;
+    </references>
+
+    <section title="Open issues">
+      <t>
+        <list style='hanging'>
+          <t hangText="restype values:" >
+            Need to determine what if any registry of resource types already
+            exists and use that.
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Change log">
+      <t>
+        v05 2016-11-08  MD
+        <list style='symbols'>
+          <t>
+            First pass
+          </t>
+        </list>
+      </t>
+    </section>
+  </back>
+</rfc>
