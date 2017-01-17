@@ -2,13 +2,20 @@
 <?xml-stylesheet type="text/xsl" href="../../rfc2629.xslt"?>
 <!DOCTYPE rfc SYSTEM 'rfc2629.dtd'
 [
-<!ENTITY rfc2119 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml'>
-<!ENTITY rfc5234 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml'>
-<!ENTITY rfc4791 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml'>
-<!ENTITY rfc5545 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml'>
-<!ENTITY rfc5789 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5789.xml'>
-<!ENTITY rfc6578 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6578.xml'>
-<!ENTITY rfc6638 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml'>
+<!ENTITY rfc2119 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY rfc5234 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml'>
+<!ENTITY rfc4791 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+<!ENTITY rfc5545 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml'>
+<!ENTITY rfc5789 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5789.xml'>
+<!ENTITY rfc6578 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6578.xml'>
+<!ENTITY rfc6638 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml'>
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes"?>
@@ -24,7 +31,8 @@
      updates='4791' 
      docName='draft-daboo-caldav-sync-00'>
   <front>
-    <title abbrev="CalDAV Enhanced Synchronization">Enhanced Synchronization for Calendaring Extensions to WebDAV (CalDAV)</title>
+    <title abbrev="CalDAV Enhanced Synchronization">Enhanced
+    Synchronization for Calendaring Extensions to WebDAV (CalDAV)</title>
     <author initials="C." surname="Daboo" fullname="Cyrus Daboo">
       <organization abbrev="Apple Inc.">Apple Inc.</organization>
       <address>
@@ -39,6 +47,18 @@
         <uri>http://www.apple.com/</uri>
       </address>
     </author>
+    <author initials="K." surname="Murchison" fullname="Kenneth Murchison">
+      <organization>Carnegie Mellon University</organization>
+      <address>
+        <postal>
+          <street>5000 Forbes Avenue</street>
+          <city>Pittsburgh</city> <region>PA</region>
+          <code>15213</code> <country>USA</country>
+        </postal>
+        <!--<phone>+1 412 268 1982</phone>-->
+        <email>murch@andrew.cmu.edu</email>
+      </address>
+    </author>
     <date />
     <area>Applications</area>
     <keyword>calendaring</keyword>
@@ -48,7 +68,9 @@
     <keyword>HTTP</keyword>
     <keyword>PATCH</keyword>
     <abstract>
-      <t>This document defines new protocol features for CalDAV (RFC 4791) to improve the efficiency of synchronizing data changes between a client and server.</t>
+      <t>This document defines new protocol features for CalDAV (RFC
+      4791) to improve the efficiency of synchronizing data changes
+      between a client and server.</t>
     </abstract>
 
     <note title='Open Issues'>
@@ -62,11 +84,41 @@
 
   <middle>
     <section title='Introduction'>
-      <t>The <xref target='RFC4791'>CalDAV</xref> protocol is a client/server protocol that supports the exchange of <xref target='RFC5545'>iCalendar</xref> data between a server and clients, as well as supporting scheduling operations on the server (using <xref target='RFC6638'/>). To exchange data, clients and servers use a combination of HTTP PUT, GET and REPORT requests. The REPORT requests include CalDAV "multiget" and "time-range" queries, as well as <xref target='RFC6578'>WebDAV-based synchronization</xref>. Whilst these have proved adequate to date, there is a need to improve the efficiency of data synchronization to lower network I/O requirements, and thus reduce power consumption requirements on mobile devices (which are now frequently used to manage calendars).</t>
+      <t>The <xref target='RFC4791'>CalDAV</xref> protocol is a
+      client/server protocol that supports the exchange of <xref
+      target='RFC5545'>iCalendar</xref> data between a server and
+      clients, as well as supporting scheduling operations on the
+      server (using <xref target='RFC6638'/>). To exchange data,
+      clients and servers use a combination of HTTP PUT, GET and
+      REPORT requests. The REPORT requests include CalDAV "multiget"
+      and "time-range" queries, as well as <xref
+      target='RFC6578'>WebDAV-based synchronization</xref>. Whilst
+      these have proved adequate to date, there is a need to improve
+      the efficiency of data synchronization to lower network I/O
+      requirements, and thus reduce power consumption requirements on
+      mobile devices (which are now frequently used to manage
+      calendars).</t>
 
-    <t>The iCalendar patch [draft-patch] specification defines a way for clients to incrementally update servers using the HTTP <xref target="RFC5789">PATCH </xref> method and a new iCalendar-based patch format. This allows a client to only send the pieces of an iCalendar object that have changed, rather than send the data as a whole. This can significantly reduce the amount of data sent from the client to the server, particularly in enterprise environments where long-lived recurring events, with many attendees, and many recurrence exceptions are common. However, when data changes on the server, clients are still required to download the entire iCalendar object, even when only a small change has taken place. Since many users now have multiple devices that are actively synchronizing with a server (e.g., desktop, laptop, mobile phone, tablet, etc) a small change made on one device will result in large data transfers on the others as they synchronize their local caches.</t>
+    <t>The iCalendar patch [draft-patch] specification defines a way
+    for clients to incrementally update servers using the HTTP <xref
+    target="RFC5789">PATCH </xref> method and a new iCalendar-based
+    patch format. This allows a client to only send the pieces of an
+    iCalendar object that have changed, rather than send the data as a
+    whole. This can significantly reduce the amount of data sent from
+    the client to the server, particularly in enterprise environments
+    where long-lived recurring events, with many attendees, and many
+    recurrence exceptions are common. However, when data changes on
+    the server, clients are still required to download the entire
+    iCalendar object, even when only a small change has taken
+    place. Since many users now have multiple devices that are
+    actively synchronizing with a server (e.g., desktop, laptop,
+    mobile phone, tablet, etc) a small change made on one device will
+    result in large data transfers on the others as they synchronize
+    their local caches.</t> 
 
-    <t>This specification defines new protocol features in CalDAV to support incremental updates to data stored in a client's cache, by sending iCalendar patch data from the server to the client.</t>
+    <t>This specification defines new protocol features in CalDAV to
+    support incremental updates to data stored in a client's cache, by
+    sending iCalendar patch data from the server to the client.</t>
     </section>
 
     <section title='Conventions Used in This Document'>
@@ -88,12 +140,67 @@
     </section>
 
     <section title="Overview" anchor="overview">
-      <t>Synchronization of CalDAV data on a client is nowadays typically accomplished using the WebDAV sync REPORT to detect changes to individual calendar object resources in a calendar collection. Those can be retrieved by the WebDAV sync request itself, or a subsequent series of CalDAV multiget requests can be made to retrieve the changed data. WebDAV sync defines a DAV:sync-token property on collections that support synchronization. The value of that property is an opaque token that server as a "sync anchor" for retrieval of changes on the server. Each client that maintains a local cache of the data stores the last value of DAV:sync-token for a fully synchronized calendar collection, and then presents that token to the server the next time changes need to be fetched. The server then uses that token to determine what has changed since the client last synchronized, and can return those changes. Since the DAV:sync-token is already being used to track changes on a collection level, it can also be used as a "sync anchor" for the retrieval of incremental changes to the resources within that collection.</t>
-      <t>This specification makes the following changes to CalDAV (with details of each described in subsequent sections:
+      <t>Synchronization of CalDAV data on a client is nowadays
+      typically accomplished using the WebDAV sync REPORT to detect
+      changes to individual calendar object resources in a calendar
+      collection. Those can be retrieved by the WebDAV sync request
+      itself, or a subsequent series of CalDAV multiget requests can
+      be made to retrieve the changed data. WebDAV sync defines a
+      DAV:sync-token property on collections that support
+      synchronization. The value of that property is an opaque token
+      that server as a "sync anchor" for retrieval of changes on the
+      server. Each client that maintains a local cache of the data
+      stores the last value of DAV:sync-token for a fully synchronized
+      calendar collection, and then presents that token to the server
+      the next time changes need to be fetched. The server then uses
+      that token to determine what has changed since the client last
+      synchronized, and can return those changes. Since the
+      DAV:sync-token is already being used to track changes on a
+      collection level, it can also be used as a "sync anchor" for the
+      retrieval of incremental changes to the resources within that
+      collection.</t>
+
+      <t>This specification makes the following changes to CalDAV
+      (with details of each described in subsequent sections:
         <list>
-          <t>HTTP GET requests can now include a "CalDAV-Since" HTTP request header. The client sets that header value to a DAV:sync-token value. When such a request is received by the server, if the header value represents a valid "sync anchor", the server returns an iCalendar patch format data object in the HTTP response. That object represents the difference between the calendar resource data as it was at the time the client provided "sync anchor" was in effect, and the current state of the resource.</t>
-          <t>CalDAV multiget and time-range REPORT requests now include a new CalDAV:sync-anchor XML element in the request's XML body. The client sets that XML element value to a DAV:sync-token value when it is also retrieving calendar data via the REPORT response. When such a request is received by the server, if the XML element value represents a valid "sync anchor", the calendar data returned by the server uses the iCalendar patch format data object in the HTTP response. Those objects represent the difference between each calendar resource data as it was at the time the client provided "sync anchor" was in effect, and the current state of the resource.</t>
-          <t>WebDAV sync REPORT requests now include a new CalDAV:use-sync-anchor XML element in the request's XML body - note that the "sync anchor" the client is using in the request is always included as the DAV:sync-token element that is part of the normal WebDAV sync REPORT protocol. The client sets the new XML element value to "true" when it is also retrieving calendar data via the REPORT response. When such a request is received by the server, the calendar data returned by the server uses the iCalendar patch format data object in the HTTP response. Those objects represent the difference between each calendar resource data as it was at the time the client provided DAV:sync-token "sync anchor" was in effect, and the state of the resource as it is at the time of the DAV:sync-token returned in the response body.</t>
+          <t>HTTP GET requests can now include a "CalDAV-Since" HTTP
+          request header. The client sets that header value to a
+          DAV:sync-token value. When such a request is received by the
+          server, if the header value represents a valid "sync
+          anchor", the server returns an iCalendar patch format data
+          object in the HTTP response. That object represents the
+          difference between the calendar resource data as it was at
+          the time the client provided "sync anchor" was in effect,
+          and the current state of the resource.</t>
+
+          <t>CalDAV multiget and time-range REPORT requests now
+          include a new CalDAV:sync-anchor XML element in the
+          request's XML body. The client sets that XML element value
+          to a DAV:sync-token value when it is also retrieving
+          calendar data via the REPORT response. When such a request
+          is received by the server, if the XML element value
+          represents a valid "sync anchor", the calendar data returned
+          by the server uses the iCalendar patch format data object in
+          the HTTP response. Those objects represent the difference
+          between each calendar resource data as it was at the time
+          the client provided "sync anchor" was in effect, and the
+          current state of the resource.</t>
+
+          <t>WebDAV sync REPORT requests now include a new
+          CalDAV:use-sync-anchor XML element in the request's XML body
+          - note that the "sync anchor" the client is using in the
+          request is always included as the DAV:sync-token element
+          that is part of the normal WebDAV sync REPORT protocol. The
+          client sets the new XML element value to "true" when it is
+          also retrieving calendar data via the REPORT response. When
+          such a request is received by the server, the calendar data
+          returned by the server uses the iCalendar patch format data
+          object in the HTTP response. Those objects represent the
+          difference between each calendar resource data as it was at
+          the time the client provided DAV:sync-token "sync anchor"
+          was in effect, and the state of the resource as it is at the
+          time of the DAV:sync-token returned in the response
+          body.</t>
         </list>
       </t>
     </section>
@@ -112,11 +219,15 @@
 
     <section title='Security Considerations' anchor='security'>
       <t></t>
-      <t>Security considerations described in <xref target="RFC5545" />, <xref target="RFC5789" />, and <xref target="RFC4791" /> MUST be adhered to.</t>
+      <t>Security considerations described in <xref target="RFC5545"
+      />, <xref target="RFC5789" />, and <xref target="RFC4791" />
+      MUST be adhered to.</t>
     </section>
 
     <section title='Privacy Considerations' anchor='privacy'>
-        <t>Privacy considerations described in <xref target="RFC5545" />, <xref target="RFC5789" />, and <xref target="RFC4791" /> MUST be adhered to.</t>
+        <t>Privacy considerations described in <xref target="RFC5545"
+        />, <xref target="RFC5789" />, and <xref target="RFC4791" />
+        MUST be adhered to.</t>
     </section>
 
     <section title='IANA Considerations'>
