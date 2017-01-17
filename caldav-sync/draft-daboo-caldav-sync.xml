@@ -148,7 +148,7 @@
       be made to retrieve the changed data. WebDAV sync defines a
       DAV:sync-token property on collections that support
       synchronization. The value of that property is an opaque token
-      that server as a "sync anchor" for retrieval of changes on the
+      that serves as a "sync anchor" for retrieval of changes on the
       server. Each client that maintains a local cache of the data
       stores the last value of DAV:sync-token for a fully synchronized
       calendar collection, and then presents that token to the server
@@ -161,8 +161,8 @@
       collection.</t>
 
       <t>This specification makes the following changes to CalDAV
-      (with details of each described in subsequent sections:
-        <list>
+      (with details of each described in subsequent sections):
+        <list style="symbols">
           <t>HTTP GET requests can now include a "CalDAV-Since" HTTP
           request header. The client sets that header value to a
           DAV:sync-token value. When such a request is received by the
