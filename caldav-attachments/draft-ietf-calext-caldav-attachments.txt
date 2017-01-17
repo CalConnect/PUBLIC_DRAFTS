@@ -5,14 +5,14 @@
 Calendering Extensions                                          C. Daboo
 Internet-Draft                                                     Apple
 Intended status: Standards Track                             A. Quillaud
-Expires: April 20, 2017                                           Oracle
+Expires: May 21, 2017                                             Oracle
                                                        K. Murchison, Ed.
                                                                      CMU
-                                                        October 17, 2016
+                                                       November 17, 2016
 
 
                        CalDAV Managed Attachments
-                draft-ietf-calext-caldav-attachments-00
+                draft-ietf-calext-caldav-attachments-01
 
 Abstract
 
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 20, 2017.
+   This Internet-Draft will expire on May 21, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 1]
+Daboo, et al.             Expires May 21, 2017                  [Page 1]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    the Trust Legal Provisions and are provided without warranty as
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 2]
+Daboo, et al.             Expires May 21, 2017                  [Page 2]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 3]
+Daboo, et al.             Expires May 21, 2017                  [Page 3]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    associated and specifying the appropriate "action" query parameter.
@@ -221,9 +221,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 4]
+Daboo, et al.             Expires May 21, 2017                  [Page 4]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 3.3.1.  action= Query Parameter
@@ -277,9 +277,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 5]
+Daboo, et al.             Expires May 21, 2017                  [Page 5]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    Example:
@@ -333,9 +333,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 6]
+Daboo, et al.             Expires May 21, 2017                  [Page 6]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    2.  When the server receives the POST request it does the following:
@@ -389,9 +389,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 7]
+Daboo, et al.             Expires May 21, 2017                  [Page 7]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    >> Request <<
@@ -445,9 +445,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 8]
+Daboo, et al.             Expires May 21, 2017                  [Page 8]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    has been updated by some other client by looking for a change to
@@ -501,9 +501,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                 [Page 9]
+Daboo, et al.             Expires May 21, 2017                  [Page 9]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
            different.  The "ATTACH" property SHOULD contain a "FILENAME"
@@ -557,9 +557,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 10]
+Daboo, et al.             Expires May 21, 2017                 [Page 10]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    >> Response <<
@@ -613,9 +613,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 11]
+Daboo, et al.             Expires May 21, 2017                 [Page 11]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    2.  When the server receives the POST request it does the following:
@@ -669,9 +669,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 12]
+Daboo, et al.             Expires May 21, 2017                 [Page 12]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    >> Response <<
@@ -725,9 +725,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 13]
+Daboo, et al.             Expires May 21, 2017                 [Page 13]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
       (CALDAV:max-attachment-size): The attachment submitted in the POST
@@ -781,9 +781,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 14]
+Daboo, et al.             Expires May 21, 2017                 [Page 14]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 3.11.3.  Access Control
@@ -810,7 +810,7 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
    For POST requests that add or update attachment data, the server MAY
    issue an HTTP redirect to require the client to re-issue the POST
    request using a different request-URI.  As a result, it is always
-   best for clients to use the "100 Continue" behavior defined in
+   best for clients to use the "100-continue" expectation defined in
    Section 5.1.1 of [RFC7231].  Using this mechanism ensures that, if a
    redirect does occur, the client does not needlessly send the
    attachment data.
@@ -837,17 +837,18 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 15]
+Daboo, et al.             Expires May 21, 2017                 [Page 15]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 3.11.7.  Other Client Considerations
 
    Clients can expect servers to take a while to respond to POST
    requests that include large attachment bodies.  Servers SHOULD use
-   the "100 Continue" behavior defined in Section 5.1.1 of [RFC7231] to
-   keep the client connection alive if the response will take some time.
+   the "102 (Processing)" interim response defined in Section 10.1 of
+   [RFC2518] to keep the client connection alive if the response will
+   take some time.
 
    When exporting calendar data from a CalDAV server supporting managed
    attachments, clients SHOULD remove all "MANAGED-ID" property
@@ -892,10 +893,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-
-Daboo, et al.            Expires April 20, 2017                [Page 16]
+Daboo, et al.             Expires May 21, 2017                 [Page 16]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    filenameparam = "FILENAME" "=" paramtext
@@ -949,9 +949,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 17]
+Daboo, et al.             Expires May 21, 2017                 [Page 17]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    Cal-Managed-ID = "Cal-Managed-ID" ":" paramtext
@@ -1005,9 +1005,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 18]
+Daboo, et al.             Expires May 21, 2017                 [Page 18]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    Definition:
@@ -1061,9 +1061,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 19]
+Daboo, et al.             Expires May 21, 2017                 [Page 19]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    <C:max-attachment-size xmlns:C="urn:ietf:params:xml:ns:caldav"
@@ -1117,9 +1117,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 20]
+Daboo, et al.             Expires May 21, 2017                 [Page 20]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 7.  Implementation Status
@@ -1173,9 +1173,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 21]
+Daboo, et al.             Expires May 21, 2017                 [Page 21]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 7.3.  Oracle Communications Calendar Server
@@ -1229,9 +1229,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 22]
+Daboo, et al.             Expires May 21, 2017                 [Page 22]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 8.  Security Considerations
@@ -1285,9 +1285,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 23]
+Daboo, et al.             Expires May 21, 2017                 [Page 23]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
 10.  Acknowledgments
@@ -1304,6 +1304,11 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC2518]  Goland, Y., Whitehead, E., Faizi, A., Carter, S., and D.
+              Jensen, "HTTP Extensions for Distributed Authoring --
+              WEBDAV", RFC 2518, DOI 10.17487/RFC2518, February 1999,
+              <http://www.rfc-editor.org/info/rfc2518>.
 
    [RFC3864]  Klyne, G., Nottingham, M., and J. Mogul, "Registration
               Procedures for Message Header Fields", BCP 90, RFC 3864,
@@ -1330,6 +1335,17 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
               RFC 5545, DOI 10.17487/RFC5545, September 2009,
               <http://www.rfc-editor.org/info/rfc5545>.
 
+
+
+
+
+
+
+Daboo, et al.             Expires May 21, 2017                 [Page 24]
+
+Internet-Draft         CalDAV Managed Attachments          November 2016
+
+
    [RFC6266]  Reschke, J., "Use of the Content-Disposition Header Field
               in the Hypertext Transfer Protocol (HTTP)", RFC 6266,
               DOI 10.17487/RFC6266, June 2011,
@@ -1338,13 +1354,6 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
    [RFC6638]  Daboo, C. and B. Desruisseaux, "Scheduling Extensions to
               CalDAV", RFC 6638, DOI 10.17487/RFC6638, June 2012,
               <http://www.rfc-editor.org/info/rfc6638>.
-
-
-
-Daboo, et al.            Expires April 20, 2017                [Page 24]
-
-Internet-Draft         CalDAV Managed Attachments           October 2016
-
 
    [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
               Protocol (HTTP/1.1): Message Syntax and Routing",
@@ -1386,6 +1395,13 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
    [6] http://www.apple.com/macos/
 
+
+
+Daboo, et al.             Expires May 21, 2017                 [Page 25]
+
+Internet-Draft         CalDAV Managed Attachments          November 2016
+
+
    [7] http://www.busymac.com/busycal/
 
    [8] http://calendarserver.org/wiki/CalDAVTester
@@ -1394,16 +1410,12 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
    [10] http://www.2doapp.com/
 
-
-
-
-Daboo, et al.            Expires April 20, 2017                [Page 25]
-
-Internet-Draft         CalDAV Managed Attachments           October 2016
-
-
 Appendix A.  Change History (To be removed by RFC Editor before
              publication)
+
+   Changes in calext-01:
+
+   1.  Minor editorial changes.
 
    Changes in calext-00:
 
@@ -1439,6 +1451,13 @@ Appendix A.  Change History (To be removed by RFC Editor before
 
    2.  MTAG has been removed.
 
+
+
+Daboo, et al.             Expires May 21, 2017                 [Page 26]
+
+Internet-Draft         CalDAV Managed Attachments          November 2016
+
+
    3.  Error pre-conditions added.
 
    4.  Interaction with WebDAV QUOTA discussed.
@@ -1449,14 +1468,6 @@ Appendix A.  Change History (To be removed by RFC Editor before
 
    7.  Removed MUST for specific 2xx codes in favor of generic success
        code.
-
-
-
-
-Daboo, et al.            Expires April 20, 2017                [Page 26]
-
-Internet-Draft         CalDAV Managed Attachments           October 2016
-
 
    Changes in daboo-01:
 
@@ -1494,25 +1505,17 @@ Appendix B.  Example Involving Recurring Events
    an agenda (HTML attachment) to the corresponding calendar resource.
    Attendees of the meeting are granted read access to the newly created
    attachment resource.  Their own copy of the meeting is updated to
+
+
+
+
+Daboo, et al.             Expires May 21, 2017                 [Page 27]
+
+Internet-Draft         CalDAV Managed Attachments          November 2016
+
+
    include the new ATTACH property pointing to the attachment resource
    and they are notified of the change via their scheduling inbox.
-
-
-
-
-
-
-
-
-
-
-
-
-
-Daboo, et al.            Expires April 20, 2017                [Page 27]
-
-Internet-Draft         CalDAV Managed Attachments           October 2016
-
 
    >> Request <<
 
@@ -1562,12 +1565,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-
-
-
-Daboo, et al.            Expires April 20, 2017                [Page 28]
+Daboo, et al.             Expires May 21, 2017                 [Page 28]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    HTTP/1.1 201 Created
@@ -1621,9 +1621,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 29]
+Daboo, et al.             Expires May 21, 2017                 [Page 29]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    The organizer has a more specific agenda for the 20th of February
@@ -1677,9 +1677,9 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 30]
+Daboo, et al.             Expires May 21, 2017                 [Page 30]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
@@ -1733,9 +1733,9 @@ Authors' Addresses
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 31]
+Daboo, et al.             Expires May 21, 2017                 [Page 31]
 
-Internet-Draft         CalDAV Managed Attachments           October 2016
+Internet-Draft         CalDAV Managed Attachments          November 2016
 
 
    Cyrus Daboo
@@ -1789,4 +1789,4 @@ Internet-Draft         CalDAV Managed Attachments           October 2016
 
 
 
-Daboo, et al.            Expires April 20, 2017                [Page 32]
+Daboo, et al.             Expires May 21, 2017                 [Page 32]
