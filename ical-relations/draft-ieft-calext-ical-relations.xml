@@ -1,0 +1,1172 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
+<!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
+<!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
+<!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
+<!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="5"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<rfc category="std" docName="draft-ietf-calext-ical-relations-00" ipr="trust200902">
+
+  <front>
+    <title abbrev="Icalendar Relationships">Support for Icalendar Relationships</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+
+    <date month='August' year='2016' />
+
+    <area>Applications</area>
+
+    <keyword>icalendar</keyword>
+
+    <keyword>link</keyword>
+    <keyword>related-to</keyword>
+    <keyword>relationships</keyword>
+
+    <abstract>
+      <t>
+        This specification updates RELATED-TO and introduces new iCalendar
+        properties LINK, STRUCTURED-CATEGORY and REFID to allow better linking and
+        grouping of iCalendar components and related data.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>
+        Icalendar entities often need to be related to each other or to
+        associated meta-data. These relationships can take the following
+        forms
+        <list style='hanging'>
+          <t hangText="Structured iCalendar:">
+            Icalendar entities are related to each other in some structured
+            way, for example as parent, sibling, before, after.
+          </t>
+          <t hangText="Grouped iCalendar:">
+            Icalendar entities are related to each other as a group.
+            CATEGORIES are often used for this purpose but are problematic
+            for application developers.
+          </t>
+          <t hangText="Linked:">
+            Entities are linked to each other through typed references.
+          </t>
+        </list>
+      </t>
+
+      <section title="Structured iCalendar relationships">
+        <t>
+          The currently existing iCalendar <xref target='RFC5545'/>
+          RELATED-TO property has no support for temporal relationships
+          as used by standard project management tools.
+        </t>
+
+        <t>
+          The RELTYPE parameter is extended to take new values
+          defining temporal relationships, a GAP parameter is defined to provide
+          lead and lag values and RELATED-TO is extended to allow URI values.
+          These changes allows the RELATED-TO property to define a richer set of
+          relationships useful for project management.
+        </t>
+      </section>
+
+      <section title="Grouped iCalendar relationships">
+        <t>
+          This specification defines a new REFID property which
+          allows arbitrary groups of entities to be associated with the same
+          key value. The presence of a REFID property imparts no meaning
+          to the event. It is merely a key to allow retrieval.
+        </t>
+      </section>
+
+      <section title="Structured category relationships">
+        <t>
+          The introduction of STRUCTURED-CATEGORY allows a more structured
+          approach to categorization, with the possibility of namespaced
+          and path-like values. Unlike REFID the category imparts some
+          meaning. It is assumed that the value of this property will
+          reference a well defined category.
+        </t>
+      </section>
+
+      <section title="Linked relationships">
+        <t>
+          The currently existing iCalendar standard <xref target='RFC5545'/> lacks
+          a general purpose method for referencing additional, external information
+          relating to calendar components.
+        </t>
+
+        <t>
+          This document proposes a method for referencing typed external
+          information that can provide additional information about an iCalendar
+          component. This new LINK property is closely aligned to the LINK header
+          defined in
+          <xref target='RFC5988'/>
+        </t>
+
+        <t>
+          The LINK property defines a typed reference or relation to external
+          meta-data or related resources. By providing type and format information
+          as parameters, clients and servers are able to discover interesting
+          references and make use of them, perhaps for indexing or the
+          presentation of interesting links for the user.
+        </t>
+
+        <t>
+          It is often necessary to relate calendar components. The current
+          RELATED-TO property only allows for a UID which is inadequate for many
+          purposes. Allowing other types may help but might raise a number of
+          backward compatibility issues. The link property can link components
+          in different collections or even on different servers.
+        </t>
+
+        <t>
+          When publishing events it is useful to be able to refer back to the
+          source of that information. The actual event may have been consumed from
+          a feed or an ics file on a web site. A LINK property can provide
+          a reference to the originator of the event.
+        </t>
+
+        <t>
+          Beyond the need to relate elements temporally, project
+          management tools often need to be able to specify the relationships
+          between the various events and tasks which make up a project.
+          The LINK property provides such a mechanism.
+        </t>
+
+        <t>
+          The LINK property SHOULD NOT be treated as just another
+          attachment. The ATTACH property is being extended to handle
+          server-side management and stripping of inline data. Clients
+          may choose to handle attachments differently as they are often
+          an integral part of the message - for example, the agenda.
+        </t>
+      </section>
+
+      <section anchor="caching" title='Caching and offline use'>
+        <t>
+          To facilitate offline display the link type may identify
+          important pieces of data which should be downloaded in
+          advance.
+        </t>
+        <t>
+          In general, the calendar entity should be self explanatory
+          without the need to download referenced meta-data such as a
+          web page.
+        </t>
+      </section>
+
+      <section anchor="conventions" title='Conventions Used in This Document'>
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+          NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+          "MAY", and "OPTIONAL" in this document are to be interpreted as
+          described in <xref target='RFC2119'/>.
+        </t>
+      </section>
+    </section>
+
+    <section anchor="reference_types"
+             title="Reference Types">
+      <t>
+        The actual reference value can take three forms specified by the type
+        parameter
+        <list style='hanging'>
+          <t hangText="URI:">
+            The default type. This is a URI referring to the target.
+          </t>
+          <t hangText="UID:">
+            This allows for linking within a single collection and the value is
+            assumed to be another component within that collection.
+          </t>
+          <t hangText="REFERENCE:">
+            An xpointer. In an XML environment it may be necessary to refer to
+            an external XML artifact. The XPointer is defined in
+            <xref target='W3C.WD-xptr-xpointer-20021219'/> and allows
+            addressing portions of XML documents.
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section anchor="link_relation_types"
+             title="Link Relation Types">
+      <t>
+        <xref target='RFC5988'/> defines two form of relation types, registered
+        and extension. Registered relation types are added to a registry defined
+        by <xref target='RFC5988'/> while extension relation types are specified
+        as unique unregistered URIs, (at least unregistered in the
+        <xref target='RFC5988'/> registry).
+      </t>
+
+      <t>
+        The relation types defined here will be registered with IANA in
+        accordance with the specifications in  <xref target='RFC5988'/>.
+      </t>
+    </section>
+
+    <section anchor="redefined_relation_type_value"
+             title="Redefined Relation Type Value">
+      <t>
+        Relationship parameter type values are defined in section 3.2.15. of
+        <xref target='RFC5545'/>. This specification redefines that type to
+        include the new temporal relationship values FINISHTOSTART, FINISHTOFINISH,
+        STARTTOFINISH and STARTTOSTART. It also adds the DEPENDS-ON
+        value to provide a link to an component upon which the current
+        component depends.
+      </t>
+
+      <t>
+        <list style='hanging'>
+          <t hangText="Format Definition:">
+            <figure>
+              <preamble>
+                 This property parameter is defined by the following notation:
+              </preamble>
+
+              <artwork type="abnf">
+       reltypeparam       = "RELTYPE" "="
+                           ("PARENT"    ; Parent relationship - Default
+                          / "CHILD"     ; Child relationship
+                          / "SIBLING"   ; Sibling relationship
+                          / "DEPENDS-ON" ; refers to previous task
+                          / "REFID"     ; Relationship based on REFID
+                          / "STRUCTURED-CATEGORY"
+                                    ; Relationship based on STRUCTURED-CATEGORY
+                          / "FINISHTOSTART" ;  Temporal relationship
+                          / "FINISHTOFINISH" ;  Temporal relationship
+                          / "STARTTOFINISH" ;  Temporal relationship
+                          / "STARTTOSTART" ;  Temporal relationship
+                          / iana-token  ; Some other IANA-registered
+                                        ; iCalendar relationship type
+                          / x-name)     ; A non-standard, experimental
+                                        ; relationship type
+              </artwork>
+            </figure>
+          </t>
+
+          <t hangText="Description:">
+            This parameter can be specified on a property that
+            references another related calendar component. The parameter may specify the
+            hierarchical relationship type of the calendar component
+            referenced by the property when the value is PARENT, CHILD or SIBLING.
+            If this parameter is not specified on an
+            allowable property, the default relationship type is PARENT.
+            Applications MUST treat x-name and iana-token values they don't
+            recognize the same way as they would the PARENT value.
+          </t>
+
+          <t>
+            It defines the temporal relationship when the value is one of
+            the project management standard relationships
+            FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
+            This property will be present in the predecessor entity and
+            will refer to the successor entity. The GAP parameter
+            specifies the lead or lag time between the predecessor and
+            the successor. In the description of each temporal relationship
+            below we refer to Task-A which contains and controls the relationship and
+            Task-B the target of the relationship.
+          </t>
+
+          <t hangText="RELTYPE=PARENT:">
+            See <xref target='RFC5545'/> section 3.2.15.
+          </t>
+
+          <t hangText="RELTYPE=CHILD:">
+            See <xref target='RFC5545'/> section 3.2.15.
+          </t>
+
+          <t hangText="RELTYPE=SIBLING:">
+            See <xref target='RFC5545'/> section 3.2.15.
+          </t>
+
+          <t hangText="RELTYPE=DEPENDS-ON:">
+            Indicates that the current calendar component depends on
+            the referenced calendar component in some manner. For example
+            a task may be blocked waiting on the other, referenced, task.
+          </t>
+
+          <t hangText="RELTYPE=REFID:">
+            Establishes a reference from the current component to
+            components with a REFID property which matches the value
+            given in the associated RELATED-TO property.
+          </t>
+
+          <t hangText="RELTYPE=STRUCTURED-CATEGORY:">
+            Establishes a reference from the current component to
+            components with a STRUCTURED-CATEGORY property which matches the value
+            given in the associated RELATED-TO property.
+          </t>
+
+          <t hangText="RELTYPE=FINISHTOSTART:">
+            Task-B cannot start until Task-A finishes.
+            For example, when sanding is complete, painting can begin.
+            <figure anchor='finishtostart' title='Finish to start relationship'>
+              <artwork><![CDATA[
+
+            ============
+            |  Task-A  |--+
+            ============  |
+                          |
+                          V
+                          ============
+                          |  Task-B  |
+                          ============
+]]></artwork>
+            </figure>
+          </t>
+
+          <t hangText="RELTYPE=FINISHTOFINISH:">
+            Task-B cannot finish before Task-A
+            is finished, that is the end of Task-A defines the
+            end of Task-B.
+            For example, we start the potatoes, then the meat then the peas
+            but they should all be cooked at the same time.
+            <figure anchor='finishtofinish' title='Finish to finish relationship'>
+              <artwork><![CDATA[
+
+                    ============
+                    |  Task-A  |--+
+                    ============  |
+                                  |
+                    ============  |
+                    |  Task-B  |<-+
+                    ============
+]]></artwork>
+            </figure>
+          </t>
+
+          <t hangText="RELTYPE=STARTTOFINISH:">
+            The start of Task-A (which occurs after Task-B)
+            controls the finish of Task-B.
+            For example, ticket sales (Task-B) end when the game
+            starts (Task-A).
+            <figure anchor='starttofinish' title='Start to finish relationship'>
+              <artwork><![CDATA[
+
+                                     ============
+                                  +--|  Task-A  |
+                                  |  ============
+                                  |
+                    ============  |
+                    |  Task-B  |<-+
+                    ============
+]]></artwork>
+            </figure>
+          </t>
+
+          <t hangText="RELTYPE=STARTTOSTART:">
+            The start of Task-A triggers the start of Task-B,
+            that is Task-B can start anytime after Task-A starts.
+            <figure anchor='starttostart' title='Start to start relationship'>
+              <artwork><![CDATA[
+
+                    ============
+                 +--|  Task-A  |
+                 |  ============
+                 |
+                 |  ============
+                 +->|  Task-B  |
+                    ============
+]]></artwork>
+            </figure>
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section anchor="new_property_parameters"
+             title="New Property Parameters">
+      <section anchor="rel"
+               title="Rel">
+        <t>
+          <list style='hanging'>
+            <t hangText="Parameter name:">
+              REL
+            </t>
+
+            <t hangText="Purpose:">
+              To specify the relationship of data referenced by a LINK property.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This parameter is defined by the following notation:
+                </preamble>
+
+                <artwork type="abnf">
+  relparam      = "REL" "="
+                  ("SOURCE"      ; Link to source of this component
+                 / DQUOTE uri DQUOTE
+                 / x-name        ; Experimental reference type
+                 / iana-token)   ; Other IANA registered type
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Description:">
+              This parameter MUST be specified on all LINK properties, and
+              defines the type of reference.  This allows programs consuming this
+              data to automatically scan for references they support.  In addition
+              to the values defined here any value defined in <xref target='RFC5988'/>
+              may be used. There is no default relation type.
+            </t>
+
+            <t hangText="REL=SOURCE:">
+              identifies the source of the event information.
+            </t>
+
+            <t hangText="Registration:">
+              These relation types are registered in <xref target='RFC5988'/>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="gap" title="Gap">
+        <t>
+          <list style='hanging'>
+            <t hangText="Parameter name:">
+              GAP
+            </t>
+
+            <t hangText="Purpose:">
+              To specify the length of the gap, positive or negative between two
+              temporally related components.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This parameter is defined by the following notation:
+                </preamble>
+
+                <artwork type="abnf">
+  gapparam      = "GAP" "=" dur-value
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Description:">
+              This parameter MAY be specified on the RELATED-TO property, and
+              defines the duration of time between the predecessor and successor
+              in an interval. When positive it defines the lag time between
+              a task and its logical successor. When negative it defines
+              the lead time.
+            </t>
+
+            <t>
+              An example of lag time might be if task A is "paint the room"
+              and task B is
+              "hang the drapes" then task A may be related to task B with
+              RELTYPE=FINISHTOSTART with a gap long enough for the paint to
+              dry.
+            </t>
+
+            <t>
+              An example of lead time might be to relate a 1 week task A
+              to the end of task B with RELTYPE=STARTTOFINISH and a
+              negative gap of 1 week so they finish at the same time.
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section anchor="new_value_data_types"
+             title="New Value Data Types">
+      <t>
+        This specification defines the following new value types to
+        be used with the VALUE property parameter:
+
+        <list style='hanging'>
+          <t hangText="UID">
+            VALUE=UID indicates that the associated value is the UID for a
+            component.
+          </t>
+
+          <t hangText="REFERENCE">
+            VALUE=REFERENCE indicates that the associated value is an xpointer
+            referencing an associated XML artifact.
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section anchor="new_properties"
+             title="New Properties">
+      <section anchor="structured_category"
+               title="Structured-Category">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              STRUCTURED-CATEGORY
+            </t>
+
+            <t hangText="Purpose:">
+              This property defines the formal categories for a calendar
+              component.
+            </t>
+
+            <t hangText="Value type:">
+              URI
+            </t>
+
+            <t hangText="Property Parameters:">
+              IANA, and non-standard parameters can be specified on this property.
+            </t>
+
+            <t hangText="Conformance:">
+              This property can be specified zero or more times in any
+              iCalendar component.
+            </t>
+
+            <t hangText="Description:">
+              This property is used to specify formal categories or
+              classifications of the calendar component.  The values
+              are useful in searching for a calendar component of a
+              particular type and category.
+            </t>
+
+            <t>
+              Within the "VEVENT", "VTODO", or "VJOURNAL" calendar components,
+              more than one formal category can be specified by using multiple
+              properties.
+            </t>
+
+            <t>
+              This categorization is distinct from the more informal
+              "tagging" of components provided by the existing CATEGORIES
+              property. It is expected that the value of the STRUCTURED-CATEGORY
+              property will reference an external resource which
+              provides information about the categorization.
+            </t>
+
+            <t>
+              In addition, a structured URI value allows for
+              hierarchical
+              categorization of org.bedework.util.jms.events.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+
+                <artwork>
+  structured-category = "STRUCTURED-CATEGORY" structcatparam ":" uri CRLF
+
+  structcatparam = *(
+                ;
+                ; The following is OPTIONAL,
+                ; and MAY occur more than once.
+                ;
+                (";" other-param)
+                ;
+                )
+
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following is an example of this property. It points to a
+                  server acting as the source for the calendar object.
+                </preamble>
+
+                <artwork>
+  STRUCTURED-CATEGORY:http://example.com/event-types/sports
+  STRUCTURED-CATEGORY:http://example.com/event-types/arts/music
+  STRUCTURED-CATEGORY:http://example.com/task-types/delivery
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+      <section anchor="link"
+               title="Link">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              LINK
+            </t>
+
+            <t hangText="Purpose:">
+              This property provides a reference to external information about a
+              component.
+            </t>
+
+            <t hangText="Value type:">
+              URI, TEXT or REFERENCE
+            </t>
+
+            <t hangText="Property Parameters:">
+              Non-standard, reference type or format type parameters can be
+              specified on this property.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MAY be specified in any iCalendar component.
+            </t>
+
+            <t hangText="Description:">
+              When used in a component the value of this property points to
+              additional information related to the component. For example,
+              it may reference the originating web server.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+
+                <artwork>
+  link            = "LINK" linkparam ":" ( ":" uri ) /
+                    (
+                      ";" "VALUE" "=" "REFERENCE"
+                      ":" text
+                    )
+                    CRLF
+
+
+  linkparam       = *(
+
+                  ; the following is MANDATORY
+                  ; and MAY occur more than once
+
+                  (";" relparam) /
+
+                  ; the following are MANDATORY
+                  ; but MUST NOT occur more than once
+
+                  (";" fmttypeparam) /
+                  (";" labelparam) /
+                  ; labelparam is defined in ...
+
+                  ; the following is OPTIONAL
+                  ; and MAY occur more than once
+
+                  (";" xparam)
+
+                  )
+
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following is an example of this property. It points to a
+                  server acting as the source for the calendar object.
+                </preamble>
+
+                <artwork>
+  LINK;REL=SOURCE;LABEL=The Egg:http://example.com/events
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="refid"
+               title="Refid">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              REFID
+            </t>
+
+            <t hangText="Purpose:">
+              This property value acts as a key for associated
+              iCalendar entities.
+            </t>
+
+            <t hangText="Value type:">
+              TEXT
+            </t>
+
+            <t hangText="Property Parameters:">
+              Non-standard parameters can be specified on this property.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MAY be specified multiple times in any
+              iCalendar component.
+            </t>
+
+            <t hangText="Description:">
+              The value of this property is a text identifier that allows
+              associated components to be located or retrieved as a whole.
+              For example all of the events
+              in a travel itinerary would have the same REFID value.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+
+                <artwork>
+  refid      = "REFID" refidparam ":" text CRLF
+
+
+  refidparam      = *(
+
+                  ; the following is OPTIONAL
+                  ; and MAY occur more than once
+
+                  (";" xparam)
+
+                  )
+
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following is an example of this property.
+                </preamble>
+
+                <artwork>
+  REFID:itinerary-2014-11-17
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section anchor="redefined_property_related_to"
+             title="Redefined RELATED-TO Property">
+      <section anchor="related-to"
+               title="RELATED-TO">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              RELATED-TO
+            </t>
+
+            <t hangText="Purpose:">
+              This property is used to represent a relationship or
+              reference between one calendar component and another. The definition
+              here extends the definition in Section 3.8.4.5. of
+              <xref target='RFC5545'/> by allowing URI values and a GAP parameter.
+            </t>
+
+            <t hangText="Value type:">
+              URI or TEXT
+            </t>
+
+            <t hangText="Property Parameters:">
+              Non-standard, reference type, gap, value or format type parameters can be
+              specified on this property.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MAY be specified in any iCalendar component.
+            </t>
+
+            <t hangText="Description:">
+              By default or when VALUE=UID is specified, the property value
+              consists of the persistent, globally
+              unique identifier of another calendar component.  This value would
+              be represented in a calendar component by the "UID" property.
+            </t>
+
+            <t>
+              By default, the property value points to another calendar
+              component that has a PARENT relationship to the referencing
+              object.  The "RELTYPE" property parameter is used to either
+              explicitly state the default PARENT relationship type to the
+              referenced calendar component or to override the default PARENT
+              relationship type and specify either a CHILD or SIBLING
+              relationship or a temporal relationship.
+            </t>
+
+            <t>
+              The PARENT relationship indicates that the calendar
+              component is a subordinate of the referenced calendar component.
+              The CHILD relationship indicates that the calendar component is a
+              superior of the referenced calendar component.  The SIBLING
+              relationship indicates that the calendar component is a peer of
+              the referenced calendar component.
+            </t>
+
+            <t>
+              The FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART
+              relationships define temporal relationships as specified in the
+              reltype parameter definition.
+            </t>
+
+            <t>
+              Changes to a calendar component referenced by this property can
+              have an implicit impact on the related calendar component.  For
+              example, if a group event changes its start or end date or time,
+              then the related, dependent events will need to have their start
+              and end dates changed in a corresponding way.  Similarly, if a
+              PARENT calendar component is cancelled or deleted, then there is
+              an implied impact to the related CHILD calendar components.  This
+              property is intended only to provide information on the
+              relationship of calendar components.  It is up to the target
+              calendar system to maintain any property implications of this
+              relationship.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+
+                <artwork>
+  related    = "RELATED-TO" relparam ( ":" text ) /
+               (
+                 ";" "VALUE" "=" "UID"
+                 ":" uid
+               )
+               (
+                 ";" "VALUE" "=" "URI"
+                 ":" uri
+               )
+               CRLF
+
+  relparam   = *(
+              ;
+              ; The following are OPTIONAL,
+              ; but MUST NOT occur more than once.
+              ;
+              (";" reltypeparam) /
+              (";" gapparam) /
+              ;
+              ; The following is OPTIONAL,
+              ; and MAY occur more than once.
+              ;
+              (";" other-param)
+              ;
+              )
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following are examples of this property.
+                </preamble>
+
+                <artwork>
+  RELATED-TO:jsmith.part7.19960817T083000.xyzMail@example.com
+
+  RELATED-TO:19960401-080045-4000F192713-0052@example.com
+
+  RELATED-TO;VALUE=URI;RELTYPE=STARTTOFINISH:
+   http://example.com/caldav/user/jb/cal/
+   19960401-080045-4000F192713.ics
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title='Security Considerations'>
+      <t>
+       Applications using the LINK property need to be aware of the risks
+       entailed in using the URIs provided as values. See [RFC3986] for
+       a discussion of the security considerations relating to URIs.
+      </t>
+      <t>
+        The STRUCTURED-CATEGORY and redefined RELATED-TO property have
+        the same issues in that values may be URIs.
+      </t>
+    </section>
+
+    <section anchor="iana_considerations" title='IANA Considerations'>
+      <section anchor="property_registrations"
+               title="iCalendar Property Registrations" >
+        <t>
+          The following iCalendar property names have been added to
+          the iCalendar Properties Registry defined in Section 8.3.2 of
+          <xref target='RFC5545'/>
+        </t>
+
+        <texttable>
+          <ttcol align="left">Property</ttcol>
+          <ttcol align="left">Status</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>LINK</c>
+          <c>Current</c>
+          <c><xref target="link"/></c>
+
+          <c>REFID</c>
+          <c>Current</c>
+          <c><xref target="refid"/></c>
+
+          <c>STRUCTURED-CATEGORY</c>
+          <c>Current</c>
+          <c><xref target="structured_category"/></c>
+        </texttable>
+      </section>
+
+      <section anchor="property_parameter_registrations"
+               title="iCalendar Property Parameter Registrations" >
+        <t>
+          The following iCalendar property parameter names have been added to
+          the iCalendar Parameters Registry defined in Section 8.3.3 of
+          <xref target='RFC5545'/>
+        </t>
+
+        <texttable>
+          <ttcol align="left">Parameter</ttcol>
+          <ttcol align="left">Status</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>REL</c>
+          <c>Current</c>
+          <c><xref target="rel"/></c>
+
+          <c>GAP</c>
+          <c>Current</c>
+          <c><xref target="gap"/></c>
+
+          <c>STRUCTURED-CATEGORY</c>
+          <c>Current</c>
+          <c><xref target="structured_category"/></c>
+        </texttable>
+      </section>
+
+      <section anchor="value_data_types_registrations"
+               title="iCalendar Value Data Type Registrations" >
+        <t>
+          The following iCalendar property parameter names have been added to
+          the iCalendar Value Data Types Registry defined in Section 8.3.4 of
+          <xref target='RFC5545'/>
+        </t>
+
+        <texttable>
+          <ttcol align="left">Value Data Type</ttcol>
+          <ttcol align="left">Status</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>UID</c>
+          <c>Current</c>
+          <c><xref target="new_value_data_types"/></c>
+
+          <c>REFERENCE</c>
+          <c>Current</c>
+          <c><xref target="new_value_data_types"/></c>
+        </texttable>
+      </section>
+
+
+      <section anchor="reltype_value_registrations"
+               title="iCalendar RELTYPE Value Registrations" >
+        <t>
+          The following iCalendar "RELTYPE" values have been added to
+          the iCalendar Relationship Types Registry defined in Section 8.3.8 of
+          <xref target='RFC5545'/>
+        </t>
+
+        <texttable>
+          <ttcol align="left">Parameter</ttcol>
+          <ttcol align="left">Status</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>REL</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>DEPENDS-ON</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>REFID</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>STRUCTURED-CATEGORY</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>FINISHTOSTART</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>FINISHTOFINISH</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>STARTTOFINISH</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+
+          <c>STARTTOSTART</c>
+          <c>Current</c>
+          <c><xref target="redefined_relation_type_value"/></c>
+        </texttable>
+      </section>
+
+      <section anchor="new_rel_registration"
+               title="New Reference Type Registration">
+        <t>
+          The following link relation values have been added to
+          the Reference Types Registry defined in Section 6.2.2 of
+          <xref target='RFC5988'/>
+        </t>
+
+        <texttable>
+          <ttcol align="left">Name</ttcol>
+          <ttcol align="left">Status</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>SOURCE</c>
+          <c>Current</c>
+          <c><xref target="rel"/></c>
+        </texttable>
+      </section>
+    </section>
+
+    <section title="Acknowledgements">
+      <t>
+        The author would like to thank the members of the Calendaring and
+        Scheduling Consortium technical committees and the following
+        individuals for contributing their ideas, support and comments:
+      </t>
+      <t>
+        Adrian Apthorp, Cyrus Daboo, Marten Gajda
+      </t>
+      <t>
+        The authors would also like to thank the Calendaring and
+        Scheduling Consortium for advice with this specification.
+      </t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      &RFC2119;
+      &RFC5545;
+      &RFC5988;
+      &RFC3688;
+      &RFC3986;
+      &W3C.REC-xml-20060816;
+      &W3C.WD-xptr-xpointer-20021219;
+    </references>
+
+    <section title="Change log">
+      <t>
+        V04: 2014-11-18  MD
+        <list style='symbols'>
+          <t>
+            Add 5545 registrations.
+          </t>
+          <t>
+            Drop Q-name in favor of URI.
+          </t>
+          <t>
+            Change REFID value type to text.
+          </t>
+          <t>
+            Add STRUCTURED-CATEGORY property.
+          </t>
+          <t>
+            Add STRUCTURED-CATEGORY relationship to RELATED-TO.
+          </t>
+        </list>
+      </t>
+      <t>
+        V03: 2014-09-21  MD
+        <list style='symbols'>
+          <t>
+            Added Q-name specification.
+          </t>
+          <t>
+            Change RELATED-ID to REFID and change its value type to Q-name.
+          </t>
+          <t>
+            Add REFID relationship to RELATED-TO.
+          </t>
+        </list>
+      </t>
+      <t>
+        V02: 2013-11-22  MD
+        <list style='symbols'>
+          <t>
+            Added more description to GAP
+          </t>
+        </list>
+      </t>
+      <t>
+        V01: 2013-09-26  MD
+        <list style='symbols'>
+          <t>
+            Removed "Improved" from title
+          </t>
+          <t>
+            Fixed typos and examples
+          </t>
+          <t>
+            Removed gap param from link
+          </t>
+        </list>
+      </t>
+      <t>
+        2013-06-02  MD Initial version
+      </t>
+    </section>
+  </back>
+</rfc>
