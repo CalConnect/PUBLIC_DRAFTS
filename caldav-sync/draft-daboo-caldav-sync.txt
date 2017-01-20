@@ -4,9 +4,9 @@
 
 Network Working Group                                           C. Daboo
 Internet-Draft                                                Apple Inc.
-Updates: 4791 (if approved)                             October 13, 2016
-Intended status: Standards Track
-Expires: April 16, 2017
+Updates: 4791 (if approved)                                 K. Murchison
+Intended status: Standards Track              Carnegie Mellon University
+Expires: July 24, 2017                                  January 20, 2017
 
 
  Enhanced Synchronization for Calendaring Extensions to WebDAV (CalDAV)
@@ -37,11 +37,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 16, 2017.
+   This Internet-Draft will expire on July 24, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Daboo                    Expires April 16, 2017                 [Page 1]
+Daboo & Murchison         Expires July 24, 2017                 [Page 1]
 
-Internet-Draft       CalDAV Enhanced Synchronization        October 2016
+Internet-Draft       CalDAV Enhanced Synchronization        January 2017
 
 
    include Simplified BSD License text as described in Section 4.e of
@@ -67,15 +67,16 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Conventions Used in This Document . . . . . . . . . . . . . .   3
    3.  Overview  . . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   4.  Changes to GET requests . . . . . . . . . . . . . . . . . . .   4
-   5.  Changes to CalDAV REPORT requests . . . . . . . . . . . . . .   4
-   6.  Changes to WedDAV sync REPORT requests  . . . . . . . . . . .   4
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
-   8.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .   4
-   9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
-   10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
-   11. Normative References  . . . . . . . . . . . . . . . . . . . .   5
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .   6
+   4.  The "calendar-data" Preference  . . . . . . . . . . . . . . .   4
+   5.  Changes to GET requests . . . . . . . . . . . . . . . . . . .   4
+   6.  Changes to CalDAV REPORT requests . . . . . . . . . . . . . .   4
+   7.  Changes to WedDAV sync REPORT requests  . . . . . . . . . . .   5
+   8.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
+   9.  Privacy Considerations  . . . . . . . . . . . . . . . . . . .   5
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .   5
+   11. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   5
+   12. Normative References  . . . . . . . . . . . . . . . . . . . .   6
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
 
 1.  Introduction
 
@@ -95,7 +96,7 @@ Table of Contents
    clients to incrementally update servers using the HTTP PATCH
    [RFC5789] method and a new iCalendar-based patch format.  This allows
    a client to only send the pieces of an iCalendar object that have
-   changed, rather than send the data as a whole.  This can
+   changed, rather than send the entire resource.  This can
    significantly reduce the amount of data sent from the client to the
    server, particularly in enterprise environments where long-lived
    recurring events, with many attendees, and many recurrence exceptions
@@ -104,15 +105,17 @@ Table of Contents
    only a small change has taken place.  Since many users now have
    multiple devices that are actively synchronizing with a server (e.g.,
    desktop, laptop, mobile phone, tablet, etc) a small change made on
+
+
+
+
+Daboo & Murchison         Expires July 24, 2017                 [Page 2]
+
+Internet-Draft       CalDAV Enhanced Synchronization        January 2017
+
+
    one device will result in large data transfers on the others as they
    synchronize their local caches.
-
-
-
-Daboo                    Expires April 16, 2017                 [Page 2]
-
-Internet-Draft       CalDAV Enhanced Synchronization        October 2016
-
 
    This specification defines new protocol features in CalDAV to support
    incremental updates to data stored in a client's cache, by sending
@@ -127,7 +130,7 @@ Internet-Draft       CalDAV Enhanced Synchronization        October 2016
 
    The notation used in this memo is the ABNF notation of [RFC5234].
    Any syntax elements shown below that are not explicitly defined in
-   this specification come from CalDAV [RFC4791].
+   this specification come from CalDAV [RFC7230] and CalDAV [RFC4791].
 
    When XML element types in the namespaces "DAV:" and
    "urn:ietf:params:xml:ns:caldav" are referenced in this document
@@ -143,92 +146,126 @@ Internet-Draft       CalDAV Enhanced Synchronization        October 2016
    series of CalDAV multiget requests can be made to retrieve the
    changed data.  WebDAV sync defines a DAV:sync-token property on
    collections that support synchronization.  The value of that property
-   is an opaque token that servers as a "sync anchor" for retrieval of
+   is an opaque token that serves as a "sync anchor" for retrieval of
    changes on the server.  Each client that maintains a local cache of
    the data stores the last value of DAV:sync-token for a fully
    synchronized calendar collection, and then presents that token to the
    server the next time changes need to be fetched.  The server then
    uses that token to determine what has changed since the client last
-   synchronized, and can return those changes.  Sine the DAV:sync-token
+   synchronized, and can return those changes.  Since the DAV:sync-token
    is already being used to track changes on a collection level, it can
    also be used as a "sync anchor" for the retrieval of incremental
    changes to the resources within that collection.
 
    This specification makes the following changes to CalDAV (with
-   details of each described in subsequent sections:
+   details of each described in subsequent sections):
 
-      HTTP GET requests can now include a "CalDAV-Since" HTTP request
-      header.  The client sets that header value to a DAV:sync-token
-      value.  When such a request is received by the server, if the
-      header value represents a valid "sync anchor", the server returns
-      an iCalendar patch format data object in the HTTP response.  That
+   o  HTTP requests that expect calendar data to be included in the
+      response (GET and REPORTs which include the CALDAV:calendar-data
 
 
 
-Daboo                    Expires April 16, 2017                 [Page 3]
+Daboo & Murchison         Expires July 24, 2017                 [Page 3]
 
-Internet-Draft       CalDAV Enhanced Synchronization        October 2016
+Internet-Draft       CalDAV Enhanced Synchronization        January 2017
 
 
-      object represents the difference between the calendar resource
-      data as it was at the time the client provided "sync anchor" was
-      in effect, and the current state of the resource.
+      "property" in the XML body) can include a Prefer request header
+      field [RFC7240] with the "calendar-patch" preference.  The client
+      sets the value of the "since" parameter of this preference to a
+      DAV:sync-token value.  When such a request is received by the
+      server, if the "since" value represents a valid "sync anchor", the
+      server MAY use the iCalendar patch documents in the HTTP response.
+      Those documents represent the difference between each calendar
+      resource as it was at the time the client-provided "sync anchor"
+      was in effect, and the current state of the resource.
 
-      CalDAV multiget and time-range REPORT requests now include a new
-      CalDAV:sync-anchor XML element in the request's XML body.  The
-      client sets that XML element value to a DAV:sync-token value when
-      it is also retrieving calendar data via the REPORT response.  When
-      such a request is received by the server, if the XML element value
-      represents a valid "sync anchor", the calendar data returned by
-      the server uses the iCalendar patch format data object in the HTTP
-      response.  Those objects represent the difference between each
-      calendar resource data as it was at the time the client provided
-      "sync anchor" was in effect, and the current state of the
-      resource.
+   o  HTTP multi-status responses that include calendar documents MAY
+      use a 304 (Not Modified) status code inside a DAV:propstat element
+      containing a CALDAV:calendar-data element to indicate that there
+      is no difference between the current state of the resource and the
+      state indicated by the "sync anchor".
 
-      WebDAV sync REPORT requests now include a new CalDAV:use-sync-
-      anchor XML element in the request's XML body - note that the "sync
-      anchor" the client is using in the request is always included as
-      the DAV:sync-token element that is part of the normal WebDAV sync
-      REPORT protocol.  The client sets the new XML element value to
-      "true" when it is also retrieving calendar data via the REPORT
-      response.  When such a request is received by the server, the
-      calendar data returned by the server uses the iCalendar patch
-      format data object in the HTTP response.  Those objects represent
-      the difference between each calendar resource data as it was at
-      the time the client provided DAV:sync-token "sync anchor" was in
-      effect, and the state of the resource as it is at the time of the
-      DAV:sync-token returned in the response body.
+4.  The "calendar-data" Preference
 
-4.  Changes to GET requests
+   The "calendar-patch" preference indicates that the client wishes for
+   the server to use calendar patch documents in the HTTP response
+   rather than entire calendar resources.  The value of the "since"
+   parameter, which MUST be the value of a previously returned DAV:sync-
+   token property, provides the "sync anchor" from which the server
+   should generate the patch documents.
 
-5.  Changes to CalDAV REPORT requests
+   ABNF:
 
-6.  Changes to WedDAV sync REPORT requests
+   calendar-patch = "calendar-patch" OWS ";" OWS "since=" sync-token
 
-7.  Security Considerations
+   sync-token = DQUOTE absolute-URI DQUOTE
+
+5.  Changes to GET requests
+
+   A client can signal to a server that it is willing and able to
+   receive a calendar patch document rather than an entire calendar
+   resource by including a Prefer header field with the "calendar-patch"
+   preference in a GET request.  If server the receives a "calendar-
+   patch" preference, recognizes the supplied sync-token, and is able to
+   create a patch document for the resource in a format compatible with
+   the one those supplied in the Accept request header field, the server
+   MAY respond to the request with the patch document in lieu of the
+   entire resource.
+
+6.  Changes to CalDAV REPORT requests
+
+   content-type attribute to CALDAV:calendar-data
+
+
+
+
+
+Daboo & Murchison         Expires July 24, 2017                 [Page 4]
+
+Internet-Draft       CalDAV Enhanced Synchronization        January 2017
+
+
+7.  Changes to WedDAV sync REPORT requests
+
+   content-type attribute to CALDAV:calendar-data
+
+   "sync anchor" in Prefer:calendar-patch MUST match DAV:sync-token in
+   request body
+
+8.  Security Considerations
 
    Security considerations described in [RFC5545], [RFC5789], and
    [RFC4791] MUST be adhered to.
 
-8.  Privacy Considerations
+9.  Privacy Considerations
 
    Privacy considerations described in [RFC5545], [RFC5789], and
    [RFC4791] MUST be adhered to.
 
+10.  IANA Considerations
 
+   The following preference is to be added to the HTTP Preferences
+   Registry defined in Section 5.1 of [RFC7240].
 
+   Preference:  calendar-patch
 
+   Parameters:  since = <sync-token>
 
+   Description:  The "calendar-patch" preference indicates that the
+      client wishes for the server to use calendar patch documents in
+      the HTTP response rather than entire calendar resources.  The
+      value of the "since" parameter provides the anchor point from
+      which the server should generate the patch documents.
 
-Daboo                    Expires April 16, 2017                 [Page 4]
-
-Internet-Draft       CalDAV Enhanced Synchronization        October 2016
+   Reference:  RFCXXXX, Section 4
 
+   Notes:  This preference is only intended to be used with CalDAV
+      requests that expect calendar data to be included in the response.
+      Furthermore, the "since" parameter is REQUIRED with this
+      preference.
 
-9.  IANA Considerations
-
-10.  Acknowledgments
+11.  Acknowledgments
 
    Thanks to the following for feedback:
 
@@ -236,7 +273,16 @@ Internet-Draft       CalDAV Enhanced Synchronization        October 2016
    Scheduling Consortium, which has helped with the development and
    testing of implementations.
 
-11.  Normative References
+
+
+
+
+Daboo & Murchison         Expires July 24, 2017                 [Page 5]
+
+Internet-Draft       CalDAV Enhanced Synchronization        January 2017
+
+
+12.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -271,18 +317,28 @@ Internet-Draft       CalDAV Enhanced Synchronization        October 2016
               CalDAV", RFC 6638, DOI 10.17487/RFC6638, June 2012,
               <http://www.rfc-editor.org/info/rfc6638>.
 
+   [RFC7230]  Fielding, R., Ed. and J. Reschke, Ed., "Hypertext Transfer
+              Protocol (HTTP/1.1): Message Syntax and Routing",
+              RFC 7230, DOI 10.17487/RFC7230, June 2014,
+              <http://www.rfc-editor.org/info/rfc7230>.
+
+   [RFC7240]  Snell, J., "Prefer Header for HTTP", RFC 7240,
+              DOI 10.17487/RFC7240, June 2014,
+              <http://www.rfc-editor.org/info/rfc7240>.
 
 
 
 
 
 
-Daboo                    Expires April 16, 2017                 [Page 5]
+
+
+Daboo & Murchison         Expires July 24, 2017                 [Page 6]
 
-Internet-Draft       CalDAV Enhanced Synchronization        October 2016
+Internet-Draft       CalDAV Enhanced Synchronization        January 2017
 
 
-Author's Address
+Authors' Addresses
 
    Cyrus Daboo
    Apple Inc.
@@ -294,6 +350,13 @@ Author's Address
    URI:   http://www.apple.com/
 
 
+   Kenneth Murchison
+   Carnegie Mellon University
+   5000 Forbes Avenue
+   Pittsburgh, PA  15213
+   USA
+
+   Email: murch@andrew.cmu.edu
 
 
 
@@ -326,11 +389,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-Daboo                    Expires April 16, 2017                 [Page 6]
+Daboo & Murchison         Expires July 24, 2017                 [Page 7]

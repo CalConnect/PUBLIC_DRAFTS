@@ -16,6 +16,10 @@
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6578.xml'>
 <!ENTITY rfc6638 PUBLIC ''
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml'>
+<!ENTITY rfc7230 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7230.xml'>
+<!ENTITY rfc7240 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7240.xml'>
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc toc="yes"?>
@@ -99,26 +103,26 @@
       mobile devices (which are now frequently used to manage
       calendars).</t>
 
-    <t>The iCalendar patch [draft-patch] specification defines a way
-    for clients to incrementally update servers using the HTTP <xref
-    target="RFC5789">PATCH </xref> method and a new iCalendar-based
-    patch format. This allows a client to only send the pieces of an
-    iCalendar object that have changed, rather than send the data as a
-    whole. This can significantly reduce the amount of data sent from
-    the client to the server, particularly in enterprise environments
-    where long-lived recurring events, with many attendees, and many
-    recurrence exceptions are common. However, when data changes on
-    the server, clients are still required to download the entire
-    iCalendar object, even when only a small change has taken
-    place. Since many users now have multiple devices that are
-    actively synchronizing with a server (e.g., desktop, laptop,
-    mobile phone, tablet, etc) a small change made on one device will
-    result in large data transfers on the others as they synchronize
-    their local caches.</t> 
+      <t>The iCalendar patch [draft-patch] specification defines a way
+      for clients to incrementally update servers using the HTTP <xref
+      target="RFC5789">PATCH </xref> method and a new iCalendar-based
+      patch format. This allows a client to only send the pieces of an
+      iCalendar object that have changed, rather than send the entire
+      resource. This can significantly reduce the amount of data sent from
+      the client to the server, particularly in enterprise environments
+      where long-lived recurring events, with many attendees, and many
+      recurrence exceptions are common. However, when data changes on
+      the server, clients are still required to download the entire
+      iCalendar object, even when only a small change has taken
+      place. Since many users now have multiple devices that are
+      actively synchronizing with a server (e.g., desktop, laptop,
+      mobile phone, tablet, etc) a small change made on one device will
+      result in large data transfers on the others as they synchronize
+      their local caches.</t> 
 
-    <t>This specification defines new protocol features in CalDAV to
-    support incremental updates to data stored in a client's cache, by
-    sending iCalendar patch data from the server to the client.</t>
+      <t>This specification defines new protocol features in CalDAV to
+      support incremental updates to data stored in a client's cache, by
+      sending iCalendar patch data from the server to the client.</t>
     </section>
 
     <section title='Conventions Used in This Document'>
@@ -130,7 +134,8 @@
       <t>The notation used in this memo is the ABNF notation of <xref
       target='RFC5234' />. Any syntax elements shown
       below that are not explicitly defined in this specification come
-      from <xref target='RFC4791'>CalDAV</xref>.</t>
+      from <xref target='RFC7230'>CalDAV</xref> and <xref
+      target='RFC4791'>CalDAV</xref>.</t> 
 
       <t>When XML element types in the namespaces "DAV:" and
       "urn:ietf:params:xml:ns:caldav" are referenced in this document
@@ -162,59 +167,75 @@
 
       <t>This specification makes the following changes to CalDAV
       (with details of each described in subsequent sections):
-        <list style="symbols">
-          <t>HTTP GET requests can now include a "CalDAV-Since" HTTP
-          request header. The client sets that header value to a
-          DAV:sync-token value. When such a request is received by the
-          server, if the header value represents a valid "sync
-          anchor", the server returns an iCalendar patch format data
-          object in the HTTP response. That object represents the
-          difference between the calendar resource data as it was at
-          the time the client provided "sync anchor" was in effect,
-          and the current state of the resource.</t>
+      <list style="symbols">
+        <t>HTTP requests that expect calendar data to be included in
+        the response (GET and REPORTs which include the
+        CALDAV:calendar-data "property" in the XML body) can
+        include a <xref target='RFC7240'>Prefer request header
+        field</xref> with the "calendar-patch" preference.  The client
+        sets the value of the "since" parameter of this preference to
+        a DAV:sync-token value.  When such a request is received by
+        the server, if the "since" value represents a valid "sync
+        anchor", the server MAY use the iCalendar patch documents
+        in the HTTP response.  Those documents represent the
+        difference between each calendar resource as it was at
+        the time the client-provided "sync anchor" was in effect, and
+        the current state of the resource.</t>
 
-          <t>CalDAV multiget and time-range REPORT requests now
-          include a new CalDAV:sync-anchor XML element in the
-          request's XML body. The client sets that XML element value
-          to a DAV:sync-token value when it is also retrieving
-          calendar data via the REPORT response. When such a request
-          is received by the server, if the XML element value
-          represents a valid "sync anchor", the calendar data returned
-          by the server uses the iCalendar patch format data object in
-          the HTTP response. Those objects represent the difference
-          between each calendar resource data as it was at the time
-          the client provided "sync anchor" was in effect, and the
-          current state of the resource.</t>
-
-          <t>WebDAV sync REPORT requests now include a new
-          CalDAV:use-sync-anchor XML element in the request's XML body
-          - note that the "sync anchor" the client is using in the
-          request is always included as the DAV:sync-token element
-          that is part of the normal WebDAV sync REPORT protocol. The
-          client sets the new XML element value to "true" when it is
-          also retrieving calendar data via the REPORT response. When
-          such a request is received by the server, the calendar data
-          returned by the server uses the iCalendar patch format data
-          object in the HTTP response. Those objects represent the
-          difference between each calendar resource data as it was at
-          the time the client provided DAV:sync-token "sync anchor"
-          was in effect, and the state of the resource as it is at the
-          time of the DAV:sync-token returned in the response
-          body.</t>
+        <t>HTTP multi-status responses that include calendar documents
+        MAY use a 304 (Not Modified) status code inside
+        a DAV:propstat element containing a CALDAV:calendar-data
+        element to indicate that there is no difference between the
+        current state of the resource and the state indicated by the
+        "sync anchor".</t>
         </list>
       </t>
+    </section> <!-- Overview -->
+
+    <section title='The "calendar-data" Preference' anchor="calendar-patch"> 
+	<t>The "calendar-patch" preference indicates that the client
+        wishes for the server to use calendar patch documents in
+        the HTTP response rather than entire calendar resources.  The
+        value of the "since" parameter, which MUST be the value of a
+        previously returned DAV:sync-token property, provides the "sync
+        anchor" from which the server should generate the patch
+        documents.</t>
+
+        <t>ABNF:</t>
+
+	<figure>
+          <artwork><![CDATA[
+calendar-patch = "calendar-patch" OWS ";" OWS "since=" sync-token
+
+sync-token = DQUOTE absolute-URI DQUOTE
+]]></artwork>
+	  </figure>
+        
     </section>
 
     <section title="Changes to GET requests" anchor="get-request">
-      <t></t>
+      <t>A client can signal to a server that it is willing and able
+      to receive a calendar patch document rather than an entire
+      calendar resource by including a Prefer header field with the
+      "calendar-patch" preference in a GET request.  If server the
+      receives a "calendar-patch" preference, recognizes the
+      supplied sync-token, and is able to create a patch document for
+      the resource in a format compatible with the one those supplied
+      in the Accept request header field, the server MAY respond to
+      the request with the patch document in lieu of the entire
+      resource.</t>
     </section>
 
-    <section title="Changes to CalDAV REPORT requests" anchor="caldav-request">
-      <t></t>
+    <section title="Changes to CalDAV REPORT requests"
+             anchor="caldav-request">
+      <t>content-type attribute to CALDAV:calendar-data</t>
     </section>
 
-    <section title="Changes to WedDAV sync REPORT requests" anchor="sync-request">
-      <t></t>
+    <section title="Changes to WedDAV sync REPORT requests"
+             anchor="sync-request">
+      <t>content-type attribute to CALDAV:calendar-data</t>
+      <t>"sync anchor" in Prefer:calendar-patch MUST match
+      DAV:sync-token in request body</t>
     </section>
 
     <section title='Security Considerations' anchor='security'>
@@ -230,8 +251,32 @@
         MUST be adhered to.</t>
     </section>
 
-    <section title='IANA Considerations'>
-      <t></t>
+    <section title="IANA Considerations">
+
+      <t>The following preference is to be added to the HTTP Preferences
+      Registry defined in Section 5.1 of <xref target="RFC7240"/>.</t>
+
+      <t><list style="hanging">
+	<t hangText="Preference:">calendar-patch</t>
+
+	<t hangText="Parameters:">since = &lt;sync-token&gt;</t> 
+
+	<t hangText="Description:">The "calendar-patch" preference
+        indicates that the client wishes for the server to use
+        calendar patch documents in the HTTP response rather than
+        entire calendar resources.  The value of the "since"
+        parameter provides the anchor point from which the server
+        should generate the patch documents.</t>
+
+	<t hangText="Reference:">RFCXXXX, <xref target="calendar-patch"/></t>
+
+	<t hangText="Notes:">This preference is only intended to be
+        used with CalDAV requests that expect calendar data to be
+        included in the response.
+	Furthermore, the "since" parameter is REQUIRED with this
+        preference.</t>
+      </list></t>
+
     </section> <!-- IANA -->
 
     <section title='Acknowledgments'>
@@ -254,6 +299,8 @@
     &rfc5789;
     &rfc6578;
     &rfc6638;
+    &rfc7230;
+    &rfc7240;
     </references>
 
 <!--
