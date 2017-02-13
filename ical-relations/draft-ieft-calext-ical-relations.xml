@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-<!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
 <!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
 <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
 <!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
 <!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
 <!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
+<!ENTITY I-D.daboo-caldav-attachments SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.daboo-caldav-attachments.xml">
 ]>
+
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc strict="yes" ?>
 <?rfc toc="yes"?>
@@ -16,10 +17,12 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-ietf-calext-ical-relations-00" ipr="trust200902">
+<rfc category="std"
+     updates='5545' 
+     docName="draft-ietf-calext-ical-relations-02" ipr="trust200902">
 
   <front>
-    <title abbrev="Icalendar Relationships">Support for Icalendar Relationships</title>
+    <title abbrev="iCalendar Relationships">Support for iCalendar Relationships</title>
 
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
@@ -38,11 +41,11 @@
       </address>
     </author>
 
-    <date month='August' year='2016' />
+    <date month='February' year='2017' />
 
     <area>Applications</area>
 
-    <keyword>icalendar</keyword>
+    <keyword>iCalendar</keyword>
 
     <keyword>link</keyword>
     <keyword>related-to</keyword>
@@ -50,9 +53,10 @@
 
     <abstract>
       <t>
-        This specification updates RELATED-TO and introduces new iCalendar
-        properties LINK, STRUCTURED-CATEGORY and REFID to allow better linking and
-        grouping of iCalendar components and related data.
+        This specification updates RELATED-TO defined in  
+        <xref target='RFC5545'/> and introduces new iCalendar
+        properties LINK, STRUCTURED-CATEGORY and REFID to allow better 
+        linking and grouping of iCalendar components and related data.
       </t>
     </abstract>
   </front>
@@ -60,16 +64,16 @@
   <middle>
     <section title="Introduction">
       <t>
-        Icalendar entities often need to be related to each other or to
+        iCalendar entities often need to be related to each other or to
         associated meta-data. These relationships can take the following
         forms
         <list style='hanging'>
           <t hangText="Structured iCalendar:">
-            Icalendar entities are related to each other in some structured
+            iCalendar entities are related to each other in some structured
             way, for example as parent, sibling, before, after.
           </t>
           <t hangText="Grouped iCalendar:">
-            Icalendar entities are related to each other as a group.
+            iCalendar entities are related to each other as a group.
             CATEGORIES are often used for this purpose but are problematic
             for application developers.
           </t>
@@ -90,7 +94,7 @@
           The RELTYPE parameter is extended to take new values
           defining temporal relationships, a GAP parameter is defined to provide
           lead and lag values and RELATED-TO is extended to allow URI values.
-          These changes allows the RELATED-TO property to define a richer set of
+          These changes allow the RELATED-TO property to define a richer set of
           relationships useful for project management.
         </t>
       </section>
@@ -99,8 +103,23 @@
         <t>
           This specification defines a new REFID property which
           allows arbitrary groups of entities to be associated with the same
-          key value. The presence of a REFID property imparts no meaning
-          to the event. It is merely a key to allow retrieval.
+          key value. 
+        </t>
+        
+        <t>
+          REFID is used to identify a key allowing the association of tasks
+          that are related to the same object and retrieval of a task based on
+          this key. This may be, for example, to identify the tasks associated
+          with a given project without having to communicate the task structure
+          of the project, or, for example, in a package delivery system
+          all tasks associated to a specific package.
+        </t>
+
+        <t>
+          As such, the presence of a REFID property imparts no meaning
+          to the event. It is merely a key to allow retrieval. This is
+          distinct from categorisation which, while allowing grouping
+          also adds meaning to the entity to which it is attached.
         </t>
       </section>
 
@@ -111,6 +130,18 @@
           and path-like values. Unlike REFID the category imparts some
           meaning. It is assumed that the value of this property will
           reference a well defined category.
+        </t>
+        
+        <t>
+          The current <xref target='RFC5545'/> CATEGORY property is used
+          as a free form 'tagging' field. As such it is difficult to establish
+          formal relationships between components based on their category.
+        </t>
+
+        <t>
+          Rather than attempt to add semantics to the current property 
+          it seeems best to continue its usage as an informal tag and
+          establish a new property with more constraints.
         </t>
       </section>
 
@@ -165,6 +196,7 @@
           server-side management and stripping of inline data. Clients
           may choose to handle attachments differently as they are often
           an integral part of the message - for example, the agenda.
+          See <xref target='I-D.daboo-caldav-attachments'/>
         </t>
       </section>
 
@@ -181,7 +213,8 @@
         </t>
       </section>
 
-      <section anchor="conventions" title='Conventions Used in This Document'>
+      <section anchor="conventions" 
+               title='Conventions Used in This Document'>
         <t>
           The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
           NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
@@ -235,9 +268,10 @@
       <t>
         Relationship parameter type values are defined in section 3.2.15. of
         <xref target='RFC5545'/>. This specification redefines that type to
-        include the new temporal relationship values FINISHTOSTART, FINISHTOFINISH,
+        include the new temporal relationship values FINISHTOSTART, 
+        FINISHTOFINISH,
         STARTTOFINISH and STARTTOSTART. It also adds the DEPENDS-ON
-        value to provide a link to an component upon which the current
+        value to provide a link to a component upon which the current
         component depends.
       </t>
 
@@ -250,22 +284,22 @@
               </preamble>
 
               <artwork type="abnf">
-       reltypeparam       = "RELTYPE" "="
-                           ("PARENT"    ; Parent relationship - Default
-                          / "CHILD"     ; Child relationship
-                          / "SIBLING"   ; Sibling relationship
-                          / "DEPENDS-ON" ; refers to previous task
-                          / "REFID"     ; Relationship based on REFID
-                          / "STRUCTURED-CATEGORY"
-                                    ; Relationship based on STRUCTURED-CATEGORY
-                          / "FINISHTOSTART" ;  Temporal relationship
-                          / "FINISHTOFINISH" ;  Temporal relationship
-                          / "STARTTOFINISH" ;  Temporal relationship
-                          / "STARTTOSTART" ;  Temporal relationship
-                          / iana-token  ; Some other IANA-registered
-                                        ; iCalendar relationship type
-                          / x-name)     ; A non-standard, experimental
-                                        ; relationship type
+  reltypeparam   = "RELTYPE" "="
+                   ("PARENT"    ; Parent relationship - Default
+                  / "CHILD"     ; Child relationship
+                  / "SIBLING"   ; Sibling relationship
+                  / "DEPENDS-ON" ; refers to previous task
+                  / "REFID"     ; Relationship based on REFID
+                  / "STRUCTURED-CATEGORY"
+                          ; Relationship based on STRUCTURED-CATEGORY
+                  / "FINISHTOSTART" ;  Temporal relationship
+                  / "FINISHTOFINISH" ;  Temporal relationship
+                  / "STARTTOFINISH" ;  Temporal relationship
+                  / "STARTTOSTART" ;  Temporal relationship
+                  / iana-token  ; Some other IANA-registered
+                                ; iCalendar relationship type
+                  / x-name)     ; A non-standard, experimental
+                                ; relationship type
               </artwork>
             </figure>
           </t>
@@ -282,7 +316,7 @@
           </t>
 
           <t>
-            It defines the temporal relationship when the value is one of
+            This parameter defines the temporal relationship when the value is one of
             the project management standard relationships
             FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
             This property will be present in the predecessor entity and
@@ -421,8 +455,8 @@
                 </preamble>
 
                 <artwork type="abnf">
-  relparam      = "REL" "="
-                  ("SOURCE"      ; Link to source of this component
+  relparam     = "REL" "="
+                 ("SOURCE"      ; Link to source of this component
                  / DQUOTE uri DQUOTE
                  / x-name        ; Experimental reference type
                  / iana-token)   ; Other IANA registered type
@@ -531,7 +565,7 @@
 
             <t hangText="Purpose:">
               This property defines the formal categories for a calendar
-              component.
+              component. 
             </t>
 
             <t hangText="Value type:">
@@ -569,9 +603,14 @@
             </t>
 
             <t>
+              Possible category resources are the various proprietary
+              systems, for example Library of Congress, or an open
+              source such as dmoz.org.
+            </t>
+
+            <t>
               In addition, a structured URI value allows for
-              hierarchical
-              categorization of org.bedework.util.jms.events.
+              hierarchical categorization of events.
             </t>
 
             <t hangText="Format Definition:">
@@ -581,7 +620,8 @@
                 </preamble>
 
                 <artwork>
-  structured-category = "STRUCTURED-CATEGORY" structcatparam ":" uri CRLF
+  structured-category = "STRUCTURED-CATEGORY" structcatparam ":" 
+                        uri CRLF
 
   structcatparam = *(
                 ;
@@ -652,10 +692,18 @@
                 </preamble>
 
                 <artwork>
-  link            = "LINK" linkparam ":" ( ":" uri ) /
+  link            = "LINK" linkparam  /
+                    (
+                      ";" "VALUE" "=" "TEXT"
+                      ":" text
+                    )
                     (
                       ";" "VALUE" "=" "REFERENCE"
                       ":" text
+                    )
+                    (
+                      ";" "VALUE" "=" "URI"
+                      ":" uri
                     )
                     CRLF
 
@@ -787,16 +835,16 @@
               This property is used to represent a relationship or
               reference between one calendar component and another. The definition
               here extends the definition in Section 3.8.4.5. of
-              <xref target='RFC5545'/> by allowing URI values and a GAP parameter.
+              <xref target='RFC5545'/> by allowing URI or UID values and a GAP parameter.
             </t>
 
             <t hangText="Value type:">
-              URI or TEXT
+              URI, UID or TEXT
             </t>
 
             <t hangText="Property Parameters:">
-              Non-standard, reference type, gap, value or format type parameters can be
-              specified on this property.
+              Relationship type, IANA and non-standard
+              property parameters can be specified on this property.
             </t>
 
             <t hangText="Conformance:">
@@ -967,10 +1015,6 @@
           <c>GAP</c>
           <c>Current</c>
           <c><xref target="gap"/></c>
-
-          <c>STRUCTURED-CATEGORY</c>
-          <c>Current</c>
-          <c><xref target="structured_category"/></c>
         </texttable>
       </section>
 
@@ -1007,13 +1051,9 @@
         </t>
 
         <texttable>
-          <ttcol align="left">Parameter</ttcol>
+          <ttcol align="left">Relationship Type</ttcol>
           <ttcol align="left">Status</ttcol>
           <ttcol align="left">Reference</ttcol>
-
-          <c>REL</c>
-          <c>Current</c>
-          <c><xref target="redefined_relation_type_value"/></c>
 
           <c>DEPENDS-ON</c>
           <c>Current</c>
@@ -1072,10 +1112,10 @@
         individuals for contributing their ideas, support and comments:
       </t>
       <t>
-        Adrian Apthorp, Cyrus Daboo, Marten Gajda
+        Adrian Apthorp, Cyrus Daboo, Marten Gajda, Ken Murchison
       </t>
       <t>
-        The authors would also like to thank the Calendaring and
+        The author would also like to thank the Calendaring and
         Scheduling Consortium for advice with this specification.
       </t>
     </section>
@@ -1101,10 +1141,10 @@
       &RFC2119;
       &RFC5545;
       &RFC5988;
-      &RFC3688;
       &RFC3986;
       &W3C.REC-xml-20060816;
       &W3C.WD-xptr-xpointer-20021219;
+      &I-D.daboo-caldav-attachments;
     </references>
 
     <section title="Change log">

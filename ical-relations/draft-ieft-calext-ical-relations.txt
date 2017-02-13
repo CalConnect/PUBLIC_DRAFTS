@@ -4,18 +4,20 @@
 
 Network Working Group                                        M. Douglass
 Internet-Draft                                       Spherical Cow Group
-Intended status: Standards Track                         August 24, 2016
-Expires: February 25, 2017
+Updates: 5545 (if approved)                            February 10, 2017
+Intended status: Standards Track
+Expires: August 14, 2017
 
 
-                  Support for Icalendar Relationships
-                  draft-ietf-calext-ical-relations-00
+                  Support for iCalendar Relationships
+                  draft-ietf-calext-ical-relations-02
 
 Abstract
 
-   This specification updates RELATED-TO and introduces new iCalendar
-   properties LINK, STRUCTURED-CATEGORY and REFID to allow better
-   linking and grouping of iCalendar components and related data.
+   This specification updates RELATED-TO defined in [RFC5545] and
+   introduces new iCalendar properties LINK, STRUCTURED-CATEGORY and
+   REFID to allow better linking and grouping of iCalendar components
+   and related data.
 
 Status of This Memo
 
@@ -32,11 +34,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 25, 2017.
+   This Internet-Draft will expire on August 14, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -51,11 +53,9 @@ Copyright Notice
 
 
 
-
-
-Douglass                Expires February 25, 2017               [Page 1]
+Douglass                 Expires August 14, 2017                [Page 1]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
 Table of Contents
@@ -64,54 +64,54 @@ Table of Contents
      1.1.  Structured iCalendar relationships  . . . . . . . . . . .   3
      1.2.  Grouped iCalendar relationships . . . . . . . . . . . . .   3
      1.3.  Structured category relationships . . . . . . . . . . . .   3
-     1.4.  Linked relationships  . . . . . . . . . . . . . . . . . .   3
+     1.4.  Linked relationships  . . . . . . . . . . . . . . . . . .   4
      1.5.  Caching and offline use . . . . . . . . . . . . . . . . .   4
-     1.6.  Conventions Used in This Document . . . . . . . . . . . .   4
-   2.  Reference Types . . . . . . . . . . . . . . . . . . . . . . .   4
+     1.6.  Conventions Used in This Document . . . . . . . . . . . .   5
+   2.  Reference Types . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Link Relation Types . . . . . . . . . . . . . . . . . . . . .   5
    4.  Redefined Relation Type Value . . . . . . . . . . . . . . . .   5
    5.  New Property Parameters . . . . . . . . . . . . . . . . . . .   8
      5.1.  Rel . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     5.2.  Gap . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     5.2.  Gap . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    6.  New Value Data Types  . . . . . . . . . . . . . . . . . . . .   9
-   7.  New Properties  . . . . . . . . . . . . . . . . . . . . . . .   9
-     7.1.  Structured-Category . . . . . . . . . . . . . . . . . . .   9
-     7.2.  Link  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     7.3.  Refid . . . . . . . . . . . . . . . . . . . . . . . . . .  12
-   8.  Redefined RELATED-TO Property . . . . . . . . . . . . . . . .  12
-     8.1.  RELATED-TO  . . . . . . . . . . . . . . . . . . . . . . .  13
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  15
-     10.1.  iCalendar Property Registrations . . . . . . . . . . . .  15
-     10.2.  iCalendar Property Parameter Registrations . . . . . . .  15
-     10.3.  iCalendar Value Data Type Registrations  . . . . . . . .  15
-     10.4.  iCalendar RELTYPE Value Registrations  . . . . . . . . .  16
-     10.5.  New Reference Type Registration  . . . . . . . . . . . .  16
-   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  16
-   12. Normative References  . . . . . . . . . . . . . . . . . . . .  17
-   Appendix A.  Change log . . . . . . . . . . . . . . . . . . . . .  17
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  18
+   7.  New Properties  . . . . . . . . . . . . . . . . . . . . . . .  10
+     7.1.  Structured-Category . . . . . . . . . . . . . . . . . . .  10
+     7.2.  Link  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     7.3.  Refid . . . . . . . . . . . . . . . . . . . . . . . . . .  13
+   8.  Redefined RELATED-TO Property . . . . . . . . . . . . . . . .  13
+     8.1.  RELATED-TO  . . . . . . . . . . . . . . . . . . . . . . .  14
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  16
+   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  16
+     10.1.  iCalendar Property Registrations . . . . . . . . . . . .  16
+     10.2.  iCalendar Property Parameter Registrations . . . . . . .  16
+     10.3.  iCalendar Value Data Type Registrations  . . . . . . . .  16
+     10.4.  iCalendar RELTYPE Value Registrations  . . . . . . . . .  17
+     10.5.  New Reference Type Registration  . . . . . . . . . . . .  17
+   11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
+   12. Normative References  . . . . . . . . . . . . . . . . . . . .  18
+   Appendix A.  Change log . . . . . . . . . . . . . . . . . . . . .  18
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
 
-   Icalendar entities often need to be related to each other or to
+   iCalendar entities often need to be related to each other or to
    associated meta-data.  These relationships can take the following
    forms
 
-   Structured iCalendar:  Icalendar entities are related to each other
+   Structured iCalendar:  iCalendar entities are related to each other
       in some structured way, for example as parent, sibling, before,
       after.
 
-   Grouped iCalendar:  Icalendar entities are related to each other as a
+   Grouped iCalendar:  iCalendar entities are related to each other as a
       group.  CATEGORIES are often used for this purpose but are
       problematic for application developers.
 
 
 
 
-Douglass                Expires February 25, 2017               [Page 2]
+Douglass                 Expires August 14, 2017                [Page 2]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
    Linked:  Entities are linked to each other through typed references.
@@ -125,15 +125,26 @@ Internet-Draft           Icalendar Relationships             August 2016
    The RELTYPE parameter is extended to take new values defining
    temporal relationships, a GAP parameter is defined to provide lead
    and lag values and RELATED-TO is extended to allow URI values.  These
-   changes allows the RELATED-TO property to define a richer set of
+   changes allow the RELATED-TO property to define a richer set of
    relationships useful for project management.
 
 1.2.  Grouped iCalendar relationships
 
    This specification defines a new REFID property which allows
    arbitrary groups of entities to be associated with the same key
-   value.  The presence of a REFID property imparts no meaning to the
-   event.  It is merely a key to allow retrieval.
+   value.
+
+   REFID is used to identify a key allowing the association of tasks
+   that are related to the same object and retrieval of a task based on
+   this key.  This may be, for example, to identify the tasks associated
+   with a given project without having to communicate the task structure
+   of the project, or, for example, in a package delivery system all
+   tasks associated to a specific package.
+
+   As such, the presence of a REFID property imparts no meaning to the
+   event.  It is merely a key to allow retrieval.  This is distinct from
+   categorisation which, while allowing grouping also adds meaning to
+   the entity to which it is attached.
 
 1.3.  Structured category relationships
 
@@ -142,6 +153,22 @@ Internet-Draft           Icalendar Relationships             August 2016
    path-like values.  Unlike REFID the category imparts some meaning.
    It is assumed that the value of this property will reference a well
    defined category.
+
+   The current [RFC5545] CATEGORY property is used as a free form
+   'tagging' field.  As such it is difficult to establish formal
+   relationships between components based on their category.
+
+   Rather than attempt to add semantics to the current property it
+   seeems best to continue its usage as an informal tag and establish a
+   new property with more constraints.
+
+
+
+
+Douglass                 Expires August 14, 2017                [Page 3]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
 
 1.4.  Linked relationships
 
@@ -162,14 +189,6 @@ Internet-Draft           Icalendar Relationships             August 2016
 
    It is often necessary to relate calendar components.  The current
    RELATED-TO property only allows for a UID which is inadequate for
-
-
-
-Douglass                Expires February 25, 2017               [Page 3]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
    many purposes.  Allowing other types may help but might raise a
    number of backward compatibility issues.  The link property can link
    components in different collections or even on different servers.
@@ -188,7 +207,8 @@ Internet-Draft           Icalendar Relationships             August 2016
    The ATTACH property is being extended to handle server-side
    management and stripping of inline data.  Clients may choose to
    handle attachments differently as they are often an integral part of
-   the message - for example, the agenda.
+   the message - for example, the agenda.  See
+   [I-D.daboo-caldav-attachments]
 
 1.5.  Caching and offline use
 
@@ -197,6 +217,14 @@ Internet-Draft           Icalendar Relationships             August 2016
 
    In general, the calendar entity should be self explanatory without
    the need to download referenced meta-data such as a web page.
+
+
+
+
+Douglass                 Expires August 14, 2017                [Page 4]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
 
 1.6.  Conventions Used in This Document
 
@@ -217,15 +245,6 @@ Internet-Draft           Icalendar Relationships             August 2016
 
    REFERENCE:  An xpointer.  In an XML environment it may be necessary
       to refer to an external XML artifact.  The XPointer is defined in
-
-
-
-
-Douglass                Expires February 25, 2017               [Page 4]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
       [W3C.WD-xptr-xpointer-20021219] and allows addressing portions of
       XML documents.
 
@@ -245,56 +264,61 @@ Internet-Draft           Icalendar Relationships             August 2016
    [RFC5545].  This specification redefines that type to include the new
    temporal relationship values FINISHTOSTART, FINISHTOFINISH,
    STARTTOFINISH and STARTTOSTART.  It also adds the DEPENDS-ON value to
-   provide a link to an component upon which the current component
+   provide a link to a component upon which the current component
    depends.
 
    Format Definition:
 
+
+
+
+
+
+
+
+
+Douglass                 Expires August 14, 2017                [Page 5]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
+
    This property parameter is defined by the following notation:
 
-       reltypeparam       = "RELTYPE" "="
-                           ("PARENT"    ; Parent relationship - Default
-                          / "CHILD"     ; Child relationship
-                          / "SIBLING"   ; Sibling relationship
-                          / "DEPENDS-ON" ; refers to previous task
-                          / "REFID"     ; Relationship based on REFID
-                          / "STRUCTURED-CATEGORY"
-                                    ; Relationship based on STRUCTURED-CATEGORY
-                          / "FINISHTOSTART" ;  Temporal relationship
-                          / "FINISHTOFINISH" ;  Temporal relationship
-                          / "STARTTOFINISH" ;  Temporal relationship
-                          / "STARTTOSTART" ;  Temporal relationship
-                          / iana-token  ; Some other IANA-registered
-                                        ; iCalendar relationship type
-                          / x-name)     ; A non-standard, experimental
-                                        ; relationship type
+     reltypeparam   = "RELTYPE" "="
+                      ("PARENT"    ; Parent relationship - Default
+                     / "CHILD"     ; Child relationship
+                     / "SIBLING"   ; Sibling relationship
+                     / "DEPENDS-ON" ; refers to previous task
+                     / "REFID"     ; Relationship based on REFID
+                     / "STRUCTURED-CATEGORY"
+                             ; Relationship based on STRUCTURED-CATEGORY
+                     / "FINISHTOSTART" ;  Temporal relationship
+                     / "FINISHTOFINISH" ;  Temporal relationship
+                     / "STARTTOFINISH" ;  Temporal relationship
+                     / "STARTTOSTART" ;  Temporal relationship
+                     / iana-token  ; Some other IANA-registered
+                                   ; iCalendar relationship type
+                     / x-name)     ; A non-standard, experimental
+                                   ; relationship type
 
    Description:  This parameter can be specified on a property that
       references another related calendar component.  The parameter may
       specify the hierarchical relationship type of the calendar
       component referenced by the property when the value is PARENT,
       CHILD or SIBLING.  If this parameter is not specified on an
-
-
-
-Douglass                Expires February 25, 2017               [Page 5]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
       allowable property, the default relationship type is PARENT.
       Applications MUST treat x-name and iana-token values they don't
       recognize the same way as they would the PARENT value.
 
-      It defines the temporal relationship when the value is one of the
-      project management standard relationships FINISHTOSTART,
-      FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.  This property will
-      be present in the predecessor entity and will refer to the
-      successor entity.  The GAP parameter specifies the lead or lag
-      time between the predecessor and the successor.  In the
-      description of each temporal relationship below we refer to Task-A
-      which contains and controls the relationship and Task-B the target
-      of the relationship.
+      This parameter defines the temporal relationship when the value is
+      one of the project management standard relationships
+      FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
+      This property will be present in the predecessor entity and will
+      refer to the successor entity.  The GAP parameter specifies the
+      lead or lag time between the predecessor and the successor.  In
+      the description of each temporal relationship below we refer to
+      Task-A which contains and controls the relationship and Task-B the
+      target of the relationship.
 
    RELTYPE=PARENT:  See [RFC5545] section 3.2.15.
 
@@ -306,6 +330,13 @@ Internet-Draft           Icalendar Relationships             August 2016
       depends on the referenced calendar component in some manner.  For
       example a task may be blocked waiting on the other, referenced,
       task.
+
+
+
+Douglass                 Expires August 14, 2017                [Page 6]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
 
    RELTYPE=REFID:  Establishes a reference from the current component to
       components with a REFID property which matches the value given in
@@ -331,13 +362,6 @@ Internet-Draft           Icalendar Relationships             August 2016
 
                   Figure 1: Finish to start relationship
 
-
-
-Douglass                Expires February 25, 2017               [Page 6]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
    RELTYPE=FINISHTOFINISH:  Task-B cannot finish before Task-A is
       finished, that is the end of Task-A defines the end of Task-B.
       For example, we start the potatoes, then the meat then the peas
@@ -357,6 +381,17 @@ Internet-Draft           Icalendar Relationships             August 2016
    RELTYPE=STARTTOFINISH:  The start of Task-A (which occurs after Task-
       B) controls the finish of Task-B.  For example, ticket sales
       (Task-B) end when the game starts (Task-A).
+
+
+
+
+
+
+
+
+Douglass                 Expires August 14, 2017                [Page 7]
+
+Internet-Draft           iCalendar Relationships           February 2017
 
 
                                         ============
@@ -383,17 +418,6 @@ Internet-Draft           Icalendar Relationships             August 2016
 
                    Figure 4: Start to start relationship
 
-
-
-
-
-
-
-Douglass                Expires February 25, 2017               [Page 7]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
 5.  New Property Parameters
 
 5.1.  Rel
@@ -407,8 +431,8 @@ Internet-Draft           Icalendar Relationships             August 2016
 
    This parameter is defined by the following notation:
 
-     relparam      = "REL" "="
-                     ("SOURCE"      ; Link to source of this component
+     relparam     = "REL" "="
+                    ("SOURCE"      ; Link to source of this component
                     / DQUOTE uri DQUOTE
                     / x-name        ; Experimental reference type
                     / iana-token)   ; Other IANA registered type
@@ -417,6 +441,15 @@ Internet-Draft           Icalendar Relationships             August 2016
       properties, and defines the type of reference.  This allows
       programs consuming this data to automatically scan for references
       they support.  In addition to the values defined here any value
+
+
+
+
+Douglass                 Expires August 14, 2017                [Page 8]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
+
       defined in [RFC5988] may be used.  There is no default relation
       type.
 
@@ -443,13 +476,6 @@ Internet-Draft           Icalendar Relationships             August 2016
       time between a task and its logical successor.  When negative it
       defines the lead time.
 
-
-
-Douglass                Expires February 25, 2017               [Page 8]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
       An example of lag time might be if task A is "paint the room" and
       task B is "hang the drapes" then task A may be related to task B
       with RELTYPE=FINISHTOSTART with a gap long enough for the paint to
@@ -469,6 +495,16 @@ Internet-Draft           Icalendar Relationships             August 2016
 
    REFERENCE  VALUE=REFERENCE indicates that the associated value is an
       xpointer referencing an associated XML artifact.
+
+
+
+
+
+
+Douglass                 Expires August 14, 2017                [Page 9]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
 
 7.  New Properties
 
@@ -498,35 +534,47 @@ Internet-Draft           Icalendar Relationships             August 2016
 
       This categorization is distinct from the more informal "tagging"
       of components provided by the existing CATEGORIES property.  It is
-
-
-
-Douglass                Expires February 25, 2017               [Page 9]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
       expected that the value of the STRUCTURED-CATEGORY property will
       reference an external resource which provides information about
       the categorization.
 
+      Possible category resources are the various proprietary systems,
+      for example Library of Congress, or an open source such as
+      dmoz.org.
+
       In addition, a structured URI value allows for hierarchical
-      categorization of org.bedework.util.jms.events.
+      categorization of events.
 
    Format Definition:
 
+
+
+
+
+
+
+
+
+
+
+Douglass                 Expires August 14, 2017               [Page 10]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
+
    This property is defined by the following notation:
 
-  structured-category = "STRUCTURED-CATEGORY" structcatparam ":" uri CRLF
+     structured-category = "STRUCTURED-CATEGORY" structcatparam ":"
+                           uri CRLF
 
-  structcatparam = *(
-                ;
-                ; The following is OPTIONAL,
-                ; and MAY occur more than once.
-                ;
-                (";" other-param)
-                ;
-                )
+     structcatparam = *(
+                   ;
+                   ; The following is OPTIONAL,
+                   ; and MAY occur more than once.
+                   ;
+                   (";" other-param)
+                   ;
+                   )
 
 
    Example:
@@ -553,27 +601,37 @@ Internet-Draft           Icalendar Relationships             August 2016
    Conformance:  This property MAY be specified in any iCalendar
       component.
 
-
-
-
-
-Douglass                Expires February 25, 2017              [Page 10]
-
-Internet-Draft           Icalendar Relationships             August 2016
-
-
    Description:  When used in a component the value of this property
       points to additional information related to the component.  For
       example, it may reference the originating web server.
 
    Format Definition:
 
+
+
+
+
+
+
+Douglass                 Expires August 14, 2017               [Page 11]
+
+Internet-Draft           iCalendar Relationships           February 2017
+
+
    This property is defined by the following notation:
 
-     link            = "LINK" linkparam ":" ( ":" uri ) /
+     link            = "LINK" linkparam  /
+                       (
+                         ";" "VALUE" "=" "TEXT"
+                         ":" text
+                       )
                        (
                          ";" "VALUE" "=" "REFERENCE"
                          ":" text
+                       )
+                       (
+                         ";" "VALUE" "=" "URI"
+                         ":" uri
                        )
                        CRLF
 
@@ -611,11 +669,9 @@ Internet-Draft           Icalendar Relationships             August 2016
 
 
 
-
-
-Douglass                Expires February 25, 2017              [Page 11]
+Douglass                 Expires August 14, 2017               [Page 12]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
 7.3.  Refid
@@ -669,9 +725,9 @@ Internet-Draft           Icalendar Relationships             August 2016
 
 
 
-Douglass                Expires February 25, 2017              [Page 12]
+Douglass                 Expires August 14, 2017               [Page 13]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
 8.1.  RELATED-TO
@@ -681,12 +737,12 @@ Internet-Draft           Icalendar Relationships             August 2016
    Purpose:  This property is used to represent a relationship or
       reference between one calendar component and another.  The
       definition here extends the definition in Section 3.8.4.5. of
-      [RFC5545] by allowing URI values and a GAP parameter.
+      [RFC5545] by allowing URI or UID values and a GAP parameter.
 
-   Value type:  URI or TEXT
+   Value type:  URI, UID or TEXT
 
-   Property Parameters:  Non-standard, reference type, gap, value or
-      format type parameters can be specified on this property.
+   Property Parameters:  Relationship type, IANA and non-standard
+      property parameters can be specified on this property.
 
    Conformance:  This property MAY be specified in any iCalendar
       component.
@@ -725,9 +781,9 @@ Internet-Draft           Icalendar Relationships             August 2016
 
 
 
-Douglass                Expires February 25, 2017              [Page 13]
+Douglass                 Expires August 14, 2017               [Page 14]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
       property is intended only to provide information on the
@@ -781,9 +837,9 @@ Internet-Draft           Icalendar Relationships             August 2016
 
 
 
-Douglass                Expires February 25, 2017              [Page 14]
+Douglass                 Expires August 14, 2017               [Page 15]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
 9.  Security Considerations
@@ -816,13 +872,12 @@ Internet-Draft           Icalendar Relationships             August 2016
    the iCalendar Parameters Registry defined in Section 8.3.3 of
    [RFC5545]
 
-              +---------------------+---------+-------------+
-              | Parameter           | Status  | Reference   |
-              +---------------------+---------+-------------+
-              | REL                 | Current | Section 5.1 |
-              | GAP                 | Current | Section 5.2 |
-              | STRUCTURED-CATEGORY | Current | Section 7.1 |
-              +---------------------+---------+-------------+
+                   +-----------+---------+-------------+
+                   | Parameter | Status  | Reference   |
+                   +-----------+---------+-------------+
+                   | REL       | Current | Section 5.1 |
+                   | GAP       | Current | Section 5.2 |
+                   +-----------+---------+-------------+
 
 10.3.  iCalendar Value Data Type Registrations
 
@@ -837,9 +892,10 @@ Internet-Draft           Icalendar Relationships             August 2016
 
 
 
-Douglass                Expires February 25, 2017              [Page 15]
+
+Douglass                 Expires August 14, 2017               [Page 16]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
                  +-----------------+---------+-----------+
@@ -858,7 +914,6 @@ Internet-Draft           Icalendar Relationships             August 2016
                +---------------------+---------+-----------+
                | Parameter           | Status  | Reference |
                +---------------------+---------+-----------+
-               | REL                 | Current | Section 4 |
                | DEPENDS-ON          | Current | Section 4 |
                | REFID               | Current | Section 4 |
                | STRUCTURED-CATEGORY | Current | Section 4 |
@@ -885,29 +940,31 @@ Internet-Draft           Icalendar Relationships             August 2016
    Scheduling Consortium technical committees and the following
    individuals for contributing their ideas, support and comments:
 
-   Adrian Apthorp, Cyrus Daboo, Marten Gajda
+   Adrian Apthorp, Cyrus Daboo, Marten Gajda, Ken Murchison
 
-   The authors would also like to thank the Calendaring and Scheduling
+   The author would also like to thank the Calendaring and Scheduling
    Consortium for advice with this specification.
 
 
 
 
-Douglass                Expires February 25, 2017              [Page 16]
+
+Douglass                 Expires August 14, 2017               [Page 17]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
 12.  Normative References
+
+   [I-D.daboo-caldav-attachments]
+              Daboo, C. and A. Quillaud, "CalDAV Managed Attachments",
+              draft-daboo-caldav-attachments-03 (work in progress),
+              February 2014.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <http://www.rfc-editor.org/info/rfc2119>.
-
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <http://www.rfc-editor.org/info/rfc3688>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
@@ -948,10 +1005,9 @@ Appendix A.  Change log
 
 
 
-
-Douglass                Expires February 25, 2017              [Page 17]
+Douglass                 Expires August 14, 2017               [Page 18]
 
-Internet-Draft           Icalendar Relationships             August 2016
+Internet-Draft           iCalendar Relationships           February 2017
 
 
    o  Add STRUCTURED-CATEGORY property.
@@ -1005,4 +1061,4 @@ Author's Address
 
 
 
-Douglass                Expires February 25, 2017              [Page 18]
+Douglass                 Expires August 14, 2017               [Page 19]
