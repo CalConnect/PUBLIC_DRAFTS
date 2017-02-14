@@ -4,9 +4,9 @@
 
 Network Working Group                                        M. Douglass
 Internet-Draft                                       Spherical Cow Group
-Updates: 5545,5546 (if approved)                        November 8, 2016
+Updates: 5545,5546 (if approved)                       February 13, 2017
 Intended status: Standards Track
-Expires: May 12, 2017
+Expires: August 17, 2017
 
 
                      Calendar subscription upgrades
@@ -32,11 +32,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 12, 2017.
+   This Internet-Draft will expire on August 17, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Douglass                  Expires May 12, 2017                  [Page 1]
+Douglass                 Expires August 17, 2017                [Page 1]
 
-Internet-Draft       Calendar subscription upgrades        November 2016
+Internet-Draft       Calendar subscription upgrades        February 2017
 
 
 Table of Contents
@@ -81,14 +81,14 @@ Table of Contents
 1.  Introduction
 
    Currently clients subscribe to calendar feeds as an ics file which is
-   oftenb published as a resource accessible using the unofficila
+   often published as a resource accessible using the unofficial
    'webcal' scheme.
 
    The only available option for updating that resource is the usual
-   http polling of cached resources using etags.
+   HTTP polling of cached resources using Etags.
 
    There is the usual tension between clients wishing to see a timely
-   response to changes and servers not wising to be overloaded by
+   response to changes and servers not wishing to be overloaded by
    frequent requests for possibly large amounts of data.
 
    This specification introduces an approach whereby clients can
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Douglass                  Expires May 12, 2017                  [Page 2]
+Douglass                 Expires August 17, 2017                [Page 2]
 
-Internet-Draft       Calendar subscription upgrades        November 2016
+Internet-Draft       Calendar subscription upgrades        February 2017
 
 
    "OPTIONAL" in this document are to be interpreted as described in
@@ -119,14 +119,14 @@ Internet-Draft       Calendar subscription upgrades        November 2016
 
 2.  Changes to the iCalendar specifications
 
-   This speciifcation does not require any chnages to [RFC5545]  or its
+   This speciifcation does not require any changes to [RFC5545]  or its
    extensions.  However it does introduce the use of some properties to
    provide more information about the resource, for example the time
    range it covers.
 
 3.  Link Header
 
-   The advertizing of other access points is achieved through the use of
+   The advertising of other access points is achieved through the use of
    the LINK header as defined in [RFC5988].  New link relation types are
    defined in this specification - each being associated with a protocol
    or protocol subset.
@@ -159,15 +159,15 @@ Internet-Draft       Calendar subscription upgrades        November 2016
    This allows the client to issue a sync-report on the resource to
    obtain updates.
 
-   NOTE: say somethign about initial startup - use ics to populate?
+   NOTE: say something about initial startup - use ics to populate?
    Initial token?
 
 
 
 
-Douglass                  Expires May 12, 2017                  [Page 3]
+Douglass                 Expires August 17, 2017                [Page 3]
 
-Internet-Draft       Calendar subscription upgrades        November 2016
+Internet-Draft       Calendar subscription upgrades        February 2017
 
 
    The client MUST follow that specification.
@@ -221,9 +221,9 @@ Internet-Draft       Calendar subscription upgrades        November 2016
 
 
 
-Douglass                  Expires May 12, 2017                  [Page 4]
+Douglass                 Expires August 17, 2017                [Page 4]
 
-Internet-Draft       Calendar subscription upgrades        November 2016
+Internet-Draft       Calendar subscription upgrades        February 2017
 
 
    The authors would also like to thank the Calendaring and Scheduling
@@ -277,9 +277,9 @@ Internet-Draft       Calendar subscription upgrades        November 2016
 
 
 
-Douglass                  Expires May 12, 2017                  [Page 5]
+Douglass                 Expires August 17, 2017                [Page 5]
 
-Internet-Draft       Calendar subscription upgrades        November 2016
+Internet-Draft       Calendar subscription upgrades        February 2017
 
 
    [W3C.REC-xml-20060816]
@@ -333,4 +333,4 @@ Author's Address
 
 
 
-Douglass                  Expires May 12, 2017                  [Page 6]
+Douglass                 Expires August 17, 2017                [Page 6]
