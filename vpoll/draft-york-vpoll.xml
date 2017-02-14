@@ -1513,7 +1513,7 @@
 
   voteprop = *(
               ;
-              ; The following are OPTIONAL,
+              ; The following are REQUIRED,
               ; but MUST NOT occur more than once.
               ;
               pollitemid / response /
