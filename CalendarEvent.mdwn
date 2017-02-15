@@ -403,7 +403,7 @@ The value associated with each pointer is either:
 
 Corresponds to the RDATE and EXDATE properties in iCalendar, plus VEVENT instances with a Recurrence-Id.
 
-# Scheduling properties
+# Sharing and scheduling properties
 
 ## status
 
@@ -424,6 +424,38 @@ Type: `Boolean` (Defaults to `false` if omitted)
 If true, the event should be ignored when calculating free/busy data for the user.
 
 Corresponds to the TRANSP property in iCalendar.
+
+## privacy
+
+Type: `String` (Defaults to `public` if omitted)
+
+Events are normally collected together to form a calendar. This calendar may be shared with other users, to enable them to better coordinate. This value allows the calendar owner to indicate that some events should not be shared, or should only have the time information shared but the details withheld.
+
+As JSEvent is simply a data model, enforcement of the restrictions indicated by this property are up to the implementations.
+
+This property MUST NOT affect the information sent to scheduled participants; it is only interpreted when the event is shared as part of a shared calendar.
+
+The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/topsecret`. Any value the client or server doesn't understand should be preserved but treated as equivalent to `private`.
+
+- `public`: The full details of the event are visible to those whom the event's calendar is shared with.
+- `private`: The details of the event are hidden; only the basic time and
+  metadata is shared. Implementations SHOULD ensure the following properties are
+  stripped when the event is accessed by a sharee:
+
+  - `title`
+  - `description`
+  - `locations`
+  - `links`
+  - `locale`
+  - `localizations`
+  - `participants`
+  - `replyTo`
+
+  In addition, any patches in `recurrenceOverrides` whose key is prefixed with one of the above properties SHOULD be stripped.
+
+- `secret`: The event is hidden completely (as though it did not exist) when the calendar is shared.
+
+Corresponds to the CLASS property in iCalendar.
 
 ## replyTo
 
