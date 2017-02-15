@@ -260,11 +260,11 @@ See the description of *recurrenceOverrides* for the structure of the PatchObjec
 
 Corresponds to the LANGUAGE parameter in iCalendar, which is added to individual properties. When converting from iCalendar, one language must be picked as the main *locale* for the event, and all properties in other languages moved to the *localizations* JSEvent property.
 
-## Categories
+## keywords
 
 Type: `String[]|null`
 
-A list of categories, keywords or types related to the event. The values are free form and do not have to follow any particular structure.
+A list keywords or tags related to the event. The values are freeform and do not have to follow any particular structure.
 
 Corresponds to the CATEGORIES property in iCalendar.
 
