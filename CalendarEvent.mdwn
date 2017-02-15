@@ -260,6 +260,14 @@ See the description of *recurrenceOverrides* for the structure of the PatchObjec
 
 Corresponds to the LANGUAGE parameter in iCalendar, which is added to individual properties. When converting from iCalendar, one language must be picked as the main *locale* for the event, and all properties in other languages moved to the *localizations* JSEvent property.
 
+## Categories
+
+Type: `String[]|null`
+
+A list of categories, keywords or types related to the event. The values are free form and do not have to follow any particular structure.
+
+Corresponds to the CATEGORIES property in iCalendar.
+
 # Time, duration and recurrence properties
 
 ## isAllDay
@@ -386,7 +394,7 @@ A **PatchObject** is of type `String[*|null]`, and represents an unordered set o
 
 The keys are a path in a subset of [@!RFC6901] JSON pointer format, with an implicit leading `/` (i.e. prefix each key with `/` before applying the JSON pointer evaluation algorithm).
 
-A pointer MUST NOT start with one of the following prefixes; any patch with a such a key MUST be ignored:
+A pointer MUST NOT start with one of the following prefixes; any patch with such a key MUST be ignored:
 
 - `uid`
 - `relatedTo`
