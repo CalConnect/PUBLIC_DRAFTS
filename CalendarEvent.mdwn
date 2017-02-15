@@ -161,8 +161,8 @@ A **Location** object has the following properties. All properties are optional,
 - **name**: `String`
   The human-readable name of the location.
 
-- **accessInstructions**: `String`
-  Human-readable instructions for accessing this location. This may be a set of directions, door access code, etc.
+- **description**: `String`
+  Human-readable instructions for accessing this location. This may be an address, set of directions, door access code, etc.
 
 - **rel**: `String`
   The relation type of this location to the event. This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/customrel`. Any value the client or server doesn't understand should be treated the same as `unknown`.
@@ -175,34 +175,17 @@ A **Location** object has the following properties. All properties are optional,
 - **timeZone**: `String` (IANA TZ name)
   A time zone for this location. If omitted, the event time zone MUST be used for this location.
 
-- **address**: `Address`
-  The structured address of this location.
-
-    An **Address** object has the following properties. All properties MUST
-    be included, but may be the empty string:
-
-    - **street**: `String`
-      The street address. This MAY be multiple lines; newlines MUST be preserved.
-
-    - **locality**: `String`
-      The city, town, village, post town, or other locality within which the street address may be found.
-
-    - **region**: `String`
-      The province, such as a state, county, or canton within which the locality may be found.
-
-    - **postcode**: `String`
-      The postal code, post code, ZIP code or other short code associated with the address by the relevant country's postal system.
-
-    - **country**: `String`
-      The country name.
-
 - **coordinates**: `String`
   An [@!RFC5870] `geo:` URI for the location.
 
 - **uri**: `String`
   A URI that represents how to connect to the event from this location. This may be a telephone number (represented as `tel:+1-555-555-555`) for a teleconference, a web address for online chat, or a custom URI for something like Skype (e.g. `skype:username`).
 
-Corresponds to the LOCATION property in iCalendar, however this representation is much richer than is supported by iCalendar. When converting from iCalendar, the LOCATION property should become a single location with just a *name* property. If the event has a different end time zone to start time zone, this should be added as a second location with just a *timeZone* property.
+- **linkIds**: `String[]|null` (optional, defaults to `null`)
+  Links to alternate representations of this location, for example in vCard format. If a given value does not correspond to any link id in the *links*
+  property of the instance, this MUST be ignored.
+
+Corresponds to the LOCATION property in iCalendar, however this representation is much richer than is supported by iCalendar. When converting from iCalendar, the LOCATION property should become a single location with just a *description* property. If the event has a different end time zone to start time zone, this should be added as a second location with just a *timeZone* property.
 
 ## links
 
@@ -528,6 +511,10 @@ A **Participant** object has the following properties. Properties are mandatory 
 
 - **memberOf**: `String[]` (optional)
   A list of group addresses that were invited to this event, which caused this participant to be invited due to their membership of the group(s). This MUST be omitted if none (rather than an empty array).
+
+- **linkIds**: `String[]|null` (optional, defaults to `null`)
+  Links to more information about this participant, for example in vCard format. If a given value does not correspond to any link id in the *links*
+  property of the instance, this id MUST be ignored.
 
 # Alerts properties
 
