@@ -80,7 +80,8 @@
       <t>
         This specification introduces an approach whereby clients can 
         discover a more performant access method. Given the location of 
-        the resource as an ics file, the client can download the file 
+        the resource as an ics file, the client can perfom an OPTIONS
+        request on the resource 
         and inspect the returned headers which will offer a number of 
         alternative access methods.
       </t>
@@ -103,20 +104,25 @@
 
     <section title="Changes to the iCalendar specifications">
       <t>
-        This speciifcation does not require any changes to 
+        This specification does not require any changes to 
         <xref target='RFC5545'/>  or its extensions. However it does
         introduce the use of some properties to provide more information 
         about the resource, for example the time range it covers.
       </t>
     </section>
 
-    <section title="Link Header">
+    <section title="Discovering alternative access methods">
       <t>
         The advertising of other access points is achieved through the 
         use of the LINK header as defined in <xref target='RFC5988'/>. 
         New link relation types are 
         defined in this specification - each being associated with a 
         protocol or protocol subset.
+      </t>
+      
+      <t>
+        These LINK headers will be delivered when a client carries out
+        an OPTIONS request targeting the URL of the resource.
       </t>
     </section>
 

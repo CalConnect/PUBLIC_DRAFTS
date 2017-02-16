@@ -4,9 +4,9 @@
 
 Network Working Group                                        M. Douglass
 Internet-Draft                                       Spherical Cow Group
-Updates: 5545,5546 (if approved)                       February 13, 2017
+Updates: 5545,5546 (if approved)                       February 16, 2017
 Intended status: Standards Track
-Expires: August 17, 2017
+Expires: August 20, 2017
 
 
                      Calendar subscription upgrades
@@ -32,7 +32,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 17, 2017.
+   This Internet-Draft will expire on August 20, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Douglass                 Expires August 17, 2017                [Page 1]
+Douglass                 Expires August 20, 2017                [Page 1]
 
 Internet-Draft       Calendar subscription upgrades        February 2017
 
@@ -63,7 +63,7 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Conventions Used in This Document . . . . . . . . . . . .   2
    2.  Changes to the iCalendar specifications . . . . . . . . . . .   3
-   3.  Link Header . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Discovering alternative access methods  . . . . . . . . . . .   3
    4.  Link relation subscribe-caldav  . . . . . . . . . . . . . . .   3
    5.  Link relation subscribe-caldav-auth . . . . . . . . . . . . .   3
    6.  Link relation subscribe-webdav-sync . . . . . . . . . . . . .   3
@@ -93,9 +93,9 @@ Table of Contents
 
    This specification introduces an approach whereby clients can
    discover a more performant access method.  Given the location of the
-   resource as an ics file, the client can download the file and inspect
-   the returned headers which will offer a number of alternative access
-   methods.
+   resource as an ics file, the client can perfom an OPTIONS request on
+   the resource and inspect the returned headers which will offer a
+   number of alternative access methods.
 
    Given that many clients already support CalDAV this provides an easy
    upgrade path for those clients.  CalDAV and DAV subsets are specified
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Douglass                 Expires August 17, 2017                [Page 2]
+Douglass                 Expires August 20, 2017                [Page 2]
 
 Internet-Draft       Calendar subscription upgrades        February 2017
 
@@ -119,17 +119,20 @@ Internet-Draft       Calendar subscription upgrades        February 2017
 
 2.  Changes to the iCalendar specifications
 
-   This speciifcation does not require any changes to [RFC5545]  or its
+   This specification does not require any changes to [RFC5545]  or its
    extensions.  However it does introduce the use of some properties to
    provide more information about the resource, for example the time
    range it covers.
 
-3.  Link Header
+3.  Discovering alternative access methods
 
    The advertising of other access points is achieved through the use of
    the LINK header as defined in [RFC5988].  New link relation types are
    defined in this specification - each being associated with a protocol
    or protocol subset.
+
+   These LINK headers will be delivered when a client carries out an
+   OPTIONS request targeting the URL of the resource.
 
 4.  Link relation subscribe-caldav
 
@@ -159,16 +162,16 @@ Internet-Draft       Calendar subscription upgrades        February 2017
    This allows the client to issue a sync-report on the resource to
    obtain updates.
 
-   NOTE: say something about initial startup - use ics to populate?
-   Initial token?
 
 
 
-
-Douglass                 Expires August 17, 2017                [Page 3]
+Douglass                 Expires August 20, 2017                [Page 3]
 
 Internet-Draft       Calendar subscription upgrades        February 2017
 
+
+   NOTE: say something about initial startup - use ics to populate?
+   Initial token?
 
    The client MUST follow that specification.
 
@@ -215,16 +218,15 @@ Internet-Draft       Calendar subscription upgrades        February 2017
    and Scheduling Consortium Calendar Sharing technical committee and
    the following individuals for contributing their ideas and support:
 
-   ...
 
 
 
-
-
-Douglass                 Expires August 17, 2017                [Page 4]
+Douglass                 Expires August 20, 2017                [Page 4]
 
 Internet-Draft       Calendar subscription upgrades        February 2017
 
+
+   ...
 
    The authors would also like to thank the Calendaring and Scheduling
    Consortium for advice with this specification.
@@ -275,9 +277,7 @@ Internet-Draft       Calendar subscription upgrades        February 2017
 
 
 
-
-
-Douglass                 Expires August 17, 2017                [Page 5]
+Douglass                 Expires August 20, 2017                [Page 5]
 
 Internet-Draft       Calendar subscription upgrades        February 2017
 
@@ -333,4 +333,4 @@ Author's Address
 
 
 
-Douglass                 Expires August 17, 2017                [Page 6]
+Douglass                 Expires August 20, 2017                [Page 6]
