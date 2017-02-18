@@ -1,0 +1,789 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY RFC2739 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2739.xml'>
+<!ENTITY RFC3339 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3339.xml'>
+<!ENTITY RFC4589 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4589.xml'>
+<!ENTITY RFC6350 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6350.xml'>
+]>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt"?>
+<?rfc rfcedstyle="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="6"?><!-- default = 3 -->
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+
+<!-- <?rfc strict="yes"?> -->
+<!-- <?rfc comments="yes"?> -->
+<!-- <?rfc inline="yes"?> -->
+
+<rfc category="std" ipr='trust200902' docName='draft-cal-resource-vcard-02'>
+  <front>
+    <title abbrev="vCard for Resources">vCard representation of resources</title>
+    <author initials="C." surname="Joy" fullname="Ciny Joy">
+      <organization abbrev="Oracle">Oracle Corporation</organization>
+      <address>
+        <postal>
+          <street>
+            4210 Network Circle
+          </street>
+          <city>
+            Santa Clara
+          </city>
+          <region>
+            CA
+          </region>
+          <code> 95054 </code>
+          <country>
+            USA
+          </country>
+        </postal>
+        <email>
+          ciny.joy@oracle.com
+        </email>
+        <uri>
+          http://www.oracle.com/
+        </uri>
+      </address>
+    </author>
+
+    <author initials="C." surname="Daboo" fullname="Cyrus Daboo">
+      <organization abbrev="Apple Inc.">
+        Apple Inc.
+      </organization>
+      <address>
+        <postal>
+          <street>
+            1 Infinite Loop
+          </street>
+          <city>
+            Cupertino
+          </city>
+          <region>
+            CA
+          </region>
+          <code> 95014 </code>
+          <country>
+            USA
+          </country>
+        </postal>
+        <email>
+          cyrus@daboo.name
+        </email>
+        <uri>
+          http://www.apple.com/
+        </uri>
+      </address>
+    </author>
+
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+
+    <date month='January' year='2013' />
+    <area>
+      Applications
+    </area>
+
+    <abstract>
+      <t>
+        This specification describes the vCard representation of resources.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title='Introduction'>
+      <t>
+        This specification defines the vCard representation of
+        resources to ease their discovery by clients.
+        <vspace />
+      </t>
+    </section>
+
+    <section title='Conventions Used in This Document'>
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and
+        "OPTIONAL" in this document are to be interpreted as described
+        in
+        <xref target="RFC2119" />
+        .
+      </t>
+    </section>
+
+    <section title='General Considerations'>
+      <t>
+        Data values MUST have valid representation for the specified
+        value type with respect to escape characters, line folding, and
+        so on.
+      </t>
+    </section>
+
+    <section title='Resource Object'>
+      <t>
+        A resource object definition SHOULD contain all information
+        required to find the right resource.
+        For this, it SHOULD contain all, or a set of properties described in
+        <xref target="res_attrs" />
+        .
+        Additional proprietary properties may be defined as well, but MUST begin with
+        "X-". Clients encountering properties they don't know about MUST
+        ignore them.
+      </t>
+      <t>
+        Properties required to contact the resource are not included in
+        this specification.
+        vCard properties defined in
+        <xref target="RFC6350">vCard Format Specification</xref>
+        can be used to include additional contact information for the
+        resource.
+      </t>
+    </section>
+
+    <section title='Resource Properties' anchor="res_attrs">
+      <section title='Mandatory Properties' anchor="mandatory_attrs">
+        <t>
+          The following properties MUST be specified in a vCard
+          representing a resource:
+          <list style="symbols">
+            <t>FN</t>
+            <t>UID</t>
+            <t>KIND</t>
+          </list>
+        </t>
+      </section>
+      <section title="Special Notes:">
+        <section title='KIND' anchor="res_kind">
+          <t>
+            Some of the possible values for the KIND property are
+            "Location", "Individual", "Device", or "Group".
+          </t>
+          <t>
+            Location is used for any physical location resource such
+            as room, building, etc.
+          </t>
+          <t>
+            Individual is used for a human resource such as driver,
+            technician, etc.
+          </t>
+          <t>
+            Device is used for a computing device such as an
+            appliance, a computer, or a network element.
+          </t>
+          <t>
+            Group is used to specify a group of resources with a
+            specific skill set. For example: drivers, electricians,
+            etc.
+          </t>
+        </section>
+      </section>
+      <section title='Base vCard Properties' anchor="existing_attrs">
+        <t>
+          The following properties defined in
+          <xref target='RFC6350' />
+          or
+          <xref target='RFC2739' />
+          make sense for vCards representing resources (this list is not 
+          exhaustive, and other properties might be applicable as well):
+          <list style="symbols">
+            <t>ADR</t>
+            <t>CATEGORIES</t>
+            <t>EMAIL</t>
+            <t>FBURL</t>
+            <t>FN</t>
+            <t>KIND</t>
+            <t>MEMBER</t>
+            <t>NOTE</t>
+            <t>NICKNAME</t>
+            <t>ORG</t>
+            <t>PHOTO</t>
+            <t>RELATED</t>
+            <t>TZ</t>
+            <t>UID</t>
+          </list>
+        </t>
+      </section>
+      
+      <section title='New vCard Properties for resources'
+               anchor="new_properties">
+        <t>
+          Format and cardinality of new vCard properties are defined as
+          described in Section 3.3 of <xref target='RFC6350' />.
+        </t>
+        <section title='ACCESSIBLE' anchor="accessible">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Specify if the resource is accessible to physically
+                disabled people.
+              </t>
+              <t hangText="ValueType:">
+                Boolean value.
+              </t>
+              <t hangText="Cardinality:">
+                *1
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  ACCESSIBLE-param = "VALUE=boolean" / any-param
+  ACCESSIBLE-value = boolean
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                FALSE.
+              </t>
+              <t hangText="Example value:">
+                TRUE
+              </t>
+            </list>
+          </t>
+        </section>
+
+        <section title='ACCESSIBILITYINFO' anchor="access">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                <vspace />
+                Specify special resource accessibility info for the
+                physically disabled people.
+              </t>
+              <t hangText="ValueType:">
+                URI value. It MAY also be a free-form text value.
+              </t>
+              <t hangText="Cardinality:">
+                *
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  ACCESSIBILITYINFO-param = "VALUE=" ("text" / "uri") /
+                             any-param
+  ACCESSIBILITYINFO-value = URI / text
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                None
+              </t>
+              <t hangText="Example value:">
+                http://www.example.com/room1_specialaccess.html
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title='CAPACITY' anchor="capacity">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Provide information on the capacity of the resource.
+              </t>
+              <t hangText="ValueType:">
+                Integer.
+              </t>
+              <t hangText="Cardinality:">
+                *1
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  CAPACITY-param = "VALUE=integer" / any-param
+  CAPACITY-value = integer
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                None
+              </t>
+              <t hangText="Example value:">
+                10
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title='INVENTORY' anchor="inventorylist">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                List other resources available as part of this resource.
+              </t>
+              <t hangText="ValueType:">
+                Value MAY be a URI that could be a vCard. The vCard
+                could be of the KIND group whose members point to the
+                various inventory items.
+                <vspace />
+                Value MAY also be a free form text listing one or more
+                inventory items.
+              </t>
+              <t hangText="Cardinality:">
+                *
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  INVENTORY-param = "VALUE=" ("text" / "uri") / any-param
+  INVENTORY-value = uri / text
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                None
+              </t>
+              <t hangText="Example values:">
+                Printer, Projector
+                http://www.example.com/Room1Inventory.vcf
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title='LOCATIONTYPE' anchor="locationtype">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Provide more information on the type of a LOCATION
+                resource.
+              </t>
+              <t hangText="ValueType:">
+                Text.
+                <vspace />
+                The value SHOULD be one of the values defined in
+                <xref target='RFC4589' />
+              </t>
+              <t hangText="Cardinality:">
+                *
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  LOCATIONTYPE-param = "VALUE=text" / any-param
+  LOCATIONTYPE-value = text
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                None
+              </t>
+              <t hangText="Example value:">
+                office
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title='RESTRICTED' anchor="restrict">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Specify if there are restrictions to physically
+                accessing the resource. For example locked doors, or
+                other barriers.
+              </t>
+              <t hangText="ValueType:">
+                Boolean value.
+              </t>
+              <t hangText="Cardinality:">
+                *1
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  RESTRICTED-param = "VALUE=boolean" / any-param
+  RESTRICTED-value = boolean
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                FALSE.
+                <vspace />
+                Absence of this property indicates no restriction to
+                physically accessing the resource.
+              </t>
+              <t hangText="Example value:">
+                TRUE
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title='RESTRICTEDACCESSINFO' anchor="restrictaccess_info">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Specify extra information on physically accessing
+                resources that have restrictions. For example where to
+                pick up keys to a locked resource.
+              </t>
+              <t hangText="ValueType:">
+                URI value. It MAY also be a free-form text value.
+              </t>
+              <t hangText="Cardinality:">
+                *
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  RESTRICTEDACCESSINFO-param = "VALUE=" ("text" / "uri") /
+                               any-param
+  RESTRICTEDACCESSINFO-value = URI / text
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                None
+              </t>
+              <t hangText="Example value:">
+                http://www.example.com/room1_entryinfo.html
+              </t>
+            </list>
+          </t>
+        </section>
+        <section title='NOCOST' anchor="free">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Specify if there is a cost associated with using the
+                resource.
+              </t>
+              <t hangText="ValueType:">
+                Boolean value.
+              </t>
+              <t hangText="Cardinality:">
+                *1
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  NOCOST-param = "VALUE=boolean" / any-param
+  NOCOST-value = boolean
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Special Notes:">
+                If this property is absent, it indicates that the
+                resource may be booked free of cost.
+              </t>
+              <t hangText="Default value:">
+                TRUE
+              </t>
+              <t hangText="Example value:">
+                TRUE
+              </t>
+            </list>
+          </t>
+        </section>
+
+        <section title='COSTINFO' anchor="cost_url">
+          <t>
+            <list style="hanging">
+              <t hangText="Purpose:">
+                Provide the URL pointing to complete pricing information
+                for usage of the resource.
+              </t>
+              <t hangText="ValueType:">
+                URI value. It MAY also be a free-form text value.
+              </t>
+              <t hangText="Cardinality:">
+                *
+              </t>
+              <t hangText="ABNF:">
+                <figure>
+                  <artwork type="abnf">
+  COSTINFO-param = "VALUE=" ("text" / "uri") / any-param
+  COSTINFO-value = uri / text
+                  </artwork>
+                </figure>
+              </t>
+              <t hangText="Default value:">
+                None
+              </t>
+              <t hangText="Example value:">
+                http://www.example.com/cost.html
+              </t>
+            </list>
+          </t>
+        </section>
+      </section>
+      
+      <section title='New Parameter Values' anchor="paramvals">
+        <section title='RELATED TYPE Values' anchor="reltypevals">
+          <t>
+            This document specifies the following additional values
+            that can be used as the value for the TYPE parameter of
+            the RELATED property defined in Section 6.6.6 of
+            <xref target='RFC6350' />.
+            <list style="symbols">
+              <t>container: an entity that contains the entity
+                associated with this vCard. For example, the building
+                that contains the room resource specified by the vCard.</t>
+              <t>manager: an entity that manages the resource entity
+                associated with this vCard.</t>
+              <t>owner: an entity that owns the resource entity
+                associated with this vCard.</t>
+            </list>
+          </t>
+        </section>
+      </section>
+    </section>
+    <section title='Examples'>
+      <section title='Location Resource'>
+        <t>
+          <figure>
+            <preamble>
+              In this example we make use of OBJECTCLASS:schedulable to make
+              this a schedulable resource.
+            </preamble>
+            <artwork>
+    BEGIN:VCARD
+    VERSION:4.0
+    UID:urn:uuid:room1-id
+    KIND: location
+    LOCATIONTYPE: classroom
+    FN: Room One
+    ORG: Engineering
+    NICKNAME: The One
+    NOTE: Room 1 in Engineering Building X
+    CATEGORIES: rooms, engineering_resources
+    OBJECTCLASS:schedulable
+    BOOKINGRESTRICTED: TRUE
+    BOOKINGINFO: http://www.example.com/room1_booking.html
+    CALADRURI: mailto:room1@example.com
+    MULTIBOOK: 1
+    MAXINSTANCES: 10
+    BOOKINGWINDOWSTART:P3M
+    BOOKINGWINDOWEND: P3D
+    AUTOSCHEDULE: AUTO
+    RELATED;TYPE=schedule-admin:
+     http://www.example.com/SchedAdmin1.vcf
+    ACCESSIBLE: TRUE
+    ACCESSIBILITYINFO: http://www.example.com/room1_disabledaccess.html
+    CAPACITY: 100
+    INVENTORY: phone, projector
+    FBURL: http://www.example.com/freebusy/home/Room1/
+    TZ: America/Los_Angeles
+    RELATED;TYPE=owner: http://www.example.com/ResOwner1.vcf
+    RELATED;TYPE=manager: http://www.example.com/ResManager1.vcf
+    RELATED;TYPE=container:http://www.example.com/BldX.vcf
+    RESTRICTED: TRUE
+    RESTRICTEDACCESSINFO: http://www.example.com/room1_specialaccess.html
+    NOCOST: FALSE
+    COSTINFO: http://www.example.com/cost.html
+    END:VCARD
+            </artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title='Role Resources Group'>
+        <t>
+          <figure>
+            <preamble>
+              This example also makes use of OBJECTCLASS:schedulable to make
+              this a schedulable resource.
+            </preamble>
+            <artwork>
+    BEGIN:VCARD
+    VERSION:4.0
+    UID:urn:uuid:driverXPool-id
+    KIND: group
+    FN: Driver X Pool
+    ORG: Transportation
+    NICKNAME: The X Group
+    NOTE: Drivers in the Transportation department driver pool X
+    CATEGORIES: drivers
+    MEMBER:urn:uuid:driver1-id
+    MEMBER:urn:uuid:driver2-id
+    MEMBER:urn:uuid:driver3-id
+    FBURL: http://www.example.com/freebusy/home/DriversX/
+    OBJECTCLASS:schedulable
+    CALADRURI: mailto:driversX@example.com
+    MULTIBOOK: 3
+    MAXINSTANCES: 10
+    BOOKINGWINDOWSTART:P3M
+    BOOKINGWINDOWEND: P3D
+    AUTOSCHEDULE: NONE
+    RELATED;TYPE=schedule-admin:
+     http://www.example.com/DriversX_SchedAdmin.vcf
+    TZ: America/Los_Angeles
+    BOOKINGINFO: http://www.example.com/driversX_approval.html
+    RELATED;TYPE=manager:
+     http://www.example.com/DriversManager.vcf
+    NOCOST: FALSE
+    COSTINFO: http://www.example.com/driversXcost.html
+    END:VCARD
+            </artwork>
+          </figure>
+        </t>
+      </section>
+    </section>
+
+    <section title="Security Considerations" anchor="SECURITY_CONSIDERATIONS">
+      <t>
+        As this document only defines schema for representing resource
+        information
+        for calendaring and scheduling and does not refer to the actual storage
+        mechanism itself, or the calendaring and scheduling protocol,
+        no special security considerations are required as part of this
+        document.
+      </t>
+    </section><!-- SECURITY_CONSIDERATIONS -->
+
+    <section title='IANA Considerations' anchor='iana_registry'>
+      <section title='VCard Property and Value Registration'>
+        <t>
+          The following new VCard Properties need to be registered by IANA.
+        </t>
+        <texttable>
+          <preamble>New VCard Properties Table:</preamble>
+          <ttcol align='left'>VCard Property Name</ttcol>
+          <ttcol align='left'>VCard Property Definition</ttcol>
+
+          <c>ACCESSIBLE</c>
+          <c>
+            <xref target="accessible" />
+          </c>
+
+          <c>ACCESSIBILITYINFO</c>
+          <c>
+            <xref target="access" />
+          </c>
+
+          <c>CAPACITY</c>
+          <c>
+            <xref target="capacity" />
+          </c>
+
+          <c>COSTINFO</c>
+          <c>
+            <xref target="cost_url" />
+          </c>
+
+          <c>INVENTORY</c>
+          <c>
+            <xref target="inventorylist" />
+          </c>
+
+          <c>LOCATIONTYPE</c>
+          <c>
+            <xref target="locationtype" />
+          </c>
+
+          <c>NOCOST</c>
+          <c>
+            <xref target="free" />
+          </c>
+
+          <c>RESTRICTED</c>
+          <c>
+            <xref target="restrict" />
+          </c>
+
+          <c>RESTRICTEDACCESSINFO</c>
+          <c>
+            <xref target="restrictaccess_info" />
+          </c>
+        </texttable>
+
+        <t>
+          The following new VCard Parameter Values need to be registered by
+          IANA.
+        </t>
+        <texttable>
+          <preamble>New VCard Properties Table:</preamble>
+          <ttcol align='left'>VCard Property Name</ttcol>
+          <ttcol align='left'>VCard Parameter Name</ttcol>
+          <ttcol align='left'>VCard Parameter Value</ttcol>
+
+          <c>RELATED</c>
+          <c>TYPE</c>
+          <c>
+            container
+            <xref target="reltypevals" />
+          </c>
+          <c>RELATED</c>
+          <c>TYPE</c>
+          <c>
+            manager
+            <xref target="reltypevals" />
+          </c>
+          <c>RELATED</c>
+          <c>TYPE</c>
+          <c>
+            owner
+            <xref target="reltypevals" />
+          </c>
+        </texttable>
+      </section>
+    </section>
+
+    <section title='Acknowledgments'>
+      <t>
+        This specification is a result of discussions that took place within the
+        Calendaring and Scheduling Consortium's Resource Technical
+        Committee. The authors thank the participants of that group, and
+        specifically the following individuals for contributing their
+        ideas and support: Arnaud Quillaud, Adam Lewenberg, Andrew
+        Laurence, Guy Stalnaker, Mimi Mugler, Dave Thewlis, Bernard
+        Desruisseaux, Alain Petit, Andrew Sciberras, Adrian Apthorp, and
+        Jason Miller.
+      </t>
+    </section>
+    <section title='Unresolved Issues'>
+      <t>
+        Defining finer granularity of resource KIND - A schedulable resource might
+        not exactly correspond to a specific one in the list of
+        pre-defined values for KIND. Question is how to convey the
+        additional information. Possibilities are extending KIND values
+        to include all combinations, defining an objectclass model where
+        an object is built out of many pre-defined KINDs, or defining
+        standard parameter extensions to KIND to include more
+        information.
+      </t>
+      <t>
+        Defining RESOURCETYPE - For a location resource, a new property LOCATIONTYPE
+        was added to provide more information. Are similar new
+        properties required for non-location resources? Or do we need a
+        generic RESOURCETYPE property with a set of predefined values?
+      </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title='Normative References'>
+    &RFC2119;
+    &RFC2739;
+    &RFC3339;
+    &RFC4589;
+    &RFC6350;
+
+      <reference anchor="ISO.8601.2004">
+        <front>
+          <title>
+            Data elements and interchange formats --
+            Information interchange --
+            Representation of dates and times
+          </title>
+          <author>
+            <organization>
+              International Organization for Standardization
+            </organization>
+          </author>
+          <date year="2004" />
+        </front>
+      </reference><!-- ISO.8601.2004 -->
+    </references>
+  </back>
+
+</rfc>
