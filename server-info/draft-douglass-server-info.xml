@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY RFC2518 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2518.xml'>
+<!ENTITY RFC3253 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3253.xml'>
+<!ENTITY RFC3339 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3339.xml'>
+<!ENTITY RFC3744 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3744.xml'>
+<!ENTITY RFC4331 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4331.xml'>
+<!ENTITY RFC4791 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+<!ENTITY RFC4918 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4918.xml'>
+<!ENTITY RFC5323 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5323.xml'>
+<!ENTITY RFC5689 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5689.xml'>
+<!ENTITY RFC5842 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5842.xml'>
+<!ENTITY RFC5988 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml'>
+<!ENTITY RFC5995 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5995.xml'>
+<!ENTITY RFC6578 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6578.xml'>
+<!ENTITY RFC6638 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6638.xml'>
+]>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt"?>
+<?rfc rfcedstyle="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="6"?><!-- default = 3 -->
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+
+<!-- <?rfc strict="yes"?> -->
+<!-- <?rfc comments="yes"?> -->
+<!-- <?rfc inline="yes"?> -->
+
+<rfc category="std" ipr='trust200902' docName='draft-douglass-server-info-03'>
+  <front>
+    <title abbrev="Dav Server Information Object">DAV Server Information Object</title>
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+
+    <date month='April' year='2016' />
+    <area>
+      Applications
+    </area>
+
+    <abstract>
+      <t>
+        This specification describes a new XML object that can be
+        retrieved from hosts to discover applications, features and
+        limits for that host or domain.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title='Introduction'>
+      <t>
+        Any given host on a network may support a number of applications.
+        Each will have limits or optional features.
+        The advertising and discovery of applications, features and limits
+        is often through the use of
+        properties and headers. As the number of applications and features grows the
+        amount of data and complexity of the requests grows.
+      </t>
+
+      <t>
+        Additionally, headers and properties don't allow for caching mechanisms
+        based on etags. A client has to fetch all the information and compare
+        with its stored copies to determine if a application change has taken place.
+      </t>
+
+      <t>
+        This specification defines a new XML document type which can be retrieved
+        from a host and is easily extended to allow the description
+        of complex applications.
+        The schema as described here only handles basic DAV applications.
+        Other specifications will extend this specification
+        to define elements for other DAV based applications.
+      </t>
+    </section>
+
+    <section title='Conventions Used in This Document'>
+      <t>
+        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+        "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+        document are to be interpreted as described in <xref target="RFC2119" />.
+      </t>
+      <section title='Application' anchor="definition_application">
+        <t>
+          An application running on one or more hosts at the
+          network application layer and above. The application may provide
+          data storage, manipulation, presentation, communication or
+          other capabilities. The application may use a well defined protocol
+          and is often implemented with a client-server relationship.
+        </t>
+
+        <t>
+          A application will usually implement one or more features which may be
+          defined by standard specifications. Applications and features
+          may also be constrained by various limits.
+        </t>
+
+        <t>
+          Examples of applications are
+          <list style="symbols">
+            <t>
+              caldav
+            </t>
+            <t>
+              email
+            </t>
+            <t>
+              File servers
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='Feature' anchor="definition_feature">
+        <t>
+          A feature is some functionality provided by a application. For
+          example, a DAV based application may provide the versioning feature.
+        </t>
+
+        <t>
+          Applications need not support all features that are defined as
+          an optional part of that application. Some features may depend
+          on the authenticated state and/or the authorization of the
+          authenticated principal.
+        </t>
+
+        <t>
+          Examples of features are
+          <list style="symbols">
+            <t>
+              DAV versioning.
+            </t>
+            <t>
+              DAV access control.
+            </t>
+            <t>
+              CalDAV scheduling.
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title='Server Information Document Use'
+             anchor="server_info_use">
+      <t>
+        A host will make the document available through one or more
+        methods. Depending upon the endpoint and method of retrieval
+        the retrieved document may describe one or more applications.
+      </t>
+
+      <t>
+        If a document provides information for more than one application it
+        SHOULD contain information allowing clients to obtain information
+        about each individual application only. This allows a client to
+        determine what the actual limits and features are for the
+        specific application.
+      </t>
+
+      <section title='Server Information Location and Retrieval'
+               anchor="server_info_location_and_retrieval">
+        <section title='Server Information Retrieval'
+                 anchor="server_info_retrieval">
+          <t>
+            The document may be retrieved from the server by including the
+            server-info-token header field with a value of "*" any
+            request to the server.
+          </t>
+
+          <t>
+            The server MUST respond to such a request by including a
+            LINK header field with a reltype of "server-info",
+            a token parameter with the current token value and
+            the url being the location of the document..
+          </t>
+
+          <t>
+            Following that a GET may be executed by the client against that URL,
+            specifying a content type in the ACCEPT header field of
+            "application/server-info+xml".
+          </t>
+
+          <t>
+            Clients SHOULD retrieve the document in the context of a
+            session and applications SHOULD ensure the context is appropriate.
+            Values in the returned document may differ depending on who
+            is authenticated so a server SHOULD require authentication
+            before returning server information for an authenticated application.
+          </t>
+        </section>
+
+        <section title='Server Information Synchronization'
+                 anchor="server_info_synch">
+          <t>
+            While server features may not change frequently it may be
+            important for clients to react rapidly when server features
+            or limits change. Polling for server feature changes is
+            undesirable so this specification allows clients to check
+            for such changes during normal operations.
+          </t>
+
+          <t>
+            Clients SHOULD include the server-info-token header field
+            with the current stored value of the token from the
+            document in requests to the server
+          </t>
+
+          <t>
+            The server MUST add the link header field to the
+            response when the tokens do not match.
+          </t>
+
+          <section title='Header Field: server-info-token'
+                   anchor="server_info_token-header">
+            <t>
+              The server-info-token header field takes as a value the current
+              value of the token element in the server-info document or the value
+              "*".
+            </t>
+
+            <t>
+              This header field may be included in a request at any time
+              a client feels appropriate.
+            </t>
+          </section>
+
+          <section title='Header Field: link'
+                   anchor="link_header">
+            <t>
+              The link header field is defined in <xref target='RFC5988'/>.
+              The target IRI as defined by that specification will be the
+              location of the server information document. The "reltype"
+              parameter will have the value "server-info".
+            </t>
+
+            <t>
+              Additionally, there will be a "token" parameter which has
+              a quoted token as the value.
+            </t>
+
+            <t>
+              This header field may be included in a response at any time
+              a server feels appropriate.
+            </t>
+
+            <t>
+              The link header field MUST be returned in response to:
+              <list style="symbols">
+                <t>An OPTIONS request where the server-info-token header
+                  is absent or it's value does not match.
+                </t>
+                <t>Any request with the server-info-token header field
+                  where the value of the header field does not math the
+                  current token value.
+                </t>
+              </list>
+
+              The link header field SHOULD be returned when a client
+              <list style="symbols">
+                <t>Attempts to use an unsupported feature.</t>
+                <t>Misuses a feature according to the server info document.</t>
+                <t>Exceeds a limit defined in the document.</t>
+              </list>
+            </t>
+
+            <t>
+              If the server returns a link header field as part
+              of the response it is an indication to the client that it
+              SHOULD fetch a new copy of the server information document.
+            </t>
+
+            <t>
+              The following is an example of a link header field - folded
+              to fit on the page
+              <figure>
+                <artwork><![CDATA[
+        Link: </dav/principals/.server-info>; rel="server-info";
+         token="7140903ee1b57d0752a7d8da774a398b10de5868"
+                   ]]></artwork>
+              </figure>
+            </t>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <section title='Server Information Document Structure'
+             anchor="server_info_document">
+      <t>
+        This specification defines a new XML document type "server-info".
+        All XML elements in this specification are in the DAV name space.
+      </t>
+
+      <section title='Server Information server-info element'
+               anchor="server_info_document_server_info">
+        <t>
+          At the top level of the document is a "server-info" element
+          which encloses a change token, an optional "features" element and an "applications" element
+          <figure>
+            <artwork><![CDATA[
+          <?xml version="1.0" encoding="utf-8"?>
+          <server-info xmlns="DAV">
+            <token>...</token>
+            <server>
+              <name>...</name>
+              <version>...</version>
+            </server>
+            <features>
+              ...
+            </features>
+            <applications>
+              ...
+            </applications>
+          </server-info>
+                   ]]></artwork>
+          </figure>
+        </t>
+
+        <t>
+          If a "features" element appears inside the "server-info"
+          element then the features apply to all applications.
+        </t>
+      </section>
+
+      <section title='Server Information server element'
+               anchor="server_info_document_server">
+        <t>
+          The optional "server" element appears once and contains a
+          name and version for the server. The values for both those
+          elements is server specific.
+        </t>
+      </section>
+
+      <section title='Server Information applications element'
+               anchor="server_info_document_applications">
+        <t>
+          The "applications" element appears once and contains 0 or more
+          "application" elements each of which provides information
+          about a application.
+        </t>
+
+        <t>
+          NOTE: do the applications have to be on the same host? I think not.
+        </t>
+
+        <section title='Server Information application element'
+                 anchor="server_info_document_application">
+          <t>
+            The "application" element contains the name and information
+            about the location
+            of that application and how to obtain a application specific
+            server-info document.
+          </t>
+
+          <t>
+            It may also contain a "features" element which lists
+            features implemented by that application.
+          </t>
+
+          <t>
+            For example:
+            <figure>
+              <artwork><![CDATA[
+          <applications>
+            <application>
+              <name>caldav</name>
+              <features>
+                <CALDAV:calendar-access />
+                <CS:sharing>
+                    <CS:no-scheduling />
+                </CS:sharing>
+              </features>
+            </application>
+          </applications>
+            ]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+
+      <section title='Server Information features element'
+               anchor="server_info_document_features">
+        <t>
+          The "features" element contains 0 or more elements
+          each specifying a feature supported by that application.
+        </t>
+
+        <t>
+          The "features" element may appear within the "server-info"
+          element - in which case it applies to all applications or it
+          may appear inside a "application" element in which case it only
+          applies to that application.
+        </t>
+
+        <t>
+          When a single application is specified the features named SHOULD
+          be accessible for the same authentication and authorization
+          level.
+        </t>
+
+        <section title='Server Information feature element'
+                 anchor="server_info_document_feature">
+          <t>
+            A feature is specified by an element defined in this document
+            or by an element defined in the specification for that feature.
+          </t>
+
+          <t>
+            WebDAV feature elements correspond to, but are not exactly
+            the same as, the elements returned in the DAV header field.
+          </t>
+
+          <t>
+            Some features have no corresponding DAV header field element. This
+            may be because the feature is not available on all resources.
+            The occurrence of a such a feature simply advertises the
+            availability of that feature on some resources.
+          </t>
+
+          <t>
+            For an application supporting this specification, the absence of a
+            feature means that this feature is NOT supported on any resource.
+          </t>
+
+          <t>
+            For example, a calendar application may return the following
+            which specifies a global set of features:
+            <figure>
+              <artwork><![CDATA[
+            <features>
+              <DAV:class-1 />
+              <DAV:class-2 />
+              <DAV:access-control />
+              <CALDAV:calendar-access />
+              <CALDAV:calendar-availability />
+              <CALDAV:calendar-auto-schedule />
+            </features>
+            ]]></artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
+    </section>
+
+    <section title='XML Element Definitions'>
+      <t>
+        All elements defined here are in the "DAV" namespace.
+      </t>
+      <section title='server-info XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              server-info
+            </t>
+            <t hangText="Purpose:">
+              Contains information about a server.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT server-info (token, server-instance-info?, features?, applications?) >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='token XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              token
+            </t>
+            <t hangText="Purpose:">
+              Contains an opaque token which changes when the document changes..
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT token (#PCDATA) >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='server-instance-info XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              server-instance-info
+            </t>
+            <t hangText="Purpose:">
+              Contains name and version information for a server.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT server-instance-info (server-name*, server-version*,
+                                       server-link, server-contact) >
+        * product name
+        * product version
+        * product bug tracker link (or just link)
+        * system administrator contact ("mailto:", "tel:" an embedded vcard or a link to a vcard?)
+        * operating system info (string like the result of "uname -a" on POSIX systems)                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='name XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              name
+            </t>
+            <t hangText="Purpose:">
+              Within an application or feature element provides the registered name
+              of that application or feature.
+            </t>
+            <t>
+              Within a server element the value of the name element is
+              any text string.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT name (#PCDATA) >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='version XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              version
+            </t>
+            <t hangText="Purpose:">
+              Within a server element the value of the version element is
+              any text string.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT version (#PCDATA) >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='applications XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              applications
+            </t>
+            <t hangText="Purpose:">
+              Contains information about all applications on a host.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT applications (application*) >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='application XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              application
+            </t>
+            <t hangText="Purpose:">
+              Contains information about a specific application on a host.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT application (name, features) >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='features XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              features
+            </t>
+            <t hangText="Purpose:">
+              Contains information about all application features on a host.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT features ANY* >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <!--
+      <section title='properties XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Name:">
+              properties
+            </t>
+            <t hangText="Purpose:">
+              Contains any properties describing a feature.
+            </t>
+            <t hangText="Description:">
+              A generic container for properties that describe a feature.
+              All elements inside a 'properties' XML element MUST be
+              properties related to the feature, although possible property
+              names are in no way limited to those property names defined in
+              this document or other standards.  This element MUST NOT contain
+              text or mixed content.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+       <!ELEMENT properties ANY >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    -->
+    </section>
+
+    <section title='WebDAV Features'
+             anchor="webdav_features">
+      <t>
+        Here we define the feature elements for features
+        defined in the various DAV related specifications.
+      </t>
+
+      <t>
+        Specifications which extend this specification should define additions
+        to this table. In addition, they may define the XML specification
+        for that element.
+      </t>
+
+      <texttable>
+        <ttcol>
+          Namespace
+        </ttcol>
+        <ttcol>
+          Name
+        </ttcol>
+        <ttcol>
+          Reference
+        </ttcol>
+
+        <c>DAV</c>
+        <c>class-1</c>
+        <c><xref target='RFC4918'/>: section 18.1</c>
+
+        <c>DAV</c>
+        <c>class-2</c>
+        <c><xref target='RFC4918'/>: section 18.2</c>
+
+        <c>DAV</c>
+        <c>class-3</c>
+        <c><xref target='RFC4918'/>: section 18.3</c>
+
+        <c>DAV</c>
+        <c>access-control</c>
+        <c><xref target='RFC3744'/>: section 7.2</c>
+
+        <c>DAV</c>
+        <c>version-control</c>
+        <c><xref target='RFC3253'/>: section 3</c>
+
+        <c>DAV</c>
+        <c>extended-mkcol</c>
+        <c><xref target='RFC5689'/>: section 3.1</c>
+
+        <c>DAV</c>
+        <c>quota</c>
+        <c><xref target='RFC4331'/></c>
+
+        <c>DAV</c>
+        <c>bind</c>
+        <c><xref target='RFC5842'/></c>
+
+        <c>DAV</c>
+        <c>search</c>
+        <c><xref target='RFC5323'/></c>
+
+        <c>DAV</c>
+        <c>sync-collection</c>
+        <c><xref target='RFC6578'/></c>
+
+        <c>DAV</c>
+        <c>add-member</c>
+        <c><xref target='RFC5995'/></c>
+      </texttable>
+
+      <section title='DAV class-1 feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">class-1</t>
+            <t hangText="DAV Header Name:">1</t>
+            <t hangText="Reference:"><xref target='RFC4918'/>: section 18.1</t>
+            <t hangText="Description:">Class 1 compliant resource</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT class-1 >
+                    ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV class-2 feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">class-2</t>
+            <t hangText="DAV Header Name:">2</t>
+            <t hangText="Reference:"><xref target='RFC4918'/>: section 18.2</t>
+            <t hangText="Description:">Class 2 compliant resource</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT class-2 >
+                            ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV class-3 feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">class-3</t>
+            <t hangText="DAV Header Name:">3</t>
+            <t hangText="Reference:"><xref target='RFC4918'/>: section 18.3</t>
+            <t hangText="Description:">Class 3 compliant resource</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT class-3 >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV access control feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">access-control</t>
+            <t hangText="DAV Header Name:">access-control</t>
+            <t hangText="Reference:"><xref target='RFC3744'/>: section 7.2</t>
+            <t hangText="Description:">WebDAV ACL</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT access-control >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV version control feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">version-control</t>
+            <t hangText="DAV Header Name:">version-control</t>
+            <t hangText="Reference:"><xref target='RFC3253'/>: section 3</t>
+            <t hangText="Description:">WebDAV DeltaV</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT version-control >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV Extended mkcol feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">extended-mkcol</t>
+            <t hangText="DAV Header Name:">extended-mkcol</t>
+            <t hangText="Reference:"><xref target='RFC5689'/>: section 3.1</t>
+            <t hangText="Description:">Extended mkcol</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT extended-mkcol >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV bind feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">bind</t>
+            <t hangText="DAV Header Name:">bind</t>
+            <t hangText="Reference:"><xref target='RFC5842'/></t>
+            <t hangText="Description:">Binding extensions</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT bind >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV search feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">search</t>
+            <t hangText="Reference:"><xref target='RFC5323'/></t>
+            <t hangText="Description:">Search extensions</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT search >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV quota feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">quota</t>
+            <t hangText="Reference:"><xref target='RFC4331'/></t>
+            <t hangText="Description:">DAV quotas. May not apply to all resources.
+              Absence of this feature implies no support on any resource.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT quota >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV Sync Collection feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">sync-collection</t>
+            <t hangText="Reference:"><xref target='RFC6578'/></t>
+            <t hangText="Description:">Collection synchronization report.
+              May not apply to all resources.
+              Absence of this feature implies no support on any resource.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT sync-collection >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='DAV Add Member feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">DAV</t>
+            <t hangText="Name:">add-member</t>
+            <t hangText="Reference:"><xref target='RFC6578'/></t>
+            <t hangText="Description:">Using POST to add a member to a collection.
+              May not apply to all resources.
+              Absence of this feature implies no support on any resource.
+            </t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT add-member >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title='CalDAV Features'
+             anchor="caldav_features">
+      <t>
+        Here we define the feature elements for features
+        defined in the various CalDAV related specifications.
+        All of these are under the CalDAV namespace
+      </t>
+
+      <t>urn:ietf:params:xml:ns:caldav</t>
+
+      <texttable>
+        <ttcol>
+          Name
+        </ttcol>
+        <ttcol>
+          Reference
+        </ttcol>
+
+        <c>calendar-access</c>
+        <c><xref target='RFC4791'/></c>
+
+        <c>calendar-auto-schedule</c>
+        <c><xref target='RFC6638'/></c>
+
+        <c>calendar-no-timezone</c>
+        <c>RFC????</c>
+      </texttable>
+
+      <section title='CalDAV calendar-access feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">urn:ietf:params:xml:ns:caldav</t>
+            <t hangText="Name:">calendar-access</t>
+            <t hangText="Reference:"><xref target='RFC4791'/></t>
+            <t hangText="Description:">Calendar access</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT calendar-access >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='CalDAV calendar-auto-schedule feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">urn:ietf:params:xml:ns:caldav</t>
+            <t hangText="Name:">calendar-auto-schedule</t>
+            <t hangText="Reference:"><xref target='RFC4791'/></t>
+            <t hangText="Description:">CalDAV implicit scheduling</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT calendar-auto-schedule >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section title='CalDAV calendar-no-timezone feature XML element'>
+        <t>
+          <list style="hanging">
+            <t hangText="Namespace:">urn:ietf:params:xml:ns:caldav</t>
+            <t hangText="Name:">calendar-no-timezone</t>
+            <t hangText="Reference:"><xref target='RFC4791'/></t>
+            <t hangText="Description:">CalDAV implicit timezones</t>
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+      <!ELEMENT calendar-no-timezone >
+                                          ]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title='Examples'>
+      <section title='WebDAV server information'>
+        <t>
+          TBD.
+        </t>
+      </section>
+    </section>
+
+    <section title='Notes'>
+      <t>
+    Tag enabling synchronization
+
+
+    Document location (section 3)
+
+    server-info token in DAV header returned as part of OPTIONS response
+
+    Clients that see that and do not have a server-info document for that
+        application should do a propfind to discover document href.
+
+    Authenticated v unauth
+
+    Clients may fetch the si doc in an unauth mode. When they auth they must recheck their token and refetch if appropriate.
+
+    Caching by intermediaries might be an issue
+    Server info may vary by user-agent.
+      </t>
+
+      <t>
+        * product name
+        * product version
+        * product bug tracker link (or just link)
+        * system administrator contact ("mailto:", "tel:" an embedded vcard or a link to a vcard?)
+        * operating system info (string like the result of "uname -a" on POSIX systems)
+      </t>
+
+      <t>
+        Add something about rscale - calendar-rscale element
+      </t>
+    </section>
+
+
+    <section title="Security Considerations" anchor="SECURITY_CONSIDERATIONS">
+      <t>
+        TBD.
+      </t>
+      <t>
+        Something about not sending server name + version. Opaque version code.
+      </t>
+    </section><!-- SECURITY_CONSIDERATIONS -->
+
+    <section title='IANA Considerations' anchor ='iana_registry'>
+      <section anchor="mimetype_registrations"
+               title="MIME media type Registrations" >
+        <t>
+          <list style="hanging">
+            <t hangText="Media Type:">
+              This section defines the MIME media type for use with the
+              server information document.
+            </t>
+
+            <t hangText="Type name:">application</t>
+            <t hangText="Subtype name:">server-info+xml</t>
+
+            <t hangText="Required parameters:">None</t>
+
+            <t hangText="Optional parameters:">charset as defined for
+              application/xml in [RFC3023]; per [RFC3023], use of the charset
+              property parameter with the value "utf-8" is STRONGLY RECOMMENDED.
+            </t>
+
+            <t hangText="Encoding considerations:">Same as encoding considerations of
+              application/xml as specified in [RFC3023].</t>
+
+            <t hangText="Security considerations:">See previous section.</t>
+
+            <t hangText="Interoperability considerations:">This media type provides an
+              alternative format for iCalendar data based on XML.</t>
+
+            <t hangText="Published specification:">This specification.</t>
+
+            <t hangText="Additional information:"></t>
+
+            <t hangText="Magic number(s):">None</t>
+
+            <t hangText="File extension(s):">xml</t>
+
+            <t hangText="Macintosh file type code(s):">None specified.</t>
+
+            <t hangText="Person &amp; email address to contact for further information:">
+              calsify@ietf.org</t>
+
+            <t hangText="Intended usage:">COMMON</t>
+
+            <t hangText="Restrictions on usage:">There are no restrictions on where this media
+              type can be used.</t>
+
+            <t hangText="Author:">See the "Authors' Addresses" section of this document.</t>
+
+            <t hangText="Change controller:">IETF</t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="new_link_reltype_registration"
+               title="New Link reltype Registration">
+        <t>
+          The link relation type "server-info" has been added to
+          the Reference Types Registry defined in Section 6.2 of
+          <xref target='RFC5988'/> wilt the following values
+        </t>
+
+        <t>
+          <list style="symbols">
+            <t>
+              Relation Name: server-info
+            </t>
+            <t>
+              Description: Provides the location of and current token for
+              the server information document
+            </t>
+            <t>
+              Reference: This specification
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title='Acknowledgments'>
+      <t>
+        This specification is a result of discussions that took place within the
+        Calendaring and Scheduling Consortium's CalDAV Technical Committee. The
+        author thanks the participants of that group.
+      </t>
+    </section>
+  </middle>
+
+  <back>
+    <references title='Normative References'>
+      &RFC2119;
+      &RFC2518;
+      &RFC3253;
+      &RFC3339;
+      &RFC3744;
+      &RFC4331;
+      &RFC4791;
+      &RFC4918;
+      &RFC5323;
+      &RFC5689;
+      &RFC5842;
+      &RFC5988;
+      &RFC5995;
+      &RFC6578;
+      &RFC6638;
+
+      <reference anchor="ISO.8601.2004">
+        <front>
+          <title>
+            Data elements and interchange formats --
+            Information interchange --
+            Representation of dates and times
+          </title>
+          <author>
+            <organization>
+              International Organization for Standardization
+            </organization>
+          </author>
+          <date year="2004"/>
+        </front>
+      </reference><!-- ISO.8601.2004-->
+    </references>
+  </back>
+
+</rfc>
