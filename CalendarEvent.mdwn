@@ -453,7 +453,21 @@ The status of the event. MUST be one of:
 
 Corresponds to the STATUS property in iCalendar (converted to lower-case).
 
+## priority
 
+Type: `Number` (defaults to `0` if omitted)
+
+Specifies a priority for the event. This may be used as part of scheduling
+systems to help resolve conflicts for a time period.
+
+The priority is specified as an integer in the range 0 to 9. A value of 0
+specifies an undefined priority. A value of 1 is the highest priority.  A value
+of 2 is the second highest priority. Subsequent numbers specify a decreasing
+ordinal priority. A value of 9 is the lowest priority.
+
+Other integer values are reserved for future use.
+
+Corresponds to the PRIORITY property in iCalendar.
 
 ## freeBusyStatus
 
