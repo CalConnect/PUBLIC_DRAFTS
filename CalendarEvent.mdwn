@@ -230,13 +230,20 @@ A **Link** object has the following properties:
 
     Links with a *rel* of `describedby` SHOULD be considered by the client to be an alternate representation of the *description*, for example an HTML page describing the event.
 
+    Links with a *rel* of `icon` SHOULD be considered by the client to be an image that it MAY use when presenting the calendar data to a user. This corresponds to the IMAGE iCalendar property as specified in [@!RFC7986]. The *properties* object of this link MAY include a *display* property indicating the intended purpose of this image. If included, the value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor.
+
+    - `"badge"`: an image inline with the title of the event
+    - `"graphic"`: a full image replacement for the event itself
+    - `"fullsize"`: an image that is used to enhance the event
+    - `"thumbnail"`: a smaller variant of "FULLSIZE" to be used when space for
+      the image is constrained
+
 - **title**: `String|null` (optional, defaults to `null`)
 
     A human-readable description of the resource.
 
 - **properties**: `String[String|null]|null` (optional, defaults to `null`)
-
-    Extra metadata stored by a client about a link. The keys are URIs, which should be owned by the client author to avoid conflicts, and the values are strings or `null`.
+    Extra metadata stored by a client about a link. The keys are as defined in this document, as defined in a future RFC, or URIs that should be owned by the client author to avoid conflicts. The values MUST be strings or `null`.
 
 ## locale
 
