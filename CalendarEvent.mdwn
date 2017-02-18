@@ -267,7 +267,7 @@ See the description of *recurrenceOverrides* for the structure of the PatchObjec
 - `timeZone`
 - `duration`
 - `status`
-- `showAsFree`
+- `freeBusyStatus`
 - `participants`
 - `useDefaultAlerts`
 
@@ -453,11 +453,18 @@ The status of the event. MUST be one of:
 
 Corresponds to the STATUS property in iCalendar (converted to lower-case).
 
-## showAsFree
 
-Type: `Boolean` (Defaults to `false` if omitted)
 
-If true, the event should be ignored when calculating free/busy data for the user.
+## freeBusyStatus
+
+Type: `String` (Defaults to `busy` if omitted)
+
+Specifies how this property should be treated when calculating free-busy state. The value MUST be one of:
+
+- `"free"`: The event should be ignored when calculating whether the user is
+  busy.
+- `"busy"`: The event should be included when calculating whether the user is
+  busy.
 
 Corresponds to the TRANSP property in iCalendar.
 
