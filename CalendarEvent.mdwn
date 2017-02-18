@@ -591,12 +591,21 @@ A **Participant** object has the following properties. Properties are mandatory 
 
     Corresponds to the RSVP parameter in iCalendar.
 
+- **scheduleSequence**: `String` (optional, defaults to `0` if omitted)
+  The *sequence* number of the last response from the participant. This can be
+  used to determine whether the partcipant has sent a new RSVP following
+  significant changes to the event, and to determine if future responses are
+  responding to a current or older view of the data.
+
 - **scheduleUpdated**: `UTCDate|null` (optional, defaults to `null`)
   The *updated* property of the last response from the participant. This can be
   compared to the *updated* timestamp in future iMIP responses to determine
   if the response is older or newer than the current data.
 
     Corresponds to the DTSTAMP parameter in iCalendar.
+
+- **invitedBy**: `String|null` (optional, defaults to `null`)
+  The participant id of the participant who invited this one, if known.
 
 - **delegatedTo**: `String[]|null` (optional, defaults to `null`)
   A list of participant ids of participants that this participant has delegated their participation to. This MUST be omitted if none (rather than an empty array).
