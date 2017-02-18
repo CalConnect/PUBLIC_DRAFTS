@@ -83,17 +83,23 @@ Corresponds to the UID property in iCalendar.
 
 ## relatedTo
 
-Type: `String[String]|null`
+Type: `String[Relation]|null`
 
-Represents a relationship or reference to another, related event. This is represented as a map of relation-type to the UID of the related event. Specified relation types are:
+References to other related events. This is represented as a map of the UID of the related event to an object with information about the relation.
 
-- `first`: The first event in a series.
-- `next`: The next event in a series.
-- `parent`: A related event that is a superior to this event.
+A **Relation** object has the following properties:
+
+- **relation**: `String[]`
+  How the linked event is related to this event. The strings in the array MUST each be either one of the following values, registered in a future RFC, or a vendor-specific value.
+
+  - `first`: The linked event is the first in the series this event is part of.
+  - `next`: The linked event is the next in the series this event is part of.
+  - `child`: The linked event is a subpart of this event.
+  - `parent`: This event is part of the overall linked event.
 
 If an event is split to make a "this and future" change to a recurrence, the original event should be truncated to end at the previous occurrence before this split, and a new event created to represent all the events after the split.
 
-A `next` *relatedTo* property SHOULD be set on the original event with the UID of the new event. A `first` *relatedTo* property with the UID of the first event in the series SHOULD be set on the new event. Clients can then follow these UIDs to get the complete set of events if the user wishes to modify them all at once.
+A `relation=["next"]` *relatedTo* property SHOULD be set on the original event with the UID of the new event. A `relation=["nfirstext"]` *relatedTo* property with the UID of the first event in the series SHOULD be set on the new event. Clients can then follow these UIDs to get the complete set of events if the user wishes to modify them all at once.
 
 Corresponds to the RELATED-TO property in iCalendar.
 
