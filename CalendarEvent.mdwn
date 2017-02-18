@@ -598,6 +598,16 @@ A **Participant** object has the following properties. Properties are mandatory 
 
     Corresponds to the DTSTAMP parameter in iCalendar.
 
+- **delegatedTo**: `String[]|null` (optional, defaults to `null`)
+  A list of participant ids of participants that this participant has delegated their participation to. This MUST be omitted if none (rather than an empty array).
+
+    Corresponds to the DELEGATED-TO parameter in iCalendar.
+
+- **delegatedFrom**: `String[]|null` (optional, defaults to `null`)
+  A list of participant ids that this participant is acting as a delegate for. This MUST be omitted if none (rather than an empty array).
+
+    Corresponds to the DELEGATED-FROM parameter in iCalendar.
+
 - **memberOf**: `String[]|null` (optional, defaults to `null`)
   A list of group addresses that were invited to this event, which caused this participant to be invited due to their membership of the group(s). This MUST be omitted if none (rather than an empty array).
 
