@@ -571,14 +571,16 @@ A **Participant** object has the following properties. Properties are mandatory 
     Corresponds to the RSVP parameter in iCalendar.
 
 - **scheduleUpdated**: `UTCDate|null` (optional, defaults to `null`)
-  The *updated* property of the last response from the user. This can be
+  The *updated* property of the last response from the participant. This can be
   compared to the *updated* timestamp in future iMIP responses to determine
   if the response is older or newer than the current data.
 
     Corresponds to the DTSTAMP parameter in iCalendar.
 
-- **memberOf**: `String[]` (optional)
+- **memberOf**: `String[]|null` (optional, defaults to `null`)
   A list of group addresses that were invited to this event, which caused this participant to be invited due to their membership of the group(s). This MUST be omitted if none (rather than an empty array).
+
+    Corresponds to the MEMBER parameter in iCalendar.
 
 - **linkIds**: `String[]|null` (optional, defaults to `null`)
   Links to more information about this participant, for example in vCard format. If a given value does not correspond to any link id in the *links*
