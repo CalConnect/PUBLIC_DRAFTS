@@ -67,7 +67,17 @@ The object has a collection of properties, as specified in the following section
 
 Vendors MAY add additional properties to the event object to support their custom features. The names of these properties SHOULD be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. `fastmail.com/customprop`. Other systems that interact with events with properties they do not recognise SHOULD try to preserve them, but MUST otherwise ignore them.
 
+## MIME Type
+
+A single JSEvent without wrapper has MIME type `application/json+cal;type=event`.
+
 # Metadata properties
+
+## @type
+
+Type: `String`
+
+Specifies that this object represents an event. The value MUST be `event`.
 
 ## uid
 
