@@ -550,7 +550,7 @@ A **Participant** object has the following properties. Properties are mandatory 
     Corresponds to the PARTSTAT parameter in iCalendar (converted to lower case).
 
 - **schedulePriority**: `String` (optional, defaults to "required")
-  Thev value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be treated the same as `required`.
+  The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be treated the same as `required`.
 
     - `non-participant`: Indicates a participant who is copied for information purposes only.
     - `optional`: Indicates a participant whose participation is optional.
