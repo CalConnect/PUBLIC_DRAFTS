@@ -630,6 +630,8 @@ An **Alert** Object has the following properties:
       after which it should be reshown.
 
       Clients displaying this alert SHOULD hide it if the *snoozed* property is updated to a time in the future. When that time is reached, the alert SHOULD be reshown unless *acknowledged* is now after the **original** trigger time.
+    - **audioLinkId**: `String|null` (optional)
+      The id of a link in the *links* property. If the linked file is of an audio type understood by the client, the client SHOULD play this audio when triggering the alert.
 
     Where an **EmailAction** object has the following properties:
 
