@@ -540,7 +540,7 @@ A **Participant** object has the following properties. Properties are mandatory 
   participant's *locationId* were specified as `null`.
 
 - **scheduleStatus**: `String` (optional, defaults to 'needs-action')
-  The value MUST be one of the following, or defined in a future RFC or extension to iCalendar:
+  The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value:
 
     - `needs-action`: No status yet set by the participant.
     - `accepted`: The participant will attend the event.
