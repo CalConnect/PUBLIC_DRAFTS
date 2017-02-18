@@ -582,7 +582,7 @@ A **Participant** object has the following properties. Properties are mandatory 
 
 - **linkIds**: `String[]|null` (optional, defaults to `null`)
   Links to more information about this participant, for example in vCard format. If a given value does not correspond to any link id in the *links*
-  property of the instance, this id MUST be ignored.
+  property of the instance, this id MUST be ignored. This MUST be omitted if none (rather than an empty array).
 
 # Alerts properties
 
