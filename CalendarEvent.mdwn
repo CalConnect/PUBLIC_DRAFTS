@@ -616,9 +616,9 @@ An **Alert** Object has the following properties:
 
     - **type**: `String`
       The value MUST be `"display"`.
-    - **acknowledged**: `UTCDate|null`
+    - **acknowledged**: `UTCDate|null` (optional)
       When the user has permanently dismissed the alert the client SHOULD set this to the current time in UTC. Other clients which sync this property can then automatically dismiss or suppress duplicate alerts (alerts with the same alert id that triggered on or before this date-time). For a recurring event, the *acknowledged* property of the parent event SHOULD be updated, unless the alert is already overriden in *recurrenceOverrides*.
-    - **snoozed**: `UTCDate|null`
+    - **snoozed**: `UTCDate|null` (optional)
       If the user temporarily dismisses the alert, this is the UTC date-time
       after which it should be reshown.
 
