@@ -22,7 +22,9 @@
 <?rfc sortrefs="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
-<rfc category="std" docName="draft-york-vpoll-04" ipr="trust200902">
+<rfc category="std"
+     updates='5545'
+     docName="draft-york-vpoll-04" ipr="trust200902">
 
   <front>
     <title abbrev="VPOLL">VPOLL: Consensus Scheduling Component for iCalendar</title>
@@ -99,7 +101,7 @@
     <section title="Introduction">
       <t>
         The currently existing approach to agreeing on meeting times using iTip
-        <xref target='RFC5546'/> and/or iMip <xref target='RFC6047'/> have some
+        <xref target='RFC5546'/> and/or iMip <xref target='RFC6047'/> has some
         significant failings. There is no useful bargaining or suggestion
         mechanism in iTip, only the ability for a potential attendee to accept
         or refuse or to counter with a time of their own choosing.
@@ -581,9 +583,9 @@
         </t>
 
         <t>
-          An alternative response, which may be disallowed, is to send
-          back the respondees availability or freebusy or even one or more new,
-          alternative choices.
+          An alternative response, which may be disallowed by the ORGANIZER, 
+          is to send back the respondees availability or freebusy or 
+          even one or more new, alternative choices.
         </t>
 
         <t>
@@ -1511,7 +1513,7 @@
 
   voteprop = *(
               ;
-              ; The following are OPTIONAL,
+              ; The following are REQUIRED,
               ; but MUST NOT occur more than once.
               ;
               pollitemid / response /

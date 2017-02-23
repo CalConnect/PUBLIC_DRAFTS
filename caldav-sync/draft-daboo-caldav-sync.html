@@ -377,10 +377,10 @@
 <link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
 <link href="#rfc.section.2" rel="Chapter" title="2 Conventions Used in This Document"/>
 <link href="#rfc.section.3" rel="Chapter" title="3 Overview"/>
-<link href="#rfc.section.4" rel="Chapter" title="4 The &quot;calendar-data&quot; Preference"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 The &quot;calendar-patch&quot; Preference"/>
 <link href="#rfc.section.5" rel="Chapter" title="5 Changes to GET requests"/>
 <link href="#rfc.section.6" rel="Chapter" title="6 Changes to CalDAV REPORT requests"/>
-<link href="#rfc.section.7" rel="Chapter" title="7 Changes to WedDAV sync REPORT requests"/>
+<link href="#rfc.section.7" rel="Chapter" title="7 Changes to WebDAV Sync Collection REPORT requests"/>
 <link href="#rfc.section.8" rel="Chapter" title="8 Security Considerations"/>
 <link href="#rfc.section.9" rel="Chapter" title="9 Privacy Considerations"/>
 <link href="#rfc.section.10" rel="Chapter" title="10 IANA Considerations"/>
@@ -394,7 +394,7 @@
 
   <meta name="dct.creator" content="Daboo, C. and K. Murchison" />
   <meta name="dct.identifier" content="urn:ietf:id:draft-daboo-caldav-sync-00" />
-  <meta name="dct.issued" scheme="ISO8601" content="2017-1-20" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-2-12" />
   <meta name="dct.abstract" content="This document defines new protocol features for CalDAV (RFC 4791) to improve the efficiency of synchronizing data changes between a client and server." />
   <meta name="description" content="This document defines new protocol features for CalDAV (RFC 4791) to improve the efficiency of synchronizing data changes between a client and server." />
 
@@ -422,8 +422,8 @@
   <td class="right">Carnegie Mellon University</td>
 </tr>
 <tr>
-  <td class="left">Expires: July 24, 2017</td>
-  <td class="right">January 20, 2017</td>
+  <td class="left">Expires: August 16, 2017</td>
+  <td class="right">February 12, 2017</td>
 </tr>
 
     	
@@ -443,7 +443,7 @@
 <p/>
 
 <ul>
-  <li>None</li>
+  <li>Should the "since" parameter to the "calendar-patch" preference be optional when used with DAV:sync-collection REPORT?</li>
 </ul>
 
 <p> </p>
@@ -453,7 +453,7 @@
 <p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
 <p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
 <p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
-<p>This Internet-Draft will expire on July 24, 2017.</p>
+<p>This Internet-Draft will expire on August 16, 2017.</p>
 <h1 id="rfc.copyrightnotice">
   <a href="#rfc.copyrightnotice">Copyright Notice</a>
 </h1>
@@ -468,10 +468,10 @@
   	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
 <li>2.   <a href="#rfc.section.2">Conventions Used in This Document</a></li>
 <li>3.   <a href="#rfc.section.3">Overview</a></li>
-<li>4.   <a href="#rfc.section.4">The "calendar-data" Preference</a></li>
+<li>4.   <a href="#rfc.section.4">The "calendar-patch" Preference</a></li>
 <li>5.   <a href="#rfc.section.5">Changes to GET requests</a></li>
 <li>6.   <a href="#rfc.section.6">Changes to CalDAV REPORT requests</a></li>
-<li>7.   <a href="#rfc.section.7">Changes to WedDAV sync REPORT requests</a></li>
+<li>7.   <a href="#rfc.section.7">Changes to WebDAV Sync Collection REPORT requests</a></li>
 <li>8.   <a href="#rfc.section.8">Security Considerations</a></li>
 <li>9.   <a href="#rfc.section.9">Privacy Considerations</a></li>
 <li>10.   <a href="#rfc.section.10">IANA Considerations</a></li>
@@ -484,23 +484,23 @@
 
   <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> Introduction</h1>
 <p id="rfc.section.1.p.1">The <a href="#RFC4791">CalDAV</a> <cite title="NONE">[RFC4791]</cite> protocol is a client/server protocol that supports the exchange of <a href="#RFC5545">iCalendar</a> <cite title="NONE">[RFC5545]</cite> data between a server and clients, as well as supporting scheduling operations on the server (using <a href="#RFC6638">[RFC6638]</a>). To exchange data, clients and servers use a combination of HTTP PUT, GET and REPORT requests. The REPORT requests include CalDAV "multiget" and "time-range" queries, as well as <a href="#RFC6578">WebDAV-based synchronization</a> <cite title="NONE">[RFC6578]</cite>. Whilst these have proved adequate to date, there is a need to improve the efficiency of data synchronization to lower network I/O requirements, and thus reduce power consumption requirements on mobile devices (which are now frequently used to manage calendars).</p>
-<p id="rfc.section.1.p.2">The iCalendar patch [draft-patch] specification defines a way for clients to incrementally update servers using the HTTP <a href="#RFC5789">PATCH </a> <cite title="NONE">[RFC5789]</cite> method and a new iCalendar-based patch format. This allows a client to only send the pieces of an iCalendar object that have changed, rather than send the entire resource. This can significantly reduce the amount of data sent from the client to the server, particularly in enterprise environments where long-lived recurring events, with many attendees, and many recurrence exceptions are common. However, when data changes on the server, clients are still required to download the entire iCalendar object, even when only a small change has taken place. Since many users now have multiple devices that are actively synchronizing with a server (e.g., desktop, laptop, mobile phone, tablet, etc) a small change made on one device will result in large data transfers on the others as they synchronize their local caches.</p>
-<p id="rfc.section.1.p.3">This specification defines new protocol features in CalDAV to support incremental updates to data stored in a client's cache, by sending iCalendar patch data from the server to the client.</p>
+<p id="rfc.section.1.p.2">The iCalendar patch [draft-patch] specification defines a way for clients to incrementally update servers using the HTTP <a href="#RFC5789">PATCH </a> <cite title="NONE">[RFC5789]</cite> method and a new iCalendar-based patch format. This allows a client to only send the pieces of an iCalendar object that have changed, rather than send the entire resource. This can significantly reduce the amount of data sent from the client to the server, particularly in enterprise environments where long-lived recurring events, with many attendees, and many recurrence exceptions are common. However, when data changes on the server, clients are still required to download the entire calendar resource, even when only a small change has taken place. Since many users now have multiple devices that are actively synchronizing with a server (e.g., desktop, laptop, mobile phone, tablet, etc) a small change made on one device will result in large data transfers on the others as they synchronize their local caches.</p>
+<p id="rfc.section.1.p.3">This specification defines new protocol features in CalDAV to support incremental updates to data stored in a client's cache, by sending calendar patch data from the server to the client.  These features are intended to be data format agnostic, and can be used with iCalendar patch, and future patch formats whether they be for existing (e.g. <a href="#RFC7265">jCal</a> <cite title="NONE">[RFC7265]</cite>, <a href="#RFC6321">xCal</a> <cite title="NONE">[RFC6321]</cite>) or new calendar data formats.</p>
 <h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> Conventions Used in This Document</h1>
 <p id="rfc.section.2.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119">[RFC2119]</a>.</p>
-<p id="rfc.section.2.p.2">The notation used in this memo is the ABNF notation of <a href="#RFC5234">[RFC5234]</a>. Any syntax elements shown below that are not explicitly defined in this specification come from <a href="#RFC7230">CalDAV</a> <cite title="NONE">[RFC7230]</cite> and <a href="#RFC4791">CalDAV</a> <cite title="NONE">[RFC4791]</cite>.</p>
+<p id="rfc.section.2.p.2">The notation used in this memo is the ABNF notation of <a href="#RFC5234">[RFC5234]</a>. Any syntax elements shown below that are not explicitly defined in this specification come from <a href="#RFC7230">HTTP</a> <cite title="NONE">[RFC7230]</cite> and <a href="#RFC4791">CalDAV</a> <cite title="NONE">[RFC4791]</cite>.</p>
 <p id="rfc.section.2.p.3">When XML element types in the namespaces "DAV:" and "urn:ietf:params:xml:ns:caldav" are referenced in this document outside of the context of an XML fragment, the string "DAV:" and "CALDAV:" will be prefixed to the element type names respectively.</p>
 <h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#overview" id="overview">Overview</a></h1>
 <p id="rfc.section.3.p.1">Synchronization of CalDAV data on a client is nowadays typically accomplished using the WebDAV sync REPORT to detect changes to individual calendar object resources in a calendar collection. Those can be retrieved by the WebDAV sync request itself, or a subsequent series of CalDAV multiget requests can be made to retrieve the changed data. WebDAV sync defines a DAV:sync-token property on collections that support synchronization. The value of that property is an opaque token that serves as a "sync anchor" for retrieval of changes on the server. Each client that maintains a local cache of the data stores the last value of DAV:sync-token for a fully synchronized calendar collection, and then presents that token to the server the next time changes need to be fetched. The server then uses that token to determine what has changed since the client last synchronized, and can return those changes. Since the DAV:sync-token is already being used to track changes on a collection level, it can also be used as a "sync anchor" for the retrieval of incremental changes to the resources within that collection.</p>
 <p id="rfc.section.3.p.2">This specification makes the following changes to CalDAV (with details of each described in subsequent sections): </p>
 
 <ul>
-  <li>HTTP requests that expect calendar data to be included in the response (GET and REPORTs which include the CALDAV:calendar-data "property" in the XML body) can include a <a href="#RFC7240">Prefer request header field</a> <cite title="NONE">[RFC7240]</cite> with the "calendar-patch" preference.  The client sets the value of the "since" parameter of this preference to a DAV:sync-token value.  When such a request is received by the server, if the "since" value represents a valid "sync anchor", the server MAY use the iCalendar patch documents in the HTTP response.  Those documents represent the difference between each calendar resource as it was at the time the client-provided "sync anchor" was in effect, and the current state of the resource.</li>
-  <li>HTTP multi-status responses that include calendar documents MAY use a 304 (Not Modified) status code inside a DAV:propstat element containing a CALDAV:calendar-data element to indicate that there is no difference between the current state of the resource and the state indicated by the "sync anchor".</li>
+  <li>HTTP requests that expect calendar data to be included in the response (GET and REPORTs which include the CALDAV:calendar-data "property" in the XML body) can include a <a href="#RFC7240">Prefer request header field</a> <cite title="NONE">[RFC7240]</cite> with the "calendar-patch" preference.  The client sets the value of the "since" parameter of this preference to a DAV:sync-token value.  When such a request is received by the server, if the "since" value represents a valid "sync anchor", the server MAY use calendar patch documents in the HTTP response.  Those documents represent the difference between each calendar resource as it was at the time the client-provided "sync anchor" was in effect, and the current state of the resource.</li>
+  <li>HTTP multi-status responses that include calendar patch documents MAY use a 304 (Not Modified) status code inside a DAV:propstat element containing a CALDAV:calendar-data element to indicate that there is no difference between the current state of the resource and the state indicated by the "sync anchor".</li>
 </ul>
 
 <p> </p>
-<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#calendar-patch" id="calendar-patch">The "calendar-data" Preference</a></h1>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#calendar-patch" id="calendar-patch">The "calendar-patch" Preference</a></h1>
 <p id="rfc.section.4.p.1">The "calendar-patch" preference indicates that the client wishes for the server to use calendar patch documents in the HTTP response rather than entire calendar resources.  The value of the "since" parameter, which MUST be the value of a previously returned DAV:sync-token property, provides the "sync anchor" from which the server should generate the patch documents.</p>
 <p id="rfc.section.4.p.2">ABNF:</p>
 <pre>
@@ -509,12 +509,174 @@ calendar-patch = "calendar-patch" OWS ";" OWS "since=" sync-token
 sync-token = DQUOTE absolute-URI DQUOTE
 </pre>
 <h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#get-request" id="get-request">Changes to GET requests</a></h1>
-<p id="rfc.section.5.p.1">A client can signal to a server that it is willing and able to receive a calendar patch document rather than an entire calendar resource by including a Prefer header field with the "calendar-patch" preference in a GET request.  If server the receives a "calendar-patch" preference, recognizes the supplied sync-token, and is able to create a patch document for the resource in a format compatible with the one those supplied in the Accept request header field, the server MAY respond to the request with the patch document in lieu of the entire resource.</p>
+<p id="rfc.section.5.p.1">A client can signal to a server that it is willing and able to receive a calendar patch document rather than an entire calendar resource by including a Prefer header field with the "calendar-patch" preference in a GET request.</p>
+<p id="rfc.section.5.p.2">If a server receives a "calendar-patch" preference, recognizes the supplied sync-token, and is able to create a patch document for the resource in a format compatible with one of the media types supplied in the <a href="#RFC7230">Accept</a> <cite title="NONE">[RFC7230]</cite> request header field, the server MAY respond to the request with the patch document in lieu of the entire resource.</p>
+<p id="rfc.section.5.p.3">Example:</p>
+<p>&gt;&gt; Request &lt;&lt; </p>
+<pre>
+GET /events/abcd.ics HTTP/1.1
+Host: cal.example.com
+Prefer: calendar-patch; since="http://example.com/ns/sync/1234"
+Accept: text/calendar; component=VPATCH
+
+</pre>
+<p>&gt;&gt; Response &lt;&lt; </p>
+<pre>
+HTTP/1.1 200 OK
+Date: Sat, 11 Feb 2017 09:32:12 GMT
+Content-Type: text/calendar; component=VPATCH; charset="utf-8"
+Content-Length: yyyy
+
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Example Corp.//CalDAV Server//EN
+BEGIN:VPATCH
+UID:wxyz
+DTSTAMP:20170201T000000Z
+BEGIN:PATCH
+PATCH-TARGET:/VCALENDAR/VEVENT[UID=abcd]
+BEGIN:VALARM
+UID:hijk
+ACTION:DISPLAY
+TRIGGER:-PT30M
+DESCRIPTION:Time to leave
+END:VALARM
+END:PATCH
+END:VPATCH
+END:VCALENDAR
+</pre>
 <h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#caldav-request" id="caldav-request">Changes to CalDAV REPORT requests</a></h1>
-<p id="rfc.section.6.p.1">content-type attribute to CALDAV:calendar-data</p>
-<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#sync-request" id="sync-request">Changes to WedDAV sync REPORT requests</a></h1>
-<p id="rfc.section.7.p.1">content-type attribute to CALDAV:calendar-data</p>
-<p id="rfc.section.7.p.2">"sync anchor" in Prefer:calendar-patch MUST match DAV:sync-token in request body</p>
+<p id="rfc.section.6.p.1">A client fetching the CALDAV:calendar-data "property" in a CALDAV:calendar-query or CALDAV:calendar-multiget REPORT can signal to a server that it is willing and able to receive calendar patch documents rather than entire calendar resources by including a Prefer header field with the "calendar-patch" preference in the REPORT request.</p>
+<p id="rfc.section.6.p.2">If a server receives a "calendar-patch" preference, recognizes the supplied sync-token, and is able to create patch documents for resources in a format compatible with the "content-type" attribute of the CALDAV:calendar-data element, the server MAY respond to the request with patch documents in lieu of entire resources.  If a resource has not changed since the state indicated by the sync-token, the server MAY respond with a 304 (Not Modified) status code in the DAV:propstat element containing the CALDAV:calendar-data element in lieu of an empty calendar patch document.</p>
+<p id="rfc.section.6.p.3">Example:</p>
+<p>&gt;&gt; Request &lt;&lt; </p>
+<pre>
+REPORT /events/work/ HTTP/1.1
+Host: cal.example.com
+Content-Type: application/xml; charset="utf-8"
+Content-Length: xxxx
+Prefer: calendar-patch; since="http://example.com/ns/sync/1234"
+
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;C:calendar-multiget xmlns:D="DAV:"
+                     xmlns:C="urn:ietf:params:xml:ns:caldav"&gt;
+  &lt;D:prop&gt;
+    &lt;D:getetag/&gt;
+    &lt;C:calendar-data content-type="text/calendar; component=VPATCH"/&gt;
+  &lt;/D:prop&gt;
+  &lt;D:href&gt;/events/work/abcd1.ics&lt;/D:href&gt;
+  &lt;D:href&gt;/events/work/mtg1.ics&lt;/D:href&gt;
+&lt;/C:calendar-multiget&gt;
+</pre>
+<p>&gt;&gt; Response &lt;&lt; </p>
+<pre>
+HTTP/1.1 207 Multi-Status
+Date: Sat, 11 Feb 2017 09:32:12 GMT
+Content-Type: application/xml; charset="utf-8"
+Content-Length: xxxx
+
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;D:multistatus xmlns:D="DAV:"
+               xmlns:C="urn:ietf:params:xml:ns:caldav"&gt;
+  &lt;D:response&gt;
+    &lt;D:href&gt;http://cal.example.com/events/work/abcd1.ics&lt;/D:href&gt;
+    &lt;D:propstat&gt;
+      &lt;D:prop&gt;
+        &lt;D:getetag&gt;"fffff-abcd1"&lt;/D:getetag&gt;
+        &lt;C:calendar-data&gt;BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Example Corp.//CalDAV Client//EN
+BEGIN:VPATCH
+UID:qrst
+DTSTAMP:20170201T000000Z
+BEGIN:PATCH
+PATCH-TARGET:/VCALENDAR/VEVENT[UID=abcd1]
+ATTENDEE;PATCH-ACTION=BYVALUE;PARTSTAT=ACCEPTED:
+ mailto:cyrus@example.com
+END:PATCH
+END:VPATCH
+END:VCALENDAR
+        &lt;/C:calendar-data&gt;
+      &lt;/D:prop&gt;
+      &lt;D:status&gt;HTTP/1.1 200 OK&lt;/D:status&gt;
+    &lt;/D:propstat&gt;
+  &lt;/D:response&gt;
+  &lt;D:response&gt;
+    &lt;D:href&gt;http://cal.example.com/events/work/mtg1.ics&lt;/D:href&gt;
+    &lt;D:propstat&gt;
+      &lt;D:prop&gt;
+        &lt;D:getetag&gt;"fffff-wxyz"&lt;/D:getetag&gt;
+      &lt;/D:prop&gt;
+      &lt;D:status&gt;HTTP/1.1 200 OK&lt;/D:status&gt;
+    &lt;/D:propstat&gt;
+    &lt;D:propstat&gt;
+      &lt;D:prop&gt;
+        &lt;C:calendar-data/&gt;
+      &lt;/D:prop&gt;
+      &lt;D:status&gt;HTTP/1.1 304 Not Modified&lt;/D:status&gt;
+    &lt;/D:propstat&gt;
+  &lt;/D:response&gt;
+&lt;/D:multistatus&gt;
+</pre>
+<h1 id="rfc.section.7"><a href="#rfc.section.7">7.</a> <a href="#sync-request" id="sync-request">Changes to WebDAV Sync Collection REPORT requests</a></h1>
+<p id="rfc.section.7.p.1">A client fetching the CALDAV:calendar-data "property" in a DAV:sync-collection REPORT can signal to a server that it is willing and able to receive calendar patch documents rather than entire calendar resources by including a Prefer header field with the "calendar-patch" preference in the REPORT request.  The value of the sync-token specified in the Prefer request header field MUST match that of the DAV:sync-token element in the REPORT body.</p>
+<p id="rfc.section.7.p.2">If a server receives a "calendar-patch" preference, recognizes the supplied sync-token, and is able to create patch documents for resources in a format compatible with the "content-type" attribute of the CALDAV:calendar-data element, the server MAY respond to the request with patch documents in lieu of entire resources.  If a resource has not changed since the state indicated by the sync-token, the server MAY respond with a 304 (Not Modified) status code in the DAV:propstat element containing the CALDAV:calendar-data element in lieu of an empty calendar patch document.</p>
+<p id="rfc.section.7.p.3">Example:</p>
+<p>&gt;&gt; Request &lt;&lt; </p>
+<pre>
+REPORT /events/work/ HTTP/1.1
+Host: cal.example.com
+Content-Type: text/xml; charset="utf-8"
+Content-Length: xxxx
+Prefer: calendar-patch; since="http://example.com/ns/sync/1234"
+
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;D:sync-collection xmlns:D="DAV:"
+                   xmlns:C="urn:ietf:params:xml:ns:caldav"&gt;
+  &lt;D:sync-token&gt;http://example.com/ns/sync/1234&lt;/D:sync-token&gt;
+  &lt;D:sync-level&gt;1&lt;/D:sync-level&gt;
+  &lt;D:prop&gt;
+    &lt;D:getetag/&gt;
+    &lt;C:calendar-data content-type="text/calendar; component=VPATCH"/&gt;
+  &lt;/D:prop&gt;
+&lt;/D:sync-collection&gt;
+</pre>
+<p>&gt;&gt; Response &lt;&lt; </p>
+<pre>
+HTTP/1.1 207 Multi-Status
+Date: Sat, 11 Feb 2017 09:32:12 GMT
+Content-Type: application/xml; charset="utf-8"
+Content-Length: xxxx
+
+&lt;?xml version="1.0" encoding="utf-8" ?&gt;
+&lt;D:multistatus xmlns:D="DAV:"
+               xmlns:C="urn:ietf:params:xml:ns:caldav"&gt;
+  &lt;D:response&gt;
+    &lt;D:href&gt;http://cal.example.com/events/work/abcd1.ics&lt;/D:href&gt;
+    &lt;D:propstat&gt;
+      &lt;D:prop&gt;
+        &lt;D:getetag&gt;"fffff-abcd1"&lt;/D:getetag&gt;
+        &lt;C:calendar-data&gt;BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Example Corp.//CalDAV Client//EN
+BEGIN:VPATCH
+UID:qrst
+DTSTAMP:20170201T000000Z
+BEGIN:PATCH
+PATCH-TARGET:/VCALENDAR/VEVENT[UID=abcd1]
+ATTENDEE;PATCH-ACTION=BYVALUE;PARTSTAT=ACCEPTED:
+ mailto:cyrus@example.com
+END:PATCH
+END:VPATCH
+END:VCALENDAR
+        &lt;/C:calendar-data&gt;
+      &lt;/D:prop&gt;
+      &lt;D:status&gt;HTTP/1.1 200 OK&lt;/D:status&gt;
+    &lt;/D:propstat&gt;
+  &lt;/D:response&gt;
+  &lt;D:sync-token&gt;http://example.com/ns/sync/1238&lt;/D:sync-token&gt;
+&lt;/D:multistatus&gt;
+</pre>
 <h1 id="rfc.section.8"><a href="#rfc.section.8">8.</a> <a href="#security" id="security">Security Considerations</a></h1>
 <p/>
 <p id="rfc.section.8.p.2">Security considerations described in <a href="#RFC5545">[RFC5545]</a>, <a href="#RFC5789">[RFC5789]</a>, and <a href="#RFC4791">[RFC4791]</a> MUST be adhered to.</p>
@@ -537,7 +699,7 @@ sync-token = DQUOTE absolute-URI DQUOTE
   <dd style="margin-left: 8">This preference is only intended to be used with CalDAV requests that expect calendar data to be included in the response.  Furthermore, the "since" parameter is REQUIRED with this preference.</dd>
 </dl>
 <h1 id="rfc.section.11"><a href="#rfc.section.11">11.</a> Acknowledgments</h1>
-<p id="rfc.section.11.p.1">Thanks to the following for feedback: </p>
+<p id="rfc.section.11.p.1">Thanks to the following for feedback: Mike Douglass, Bron Gondwana.  </p>
 <p id="rfc.section.11.p.2">This specification originated from work at the Calendaring and Scheduling Consortium, which has helped with the development and testing of implementations.  </p>
 <h1 id="rfc.references"><a href="#rfc.references">12.</a> Normative References</h1>
 <table>
@@ -574,6 +736,12 @@ sync-token = DQUOTE absolute-URI DQUOTE
     </tr>
     <tr>
       <td class="reference">
+        <b id="RFC6321">[RFC6321]</b>
+      </td>
+      <td class="top"><a>Daboo, C.</a>, <a>Douglass, M.</a> and <a>S. Lees</a>, "<a href="http://tools.ietf.org/html/rfc6321">xCal: The XML Format for iCalendar</a>", RFC 6321, DOI 10.17487/RFC6321, August 2011.</td>
+    </tr>
+    <tr>
+      <td class="reference">
         <b id="RFC6578">[RFC6578]</b>
       </td>
       <td class="top"><a>Daboo, C.</a> and <a>A. Quillaud</a>, "<a href="http://tools.ietf.org/html/rfc6578">Collection Synchronization for Web Distributed Authoring and Versioning (WebDAV)</a>", RFC 6578, DOI 10.17487/RFC6578, March 2012.</td>
@@ -595,6 +763,12 @@ sync-token = DQUOTE absolute-URI DQUOTE
         <b id="RFC7240">[RFC7240]</b>
       </td>
       <td class="top"><a>Snell, J.</a>, "<a href="http://tools.ietf.org/html/rfc7240">Prefer Header for HTTP</a>", RFC 7240, DOI 10.17487/RFC7240, June 2014.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC7265">[RFC7265]</b>
+      </td>
+      <td class="top"><a>Kewisch, P.</a>, <a>Daboo, C.</a> and <a>M. Douglass</a>, "<a href="http://tools.ietf.org/html/rfc7265">jCal: The JSON Format for iCalendar</a>", RFC 7265, DOI 10.17487/RFC7265, May 2014.</td>
     </tr>
   </tbody>
 </table>
