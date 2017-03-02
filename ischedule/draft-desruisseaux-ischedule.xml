@@ -111,8 +111,8 @@
   <keyword>iSchedule</keyword>
   <keyword>scheduling</keyword>
   <keyword>text/calendar</keyword>
-  <keyword>DKIM</keyword>
-  <keyword>DomainKeys Identified Mail</keyword>
+<!--  <keyword>DKIM</keyword>
+  <keyword>DomainKeys Identified Mail</keyword> -->
   <abstract>
     <t>
       This document defines the Internet Calendar Scheduling
@@ -141,11 +141,13 @@
     calendar components, as well as search for busy time information with
     users of other calendaring and scheduling systems on the Internet.
   </t>
+<!--
   <t>
     iSchedule leverages the DomainKeys Identified Mail (DKIM) service
     <xref target="RFC6376"/> to provide end-to-end domain-level
     authentication based on message content that is transparent to end users.
   </t>
+-->
   <t>
     Discussion of this Internet-Draft is taking place on the mailing list
     &lt;https://www.ietf.org/mailman/listinfo/ischedule&gt;.
@@ -230,12 +232,14 @@
         </t>
       </list>
     </t>
+<!--
     <t>
       Furthermore, implementers will need to be familiar with the
       DomainKeys Identified Mail (DKIM) service defined in
       <xref target="RFC6376"/>. An overview of DKIM can be found
       in <xref target="RFC5585"/>.
     </t>
+-->
     <t>
       This document does not attempt to repeat the specification of
       concepts or definitions from these other documents. Where possible,
@@ -248,8 +252,8 @@
         This specification reuses much of the same terminology as
         <xref target="RFC5545">iCalendar</xref>,
         <xref target="RFC5546">iTIP</xref>,
-        <xref target="RFC7230">HTTP</xref>, and
-        <xref target="RFC6376">DKIM</xref>.
+        and <xref target="RFC7230">HTTP</xref>.
+<!--        and <xref target="RFC6376">DKIM</xref>. -->
         Additional terms used by this specification are:
       </t>
       <t>
@@ -321,9 +325,6 @@
 | User     |   | iSchedule |            | iSchedule |   | User     |
 | Agent    |   | Sender    |            | Receiver  |   | Agent    |
 +----------+   +-----------+            +-----------+   +----------+
-                    |                          |
-                    <-------------------------->
-                     DKIM Signature/Verification
 ]]></artwork></figure>
     When an iSchedule Sender has a scheduling message to transmit, it determines the iSchedule Receivers to which to deliver the message and sends the appropriate iSchedule message. The iSchedule Receiver verifies the authenticity and content of the iSchedule message and delivers it to the Calendar Service.
   </t>
@@ -360,9 +361,11 @@
     <t>
       For each group of Recipients handled by the same iSchedule Receiver, the iSchedule Sender will construct an HTTP request, as per <xref target="scheduling"/>, with the body of the HTTP request containing the iSchedule message. Note, in the case of a "VFREEBUSY" iSchedule message, the iSchedule Sender MUST ensure that iCalendar "ATTENDEE" properties in the iSchedule message match one-for-one with the Recipients listed in the HTTP request header.
     </t>
+<!--
     <t>
       After constructing the HTTP request, the iSchedule Sender MUST generate a DKIM signature for the request and include a <xref target="dkim-signature.header">"DKIM-Signature"</xref> request header, as per <xref target="dkim"/>.
     </t>
+-->
     <t>
       The iSchedule Sender then sends the HTTP request to the iSchedule Receiver handling the Recipient group, and receives the HTTP response, which will be an XML document with either an IS:schedule-response or IS:error element as the root element.
     </t>
@@ -374,9 +377,11 @@
     <t>
       iSchedule Receivers MUST provide a capabilities document to Senders, as per <xref target="capabilities"/>.
     </t>
+<!--
     <t>
       Upon receipt of an iSchedule HTTP request, the iSchedule Receiver verifies the message as per <xref target="verification"/>.
     </t>
+-->
     <t>
       Once the authenticity of the message is confirmed, the iSchedule Receiver delivers the scheduling message to the indicated recipients, collects and aggregates the delivery status for each recipient, and returns the result in the HTTP response body.
     </t>
@@ -582,7 +587,10 @@ ETag: "afasdf-132afds"
 
   <section title="Scheduling" anchor="scheduling">
     <t>
-      This section defines how an iSchedule Sender can use the HTTP POST method to submit a scheduling message to an iSchedule Receiver. Note, this describes the HTTP request prior to generating a DKIM signature as per <xref target="dkim"/>.
+      This section defines how an iSchedule Sender can use the HTTP POST method to submit a scheduling message to an iSchedule Receiver.
+<!--
+      Note, this describes the HTTP request prior to generating a DKIM signature as per <xref target="dkim"/>.
+-->
     </t>
 
     <section anchor="schedule" title="POST Method">
@@ -690,9 +698,11 @@ ETag: "afasdf-132afds"
             <t>
               IS:invalid-scheduling-message: The resource submitted in the POST request did not obey all restrictions specified for the POST request, violating the IS:scheduling-message capability element, or the requirements of iTIP;
             </t>
+<!--
             <t>
               IS:verification-failed: The POST request failed DKIM verification;
             </t>
+-->
             <t>
               IS:originator-missing: The POST request did not include an
               "Originator" request header specifying the calendar
@@ -768,7 +778,7 @@ ETag: "afasdf-132afds"
 
     </section>
   </section>
-
+<!--
   <section title="iSchedule Domain-Level Authentication" anchor="dkim">
     <t>
       iSchedule uses and extends the mechanism defined by
@@ -917,6 +927,7 @@ _domainkey_lookup._tcp.{d}.
     </t>
     
   </section>
+
   <section title="Well-known Request-URI" anchor='pk-well-known'>
         <t>
           This specification registers a well-known URI <xref target="RFC5785"/> for the DKIM HTTP-based public key management information, "domainkey" (see <xref target="IANA.WELL-KNOWN-URI-DKIM"/>). To retrieve information about the public key used to sign an iSchedule message, the iSchedule Sender constructs a URI of the form:
@@ -1005,7 +1016,7 @@ sig-q-tag-method /= "private-exchange"
     </section>
 
   </section>
-
+-->
   <section title="HTTP Headers" anchor="http.headers">
     <t>
       This section defines the syntax and semantics of additional
@@ -1018,6 +1029,7 @@ sig-q-tag-method /= "private-exchange"
    OWS = *( [ CRLF ] WSP )
 ]]></artwork></figure>
     </t>
+<!--
     <section title="DKIM-Signature Request Header" anchor="dkim-signature.header">
       <t>
         The "DKIM-Signature" request header MUST be specified by the
@@ -1030,7 +1042,7 @@ sig-q-tag-method /= "private-exchange"
    ; tag-list is defined in Section 3.2 of <xref target="RFC6376"/>
 ]]></artwork></figure>
     </section>
-
+-->
     <section title="iSchedule-Version General Header" anchor="ischedule-version.header">
       <t>
         The "iSchedule-Version" general header field MUST be specified by
@@ -1850,10 +1862,12 @@ sig-q-tag-method /= "private-exchange"
       to messaging in general are relevant here. In particular the
       authenticity of the scheduling messages needs to be verified.
     </t>
+<!--
     <t>
       Potential attacks described in the security considerations of
       DKIM <xref target="RFC6376"/> are also applicable to iSchedule.
     </t>
+-->
     <section title="Privacy">
       <t>
         iSchedule Senders and iSchedule Receivers MUST use an
@@ -1863,6 +1877,7 @@ sig-q-tag-method /= "private-exchange"
     </section>
 
     <section title="Authentication">
+<!--
       <t>
         iSchedule uses and extends the mechanism defined by
         DomainKeys Identified Mail (DKIM) <xref target="RFC6376"/>.
@@ -1870,6 +1885,7 @@ sig-q-tag-method /= "private-exchange"
         framework for email, using public-key cryptography, with
         the domain name service as its key server technology.
       </t>
+-->
     </section>
 
     <section title="DNS Considerations">
@@ -1916,6 +1932,7 @@ sig-q-tag-method /= "private-exchange"
         This specification registers new headers for use with
         HTTP as per <xref target="RFC3864"/>.
       </t>
+<!--
       <section title="DKIM-Signature Request Header Registration"
         anchor="IANA_HTTP_DKIM_SIGNATURE">
         <t>
@@ -1937,6 +1954,7 @@ sig-q-tag-method /= "private-exchange"
           Related information: none
         </t>
       </section>
+-->
       <section title="iSchedule-Version General Header Registration"
         anchor="IANA_HTTP_ISCHEDULE_VERSION">
         <t>
@@ -2063,6 +2081,7 @@ sig-q-tag-method /= "private-exchange"
           Related information: none
         </t>
       </section>
+<!--
       <section title="DKIM Well-Known URI Registration" anchor="IANA.WELL-KNOWN-URI-DKIM">
         <t>
           URI suffix: domainkey
@@ -2077,10 +2096,11 @@ sig-q-tag-method /= "private-exchange"
           Related information: none
         </t>
       </section>
+-->
     </section>
-
+<!--
     <section title="DKIM Parameters Registration">
-      <!-- See: http://www.iana.org/assignments/dkim-parameters/dkim-parameters.xhtml -->
+      See: http://www.iana.org/assignments/dkim-parameters/dkim-parameters.xhtml
 
       <section title="DKIM-Signature Query Method Registry">
         <t>
@@ -2125,7 +2145,7 @@ sig-q-tag-method /= "private-exchange"
         </texttable>
       </section>
     </section>
-
+-->
   </section><!-- IANA -->
 
   <section title="Acknowledgments">
@@ -2165,8 +2185,8 @@ sig-q-tag-method /= "private-exchange"
     &rfc5545;
     &rfc5546;
     &rfc5785;
-    &rfc6125;
-    &rfc6376;
+    <!-- &rfc6125; -->
+    <!-- &rfc6376; -->
     &rfc6763;
     &rfc7230;
     &rfc7232;
@@ -2179,10 +2199,10 @@ sig-q-tag-method /= "private-exchange"
     &rfc3864;
     <!-- &rfc4398; -->
     &rfc4791;
-    &rfc5585;
+    <!-- &rfc5585; -->
     &rfc6047;
     &rfc6638;
-    &rfc6541;
+    <!-- &rfc6541; -->
     &rfc7529;
   </references>
 
@@ -2204,13 +2224,6 @@ sig-q-tag-method /= "private-exchange"
         <preamble>&gt;&gt; Request &lt;&lt;</preamble>
         <artwork><![CDATA[
 POST /.well-known/ischedule HTTP/1.1
-DKIM-Signature: a=rsa-sha256; d=example.com; s=jupiter;
- c=ischedule-relaxed/simple; q=dns/txt:http/well-known;
- t=1268069852; x=1283918400;
- h=Originator:Recipient:Content-Type:
- iSchedule-Version:iSchedule-Message-ID;
- bh=XXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxx;
- b=XXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxx
 Host: cal.example.org
 iSchedule-Version: 1.0
 iSchedule-Message-ID: 798F00BB-5B45-4634-B083-0D0CD3A2BB39
@@ -2275,13 +2288,6 @@ iSchedule-Capabilities: 123
         <preamble>&gt;&gt; Request &lt;&lt;</preamble>
         <artwork><![CDATA[
 POST /.well-known/ischedule HTTP/1.1
-DKIM-Signature: a=rsa-sha256; d=example.com; s=jupiter;
- c=ischedule-relaxed/simple; q=dns/txt:http/well-known;
- t=1268069852; x=1283918400;
- h=Originator:Recipient:Content-Type:
- iSchedule-Version:iSchedule-Message-ID;
- bh=XXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxx;
- b=XXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxx
 Host: cal.example.org
 iSchedule-Version: 1.0
 iSchedule-Message-ID: A98ADF24-9490-4F01-81C8-FE924F86A9FD
@@ -2368,13 +2374,6 @@ END:VCALENDAR
         <preamble>&gt;&gt; Request &lt;&lt;</preamble>
         <artwork><![CDATA[
 POST /.well-known/ischedule HTTP/1.1
-DKIM-Signature: a=rsa-sha256; d=example.com; s=jupiter;
- c=ischedule-relaxed/simple; q=dns/txt:http/well-known;
- t=1268069852; x=1283918400;
- h=Originator:Recipient:Content-Type:
- iSchedule-Version:iSchedule-Message-ID;
- bh=XXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxx;
- b=XXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxxXXXxxx
 Host: cal.example.org
 iSchedule-Version: 1.0
 Originator: mailto:bernard@example.com
@@ -2429,6 +2428,7 @@ iSchedule-Capabilities: 123
         <list style="letters">
           <t>Added Ken as editor.</t>
           <t>Updated references.</t>
+          <t>Removed DKIM requirement (may be moved to separate document.</t>
           <t>IS:calendar-data element now includes a content-type attribute and the POST response media type must match the one in the request.</t>
           <t>Added IS:rscales to allow receivers to advertise support RSCALE values.</t>
           <t>Updated verification requirements.</t>
