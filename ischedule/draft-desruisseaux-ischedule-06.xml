@@ -2,8 +2,6 @@
 <?xml-stylesheet type="text/xsl" href="../rfc2629.xslt"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   <!ENTITY rfc2119 PUBLIC "" "bibxml/reference.RFC.2119.xml">
-  <!ENTITY rfc2616 PUBLIC "" "bibxml/reference.RFC.2616.xml">
-  <!ENTITY rfc2617 PUBLIC "" "bibxml/reference.RFC.2617.xml">
   <!ENTITY rfc2782 PUBLIC "" "bibxml/reference.RFC.2782.xml">
   <!ENTITY rfc2818 PUBLIC "" "bibxml/reference.RFC.2818.xml">
   <!ENTITY rfc3688 PUBLIC "" "bibxml/reference.RFC.3688.xml">
@@ -24,8 +22,12 @@
   <!ENTITY rfc6541 PUBLIC "" "bibxml/reference.RFC.6541.xml">
   <!ENTITY rfc6638 PUBLIC "" "bibxml/reference.RFC.6638.xml">
   <!ENTITY rfc6763 PUBLIC "" "bibxml/reference.RFC.6763.xml">
+  <!ENTITY rfc7230 PUBLIC "" "bibxml/reference.RFC.7230.xml">
+  <!ENTITY rfc7232 PUBLIC "" "bibxml/reference.RFC.7232.xml">
+  <!ENTITY rfc7234 PUBLIC "" "bibxml/reference.RFC.7234.xml">
+  <!ENTITY rfc7235 PUBLIC "" "bibxml/reference.RFC.7235.xml">
+  <!ENTITY rfc7529 PUBLIC "" "bibxml/reference.RFC.7529.xml">
   <!ENTITY W3C.REC-xml-20081126 PUBLIC "" "bibxml4/reference.W3C.REC-xml-20081126.xml">
-<!ENTITY idRscale SYSTEM 'bibxml3/reference.I-D.daboo-icalendar-rscale.xml'>
 ]>
 
 <?rfc rfcedstyle="yes" ?>
@@ -41,7 +43,7 @@
 
 <rfc category="std"
      ipr="trust200902"
-     docName="draft-desruisseaux-ischedule-05"
+     docName="draft-desruisseaux-ischedule-06"
      updates="6376">
 <front>
   <title abbrev="iSchedule">Internet Calendar Scheduling Protocol (iSchedule)</title>
@@ -75,6 +77,23 @@
       <uri>http://www.oracle.com/</uri>
     </address>
   </author>
+  <author role="editor" initials="K." surname="Murchison"
+          fullname="Kenneth Murchison">
+    <organization abbrev="CMU">
+      Carnegie Mellon University
+    </organization>
+    <address> 
+      <postal>
+	<street>5000 Forbes Avenue</street>
+        <!--	  <street>Cyert Hall 285</street>-->
+	<city>Pittsburgh</city> <region>PA</region>
+	<code>15213</code> <country>USA</country>
+      </postal>
+      <!--	<phone>+1 412 268 1982</phone>-->
+      <email>murch@andrew.cmu.edu</email> 
+      <uri>http://www.cmu.edu/</uri>
+    </address> 
+  </author> 
   <date />
   <area>Applications</area>
   <keyword>calsched</keyword>
@@ -111,7 +130,7 @@
     necessary to convey iCalendar Transport-independent Interoperability
     Protocol <xref target="RFC5546">(iTIP)</xref>
     messages over the Hypertext Transfer Protocol
-    <xref target="RFC2616">(HTTP)</xref>.
+    <xref target="RFC7230">(HTTP)</xref>.
   </t>
   <t>
     The Internet Calendar Scheduling Protocol (iSchedule) enables
@@ -229,7 +248,7 @@
         This specification reuses much of the same terminology as
         <xref target="RFC5545">iCalendar</xref>,
         <xref target="RFC5546">iTIP</xref>,
-        <xref target="RFC2616">HTTP</xref>, and
+        <xref target="RFC7230">HTTP</xref>, and
         <xref target="RFC6376">DKIM</xref>.
         Additional terms used by this specification are:
       </t>
@@ -480,12 +499,12 @@ _ischedules._tcp    TXT path=/ischedule
           Informative rationale: The GET method was favored over
           the POST method to allow iSchedule Senders to query
           capabilities with "conditional GET" requests
-          (see Section 9.3 of <xref target="RFC2616"/>).
+          (see <xref target="RFC7232"/>).
         </t>
       </list>
     </t>
     <t>
-      iSchedule Receivers SHOULD use normal HTTP expiration mechanisms (as per Section 13.1.3 of <xref target="RFC2616"/>) to ensure caches do not cache the capabilities response for too long. iSchedule Senders SHOULD use normal HTTP conditional GET requests when re-checking capabilities to avoid re-transferring already cached data.
+      iSchedule Receivers SHOULD use normal HTTP expiration mechanisms (as per Section 5.2 of <xref target="RFC7234"/>) to ensure caches do not cache the capabilities response for too long. iSchedule Senders SHOULD use normal HTTP conditional GET requests when re-checking capabilities to avoid re-transferring already cached data.
     </t>
     <t>
       iSchedule Senders SHOULD use the information in the capabilities to determine whether the iSchedule Receiver supports a version of the protocol that the iSchedule Sender can use, and if not, not issue any iSchedule requests with scheduling messages to the iSchedule Receiver. iSchedule Senders SHOULD verify that the scheduling message to be sent to the iSchedule Receiver is in line with the restrictions on scheduling messages indicated by the capabilities before sending the scheduling message.
@@ -788,7 +807,7 @@ ETag: "afasdf-132afds"
       </t>
       
       <t>
-        iSchedule Senders and Receivers might use <xref target="RFC2617">HTTP authentication</xref> in requests, though the process through which credentials are managed are out of scope for this document. If HTTP authentication is used, then the "Authorization" HTTP request header MUST be included in the signature of the message. 
+        iSchedule Senders and Receivers might use <xref target="RFC7235">HTTP authentication</xref> in requests, though the process through which credentials are managed are out of scope for this document. If HTTP authentication is used, then the "Authorization" HTTP request header MUST be included in the signature of the message. 
       </t>
       
       <t>
@@ -1625,7 +1644,7 @@ sig-q-tag-method /= "private-exchange"
                 Identifies the "RSCALE" values supported.
               </t>
               <t hangText="Description:">
-                iSchedule Receivers might support the <xref target="I-D.daboo-icalendar-rscale">iCalendar "RSCALE"</xref> element on the "RRULE" property. The iSchedule Receiver can advertise what "RSCALE" values are supported via the IS:rscales element.
+                iSchedule Receivers might support the <xref target="RFC7529">iCalendar "RSCALE"</xref> element on the "RRULE" property. The iSchedule Receiver can advertise what "RSCALE" values are supported via the IS:rscales element.
               </t>
               <t hangText="Definition:">
                 <figure>
@@ -2136,8 +2155,6 @@ sig-q-tag-method /= "private-exchange"
 
   <references title="Normative References">
     &rfc2119;
-    &rfc2616;
-    &rfc2617;
     &rfc2782;
     &rfc2818;
     &rfc3688;
@@ -2151,6 +2168,10 @@ sig-q-tag-method /= "private-exchange"
     &rfc6125;
     &rfc6376;
     &rfc6763;
+    &rfc7230;
+    &rfc7232;
+    &rfc7234;
+    &rfc7235;
     &W3C.REC-xml-20081126;
   </references>
 
@@ -2162,7 +2183,7 @@ sig-q-tag-method /= "private-exchange"
     &rfc6047;
     &rfc6638;
     &rfc6541;
-    &idRscale;
+    &rfc7529;
   </references>
 
   <section title="Example Scheduling Transactions" anchor="examples">
@@ -2406,6 +2427,8 @@ iSchedule-Capabilities: 123
     <section title="Changes in -06">
       <t>
         <list style="letters">
+          <t>Added Ken as editor.</t>
+          <t>Updated references.</t>
           <t>IS:calendar-data element now includes a content-type attribute and the POST response media type must match the one in the request.</t>
           <t>Added IS:rscales to allow receivers to advertise support RSCALE values.</t>
           <t>Updated verification requirements.</t>
