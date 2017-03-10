@@ -176,16 +176,16 @@
           
         <t>In addition, such a server MUST support the
         "return=representation" <xref target='RFC7240'>Prefer header
-        value</xref> on successful HTTP PUT and POST requests
+        field value</xref> on successful HTTP PUT and POST requests
         targeting existing calendar object resources, by returning the
         new representation of that calendar resource (including its
-        new ETag header value) in the response.</t>
+        new ETag header field value) in the response.</t>
       </section>
 
       <section title="Discovering Support for Managed Attachments">
         <t>A server supporting the features described in this
         specification MUST include "calendar-managed-attachments" as a
-        field in the DAV response header from an OPTIONS request on a
+        field in the DAV response header field from an OPTIONS request on a
         calendar home collection.</t>
         
         <t>A server might choose to not support storing managed
@@ -193,7 +193,7 @@
         only be added to all instances as a whole). If that is the
         case, the server MUST include
         "calendar-managed-attachments-no-recurrence" as a field in the
-        DAV response header from an OPTIONS request on a calendar home
+        DAV response header field from an OPTIONS request on a calendar home
         collection. When that field is present, clients MUST NOT
         attempt any managed attachment operations that target specific
         recurrence instances.</t>
@@ -319,15 +319,21 @@
             <t>The body of the request contains the data for the
             attachment.</t>
             
-            <t>The client MUST include a valid Content-Type HTTP
-            header describing the media type of the attachment (as
+            <t>The client MUST include a valid Content-Type
+            header field describing the media type of the attachment (as
             required by HTTP).</t>
             
             <t>The client SHOULD include a <xref
-            target="RFC6266">Content-Disposition HTTP header</xref>
+            target="RFC6266">Content-Disposition header field</xref>
             with a "type" parameter set to "attachment", and a
             "filename" parameter that indicates the name of the
             attachment.</t>
+
+            <t>The client MAY include a <xref target="RFC7240">Prefer
+            header field</xref> with the "return=representation"
+            preference to request that the modified calendar object
+            resource be returned as the body of a successful response
+            to the POST request.</t>
           </list>
           <vspace />
           </t>
@@ -351,10 +357,10 @@
             context of the server as a whole).
             The "ATTACH" property SHOULD contain an "FMTTYPE"
             parameter whose value matches the Content-Type header
-            value from the request.
+            field value from the request.
             The "ATTACH" property SHOULD contain an "FILENAME"
             parameter whose value matches the Content-Disposition
-            header "filename" parameter value from the request, taking
+            header field "filename" parameter value from the request, taking
             into account the restrictions expressed in <xref
             target="FILENAME-parameter"/>.
             The "ATTACH" property SHOULD include a "SIZE" parameter
@@ -363,24 +369,25 @@
             If a specified recurrence instance does not have a
             matching component in the calendar object resource, then
             the server MUST modify the calendar object resource to
-            include the overridden component with the appropriate
-            "RECURRENCE-ID" property included.</t>
+            include an overridden component with the appropriate
+            "RECURRENCE-ID" property.</t>
 
             <t>Upon successful creation of the attachment resource,
             and modification of the targeted calendar object resource,
             the server MUST return an appropriate HTTP success status
-            response and include a "Cal-Managed-ID" HTTP header
+            response and include a "Cal-Managed-ID" header field
             containing the "MANAGED-ID" parameter value of the newly
             created "ATTACH" property. The client can use the
-            "Cal-Managed-ID" header value to correlate the attachment
+            "Cal-Managed-ID" header field value to correlate the attachment
             with "ATTACH" properties added to the calendar object
             resource.
-            It is expected that the client will immediately reload the
-            calendar object resource to refresh any local cache, or
-            use the <xref target='RFC7240'>Prefer header
-            "return=representation" option</xref> to have the server
-            return the modified calendar object resource data in the
-            HTTP response.</t>
+            If the client included a Prefer header field with the
+            "return=representation" preference in the request, the
+            server SHOULD return the modified calendar object
+            resource as the body of the response.  Otherwise, the
+            server can expect that the client will reload the
+            calendar object resource with a subsequent GET request to
+            refresh any local cache.</t>
           </list>
           </t>
         </list>
@@ -389,8 +396,8 @@
       <t>
         In the following example, the client adds a new attachment to
         a non recurring event and asks the server (via the <xref
-        target='RFC7240'>Prefer</xref> HTTP header) to return the
-        updated version of that event in the response.
+        target='RFC7240'>Prefer</xref> header field) to return the
+        modified version of that event in the response.
       </t>
       <figure>
         <preamble>
@@ -468,14 +475,20 @@ END:VCALENDAR
             <t>The body of the request contains the updated data for
             the attachment.</t>
             
-            <t>The client MUST include a valid Content-Type header
+            <t>The client MUST include a valid Content-Type header field
             describing the media type of the attachment (as required
             by HTTP).</t>
             
             <t>The client SHOULD include a <xref
-            target="RFC6266">Content-Disposition header</xref> with a
+            target="RFC6266">Content-Disposition header field</xref> with a
             "type" parameter set to "attachment", and a "filename"
             parameter that indicates the name of the attachment.</t>
+
+            <t>The client MAY include a <xref target="RFC7240">Prefer
+            header field</xref> with the "return=representation"
+            preference to request that the modified calendar object
+            resource be returned as the body of a successful response
+            to the POST request.</t>
           </list>
           <vspace />
           </t>
@@ -497,11 +510,11 @@ END:VCALENDAR
             allow other clients to detect the update, and the property
             value (attachment URI) might also be changed. The "ATTACH"
             property SHOULD contain a "FMTTYPE" parameter whose value
-            matches the Content-Type header value from the request -
+            matches the Content-Type header field value from the request -
             this could differ from the original value if the media
             type of the updated attachment is different. The "ATTACH"
             property SHOULD contain a "FILENAME" parameter whose value
-            matches the Content-Disposition header "filename"
+            matches the Content-Disposition header field "filename"
             parameter value from the request, taking into account the
             restrictions expressed in <xref
             target="FILENAME-parameter"/>. The "ATTACH" property
@@ -511,14 +524,19 @@ END:VCALENDAR
             <t>Upon successful update of the attachment resource, and
             modification of the targeted calendar object resource, the
             server MUST return an appropriate HTTP success status
-            response, and include a "Cal-Managed-ID" HTTP header
-            containing the new value of the "MANAGED-ID" parameter. It
-            is expected that the client will immediately reload the
-            calendar object resource to refresh any local cache, or
-            use the <xref target='RFC7240'>Prefer header
-            "return=representation" option</xref> to have the server
-            return the modified calendar object resource data in the
-            HTTP response.</t>
+            response, and include a "Cal-Managed-ID" header field
+            containing the new value of the "MANAGED-ID" parameter.
+            The client can use the
+            "Cal-Managed-ID" header field value to correlate the attachment
+            with "ATTACH" properties added to the calendar object
+            resource.
+            If the client included a Prefer header field with the
+            "return=representation" preference in the request, the
+            server SHOULD return the modified calendar object
+            resource as the body of the response.  Otherwise, the
+            server can expect that the client will reload the
+            calendar object resource with a subsequent GET request to
+            refresh any local cache.</t>
           </list>
           </t>
         </list>
@@ -526,7 +544,7 @@ END:VCALENDAR
 
         <t>The update operation does not take a "rid" parameter and
         does not add, or remove, any "ATTACH" property in the
-        targetted calendar object resource. To link an existing
+        targeted calendar object resource. To link an existing
         attachment to a new instance, the client simply does a PUT on
         the calendar object resource, adding an "ATTACH" property
         which duplicates the existing one (see <xref
@@ -535,7 +553,7 @@ END:VCALENDAR
         <t>
           In the following example, the client updates an existing
           attachment and asks the server (via the <xref
-          target='RFC7240'>Prefer</xref> HTTP header) to return the
+          target='RFC7240'>Prefer</xref> header field) to return the
           updated version of that event in the response.
         </t>
         <figure>
@@ -613,6 +631,12 @@ END:VCALENDAR
             (see <xref target="managed-id"/>).</t>
             
             <t>The body of the request will be empty.</t>
+
+            <t>The client MAY include a <xref target="RFC7240">Prefer
+            header field</xref> with the "return=representation"
+            preference to request that the modified calendar object
+            resource be returned as the body of a successful response
+            to the POST request.</t>
           </list>
           <vspace />
           </t>
@@ -632,9 +656,9 @@ END:VCALENDAR
             removes the matching "ATTACH" property. Note that if a
             specified recurrence instance does not have a matching
             component in the calendar object resource, then the server
-            MUST modify the calendar object resource to include the
+            MUST modify the calendar object resource to include an
             overridden component with the appropriate "RECURRENCE-ID"
-            property included, and the matching "ATTACH" property
+            property, and the matching "ATTACH" property
             removed. This later case is actually valid only if the
             master component does include the referenced "ATTACH"
             property.</t>
@@ -647,12 +671,14 @@ END:VCALENDAR
             <t>Upon successful removal of the attachment resource and
             modification of the targeted calendar object resource, the
             server MUST return an appropriate HTTP success status
-            response. It is expected that the client will immediately
-            reload the calendar object resource to refresh any local
-            cache, or use the <xref target='RFC7240'>Prefer header
-            "return=representation" option</xref> to have the server
-            return the modified calendar object resource data in the
-            HTTP response.</t>
+            response.
+            If the client included a Prefer header field with the
+            "return=representation" preference in the request, the
+            server SHOULD return the modified calendar object
+            resource as the body of the response.  Otherwise, the
+            server can expect that the client will reload the
+            calendar object resource with a subsequent GET request to
+            refresh any local cache.</t>
           </list>
           </t>
         </list>
@@ -661,7 +687,7 @@ END:VCALENDAR
         <t>
           In the following example, the client deletes an existing
           attachment by passing its managed-id in the request.
-          The <xref target='RFC7240'>Prefer</xref> HTTP header is not
+          The <xref target='RFC7240'>Prefer</xref> header field is not
           set in the request so the calendar object resource data is
           not returned in the response.
         </t>
@@ -707,7 +733,7 @@ Content-Length: 0
         <t>Servers MUST NOT allow clients to update attachment data
         directly via a PUT on the attachment URI (or via any other
         HTTP method that modifies content). Instead, attachments can
-        only be manipulated via use of POST requests on the calendar
+        only be updated via use of POST requests on the calendar
         data.</t>
       </section>
 
@@ -752,8 +778,9 @@ Content-Length: 0
             target="max-attachments-per-resource-property"/>) on the
             calendar collection of the target calendar resource;</t>
             
-            <t>(CALDAV:valid-managed-id): The managed-id POST request
-            query parameter MUST contain a value corresponding to a
+            <t>(CALDAV:valid-managed-id): The managed-id query
+            parameter in the POST request
+            MUST contain a value corresponding to a
             "MANAGED-ID" property parameter value in the iCalendar
             data targeted by the request.</t>
           </list>
@@ -779,7 +806,7 @@ Content-Length: 0
           </t>
 
           <t>A PUT request to add or modify and existing calendar
-          object resource can make reference to a managed
+          object resource can make reference to an existing managed
           attachment. The following new preconditions is defined:
           
           <list>
@@ -839,8 +866,8 @@ Content-Length: 0
           example to regain the storage taken by unused attachments,
           or as the result of a virus scanning. When doing so they
           SHOULD NOT modify calendar data referencing those
-          attachments. Instead they SHOULD return a 410 HTTP status
-          response to any request on the removed attachment URI.</t>
+          attachments. Instead they SHOULD respond with "410 (Gone)"
+          to any request on the removed attachment URI.</t>
         </section>
 
         <section title="Sending Scheduling Messages with Attachments">
@@ -855,7 +882,7 @@ Content-Length: 0
           POST requests that include large attachment bodies. Servers
           SHOULD use the "102 (Processing)" interim response defined
           in Section 10.1 of <xref target="RFC2518" /> to keep the client
-          connection alive if the response will take some time.</t>
+          connection alive if the final response will take some time.</t>
           
           <t>When exporting calendar data from a CalDAV server
           supporting managed attachments, clients SHOULD remove all
@@ -919,7 +946,7 @@ filenameparam = "FILENAME" "=" paramtext
                 Its value provides information on how to construct a
                 filename for storing the attachment data.
                 This parameter is very similar in nature to the
-                Content-Disposition HTTP header "filename" parameter
+                Content-Disposition HTTP header field "filename" parameter
                 and exposes the same security risks.
                 As a consequence, clients MUST follow the guidelines
                 expressed in Section 4.3 of <xref target="RFC6266" />
@@ -956,7 +983,7 @@ managedidparam = "MANAGED-ID" "=" paramtext
                 Its value is generated by the server and uniquely
                 identifies a managed attachment.
                 This property parameter MUST NOT be present in the
-                case of non managed attachments.
+                case of non-managed attachments.
               </t>
               <t hangText="Example:">
                 <figure><artwork><![CDATA[
@@ -971,11 +998,12 @@ ATTACH;MANAGED-ID=aUNhbGVuZGFy:http://attachments.example.c
 
     <section title="Additional Message Header Fields">
       <section anchor="managed-id-header"
-               title="Cal-Managed-ID Response Header">
-        <t>The Cal-Managed-ID response header provides the value of
+               title="Cal-Managed-ID Response Header Field">
+        <t>The Cal-Managed-ID response header field provides the value of
         the MANAGED-ID parameter corresponding to a newly added ATTACH
         property. It MUST be sent only in response to a successful
-        POST request with an action set to attachment-add.</t>
+        POST request with an action set to attachment-add or
+        attachment-update.</t>
         <figure>
           <artwork name="abnf-rfc5545"><![CDATA[
 Cal-Managed-ID = "Cal-Managed-ID" ":" paramtext
@@ -1130,7 +1158,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
               number of managed attachments across all instances of a
               calendar object resource stored in a calendar
               collection.
-              Non managed attachments are not counted toward that limit.
+              Non-managed attachments are not counted toward that limit.
               The property is defined on the parent collection of the
               calendar object resource to which the attachment is
               associated.
@@ -1383,8 +1411,13 @@ Cal-Managed-ID:aUNhbGVuZGFy
       <t>
         Changes in calext-01:
         <list style='numbers'>
+          <t>Changed all instances of "header" to "header field".</t>
+          <t>Reworked wording of Prefer header field handling.</t>
           <t>Switched to recommending 102 (Processing) interim
           response to keep the client connection alive.</t>
+          <t>Fixed description of Cal-Managed-ID response header field
+          to state that it is also required in responses to successful
+          attachment-update.</t>
           <t>Minor editorial changes.</t> 
        </list>
       </t>
