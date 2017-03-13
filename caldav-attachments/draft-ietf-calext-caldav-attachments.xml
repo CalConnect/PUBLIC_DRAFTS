@@ -28,7 +28,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="std" ipr='trust200902'
-     docName='draft-ietf-calext-caldav-attachments-01'>
+     docName='draft-ietf-calext-caldav-attachments-02'>
   <front>
     <title abbrev="CalDAV Managed Attachments">CalDAV Managed Attachments</title>
 
@@ -93,7 +93,7 @@
     <abstract>
       <t>This specification defines an extension to the calendar
       access protocol (CalDAV) to allow attachments associated with
-      iCalendar data, to be stored and managed on the server.</t>
+      iCalendar data to be stored and managed on the server.</t>
     </abstract>
   </front>
 
@@ -756,68 +756,68 @@ Content-Length: 0
         </t>
       </section>
 
+      <section title="Error Handling" anchor="errors">
+        <t>This specification creates additional preconditions for
+        the POST method.</t>
+
+        <t>The new preconditions are:
+        <list>
+          <t>(CALDAV:max-attachment-size): The attachment submitted
+          in the POST request MUST have an octet size less than or
+          equal to the value of the CALDAV:max-attachment-size
+          property value (<xref
+          target="max-attachment-size-property"/>) on the calendar
+          collection of the target calendar resource;</t>
+            
+          <t>(CALDAV:max-attachments-per-resource): The addition of
+          the attachment submitted in the POST request MUST result
+          in the target calendar resource having a number of managed
+          attachments less than or equal to the value of the
+          CALDAV:max-attachments-per-resource property value (<xref
+          target="max-attachments-per-resource-property"/>) on the
+          calendar collection of the target calendar resource;</t>
+            
+          <t>(CALDAV:valid-managed-id): The managed-id query
+          parameter in the POST request
+          MUST contain a value corresponding to a
+          "MANAGED-ID" property parameter value in the iCalendar
+          data targeted by the request.</t>
+        </list>
+        </t>
+
+        <t>A POST request to add, modify, or delete a managed
+        attachment results in an implicit modification of the
+        targeted calendar resource (equivalent of a PUT). As a
+        consequence, clients should also be prepared to handle
+        preconditions associated with this implicit PUT. This
+        includes (but is not limited to):
+
+        <list>
+          <t>(CALDAV:max-resource-size) (from Section 5.3.2.1 of
+          <xref target='RFC4791'/>)</t>
+            
+          <t>(DAV:quota-not-exceeded) (from Section 6 of <xref
+          target='RFC4331'/>)</t>
+            
+          <t>(DAV:sufficient-disk-space) (from Section 6 of <xref
+          target='RFC4331'/>)</t>
+        </list>
+        </t>
+
+        <t>A PUT request to add or modify and existing calendar
+        object resource can make reference to an existing managed
+        attachment. The following new preconditions is defined:
+        
+        <list>
+          <t>(CALDAV:valid-managed-id-parameter): a "MANAGED-ID"
+          property parameter value in the iCalendar data in the PUT
+          request is not valid (e.g., does not match any existing
+          managed attachment).</t>
+        </list>
+        </t>
+      </section>
+
       <section title="Additional Considerations">
-        <section title="Error Handling" anchor="errors">
-          <t>This specification creates additional preconditions for
-          the POST method.</t>
-
-          <t>The new preconditions are:
-          <list>
-            <t>(CALDAV:max-attachment-size): The attachment submitted
-            in the POST request MUST have an octet size less than or
-            equal to the value of the CALDAV:max-attachment-size
-            property value (<xref
-            target="max-attachment-size-property"/>) on the calendar
-            collection of the target calendar resource;</t>
-            
-            <t>(CALDAV:max-attachments-per-resource): The addition of
-            the attachment submitted in the POST request MUST result
-            in the target calendar resource having a number of managed
-            attachments less than or equal to the value of the
-            CALDAV:max-attachments-per-resource property value (<xref
-            target="max-attachments-per-resource-property"/>) on the
-            calendar collection of the target calendar resource;</t>
-            
-            <t>(CALDAV:valid-managed-id): The managed-id query
-            parameter in the POST request
-            MUST contain a value corresponding to a
-            "MANAGED-ID" property parameter value in the iCalendar
-            data targeted by the request.</t>
-          </list>
-          </t>
-
-          <t>A POST request to add, modify, or delete a managed
-          attachment results in an implicit modification of the
-          targeted calendar resource (equivalent of a PUT). As a
-          consequence, clients should also be prepared to handle
-          preconditions associated with this implicit PUT. This
-          includes (but is not limited to):
-
-          <list>
-            <t>(CALDAV:max-resource-size) (from Section 5.3.2.1 of
-            <xref target='RFC4791'/>)</t>
-            
-            <t>(DAV:quota-not-exceeded) (from Section 6 of <xref
-            target='RFC4331'/>)</t>
-            
-            <t>(DAV:sufficient-disk-space) (from Section 6 of <xref
-            target='RFC4331'/>)</t>
-          </list>
-          </t>
-
-          <t>A PUT request to add or modify and existing calendar
-          object resource can make reference to an existing managed
-          attachment. The following new preconditions is defined:
-          
-          <list>
-            <t>(CALDAV:valid-managed-id-parameter): a "MANAGED-ID"
-            property parameter value in the iCalendar data in the PUT
-            request is not valid (e.g., does not match any existing
-            managed attachment).</t>
-          </list>
-          </t>
-        </section>
-
         <section title="Quotas" anchor="quotas">
           <t>The <xref target='RFC4331'>WebDAV Quotas</xref>
           specification defines two live WebDAV properties
@@ -850,7 +850,7 @@ Content-Length: 0
         who originally created the managed attachment.</t>
         </section>
 
-        <section title="Redirects">
+        <section title="Redirects" anchor="redirects">
           <t>For POST requests that add or update attachment data, the
           server MAY issue an HTTP redirect to require the client to
           re-issue the POST request using a different request-URI. As
@@ -859,6 +859,15 @@ Content-Length: 0
           <xref target="RFC7231" />.
           Using this mechanism ensures that, if a redirect does occur,
           the client does not needlessly send the attachment data.</t>
+        </section>
+
+        <section title="Processing Time" anchor="processing">
+          <t>Clients can expect servers to take a while to respond to
+          POST requests that include large attachment bodies. Servers
+          SHOULD use the "102 (Processing)" interim response defined
+          in Section 10.1 of <xref target="RFC2518" /> to keep the client
+          connection alive if the POST request will take significant
+          time to complete.</t>
         </section>
 
         <section title="Automatic Clean-up by servers" anchor="auto-cleanup">
@@ -877,13 +886,7 @@ Content-Length: 0
           the changes, as per <xref target="RFC6638" />.</t>
         </section>
 
-        <section title="Other Client Considerations">
-          <t>Clients can expect servers to take a while to respond to
-          POST requests that include large attachment bodies. Servers
-          SHOULD use the "102 (Processing)" interim response defined
-          in Section 10.1 of <xref target="RFC2518" /> to keep the client
-          connection alive if the final response will take some time.</t>
-          
+        <section title="Migrating Calendar Data">          
           <t>When exporting calendar data from a CalDAV server
           supporting managed attachments, clients SHOULD remove all
           "MANAGED-ID" property parameters from "ATTACH" properties in
@@ -1408,6 +1411,14 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)">
+      <t>
+        Changes in calext-02:
+        <list style='numbers'>
+          <t>Moved "Error Handling" into its own sub-section.</t>
+          <t>Split "Other Client Considerations" into "Processing
+          Time" and "Migrating Calendar Data".</t>
+       </list>
+      </t>
       <t>
         Changes in calext-01:
         <list style='numbers'>
