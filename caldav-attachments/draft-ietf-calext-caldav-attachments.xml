@@ -874,7 +874,7 @@ Content-Length: 0
           time to complete.</t>
         </section>
 
-        <section title="Automatic Clean-up by servers" anchor="auto-cleanup">
+        <section title="Automatic Clean-Up by Servers" anchor="auto-cleanup">
           <t>Servers MAY automatically remove attachment data, for
           example to regain the storage taken by unused attachments,
           or as the result of a virus scanning. When doing so they
@@ -1024,7 +1024,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
       </section>
     </section>
 
-    <section title="Additional WebDAV properties">
+    <section title="Additional WebDAV Properties">
       <section anchor="attach-server-URL-property"
                title="CALDAV:managed-attachments-server-URL property">
         <t>
@@ -1420,6 +1420,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         <list style='numbers'>
           <t>Added references to sub-sections in Overview.</t>
           <t>Made support for Prefer header field a SHOULD for servers.</t>
+          <t>Minor editorial changes.</t>
        </list>
       </t>
       <t>
