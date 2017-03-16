@@ -177,9 +177,9 @@
         specification is REQUIRED to support the CalDAV
         "calendar-access" <xref target="RFC4791"/> features.</t>
           
-        <t>In addition, such a server MUST support the
+        <t>In addition, such a server SHOULD support the
         "return=representation" <xref target='RFC7240'>Prefer header
-        field value</xref> on successful HTTP PUT and POST requests
+        field</xref> preference on successful HTTP PUT and POST requests
         targeting existing calendar object resources, by returning the
         new representation of that calendar resource (including its
         new ETag header field value) in the response.</t>
@@ -1419,6 +1419,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         Changes in calext-03:
         <list style='numbers'>
           <t>Added references to sub-sections in Overview.</t>
+          <t>Made support for Prefer header field a SHOULD for servers.</t>
        </list>
       </t>
       <t>
