@@ -28,7 +28,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="std" ipr='trust200902'
-     docName='draft-ietf-calext-caldav-attachments-02'>
+     docName='draft-ietf-calext-caldav-attachments-03'>
   <front>
     <title abbrev="CalDAV Managed Attachments">CalDAV Managed Attachments</title>
 
@@ -152,12 +152,15 @@
       retrieve. The first three operations are carried out by the
       client issuing an HTTP POST request on the calendar object
       resource to which the attachment is associated and specifying
-      the appropriate "action" query parameter.  In the case of the
+      the appropriate "action" query parameter (see <xref
+      target="attachment-post-request"/>).  In the case of the 
       remove operation, the client can alternatively directly update
       the calendar object resource and remove the relevant "ATTACH"
-      properties. The retrieve operation is accomplished by simply
+      properties (see <xref target="attachment-remove-put"/>). The
+      retrieve operation is accomplished by simply 
       issuing an HTTP GET request targeting the attachment URI
-      specified by the calendar resource's "ATTACH" property.</t>
+      specified by the calendar resource's "ATTACH" property (see
+      <xref target="attachment-retrieve"/>).</t>
       
       <t>iCalendar data stored in a CalDAV calendar object resource
       can contain multiple components when recurrences are involved.
@@ -199,7 +202,8 @@
         recurrence instances.</t>
       </section>
 
-      <section title="POST Request for Managing Attachments">
+      <section title="POST Request for Managing Attachments"
+               anchor="attachment-post-request">
       	<t>An HTTP POST request is used to add, update, or remove
         attachments. The request-URI will contain various query
         parameters to specify the behavior.</t>
@@ -1411,6 +1415,12 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)">
+      <t>
+        Changes in calext-03:
+        <list style='numbers'>
+          <t>Added references to sub-sections in Overview.</t>
+       </list>
+      </t>
       <t>
         Changes in calext-02:
         <list style='numbers'>
