@@ -16,6 +16,7 @@
 <!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
 <!ENTITY rfc7240 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml'>
 <!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
+<!ENTITY idWebDAVPrefer PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.murchison-webdav-prefer.xml'>
 ]>
 
 <?rfc toc="yes"?>
@@ -1411,6 +1412,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
     <references title='Informative References'>
       &rfc5546;
       &rfc7942;
+      &idWebDAVPrefer;
     </references>
 
     <section title="Change History (To be removed by RFC Editor before
@@ -1420,6 +1422,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
         <list style='numbers'>
           <t>Added references to sub-sections in Overview.</t>
           <t>Made support for Prefer header field a SHOULD for servers.</t>
+          <t>Expanded recurring event examples to use conditional
+          requests and to include the Expect header field.</t>
           <t>Minor editorial changes.</t>
        </list>
       </t>
@@ -1506,6 +1510,83 @@ Cal-Managed-ID:aUNhbGVuZGFy
     <section title='Example Involving Recurring Events'>
       <t>
         In the following example, the organizer of a recurring meeting
+        makes an unsuccessful attempt to add an agenda (HTML
+        attachment) to the corresponding calendar resource with a
+        conditional request.
+        Note that the client includes both the Expect and Prefer
+        header fields in the request, thereby preventing itself from
+        needlessly sending the attachment data, and requesting that the
+        current resource be returned in the failure response (see
+        Section 3.2 of <xref target="I-D.murchison-webdav-prefer"/>).
+      </t>
+      <figure>
+        <preamble>
+          &gt;&gt; Request &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
+POST /events/65.ics?action=attachment-add HTTP/1.1
+Host: cal.example.com
+Content-Type: text/html; charset="utf-8"
+Content-Disposition: attachment;filename=agenda.html
+Content-Length: xxxx
+If-Match: "abcdefg-000"
+Expect: 100-continue
+Prefer: return=representation
+
+]]></artwork>
+      </figure>
+      <figure>
+        <preamble>
+          &gt;&gt; Final Response &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
+HTTP/1.1 412 Precondition Failed
+Content-Type: text/calendar; charset="utf-8"
+Content-Length: yyyy
+Content-Location: http://cal.example.com/events/65.ics
+ETag: "123456789-000-000"
+
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Example Corp.//CalDAV Server//EN
+BEGIN:VTIMEZONE
+LAST-MODIFIED:20040110T032845Z
+TZID:America/Montreal
+BEGIN:DAYLIGHT
+DTSTART:20000404T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=4
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:20001026T020000
+RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:20010712T182145Z-123401@example.com
+DTSTAMP:20120201T203412Z
+DTSTART;TZID=America/Montreal:20120206T100000
+DURATION:PT1H
+RRULE:FREQ=WEEKLY
+SUMMARY:Planning Meeting
+ORGANIZER:mailto:cyrus@example.com
+ATTENDEE;CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED:mailto:cyrus@exampl
+ e.com
+ATTENDEE;CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED:mailto:arnaudq@exam
+ ple.com
+ATTENDEE;CUTYPE=INDIVIDUAL;PARTSTAT=NEEDS-ACTION:mailto:mike@exa
+ mple.com
+END:VEVENT
+END:VCALENDAR
+]]></artwork>
+      </figure>
+      <t>
+        The organizer of a recurring meeting successfully
         adds an agenda (HTML attachment) to the corresponding calendar
         resource.  Attendees of the meeting are granted read access to
         the newly created attachment resource. Their own copy of the
@@ -1521,10 +1602,28 @@ Cal-Managed-ID:aUNhbGVuZGFy
 POST /events/65.ics?action=attachment-add HTTP/1.1
 Host: cal.example.com
 Content-Type: text/html; charset="utf-8"
-Content-Disposition:attachment;filename=agenda.html
+Content-Disposition: attachment;filename=agenda.html
 Content-Length: xxxx
+If-Match: "123456789-000-000"
+Expect: 100-continue
 Prefer: return=representation
 
+]]></artwork>
+      </figure>
+      <figure>
+        <preamble>
+          &gt;&gt; Interim Response &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
+HTTP/1.1 100 Continue
+
+]]></artwork>
+      </figure>
+      <figure>
+        <preamble>
+          &gt;&gt; Request Body &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
 <html>
   <body>
     <h1>Agenda</h1>
@@ -1535,7 +1634,7 @@ Prefer: return=representation
       </figure>
       <figure>
         <preamble>
-          &gt;&gt; Response &lt;&lt;
+          &gt;&gt; Final Response &lt;&lt;
         </preamble>
         <artwork><![CDATA[
 HTTP/1.1 201 Created
@@ -1591,6 +1690,8 @@ END:VCALENDAR
         February meeting.
         It is added to that particular instance of the meeting by
         specifying the rid parameter.
+        Note that the server takes significant time to complete the
+        request and notifies the client accordingly.
       </t>
       <figure>
         <preamble>
@@ -1600,10 +1701,28 @@ END:VCALENDAR
 POST /events/65.ics?action=attachment-add&rid=20120220T100000 HTTP/1.1
 Host: cal.example.com
 Content-Type: text/html; charset="utf-8"
-Content-Disposition:attachment;filename=agenda0220.html
+Content-Disposition: attachment;filename=agenda0220.html
 Content-Length: xxxx
+If-Match: "123456789-000-111"
+Expect: 100-continue
 Prefer: return=representation
 
+]]></artwork>
+      </figure>
+      <figure>
+        <preamble>
+          &gt;&gt; Interim Response &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
+HTTP/1.1 100 Continue
+
+]]></artwork>
+      </figure>
+      <figure>
+        <preamble>
+          &gt;&gt; Request Body &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
 <html>
   <body>
     <h1>Agenda</h1>
@@ -1614,7 +1733,16 @@ Prefer: return=representation
       </figure>
       <figure>
         <preamble>
-          &gt;&gt; Response &lt;&lt;
+          &gt;&gt; Interim Response &lt;&lt;
+        </preamble>
+        <artwork><![CDATA[
+HTTP/1.1 102 Processing
+
+]]></artwork>
+      </figure>
+      <figure>
+        <preamble>
+          &gt;&gt; Final Response &lt;&lt;
         </preamble>
         <artwork><![CDATA[
 HTTP/1.1 201 Created
