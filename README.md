@@ -6,3 +6,4 @@ Latest xml2rfc rendered versions:
 * [icalendar-patch](http://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?url=https://github.com/CalConnect/PUBLIC_DRAFTS/raw/master/icalendar-patch/draft-daboo-icalendar-vpatch.xml&modeAsFormat=html/ascii&type=ascii)
 * [icalendar-vinstance](http://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?url=https://github.com/CalConnect/PUBLIC_DRAFTS/raw/master/icalendar-vinstance/draft-daboo-icalendar-vinstance.xml&modeAsFormat=html/ascii&type=ascii)
 * [ischedule](http://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?url=https://github.com/CalConnect/PUBLIC_DRAFTS/raw/master/ischedule/draft-desruisseaux-ischedule.xml&modeAsFormat=html/ascii&type=ascii)
+* [valarm-extensions](http://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc.cgi?url=https://github.com/CalConnect/PUBLIC_DRAFTS/raw/master/valarm-extensions/draft-daboo-valarm-extensions.xml&modeAsFormat=html/ascii&type=ascii)
