@@ -690,9 +690,9 @@ END:VALARM
       <t>This specification defines four new WebDAV properties that
       can be used to specify different sets of default alarms. Clients
       can store "VALARM" components in these properties to setup the
-      defaults. When a new event or todo is created on the server, the
+      defaults. When a new event or task is created on the server, the
       server will automatically add the default, as appropriate. When
-      a new event or todo invitation is delivered to the calendar
+      a new event or task invitation is delivered to the calendar
       user, the server will automatically add the default alarm, as
       appropriate.</t>
       
@@ -759,7 +759,7 @@ END:VALARM
         <t>Clients that support default alarms SHOULD allow users to
         set the four types of default provided by the WebDAV
         properties defined in <xref target="default-server"/>. Clients
-        SHOULD check for the presence of those properties and the
+        SHOULD check for the presence of those properties on the
         calendar user's calendar home and individual calendars and use
         the values for defaults that they themselves apply.</t>
         <t>Since existing calendar data with a default alarm is not
@@ -770,7 +770,7 @@ END:VALARM
             as "overrides" for any alarms appearing in cached calendar
             data that have the "DEFAULT-ALARM" property set to a value
             of "TRUE". In effect the client ignores the default alarm
-            in the calendar data and use the current default from the
+            in the calendar data and uses the current default from the
             WebDAV properties.</t>
             <t>When a client updates calendar data on the server, it
             SHOULD replace any existing default alarms in the calendar
