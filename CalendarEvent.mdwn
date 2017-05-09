@@ -577,7 +577,7 @@ A **Participant** object has the following properties. Properties are mandatory 
   property of the instance, this MUST be treated the same as if the
   participant's *locationId* were specified as `null`.
 
-- **scheduleStatus**: `String` (optional, defaults to 'needs-action')
+- **rsvpResponse**: `String` (optional, defaults to 'needs-action')
   The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value:
 
     - `needs-action`: No status yet set by the participant.
@@ -587,7 +587,7 @@ A **Participant** object has the following properties. Properties are mandatory 
 
     Corresponds to the PARTSTAT parameter in iCalendar (converted to lower case).
 
-- **schedulePriority**: `String` (optional, defaults to "required")
+- **participation**: `String` (optional, defaults to "required")
   The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/specialkind`. Any value the client or server doesn't understand should be treated the same as `required`.
 
     - `non-participant`: Indicates a participant who is copied for information purposes only.
@@ -596,7 +596,7 @@ A **Participant** object has the following properties. Properties are mandatory 
 
     Corresponds to the ROLE parameter in iCalendar.
 
-- **scheduleRSVP**: `Boolean` (optional, defaults to `false`)
+- **rsvpWanted**: `Boolean` (optional, defaults to `false`)
   If `true`, the organizer is expecting the participant to notify them of their status.
 
     Corresponds to the RSVP parameter in iCalendar.
