@@ -104,8 +104,22 @@ A **Source** object has the following properties:
    Corresponds to the REFRESH-INTERVAL property in iCalendar.
 
 ## categories
-<!-- TODO -->
-*TODO*
+Type: `String[String[]]|null`
+
+Specifies the categories for the events in this event group. The map keys identify the category authority, whereas the values denote the categories in context of this authority. The map key MUST either be a vendor-prefixed value or `default` if no category authority is known.
+
+For example, an event group may be defined to contain events for the following categories:
+
+    {
+        ...
+        "categories": {
+            "schedjoules.com": ["entertainment/music/rock", "entertainment/music/jazz"],
+            "default": ["music"],
+        }
+        ...
+    }
+
+Corresponds to the CATEGORY property in iCalendar.
 
 # Display properties
 
