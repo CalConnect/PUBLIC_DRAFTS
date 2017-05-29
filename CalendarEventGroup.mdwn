@@ -42,7 +42,7 @@ Vendors MAY add additional properties to the event group object to support their
 
 # Security considerations
 
-The `url`, `sources` and `links` properties all point clients to external data related to this event group. Access to such data MAY be protected, but this specification does not recommend or define mechanisms for authentication or authorization. Client implementations MUST NOT assume granted access to any external data. In addition, client implementations MUST NOT assume external data to be trusted.
+The `url`, `source` and `links` properties all point clients to external data related to this event group. Access to such data MAY be protected, but this specification does not recommend or define mechanisms for authentication or authorization. Client implementations MUST NOT assume granted access to any external data. In addition, client implementations MUST NOT assume external data to be trusted.
 
 ## MIME Type
 
@@ -78,30 +78,21 @@ Type: `String[JSEvent]`
 
 The events belonging to this event group, keyed by their respective `uid` property value. Clients MUST NOT assume any specific order of keys in the JSON respresentation (e.g. by event start time).
 
-## sources
+## source
 
-Type: `Source[]|null`
+Type: `String|null`
 
-The sources from which updated versions of this event group may be retrieved.
+The source from which updated versions of this event group may be retrieved. If the value is not null, it MUST be an URI where updates for this event group may be retrieved from.
 
-A **Source** object has the following properties:
+Corresponds to the SOURCE property in iCalendar.
 
-- **uri**: `String`
-  A URI where updates for this event group may be retrieved from.
+## refreshInterval
 
-  Corresponds to the SOURCE property in iCalendar.
+Type: `String|null`
 
-- **type**: `String`
-  How the update may be retrieved from this source. The strings in the array MUST be either one of the following values, registered in a future RFC, or a vendor-specific value.
+Defines the minimum polling interval for checking `source` for updates to the event group. If not null, the value of this property MUST be a positive iCalendar duration. If `source` is null then `refreshInterval` MUST be null as well.
 
-  - `refresh`: The source may be periodically pulled for updates.
-  - `push`: The source supports push subscriptions as defined in the Push API W3C working draft [https://www.w3.org/TR/push-api/]. The source URI defines the application server endpoint to set and clear push subscriptions.
-  *TODO*: also see TC-PUSH.
-
-- **refreshInterval**: `String|null`
-   Defines the minimum polling interval for checking updates to the event group. The value of this property MUST be a positive iCalendar duration for source of type `refresh` or null otherwise.
-
-   Corresponds to the REFRESH-INTERVAL property in iCalendar.
+Corresponds to the REFRESH-INTERVAL property in iCalendar.
 
 ## categories
 Type: `String[String[]]|null`
