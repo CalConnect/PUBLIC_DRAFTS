@@ -95,22 +95,11 @@ Defines the minimum polling interval for checking `source` for updates to the ev
 Corresponds to the REFRESH-INTERVAL property in iCalendar.
 
 ## categories
-Type: `String[String[]]|null`
+Type: `String[]|null`
 
-Specifies the categories for the events in this event group. The map keys identify the category authority, whereas the values denote the categories in context of this authority. The map key MUST either be a vendor-prefixed value or `default` if no category authority is known.
+Specifies the categories for the events in this event group. Array values MUST be URIs and SHOULD use the `category` scheme (*TODO: let's see if we can agree on this during CalConnect and provisionally reserve this scheme*).
 
-For example, an event group may be defined to contain events for the following categories:
-
-    {
-        ...
-        "categories": {
-            "schedjoules.com": ["entertainment/music/rock", "entertainment/music/jazz"],
-            "default": ["music"],
-        }
-        ...
-    }
-
-Corresponds to the CATEGORY property in iCalendar.
+Corresponds to the CATEGORY property in iCalendar. When mapping from iCalendar, implementations SHOULD map syntactically correct URIs verbatim but MUST map unstructured category values to the `category://calconnect.org/icalendar/` URI.
 
 # Display properties
 
