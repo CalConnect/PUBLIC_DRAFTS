@@ -283,13 +283,20 @@ See the description of *recurrenceOverrides* for the structure of the PatchObjec
 
 Corresponds to the LANGUAGE parameter in iCalendar, which is added to individual properties. When converting from iCalendar, one language must be picked as the main *locale* for the event, and all properties in other languages moved to the *localizations* JSEvent property.
 
+## categories
+Type: `String[]|null`
+
+Specifies the categories related to the event. Array values MUST be URIs in the `category` scheme (*TODO*: the category scheme isn't provisionally registered at IANA, yet. Check back with Marten from SchedJoules).
+
+Corresponds to the CATEGORIES property in iCalendar. When mapping from iCalendar, implementations MUST map URIs in the `category` scheme into this property, but MUST map any other value to the `keywords` property.
+
 ## keywords
 
 Type: `String[]|null`
 
-A list keywords or tags related to the event. The values are freeform and do not have to follow any particular structure.
+A list of keywords or tags related to the event. The values are freeform and do not have to follow any particular structure.
 
-Corresponds to the CATEGORIES property in iCalendar.
+Corresponds to the CATEGORIES property in iCalendar. Also see the categories property description for iCalendar mapping.
 
 ## color
 
