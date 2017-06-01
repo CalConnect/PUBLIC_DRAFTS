@@ -97,9 +97,17 @@ Corresponds to the REFRESH-INTERVAL property in iCalendar.
 ## categories
 Type: `String[]|null`
 
-Specifies the categories for the events in this event group. Array values MUST be URIs and SHOULD use the `category` scheme (*TODO: let's see if we can agree on this during CalConnect and provisionally reserve this scheme*).
+Specifies the categories related to the events in this event group. Array values MUST be URIs in the `category` scheme (*TODO*: the category scheme isn't provisionally registered at IANA, yet. Check back with Marten from SchedJoules).
 
-Corresponds to the CATEGORY property in iCalendar. When mapping from iCalendar, implementations SHOULD map syntactically correct URIs verbatim but MUST map unstructured category values to the `category://calconnect.org/icalendar/` URI.
+Corresponds to the CATEGORIES property in iCalendar. When mapping from iCalendar, implementations MUST map URIs in the `category` scheme into this property, but MUST map any other value to the `keywords` property.
+
+## keywords
+
+Type: `String[]|null`
+
+A list of keywords or tags related to the events in this event group. The values are freeform and do not have to follow any particular structure.
+
+Corresponds to the CATEGORIES property in iCalendar. Also see the categories property description for iCalendar mapping.
 
 # Display properties
 
