@@ -97,17 +97,18 @@ Corresponds to the REFRESH-INTERVAL property in iCalendar.
 ## categories
 Type: `String[]|null`
 
-Specifies the categories related to the events in this event group. Array values MUST be URIs in the `category` scheme (*TODO*: the category scheme isn't provisionally registered at IANA, yet. Check back with Marten from SchedJoules).
+Specifies the categories related to the events in this event group. Array values MUST be URIs. Individual events in this event group MAY have additional category values.
 
-Corresponds to the CATEGORIES property in iCalendar. When mapping from iCalendar, implementations MUST map URIs in the `category` scheme into this property, but MUST map any other value to the `keywords` property.
+Corresponds to the STRUCTURED-CATEGORY property of the VCALENDAR component in iCalendar, see [draft-ietf-calext-ical-relations](https://tools.ietf.org/html/draft-ietf-calext-ical-relations).
 
 ## keywords
 
 Type: `String[]|null`
 
-A list of keywords or tags related to the events in this event group. The values are freeform and do not have to follow any particular structure.
+A list of keywords or tags related to the event. The values are freeform and do not have to follow any particular structure.
 
-Corresponds to the CATEGORIES property in iCalendar. Also see the categories property description for iCalendar mapping.
+Corresponds to the CATEGORIES property of the VCALENDAR component in iCalendar.
+
 
 # Display properties
 
