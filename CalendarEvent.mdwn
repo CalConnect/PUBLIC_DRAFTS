@@ -195,6 +195,22 @@ A **Location** object has the following properties. All properties are optional,
     - `virtual`: This is not a physical location (e.g. this location is an online chat room where people will meet.)
     - `unknown`: The relation of this location to the event is unknown.
 
+- **features**: `String[]|null`
+  The features supported by this location. The strings in the array MUST each be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. `fastmail.com/custom`. Any value the client or server doesn't understand should be ignored, but preserved.
+
+  The features supported by locations with rel-type `virtual` are:
+
+    - `audio`: audio capability
+    - `chat`: chat or instant messaging
+    - `feed`: a blog or Atom feed
+    - `moderator`: moderator-specific
+    - `phone`: phone conference
+    - `screen`: screen sharing
+    - `video`: video conference
+    - any vendor-prefixed custom value
+
+  Corresponds to the FEATURE property parameter values defined in [@!RFC7986].
+
 - **timeZone**: `String` (IANA TZ name)
   A time zone for this location. If omitted, the event time zone MUST be used for this location.
 
@@ -208,7 +224,7 @@ A **Location** object has the following properties. All properties are optional,
   Links to alternate representations of this location, for example in vCard format. If a given value does not correspond to any link id in the *links*
   property of the instance, this MUST be ignored.
 
-Corresponds to the LOCATION property in iCalendar, however this representation is much richer than is supported by iCalendar. When converting from iCalendar, the LOCATION property should become a single location with just a *description* property. If the event has a different end time zone to start time zone, this should be added as a second location with just a *timeZone* property.
+Corresponds to the LOCATION and CONFERENCE properties in iCalendar. For LOCATION, this representation is much richer than is supported by iCalendar. When converting from iCalendar, the LOCATION property should become a single location with just a *description* property. If the event has a different end time zone to start time zone, this should be added as a second location with just a *timeZone* property. CONFERENCE property values in iCalendar map to locations with rel type `virtual`.
 
 ## links
 
