@@ -42,19 +42,15 @@
     </author>
     <author role="editor" initials="K." surname="Murchison"
             fullname="Kenneth Murchison">
-      <organization abbrev="CMU">
-        Carnegie Mellon University
-      </organization>
+      <organization abbrev="FastMail">FastMail Pty Ltd.</organization>
       <address> 
         <postal>
-	  <street>5000 Forbes Avenue</street>
-          <!--	  <street>Cyert Hall 285</street>-->
-	  <city>Pittsburgh</city> <region>PA</region>
-	  <code>15213</code> <country>USA</country>
+          <street>Level 1, 91 William Street</street>
+          <city>Melbourne</city> <region>VIC</region>
+          <code>3000</code> <country>Australia</country>
         </postal>
-        <!--	<phone>+1 412 268 1982</phone>-->
-        <email>murch@andrew.cmu.edu</email> 
-        <uri>http://www.cmu.edu/</uri>
+        <email>murch@fastmail.com</email> 
+        <uri>http://www.fastmail.com/</uri>
       </address> 
     </author>
     <date />
@@ -69,6 +65,7 @@
       interoperability between clients and servers.</t>
     </abstract>
   </front>
+
   <middle>
     <section title='Introduction'>
       <t>The <xref target="RFC5545">iCalendar</xref> specification
@@ -78,6 +75,7 @@
       component is used to specify a reminder for an event or
       task. Different alarm actions are possible, as are different
       ways to specify how the alarm is triggered.</t>
+
       <t>As iCalendar has become more widely used and as client-server
       protocols such as <xref target="RFC4791">CalDAV</xref> have
       become more popular, several issues with "VALARM" components
@@ -90,6 +88,7 @@
       been done through the use of custom "X-" properties specific to
       each client implementation, leading to poor
       interoperability.</t>
+
       <t>This specification defines a set of extensions to "VALARM"
       components to cover common requirements for alarms not currently
       addressed in iCalendar. Each extension is defined in a separate
@@ -99,17 +98,20 @@
       describes mechanisms by which clients can interoperably
       implement common features such as "snoozing".</t>
     </section>
+
     <section title='Conventions Used in This Document'>
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
       "MAY", and "OPTIONAL" in this document are to be interpreted as
       described in <xref target='RFC2119' />.</t>
+
       <t>When XML element types in the namespaces "DAV:" and
       "urn:ietf:params:xml:ns:caldav" are referenced in this document
       outside of the context of an XML fragment, the string "DAV:" and
       "CALDAV:" will be prefixed to the element type names
       respectively.</t>
     </section>
+
     <section title="Extensible syntax for VALARM" anchor="syntax">
       <t>Section 3.6.6 of <xref target="RFC5545" /> defines the syntax
       for "VALARM" components and properties within them. However, as
@@ -119,6 +121,7 @@
       syntax, an alternative form for the base syntax is defined here,
       with the goal of simplifying specification of the
       extensions.</t>
+
       <t>A "VALARM" calendar component is re-defined by the following notation: 
       <figure>
         <artwork name="abnf"><![CDATA[
@@ -199,6 +202,7 @@ emailpropext = *(
                )]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm Unique Identifier" anchor="uid">
       <t>Several of the other extensions in this specification require
       identifying a specific instance of a "VALARM" component in an
@@ -206,9 +210,13 @@ emailpropext = *(
       property to "VALARM" components to allow a unique identifier to
       specified. The value of this property can then be used to refer
       uniquely to the "VALARM" component.</t> 
+
       <t>The "UID" property defined here follows the definition in
-      Section 3.8.4.7 of <xref target="RFC5545" />. In particular it
-      MUST be a globally unique identifier.</t> 
+      Section 3.8.4.7 of <xref target="RFC5545" /> with the security
+      and privacy updates in Section 5.3 of <xref target="RFC7986" />.
+      In particular it MUST be a globally unique identifier that does
+      not contain any security- or privacy-sensitive information.</t> 
+
       <t>The "VALARM" component defined in <xref target="syntax" /> is
       extended here as:
       <figure>
@@ -224,18 +232,21 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm Related To">
       <t>It is often convenient to relate one or more "VALARM"
       components to other "VALARM" components (e.g., see <xref
       target="snooze"/>). This can be accomplished if the "VALARM"
       components each have their own "UID" property (as per <xref
       target="uid" />).</t>
+
       <t>This specification updates the usage of the "RELATED-TO"
       property defined in Section 3.8.4.5 of <xref target="RFC5545" />
       to enable its use with "VALARM" components. Specific types of
       relationships between "VALARM" components can be identified by
       registering new values for the "RELTYPE" property parameter
       defined in Section 3.2.15 of <xref target="RFC5545" />.</t>
+
       <t>The "VALARM" component defined in <xref target="syntax" /> is
       extended here as:
       <figure>
@@ -251,15 +262,17 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm URI Action" anchor='URI-ACTION'>
       <t>Currently "VALARM" components have actions for audio, display
-      and email. New types of action are of interest, e.g., SMS,
+      and email. New types of actions are of interest, e.g., SMS,
       instant messaging, etc. Rather then specify separate actions for
       these, an alternative is to define a "URI" action that allows
       any URI scheme to be used as an action, where it makes
       sense. Thus URI schemes for SMS <xref target="RFC5724" />,
       IM <xref target="RFC3860" />, SIP <xref target="RFC3261" />,
-      TEL <xref target="RFC3966" />etc could be used.</t> 
+      TEL <xref target="RFC3966" />, etc could be used.</t> 
+
       <t>This extension defines a new "URI" property value for use
       with the "ACTION" property in "VALARM" components. A new set of
       action properties is defined for "VALARM" components based on
@@ -290,6 +303,7 @@ uriprop     = *(
 ]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm Agent">
       <t>With the advent of a standard client/server protocol for
       calendaring and scheduling data (<xref target="RFC4791" />)
@@ -302,6 +316,7 @@ uriprop     = *(
       alarms. In addition it may be important for only the server or
       the client to be set to handle an alarm - and in some cases only
       specific servers or clients.</t>
+
       <t>To address this need, this specification defines an
       "ALARM-AGENT" iCalendar property that can be added to any
       "VALARM" component. This property specifies whether a client or
@@ -321,6 +336,7 @@ alarmprop  /= *(
               )
 ]]></artwork>
       </figure></t>
+
       <section title="Alarm Agent Property" anchor="ALARM-AGENT">
         <t>
           <list style="hanging">
@@ -396,6 +412,7 @@ ALARM-AGENT;AGENT-ID="tag:example.com,2011:cyrus-desktop":CLIENT
           </list>
         </t>
       </section>
+
       <section title="Agent ID Property Parameter" anchor="AGENT-ID-PARAM">
         <t>
           <list style="hanging">
@@ -729,22 +746,29 @@ END:VALARM
         home collection that contains the calendar collection. If
         present on the calendar home, the property value there is used
         as the default.</t>
+
         <t>The WebDAV property value MUST be one or more "VALARM"
         components or the empty string. If an empty string is used, no
         default alarms are applied. Note that these values contain
         just the "BEGIN:VALARM...END:VALARM" data (i.e., syntactically
         the "alarmcext" element as per <xref target="syntax"/>).</t>
+
         <t>When adding a default alarm to an event or task, the server
-        MUST ensure that a "DEFAULT-ALARM" property with a value of
+        MUST ensure that a
+        <xref target="default-alarm">"DEFAULT-ALARM"</xref> property
+        with a value of 
         "TRUE" is present in the "VALARM" component.</t>
+
         <t>If a "DESCRIPTION" property is present in the "VALARM"
         component, but its value is empty, the server SHOULD insert
         the value from any "SUMMARY" property of the component in
         which the default "VALARM" is being added.</t>
+
         <t>A default alarm MUST NOT be added to individual event or
         task components in a calendar object resource being created,
         if a "VALARM" component is already present in the
         component.</t>
+
         <t>When the client stores a new alarm in any of the WebDAV
         properties, servers MUST NOT change any existing calendar data
         within the calendar home or calendar where the WebDAV property
@@ -755,6 +779,7 @@ END:VALARM
         server. The reasoning for this is described further in the
         next section.</t>
       </section>
+
       <section title="Client Behavior">
         <t>Clients that support default alarms SHOULD allow users to
         set the four types of default provided by the WebDAV
@@ -784,6 +809,9 @@ END:VALARM
         values is a compromise designed to provide some backwards
         compatibility with clients not supporting default alarm
         behavior.</t>
+
+        <section title="Disabling Default Alarms" anchor="disable-default">
+        </section>
       </section>
       <section title="Action None" anchor="NONE-ACTION">
         <t>When default alarms are being used it is necessary to know
@@ -958,6 +986,7 @@ defaultalarmparam = *(
     &rfc4791;
     &rfc5545;
     &rfc5870;
+    &rfc7986;
     </references>
     <references title='Informative References'>
     &rfc3261;
@@ -971,6 +1000,7 @@ defaultalarmparam = *(
       <list style='numbers'>
         <t>Added Murchison as editor.</t>
         <t>Added reference to SMS URLs.</t>
+        <t>Added reference to UID security/privacy recommendations.</t>
       </list></t>
       <t>Changes in -04: 
       <list style='numbers'>
