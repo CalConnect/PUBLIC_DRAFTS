@@ -241,7 +241,7 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
-
+<!--
     <section title="Alarm Related To">
       <t>It is often convenient to relate one or more "VALARM"
       components to other "VALARM" components (e.g., see <xref
@@ -312,7 +312,7 @@ uriprop     = *(
 ]]></artwork>
       </figure></t>
     </section>
-<!--
+
     <section title="Alarm Agent">
       <t>With the advent of a standard client/server protocol for
       calendaring and scheduling data (<xref target="RFC4791" />)
@@ -574,6 +574,7 @@ ACKNOWLEDGED:20090604T084500Z
       is itself "snoozed", the client SHOULD remove the original
       "snooze" alarm and create a new one, with the appropriate
       trigger time and relationship set.</t>
+<!--
       <section title="Relationship Type Property Parameter" anchor="SNOOZE-PARAM">
         <t>
             This specification adds the "SNOOZE" relationship type for
@@ -582,8 +583,10 @@ ACKNOWLEDGED:20090604T084500Z
             "snoozed" "VALARM" component to the original alarm that
             the "snooze" was generated for.
         </t>
-      </section>
+        </section>
+-->
     </section>
+
     <section title="Alarm Proximity Trigger">
       <t>VALARMs are currently triggered when a specific date-time is
       reached. It is also desirable to be able to trigger alarms based
@@ -957,14 +960,17 @@ defaultalarmparam = *(
           <ttcol>Action</ttcol>
           <ttcol>Status</ttcol>
           <ttcol>Reference</ttcol>
+<!--
           <c>URI</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="URI-ACTION" /></c>
+-->
           <c>NONE</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="NONE-ACTION" /></c>
         </texttable>
       </section>
+<!--
       <section title='Relationship Types Registry'>
         <t>This document defines the following new iCalendar
         relationship type to be added to the registry defined in
@@ -977,7 +983,8 @@ defaultalarmparam = *(
           <c>Current</c>
           <c>RFCXXXX, <xref target="SNOOZE-PARAM" /></c>
         </texttable>
-      </section>
+        </section>
+-->
       <section title="Proximity Value Registry">
           <t>This document creates a new iCalendar registry for values
           of the "PROXIMITY" property:</t>
@@ -1024,7 +1031,10 @@ defaultalarmparam = *(
         <t>Added reference to UID security/privacy recommendations.</t>
         <t>Removed ALARM-AGENT property.</t>
         <t>Added text about using TRIGGER value in the past in
-        addition to ACTION:NONE to have a default alarm be ignored.</t>
+        addition to ACTION:NONE to have a default alarm be
+        ignored.</t>
+        <t>Removed text about related alarms.</t>
+        <t>Removed URL alarm action.</t>
       </list></t>
       <t>Changes in -04: 
       <list style='numbers'>
