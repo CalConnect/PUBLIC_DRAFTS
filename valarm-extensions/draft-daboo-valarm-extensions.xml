@@ -20,6 +20,8 @@
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml'>
 <!ENTITY rfc7986 PUBLIC ''
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml'>
+<!ENTITY idEventPub PUBLIC ''
+'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-eventpub-extensions.xml'>
 ]>
 
 <?rfc toc="yes"?>
@@ -213,9 +215,12 @@ emailpropext = *(
     </section>
 
     <section title="Alarm Unique Identifier" anchor="uid">
+<!--
       <t>Several of the other extensions in this specification require
       identifying a specific instance of a "VALARM" component in an
-      iCalendar stream. To aid that, this extension adds a "UID"
+      iCalendar stream. To aid that, this
+-->
+      <t>This extension adds a "UID"
       property to "VALARM" components to allow a unique identifier to
       specified. The value of this property can then be used to refer
       uniquely to the "VALARM" component.</t> 
@@ -518,9 +523,9 @@ alarmprop       /= *(
             time for the alarm, then the client SHOULD NOT trigger the
             alarm. Similarly, if an alarm has been triggered and an
             "alert" presented to a calendar user, clients can monitor
-            the iCalendar data to determine whether an "ACKNOWLEDGED"
+            the iCalendar data to determine whether an "ACKNOWLEDGED" property
             is added or changed in the alarm component. If the value
-            of any "ACKNOWLEDGED" in the alarm changes and is greater
+            of any "ACKNOWLEDGED" property in the alarm changes and is greater
             than or equal to the trigger time of the alarm, then
             clients SHOULD dismiss or cancel any "alert" presented to
             the calendar user.</t>
@@ -559,7 +564,9 @@ ACKNOWLEDGED:20090604T084500Z
       "VALARM" being snoozed). The new "VALARM" MUST be set to trigger
       at the user's chosen "snooze" interval after the original alarm
       triggered. Clients SHOULD use an absolute "TRIGGER" property
-      with a "DATE-TIME" value specified in UTC. Clients SHOULD add a
+      with a "DATE-TIME" value specified in UTC.</t>
+<!--
+      Clients SHOULD add a
       "RELATED-TO" property to the new "VALARM" component with a value
       set to the "UID" property value of the "VALARM" component being
       snoozed. If the "VALARM" component being snoozed does not
@@ -567,6 +574,7 @@ ACKNOWLEDGED:20090604T084500Z
       "RELATED-TO" property added to the new "VALARM" component SHOULD
       include a "RELTYPE" property parameter with a value set to
       "SNOOZE".</t>
+-->
       <t>When the "snooze" alarm is triggered and dismissed the client
       SHOULD remove the corresponding "VALARM" component, or set the
       "ACKNOWLEDGED" property (see <xref
@@ -599,7 +607,8 @@ ACKNOWLEDGED:20090604T084500Z
         <t>"PROXIMITY" - indicates that a location based trigger is to
         be used and which direction of motion is used for the
         trigger</t>
-        <t>"STRUCTURED-LOCATION" - used to indicate the actual
+        <t><xref target="I-D.ietf-calext-eventpub-extensions">
+          "STRUCTURED-LOCATION"</xref> - used to indicate the actual
         location to trigger off, specified using a <xref
         target="RFC5870">geo: URI</xref> which allows for two or three
         coordinate values with an optional uncertainty</t>
@@ -654,6 +663,13 @@ alarmprop       /= *(
             "DEPART", the alarm is triggered when the calendar user
             agent departs from the vicinity of any specified
             locations.</t>
+            <t>When the property value is set to "CONNECT", the alarm
+            is triggered when the calendar user agent connects to a
+            <xref target="BTcore">Bluetooth(R)</xref>-enabled
+            automobile.  When set to "DISCONNECT", the alarm is
+            triggered when the calendar user agent disconnects from a
+            Bluetooth(R)-enabled automobile.</t>
+<!--  This contradicts what we say about TRIGGER above
             <t>The time-based "TRIGGER" property MUST also be present
             in the "VALARM" calendar component and MUST be set to a
             positive duration value (or zero duration). That value
@@ -661,6 +677,7 @@ alarmprop       /= *(
             the alarm after the location trigger is triggered. e.g.,
             an alarm could be set to trigger 30 minutes after arriving
             home.</t>
+-->
             <t hangText="Format Definition:">This property is defined
             by the following notation:
             <figure>
@@ -676,7 +693,8 @@ proximityparam  = *(
 
                   )
                   
-proximityvalue  = "ARRIVE" / "DEPART" / iana-token / x-name
+proximityvalue  = "ARRIVE" / "DEPART" /
+                  "CONNECT" / "DISCONNECT" / iana-token / x-name
 ]]></artwork>
             </figure></t>
             <t hangText="Example:">The following is an example of this property: 
@@ -701,9 +719,10 @@ BEGIN:VALARM
 UID:77D80D14-906B-4257-963F-85B1E734DBB6
 TRIGGER;VALUE=DATE-TIME:19760401T005545Z
 ACTION:DISPLAY
-PROXIMITY:DEPART
-STRUCTURE-LOCATION;VALUE=URI:geo:40.443,-79.945;u=10
 DESCRIPTION:Remember to buy milk
+TRIGGER;VALUE=DATE-TIME:19760401T005545Z
+PROXIMITY:DEPART
+STRUCTURED-LOCATION;VALUE=URI:geo:40.443,-79.945;u=10
 END:VALARM
 ]]></artwork>
             </figure></t>
@@ -998,6 +1017,12 @@ defaultalarmparam = *(
           <c>DEPART</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="PROXIMITY" /></c>
+          <c>CONNECT</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="PROXIMITY" /></c>
+          <c>DISCONNECT</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="PROXIMITY" /></c>
         </texttable>
       </section>
     </section>
@@ -1009,19 +1034,37 @@ defaultalarmparam = *(
     </section>
   </middle>
   <back>
+
     <references title='Normative References'>
-    &rfc2119;
-    &rfc4791;
-    &rfc5545;
-    &rfc5870;
-    &rfc7986;
+      &rfc2119;
+      &rfc4791;
+      &rfc5545;
+      &rfc5870;
+      &rfc7986;
+      &idEventPub;
     </references>
+
     <references title='Informative References'>
-    &rfc3261;
-    &rfc3860;
-    &rfc3966;
-    &rfc5724;
+<!--
+      &rfc3261;
+      &rfc3860;
+      &rfc3966;
+      &rfc5724;
+-->
+      <reference anchor="BTcore"
+		 target="https://www.bluetooth.com/specifications/bluetooth-core-specification">
+	<front>
+	  <title>Bluetooth Core Specification Version 5.0</title>
+	  <author>
+	    <organization>Bluetooth Special Interest Group</organization>
+	  </author>
+	  <date month="December" year="2016"/>
+	</front>
+	<format type="HTML"
+	        target="https://www.bluetooth.com/specifications/bluetooth-core-specification"/>
+      </reference>
     </references>
+
     <section title="Change History (To be removed by RFC Editor before
                     publication)"> 
       <t>Changes in -05: 
@@ -1035,6 +1078,10 @@ defaultalarmparam = *(
         ignored.</t>
         <t>Removed text about related alarms.</t>
         <t>Removed URL alarm action.</t>
+        <t>Added reference to draft-ietf-calext-eventpub-extensions
+        for STRUCTURED-LOCATION.</t>
+        <t>Added CONNECT and DISCONNECT PROXIMITY property values.</t>
+        <t>Editorial fixes.</t>
       </list></t>
       <t>Changes in -04: 
       <list style='numbers'>
