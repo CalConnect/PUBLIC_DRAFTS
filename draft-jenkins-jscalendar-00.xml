@@ -43,7 +43,7 @@
                 <uri>https://www.fastmail.com</uri>
             </address>
         </author>
-        <date year="2017" month="August" day="2"/>
+        <date year="2017" month="August" day="9"/>
         <area>Applications</area>
         <workgroup>JSON data formats for iCalendar</workgroup>
         <keyword>JSON</keyword>
@@ -309,8 +309,8 @@
                     </t>
                     <t>
                         A globally unique identifier, used to associate the object as the same across different systems,
-                        calendars and views. Note that all JSCalendar objects share the same id space, so there MUST
-                        not be two JSCalendar objects of different type with the same uid.
+                        calendars and views. Note that all JSCalendar objects share the same id space, so there MUST NOT
+                        be two JSCalendar objects of different type with the same uid.
                     </t>
                     <t>
                         A valid JSCalendar object MUST include this property.
