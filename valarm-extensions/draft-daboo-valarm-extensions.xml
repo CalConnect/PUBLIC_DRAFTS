@@ -14,6 +14,8 @@
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml'>
 <!ENTITY rfc5545 PUBLIC ''
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml'>
+<!ENTITY rfc5546 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml'>
 <!ENTITY rfc5724 PUBLIC ''
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5724.xml'>
 <!ENTITY rfc5870 PUBLIC ''
@@ -928,11 +930,19 @@ defaultalarmparam = *(
         </t>
       </section>
     </section>
+
     <section title='Security Considerations'>
-      <t>TODO:talk about importance of stripping VALARMs from incoming
-      iTIP. Talk about VALARMs being used to "spam" - particularly
-      nasty if the server handles it.</t>
+      <t>VALARMs, if not monitored properly, can be used to "spam"
+      users and/or leak personal information.  For instance, an
+      unwanted audio or display alert could be considered spam.  Or an
+      email alert could be used to leak a user's location to a third
+      party or to send unsolicited email to multiple users.
+      Therefore, CalDAV clients and servers that accept iCalendar data
+      from a third party (e.g. via <xref target="RFC5546">iTIP</xref>,
+      a subscription feed, or a shared calendar) SHOULD remove all
+      VALARMs from the data prior to storing in their calendar system.</t>
     </section>
+
     <section title='IANA Considerations'>
       <section title='Property Registrations'>
         <t>This document defines the following new iCalendar
@@ -978,7 +988,7 @@ defaultalarmparam = *(
         <texttable>
           <ttcol>Action</ttcol>
           <ttcol>Status</ttcol>
-          <ttcol>Reference</ttcol>
+         <ttcol>Reference</ttcol>
 <!--
           <c>URI</c>
           <c>Current</c>
@@ -1045,6 +1055,7 @@ defaultalarmparam = *(
     </references>
 
     <references title='Informative References'>
+      &rfc5546;
 <!--
       &rfc3261;
       &rfc3860;
@@ -1070,7 +1081,6 @@ defaultalarmparam = *(
       <t>Changes in -05: 
       <list style='numbers'>
         <t>Added Murchison as editor.</t>
-        <t>Added reference to SMS URLs.</t>
         <t>Added reference to UID security/privacy recommendations.</t>
         <t>Removed ALARM-AGENT property.</t>
         <t>Added text about using TRIGGER value in the past in
@@ -1081,6 +1091,7 @@ defaultalarmparam = *(
         <t>Added reference to draft-ietf-calext-eventpub-extensions
         for STRUCTURED-LOCATION.</t>
         <t>Added CONNECT and DISCONNECT PROXIMITY property values.</t>
+        <t>Added Security Considerations.</t>
         <t>Editorial fixes.</t>
       </list></t>
       <t>Changes in -04: 
