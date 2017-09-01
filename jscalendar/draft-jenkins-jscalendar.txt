@@ -124,44 +124,44 @@ Internet-Draft                   JSEvent                  September 2017
        4.2.4.  estimatedDuration . . . . . . . . . . . . . . . . . .  27
        4.2.5.  completed . . . . . . . . . . . . . . . . . . . . . .  27
        4.2.6.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  28
-     4.3.  JSGroup . . . . . . . . . . . . . . . . . . . . . . . . .  28
+       4.2.7.  progress  . . . . . . . . . . . . . . . . . . . . . .  28
+     4.3.  JSGroup . . . . . . . . . . . . . . . . . . . . . . . . .  29
        4.3.1.  entries . . . . . . . . . . . . . . . . . . . . . . .  29
        4.3.2.  source  . . . . . . . . . . . . . . . . . . . . . . .  29
-   5.  Conversion from and to iCalendar  . . . . . . . . . . . . . .  29
-     5.1.  JSEvent . . . . . . . . . . . . . . . . . . . . . . . . .  29
-       5.1.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  29
-       5.1.2.  start . . . . . . . . . . . . . . . . . . . . . . . .  29
+   5.  Conversion from and to iCalendar  . . . . . . . . . . . . . .  30
+     5.1.  JSEvent . . . . . . . . . . . . . . . . . . . . . . . . .  30
+       5.1.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  30
+       5.1.2.  start . . . . . . . . . . . . . . . . . . . . . . . .  30
        5.1.3.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  30
        5.1.4.  duration  . . . . . . . . . . . . . . . . . . . . . .  30
      5.2.  JSTask  . . . . . . . . . . . . . . . . . . . . . . . . .  30
-       5.2.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  30
-       5.2.2.  due . . . . . . . . . . . . . . . . . . . . . . . . .  30
-       5.2.3.  start . . . . . . . . . . . . . . . . . . . . . . . .  30
-       5.2.4.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  30
+       5.2.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  31
+       5.2.2.  due . . . . . . . . . . . . . . . . . . . . . . . . .  31
+       5.2.3.  start . . . . . . . . . . . . . . . . . . . . . . . .  31
+       5.2.4.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  31
        5.2.5.  estimatedDuration . . . . . . . . . . . . . . . . . .  31
        5.2.6.  completed . . . . . . . . . . . . . . . . . . . . . .  31
+       5.2.7.  progress  . . . . . . . . . . . . . . . . . . . . . .  31
      5.3.  JSGroup . . . . . . . . . . . . . . . . . . . . . . . . .  31
-       5.3.1.  entries . . . . . . . . . . . . . . . . . . . . . . .  31
-       5.3.2.  source  . . . . . . . . . . . . . . . . . . . . . . .  31
-     5.4.  Common properties . . . . . . . . . . . . . . . . . . . .  31
-       5.4.1.  alerts  . . . . . . . . . . . . . . . . . . . . . . .  31
-       5.4.2.  categories  . . . . . . . . . . . . . . . . . . . . .  31
+       5.3.1.  entries . . . . . . . . . . . . . . . . . . . . . . .  32
+       5.3.2.  source  . . . . . . . . . . . . . . . . . . . . . . .  32
+     5.4.  Common properties . . . . . . . . . . . . . . . . . . . .  32
+       5.4.1.  alerts  . . . . . . . . . . . . . . . . . . . . . . .  32
+       5.4.2.  categories  . . . . . . . . . . . . . . . . . . . . .  32
        5.4.3.  created . . . . . . . . . . . . . . . . . . . . . . .  32
        5.4.4.  description . . . . . . . . . . . . . . . . . . . . .  32
        5.4.5.  freeBusyStatus  . . . . . . . . . . . . . . . . . . .  32
        5.4.6.  keywords  . . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.7.  links . . . . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.8.  locale  . . . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.9.  localizations . . . . . . . . . . . . . . . . . . . .  32
-       5.4.10. locations . . . . . . . . . . . . . . . . . . . . . .  32
+       5.4.7.  links . . . . . . . . . . . . . . . . . . . . . . . .  33
+       5.4.8.  locale  . . . . . . . . . . . . . . . . . . . . . . .  33
+       5.4.9.  localizations . . . . . . . . . . . . . . . . . . . .  33
+       5.4.10. locations . . . . . . . . . . . . . . . . . . . . . .  33
        5.4.11. method  . . . . . . . . . . . . . . . . . . . . . . .  33
        5.4.12. participants  . . . . . . . . . . . . . . . . . . . .  33
-       5.4.13. priority  . . . . . . . . . . . . . . . . . . . . . .  33
-       5.4.14. privacy . . . . . . . . . . . . . . . . . . . . . . .  33
-       5.4.15. prodId  . . . . . . . . . . . . . . . . . . . . . . .  33
-       5.4.16. recurrenceOverrides . . . . . . . . . . . . . . . . .  33
-       5.4.17. recurrenceRule  . . . . . . . . . . . . . . . . . . .  34
-       5.4.18. relatedTo . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.13. priority  . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.14. privacy . . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.15. prodId  . . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.16. recurrenceOverrides . . . . . . . . . . . . . . . . .  34
 
 
 
@@ -170,23 +170,25 @@ Jenkins & Stepanek        Expires March 5, 2018                 [Page 3]
 Internet-Draft                   JSEvent                  September 2017
 
 
+       5.4.17. recurrenceRule  . . . . . . . . . . . . . . . . . . .  34
+       5.4.18. relatedTo . . . . . . . . . . . . . . . . . . . . . .  34
        5.4.19. replyTo . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.20. sequence  . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.21. status  . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.22. title . . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.23. uid . . . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.24. updated . . . . . . . . . . . . . . . . . . . . . . .  34
-   6.  JSCalendar object examples  . . . . . . . . . . . . . . . . .  34
-     6.1.  Simple JSEvent  . . . . . . . . . . . . . . . . . . . . .  34
-     6.2.  Recurring JSEvent with exception  . . . . . . . . . . . .  35
-   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  37
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  37
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  37
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  37
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  39
-     10.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  39
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
+       5.4.20. sequence  . . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.21. status  . . . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.22. title . . . . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.23. uid . . . . . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.24. updated . . . . . . . . . . . . . . . . . . . . . . .  35
+   6.  JSCalendar object examples  . . . . . . . . . . . . . . . . .  35
+     6.1.  Simple JSEvent  . . . . . . . . . . . . . . . . . . . . .  35
+     6.2.  Recurring JSEvent with exception  . . . . . . . . . . . .  36
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .  38
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  38
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  38
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  38
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  38
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  40
+     10.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  40
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  40
 
 1.  Introduction
 
@@ -215,8 +217,6 @@ Internet-Draft                   JSEvent                  September 2017
    process.
 
    The key design considerations for this format are as follows:
-
-
 
 
 
@@ -1533,6 +1533,43 @@ Internet-Draft                   JSEvent                  September 2017
    o  the *duration* and *estimatedDuration* properties MUST only
       include a day component.
 
+4.2.7.  progress
+
+   In addition to the common properties of a *Participant* object
+   (Section 3.4.6), a Participant within a JSTask supports the following
+   property:
+
+   o  *progress*: "ParticipantProgress|null" The progress of the
+      participant for this task, if known.
+
+   A *ParticipantProgress* object has the following properties:
+
+
+   o  *status*: "String" Describes the completion status of the
+      participant's progress.
+
+      The value MUST be at most one of the following values, registered
+      in a future RFC, or a vendor-specific value:
+
+      *  "completed": The participant completed her part of the task.
+
+      *  "in-process": The participant is in process of completing her
+         part of the task.
+
+   o  *timestamp*: "UTCDate" Describes the latest time when the
+      participant updated her progress.
+
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 28]
+
+Internet-Draft                   JSEvent                  September 2017
+
+
 4.3.  JSGroup
 
    MIME type: "application/calendar+json;type=jsgroup"
@@ -1563,13 +1600,6 @@ Internet-Draft                   JSEvent                  September 2017
 
    o  links
 
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 28]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
    as well as the following JSGroup-specific properties:
 
 4.3.1.  entries
@@ -1586,6 +1616,15 @@ Internet-Draft                   JSEvent                  September 2017
 
    The source from which updated versions of this group may be retrieved
    from.  If the value is not "null", it MUST be an URI.
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 29]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.  Conversion from and to iCalendar
 
@@ -1617,15 +1656,6 @@ Internet-Draft                   JSEvent                  September 2017
    Corresponds to the DTSTART property in iCalendar.  Note that time
    zone information is stored separately in JSEvent.
 
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 29]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.1.3.  timeZone
 
    Corresponds to the TZID part of the DTSTART property in iCalendar.
@@ -1643,6 +1673,15 @@ Internet-Draft                   JSEvent                  September 2017
    The iCalendar counterpart to *JSTask* is the VTODO component type
    [RFC5545].  A VTODO component that is a direct child of a VCALENDAR
    component is equivalent to a standalone JSTask.  A VTODO component
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 30]
+
+Internet-Draft                   JSEvent                  September 2017
+
+
    *within* a master VTODO maps to the entries of the JSTask
    *recurrenceOverrides* property (see Section 3.2.2).
 
@@ -1670,18 +1709,6 @@ Internet-Draft                   JSEvent                  September 2017
    this should be added as a JSCalendar *location* with just a
    *timeZone* property and "rel="end"".
 
-
-
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 30]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.2.5.  estimatedDuration
 
    Corresponds to the ESTIMATED-DURATION iCalendar property.  *NON-
@@ -1692,10 +1719,24 @@ Internet-Draft                   JSEvent                  September 2017
 
    Maps to the COMPLETED iCalendar property.
 
+5.2.7.  progress
+
+   Corresponds to the PARTSTAT and COMPLETED properties in iCalendar.
+
 5.3.  JSGroup
 
    A JSGroup converts to a iCalendar VCALENDAR containing VEVENT or
    VTODO components.
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 31]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.3.1.  entries
 
@@ -1726,18 +1767,6 @@ Internet-Draft                   JSEvent                  September 2017
    *NON-STANDARD*: this property is currently non-standard, see
    [draft-ietf-calext-ical-relations].
 
-
-
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 31]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.4.3.  created
 
    Corresponds to the CREATED property in iCalendar.
@@ -1754,6 +1783,16 @@ Internet-Draft                   JSEvent                  September 2017
 
    Corresponds to the COLOR property in iCalendar, as specified in
    [RFC7986].
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 32]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.4.7.  links
 
@@ -1786,14 +1825,6 @@ Internet-Draft                   JSEvent                  September 2017
    A location *feature* property value corresponds to the FEATURE
    property parameter values defined in [RFC7986].
 
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 32]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.4.11.  method
 
    Corresponds to the METHOD property in iCalendar.
@@ -1811,6 +1842,13 @@ Internet-Draft                   JSEvent                  September 2017
    o  *rsvpResponse*: the PARTSTAT parameter
 
    o  *participation*: the ROLE parameter
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 33]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
    o  *rsvpWanted*: the RSVP parameter
 
@@ -1842,14 +1880,6 @@ Internet-Draft                   JSEvent                  September 2017
    VEVENT (for JSEvent) or VTODO (for JSTask) instances with a
    Recurrence-Id.
 
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 33]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.4.17.  recurrenceRule
 
    Corresponds to the RRULE property in iCalendar.  See the property
@@ -1864,6 +1894,17 @@ Internet-Draft                   JSEvent                  September 2017
    A *replyTo* property of type "imip" corresponds to the email address
    of the ORGANIZER property in iCalendar.  There is no iCalendar
    representation for the "web" type.
+
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 34]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.4.20.  sequence
 
@@ -1901,7 +1942,22 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 34]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 35]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1957,7 +2013,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 35]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 36]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2013,7 +2069,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 36]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 37]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2069,7 +2125,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 37]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 38]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2125,7 +2181,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 38]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 39]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2181,4 +2237,4 @@ Authors' Addresses
 
 
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 39]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 40]

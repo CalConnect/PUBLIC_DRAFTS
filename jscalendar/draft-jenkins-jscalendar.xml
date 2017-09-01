@@ -1725,6 +1725,44 @@
                     </t>
                 </section>
 
+                <section anchor="progress-participant-task" title="progress">
+                    <t>
+                        In addition to the common properties of a <spanx style="strong">Participant</spanx>
+                        object (<xref target="participants"/>), a Participant within a JSTask supports the  following property:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="strong">progress</spanx>:
+                                <spanx style="verb">ParticipantProgress|null</spanx> The progress of the participant for this task, if known.
+                            </t>
+                        </list>
+                        <vspace blankLines="1"/>
+                        A <spanx style="strong">ParticipantProgress</spanx> object has the following properties:
+                        <vspace blankLines="1"/>
+                        <list style="symbols">
+                            <t>
+                                <spanx style="strong">status</spanx>: <spanx style="verb">String</spanx> Describes
+                                the completion status of the participant's progress.
+                                <vspace blankLines="1"/>
+                                The value MUST  be at most one of the following values,
+                                registered in a future RFC, or a vendor-specific value:
+                                <list style="symbols">
+                                    <t>
+                                        <spanx style="verb">completed</spanx>: The participant completed her part of the task.
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">in-process</spanx>: The participant is in process of completing her part of the task.
+                                    </t>
+                                </list>
+                            </t>
+                            <t>
+                                <spanx style="strong">timestamp</spanx>: <spanx style="verb">UTCDate</spanx> Describes
+                                the latest time when the participant updated her progress.
+                            </t>
+                        </list>
+                    </t>
+
+                </section>
+
             </section>
 
             <section anchor="jsgroup" title="JSGroup">
@@ -1897,6 +1935,12 @@
                 <section title="completed">
                     <t>
                         Maps to the COMPLETED iCalendar property.
+                    </t>
+                </section>
+
+                <section title="progress">
+                    <t>
+                        Corresponds to the PARTSTAT and COMPLETED properties in iCalendar.
                     </t>
                 </section>
             </section>
