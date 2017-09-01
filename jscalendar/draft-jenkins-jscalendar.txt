@@ -67,16 +67,16 @@ Table of Contents
      2.2.  Data Types  . . . . . . . . . . . . . . . . . . . . . . .   6
        2.2.1.  UTCDate . . . . . . . . . . . . . . . . . . . . . . .   6
        2.2.2.  LocalDate . . . . . . . . . . . . . . . . . . . . . .   6
-       2.2.3.  Duration  . . . . . . . . . . . . . . . . . . . . . .   6
+       2.2.3.  Duration  . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.4.  PatchObject . . . . . . . . . . . . . . . . . . . . .   7
-     2.3.  Custom property extensions and values . . . . . . . . . .   7
+     2.3.  Custom property extensions and values . . . . . . . . . .   8
    3.  JSCalendar properties . . . . . . . . . . . . . . . . . . . .   8
      3.1.  Metadata properties . . . . . . . . . . . . . . . . . . .   8
        3.1.1.  @type . . . . . . . . . . . . . . . . . . . . . . . .   8
        3.1.2.  uid . . . . . . . . . . . . . . . . . . . . . . . . .   8
        3.1.3.  relatedTo . . . . . . . . . . . . . . . . . . . . . .   8
        3.1.4.  prodId  . . . . . . . . . . . . . . . . . . . . . . .   9
-       3.1.5.  created . . . . . . . . . . . . . . . . . . . . . . .   9
+       3.1.5.  created . . . . . . . . . . . . . . . . . . . . . . .  10
        3.1.6.  updated . . . . . . . . . . . . . . . . . . . . . . .  10
        3.1.7.  sequence  . . . . . . . . . . . . . . . . . . . . . .  10
        3.1.8.  method  . . . . . . . . . . . . . . . . . . . . . . .  10
@@ -93,8 +93,8 @@ Table of Contents
        3.3.7.  categories  . . . . . . . . . . . . . . . . . . . . .  17
        3.3.8.  keywords  . . . . . . . . . . . . . . . . . . . . . .  17
        3.3.9.  color . . . . . . . . . . . . . . . . . . . . . . . .  17
-     3.4.  Sharing and scheduling properties . . . . . . . . . . . .  17
-       3.4.1.  status  . . . . . . . . . . . . . . . . . . . . . . .  17
+     3.4.  Sharing and scheduling properties . . . . . . . . . . . .  18
+       3.4.1.  status  . . . . . . . . . . . . . . . . . . . . . . .  18
        3.4.2.  priority  . . . . . . . . . . . . . . . . . . . . . .  18
        3.4.3.  freeBusyStatus  . . . . . . . . . . . . . . . . . . .  18
        3.4.4.  privacy . . . . . . . . . . . . . . . . . . . . . . .  18
@@ -117,51 +117,51 @@ Internet-Draft                   JSEvent                  September 2017
        4.1.2.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  25
        4.1.3.  duration  . . . . . . . . . . . . . . . . . . . . . .  26
        4.1.4.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  26
+       4.1.5.  status  . . . . . . . . . . . . . . . . . . . . . . .  26
      4.2.  JSTask  . . . . . . . . . . . . . . . . . . . . . . . . .  26
        4.2.1.  due . . . . . . . . . . . . . . . . . . . . . . . . .  27
        4.2.2.  start . . . . . . . . . . . . . . . . . . . . . . . .  27
        4.2.3.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  27
        4.2.4.  estimatedDuration . . . . . . . . . . . . . . . . . .  27
-       4.2.5.  completed . . . . . . . . . . . . . . . . . . . . . .  27
+       4.2.5.  completed . . . . . . . . . . . . . . . . . . . . . .  28
        4.2.6.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  28
        4.2.7.  progress  . . . . . . . . . . . . . . . . . . . . . .  28
+       4.2.8.  status  . . . . . . . . . . . . . . . . . . . . . . .  29
      4.3.  JSGroup . . . . . . . . . . . . . . . . . . . . . . . . .  29
-       4.3.1.  entries . . . . . . . . . . . . . . . . . . . . . . .  29
-       4.3.2.  source  . . . . . . . . . . . . . . . . . . . . . . .  29
+       4.3.1.  entries . . . . . . . . . . . . . . . . . . . . . . .  30
+       4.3.2.  source  . . . . . . . . . . . . . . . . . . . . . . .  30
    5.  Conversion from and to iCalendar  . . . . . . . . . . . . . .  30
      5.1.  JSEvent . . . . . . . . . . . . . . . . . . . . . . . . .  30
-       5.1.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  30
-       5.1.2.  start . . . . . . . . . . . . . . . . . . . . . . . .  30
-       5.1.3.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  30
-       5.1.4.  duration  . . . . . . . . . . . . . . . . . . . . . .  30
-     5.2.  JSTask  . . . . . . . . . . . . . . . . . . . . . . . . .  30
+       5.1.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  31
+       5.1.2.  start . . . . . . . . . . . . . . . . . . . . . . . .  31
+       5.1.3.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  31
+       5.1.4.  duration  . . . . . . . . . . . . . . . . . . . . . .  31
+     5.2.  JSTask  . . . . . . . . . . . . . . . . . . . . . . . . .  31
        5.2.1.  isAllDay  . . . . . . . . . . . . . . . . . . . . . .  31
        5.2.2.  due . . . . . . . . . . . . . . . . . . . . . . . . .  31
        5.2.3.  start . . . . . . . . . . . . . . . . . . . . . . . .  31
-       5.2.4.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  31
-       5.2.5.  estimatedDuration . . . . . . . . . . . . . . . . . .  31
-       5.2.6.  completed . . . . . . . . . . . . . . . . . . . . . .  31
-       5.2.7.  progress  . . . . . . . . . . . . . . . . . . . . . .  31
-     5.3.  JSGroup . . . . . . . . . . . . . . . . . . . . . . . . .  31
+       5.2.4.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  32
+       5.2.5.  estimatedDuration . . . . . . . . . . . . . . . . . .  32
+       5.2.6.  completed . . . . . . . . . . . . . . . . . . . . . .  32
+       5.2.7.  progress  . . . . . . . . . . . . . . . . . . . . . .  32
+     5.3.  JSGroup . . . . . . . . . . . . . . . . . . . . . . . . .  32
        5.3.1.  entries . . . . . . . . . . . . . . . . . . . . . . .  32
        5.3.2.  source  . . . . . . . . . . . . . . . . . . . . . . .  32
      5.4.  Common properties . . . . . . . . . . . . . . . . . . . .  32
        5.4.1.  alerts  . . . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.2.  categories  . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.3.  created . . . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.4.  description . . . . . . . . . . . . . . . . . . . . .  32
-       5.4.5.  freeBusyStatus  . . . . . . . . . . . . . . . . . . .  32
-       5.4.6.  keywords  . . . . . . . . . . . . . . . . . . . . . .  32
+       5.4.2.  categories  . . . . . . . . . . . . . . . . . . . . .  33
+       5.4.3.  created . . . . . . . . . . . . . . . . . . . . . . .  33
+       5.4.4.  description . . . . . . . . . . . . . . . . . . . . .  33
+       5.4.5.  freeBusyStatus  . . . . . . . . . . . . . . . . . . .  33
+       5.4.6.  keywords  . . . . . . . . . . . . . . . . . . . . . .  33
        5.4.7.  links . . . . . . . . . . . . . . . . . . . . . . . .  33
        5.4.8.  locale  . . . . . . . . . . . . . . . . . . . . . . .  33
        5.4.9.  localizations . . . . . . . . . . . . . . . . . . . .  33
-       5.4.10. locations . . . . . . . . . . . . . . . . . . . . . .  33
-       5.4.11. method  . . . . . . . . . . . . . . . . . . . . . . .  33
-       5.4.12. participants  . . . . . . . . . . . . . . . . . . . .  33
+       5.4.10. locations . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.11. method  . . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.12. participants  . . . . . . . . . . . . . . . . . . . .  34
        5.4.13. priority  . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.14. privacy . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.15. prodId  . . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.16. recurrenceOverrides . . . . . . . . . . . . . . . . .  34
+       5.4.14. privacy . . . . . . . . . . . . . . . . . . . . . . .  35
 
 
 
@@ -170,16 +170,18 @@ Jenkins & Stepanek        Expires March 5, 2018                 [Page 3]
 Internet-Draft                   JSEvent                  September 2017
 
 
-       5.4.17. recurrenceRule  . . . . . . . . . . . . . . . . . . .  34
-       5.4.18. relatedTo . . . . . . . . . . . . . . . . . . . . . .  34
-       5.4.19. replyTo . . . . . . . . . . . . . . . . . . . . . . .  34
+       5.4.15. prodId  . . . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.16. recurrenceOverrides . . . . . . . . . . . . . . . . .  35
+       5.4.17. recurrenceRule  . . . . . . . . . . . . . . . . . . .  35
+       5.4.18. relatedTo . . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.19. replyTo . . . . . . . . . . . . . . . . . . . . . . .  35
        5.4.20. sequence  . . . . . . . . . . . . . . . . . . . . . .  35
        5.4.21. status  . . . . . . . . . . . . . . . . . . . . . . .  35
        5.4.22. title . . . . . . . . . . . . . . . . . . . . . . . .  35
        5.4.23. uid . . . . . . . . . . . . . . . . . . . . . . . . .  35
-       5.4.24. updated . . . . . . . . . . . . . . . . . . . . . . .  35
-   6.  JSCalendar object examples  . . . . . . . . . . . . . . . . .  35
-     6.1.  Simple JSEvent  . . . . . . . . . . . . . . . . . . . . .  35
+       5.4.24. updated . . . . . . . . . . . . . . . . . . . . . . .  36
+   6.  JSCalendar object examples  . . . . . . . . . . . . . . . . .  36
+     6.1.  Simple JSEvent  . . . . . . . . . . . . . . . . . . . . .  36
      6.2.  Recurring JSEvent with exception  . . . . . . . . . . . .  36
    7.  Security Considerations . . . . . . . . . . . . . . . . . . .  38
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  38
@@ -216,8 +218,6 @@ Internet-Draft                   JSEvent                  September 2017
    new data model that aims to be unambiguous, extendable and simple to
    process.
 
-   The key design considerations for this format are as follows:
-
 
 
 
@@ -225,6 +225,8 @@ Jenkins & Stepanek        Expires March 5, 2018                 [Page 4]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+   The key design considerations for this format are as follows:
 
    o  The attributes of the calendar entry represented must be described
       as a simple key-value pair, reducing complexity of its
@@ -271,8 +273,6 @@ Internet-Draft                   JSEvent                  September 2017
    stricter subset of JSON), as specified in[RFC7159].  Property names
    and values are case-sensitive.
 
-   The object has a collection of properties, as specified in the
-   following sections.  Unless otherwise specified, all properties are
 
 
 
@@ -282,6 +282,8 @@ Jenkins & Stepanek        Expires March 5, 2018                 [Page 5]
 Internet-Draft                   JSEvent                  September 2017
 
 
+   The object has a collection of properties, as specified in the
+   following sections.  Unless otherwise specified, all properties are
    optional; omitted properties MUST be treated identically to if that
    property had the value of "null", unless otherwise specified.
 
@@ -325,10 +327,8 @@ Internet-Draft                   JSEvent                  September 2017
    The time zone to associate the LocalDate with comes from an
    associated property.
 
-2.2.3.  Duration
 
-   A duration is represented by a subset of ISO8601 duration format, as
-   specified by the following ABNF:
+
 
 
 
@@ -337,6 +337,11 @@ Jenkins & Stepanek        Expires March 5, 2018                 [Page 6]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+2.2.3.  Duration
+
+   A duration is represented by a subset of ISO8601 duration format, as
+   specified by the following ABNF:
 
        dur-secfrac = "." 1*DIGIT
        dur-second  = 1*DIGIT [dur-secfrac] "S"
@@ -380,12 +385,7 @@ Internet-Draft                   JSEvent                  September 2017
       patch object with (if present) or add to the property (if not
       present).
 
-2.3.  Custom property extensions and values
 
-   Vendors MAY add additional properties to the calendar object to
-   support their custom features.  The names of these properties SHOULD
-   be prefixed with a domain name controlled by the vendor to avoid
-   conflict, e.g. "fastmail.com/customprop".  Other systems that
 
 
 
@@ -394,6 +394,12 @@ Jenkins & Stepanek        Expires March 5, 2018                 [Page 7]
 Internet-Draft                   JSEvent                  September 2017
 
 
+2.3.  Custom property extensions and values
+
+   Vendors MAY add additional properties to the calendar object to
+   support their custom features.  The names of these properties SHOULD
+   be prefixed with a domain name controlled by the vendor to avoid
+   conflict, e.g. "fastmail.com/customprop".  Other systems that
    interact with a JSCalendar object that contain properties they do not
    recognise SHOULD try to preserve them, but MUST otherwise ignore
    them.
@@ -434,6 +440,16 @@ Internet-Draft                   JSEvent                  September 2017
 
    Type: "String[Relation]|null"
 
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 8]
+
+Internet-Draft                   JSEvent                  September 2017
+
+
    Relates the object to other objects of the same type.  This is
    represented as a map of the uid of the related object to information
    about the relation.
@@ -442,13 +458,6 @@ Internet-Draft                   JSEvent                  September 2017
 
    o  *relation*: "String[]" Describes how the linked object is related
       to this object.
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                 [Page 8]
-
-Internet-Draft                   JSEvent                  September 2017
-
 
       The strings in the array MUST each be at most one of the following
       values, registered in a future RFC, or a vendor-specific value:
@@ -490,21 +499,18 @@ Internet-Draft                   JSEvent                  September 2017
    For example, it is not to be used to further the understanding of
    non-standard properties.
 
-3.1.5.  created
-
-   Type: "UTCDate|null"
-
-   The date and time this object was initially created.
-
-
-
-
 
 
 Jenkins & Stepanek        Expires March 5, 2018                 [Page 9]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+3.1.5.  created
+
+   Type: "UTCDate|null"
+
+   The date and time this object was initially created.
 
 3.1.6.  updated
 
@@ -548,12 +554,6 @@ Internet-Draft                   JSEvent                  September 2017
 
       *  "monthly"
 
-      *  "weekly"
-
-      *  "daily"
-
-      *  "hourly"
-
 
 
 
@@ -561,6 +561,12 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 10]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+      *  "weekly"
+
+      *  "daily"
+
+      *  "hourly"
 
       *  "minutely"
 
@@ -604,12 +610,6 @@ Internet-Draft                   JSEvent                  September 2017
       Each entry is a string representation of a number, starting from
       "1" for the first month in the calendar (e.g. ""1" " means
       ""January"" with Gregorian calendar), with an optional ""L""
-      suffix (see [RFC7529]) for leap months (this MUST be upper-case,
-      e.g. ""3L"").  The array MUST have at least one entry if included.
-
-   o  *byYearDay*: "Number[]"(optional) The BYYEARDAY part from
-      iCalendar.  The array MUST have at least one entry if included.
-
 
 
 
@@ -617,6 +617,12 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 11]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+      suffix (see [RFC7529]) for leap months (this MUST be upper-case,
+      e.g. ""3L"").  The array MUST have at least one entry if included.
+
+   o  *byYearDay*: "Number[]"(optional) The BYYEARDAY part from
+      iCalendar.  The array MUST have at least one entry if included.
 
    o  *byWeekNo*: "Number[]"(optional) The BYWEEKNO part from iCalendar.
       The array MUST have at least one entry if included.
@@ -660,12 +666,6 @@ Internet-Draft                   JSEvent                  September 2017
    A pointer in the PatchObject MUST NOT start with one of the following
    prefixes; any patch with such a key MUST be ignored:
 
-   o  uid
-
-   o  relatedTo
-
-   o  prodId
-
 
 
 
@@ -673,6 +673,12 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 12]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+   o  uid
+
+   o  relatedTo
+
+   o  prodId
 
    o  method
 
@@ -716,12 +722,6 @@ Internet-Draft                   JSEvent                  September 2017
       this location.  This may be an address, set of directions, door
       access code, etc.
 
-   o  *rel*: "String" The relation type of this location to the
-      JSCalendar object.
-
-      This MUST be either one of the following values, registered in a
-      future RFC, or a vendor-specific value.  Any value the client or
-      server doesn't understand should be treated the same as "unknown".
 
 
 
@@ -729,6 +729,13 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 13]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+   o  *rel*: "String" The relation type of this location to the
+      JSCalendar object.
+
+      This MUST be either one of the following values, registered in a
+      future RFC, or a vendor-specific value.  Any value the client or
+      server doesn't understand should be treated the same as "unknown".
 
       *  "start": The JSCalendar object starts at this location.
 
@@ -772,13 +779,6 @@ Internet-Draft                   JSEvent                  September 2017
 
    o  *coordinates*: "String" An [RFC5870] "geo:" URI for the location.
 
-   o  *uri*: "String" A URI that represents how to connect from this
-      location.
-
-      This may be a telephone number (represented as
-      "tel:+1-555-555-555") for a teleconference, a web address for
-
-
 
 
 Jenkins & Stepanek        Expires March 5, 2018                [Page 14]
@@ -786,6 +786,11 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 14]
 Internet-Draft                   JSEvent                  September 2017
 
 
+   o  *uri*: "String" A URI that represents how to connect from this
+      location.
+
+      This may be a telephone number (represented as
+      "tel:+1-555-555-555") for a teleconference, a web address for
       online chat, or a custom URI for something like Skype (e.g.
       "skype:username").
 
@@ -828,12 +833,7 @@ Internet-Draft                   JSEvent                  September 2017
       Links with a rel of "enclosure" SHOULD be considered by the client
       as attachments for download.
 
-      Links with a rel of "describedby" SHOULD be considered by the
-      client to be an alternate representation of the description, for
-      example an HTML page describing the object.
 
-      Links with a rel of "icon" SHOULD be considered by the client to
-      be an image that it MAY use when presenting the calendar data to a
 
 
 
@@ -842,6 +842,12 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 15]
 Internet-Draft                   JSEvent                  September 2017
 
 
+      Links with a rel of "describedby" SHOULD be considered by the
+      client to be an alternate representation of the description, for
+      example an HTML page describing the object.
+
+      Links with a rel of "icon" SHOULD be considered by the client to
+      be an image that it MAY use when presenting the calendar data to a
       user.  The properties object of this link MAY include a display
       property indicating the intended purpose of this image.  If
       included, the value MUST be either one of the following values,
@@ -883,12 +889,6 @@ Internet-Draft                   JSEvent                  September 2017
    See the description of PatchObject (Section 2.2.4) for the structure
    of the PatchObject.  The patches are applied to the top-level object.
    In addition to all the restrictions on patches specified there, the
-   pointer also MUST NOT start with one of the following prefixes; any
-   patch with a such a key MUST be ignored:
-
-   o  sequence
-
-   o  localization
 
 
 
@@ -897,6 +897,13 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 16]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+   pointer also MUST NOT start with one of the following prefixes; any
+   patch with a such a key MUST be ignored:
+
+   o  sequence
+
+   o  localization
 
    o  start
 
@@ -937,15 +944,8 @@ Internet-Draft                   JSEvent                  September 2017
    associated with this color name, but rather that they use the name to
    find a suitable color that works in the given UA context.
 
-3.4.  Sharing and scheduling properties
 
-3.4.1.  status
 
-   Type: "String"(defaults to ""confirmed"" if omitted)
-
-   The status of the object.  MUST be one of:
-
-   o  "confirmed": Indicates the calendar object is definite.
 
 
 
@@ -954,9 +954,14 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 17]
 Internet-Draft                   JSEvent                  September 2017
 
 
-   o  "cancelled": Indicates the calendar object was cancelled.
+3.4.  Sharing and scheduling properties
 
-   o  "tentative": Indicates the calendar object is tentative.
+3.4.1.  status
+
+   Type: "String"
+
+   The supported status values are specific per object type (see
+   Section 4.1.5 and Section 4.2.8).
 
 3.4.2.  priority
 
@@ -996,12 +1001,7 @@ Internet-Draft                   JSEvent                  September 2017
    As JSCalendar is simply a data model, enforcement of the restrictions
    indicated by this property are up to the implementations.
 
-   This property MUST NOT affect the information sent to scheduled
-   participants; it is only interpreted when the object is shared as
-   part of a shared calendar.
 
-   The value MUST be either one of the following values, registered in a
-   future RFC, or a vendor-specific value.  Vendor specific values MUST
 
 
 
@@ -1010,6 +1010,12 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 18]
 Internet-Draft                   JSEvent                  September 2017
 
 
+   This property MUST NOT affect the information sent to scheduled
+   participants; it is only interpreted when the object is shared as
+   part of a shared calendar.
+
+   The value MUST be either one of the following values, registered in a
+   future RFC, or a vendor-specific value.  Vendor specific values MUST
    be prefixed with a domain name controlled by the vendor, e.g.
    "fastmail.com/topsecret".  Any value the client or server doesn't
    understand should be preserved but treated as equivalent to
@@ -1052,12 +1058,6 @@ Internet-Draft                   JSEvent                  September 2017
    Represents methods by which a participant may RSVP to the organizer
    of the calendar object.  The keys in the property value are the
    available methods.  The value is a URI to use that method.  Future
-   methods may be defined in future specications; a calendar client MUST
-   just ignore any method it does not understand.
-
-   The following methods are defined:
-
-
 
 
 
@@ -1065,6 +1065,11 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 19]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+   methods may be defined in future specications; a calendar client MUST
+   just ignore any method it does not understand.
+
+   The following methods are defined:
 
    o  "imip": The organizer accepts an iMIP [RFC6047] response.  The
       value MUST be a "mailto:" URI.
@@ -1110,17 +1115,17 @@ Internet-Draft                   JSEvent                  September 2017
 
    o  *roles*: "String[]" A list of roles that this participant fulfils.
 
-      At least one value MUST be specified for the participant.  This
-      MUST be either one of the following values, registered in a future
-      RFC, or a vendor-specific value.  Any value the client or server
-      doesn't understand should be preserved but ignored.
-
 
 
 Jenkins & Stepanek        Expires March 5, 2018                [Page 20]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+      At least one value MUST be specified for the participant.  This
+      MUST be either one of the following values, registered in a future
+      RFC, or a vendor-specific value.  Any value the client or server
+      doesn't understand should be preserved but ignored.
 
       *  "owner": The participant is an organizer of the event, and
          allowed to make alterations to any part of the event.
@@ -1165,11 +1170,6 @@ Internet-Draft                   JSEvent                  September 2017
       *  "optional": Indicates a participant whose participation is
          optional.
 
-      *  "required": Indicates a participant whose participation is
-         required.
-
-
-
 
 
 
@@ -1177,6 +1177,9 @@ Jenkins & Stepanek        Expires March 5, 2018                [Page 21]
 
 Internet-Draft                   JSEvent                  September 2017
 
+
+      *  "required": Indicates a participant whose participation is
+         required.
 
    o  *rsvpWanted*: "Boolean"(optional, defaults to "false") If true,
       the organizer is expecting the participant to notify them of their
@@ -1222,9 +1225,6 @@ Internet-Draft                   JSEvent                  September 2017
       format.  If a given value does not correspond to any link id in
       the links property of the instance, this id MUST be ignored.  This
       MUST be omitted if none (rather than an empty array).
-
-
-
 
 
 
@@ -1431,11 +1431,32 @@ Internet-Draft                   JSEvent                  September 2017
 
    o  the *duration* property MUST only include a day component.
 
+4.1.5.  status
+
+   The scheduling status (Section 3.4) of a JSEvent defaults to
+   "confirmed" if omitted.
+
+   If set, it MUST be one of:
+
+   o  "confirmed": Indicates the event is definite.
+
+   o  "cancelled": Indicates the event is cancelled.
+
+   o  "tentative": Indicates the event is tentative.
+
 4.2.  JSTask
 
    MIME type: "application/calendar+json;type=jstask"
 
    A JSTask represents an action-item, assignment, to-do or work item .
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 26]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
    A JSTask @type (Section 3.1.1) property value MUST be "task".
 
@@ -1447,16 +1468,6 @@ Internet-Draft                   JSEvent                  September 2017
 
    In addition to the common JSCalendar object properties (Section 3) as
    JSTask has the following properties:
-
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 26]
-
-Internet-Draft                   JSEvent                  September 2017
-
 
 4.2.1.  due
 
@@ -1492,6 +1503,17 @@ Internet-Draft                   JSEvent                  September 2017
    SHOULD be less than or equal to the time interval between these
    properties.
 
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 27]
+
+Internet-Draft                   JSEvent                  September 2017
+
+
 4.2.5.  completed
 
    Type: "UTCDate|null", e.g.  "2016-06-13T12:00:00Z"
@@ -1506,14 +1528,6 @@ Internet-Draft                   JSEvent                  September 2017
    completion times for regularly recurring tasks.  An alternative
    approach is to split the JSTask into a current, single instance of
    JSTask with this instance completion time and a future recurring
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 27]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
    instance.  Also see the definition of the relatedTo (Section 3.1.3)
    property Section 3.1.3 on splitting.
 
@@ -1548,6 +1562,14 @@ Internet-Draft                   JSEvent                  September 2017
    o  *status*: "String" Describes the completion status of the
       participant's progress.
 
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 28]
+
+Internet-Draft                   JSEvent                  September 2017
+
+
       The value MUST be at most one of the following values, registered
       in a future RFC, or a vendor-specific value:
 
@@ -1559,16 +1581,22 @@ Internet-Draft                   JSEvent                  September 2017
    o  *timestamp*: "UTCDate" Describes the latest time when the
       participant updated her progress.
 
+4.2.8.  status
 
+   The scheduling status (Section 3.4) of a JSTask defaults to "needs-
+   action" if omitted.
 
+   If set, it MUST be one of:
 
+   o  "needs-action": Indicates the task needs action.
 
+   o  "completed": Indicates the task is completed.  If this value is
+      set, then the timestamp in the "completed" property
+      (Section 4.2.5) MUST NOT be null.
 
+   o  "in-process": Indicates the task is in process.
 
-Jenkins & Stepanek        Expires March 5, 2018                [Page 28]
-
-Internet-Draft                   JSEvent                  September 2017
-
+   o  "cancelled": Indicates the task is cancelled.
 
 4.3.  JSGroup
 
@@ -1589,6 +1617,14 @@ Internet-Draft                   JSEvent                  September 2017
    o  updated
 
    o  categories
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 29]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
    o  keywords
 
@@ -1617,15 +1653,6 @@ Internet-Draft                   JSEvent                  September 2017
    The source from which updated versions of this group may be retrieved
    from.  If the value is not "null", it MUST be an URI.
 
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 29]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.  Conversion from and to iCalendar
 
    This section specifies which JSCalendar properties can be mapped from
@@ -1645,6 +1672,15 @@ Internet-Draft                   JSEvent                  September 2017
    component is equivalent to a standalone JSEvent.  A VEVENT component
    *within* a VEVENT maps to the entries of the JSEvent
    *recurrenceOverrides* property (see Section 3.2.2).
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 30]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.1.1.  isAllDay
 
@@ -1673,15 +1709,6 @@ Internet-Draft                   JSEvent                  September 2017
    The iCalendar counterpart to *JSTask* is the VTODO component type
    [RFC5545].  A VTODO component that is a direct child of a VCALENDAR
    component is equivalent to a standalone JSTask.  A VTODO component
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 30]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
    *within* a master VTODO maps to the entries of the JSTask
    *recurrenceOverrides* property (see Section 3.2.2).
 
@@ -1699,6 +1726,17 @@ Internet-Draft                   JSEvent                  September 2017
 5.2.3.  start
 
    Corresponds to the DTSTART property in iCalendar.
+
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 31]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.2.4.  timeZone
 
@@ -1728,16 +1766,6 @@ Internet-Draft                   JSEvent                  September 2017
    A JSGroup converts to a iCalendar VCALENDAR containing VEVENT or
    VTODO components.
 
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 31]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.3.1.  entries
 
    The VEVENT and VTODO components within a top-level VCALENDAR
@@ -1757,6 +1785,14 @@ Internet-Draft                   JSEvent                  September 2017
    action is a *DisplayAction* and similarly an iCalendar "EMAIL" value
    for *EmailAction* action).  The *relativeTo* and *offset* properties
    corresponds to the iCalendar TRIGGER property.
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 32]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
    *NON-STANDARD*: The iCalendar properties for JSCalendar Alert actions
    are non-standard, see [draft-daboo-valarm-extensions].
@@ -1784,16 +1820,6 @@ Internet-Draft                   JSEvent                  September 2017
    Corresponds to the COLOR property in iCalendar, as specified in
    [RFC7986].
 
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 32]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.4.7.  links
 
    Corresponds to the ATTACH ([RFC5545]) and IMAGE iCalendar properties
@@ -1812,6 +1838,17 @@ Internet-Draft                   JSEvent                  September 2017
    individual properties.  When converting from iCalendar, one language
    must be picked as the main locale for the object, and all properties
    in other languages moved to the localizations JSEvent property.
+
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 33]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.4.10.  locations
 
@@ -1843,13 +1880,6 @@ Internet-Draft                   JSEvent                  September 2017
 
    o  *participation*: the ROLE parameter
 
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 33]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
    o  *rsvpWanted*: the RSVP parameter
 
    o  *delegatedTo*: the DELEGATED-TO parameter
@@ -1865,6 +1895,16 @@ Internet-Draft                   JSEvent                  September 2017
 5.4.13.  priority
 
    Corresponds to the PRIORITY property in iCalendar.
+
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 34]
+
+Internet-Draft                   JSEvent                  September 2017
+
 
 5.4.14.  privacy
 
@@ -1895,17 +1935,6 @@ Internet-Draft                   JSEvent                  September 2017
    of the ORGANIZER property in iCalendar.  There is no iCalendar
    representation for the "web" type.
 
-
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 34]
-
-Internet-Draft                   JSEvent                  September 2017
-
-
 5.4.20.  sequence
 
    Corresponds to the SEQUENCE property in iCalendar.
@@ -1923,6 +1952,16 @@ Internet-Draft                   JSEvent                  September 2017
 
    Corresponds to the UID property in iCalendar.
 
+
+
+
+
+
+Jenkins & Stepanek        Expires March 5, 2018                [Page 35]
+
+Internet-Draft                   JSEvent                  September 2017
+
+
 5.4.24.  updated
 
    Corresponds to the DTSTAMP and LAST-MODIFIED properties in iCalendar.
@@ -1938,29 +1977,6 @@ Internet-Draft                   JSEvent                  September 2017
 
    This JSEvent object represents a one-time event taking place on
    September 28 at 4pm, GMT for one hour.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Jenkins & Stepanek        Expires March 5, 2018                [Page 35]
-
-Internet-Draft                   JSEvent                  September 2017
-
 
        {
            "@type": "event",
@@ -1990,22 +2006,6 @@ Internet-Draft                   JSEvent                  September 2017
    not occur on February 2, 2016.  In addition to the regular
    recurrences it also occurs on December 5, 2016 at 5pm.  On May 1, it
    takes place at another location.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

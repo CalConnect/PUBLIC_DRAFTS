@@ -1002,23 +1002,12 @@
 
                 <section anchor="status" title="status">
                     <t>
-                        Type: <spanx style="verb">String</spanx>(defaults to <spanx style="verb">"confirmed"</spanx> if
-                        omitted)
+                        Type: <spanx style="verb">String</spanx>
                     </t>
                     <t>
-                        The status of the object. MUST be one of:
-                        <list style="symbols">
-                            <t>
-                                <spanx style="verb">confirmed</spanx>: Indicates the calendar object is definite.
-                            </t>
-                            <t>
-                                <spanx style="verb">cancelled</spanx>: Indicates the calendar object was cancelled.
-                            </t>
-                            <t>
-                                <spanx style="verb">tentative</spanx>: Indicates the calendar object is tentative.
-                            </t>
-                        </list>
-
+                        The supported status values are specific per object type (see
+                        <xref target="sharing-scheduling-status-jsevent"/> and
+                        <xref target="sharing-scheduling-status-jstask"/>).
                     </t>
                 </section>
 
@@ -1606,6 +1595,26 @@
                         </list>
                     </t>
                 </section>
+                <section anchor="sharing-scheduling-status-jsevent" title="status">
+                    <t>
+                        The scheduling status (<xref target="sharing-scheduling-properties"/>) of a JSEvent
+                        defaults to <spanx style="verb">confirmed</spanx> if omitted.
+                    </t>
+                    <t>
+                        If set, it MUST be one of:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="verb">confirmed</spanx>: Indicates the event is definite.
+                            </t>
+                            <t>
+                                <spanx style="verb">cancelled</spanx>: Indicates the event is cancelled.
+                            </t>
+                            <t>
+                                <spanx style="verb">tentative</spanx>: Indicates the event is tentative.
+                            </t>
+                        </list>
+                    </t>
+                </section>
 
             </section>
 
@@ -1760,7 +1769,32 @@
                             </t>
                         </list>
                     </t>
+                </section>
 
+                <section anchor="sharing-scheduling-status-jstask" title="status">
+                    <t>
+                        The scheduling status (<xref target="sharing-scheduling-properties"/>) of a JSTask
+                        defaults to <spanx style="verb">needs-action</spanx> if omitted.
+                    </t>
+                    <t>
+                        If set, it MUST be one of:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="verb">needs-action</spanx>: Indicates the task needs action.
+                            </t>
+                            <t>
+                                <spanx style="verb">completed</spanx>: Indicates the task is completed.
+                                If this value is set, then the timestamp in the <spanx style="verb">completed</spanx>
+                                property (<xref target="completed"/>) MUST NOT be null.
+                            </t>
+                            <t>
+                                <spanx style="verb">in-process</spanx>: Indicates the task is in process.
+                            </t>
+                            <t>
+                                <spanx style="verb">cancelled</spanx>: Indicates the task is cancelled.
+                            </t>
+                        </list>
+                    </t>
                 </section>
 
             </section>
