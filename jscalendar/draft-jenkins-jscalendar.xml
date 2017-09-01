@@ -43,7 +43,7 @@
                 <uri>https://www.fastmail.com</uri>
             </address>
         </author>
-        <date year="2017" month="August" day="9"/>
+        <date year="2017" month="September" day="1"/>
         <area>Applications</area>
         <workgroup>JSON data formats for iCalendar</workgroup>
         <keyword>JSON</keyword>
@@ -1521,7 +1521,7 @@
         <section anchor="jscalendar-objects" title="JSCalendar objects">
             <section anchor="jsevent" title="JSEvent">
                 <t>
-                    MIME type: <spanx style="verb">application/json+cal;type=event</spanx>
+                    MIME type: <spanx style="verb">application/calendar+json;type=jsevent</spanx>
                 </t>
                 <t>
                     A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment,
@@ -1611,7 +1611,7 @@
 
             <section anchor="jstask" title="JSTask">
                 <t>
-                    MIME type: <spanx style="verb">application/json+cal;type=task</spanx>
+                    MIME type: <spanx style="verb">application/calendar+json;type=jstask</spanx>
                 </t>
                 <t>
                     A JSTask represents an action-item, assignment, to-do or work item .
@@ -1729,7 +1729,7 @@
 
             <section anchor="jsgroup" title="JSGroup">
                 <t>
-                    MIME type: <spanx style="verb">application/json+cal;type=group</spanx>
+                    MIME type: <spanx style="verb">application/calendar+json;type=jsgroup</spanx>
                 </t>
                 <t>
                     A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and
@@ -2224,8 +2224,14 @@
 
         <section anchor="iana-considerations" title="IANA Considerations">
             <t>
-                This document defines a MIME media type for use with iCalendar in JSON data. This media type SHOULD be
-                used for the transfer of calendaring data in JSON.
+                This document amends the <spanx style="verb">application/calendar</spanx> MIME media
+                type defined in <xref target="RFC7265"/>.
+            </t>
+            <t>
+                New optional parameter: <spanx style="verb">type</spanx> with value being one of
+                <spanx style="verb">jsevent</spanx>, <spanx style="verb">jstask</spanx>,
+                <spanx style="verb">jsgroup</spanx>.
+                The parameter MUST NOT occur more than once.
             </t>
         </section>
 

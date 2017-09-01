@@ -5,7 +5,7 @@
 JSON data formats for iCalendar                               N. Jenkins
 Internet-Draft                                               R. Stepanek
 Intended status: Standards Track                                FastMail
-Expires: February 10, 2018                                August 9, 2017
+Expires: March 5, 2018                                 September 1, 2017
 
 
            JSCalendar: A JSON representation of calendar data
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 10, 2018.
+   This Internet-Draft will expire on March 5, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 1]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 1]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 2]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 2]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
        4.1.2.  timeZone  . . . . . . . . . . . . . . . . . . . . . .  25
@@ -165,9 +165,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 3]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 3]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
        5.4.19. replyTo . . . . . . . . . . . . . . . . . . . . . . .  34
@@ -221,9 +221,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 4]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 4]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  The attributes of the calendar entry represented must be described
@@ -277,9 +277,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 5]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 5]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    optional; omitted properties MUST be treated identically to if that
@@ -333,9 +333,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 6]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 6]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
        dur-secfrac = "." 1*DIGIT
@@ -389,9 +389,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 7]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 7]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    interact with a JSCalendar object that contain properties they do not
@@ -445,9 +445,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 8]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 8]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       The strings in the array MUST each be at most one of the following
@@ -501,9 +501,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018               [Page 9]
+Jenkins & Stepanek        Expires March 5, 2018                 [Page 9]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 3.1.6.  updated
@@ -557,9 +557,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 10]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 10]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       *  "minutely"
@@ -613,9 +613,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 11]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 11]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  *byWeekNo*: "Number[]"(optional) The BYWEEKNO part from iCalendar.
@@ -669,9 +669,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 12]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 12]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  method
@@ -725,9 +725,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 13]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 13]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       *  "start": The JSCalendar object starts at this location.
@@ -781,9 +781,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 14]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 14]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       online chat, or a custom URI for something like Skype (e.g.
@@ -837,9 +837,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 15]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 15]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       user.  The properties object of this link MAY include a display
@@ -893,9 +893,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 16]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 16]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  start
@@ -949,9 +949,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 17]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 17]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  "cancelled": Indicates the calendar object was cancelled.
@@ -1005,9 +1005,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 18]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 18]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    be prefixed with a domain name controlled by the vendor, e.g.
@@ -1061,9 +1061,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 19]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 19]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  "imip": The organizer accepts an iMIP [RFC6047] response.  The
@@ -1117,9 +1117,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 20]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 20]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       *  "owner": The participant is an organizer of the event, and
@@ -1173,9 +1173,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 21]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 21]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    o  *rsvpWanted*: "Boolean"(optional, defaults to "false") If true,
@@ -1229,9 +1229,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 22]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 22]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 3.5.  Alerts properties
@@ -1285,9 +1285,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 23]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 23]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       (and any sound or other method of drawing the user's attention) is
@@ -1341,9 +1341,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 24]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 24]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       *  *subject*: "String" (optional) The subject to use for the
@@ -1367,7 +1367,7 @@ Internet-Draft                   JSEvent                     August 2017
 
 4.1.  JSEvent
 
-   MIME type: "application/json+cal;type=event"
+   MIME type: "application/calendar+json;type=jsevent"
 
    A JSEvent represents a scheduled amount of time on a calendar,
    typically a meeting, appointment, reminder or anniversary.  Multiple
@@ -1397,9 +1397,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 25]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 25]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 4.1.3.  duration
@@ -1433,7 +1433,7 @@ Internet-Draft                   JSEvent                     August 2017
 
 4.2.  JSTask
 
-   MIME type: "application/json+cal;type=task"
+   MIME type: "application/calendar+json;type=jstask"
 
    A JSTask represents an action-item, assignment, to-do or work item .
 
@@ -1453,9 +1453,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 26]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 26]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 4.2.1.  due
@@ -1509,9 +1509,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 27]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 27]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    instance.  Also see the definition of the relatedTo (Section 3.1.3)
@@ -1535,7 +1535,7 @@ Internet-Draft                   JSEvent                     August 2017
 
 4.3.  JSGroup
 
-   MIME type: "application/json+cal;type=group"
+   MIME type: "application/calendar+json;type=jsgroup"
 
    A JSGroup is a collection of JSEvent (Section 4.1) and JSTask
    (Section 4.2) objects.  Typically, objects are grouped by topic (e.g.
@@ -1565,9 +1565,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 28]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 28]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    as well as the following JSGroup-specific properties:
@@ -1621,9 +1621,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 29]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 29]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 5.1.3.  timeZone
@@ -1677,9 +1677,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 30]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 30]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 5.2.5.  estimatedDuration
@@ -1733,9 +1733,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 31]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 31]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 5.4.3.  created
@@ -1789,9 +1789,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 32]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 32]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 5.4.11.  method
@@ -1845,9 +1845,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 33]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 33]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 5.4.17.  recurrenceRule
@@ -1901,9 +1901,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 34]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 34]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
        {
@@ -1957,9 +1957,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 35]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 35]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
       {
@@ -2013,9 +2013,9 @@ Internet-Draft                   JSEvent                     August 2017
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 36]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 36]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
 7.  Security Considerations
@@ -2035,9 +2035,11 @@ Internet-Draft                   JSEvent                     August 2017
 
 8.  IANA Considerations
 
-   This document defines a MIME media type for use with iCalendar in
-   JSON data.  This media type SHOULD be used for the transfer of
-   calendaring data in JSON.
+   This document amends the "application/calendar" MIME media type
+   defined in [RFC7265].
+
+   New optional parameter: "type" with value being one of "jsevent",
+   "jstask", "jsgroup".  The parameter MUST NOT occur more than once.
 
 9.  Acknowledgments
 
@@ -2052,87 +2054,85 @@ Internet-Draft                   JSEvent                     August 2017
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
    [RFC3339]  Klyne, G. and C. Newman, "Date and Time on the Internet:
               Timestamps", RFC 3339, DOI 10.17487/RFC3339, July 2002,
-              <http://www.rfc-editor.org/info/rfc3339>.
+              <https://www.rfc-editor.org/info/rfc3339>.
 
    [RFC5545]  Desruisseaux, B., Ed., "Internet Calendaring and
               Scheduling Core Object Specification (iCalendar)",
               RFC 5545, DOI 10.17487/RFC5545, September 2009,
-              <http://www.rfc-editor.org/info/rfc5545>.
+              <https://www.rfc-editor.org/info/rfc5545>.
 
 
 
 
-
-
-Jenkins & Stepanek      Expires February 10, 2018              [Page 37]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 37]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    [RFC5546]  Daboo, C., Ed., "iCalendar Transport-Independent
               Interoperability Protocol (iTIP)", RFC 5546,
-              DOI 10.17487/RFC5546, December 2009,
-              <http://www.rfc-editor.org/info/rfc5546>.
+              DOI 10.17487/RFC5546, December 2009, <https://www.rfc-
+              editor.org/info/rfc5546>.
 
    [RFC5646]  Phillips, A., Ed. and M. Davis, Ed., "Tags for Identifying
               Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
-              September 2009, <http://www.rfc-editor.org/info/rfc5646>.
+              September 2009, <https://www.rfc-editor.org/info/rfc5646>.
 
    [RFC5870]  Mayrhofer, A. and C. Spanring, "A Uniform Resource
               Identifier for Geographic Locations ('geo' URI)",
               RFC 5870, DOI 10.17487/RFC5870, June 2010,
-              <http://www.rfc-editor.org/info/rfc5870>.
+              <https://www.rfc-editor.org/info/rfc5870>.
 
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
-              DOI 10.17487/RFC5988, October 2010,
-              <http://www.rfc-editor.org/info/rfc5988>.
+              DOI 10.17487/RFC5988, October 2010, <https://www.rfc-
+              editor.org/info/rfc5988>.
 
    [RFC6047]  Melnikov, A., Ed., "iCalendar Message-Based
               Interoperability Protocol (iMIP)", RFC 6047,
-              DOI 10.17487/RFC6047, December 2010,
-              <http://www.rfc-editor.org/info/rfc6047>.
+              DOI 10.17487/RFC6047, December 2010, <https://www.rfc-
+              editor.org/info/rfc6047>.
 
    [RFC6901]  Bryan, P., Ed., Zyp, K., and M. Nottingham, Ed.,
               "JavaScript Object Notation (JSON) Pointer", RFC 6901,
-              DOI 10.17487/RFC6901, April 2013,
-              <http://www.rfc-editor.org/info/rfc6901>.
+              DOI 10.17487/RFC6901, April 2013, <https://www.rfc-
+              editor.org/info/rfc6901>.
 
    [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
-              2014, <http://www.rfc-editor.org/info/rfc7159>.
+              2014, <https://www.rfc-editor.org/info/rfc7159>.
 
    [RFC7265]  Kewisch, P., Daboo, C., and M. Douglass, "jCal: The JSON
               Format for iCalendar", RFC 7265, DOI 10.17487/RFC7265, May
-              2014, <http://www.rfc-editor.org/info/rfc7265>.
+              2014, <https://www.rfc-editor.org/info/rfc7265>.
 
    [RFC7493]  Bray, T., Ed., "The I-JSON Message Format", RFC 7493,
-              DOI 10.17487/RFC7493, March 2015,
-              <http://www.rfc-editor.org/info/rfc7493>.
+              DOI 10.17487/RFC7493, March 2015, <https://www.rfc-
+              editor.org/info/rfc7493>.
 
    [RFC7529]  Daboo, C. and G. Yakushev, "Non-Gregorian Recurrence Rules
               in the Internet Calendaring and Scheduling Core Object
               Specification (iCalendar)", RFC 7529,
-              DOI 10.17487/RFC7529, May 2015,
-              <http://www.rfc-editor.org/info/rfc7529>.
+              DOI 10.17487/RFC7529, May 2015, <https://www.rfc-
+              editor.org/info/rfc7529>.
 
 
 
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 38]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 38]
 
-Internet-Draft                   JSEvent                     August 2017
+Internet-Draft                   JSEvent                  September 2017
 
 
    [RFC7986]  Daboo, C., "New Properties for iCalendar", RFC 7986,
-              DOI 10.17487/RFC7986, October 2016,
-              <http://www.rfc-editor.org/info/rfc7986>.
+              DOI 10.17487/RFC7986, October 2016, <https://www.rfc-
+              editor.org/info/rfc7986>.
 
 10.2.  Informative References
 
@@ -2181,4 +2181,4 @@ Authors' Addresses
 
 
 
-Jenkins & Stepanek      Expires February 10, 2018              [Page 39]
+Jenkins & Stepanek        Expires March 5, 2018                [Page 39]
