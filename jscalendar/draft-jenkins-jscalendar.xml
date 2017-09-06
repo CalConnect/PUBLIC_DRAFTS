@@ -64,26 +64,9 @@
     <middle>
         <section anchor="introduction" title="Introduction">
             <t>
-                The iCalendar data format<xref target="RFC5545"/>, a widely deployed interchange format for calendaring
-                and scheduling data, has served calendaring vendors for a long while, but contains some ambiguities and
-                pitfalls that can not be overcome without backwards incompatible changes.
-            </t>
-            <t>
-                For example, iCalendar defines various formats for local times, UTC time and dates, which shows to
-                confuse new users. Other sources for errors are the requirement for custom timezone definitions
-                within a single calendar component, as well as the iCalendar format itself; the latter causing
-                interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle
-                differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not allow to
-                express the difference between two calendar components, which results in verbose exchanges during
-                scheduling.
-            </t>
-            <t>
-                Some of these issues were addressed by the <xref target="RFC7265">jCal</xref> format, which is a direct
-                mapping between iCalendar and JSON. However, it did not attempt to extend or update iCalendar semantics.
-            </t>
-            <t>
-                This document defines a JSON-based format describing a single event or task object within a calendar,
-                or a group of such objects, using a new data model that aims to be unambiguous, extendable and simple to
+                This document defines a JSON-based format to exchange event and task objects,
+                or groups of such objects, in electronic calendar applications and systems. It
+                uses a data model that aims to be unambiguous, extendable and simple to
                 process.
             </t>
             <t>
@@ -98,7 +81,8 @@
                         implementation and increasing interoperability.
                     </t>
                     <t>
-                        Most of the initial set of attributes should be taken from the iCalendar data format, but a
+                        Most of the initial set of attributes should be taken from the iCalendar data format
+                        (<xref target="RFC5545"/>, also see <xref target="relation-to-icalendar"/>), but a
                         conversion between the data formats is not guaranteed to be completed without losing semantic
                         meaning.
                     </t>
@@ -109,12 +93,33 @@
                 </list>
             </t>
             <t>
-                JSON is a text-based data interchange format as specified in<xref target="RFC7159"/>.
+                JSON is a text-based data interchange format as specified in <xref target="RFC7159"/>.
                 The I-JSON format defined in <xref target="RFC7493"/> is a strict subset of this, adding restrictions to
                 avoid potentially confusing scenarios (for example, it mandates that an object MUST NOT have two
-                properties with the same key).  Using JSON allows to decrease interoperability issues and helps to
-                speed up adoption due to its widespread adoption.
+                properties with the same key).  Using JSON mostly is a pragmatic choice: its
+                widespread use helps to speed up JSCalendar adoption and a wide range of
+                production-ready JSON implementations allows to decrease interoperability issues.
             </t>
+            <section anchor="relation-to-icalendar" title="Relation to the iCalendar format">
+                <t>
+                    The iCalendar data format <xref target="RFC5545"/>, a widely deployed interchange format for calendaring
+                    and scheduling data, has served calendaring vendors for a long while, but contains some ambiguities and
+                    pitfalls that can not be overcome without backwards incompatible changes.
+                </t>
+                <t>
+                    For example, iCalendar defines various formats for local times, UTC time and dates, which shows to
+                    confuse new users. Other sources for errors are the requirement for custom timezone definitions
+                    within a single calendar component, as well as the iCalendar format itself; the latter causing
+                    interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle
+                    differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not allow to
+                    express the difference between two calendar components, which results in verbose exchanges during
+                    scheduling.
+                </t>
+                <t>
+                    Some of these issues were addressed by the <xref target="RFC7265">jCal</xref> format, which is a direct
+                    mapping between iCalendar and JSON. However, it did not attempt to extend or update iCalendar semantics.
+                </t>
+            </section>
             <section anchor="notational-conventions" title="Notational Conventions">
                 <t>
                     The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
@@ -136,7 +141,7 @@
         <section anchor="structure-of-jscalendar-objects" title="Structure of JSCalendar objects">
             <t>
                 A JSCalendar object is a JSON object, which MUST be valid I-JSON (a stricter subset of JSON), as
-                specified in<xref target="RFC7159"/>. Property names and values are case-sensitive.
+                specified in <xref target="RFC7159"/>. Property names and values are case-sensitive.
             </t>
             <t>
                 The object has a collection of properties, as specified in the following sections. Unless otherwise
@@ -2100,7 +2105,7 @@
                             <spanx style="strong">rsvpWanted</spanx> to the RSVP parameter,
                             <spanx style="strong">delegatedTo</spanx> to the DELEGATED-TO parameter,
                             <spanx style="strong">delegatedFrom</spanx> to the DELEGATED-FROM parameter,
-                            <spanx style="strong">memberOf</spanx>to the MEMBER parameter.
+                            <spanx style="strong">memberOf</spanx> to the MEMBER parameter.
                         The <spanx style="strong">scheduleSequence</spanx> and <spanx style="strong">scheduleUpdated
                     </spanx> properties correspond to the iCalendar SEQUENCE and DTSTAMP property values for the
                         participant's latest iMIP message.
