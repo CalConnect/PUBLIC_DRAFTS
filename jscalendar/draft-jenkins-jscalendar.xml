@@ -426,7 +426,7 @@
                         Type: <spanx style="verb">Number</spanx> (Defaults to <spanx style="verb">0</spanx> if omitted)
                     </t>
                     <t>
-                        Initially zero, this is monotonically incremented each time a significant change is made to the
+                        Initially zero, this is monotonically incremented each time a change is made to the
                         object.
                     </t>
                 </section>
