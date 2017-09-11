@@ -2174,6 +2174,38 @@
                     </c>
                 </texttable>
             </section>
+
+            <section title="Unknown properties">
+                <t>
+                    Both JSCalendar and iCalendar calendar objects may contain properties that are
+                    not expressible in the other format. This specification does not mandate how to
+                    preserve these properties. Instead, it leaves negotiation on how to treat unknown
+                    properties to client and server implementations and their protocol used to exchange
+                    calendar objects.
+                    <vspace blankLines="1"/>
+                    Two notable options to represent and preserve arbitrary iCalendar object
+                    properties in JSCalendar are:
+                    <list style="symbols">
+                        <t>
+                            <spanx style="strong">JCal</spanx>: Define iCalendar properties in JCal
+                            format
+                            (<xref target="RFC7265"/>) in a vendor-specific property of the
+                            JCalendar
+                            object. The JCal-formatted value may either only contain iCalendar
+                            properties that were not mapped to JSCalendar properties, or contain the
+                            complete iCalendar object representation.
+                        </t>
+                        <t>
+                            <spanx style="strong">Alternate link</spanx>: Define an alternate link
+                            (<xref target="links"/>)
+                            value pointing to the iCalendar representation of the JSCalendar object.
+                            E.g. the alternative representation of a VEVENT would be represented as
+                            a link with rel <spanx style="verb">alternate</spanx> and type
+                            <spanx style="verb">text/calendar;component=VEVENT</spanx>.
+                        </t>
+                    </list>
+                </t>
+            </section>
         </section>
 
         <section anchor="examples" title="JSCalendar object examples">
