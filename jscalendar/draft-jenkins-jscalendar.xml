@@ -306,7 +306,7 @@
             <section anchor="custom-properties" title="Custom property extensions and values">
                 <t>
                     Vendors MAY add additional properties to the calendar object to support their custom features. The
-                    names of these properties SHOULD be prefixed with a domain name controlled by the vendor to avoid
+                    names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid
                     conflict, e.g. <spanx style="verb">fastmail.com/customprop</spanx>.
                 </t>
                 <t>
@@ -396,17 +396,17 @@
                     </t>
                     <t>
                         If an object is split to make a "this and future" change to a recurrence, the original object
-                        should be truncated to end at the previous occurrence before this split, and a new object
+                        MUST be truncated to end at the previous occurrence before this split, and a new object
                         created to represent all the objects after the split.
                     </t>
                     <t>
                         A
                         <spanx style="verb">relation=["next"]</spanx>
-                        relatedTo property SHOULD be set on the original object with the
+                        relatedTo property MUST be set on the original object with the
                         uid of the new object. A
                         <spanx style="verb">relation=["first"]</spanx>
                         relatedTo property with the UID of the first object in the
-                        series SHOULD be set on the new object. Clients can then follow these UIDs to get the complete
+                        series MUST be set on the new object. Clients can then follow these UIDs to get the complete
                         set of objects if the user wishes to modify them all at once.
                     </t>
                 </section>
@@ -1113,7 +1113,7 @@
                             </t>
                             <t>
                                 <spanx style="verb">private</spanx>: The details of the object are hidden; only the
-                                basic time and metadata is shared. Implementations SHOULD ensure the following
+                                basic time and metadata is shared. Implementations MUST ensure the following
                                 properties are stripped when the object is accessed by a sharee:
                                 <list style="symbols">
                                     <t>
@@ -1142,7 +1142,7 @@
                                     </t>
                                 </list>
                                 In addition, any patches in <spanx style="verb">recurrenceOverrides</spanx> whose key is
-                                prefixed with one of the above properties SHOULD be stripped.
+                                prefixed with one of the above properties MUST be stripped.
 
                             </t>
                             <t>
@@ -1431,9 +1431,9 @@
                                 <spanx style="strong">offset</spanx>:
                                 <spanx style="verb">Duration</spanx>
                                 The offset from the start and end/due of the calendar object to fire the alert. Note, if
-                                the calendar object is in floating time (including all-day events), the server SHOULD
-                                use the user's default time zone when determining the offset.
-
+                                the calendar object is in floating time (including all-day events), the server MUST
+                                use the user's default time zone when determining the offset, if known. Otherwise
+                                the server may choose a time zone.
                             </t>
                             <t>
                                 <spanx style="strong">action</spanx>:
@@ -1455,13 +1455,13 @@
                                         <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate|null
                                     </spanx> (optional)
                                         <vspace blankLines="1"/>
-                                        When the user has permanently dismissed the alert the client SHOULD set this to
+                                        When the user has permanently dismissed the alert the client MUST set this to
                                         the current time in UTC. Other clients which sync this property can then
                                         automatically dismiss or suppress duplicate alerts (alerts with the same alert
                                         id that triggered on or before this date-time).
                                         <vspace blankLines="1"/>
                                         For a recurring event, the <spanx style="strong">acknowledged</spanx> property of
-                                        the parent event SHOULD be updated, unless the alert is already overridden
+                                        the parent event MUST be updated, unless the alert is already overridden
                                         in <spanx style="strong">recurrenceOverrides</spanx>.
 
                                     </t>
@@ -1597,7 +1597,7 @@
                     </t>
                     <t>
                         A JSEvent MAY be end in a different timezone (e.g. a plane flight crossing
-                        timezones). In this case, the JSEvent SHOULD specify the end timezone in a
+                        timezones). In this case, the JSEvent MUST specify the end timezone in a
                         <spanx style="strong">location</spanx> property value that defines its
                         <spanx style="strong">rel</spanx> to be <spanx style="verb">end</spanx> and
                         the end timezone in its <spanx style="strong">timeZone</spanx> property.
@@ -1903,7 +1903,7 @@
             <t>
                 This section specifies which JSCalendar properties can be mapped from and to iCalendar
                 format. Implementations SHOULD follow these conversion guidelines. Still, JSCalendar does not restrict
-                itself to the expressivity of iCalendar and conversion between these two formats MAY be lossy.
+                itself to iCalendar and conversion between these two formats MAY be lossy.
             </t>
             <section anchor="translate-jsevent" title="JSEvent">
                 <t>
