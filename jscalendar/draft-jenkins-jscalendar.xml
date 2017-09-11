@@ -326,7 +326,7 @@
                         <spanx style="verb">String[Relation]|null</spanx>
                     </t>
                     <t>
-                        Relates the object to other objects of the same type. This is represented as a map of the uid of
+                        Relates the object to other JSCalendar objects. This is represented as a map of the uid of
                         the related object to information about the relation.
                     </t>
                     <t>
