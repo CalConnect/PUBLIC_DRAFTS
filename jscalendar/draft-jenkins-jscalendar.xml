@@ -425,8 +425,8 @@
                         Type: <spanx style="verb">Number</spanx> (Defaults to <spanx style="verb">0</spanx> if omitted)
                     </t>
                     <t>
-                        Initially zero, this is monotonically incremented each time a change is made to the
-                        object.
+                        Initially zero, this MUST be a non-negative integer that is is monotonically
+                        incremented each time a change is made to the object.
                     </t>
                 </section>
 
@@ -1292,7 +1292,7 @@
                                 <spanx style="strong">scheduleSequence</spanx>: <spanx style="verb">Number</spanx>(optional,
                                 defaults to <spanx style="verb">
                                 0</spanx>)
-                                The sequence number of the last response from the participant.
+                                The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
                                 <vspace blankLines="1"/>
                                 This can be used to determine whether the partcipant has sent a new RSVP following
                                 significant changes to the event, and to determine if future responses are responding to
