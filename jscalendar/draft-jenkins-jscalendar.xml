@@ -190,7 +190,8 @@
                         <spanx style="verb">date-time</spanx>
                         format, with the further restrictions that any letters
                         MUST be in upper-case, the time component MUST be included and the time MUST be in UTC.
-                        Fractional second values MUST NOT be included unless non-zero (so, for example
+                        Fractional second values MUST NOT be included unless non-zero and MUST NOT have
+                        trailing zeros (so, for example
                         <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is OK, but
                         <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and MUST be
                         encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>).
