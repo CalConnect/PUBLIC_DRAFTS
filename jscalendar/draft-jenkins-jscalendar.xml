@@ -2213,9 +2213,10 @@
             <section anchor="example-recurring-event" title="Recurring JSEvent with exception">
                 <t>
                     This JSEvent object represents a recurring event, taking place the first time
-                    on January 1, 2016 at 1pm. It recurs monthly, but does not occur on February 2,
-                    2016. In addition to the regular recurrences it also occurs on December 5, 2016
-                    at 5pm. On May 1, it takes place at another location.
+                    on January 1, 2016 at 1pm in Vienna, Europe. It recurs monthly, but does not
+                    occur on February 1, 2016. In addition to the regular recurrences it also
+                    occurs on December 5, 2016 at 5pm, Vienna time. On May 1, it takes place at
+                    another location and lasts for two hours, in contrast to the regular one-hour duration.
                 </t>
                 <figure>
                     <artwork><![CDATA[
@@ -2237,7 +2238,6 @@
         "rscale": "gregorian"
       },
       "recurrenceOverrides": {
-        "2016-12-05T17:00:00": {},
         "2016-02-01T13:00:00": null,
         "2016-05-01T13:00:00": {
           "duration": "PT2H",
@@ -2245,7 +2245,8 @@
             "loc2": {
                 "description": "Tennis Fritz&Mayer, Ltd."
             }
-          }
+          },
+        "2016-12-05T17:00:00": {},
         }
       }
     }
