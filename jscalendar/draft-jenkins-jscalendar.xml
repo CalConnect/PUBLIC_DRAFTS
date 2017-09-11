@@ -1589,13 +1589,12 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="strong">timeZone</spanx> property MUST be null (or omitted).
-                            </t>
-                            <t>
                                 the <spanx style="strong">duration</spanx> property MUST only include a day
                                 component.
                             </t>
-                        </list>
+                          </list>
+                          Note that all-day events MAY be bound to a specific time zone, as defined by
+                          the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
@@ -1726,14 +1725,13 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="strong">timeZone</spanx> property MUST be null (or omitted).
-                            </t>
-                            <t>
                                 the <spanx style="strong">duration</spanx> and
                                 <spanx style="strong">estimatedDuration</spanx> properties MUST only include a day
                                 component.
                             </t>
                         </list>
+                          Note that all-day tasks MAY be bound to a specific time zone, as defined by
+                          the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
 
@@ -1893,12 +1891,14 @@
 
                     <c>isAllDay</c>
                     <c>
-                        True, if the type of the DTSTART property in iCalendar is DATE.
+                        True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
+                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="strong">isAllDay</spanx>
+                        property is set to true and the <spanx style="strong">timeZone</spanx> property is null.
                     </c>
 
                     <c>start</c>
                     <c>
-                        Corresponds to the DTSTART property in iCalendar. Note that time zone information is storedseparately in JSEvent.
+                        Corresponds to the DTSTART property in iCalendar. Note that time zone information is stored separately in JSEvent.
                     </c>
 
                     <c>timeZone</c>
@@ -1933,7 +1933,9 @@
 
                     <c>isAllDay</c>
                     <c>
-                        True, if the type of the DTSTART or DUE property in iCalendar is DATE.
+                        True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
+                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="strong">isAllDay</spanx>
+                        property is set to true and the <spanx style="strong">timeZone</spanx> property is null.
                     </c>
 
                     <c>due</c>
