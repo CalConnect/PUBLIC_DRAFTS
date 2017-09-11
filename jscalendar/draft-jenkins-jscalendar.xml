@@ -275,9 +275,7 @@
                 <t>
                     Vendors MAY add additional properties to the calendar object to support their custom features. The
                     names of these properties SHOULD be prefixed with a domain name controlled by the vendor to avoid
-                    conflict, e.g. <spanx style="verb">fastmail.com/customprop</spanx>. Other systems that interact with
-                    a JSCalendar object that contain properties they do not recognise SHOULD try to preserve them, but
-                    MUST otherwise ignore them.
+                    conflict, e.g. <spanx style="verb">fastmail.com/customprop</spanx>.
                 </t>
                 <t>
                     Some JSCalendar properties allow vendor-specific value extensions. If so, vendor specific values
@@ -1877,10 +1875,6 @@
                 This section specifies which JSCalendar properties can be mapped from and to iCalendar
                 format. Implementations SHOULD follow these conversion guidelines. Still, JSCalendar does not restrict
                 itself to the expressivity of iCalendar and conversion between these two formats MAY be lossy.
-                Implementations that serve the same calendar entry in both JSCalendar and iCalendar SHOULD
-                preserve properties that can not be converted (e.g., a JSCalendar property that can't be translated
-                to iCalendar MAY be omitted in the iCalendar representation but MUST be preserved in the JSCalendar
-                format).
             </t>
             <section anchor="translate-jsevent" title="JSEvent">
                 <t>
