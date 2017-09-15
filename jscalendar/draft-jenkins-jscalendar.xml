@@ -107,8 +107,8 @@
                     pitfalls that can not be overcome without backwards incompatible changes.
                 </t>
                 <t>
-                    For example, iCalendar defines various formats for local times, UTC time and dates, which shows to
-                    confuse new users. Other sources for errors are the requirement for custom timezone definitions
+                    For example, iCalendar defines various formats for local times, UTC time and dates, which
+                    confuses new users. Other sources for errors are the requirement for custom timezone definitions
                     within a single calendar component, as well as the iCalendar format itself; the latter causing
                     interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle
                     differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not allow to
@@ -191,10 +191,12 @@
                         format, with the further restrictions that any letters
                         MUST be in upper-case, the time component MUST be included and the time MUST be in UTC.
                         Fractional second values MUST NOT be included unless non-zero and MUST NOT have
-                        trailing zeros (so, for example
+                        trailing zeros, to ensure there is only a single representation for each date-time.
+                        <vspace blankLines="1"/>
+                        For example
                         <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is OK, but
                         <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and MUST be
-                        encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>).
+                        encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>.
                     </t>
                     <t>
                         In common notation, it should be of the form <spanx style="verb">YYYY-MM-DDTHH:MM:SSZ</spanx>.
@@ -319,8 +321,8 @@
 
         <section anchor="jscalendar-props" title="JSCalendar properties">
             <t>
-                JSCalendar objects share a set of properties, but not all JSCalendar support the same properties.
-                Refer to the respective object type definitions (<xref target="jscalendar-objects"/>) which common
+                JSCalendar objects share a set of common properties, but might only support a subset of them.
+                Refer to the respective object type definitions (<xref target="jscalendar-objects"/>) for which common
                 properties they support.
             </t>
             <section anchor="metadata-properties" title="Metadata properties">
@@ -472,7 +474,7 @@
                         Type: <spanx style="verb">Number</spanx> (Defaults to <spanx style="verb">0</spanx> if omitted)
                     </t>
                     <t>
-                        Initially zero, this MUST be a non-negative integer that is is monotonically
+                        Initially zero, this MUST be a non-negative integer that is monotonically
                         incremented each time a change is made to the object.
                     </t>
                 </section>
@@ -818,8 +820,9 @@
                                 <spanx style="verb">String</spanx>
                                 A time zone for this location.
                                 <vspace blankLines="1"/>
-                                If omitted, the start time zone MUST be used for this location.
-
+                                If omitted, the <spanx style="strong">timeZone</spanx> from the
+                                JSCalendar object MUST be presumed when a time zone is needed in
+                                relation to this location.
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
@@ -833,7 +836,7 @@
                             <t>
                                 <spanx style="strong">uri</spanx>:
                                 <spanx style="verb">String</spanx>
-                                A URI that represents how to connect from this location.
+                                A URI that represents how to connect to this location.
                                 <vspace blankLines="1"/>
                                 This may be a telephone number (represented as <spanx style="verb">
                                 tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or a
@@ -843,7 +846,7 @@
                             <t>
                                 <spanx style="strong">linkIds</spanx>:
                                 <spanx style="verb">String[]|null</spanx>
-                                Links to alternate representations of this location.
+                                A list of ids for links to alternate representations of this location.
                                 <vspace blankLines="1"/>
                                 For example, an alternative representation could be in vCard format. If a given value
                                 does not correspond to any link id in the links property of the instance, this MUST be
@@ -876,13 +879,13 @@
                                 A URI from which the resource may be fetched.
                                 <vspace blankLines="1"/>
                                 This MAY be a <spanx style="verb">data:</spanx> URL, but it is recommended that the file
-                                be hosted on a server.
-
+                                be hosted on a server to avoid embedding arbitrary large data in JSCalendar
+                                object instances.
                             </t>
                             <t>
                                 <spanx style="strong">type</spanx>: <spanx style="verb">String|null</spanx>(optional,
                                 defaults to <spanx style="verb">null</spanx>)
-                                The content-type of the resource, if known.
+                                The <xref target="RFC6838">content-type</xref> of the resource, if known.
 
                             </t>
                             <t>
@@ -1166,7 +1169,7 @@
                     <t>
                         Represents methods by which a participant may RSVP to the organizer of the calendar object. The
                         keys in the property value are the available methods. The value is a URI to use that method.
-                        Future methods may be defined in future specications; a calendar client MUST just ignore any
+                        Future methods may be defined in future specifications; a calendar client MUST just ignore any
                         method it does not understand.
                     </t>
                     <t>
@@ -1434,10 +1437,10 @@
                             <t>
                                 <spanx style="strong">offset</spanx>:
                                 <spanx style="verb">Duration</spanx>
-                                The offset from the start and end/due of the calendar object to fire the alert. Note, if
-                                the calendar object is in floating time (including all-day events), the server MUST
-                                use the user's default time zone when determining the offset, if known. Otherwise
-                                the server may choose a time zone.
+                                The offset from the start and end/due of the calendar object to fire the alert.
+                                If the calendar object does not define a time zone,
+                                the user's default time zone SHOULD be used when determining the offset,
+                                if known. Otherwise, the time zone to use is implementation specific.
                             </t>
                             <t>
                                 <spanx style="strong">action</spanx>:
@@ -1446,7 +1449,7 @@
                                 Describes how to alert the user.
                                 <vspace blankLines="1"/>
                                 A <spanx style="strong">DisplayAction</spanx> means a message (which is service dependent,
-                                but SHOULD include the summary and start or due time of the calendar object) SHOULD be
+                                but SHOULD include the title and start or due time of the calendar object) SHOULD be
                                 shown to the user on any client connected to this account at the specified time. How
                                 this message is formatted (and any sound or other method of drawing the user's
                                 attention) is client specific. It has the following properties:
@@ -1491,7 +1494,7 @@
                                     </t>
                                 </list>
                                 <vspace blankLines="1"/>
-                                An <spanx style="strong">EmailAction</spanx> means the server MUST send an email as
+                                An <spanx style="strong">EmailAction</spanx> means an email SHOULD be sent as
                                 specified in the object at the specified time. It has the following properties:
                                 <list style="symbols">
                                     <t>
@@ -1676,7 +1679,7 @@
                     non-zero duration to complete.
                 </t>
                 <t>
-                    In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> as
+                    In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a
                     JSTask has the following properties:
                 </t>
 
@@ -1863,6 +1866,9 @@
                             uid
                         </t>
                         <t>
+                            created
+                        </t>
+                        <t>
                             updated
                         </t>
                         <t>
@@ -1903,7 +1909,7 @@
                     </t>
                     <t>
                         The source from which updated versions of this group may be retrieved from.
-                        If the value is not <spanx style="verb">null</spanx>, it MUST be an URI.
+                        If the value is not <spanx style="verb">null</spanx>, it MUST be a URI.
                     </t>
                 </section>
             </section>
@@ -2068,7 +2074,6 @@
                     <c>
                         Corresponds to the STRUCTURED-CATEGORY property in iCalendar,
                         see.
-
                         <spanx style="strong">NON-STANDARD</spanx>: this property is currently non-standard,
                         see <xref target="draft-ietf-calext-ical-relations"/>.
                     </c>
@@ -2339,17 +2344,17 @@
 
         <section anchor="examples" title="JSCalendar object examples">
             <t>
-                The following examples illustrate several aspects of the JSCalendar data model and foramt.
+                The following examples illustrate several aspects of the JSCalendar data model and format.
             </t>
             <section anchor="example-simple-event" title="Simple JSEvent">
                 <t>
                 This JSEvent object represents a one-time event taking place
-                on September 28 at 4pm, GMT for one hour.
+                on September 28 at 4pm, UTC for one hour.
                 </t>
                 <figure>
                     <artwork><![CDATA[
     {
-        "@type": "event",
+        "@type": "jsevent",
         "uid": "2a358cee-6489-4f14-a57f-c104db4dc357",
         "updated": "2016-09-14T13:24:34Z",
         "title": "Squash",
@@ -2370,6 +2375,23 @@
     }
     ]]></artwork>
                 </figure>
+                <t>
+                    Since properties can be omitted if their default value is used, this can be simplified to:
+                </t>
+                <figure>
+                    <artwork><![CDATA[
+    {
+        "@type": "jsevent",
+        "uid": "2a358cee-6489-4f14-a57f-c104db4dc357",
+        "updated": "2016-09-14T13:24:34Z",
+        "title": "Squash",
+        "start": "2016-09-28T16:00:00",
+        "timeZone": "Etc/UTC",
+        "duration": "PT1H",
+        "locale": "en"
+    }
+    ]]></artwork>
+                </figure>
             </section>
             <section anchor="example-recurring-event" title="Recurring JSEvent with exception">
                 <t>
@@ -2382,7 +2404,7 @@
                 <figure>
                     <artwork><![CDATA[
    {
-      "@type": "event",
+      "@type": "jsevent",
       "uid": "89eee195-600b-423b-b3a6-52b3a420e556",
       "title": "Tennis",
       "locations": {
@@ -2396,7 +2418,6 @@
       "duration": "PT1H",
       "recurrenceRule": {
         "frequency": "monthly",
-        "rscale": "gregorian"
       },
       "recurrenceOverrides": {
         "2016-02-01T13:00:00": null,
@@ -2487,6 +2508,7 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5988.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
