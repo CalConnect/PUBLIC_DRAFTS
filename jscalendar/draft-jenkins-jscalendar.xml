@@ -1004,23 +1004,31 @@
                     </t>
                 </section>
 
-                <section anchor="categories" title="categories">
-                    <t>
-                        Type:
-                        <spanx style="verb">String[]|null</spanx>
-                    </t>
-                    <t>Specifies the categories related to the calendar object. Array values MUST be URIs.
-                    </t>
-                </section>
-
                 <section anchor="keywords" title="keywords">
                     <t>
                         Type:
                         <spanx style="verb">String[]|null</spanx>
                     </t>
                     <t>
-                        A list of keywords or tags related to the object. The values are freeform and do not have to
-                        follow any particular structure.
+                        A list of keywords or tags related to the object. The values are free-form
+                        and do not have to follow any particular structure.
+                    </t>
+                </section>
+
+                <section anchor="categories" title="categories">
+                    <t>
+                        Type:
+                        <spanx style="verb">String[]|null</spanx>
+                    </t>
+                    <t>
+                        Specifies the categories related to the calendar object. Array values MUST be URIs.
+                        In contrast to <xref target="keywords">keywords</xref>, categories typically
+                        are structured.
+                        <vspace blankLines="1"/>
+                        For example, a vendor owning the domain <spanx style="verb">example.com</spanx>
+                        might define the categories
+                        <spanx style="verb">http://example.com/categories/sports/american-football"</spanx>
+                        and <spanx style="verb">http://example.com/categories/music/r-b</spanx>.
                     </t>
                 </section>
 
