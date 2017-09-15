@@ -207,7 +207,10 @@
                         This is a date-time string <spanx style="emph">with no time zone/offset information</spanx>.
                         It is otherwise in the same format as UTCDate: <spanx style="verb">
                         YYYY-MM-DDTHH:MM:SS</spanx>. The time zone to associate the LocalDate with comes from an
-                        associated property.
+                        associated property, or if no time zone is associated it defines
+                        <spanx style="emph">floating time</spanx>. Floating date-times
+                        represents all instant points in time that are represented on all time-lines
+                        with the same calendar day and clock time.
                     </t>
                 </section>
                 <section anchor="duration-type" title="Duration">
