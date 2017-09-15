@@ -1476,11 +1476,15 @@
                                         <spanx style="strong">snoozed</spanx>: <spanx style="verb">UTCDate|null</spanx> (optional)
                                         <vspace blankLines="1"/>
                                         If the user temporarily dismisses the alert, this is the UTC date-time after
-                                        which it should be reshown
+                                        which it should be reshown.
                                         Clients displaying this alert SHOULD hide it if the snoozed property is updated
                                         to a time in the future. When that time is reached, the alert SHOULD be reshown
                                         unless acknowledged is now after the original trigger time.
-
+                                        <vspace blankLines="1"/>
+                                        Setting this property on an instance of a recurring event MUST update the alarm
+                                        on the master event, unless the respective instance already is defined in
+                                        <spanx style="verb">recurrenceOverrides</spanx>. It MUST NOT generate an override
+                                        for the sole use of snoozing an alarm.
                                     </t>
                                     <t>
                                         <spanx style="strong">audioLinkId</spanx>: <spanx style="verb">String|null
