@@ -797,19 +797,10 @@
                                 The features supported by locations with rel-type <spanx style="verb">virtual</spanx> are:
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">audio</spanx>: audio capability
+                                        <spanx style="verb">audio</spanx>: audio conferencing
                                     </t>
                                     <t>
                                         <spanx style="verb">chat</spanx>: chat or instant messaging
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">feed</spanx>: a blog or Atom feed
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">moderator</spanx>: moderator-specific
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">phone</spanx>: phone conference
                                     </t>
                                     <t>
                                         <spanx style="verb">screen</spanx>: screen sharing
@@ -2121,15 +2112,7 @@
 
                     <c>locations</c>
                     <c>
-                        Corresponds to the LOCATION and CONFERENCE <xref target="RFC7986"/> properties in iCalendar.
-                        For LOCATION, the JSCalendar
-                        representation is much richer than is supported by iCalendar. When converting from
-                        iCalendar, the LOCATION property should become a single location with just a description
-                        property. CONFERENCE property values in
-                        iCalendar map to locations with rel type <spanx style="verb">virtual</spanx>.
-
-                        A location <spanx style="strong">feature</spanx> property value corresponds to the FEATURE
-                        property parameter values defined in <xref target="RFC7986"/>.
+                        See <xref target="translate-locations-participants"/>.
                     </c>
 
                     <c>method</c>
@@ -2139,19 +2122,7 @@
 
                     <c>participants</c>
                     <c>
-                        Corresponds to the ORGANIZER and ATTENDEES properties from iCalendar.
-
-                        The <spanx style="strong">name</spanx> property maps to the CN parameter,
-                            <spanx style="strong">kind</spanx> to the CUTYPE parameter,
-                            <spanx style="strong">rsvpResponse</spanx> to the PARTSTAT parameter,
-                            <spanx style="strong">participation</spanx> to the ROLE parameter,
-                            <spanx style="strong">rsvpWanted</spanx> to the RSVP parameter,
-                            <spanx style="strong">delegatedTo</spanx> to the DELEGATED-TO parameter,
-                            <spanx style="strong">delegatedFrom</spanx> to the DELEGATED-FROM parameter,
-                            <spanx style="strong">memberOf</spanx> to the MEMBER parameter.
-                        The <spanx style="strong">scheduleSequence</spanx> and <spanx style="strong">scheduleUpdated
-                    </spanx> properties correspond to the iCalendar SEQUENCE and DTSTAMP property values for the
-                        participant's latest iMIP message.
+                        See <xref target="translate-locations-participants"/>.
                     </c>
 
                     <c>priority</c>
@@ -2220,6 +2191,114 @@
                         different in the iTIP case, and the difference is not actually useful.)
                     </c>
                 </texttable>
+            </section>
+
+            <section anchor="translate-locations-participants" title="Locations and participants">
+                <t>
+                    Both JSCalendar participants and locations have counterparts in iCalendar
+                    but provide richer representation.
+                    <vspace blankLines="1"/>
+                    The following table outlines translation of JSCalendar participants. Where
+                    iCalendar has distinct properties for ORGANIZER and ATTENDEE, these are merged
+                    in JSCalendar into the Participant object type.
+                </t>
+                <texttable anchor="translate-participants-table"
+                  title="Translation of Participant between JSCalendar and iCalendar">
+                    <ttcol align='left'>Property</ttcol>
+                    <ttcol align='left'>iCalendar counterpart</ttcol>
+                    <c>
+                        name
+                    </c>
+                    <c>
+                        the CN parameter
+                    </c>
+                    <c>
+                        kind
+                    </c>
+                    <c>
+                        the CUTYPE parameter
+                    </c>
+                    <c>
+                        rsvpResponse
+                    </c>
+                    <c>
+                        the PARTSTAT parameter
+                    </c>
+                    <c>
+                        role
+                    </c>
+                    <c>
+                        the ORGANIZER and ATTENDEE property name
+                    </c>
+                    <c>
+                        participation
+                    </c>
+                    <c>
+                        the ROLE parameter
+                    </c>
+                    <c>
+                        locationId
+                    </c>
+                    <c>
+                        the JSCalendar identifier of a mapped CONFERENCE property that has the
+                        MODERATOR feature defined in its FEATURE parameter values. If multiple
+                        such CONFERENCE properties are defined in iCalendar, then the one with the
+                        most interactive features is chosen (VIDEO over AUDIO over CHAT over
+                        anything else).
+                    </c>
+                    <c>
+                        rsvpWanted
+                    </c>
+                    <c>
+                        the RSVP parameter
+                    </c>
+                    <c>
+                        delegatedTo
+                    </c>
+                    <c>
+                        the DELEGATED-TO parameter
+                    </c>
+                    <c>
+                        delegatedFrom
+                    </c>
+                    <c>
+                        the DELEGATED-FROM parameter
+                    </c>
+                    <c>
+                        memberOf
+                    </c>
+                    <c>
+                        the MEMBER parameter
+                    </c>
+                    <c>
+                        scheduleSequence
+                    </c>
+                    <c>
+                        the SEQUENCE property of the participant's latest iMIP message
+                    </c>
+                    <c>
+                        scheduleUpdated
+                    </c>
+                    <c>
+                        the DTSTAMP property of the participant's latest iMIP message
+                    </c>
+                </texttable>
+                <t>
+                    For JSCalendar locations, the iCalendar counterparts are the
+                    <xref target="RFC5545"/> LOCATION and the extended iCalendar
+                    <xref target="RFC7986"/> CONFERENCE properties.
+                    <vspace blankLines="1"/>
+                    An iCalendar LOCATION property becomes a JSCalendar Location with just a
+                    description property. CONFERENCE property values in iCalendar map to locations
+                    with <spanx style="strong">rel</spanx> type <spanx style="verb">virtual</spanx>.
+                    The location <spanx style="strong">feature</spanx> property value corresponds to
+                    the extended iCalendar FEATURE property parameter values defined in
+                    <xref target="RFC7986"/>. Both iCalendar PHONE and AUDIO features map to the
+                    <spanx style="verb">audio</spanx> feature and the FEED parameter value is
+                    omitted. See the mapping for <spanx style="strong">locationId</spanx> in
+                    <xref target="translate-participants-table"/> on how to map CONFERENCE
+                    properties that contain the MODERATOR feature.
+                </t>
             </section>
 
             <section title="Unknown properties">
