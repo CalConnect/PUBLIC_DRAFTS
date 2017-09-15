@@ -1050,17 +1050,6 @@
 
             <section anchor="sharing-scheduling-properties" title="Sharing and scheduling properties">
 
-                <section anchor="status" title="status">
-                    <t>
-                        Type: <spanx style="verb">String</spanx>
-                    </t>
-                    <t>
-                        The supported status values are specific per object type (see
-                        <xref target="sharing-scheduling-status-jsevent"/> and
-                        <xref target="sharing-scheduling-status-jstask"/>).
-                    </t>
-                </section>
-
                 <section anchor="priority" title="priority">
                     <t>
                         Type: <spanx style="verb">Number</spanx>(defaults to <spanx style="verb">0</spanx> if omitted)
@@ -1645,6 +1634,9 @@
                 </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
                     <t>
+                        Type: <spanx style="verb">String</spanx>
+                    </t>
+                    <t>
                         The scheduling status (<xref target="sharing-scheduling-properties"/>) of a JSEvent
                         defaults to <spanx style="verb">confirmed</spanx> if omitted.
                     </t>
@@ -1819,6 +1811,9 @@
                 </section>
 
                 <section anchor="sharing-scheduling-status-jstask" title="status">
+                    <t>
+                        Type: <spanx style="verb">String</spanx>
+                    </t>
                     <t>
                         The scheduling status (<xref target="sharing-scheduling-properties"/>) of a JSTask
                         defaults to <spanx style="verb">needs-action</spanx> if omitted.
