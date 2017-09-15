@@ -1704,11 +1704,6 @@
                     <t>
                         The date/time the task should start in the task's time zone.
                     </t>
-                    <t>
-                        If the <spanx style="strong">due</spanx> property is set, the <spanx style="strong">start</spanx>
-                        property value MUST be earlier
-                        than or at the due date/time.
-                    </t>
                 </section>
                 <section anchor="timeZone-task" title="timeZone">
                     <t>
