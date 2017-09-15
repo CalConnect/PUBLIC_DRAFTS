@@ -330,7 +330,21 @@
                         Type:
                         <spanx style="verb">String</spanx>
                     </t>
-                    <t>Specifies the type which this object represents.
+                    <t>
+                        Specifies the type which this object represents.
+                        This MUST be one of the following values,
+                        registered in a future RFC, or a vendor-specific value:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="verb">jsevent</spanx>: a JSCalendar event (<xref target="jsevent"/>).
+                            </t>
+                            <t>
+                                <spanx style="verb">jstask</spanx>: a JSCalendar task (<xref target="jstask"/>).
+                            </t>
+                            <t>
+                                <spanx style="verb">jsgroup</spanx>: a JSCalendar group (<xref target="jsgroup"/>).
+                            </t>
+                        </list>
                     </t>
                     <t>
                         A valid JSCalendar object MUST include this property.
@@ -1551,7 +1565,7 @@
                     reminder or anniversary. Multiple participants may partake in the event at multiple locations.
                 </t>
                 <t>
-                    A JSEvent <xref target="type">@type</xref> property value MUST be <spanx style="verb">event</spanx>.
+                    A JSEvent <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.
 
                 </t>
                 <t>
@@ -1659,7 +1673,7 @@
                     A JSTask represents an action-item, assignment, to-do or work item .
                 </t>
                 <t>
-                    A  JSTask <xref target="type">@type</xref> property value MUST be <spanx style="verb">task</spanx>.
+                    A  JSTask <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.
 
                 </t>
                 <t>
@@ -1841,7 +1855,7 @@
                     (e.g. by keywords) or calendar membership.
                 </t>
                 <t>
-                    Its <xref target="type">@type</xref> property value MUST be <spanx style="verb">group</spanx>.
+                    Its <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.
                 </t>
                 <t>
                     JSGroup supports the following <xref target="jscalendar-props">JSCalendar properties</xref>:
