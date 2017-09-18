@@ -5,11 +5,11 @@
 JSON data formats for iCalendar                               N. Jenkins
 Internet-Draft                                               R. Stepanek
 Intended status: Standards Track                                FastMail
-Expires: March 19, 2018                               September 15, 2017
+Expires: March 22, 2018                               September 18, 2017
 
 
            JSCalendar: A JSON representation of calendar data
-                      draft-jenkins-jscalendar-00
+                        draft-jenkins-jscalendar
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 19, 2018.
+   This Internet-Draft will expire on March 22, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 1]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 1]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 2]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 2]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 3]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 3]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -183,7 +183,7 @@ Internet-Draft                   JSEvent                  September 2017
       to requiring an update to this document.
 
    JSON is a text-based data interchange format as specified in
-   [RFC7159].  The I-JSON format defined in [RFC7493] is a strict subset
+   [RFC7493].  The I-JSON format defined in [RFC7493] is a strict subset
    of this, adding restrictions to avoid potentially confusing scenarios
    (for example, it mandates that an object MUST NOT have two properties
    with the same key).  Using JSON mostly is a pragmatic choice: its
@@ -221,7 +221,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 4]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 4]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 5]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 5]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -317,7 +317,8 @@ Internet-Draft                   JSEvent                  September 2017
        duration    = "P" (dur-day [dur-time] / dur-time)
 
    In addition, the duration MUST NOT include fractional second values
-   unless the fraction is non-zero.
+   unless the fraction is non-zero.  A zero duration MUST be represented
+   as "P0D".
 
 2.2.4.  PatchObject
 
@@ -332,8 +333,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 6]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 6]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -389,7 +389,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 7]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 7]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -445,7 +445,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 8]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 8]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -501,7 +501,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                 [Page 9]
+Jenkins & Stepanek       Expires March 22, 2018                 [Page 9]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -557,7 +557,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 10]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 10]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -613,7 +613,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 11]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 11]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -669,7 +669,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 12]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 12]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -725,7 +725,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 13]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 13]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -781,7 +781,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 14]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 14]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -837,7 +837,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 15]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 15]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -893,7 +893,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 16]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 16]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -949,7 +949,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 17]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 17]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1005,7 +1005,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 18]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 18]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1061,7 +1061,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 19]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 19]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1117,7 +1117,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 20]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 20]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1173,7 +1173,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 21]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 21]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1229,7 +1229,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 22]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 22]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1285,7 +1285,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 23]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 23]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1341,7 +1341,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 24]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 24]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1397,7 +1397,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 25]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 25]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1453,7 +1453,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 26]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 26]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1509,7 +1509,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 27]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 27]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1565,7 +1565,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 28]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 28]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1621,7 +1621,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 29]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 29]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1677,7 +1677,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 30]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 30]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1733,7 +1733,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 31]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 31]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1789,7 +1789,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 32]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 32]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1845,7 +1845,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 33]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 33]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1901,7 +1901,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 34]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 34]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -1957,7 +1957,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 35]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 35]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2013,7 +2013,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 36]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 36]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2069,7 +2069,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 37]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 37]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2125,7 +2125,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 38]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 38]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2181,7 +2181,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 39]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 39]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2237,7 +2237,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 40]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 40]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2293,7 +2293,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 41]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 41]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2349,7 +2349,7 @@ Internet-Draft                   JSEvent                  September 2017
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 42]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 42]
 
 Internet-Draft                   JSEvent                  September 2017
 
@@ -2405,4 +2405,4 @@ Authors' Addresses
 
 
 
-Jenkins & Stepanek       Expires March 19, 2018                [Page 43]
+Jenkins & Stepanek       Expires March 22, 2018                [Page 43]
