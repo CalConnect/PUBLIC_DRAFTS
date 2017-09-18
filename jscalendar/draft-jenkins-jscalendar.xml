@@ -233,7 +233,7 @@
 
                     <t>
                         In addition, the duration MUST NOT include fractional second values unless the fraction is
-                        non-zero.
+                        non-zero. A zero duration MUST be represented as <spanx style="verb">P0D</spanx>.
                     </t>
                 </section>
                 <section anchor="patchobject-type" title="PatchObject">
