@@ -93,7 +93,7 @@
                 </list>
             </t>
             <t>
-                JSON is a text-based data interchange format as specified in <xref target="RFC7159"/>.
+                JSON is a text-based data interchange format as specified in <xref target="RFC7493"/>.
                 The I-JSON format defined in <xref target="RFC7493"/> is a strict subset of this, adding restrictions to
                 avoid potentially confusing scenarios (for example, it mandates that an object MUST NOT have two
                 properties with the same key).  Using JSON mostly is a pragmatic choice: its
