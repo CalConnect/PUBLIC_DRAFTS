@@ -298,7 +298,7 @@ Internet-Draft                   JSEvent                  September 2017
    It is otherwise in the same format as UTCDate: "YYYY-MM-DDTHH:MM:SS".
    The time zone to associate the LocalDate with comes from an
    associated property, or if no time zone is associated it defines
-   _floating time_. Floating date-times represents all instant points in
+   _floating time_. Floating date-times represents all such points in
    time that are represented on all time-lines with the same calendar
    day and clock time.
 
