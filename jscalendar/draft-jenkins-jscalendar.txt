@@ -2211,10 +2211,10 @@ Internet-Draft                   JSEvent                  September 2017
 
 9.  Acknowledgments
 
-   The author would like to thank the following for their valuable
-   contributions: (TODO:names).  This specification originated from the
-   work of the API technical committee of CalConnect, the Calendaring
-   and Scheduling Consortium.
+   The authors would like to thank the members of CalConnect for their
+   valuable contributions.  This specification originated from the work
+   of the API technical committee of CalConnect, the Calendaring and
+   Scheduling Consortium.
 
 10.  References
 
