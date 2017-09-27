@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="std" docName="draft-jenkins-jscalendar">
+<rfc ipr="trust200902" category="std" docName="draft-jenkins-jscalendar-01">
     <?rfc toc="yes"?>
     <?rfc symrefs="yes"?>
     <?rfc sortrefs="yes"?>
@@ -2490,7 +2490,7 @@
 
         <section anchor="acknowledgments" title="Acknowledgments">
             <t>
-                The authors would like to thank the members of CalConnect for their valuable contributions. This
+                The author would like to thank the following for their valuable contributions: (TODO:names). This
                 specification originated from the work of the API technical committee of CalConnect, the Calendaring and
                 Scheduling Consortium.
             </t>
