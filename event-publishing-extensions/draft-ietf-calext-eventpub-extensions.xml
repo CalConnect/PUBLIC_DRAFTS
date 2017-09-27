@@ -2,18 +2,16 @@
 
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
-  <!ENTITY RFC2434 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2434.xml">
-  <!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
   <!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
   <!ENTITY RFC4589 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4589.xml">
   <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
   <!ENTITY RFC5546 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml">
-  <!ENTITY I-D.ietf-calext-extensions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-extensions.xml">
+  <!ENTITY RFC7986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7986.xml">
   <!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
   ]>
 
 <rfc category="std" updates="5545,5546"
-     docName="draft-ietf-calext-eventpub-extensions-02" ipr="trust200902">
+     docName="draft-ietf-calext-eventpub-extensions-03" ipr="trust200902">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
   <?rfc strict="yes" ?>
   <?rfc toc="yes"?>
@@ -42,7 +40,7 @@
       </address>
     </author>
 
-    <date month='April' year='2017' />
+    <date month='May' year='2017' />
 
     <area>Applications</area>
 
@@ -80,16 +78,17 @@
       </t>
       
       <t>
-        This document defines a number of properties and components 
+        This document defines a number of properties and a component 
         referencing such external
         information that can provide additional information about an iCalendar
         component. The intent is to allow interchange of such information between
         applications or systems (e.g., between clients, between client and  server,
         and between servers). Formats such as VCARD are likely to be
-        most useful.
+        most useful to the receivers of such events as they may be used
+        in other applications - such as address books.
       </t>
 
-      <t>The following properties and components are defined in this 
+      <t>The following properties are defined in this 
          specification
         <list style='hanging'>
           <t hangText="Styled-Description:">
@@ -118,13 +117,15 @@
             away teams, the league the teams are in, information about
             nearby parking, etc.
           </t>
-          <t hangText="Participant:">
-            Many people or groups may participate in an event. This
-            component provides detailed information. Such participants may
-            act as attendees to the event (or derived events) or may just
-            provide a reference - perhaps for mailing lists.
-          </t>
         </list>
+      </t>
+      
+      <t>In addition this specification defines a new PARTICIPANT component. 
+        Many people 
+        or groups may participate in an event. This
+        component provides detailed information. Such participants may
+        act as attendees to the event (or derived events) or may just
+        provide a reference - perhaps for mailing lists.
       </t>
       
       <section anchor="conventions" title='Conventions Used in This Document'>
@@ -146,8 +147,8 @@
       </t>
       
       <t>
-        In a break with this 'tradition' this specification introduces some
-        of these extensions as components rather than properties. This 
+        In a break with this 'tradition' this specification introduces one
+        of these extensions as a component rather than a property. This 
         is a better match for the way XML and JSON handles such structures
         and allows richer definitions.  
       </t>
@@ -170,17 +171,6 @@
       </t>
 
       <t>
-        These properties are designed to handle common use cases in
-        event
-        publication. It is generally important to provide information
-        about the organizers of such events. Sponsors wish to be 
-        referenced in a prominent manner. In social calendaring it is 
-        often important to identify the active participants in the event, 
-        for example a school sports team, and the inactive participants, 
-        for example the parents.
-      </t>
-
-      <t>
         The <xref target='RFC5545'/> LOCATION property provides only
         an unstructured single text value for specifying the location where an event
         (or task) will occur. This is inadequate for use cases where
@@ -194,6 +184,17 @@
         locations can be communicated, for example, parking, restaurants and
         the venue. Servers and clients can retrieve the objects when
         storing the event and use them to index by geographic location.
+      </t>
+
+      <t>
+        These PARTICIPANT component is designed to handle common use cases in
+        event
+        publication. It is generally important to provide information
+        about the organizers of such events. Sponsors wish to be
+        referenced in a prominent manner. In social calendaring it is
+        often important to identify the active participants in the event,
+        for example a school sports team, and the inactive participants,
+        for example the parents.
       </t>
 
       <t>
@@ -220,7 +221,7 @@
           </t>
 
           <t>
-            There may be an iTip <xref target='RFC5545'/> meeting 
+            There may be an iTip <xref target='RFC5546'/> meeting 
             request for the piano tuner who will arrive
             before the performance. Other members of staff may also receive meeting
             requests.
@@ -309,7 +310,7 @@ jourprop =/ *(
              title="New Property Parameters">
       <t>
         This specification makes use of the LABEL property parameter
-        which is defined in <xref target='I-D.ietf-calext-extensions'/>
+        which is defined in <xref target='RFC7986'/>
       </t>
       
       <section anchor="parameter_loctype"
@@ -418,13 +419,14 @@ jourprop =/ *(
               The ORDER parameter is OPTIONAL and is used to indicate the
               relative ordering of the corresponding instance of a property.
               Its value MUST be an integer greater than or equal to 1 that
-              quantifies the order.  Lower values correspond to a
-              higher level of ordering, with 1 being the highest.
+              quantifies the order with 1 being the first in the ordering.
             </t>
 
             <t>
               When the parameter is absent, the default MUST be to interpret the
-              property instance as being at the lowest level of ordering.
+              property instance as being at the lowest level of ordering, that is, 
+              the property will appear after any other instances of the 
+              same property with any value of ORDER.
             </t>
 
             <t>
@@ -498,7 +500,7 @@ jourprop =/ *(
         <t>
           <list style='hanging'>
             <t hangText="Property name:">
-              PARTTYPE
+              PARTICIPANT-TYPE
             </t>
 
             <t hangText="Purpose:">
@@ -580,7 +582,7 @@ jourprop =/ *(
                 </preamble>
 
                 <artwork type="abnf">
-   scheduleaddress   = "SCHEDULE-ADDRESS" "=" iana-token
+   scheduleaddress   = "SCHEDULE-ADDRESS" "=" cal-address
                 </artwork>
               </figure>
             </t>
@@ -610,7 +612,7 @@ jourprop =/ *(
 
             <t hangText="Property Parameters:">
               IANA, non-standard, id, alternate text
-              representation, and language property parameters can be specified
+              representation, format type, and language property parameters can be specified
               on this property.
             </t>
 
@@ -907,8 +909,9 @@ jourprop =/ *(
             </t>
 
             <t hangText="Purpose:">
-              This property provides a reference to vcard information
-              about a participant in an event or optionally a plain text typed value.
+              This property provides a reference to information
+              about a component such as a participant possibly as a 
+              vcard or optionally a plain text typed value.
             </t>
 
             <t hangText="Value type:">
@@ -928,7 +931,7 @@ jourprop =/ *(
 
             <t hangText="Description:">
               This property provides information about the component in
-              which it appears. It may provide a refernce to a vcard giving
+              which it appears. It may provide a reference to a vcard giving
               directory information about a resource or participant.
             </t>
 
@@ -998,7 +1001,7 @@ jourprop =/ *(
               the calendar component.
             </t>
             <t hangText="Value Type:">
-              TEXT
+              TEXT, BINARY or URI
             </t>
             
             <t hangText="Property Parameters:">
@@ -1024,7 +1027,7 @@ jourprop =/ *(
             <t>
               Rather than define new iCalendar properties
               for the variety of event types that might occur, it would be
-              better to leverage existing "schemas" for such data.
+              better to leverage existing schemas for such data.
               For example, schemas available at https://schema.org include
               different event types. By using standard schemas, interoperability
               can be improved between calendar clients and non-calendaring
@@ -1177,8 +1180,8 @@ jourprop =/ *(
                   ; The following are OPTIONAL,
                   ; but MUST NOT occur more than once.
                   ;
-                  created / description / last-mod / seq /
-                  source / status / structuredaddress / summary / url /
+                  created / description / last-mod / priority / seq /
+                  source / status / scheduleaddress / summary / url /
                   ;
                   ; The following are OPTIONAL,
                   ; and MAY occur more than once.
@@ -1268,7 +1271,7 @@ jourprop =/ *(
           would be to store SEQUENCE and DTSTAMP properties associated with
           replies from each ATTENDEE. A LOCATION property within the
           PARTICIPANT component might allow better selection of meeting times
-          when particpants are in different timezones.
+          when participants are in different timezones.
         </t>
       </section>
     </section>
@@ -1332,7 +1335,7 @@ jourprop =/ *(
       <t>
        The following are some examples of the use of the properties defined in
        this specification. They include additional properties defined in
-       <xref target='I-D.ietf-calext-extensions'/> which includes IMAGE and LIVEFEED.
+       <xref target='RFC7986'/> which includes IMAGE and LIVEFEED.
       </t>
 
       <section title='Example 1'>
@@ -1546,16 +1549,12 @@ END:VEVENT
         which led to the development of this RFC.
       </t>
       <t>
-        The author would also like to thank the members of the Calendaring and
-        Scheduling Consortium Event Publication technical committee and the following
+        The author would also like to thank the members of CalConnect, The Calendaring and
+        Scheduling Consortium, the  Event Publication technical committee and the following
         individuals for contributing their ideas and support:
       </t>
       <t>
         Cyrus Daboo, John Haug, Dan Mendell, Ken Murchison, Scott Otis,
-      </t>
-      <t>
-        The authors would also like to thank the Calendaring and
-        Scheduling Consortium for advice with this specification.
       </t>
     </section>
   </middle>
@@ -1578,14 +1577,12 @@ END:VEVENT
 
     <references title="Normative References">
       &RFC2119;
-      &RFC2434;
-      &RFC3688;
       &RFC3986;
       &RFC4589;
       &RFC5545;
       &RFC5546;
+      &RFC7986;
       &W3C.REC-xml-20060816;
-      &I-D.ietf-calext-extensions;
     </references>
 
     <section title="Open issues">
