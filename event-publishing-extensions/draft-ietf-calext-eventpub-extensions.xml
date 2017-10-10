@@ -11,7 +11,7 @@
   ]>
 
 <rfc category="std" updates="5545,5546"
-     docName="draft-ietf-calext-eventpub-extensions-03" ipr="trust200902">
+     docName="draft-ietf-calext-eventpub-extensions-04" ipr="trust200902">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
   <?rfc strict="yes" ?>
   <?rfc toc="yes"?>
@@ -40,7 +40,7 @@
       </address>
     </author>
 
-    <date month='May' year='2017' />
+    <date month='October' year='2017' />
 
     <area>Applications</area>
 
@@ -91,20 +91,20 @@
       <t>The following properties are defined in this 
          specification
         <list style='hanging'>
-          <t hangText="Styled-Description:">
+          <t hangText="STYLED-DESCRIPTION:">
             Supports HTML descriptions.
             Event publishers typically wish to provide more and better
             formatted information about the event.
           </t>
-          <t hangText="Structured-Location:">
+          <t hangText="STRUCTURED-LOCATION:">
             There may be a number of locations associated with an event.
             This provides detailed information about the location.
           </t>
-          <t hangText="Structured-Resource:">
+          <t hangText="STRUCTURED-RESOURCE:">
             Events need resources such as rooms, projectors, conferencing 
             capabilities.
           </t>
-          <t hangText="Structured-Data:">
+          <t hangText="STRUCTURED-DATA:">
             The existing
             properties in iCalendar cover key elements of events and tasks
             such as start time, end time, location, summary, etc. However,
@@ -187,7 +187,14 @@
       </t>
 
       <t>
-        These PARTICIPANT component is designed to handle common use cases in
+        When a calendar client receives a calendar component it can search the
+        set of supplied properties looking for those of particular interest.
+        The TYPE and FMTTYPE parameters, if supplied, can be used to help the
+        selection.
+      </t>
+
+      <t>
+        The PARTICIPANT component is designed to handle common use cases in
         event
         publication. It is generally important to provide information
         about the organizers of such events. Sponsors wish to be
@@ -198,10 +205,10 @@
       </t>
 
       <t>
-        When a calendar client receives a calendar component it can search the
-        set of supplied properties looking for those of particular interest.
-        The TYPE and FMTTYPE parameters, if supplied, can be used to help the
-        selection.
+        The PARTICIPANT component canalso be used to provide useful 
+        extra daat about an attendee. For example a LOCATION property
+        inside the PARTICIPANT gives the actual location of a remote
+        attendee.
       </t>
 
       <section title="Use Cases">
@@ -383,9 +390,10 @@ jourprop =/ *(
             </t>
 
             <t>
-              Values for this parameter are taken from the values defined in
-              [todo]. New resource types SHOULD be
-              registered in the manner laid down in that specification
+              Values for this parameter are taken from the values 
+              defined in the registry.
+              New resource types SHOULD be
+              registered in the manner laid down in this specification
             </t>
           </list>
         </t>
@@ -729,7 +737,7 @@ jourprop =/ *(
 
             <t hangText="Value type:">
               There is no default value type for this property.  The value type
-              can be set to URI or TEXT. Other text-based value types
+              can be set to URI or TEXT. 
             </t>
 
             <t hangText="Property Parameters:">
@@ -824,9 +832,8 @@ jourprop =/ *(
             </t>
 
             <t hangText="Value type:">
-              The default value type for this property is URI.  The
-              value type can also be set to TEXT to indicate plain text
-              content.
+              There is no default value type for this property.  The value type
+              can be set to URI or TEXT.
             </t>
 
             <t hangText="Property Parameters:">
@@ -856,11 +863,17 @@ jourprop =/ *(
                 </preamble>
 
                 <artwork>
-  strucres       = "STRUCTURED-RESOURCE" strucresparam (":" uri)  /
+  strucres       = "STRUCTURED-RESOURCE" strucresparam /
+                  (
+                    (
+                      ";" "VALUE" "=" "URI"
+                      ":" uri
+                    )  /
                     (
                       ";" "VALUE" "=" "TEXT"
                       ":" text
                     )
+                  )
                     CRLF
 
   strucresparam  = *(
@@ -1279,7 +1292,7 @@ jourprop =/ *(
     <section anchor="participant-types"
              title="Participant Types">
       <t>
-        This section describes types of participation and provide registered
+        This section describes types of participation and provides registered
         values for the PARTTYPE property.
       </t>
       <t>
@@ -1335,7 +1348,7 @@ jourprop =/ *(
       <t>
        The following are some examples of the use of the properties defined in
        this specification. They include additional properties defined in
-       <xref target='RFC7986'/> which includes IMAGE and LIVEFEED.
+       <xref target='RFC7986'/> which includes IMAGE.
       </t>
 
       <section title='Example 1'>
@@ -1349,19 +1362,21 @@ jourprop =/ *(
 
           <artwork>
 BEGIN:VEVENT
-CREATED:20101116T145739Z
+CREATED:20170216T145739Z
 DESCRIPTION: Piano Sonata No 3\n
  Piano Sonata No 30
-DTSTAMP:20101116T145739Z
-DTSTART;TZID=America/New_York:20110315T150000Z
-DTEND;TZID=America/New_York:20110315T163000Z
-LAST-MODIFIED:20101116T145739Z
+DTSTAMP:20171116T145739Z
+DTSTART;TZID=America/New_York:20170315T150000Z
+DTEND;TZID=America/New_York:20170315T163000Z
+LAST-MODIFIED:20170216T145739Z
 SUMMARY:Beethoven Piano Sonatas
 UID:123456
 STRUCTURED-LOCATION;LABEL="The venue":
  http://dir.example.com/venues/big-hall.vcf
 STRUCTURED-LOCATION;LABEL="The venue":
  http://dir.example.com/venues/parking.vcf
+IMAGE;VALUE=URI;DISPLAY=BADGE;FMTTYPE=image/png:h
+ ttp://example.com/images/concert.png
 BEGIN:PARTICIPANT
 PARTTYPE:SPONSOR
 SOURCE:http://example.com/sponsor.vcf
@@ -1369,6 +1384,36 @@ END:PARTICIPANT
 BEGIN:PARTICIPANT
 PARTTYPE:PERFORMER:
 SOURCE:http://www.example.com/people/johndoe.vcf
+END:PARTICIPANT
+END:VEVENT
+
+          </artwork>
+        </figure>
+      </section>
+
+      <section title='Example 2'>
+        <figure>
+          <preamble>
+            The following is an example of a VEVENT describing a meeting.
+            One of the attendees is a remote participant.
+          </preamble>
+  
+          <artwork>
+BEGIN:VEVENT
+CREATED:20170216T145739Z
+DTSTAMP:20101116T145739Z
+DTSTART;TZID=America/New_York:20170315T150000Z
+DTEND;TZID=America/New_York:20170315T163000Z
+LAST-MODIFIED:20170216T145739Z
+SUMMARY:Conference plaaning
+UID:123456
+ORGANIZER:mailto:a@example.com
+ATTENDEE;PARTSTAT=ACCEPTED;CN=A:mailto:a@example.com
+ATTENDEE;RSVP=TRUE;CN=B:mailto:b@example.com
+BEGIN:PARTICIPANT
+PARTTYPE:ACTIVE:
+SOURCE:http://www.example.com/people/b.vcf
+LOCATION:At home
 END:PARTICIPANT
 END:VEVENT
 
@@ -1590,7 +1635,16 @@ END:VEVENT
         <list style='hanging'>
           <t hangText="restype values:" >
             Need to determine what if any registry of resource types already
-            exists and use that.
+            exists and use that or define one here.
+          </t>
+        </list>
+      </t>
+      <t>
+        <list style='hanging'>
+          <t hangText="SOURCE property:" >
+            Already defined in 7986. Should I recast this as an extension
+            of that property. Allows VALUE=TEXT and use in other than
+            a calendar.
           </t>
         </list>
       </t>
