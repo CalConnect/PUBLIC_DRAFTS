@@ -1768,8 +1768,7 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="strong">duration</spanx> and
-                                <spanx style="strong">estimatedDuration</spanx> properties MUST only include a day
+                                the <spanx style="strong">estimatedDuration</spanx> property MUST only include a day
                                 component.
                             </t>
                         </list>
