@@ -5,6 +5,7 @@
 <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
 <!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
 <!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
+<!ENTITY W3C.CR-skos-reference-20090317 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.CR-skos-reference-20090317.xml">
 <!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
 <!ENTITY I-D.daboo-caldav-attachments SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.daboo-caldav-attachments.xml">
 ]>
@@ -19,7 +20,7 @@
 <?rfc subcompact="no" ?>
 <rfc category="std"
      updates='5545' 
-     docName="draft-ietf-calext-ical-relations-02" ipr="trust200902">
+     docName="draft-ietf-calext-ical-relations-03" ipr="trust200902">
 
   <front>
     <title abbrev="iCalendar Relationships">Support for iCalendar Relationships</title>
@@ -41,7 +42,7 @@
       </address>
     </author>
 
-    <date month='February' year='2017' />
+    <date month='October' year='2017' />
 
     <area>Applications</area>
 
@@ -55,7 +56,7 @@
       <t>
         This specification updates RELATED-TO defined in  
         <xref target='RFC5545'/> and introduces new iCalendar
-        properties LINK, STRUCTURED-CATEGORY and REFID to allow better 
+        properties LINK, CONCEPT and REFID to allow better
         linking and grouping of iCalendar components and related data.
       </t>
     </abstract>
@@ -123,11 +124,18 @@
         </t>
       </section>
 
-      <section title="Structured category relationships">
+      <section title="Concept relationships">
         <t>
-          The introduction of STRUCTURED-CATEGORY allows a more structured
+          The name CONCEPT is used by the Simple Knowledge Organization
+          System defined in <xref target='W3C.CR-skos-reference-20090317'/>. This more accurately
+          defines what we mean by a catgeory. It's not the words but the
+          meaning.
+        </t>
+
+        <t>
+          The introduction of CONCEPT allows a more structured
           approach to categorization, with the possibility of namespaced
-          and path-like values. Unlike REFID the category imparts some
+          and path-like values. Unlike REFID the CONCEPT property imparts some
           meaning. It is assumed that the value of this property will
           reference a well defined category.
         </t>
@@ -290,8 +298,8 @@
                   / "SIBLING"   ; Sibling relationship
                   / "DEPENDS-ON" ; refers to previous task
                   / "REFID"     ; Relationship based on REFID
-                  / "STRUCTURED-CATEGORY"
-                          ; Relationship based on STRUCTURED-CATEGORY
+                  / "CONCEPT"
+                          ; Relationship based on CONCEPT
                   / "FINISHTOSTART" ;  Temporal relationship
                   / "FINISHTOFINISH" ;  Temporal relationship
                   / "STARTTOFINISH" ;  Temporal relationship
@@ -351,9 +359,9 @@
             given in the associated RELATED-TO property.
           </t>
 
-          <t hangText="RELTYPE=STRUCTURED-CATEGORY:">
+          <t hangText="RELTYPE=CONCEPT:">
             Establishes a reference from the current component to
-            components with a STRUCTURED-CATEGORY property which matches the value
+            components with a CONCEPT property which matches the value
             given in the associated RELATED-TO property.
           </t>
 
@@ -492,7 +500,7 @@
 
             <t hangText="Purpose:">
               To specify the length of the gap, positive or negative between two
-              temporally related components.
+              temporaly related components.
             </t>
 
             <t hangText="Format Definition:">
@@ -555,12 +563,12 @@
 
     <section anchor="new_properties"
              title="New Properties">
-      <section anchor="structured_category"
-               title="Structured-Category">
+      <section anchor="concept"
+               title="Concept">
         <t>
           <list style='hanging'>
             <t hangText="Property name:">
-              STRUCTURED-CATEGORY
+              CONCEPT
             </t>
 
             <t hangText="Purpose:">
@@ -591,26 +599,26 @@
             <t>
               Within the "VEVENT", "VTODO", or "VJOURNAL" calendar components,
               more than one formal category can be specified by using multiple
-              properties.
+              CONCEPT properties.
             </t>
 
             <t>
               This categorization is distinct from the more informal
               "tagging" of components provided by the existing CATEGORIES
-              property. It is expected that the value of the STRUCTURED-CATEGORY
+              property. It is expected that the value of the CONCEPT
               property will reference an external resource which
               provides information about the categorization.
             </t>
 
             <t>
-              Possible category resources are the various proprietary
-              systems, for example Library of Congress, or an open
-              source such as dmoz.org.
+              In addition, a structured URI value allows for
+              hierarchical categorization of events.
             </t>
 
             <t>
-              In addition, a structured URI value allows for
-              hierarchical categorization of events.
+              Possible category resources are the various proprietary
+              systems, for example Library of Congress, or an open
+              source derived from something like the dmoz.org data.
             </t>
 
             <t hangText="Format Definition:">
@@ -620,10 +628,10 @@
                 </preamble>
 
                 <artwork>
-  structured-category = "STRUCTURED-CATEGORY" structcatparam ":" 
+  concept        =  "CONCEPT" conceptparam ":"
                         uri CRLF
 
-  structcatparam = *(
+  conceptparam = *(
                 ;
                 ; The following is OPTIONAL,
                 ; and MAY occur more than once.
@@ -644,9 +652,9 @@
                 </preamble>
 
                 <artwork>
-  STRUCTURED-CATEGORY:http://example.com/event-types/sports
-  STRUCTURED-CATEGORY:http://example.com/event-types/arts/music
-  STRUCTURED-CATEGORY:http://example.com/task-types/delivery
+  SCONCEPT:http://example.com/event-types/sports
+  CONCEPT:http://example.com/event-types/arts/music
+  CONCEPT:http://example.com/task-types/delivery
                 </artwork>
               </figure>
             </t>
@@ -962,7 +970,7 @@
        a discussion of the security considerations relating to URIs.
       </t>
       <t>
-        The STRUCTURED-CATEGORY and redefined RELATED-TO property have
+        The CONCEPT and redefined RELATED-TO property have
         the same issues in that values may be URIs.
       </t>
     </section>
@@ -981,6 +989,10 @@
           <ttcol align="left">Status</ttcol>
           <ttcol align="left">Reference</ttcol>
 
+          <c>CONCEPT</c>
+          <c>Current</c>
+          <c><xref target="concept"/></c>
+
           <c>LINK</c>
           <c>Current</c>
           <c><xref target="link"/></c>
@@ -988,10 +1000,6 @@
           <c>REFID</c>
           <c>Current</c>
           <c><xref target="refid"/></c>
-
-          <c>STRUCTURED-CATEGORY</c>
-          <c>Current</c>
-          <c><xref target="structured_category"/></c>
         </texttable>
       </section>
 
@@ -1063,7 +1071,7 @@
           <c>Current</c>
           <c><xref target="redefined_relation_type_value"/></c>
 
-          <c>STRUCTURED-CATEGORY</c>
+          <c>CONCEPT</c>
           <c>Current</c>
           <c><xref target="redefined_relation_type_value"/></c>
 
@@ -1144,69 +1152,8 @@
       &RFC3986;
       &W3C.REC-xml-20060816;
       &W3C.WD-xptr-xpointer-20021219;
+      &W3C.CR-skos-reference-20090317;
       &I-D.daboo-caldav-attachments;
     </references>
-
-    <section title="Change log">
-      <t>
-        V04: 2014-11-18  MD
-        <list style='symbols'>
-          <t>
-            Add 5545 registrations.
-          </t>
-          <t>
-            Drop Q-name in favor of URI.
-          </t>
-          <t>
-            Change REFID value type to text.
-          </t>
-          <t>
-            Add STRUCTURED-CATEGORY property.
-          </t>
-          <t>
-            Add STRUCTURED-CATEGORY relationship to RELATED-TO.
-          </t>
-        </list>
-      </t>
-      <t>
-        V03: 2014-09-21  MD
-        <list style='symbols'>
-          <t>
-            Added Q-name specification.
-          </t>
-          <t>
-            Change RELATED-ID to REFID and change its value type to Q-name.
-          </t>
-          <t>
-            Add REFID relationship to RELATED-TO.
-          </t>
-        </list>
-      </t>
-      <t>
-        V02: 2013-11-22  MD
-        <list style='symbols'>
-          <t>
-            Added more description to GAP
-          </t>
-        </list>
-      </t>
-      <t>
-        V01: 2013-09-26  MD
-        <list style='symbols'>
-          <t>
-            Removed "Improved" from title
-          </t>
-          <t>
-            Fixed typos and examples
-          </t>
-          <t>
-            Removed gap param from link
-          </t>
-        </list>
-      </t>
-      <t>
-        2013-06-02  MD Initial version
-      </t>
-    </section>
   </back>
 </rfc>

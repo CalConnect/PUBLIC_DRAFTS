@@ -4,20 +4,19 @@
 
 Network Working Group                                        M. Douglass
 Internet-Draft                                       Spherical Cow Group
-Updates: 5545 (if approved)                            February 10, 2017
+Updates: 5545 (if approved)                             October 11, 2017
 Intended status: Standards Track
-Expires: August 14, 2017
+Expires: April 14, 2018
 
 
                   Support for iCalendar Relationships
-                  draft-ietf-calext-ical-relations-02
+                  draft-ietf-calext-ical-relations-03
 
 Abstract
 
    This specification updates RELATED-TO defined in [RFC5545] and
-   introduces new iCalendar properties LINK, STRUCTURED-CATEGORY and
-   REFID to allow better linking and grouping of iCalendar components
-   and related data.
+   introduces new iCalendar properties LINK, CONCEPT and REFID to allow
+   better linking and grouping of iCalendar components and related data.
 
 Status of This Memo
 
@@ -27,14 +26,14 @@ Status of This Memo
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
    working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 14, 2017.
+   This Internet-Draft will expire on April 14, 2018.
 
 Copyright Notice
 
@@ -43,7 +42,7 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
-   (http://trustee.ietf.org/license-info) in effect on the date of
+   (https://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
@@ -53,9 +52,10 @@ Copyright Notice
 
 
 
-Douglass                 Expires August 14, 2017                [Page 1]
+
+Douglass                 Expires April 14, 2018                 [Page 1]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
 Table of Contents
@@ -63,9 +63,9 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
      1.1.  Structured iCalendar relationships  . . . . . . . . . . .   3
      1.2.  Grouped iCalendar relationships . . . . . . . . . . . . .   3
-     1.3.  Structured category relationships . . . . . . . . . . . .   3
+     1.3.  Concept relationships . . . . . . . . . . . . . . . . . .   3
      1.4.  Linked relationships  . . . . . . . . . . . . . . . . . .   4
-     1.5.  Caching and offline use . . . . . . . . . . . . . . . . .   4
+     1.5.  Caching and offline use . . . . . . . . . . . . . . . . .   5
      1.6.  Conventions Used in This Document . . . . . . . . . . . .   5
    2.  Reference Types . . . . . . . . . . . . . . . . . . . . . . .   5
    3.  Link Relation Types . . . . . . . . . . . . . . . . . . . . .   5
@@ -75,7 +75,7 @@ Table of Contents
      5.2.  Gap . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
    6.  New Value Data Types  . . . . . . . . . . . . . . . . . . . .   9
    7.  New Properties  . . . . . . . . . . . . . . . . . . . . . . .  10
-     7.1.  Structured-Category . . . . . . . . . . . . . . . . . . .  10
+     7.1.  Concept . . . . . . . . . . . . . . . . . . . . . . . . .  10
      7.2.  Link  . . . . . . . . . . . . . . . . . . . . . . . . . .  11
      7.3.  Refid . . . . . . . . . . . . . . . . . . . . . . . . . .  13
    8.  Redefined RELATED-TO Property . . . . . . . . . . . . . . . .  13
@@ -89,7 +89,6 @@ Table of Contents
      10.5.  New Reference Type Registration  . . . . . . . . . . . .  17
    11. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
    12. Normative References  . . . . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Change log . . . . . . . . . . . . . . . . . . . . .  18
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  19
 
 1.  Introduction
@@ -106,15 +105,14 @@ Table of Contents
       group.  CATEGORIES are often used for this purpose but are
       problematic for application developers.
 
-
-
-
-Douglass                 Expires August 14, 2017                [Page 2]
-
-Internet-Draft           iCalendar Relationships           February 2017
-
-
    Linked:  Entities are linked to each other through typed references.
+
+
+
+Douglass                 Expires April 14, 2018                 [Page 2]
+
+Internet-Draft           iCalendar Relationships            October 2017
+
 
 1.1.  Structured iCalendar relationships
 
@@ -146,29 +144,35 @@ Internet-Draft           iCalendar Relationships           February 2017
    categorisation which, while allowing grouping also adds meaning to
    the entity to which it is attached.
 
-1.3.  Structured category relationships
+1.3.  Concept relationships
 
-   The introduction of STRUCTURED-CATEGORY allows a more structured
-   approach to categorization, with the possibility of namespaced and
-   path-like values.  Unlike REFID the category imparts some meaning.
-   It is assumed that the value of this property will reference a well
+   The name CONCEPT is used by the Simple Knowledge Organization System
+   defined in [W3C.CR-skos-reference-20090317].  This more accurately
+   defines what we mean by a catgeory.  It's not the words but the
+   meaning.
+
+   The introduction of CONCEPT allows a more structured approach to
+   categorization, with the possibility of namespaced and path-like
+   values.  Unlike REFID the CONCEPT property imparts some meaning.  It
+   is assumed that the value of this property will reference a well
    defined category.
 
    The current [RFC5545] CATEGORY property is used as a free form
    'tagging' field.  As such it is difficult to establish formal
    relationships between components based on their category.
 
+
+
+
+
+Douglass                 Expires April 14, 2018                 [Page 3]
+
+Internet-Draft           iCalendar Relationships            October 2017
+
+
    Rather than attempt to add semantics to the current property it
    seeems best to continue its usage as an informal tag and establish a
    new property with more constraints.
-
-
-
-
-Douglass                 Expires August 14, 2017                [Page 3]
-
-Internet-Draft           iCalendar Relationships           February 2017
-
 
 1.4.  Linked relationships
 
@@ -210,6 +214,18 @@ Internet-Draft           iCalendar Relationships           February 2017
    the message - for example, the agenda.  See
    [I-D.daboo-caldav-attachments]
 
+
+
+
+
+
+
+
+Douglass                 Expires April 14, 2018                 [Page 4]
+
+Internet-Draft           iCalendar Relationships            October 2017
+
+
 1.5.  Caching and offline use
 
    To facilitate offline display the link type may identify important
@@ -217,14 +233,6 @@ Internet-Draft           iCalendar Relationships           February 2017
 
    In general, the calendar entity should be self explanatory without
    the need to download referenced meta-data such as a web page.
-
-
-
-
-Douglass                 Expires August 14, 2017                [Page 4]
-
-Internet-Draft           iCalendar Relationships           February 2017
-
 
 1.6.  Conventions Used in This Document
 
@@ -267,20 +275,14 @@ Internet-Draft           iCalendar Relationships           February 2017
    provide a link to a component upon which the current component
    depends.
 
-   Format Definition:
 
 
-
-
-
-
-
-
-
-Douglass                 Expires August 14, 2017                [Page 5]
+Douglass                 Expires April 14, 2018                 [Page 5]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
+
+   Format Definition:
 
    This property parameter is defined by the following notation:
 
@@ -290,8 +292,8 @@ Internet-Draft           iCalendar Relationships           February 2017
                      / "SIBLING"   ; Sibling relationship
                      / "DEPENDS-ON" ; refers to previous task
                      / "REFID"     ; Relationship based on REFID
-                     / "STRUCTURED-CATEGORY"
-                             ; Relationship based on STRUCTURED-CATEGORY
+                     / "CONCEPT"
+                             ; Relationship based on CONCEPT
                      / "FINISHTOSTART" ;  Temporal relationship
                      / "FINISHTOFINISH" ;  Temporal relationship
                      / "STARTTOFINISH" ;  Temporal relationship
@@ -328,24 +330,24 @@ Internet-Draft           iCalendar Relationships           February 2017
 
    RELTYPE=DEPENDS-ON:  Indicates that the current calendar component
       depends on the referenced calendar component in some manner.  For
+
+
+
+Douglass                 Expires April 14, 2018                 [Page 6]
+
+Internet-Draft           iCalendar Relationships            October 2017
+
+
       example a task may be blocked waiting on the other, referenced,
       task.
-
-
-
-Douglass                 Expires August 14, 2017                [Page 6]
-
-Internet-Draft           iCalendar Relationships           February 2017
-
 
    RELTYPE=REFID:  Establishes a reference from the current component to
       components with a REFID property which matches the value given in
       the associated RELATED-TO property.
 
-   RELTYPE=STRUCTURED-CATEGORY:  Establishes a reference from the
-      current component to components with a STRUCTURED-CATEGORY
-      property which matches the value given in the associated RELATED-
-      TO property.
+   RELTYPE=CONCEPT:  Establishes a reference from the current component
+      to components with a CONCEPT property which matches the value
+      given in the associated RELATED-TO property.
 
    RELTYPE=FINISHTOSTART:  Task-B cannot start until Task-A finishes.
       For example, when sanding is complete, painting can begin.
@@ -387,11 +389,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-
-
-Douglass                 Expires August 14, 2017                [Page 7]
+Douglass                 Expires April 14, 2018                 [Page 7]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
                                         ============
@@ -445,9 +445,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017                [Page 8]
+Douglass                 Expires April 14, 2018                 [Page 8]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
       defined in [RFC5988] may be used.  There is no default relation
@@ -462,7 +462,7 @@ Internet-Draft           iCalendar Relationships           February 2017
    Parameter name:  GAP
 
    Purpose:  To specify the length of the gap, positive or negative
-      between two temporally related components.
+      between two temporaly related components.
 
    Format Definition:
 
@@ -501,16 +501,16 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017                [Page 9]
+Douglass                 Expires April 14, 2018                 [Page 9]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
 7.  New Properties
 
-7.1.  Structured-Category
+7.1.  Concept
 
-   Property name:  STRUCTURED-CATEGORY
+   Property name:  CONCEPT
 
    Purpose:  This property defines the formal categories for a calendar
       component.
@@ -530,20 +530,20 @@ Internet-Draft           iCalendar Relationships           February 2017
 
       Within the "VEVENT", "VTODO", or "VJOURNAL" calendar components,
       more than one formal category can be specified by using multiple
-      properties.
+      CONCEPT properties.
 
       This categorization is distinct from the more informal "tagging"
       of components provided by the existing CATEGORIES property.  It is
-      expected that the value of the STRUCTURED-CATEGORY property will
-      reference an external resource which provides information about
-      the categorization.
-
-      Possible category resources are the various proprietary systems,
-      for example Library of Congress, or an open source such as
-      dmoz.org.
+      expected that the value of the CONCEPT property will reference an
+      external resource which provides information about the
+      categorization.
 
       In addition, a structured URI value allows for hierarchical
       categorization of events.
+
+      Possible category resources are the various proprietary systems,
+      for example Library of Congress, or an open source derived from
+      something like the dmoz.org data.
 
    Format Definition:
 
@@ -557,17 +557,17 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 10]
+Douglass                 Expires April 14, 2018                [Page 10]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
    This property is defined by the following notation:
 
-     structured-category = "STRUCTURED-CATEGORY" structcatparam ":"
+     concept        =  "CONCEPT" conceptparam ":"
                            uri CRLF
 
-     structcatparam = *(
+     conceptparam = *(
                    ;
                    ; The following is OPTIONAL,
                    ; and MAY occur more than once.
@@ -582,9 +582,9 @@ Internet-Draft           iCalendar Relationships           February 2017
    The following is an example of this property.  It points to a server
    acting as the source for the calendar object.
 
-     STRUCTURED-CATEGORY:http://example.com/event-types/sports
-     STRUCTURED-CATEGORY:http://example.com/event-types/arts/music
-     STRUCTURED-CATEGORY:http://example.com/task-types/delivery
+     SCONCEPT:http://example.com/event-types/sports
+     CONCEPT:http://example.com/event-types/arts/music
+     CONCEPT:http://example.com/task-types/delivery
 
 7.2.  Link
 
@@ -613,9 +613,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 11]
+Douglass                 Expires April 14, 2018                [Page 11]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
    This property is defined by the following notation:
@@ -669,9 +669,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 12]
+Douglass                 Expires April 14, 2018                [Page 12]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
 7.3.  Refid
@@ -725,9 +725,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 13]
+Douglass                 Expires April 14, 2018                [Page 13]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
 8.1.  RELATED-TO
@@ -781,9 +781,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 14]
+Douglass                 Expires April 14, 2018                [Page 14]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
       property is intended only to provide information on the
@@ -837,9 +837,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 15]
+Douglass                 Expires April 14, 2018                [Page 15]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
 9.  Security Considerations
@@ -848,8 +848,8 @@ Internet-Draft           iCalendar Relationships           February 2017
    entailed in using the URIs provided as values.  See [RFC3986] for a
    discussion of the security considerations relating to URIs.
 
-   The STRUCTURED-CATEGORY and redefined RELATED-TO property have the
-   same issues in that values may be URIs.
+   The CONCEPT and redefined RELATED-TO property have the same issues in
+   that values may be URIs.
 
 10.  IANA Considerations
 
@@ -858,13 +858,13 @@ Internet-Draft           iCalendar Relationships           February 2017
    The following iCalendar property names have been added to the
    iCalendar Properties Registry defined in Section 8.3.2 of [RFC5545]
 
-              +---------------------+---------+-------------+
-              | Property            | Status  | Reference   |
-              +---------------------+---------+-------------+
-              | LINK                | Current | Section 7.2 |
-              | REFID               | Current | Section 7.3 |
-              | STRUCTURED-CATEGORY | Current | Section 7.1 |
-              +---------------------+---------+-------------+
+                   +----------+---------+-------------+
+                   | Property | Status  | Reference   |
+                   +----------+---------+-------------+
+                   | CONCEPT  | Current | Section 7.1 |
+                   | LINK     | Current | Section 7.2 |
+                   | REFID    | Current | Section 7.3 |
+                   +----------+---------+-------------+
 
 10.2.  iCalendar Property Parameter Registrations
 
@@ -893,9 +893,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 16]
+Douglass                 Expires April 14, 2018                [Page 16]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
                  +-----------------+---------+-----------+
@@ -911,17 +911,17 @@ Internet-Draft           iCalendar Relationships           February 2017
    iCalendar Relationship Types Registry defined in Section 8.3.8 of
    [RFC5545]
 
-               +---------------------+---------+-----------+
-               | Parameter           | Status  | Reference |
-               +---------------------+---------+-----------+
-               | DEPENDS-ON          | Current | Section 4 |
-               | REFID               | Current | Section 4 |
-               | STRUCTURED-CATEGORY | Current | Section 4 |
-               | FINISHTOSTART       | Current | Section 4 |
-               | FINISHTOFINISH      | Current | Section 4 |
-               | STARTTOFINISH       | Current | Section 4 |
-               | STARTTOSTART        | Current | Section 4 |
-               +---------------------+---------+-----------+
+                +-------------------+---------+-----------+
+                | Relationship Type | Status  | Reference |
+                +-------------------+---------+-----------+
+                | DEPENDS-ON        | Current | Section 4 |
+                | REFID             | Current | Section 4 |
+                | CONCEPT           | Current | Section 4 |
+                | FINISHTOSTART     | Current | Section 4 |
+                | FINISHTOFINISH    | Current | Section 4 |
+                | STARTTOFINISH     | Current | Section 4 |
+                | STARTTOSTART      | Current | Section 4 |
+                +-------------------+---------+-----------+
 
 10.5.  New Reference Type Registration
 
@@ -949,9 +949,9 @@ Internet-Draft           iCalendar Relationships           February 2017
 
 
 
-Douglass                 Expires August 14, 2017               [Page 17]
+Douglass                 Expires April 14, 2018                [Page 17]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
 
 12.  Normative References
@@ -964,21 +964,27 @@ Internet-Draft           iCalendar Relationships           February 2017
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <http://www.rfc-editor.org/info/rfc3986>.
+              <https://www.rfc-editor.org/info/rfc3986>.
 
    [RFC5545]  Desruisseaux, B., Ed., "Internet Calendaring and
               Scheduling Core Object Specification (iCalendar)",
               RFC 5545, DOI 10.17487/RFC5545, September 2009,
-              <http://www.rfc-editor.org/info/rfc5545>.
+              <https://www.rfc-editor.org/info/rfc5545>.
 
    [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
               DOI 10.17487/RFC5988, October 2010,
-              <http://www.rfc-editor.org/info/rfc5988>.
+              <https://www.rfc-editor.org/info/rfc5988>.
+
+   [W3C.CR-skos-reference-20090317]
+              Bechhofer, S. and A. Miles, "SKOS Simple Knowledge
+              Organization System Reference", World Wide Web Consortium
+              CR CR-skos-reference-20090317, March 2009,
+              <http://www.w3.org/TR/2009/CR-skos-reference-20090317>.
 
    [W3C.REC-xml-20060816]
               Bray, T., Paoli, J., Sperberg-McQueen, M., Maler, E., and
@@ -993,48 +999,16 @@ Internet-Draft           iCalendar Relationships           February 2017
               20021219, December 2002,
               <http://www.w3.org/TR/2002/WD-xptr-xpointer-20021219>.
 
-Appendix A.  Change log
-
-   V04: 2014-11-18 MD
-
-   o  Add 5545 registrations.
-
-   o  Drop Q-name in favor of URI.
-
-   o  Change REFID value type to text.
 
 
 
-Douglass                 Expires August 14, 2017               [Page 18]
+
+
+
+Douglass                 Expires April 14, 2018                [Page 18]
 
-Internet-Draft           iCalendar Relationships           February 2017
+Internet-Draft           iCalendar Relationships            October 2017
 
-
-   o  Add STRUCTURED-CATEGORY property.
-
-   o  Add STRUCTURED-CATEGORY relationship to RELATED-TO.
-
-   V03: 2014-09-21 MD
-
-   o  Added Q-name specification.
-
-   o  Change RELATED-ID to REFID and change its value type to Q-name.
-
-   o  Add REFID relationship to RELATED-TO.
-
-   V02: 2013-11-22 MD
-
-   o  Added more description to GAP
-
-   V01: 2013-09-26 MD
-
-   o  Removed "Improved" from title
-
-   o  Fixed typos and examples
-
-   o  Removed gap param from link
-
-   2013-06-02 MD Initial version
 
 Author's Address
 
@@ -1061,4 +1035,30 @@ Author's Address
 
 
 
-Douglass                 Expires August 14, 2017               [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Douglass                 Expires April 14, 2018                [Page 19]
