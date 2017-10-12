@@ -11,7 +11,7 @@
   ]>
 
 <rfc category="std" updates="5545,5546"
-     docName="draft-ietf-calext-eventpub-extensions-04" ipr="trust200902">
+     docName="draft-ietf-calext-eventpub-extensions-05" ipr="trust200902">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
   <?rfc strict="yes" ?>
   <?rfc toc="yes"?>
@@ -88,7 +88,15 @@
         in other applications - such as address books.
       </t>
 
-      <t>The following properties are defined in this 
+      <t>
+        This specification defines a new PARTICIPANT component.
+        Many people or groups may participate in an event. This
+        component provides detailed information. Such participants may
+        act as attendees to the event (or derived events) or may just
+        provide a reference - perhaps for mailing lists.
+      </t>
+
+      <t>The following properties are defined in this
          specification
         <list style='hanging'>
           <t hangText="STYLED-DESCRIPTION:">
@@ -117,17 +125,21 @@
             away teams, the league the teams are in, information about
             nearby parking, etc.
           </t>
+          <t hangText="PARTICIPANT-TYPE:">
+            Used in the PARTICIPANT component to define the type.
+          </t>
+          <t hangText="CALENDAR-ADDRESS:">
+            Used in the PARTICIPANT component to provide the calendar
+            address of the participant.
+          </t>
         </list>
       </t>
-      
-      <t>In addition this specification defines a new PARTICIPANT component. 
-        Many people 
-        or groups may participate in an event. This
-        component provides detailed information. Such participants may
-        act as attendees to the event (or derived events) or may just
-        provide a reference - perhaps for mailing lists.
+
+      <t>
+        In addition the SOURCE property defined in <xref target='RFC7986'/> is
+        redefined to allow VALUE=TEXT and broaden its usage.
       </t>
-      
+
       <section anchor="conventions" title='Conventions Used in This Document'>
         <t>
           The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
@@ -390,8 +402,8 @@ jourprop =/ *(
             </t>
 
             <t>
-              Values for this parameter are taken from the values 
-              defined in the registry.
+              The allowable values are defined
+              in <xref target="resource-types"/>
               New resource types SHOULD be
               registered in the manner laid down in this specification
             </t>
@@ -501,6 +513,122 @@ jourprop =/ *(
       </section>
     </section>
 
+    <section anchor="redefined_property_source"
+             title="Redefined Property SOURCE">
+      <t>
+        The SOURCE property defined in <xref target='RFC7986'/> is
+        redefined to allow VALUE=TEXT and broaden its usage to any
+        component.
+      </t>
+
+      <t>
+        <list style='hanging'>
+          <t hangText="Property name:">
+            SOURCE
+          </t>
+
+          <t hangText="Purpose:">
+            This property provides a reference to information
+            about a component such as a participant possibly as a
+            vcard or optionally a plain text typed value.
+          </t>
+
+          <t hangText="Value type:">
+            The default value type for this property is URI.  The
+            value type can also be set to TEXT to indicate plain text
+            content.
+          </t>
+
+          <t hangText="Property Parameters:">
+            Non-standard or format type parameters
+            can be specified on this property.
+          </t>
+
+          <t hangText="Conformance:">
+            This property MAY be appear in any iCalendar component.
+          </t>
+
+          <t hangText="Description:">
+            This property provides information about the component in
+            which it appears.
+          </t>
+
+          <t>
+            In a resource or participant it may provide a reference to
+            a vcard giving directory information.
+          </t>
+
+          <t>
+            In a VCALENDAR component this property identifies a
+            location where a client can
+            retrieve updated data for the calendar.  Clients SHOULD honor any
+            specified "REFRESH-INTERVAL" value when periodically retrieving
+            data.  Note that this property differs from the "URL" property in
+            that "URL" is meant to provide an alternative representation of
+            the calendar data rather than the original location of the data.
+          </t>
+
+          <t>
+            In a calendar entity component such as an event the SOURCE
+            property may provide a reference to the original source of
+            the event. This may be used by aggregators to provide a link
+            back.
+          </t>
+
+          <t hangText="Format Definition:">
+            <figure>
+              <preamble>
+                This property is defined by the following notation:
+              </preamble>
+
+              <artwork>
+    source     = "SOURCE" sourceparam
+                (
+                  (
+                    ";" "VALUE" "=" "URI"
+                    ":" uri
+                  )  /
+                  (
+                    ";" "VALUE" "=" "TEXT"
+                    ":" text
+                  )
+                )
+                CRLF
+
+    sourceparam      = *(
+                ;
+                ; the following are OPTIONAL
+                ; but MUST NOT occur more than once
+                ;
+                (";" fmttypeparam) /
+                ;
+                ; the following is OPTIONAL
+                ; and MAY occur more than once
+                ;
+                (";" other-param)
+                ;
+                )
+              </artwork>
+            </figure>
+          </t>
+
+          <t hangText="Example:">
+            <figure>
+              <preamble>
+                The following is an example referring to a
+                VCARD.
+              </preamble>
+
+              <artwork>
+    SOURCE;FMTTYPE=text/vcard;VALUE=URL:
+     http://dir.example.com/vcard/contacts/contact1.vcf
+              </artwork>
+            </figure>
+          </t>
+        </list>
+      </t>
+    </section>
+
     <section anchor="new_properties"
              title="New Properties">
       <section anchor="participant-type"
@@ -552,12 +680,12 @@ jourprop =/ *(
         </t>
       </section>
 
-      <section anchor="schedule-address"
-               title="Schedule Address">
+      <section anchor="calendar-address"
+               title="Calendar Address">
         <t>
           <list style='hanging'>
             <t hangText="Property name:">
-              SCHEDULE-ADDRESS
+              CALENDAR-ADDRESS
             </t>
 
             <t hangText="Purpose:">
@@ -590,7 +718,7 @@ jourprop =/ *(
                 </preamble>
 
                 <artwork type="abnf">
-   scheduleaddress   = "SCHEDULE-ADDRESS" "=" cal-address
+   calendaraddress   = "CALENDAR-ADDRESS" "=" cal-address
                 </artwork>
               </figure>
             </t>
@@ -913,95 +1041,6 @@ jourprop =/ *(
         </t>
       </section>
       
-      <section anchor="source"
-               title="Source">
-        <t>
-          <list style='hanging'>
-            <t hangText="Property name:">
-              SOURCE
-            </t>
-
-            <t hangText="Purpose:">
-              This property provides a reference to information
-              about a component such as a participant possibly as a 
-              vcard or optionally a plain text typed value.
-            </t>
-
-            <t hangText="Value type:">
-              The default value type for this property is URI.  The
-              value type can also be set to TEXT to indicate plain text
-              content.
-            </t>
-
-            <t hangText="Property Parameters:">
-              Non-standard or format type parameters
-              can be specified on this property.
-            </t>
-
-            <t hangText="Conformance:">
-              This property MAY be appear in any iCalendar component.
-            </t>
-
-            <t hangText="Description:">
-              This property provides information about the component in
-              which it appears. It may provide a reference to a vcard giving
-              directory information about a resource or participant.
-            </t>
-
-            <t hangText="Format Definition:">
-              <figure>
-                <preamble>
-                  This property is defined by the following notation:
-                </preamble>
-
-                <artwork>
-  source     = "SOURCE" sourceparam
-                  (
-                    (
-                      ";" "VALUE" "=" "URI"
-                      ":" uri
-                    )  /
-                    (
-                      ";" "VALUE" "=" "TEXT"
-                      ":" text
-                    )
-                  )
-                  CRLF
-
-  sourceparam      = *(
-                  ;
-                  ; the following are OPTIONAL
-                  ; but MUST NOT occur more than once
-                  ;
-                  (";" fmttypeparam) /
-                  ;
-                  ; the following is OPTIONAL
-                  ; and MAY occur more than once
-                  ;
-                  (";" other-param)
-                  ;
-                  )
-                </artwork>
-              </figure>
-            </t>
-
-            <t hangText="Example:">
-              <figure>
-                <preamble>
-                  The following is an example referring to a
-                  VCARD.
-                </preamble>
-
-                <artwork>
-     SOURCE;FMTTYPE=text/vcard;
-      http://dir.example.com/vcard/contacts/contact1.vcf
-                </artwork>
-              </figure>
-            </t>
-          </list>
-        </t>
-      </section>
-      
       <section title="Structured-Data" anchor="structured-data">
         <t>
           <list style="hanging">
@@ -1224,7 +1263,7 @@ jourprop =/ *(
 
                 <artwork>
                   BEGIN:PARTICIPANT
-                  PARTTYPE:PRINCIPAL_PERFORMER
+                  PARTICIPANT-TYPE:PRINCIPAL_PERFORMER
                   SOURCE:http://dir.example.com/vcard/aviolinist.vcf
                   END:PARTICIPANT
                 </artwork>
@@ -1241,7 +1280,7 @@ jourprop =/ *(
                   BEGIN: PARTICIPANT
                   SOURCE;FMTTYPE=text/vcard;
                   http://dir.example.com/vcard/contacts/contact1.vcf
-                  PARTTYPE:PRIMARY-CONTACT
+                  PARTICIPANT-TYPE:PRIMARY-CONTACT
                   DESCRIPTION:A contact:
                   END:PARTICIPANT
                 </artwork>
@@ -1265,7 +1304,7 @@ jourprop =/ *(
           A PARTICIPANT component is defined to be schedulable if
           <list style='symbols'>
             <t>
-              It contains a SCHEDULE-ADDRESS property
+              It contains a CALENDAR-ADDRESS property
             </t>
             <t>
               That property value is the same as the value for an ATTENDEE property.
@@ -1293,7 +1332,7 @@ jourprop =/ *(
              title="Participant Types">
       <t>
         This section describes types of participation and provides registered
-        values for the PARTTYPE property.
+        values for the PARTICIPANT-TYPE property.
       </t>
       <t>
         <list style='hanging'>
@@ -1344,6 +1383,41 @@ jourprop =/ *(
       </t>
     </section>
 
+    <section anchor="resource-types"
+             title="Resource Types">
+      <t>
+        This section describes some initial resource types registered
+        values for the RESTYPE parameter. Typically a resource is
+        anything that might be required or used by a calendar entity
+        and possibly has a directory entry.
+      </t>
+      <t>
+        Such resources may be a room or a projector. This registry
+        provides a place in which such resources may be registered for
+        use by scheduling sevices.
+      </t>
+
+      <t>
+        <list style='hanging'>
+          <t hangText="ROOM:" >
+            A room for he event/meeting.
+          </t>
+
+          <t hangText="PROJECTOR:">
+            Projection equipment.
+          </t>
+
+          <t hangText="REMOTE-CONFERENCE-AUDIO:">
+            Audio remote conferencing facilities.
+          </t>
+
+          <t hangText="REMOTE-CONFERENCE-VIDEO:">
+            Video remote conferencing facilities.
+          </t>
+        </list>
+      </t>
+    </section>
+
     <section title='Extended examples'>
       <t>
        The following are some examples of the use of the properties defined in
@@ -1378,11 +1452,11 @@ STRUCTURED-LOCATION;LABEL="The venue":
 IMAGE;VALUE=URI;DISPLAY=BADGE;FMTTYPE=image/png:h
  ttp://example.com/images/concert.png
 BEGIN:PARTICIPANT
-PARTTYPE:SPONSOR
+PARTICIPANT-TYPE:SPONSOR
 SOURCE:http://example.com/sponsor.vcf
 END:PARTICIPANT
 BEGIN:PARTICIPANT
-PARTTYPE:PERFORMER:
+PARTICIPANT-TYPE:PERFORMER:
 SOURCE:http://www.example.com/people/johndoe.vcf
 END:PARTICIPANT
 END:VEVENT
@@ -1411,7 +1485,7 @@ ORGANIZER:mailto:a@example.com
 ATTENDEE;PARTSTAT=ACCEPTED;CN=A:mailto:a@example.com
 ATTENDEE;RSVP=TRUE;CN=B:mailto:b@example.com
 BEGIN:PARTICIPANT
-PARTTYPE:ACTIVE:
+PARTICIPANT-TYPE:ACTIVE:
 SOURCE:http://www.example.com/people/b.vcf
 LOCATION:At home
 END:PARTICIPANT
@@ -1447,144 +1521,190 @@ END:VEVENT
     </section>
 
     <section anchor="iana_considerations" title='IANA Considerations'>
-      <section anchor="property_registrations"
-               title="Property Registrations" >
-        <t>
-          This document defines the following new iCalendar properties to be
-          added to the registry defined in Section 8.2.3 of <xref target='RFC5545'/>:
-        </t>
-        <texttable>
-          <ttcol align="left">Property</ttcol>
-          <ttcol align="left">Status</ttcol>
-          <ttcol align="left">Reference</ttcol>
+      <t>
+        This section defines updates to the tables defined in
+        <xref target='RFC5545'/> and new tables.
+      </t>
 
-          <c>PARTTYPE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-type"/></c>
+      <section anchor="additional-icalendar-registrations"
+               title="Additional iCalendar Registrations">
+        <section anchor="property_registrations"
+                 title="Property Registrations" >
+          <t>
+            This document defines the following new iCalendar properties to be
+            added to the registry defined in Section 8.2.3 of <xref target='RFC5545'/>:
+          </t>
+          <texttable>
+            <ttcol align="left">Property</ttcol>
+            <ttcol align="left">Status</ttcol>
+            <ttcol align="left">Reference</ttcol>
 
-          <c>SCHEDULE-ADDRESS</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="schedule-address"/></c>
+            <c>CALENDAR-ADDRESS</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="calendar-address"/></c>
 
-          <c>STRUCTURED-DATA</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="structured-data" /></c>
+            <c>PARTICIPANT-TYPE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-type"/></c>
 
-          <c>STYLED-DESCRIPTION</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="styled-description"/></c>
+            <c>SOURCE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="redefined_property_source"/></c>
 
-          <c>STRUCTURED-LOCATION</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="structured-location"/></c>
+            <c>STRUCTURED-DATA</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="structured-data" /></c>
 
-          <c>STRUCTURED-RESOURCE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="structured-resource"/></c>
+            <c>STYLED-DESCRIPTION</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="styled-description"/></c>
 
-          <c>SOURCE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="source"/></c>
-        </texttable>
+            <c>STRUCTURED-LOCATION</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="structured-location"/></c>
+
+            <c>STRUCTURED-RESOURCE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="structured-resource"/></c>
+          </texttable>
+        </section>
+
+        <section anchor="parameter_registrations"
+                 title="Parameter Registrations" >
+          <t>
+            This document defines the following new iCalendar property parameters
+            to be added to the registry defined in Section 8.2.4 of <xref target='RFC5545'/>:
+          </t>
+          <texttable>
+            <ttcol align="left">Property Parameter</ttcol>
+            <ttcol align="left">Status</ttcol>
+            <ttcol align="left">Reference</ttcol>
+
+            <c>LOCTYPE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="parameter_loctype"/></c>
+
+            <c>ORDER</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="parameter_order"/></c>
+
+            <c>RESTYPE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="parameter_restype"/></c>
+
+            <c>SCHEMA</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="parameter_schema" /></c>
+          </texttable>
+        </section>
+
+        <section anchor="component_registrations"
+                 title="Component Registrations" >
+          <t>
+            This document defines the following new iCalendar components to be
+            added to the registry defined in Section 8.3.1 of <xref target='RFC5545'/>:
+          </t>
+          <texttable>
+            <ttcol align="left">Component</ttcol>
+            <ttcol align="left">Status</ttcol>
+            <ttcol align="left">Reference</ttcol>
+
+            <c>PARTICIPANT</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant"/></c>
+          </texttable>
+        </section>
       </section>
 
-      <section anchor="parameter_registrations"
-               title="Parameter Registrations" >
+      <section anchor="new_registration-tables"
+               title="New Registration Tables">
         <t>
-          This document defines the following new iCalendar property parameters
-          to be added to the registry defined in Section 8.2.4 of <xref target='RFC5545'/>:
+          This section defines new registration tables for PARTICIPANT-TYPE
+          and RESTYPE values. These tables maybe updated using the same
+          approaches laid down in Section 8.2.1 of <xref target="RFC5545" />
         </t>
-        <texttable>
-          <ttcol align="left">Property Parameter</ttcol>
-          <ttcol align="left">Status</ttcol>
-          <ttcol align="left">Reference</ttcol>
 
-          <c>LOCTYPE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="parameter_loctype"/></c>
+        <section anchor="participant_types_registry"
+                 title="Participant Types Registry" >
+          <t>
+            The following table has been used to initialize the
+            participant types registry.
+          </t>
+          <texttable>
+            <ttcol align="left">Participant Type</ttcol>
+            <ttcol align="left">Status</ttcol>
+            <ttcol align="left">Reference</ttcol>
 
-          <c>ORDER</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="parameter_order"/></c>
+            <c>ACTIVE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>RESTYPE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="parameter_restype"/></c>
+            <c>INACTIVE</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>SCHEMA</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="parameter_schema" /></c>
-        </texttable>
-      </section>
+            <c>SPONSOR</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-      <section anchor="component_registrations"
-               title="Component Registrations" >
-        <t>
-          This document defines the following new iCalendar components to be
-          added to the registry defined in Section 8.3.1 of <xref target='RFC5545'/>:
-        </t>
-        <texttable>
-          <ttcol align="left">Component</ttcol>
-          <ttcol align="left">Status</ttcol>
-          <ttcol align="left">Reference</ttcol>
+            <c>CONTACT</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>PARTICIPANT</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant"/></c>
-        </texttable>
-      </section>
+            <c>BOOKING-CONTACT</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-      <section anchor="participant-types-registry"
-               title="Participant Types Registry" >
-        <t>
-          The following table has been used to initialize the participant
-   types registry.
-        </t>
-        <texttable>
-          <ttcol align="left">Participant Type</ttcol>
-          <ttcol align="left">Status</ttcol>
-          <ttcol align="left">Reference</ttcol>
+            <c>EMERGENCY-CONTACT</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>ACTIVE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>PUBLICITY-CONTACT</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>INACTIVE</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>PLANNER-CONTACT</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>SPONSOR</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>PERFORMER</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
 
-          <c>CONTACT</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>SPEAKER</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="participant-types"/></c>
+          </texttable>
+        </section>
 
-          <c>BOOKING-CONTACT</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+        <section anchor="resource_types_registry"
+                 title="Resource Types Registry" >
+          <t>
+            The following table has been used to initialize the resource
+            types registry.
+          </t>
+          <texttable>
+            <ttcol align="left">Resource Type</ttcol>
+            <ttcol align="left">Status</ttcol>
+            <ttcol align="left">Reference</ttcol>
 
-          <c>EMERGENCY-CONTACT</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>PROJECTOR</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="resource-types"/></c>
 
-          <c>PUBLICITY-CONTACT</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>ROOM</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="resource-types"/></c>
 
-          <c>PLANNER-CONTACT</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
+            <c>REMOTE-CONFERENCE-AUDIO</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="resource-types"/></c>
 
-          <c>PERFORMER</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
-
-          <c>SPEAKER</c>
-          <c>Current</c>
-          <c>RFCXXXX, <xref target="participant-types"/></c>
-        </texttable>
+            <c>REMOTE-CONFERENCE-VIDEO</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="resource-types"/></c>
+          </texttable>
+        </section>
       </section>
     </section>
 
@@ -1632,25 +1752,37 @@ END:VEVENT
 
     <section title="Open issues">
       <t>
-        <list style='hanging'>
-          <t hangText="restype values:" >
-            Need to determine what if any registry of resource types already
-            exists and use that or define one here.
-          </t>
-        </list>
-      </t>
-      <t>
-        <list style='hanging'>
-          <t hangText="SOURCE property:" >
-            Already defined in 7986. Should I recast this as an extension
-            of that property. Allows VALUE=TEXT and use in other than
-            a calendar.
-          </t>
-        </list>
+        None at the moment
       </t>
     </section>
 
     <section title="Change log">
+      <t>
+        calext-v04 2017-10-11  MD
+        <list style='symbols'>
+          <t>
+            Change SCHEDULE-ADDRESS to CALENDAR-ADDRESS
+          </t>
+          <t>
+            Explicitly broaden scope of SOURCE
+          </t>
+          <t>
+            Add initial registry for RESTYPE and move new tables into
+            separate section.
+          </t>
+          <t>
+            Fix PARTTYPE/PARTICPANT-TYPE inconsistency
+          </t>
+        </list>
+      </t>
+      <t>
+        calext-v03 2017-10-09  MD
+        <list style='symbols'>
+          <t>
+            Mostly typographical and other minor changes
+          </t>
+        </list>
+      </t>
       <t>
         calext-v02 2017-04-20  MD
         <list style='symbols'>
