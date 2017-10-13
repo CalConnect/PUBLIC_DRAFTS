@@ -365,8 +365,8 @@
                         A globally unique identifier, used to associate the object as the same across different systems,
                         calendars and views. Note that all JSCalendar objects share the same id space, so there MUST NOT
                         be two JSCalendar objects of different type with the same uid. <xref target="RFC4122"/> describes
-                        a range of established algorithms to generate universally unique identifiers (UUID), and is
-                        recommended to use.
+                        a range of established algorithms to generate universally unique identifiers (UUID), and the
+                        random or pseudo-random version is recommended to use.
                     </t>
                     <t>
                         A valid JSCalendar object MUST include this property.
@@ -1442,7 +1442,7 @@
                     <t>
                         A map of of alert id to Alert objects, representing alerts/reminders to display or send the user
                         for this calendar object. An alert id may be any string and need only be unique to this calendar
-                        object, although a UUID is a practical choice.
+                        object, although a globally unique id is a practical choice (also see <xref target="uid"/>)).
                     </t>
                     <t>
                         An <spanx style="strong">Alert</spanx> Object has the following properties:
