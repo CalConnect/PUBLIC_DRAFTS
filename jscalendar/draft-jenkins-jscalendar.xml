@@ -724,13 +724,29 @@
                     </t>
                 </section>
 
-                <section anchor="description" title="description">
+                <section anchor="textDescription" title="description">
                     <t>
                         Type: <spanx style="verb">String</spanx> (Defaults to the empty string if omitted)
                     </t>
                     <t>
                         A longer form description of the object. This is plain text, but a client SHOULD attempt to
                         hyperlink URLs when displaying it.
+                    </t>
+                </section>
+
+                <section anchor="htmlDescription" title="htmlDescription">
+                    <t>
+                        Type: <spanx style="verb">String</spanx> (Defaults to the empty string if
+                        omitted)
+                    </t>
+                    <t>
+                        A longer form rich-text description of the object. This is
+                        <eref target="https://www.w3.org/TR/html/">HTML text</eref>
+                        and allows to reference resources in the <xref target="links">links property</xref>
+                        by use of CID URLs (see <xref target="RFC2392"/>).
+                        To convert a CID URL to the <spanx style="strong">cid</spanx> property
+                        value of a <spanx style="strong">Link</spanx> object, implementations MUST
+                        follow the conversion described in section 2 of <xref target="RFC2392"/>.
                     </t>
                 </section>
 
@@ -886,6 +902,19 @@
                                 object instances.
                             </t>
                             <t>
+                                <spanx style="strong">cid</spanx>
+                                <spanx style="verb">String|null</spanx>
+                                The id used within the <xref target="htmlDescription">htmlDescription property</xref>
+                                to reference this link.
+                                <vspace blankLines="1"/>
+                                If not null, this MUST be a valid Content-ID MIME header value
+                                (see <xref target="RFC2392"/>). The identifier MUST be unique within
+                                this JSCalendar object but has no meaning beyond that. Specifically,
+                                it MAY be different from the <spanx style="strong">Link</spanx>
+                                object identifier in the enclosing <spanx style="strong">links</spanx>
+                                property.
+                            </t>
+                            <t>
                                 <spanx style="strong">type</spanx>: <spanx style="verb">String|null</spanx>(optional,
                                 defaults to <spanx style="verb">null</spanx>)
                                 The <xref target="RFC6838">content-type</xref> of the resource, if known.
@@ -910,8 +939,7 @@
                                 client as attachments for download.
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">describedby</spanx> SHOULD be considered by the
-                                client to be an alternate representation of the description, for example an HTML page
-                                describing the object.
+                                client to be an alternate representation of the description and HTML description.
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">icon</spanx> SHOULD be considered by the client
                                 to be an image that it MAY use when presenting the calendar data to a user. The
@@ -1131,6 +1159,9 @@
                                     </t>
                                     <t>
                                         description
+                                    </t>
+                                    <t>
+                                        htmlDescription
                                     </t>
                                     <t>
                                         locations
@@ -1885,6 +1916,9 @@
                             description
                         </t>
                         <t>
+                            htmlDescription
+                        </t>
+                        <t>
                             color
                         </t>
                         <t>
@@ -2087,6 +2121,13 @@
                     <c>description</c>
                     <c>
                         Corresponds to the DESCRIPTION property in iCalendar.
+                    </c>
+                    <c>htmlDescription</c>
+                    <c>
+                        There is no direct equivalent in iCalendar. If the <spanx style="strong">
+                        description</spanx> is empty, implementations SHOUD store a plain text
+                        version of <spanx style="strong">htmlDescription</spanx> in iCalendar
+                        DESCRIPTION.
                     </c>
 
                     <c>freeBusyStatus</c>
@@ -2360,6 +2401,7 @@
         "updated": "2016-09-14T13:24:34Z",
         "title": "Squash",
         "description": "",
+        "htmlDescription": "",
         "start": "2016-09-28T16:00:00",
         "timeZone": "Etc/UTC",
         "duration": "PT1H",
@@ -2499,6 +2541,7 @@
     <back>
         <references title="Normative References">
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2392.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4122.xml"?>
