@@ -5,7 +5,7 @@
 JSON data formats for iCalendar                               N. Jenkins
 Internet-Draft                                               R. Stepanek
 Intended status: Standards Track                                FastMail
-Expires: April 16, 2018                                 October 13, 2017
+Expires: May 10, 2018                                   November 6, 2017
 
 
            JSCalendar: A JSON representation of calendar data
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on April 16, 2018.
+   This Internet-Draft will expire on May 10, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 1]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 1]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 2]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 2]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
      4.1.  JSEvent . . . . . . . . . . . . . . . . . . . . . . . . .  26
@@ -165,9 +165,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 3]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 3]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  The attributes of the calendar entry represented must be described
@@ -221,9 +221,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 4]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 4]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 1.2.  Notational Conventions
@@ -277,9 +277,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 5]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 5]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 2.2.  Data Types
@@ -333,9 +333,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 6]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 6]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 2.2.4.  PatchObject
@@ -389,9 +389,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 7]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 7]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  Several JSCalendar property values are defined as URIs and MIME
@@ -445,9 +445,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 8]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 8]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.1.2.  uid
@@ -501,9 +501,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                 [Page 9]
+Jenkins & Stepanek        Expires May 10, 2018                  [Page 9]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    MUST be set on the new object.  Clients can then follow these UIDs to
@@ -557,9 +557,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 10]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 10]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.2.  Time, duration and recurrence properties
@@ -613,9 +613,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 11]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 11]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  *byDay*: "NDay[]"(optional) An *NDay* object has the following
@@ -669,9 +669,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 12]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 12]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.2.2.  recurrenceOverrides
@@ -725,9 +725,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 13]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 13]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.3.2.  description
@@ -781,9 +781,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 14]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 14]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
       *  "unknown": The relation of this location to the event is
@@ -837,9 +837,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 15]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 15]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.3.5.  links
@@ -893,9 +893,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 16]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 16]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
       user.  The properties object of this link MAY include a display
@@ -949,9 +949,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 17]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 17]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  start
@@ -1005,9 +1005,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 18]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 18]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.4.  Sharing and scheduling properties
@@ -1061,9 +1061,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 19]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 19]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    understand should be preserved but treated as equivalent to
@@ -1117,9 +1117,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 20]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 20]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  "imip": The organizer accepts an iMIP [RFC6047] response.  The
@@ -1173,9 +1173,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 21]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 21]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
       *  "owner": The participant is an organizer of the event, and
@@ -1229,9 +1229,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 22]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 22]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  *rsvpWanted*: "Boolean"(optional, defaults to "false") If true,
@@ -1285,9 +1285,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 23]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 23]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 3.5.  Alerts properties
@@ -1341,9 +1341,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 24]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 24]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
       this account at the specified time.  How this message is formatted
@@ -1397,9 +1397,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 25]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 25]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
          +  name: String The name of the recipient.  If not known,
@@ -1453,9 +1453,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 26]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 26]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 4.1.2.  timeZone
@@ -1509,9 +1509,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 27]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 27]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  "cancelled": Indicates the event is cancelled.
@@ -1565,9 +1565,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 28]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 28]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    If the *start* and *due* properties are set, the estimated duration
@@ -1621,9 +1621,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 29]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 29]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  *status*: "String" Describes the completion status of the
@@ -1677,9 +1677,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 30]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 30]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    o  created
@@ -1733,9 +1733,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 31]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 31]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    *within* a VEVENT maps to the entries of the JSEvent
@@ -1789,9 +1789,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 32]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 32]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    +-------------------+-----------------------------------------------+
@@ -1845,9 +1845,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 33]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 33]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    +----------+--------------------------------------------------------+
@@ -1901,9 +1901,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 34]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 34]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    | freeBusyStatus      | Corresponds to the TRANSP property in       |
@@ -1957,9 +1957,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 35]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 35]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    |                     | section Section 3.2.1 how to map a RRULE    |
@@ -2013,9 +2013,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 36]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 36]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    +------------------+------------------------------------------------+
@@ -2069,9 +2069,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 37]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 37]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    value is omitted.  See the mapping for *locationId* in Table 5 on how
@@ -2125,9 +2125,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 38]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 38]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
        {
@@ -2181,9 +2181,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 39]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 39]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
       {
@@ -2237,9 +2237,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 40]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 40]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
 7.  Security Considerations
@@ -2293,9 +2293,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 41]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 41]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
@@ -2349,9 +2349,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 42]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 42]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    [RFC6901]  Bryan, P., Ed., Zyp, K., and M. Nottingham, Ed.,
@@ -2405,9 +2405,9 @@ Internet-Draft                   JSEvent                    October 2017
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 43]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 43]
 
-Internet-Draft                   JSEvent                    October 2017
+Internet-Draft                   JSEvent                   November 2017
 
 
    [3] http://www.iana.org/time-zones
@@ -2461,4 +2461,4 @@ Authors' Addresses
 
 
 
-Jenkins & Stepanek       Expires April 16, 2018                [Page 44]
+Jenkins & Stepanek        Expires May 10, 2018                 [Page 44]
