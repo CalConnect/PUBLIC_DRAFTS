@@ -379,8 +379,8 @@
                         <spanx style="verb">String[Relation]|null</spanx>
                     </t>
                     <t>
-                        Relates the object to other JSCalendar objects. This is represented as a map of the uid of
-                        the related object to information about the relation.
+                        Relates the object to other JSCalendar objects. This is represented as a map of the uids of
+                        the related objects to information about the relation.
                     </t>
                     <t>
                         A <spanx style="strong">Relation</spanx> object has the following properties:
@@ -666,7 +666,7 @@
                         <spanx style="verb">LocalDate[PatchObject|null]|null</spanx>
                     </t>
                     <t>
-                        The object is a map of the Recurrence-Id (i.e. the date-time of the start of the occurrence) to
+                        The object is a map of the Recurrence-Ids (i.e. the date-time of the start of the occurrence) to
                         either <spanx style="verb">null</spanx>, to indicate the occurrence should be deleted, or an
                         object of patches to apply to the generated occurrence object.
                     </t>
@@ -756,7 +756,7 @@
                         <spanx style="verb">String[Location]|null</spanx>
                     </t>
                     <t>
-                        A map of of location id to Location objects, representing locations associated with the object.
+                        A map of of location ids to Location objects, representing locations associated with the object.
                         A location id may be any string and need only be unique to this object, although a UUID is a
                         practical choice.
                     </t>
@@ -882,7 +882,7 @@
                         <spanx style="verb">String[Link]|null</spanx>
                     </t>
                     <t>
-                        A map of of link id to Link objects, representing external resources associated with the object.
+                        A map of of link ids to Link objects, representing external resources associated with the object.
                         A link id may be any string and need only be unique to this object, although the href or a UUID
                         are practical choices.
                     </t>
@@ -1004,7 +1004,7 @@
                     <t>
                         A map of
                         <xref target="RFC5646"/>
-                        language tag to a patch object which localises the event into that locale.
+                        language tags to patch objects, which localise the event into the locale of the respective language tag.
                     </t>
                     <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
                         structure of the PatchObject. The patches are applied to the top-level object. In addition to
@@ -1230,7 +1230,7 @@
                         <spanx style="verb">String[Participant]|null</spanx>
                     </t>
                     <t>
-                        A map of participant id to a participant describing their participation in the calendar object.
+                        A map of participant ids to participants, describing their participation in the calendar object.
                         A participant id may be any string and need only be unique to this event; the email address of
                         the participant is a good choice.
                     </t>
@@ -1440,7 +1440,7 @@
                         <spanx style="verb">String[Alert]|null</spanx>
                     </t>
                     <t>
-                        A map of of alert id to Alert objects, representing alerts/reminders to display or send the user
+                        A map of of alert ids to Alert objects, representing alerts/reminders to display or send the user
                         for this calendar object. An alert id may be any string and need only be unique to this calendar
                         object, although a globally unique id is a practical choice (also see <xref target="uid"/>)).
                     </t>
