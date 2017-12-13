@@ -1284,16 +1284,16 @@
                                 Any value the client or server doesn't understand should be preserved but ignored.
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">owner</spanx>: The participant is an organizer of the event,
-                                        and allowed to make alterations to any part of the event.
+                                        <spanx style="verb">owner</spanx>: The participant is an owner of the object,
+                                        and allowed to make alterations to any part of it.
                                     </t>
                                     <t>
                                         <spanx style="verb">attendee</spanx>: The participant is an attendee of the
-                                        event.
+                                        calendar object. Attendees are only allowed to alter their own participation. 
                                     </t>
                                     <t>
-                                        <spanx style="verb">chair</spanx>: The participant is in charge of the event
-                                        when it occurs.
+                                        <spanx style="verb">chair</spanx>: The participant is in charge of the calendar
+                                        object when it occurs.
                                     </t>
                                 </list>
 
@@ -1320,20 +1320,20 @@
                                         <spanx style="verb">needs-action</spanx>: No status yet set by the participant.
                                     </t>
                                     <t>
-                                        <spanx style="verb">accepted</spanx>: The participant will attend.
+                                        <spanx style="verb">accepted</spanx>: The invited participant will participate.
                                     </t>
                                     <t>
-                                        <spanx style="verb">declined</spanx>: The participant may attend.
+                                        <spanx style="verb">declined</spanx>: The invited participant will not participate.
                                     </t>
                                     <t>
-                                        <spanx style="verb">tentative</spanx>: The participant will not attend.
+                                        <spanx style="verb">tentative</spanx>: The invited participant may participate.
                                     </t>
                                 </list>
                             </t>
                             <t>
                                 <spanx style="strong">participation</spanx>: <spanx style="verb">String</spanx>(optional,
                                 defaults to <spanx style="verb">required</spanx>)
-                                The required attendance of this participant.
+                                The required participation of this participant.
                                 <vspace blankLines="1"/>
                                 The value MUST be either one of the following values, registered in a future RFC, or a
                                 vendor-specific value. Any value the client or server doesn't understand should be
@@ -2277,7 +2277,7 @@
                         role
                     </c>
                     <c>
-                        the ORGANIZER and ATTENDEE property name
+                        the ORGANIZER and ATTENDEE properties. Owners map to the iCalendar ORGANIZER property, where mapping multiple owners to iCalendar is implementation-specific but MUST be consistent across mappings of the same object.
                     </c>
                     <c>
                         participation
