@@ -973,7 +973,7 @@
                             <t>
                                 <spanx style="strong">properties</spanx>: <spanx style="verb">
                                 String[String|null]|null</spanx>(optional, defaults to <spanx style="verb">null</spanx>)
-                                Extra metadata stored by a client about a link.
+                                Extra metadata submitted by clients about a link. Server implementations MUST preserve these properties.
                                 <vspace blankLines="1"/>
                                 The keys are as defined in this document, as defined in a future RFC, or URIs that
                                 should be owned by the client author to avoid conflicts.
