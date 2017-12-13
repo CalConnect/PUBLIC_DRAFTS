@@ -676,7 +676,7 @@
                         be empty in this case.
                     </t>
                     <t>
-                        By default, an occurrence inherits all properties from the main event except the start (or due)
+                        By default, an occurrence inherits all properties from the main object except the start (or due)
                         date-time, which is shifted to the new start time. However, individual properties of the
                         occurrence can be modified by a patch, or multiple patches.
                     </t>
@@ -800,7 +800,7 @@
                                         location is an online chat room where people will meet).
                                     </t>
                                     <t>
-                                        <spanx style="verb">unknown</spanx>: The relation of this location to the event
+                                        <spanx style="verb">unknown</spanx>: The relation of this location to the calendar object
                                         is unknown.
                                     </t>
                                 </list>
@@ -991,7 +991,7 @@
                     <t>
                         The
                         <xref target="RFC5646"/>
-                        language tag that best describes the locale used for the event, if known.
+                        language tag that best describes the locale used for the calendar object, if known.
                     </t>
                 </section>
 
@@ -1003,7 +1003,7 @@
                     <t>
                         A map of
                         <xref target="RFC5646"/>
-                        language tags to patch objects, which localise the event into the locale of the respective language tag.
+                        language tags to patch objects, which localise the calendar object into the locale of the respective language tag.
                     </t>
                     <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
                         structure of the PatchObject. The patches are applied to the top-level object. In addition to
@@ -1070,7 +1070,7 @@
                         Type:
                         <spanx style="verb">String</spanx>
                     </t>
-                    <t>Specifies a color clients MAY use when displaying this event. The value is a case-insensitive
+                    <t>Specifies a color clients MAY use when displaying this calendar object. The value is a case-insensitive
                         color name taken from the CSS3 set of names, defined in Section 4.3 of <eref
                                 target="https://www.w3.org/TR/2011/REC-css3-color-20110607/#svg-color">
                             W3C.REC-css3-color-20110607</eref> or a CSS3 RGB color hex value.
@@ -1087,7 +1087,7 @@
                     <t>
                         Type: <spanx style="verb">Number</spanx>(defaults to <spanx style="verb">0</spanx> if omitted)
                     </t>
-                    <t>Specifies a priority for the event. This may be used as part of scheduling systems to help
+                    <t>Specifies a priority for the calendar object. This may be used as part of scheduling systems to help
                         resolve conflicts for a time period.
                     </t>
                     <t>
@@ -1230,7 +1230,7 @@
                     </t>
                     <t>
                         A map of participant ids to participants, describing their participation in the calendar object.
-                        A participant id may be any string and need only be unique to this event; the email address of
+                        A participant id may be any string and need only be unique to this calendar object; the email address of
                         the participant is a good choice.
                     </t>
                     <t>
@@ -1264,7 +1264,7 @@
                                         <spanx style="verb">resource</spanx>: a non-human resource, e.g. a projector
                                     </t>
                                     <t>
-                                        <spanx style="verb">location</spanx>: a physical location involved in the event
+                                        <spanx style="verb">location</spanx>: a physical location involved in the calendar object
                                         that needs to be scheduled, e.g. a conference room.
                                     </t>
                                     <t>
@@ -1365,7 +1365,7 @@
                                 The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
                                 <vspace blankLines="1"/>
                                 This can be used to determine whether the partcipant has sent a new RSVP following
-                                significant changes to the event, and to determine if future responses are responding to
+                                significant changes to the calendar object, and to determine if future responses are responding to
                                 a current or older view of the data.
 
                             </t>
@@ -1426,7 +1426,7 @@
                         omitted)
                     </t>
                     <t>
-                        If <spanx style="verb">true</spanx>, use the user's default alerts for this event and ignore the
+                        If <spanx style="verb">true</spanx>, use the user's default alerts for this calendar object and ignore the
                         <xref target="alerts"/>
                         property. Fetching user defaults is dependent on the API from which this JSCalendar object is
                         being fetched, and is not defined in this specification.
@@ -1500,8 +1500,8 @@
                                         automatically dismiss or suppress duplicate alerts (alerts with the same alert
                                         id that triggered on or before this date-time).
                                         <vspace blankLines="1"/>
-                                        For a recurring event, the <spanx style="strong">acknowledged</spanx> property of
-                                        the parent event MUST be updated, unless the alert is already overridden
+                                        For a recurring calendar object, the <spanx style="strong">acknowledged</spanx> property of
+                                        the parent object MUST be updated, unless the alert is already overridden
                                         in <spanx style="strong">recurrenceOverrides</spanx>.
 
                                     </t>
@@ -1514,8 +1514,8 @@
                                         to a time in the future. When that time is reached, the alert SHOULD be reshown
                                         unless acknowledged is now after the original trigger time.
                                         <vspace blankLines="1"/>
-                                        Setting this property on an instance of a recurring event MUST update the alarm
-                                        on the master event, unless the respective instance already is defined in
+                                        Setting this property on an instance of a recurring calendar object MUST update the alarm
+                                        on the master object, unless the respective instance already is defined in
                                         <spanx style="verb">recurrenceOverrides</spanx>. It MUST NOT generate an override
                                         for the sole use of snoozing an alarm.
                                     </t>
@@ -1557,14 +1557,14 @@
                                     <t>
                                         <spanx style="strong">subject</spanx>: <spanx style="verb">String</spanx> (optional)
                                         The subject to use for the email. If omitted, this is implementation specific,
-                                        but the server SHOULD try to choose an appropriate subject (such as "Event
-                                        Summary: starting in 5 min").
+                                        but the server SHOULD try to choose an appropriate subject, e.g. by including the
+                                        summary.
                                     </t>
                                     <t>
                                         <spanx style="strong">textBody</spanx>: <spanx style="verb">String</spanx> (optional)
                                         The plain-text body to use for the email. If omitted, the body of the email is
                                         implementation specific, but the server SHOULD include all pertinent details
-                                        about the event, such as summary, location and start time.
+                                        about the calendar object, such as summary, location and start time.
                                     </t>
                                 </list>
                                 <vspace blankLines="1"/>
