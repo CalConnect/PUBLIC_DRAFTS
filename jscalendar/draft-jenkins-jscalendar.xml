@@ -931,7 +931,7 @@
                                 <spanx style="strong">rel</spanx>: <spanx style="verb">String</spanx>(optional, defaults
                                 to <spanx style="verb">related</spanx>)
                                 Identifies the relation of the linked resource to the object. The value MUST be a
-                                registered relation type (see <xref target="RFC5988"/> and <eref
+                                registered relation type (see <xref target="RFC8288"/> and <eref
                                 target="https://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA Link Relations</eref>).
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">enclosure</spanx> SHOULD be considered by the
@@ -2554,7 +2554,7 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5988.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"?>
