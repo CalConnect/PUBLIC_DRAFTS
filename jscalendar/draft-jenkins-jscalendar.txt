@@ -5,11 +5,11 @@
 JSON data formats for iCalendar                               N. Jenkins
 Internet-Draft                                               R. Stepanek
 Intended status: Standards Track                                FastMail
-Expires: May 16, 2018                                  November 12, 2017
+Expires: June 15, 2018                                 December 12, 2017
 
 
            JSCalendar: A JSON representation of calendar data
-                      draft-jenkins-jscalendar-02
+                      draft-jenkins-jscalendar-03
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 16, 2018.
+   This Internet-Draft will expire on June 15, 2018.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 1]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 1]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 2]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 2]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
      4.1.  JSEvent . . . . . . . . . . . . . . . . . . . . . . . . .  26
@@ -165,9 +165,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 3]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 3]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  The attributes of the calendar entry represented must be described
@@ -221,9 +221,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 4]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 4]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 1.2.  Notational Conventions
@@ -277,9 +277,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 5]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 5]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 2.2.  Data Types
@@ -333,9 +333,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 6]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 6]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 2.2.4.  PatchObject
@@ -389,9 +389,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 7]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 7]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  Several JSCalendar property values are defined as URIs and MIME
@@ -445,9 +445,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 8]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 8]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.1.2.  uid
@@ -469,7 +469,7 @@ Internet-Draft                   JSEvent                   November 2017
    Type: "String[Relation]|null"
 
    Relates the object to other JSCalendar objects.  This is represented
-   as a map of the uid of the related object to information about the
+   as a map of the uids of the related objects to information about the
    relation.
 
    A *Relation* object has the following properties:
@@ -501,9 +501,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                  [Page 9]
+Jenkins & Stepanek        Expires June 15, 2018                 [Page 9]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    MUST be set on the new object.  Clients can then follow these UIDs to
@@ -557,9 +557,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 10]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 10]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.2.  Time, duration and recurrence properties
@@ -613,9 +613,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 11]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 11]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  *byDay*: "NDay[]"(optional) An *NDay* object has the following
@@ -669,16 +669,16 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 12]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 12]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.2.2.  recurrenceOverrides
 
    Type: "LocalDate[PatchObject|null]|null"
 
-   The object is a map of the Recurrence-Id (i.e. the date-time of the
+   The object is a map of the Recurrence-Ids (i.e. the date-time of the
    start of the occurrence) to either "null", to indicate the occurrence
    should be deleted, or an object of patches to apply to the generated
    occurrence object.
@@ -688,10 +688,10 @@ Internet-Draft                   JSEvent                   November 2017
    (like an RDATE from iCalendar).  The patch object may often be empty
    in this case.
 
-   By default, an occurrence inherits all properties from the main event
-   except the start (or due) date-time, which is shifted to the new
-   start time.  However, individual properties of the occurrence can be
-   modified by a patch, or multiple patches.
+   By default, an occurrence inherits all properties from the main
+   object except the start (or due) date-time, which is shifted to the
+   new start time.  However, individual properties of the occurrence can
+   be modified by a patch, or multiple patches.
 
    A pointer in the PatchObject MUST NOT start with one of the following
    prefixes; any patch with such a key MUST be ignored:
@@ -725,9 +725,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 13]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 13]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.3.2.  description
@@ -751,7 +751,7 @@ Internet-Draft                   JSEvent                   November 2017
 
    Type: "String[Location]|null"
 
-   A map of of location id to Location objects, representing locations
+   A map of of location ids to Location objects, representing locations
    associated with the object.  A location id may be any string and need
    only be unique to this object, although a UUID is a practical choice.
 
@@ -781,13 +781,13 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 14]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 14]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
-      *  "unknown": The relation of this location to the event is
-         unknown.
+      *  "unknown": The relation of this location to the calendar object
+         is unknown.
 
    o  *features*: "String[]|null" The features supported by this
       location.
@@ -837,16 +837,16 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 15]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 15]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.3.5.  links
 
    Type: "String[Link]|null"
 
-   A map of of link id to Link objects, representing external resources
+   A map of of link ids to Link objects, representing external resources
    associated with the object.  A link id may be any string and need
    only be unique to this object, although the href or a UUID are
    practical choices.
@@ -877,9 +877,8 @@ Internet-Draft                   JSEvent                   November 2017
 
    o  *rel*: "String"(optional, defaults to "related") Identifies the
       relation of the linked resource to the object.  The value MUST be
-      a registered relation type (see[RFC5988]).
-
-      The features supported by locations with rel-type "virtual" are:
+      a registered relation type (see [RFC8288] and IANA Link Relations
+      [2]).
 
       Links with a rel of "enclosure" SHOULD be considered by the client
       as attachments for download.
@@ -890,15 +889,15 @@ Internet-Draft                   JSEvent                   November 2017
 
       Links with a rel of "icon" SHOULD be considered by the client to
       be an image that it MAY use when presenting the calendar data to a
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 16]
-
-Internet-Draft                   JSEvent                   November 2017
-
-
       user.  The properties object of this link MAY include a display
+
+
+
+Jenkins & Stepanek        Expires June 15, 2018                [Page 16]
+
+Internet-Draft                   JSEvent                   December 2017
+
+
       property indicating the intended purpose of this image.  If
       included, the value MUST be either one of the following values,
       registered in a future RFC, or a vendor-specific value.
@@ -916,7 +915,8 @@ Internet-Draft                   JSEvent                   November 2017
       readable description of the resource.
 
    o  *properties*: "String[String|null]|null"(optional, defaults to
-      "null") Extra metadata stored by a client about a link.
+      "null") Extra metadata submitted by clients about a link.  Server
+      implementations MUST preserve these properties.
 
       The keys are as defined in this document, as defined in a future
       RFC, or URIs that should be owned by the client author to avoid
@@ -927,14 +927,14 @@ Internet-Draft                   JSEvent                   November 2017
    Type: "String|null"
 
    The [RFC5646] language tag that best describes the locale used for
-   the event, if known.
+   the calendar object, if known.
 
 3.3.7.  localizations
 
    Type: "String[PatchObject]|null"
 
-   A map of [RFC5646] language tag to a patch object which localises the
-   event into that locale.
+   A map of [RFC5646] language tags to patch objects, which localise the
+   calendar object into the locale of the respective language tag.
 
    See the description of PatchObject (Section 2.2.4) for the structure
    of the PatchObject.  The patches are applied to the top-level object.
@@ -949,9 +949,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 17]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 17]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  start
@@ -991,12 +991,12 @@ Internet-Draft                   JSEvent                   November 2017
 
    Type: "String"
 
-   Specifies a color clients MAY use when displaying this event.  The
-   value is a case-insensitive color name taken from the CSS3 set of
-   names, defined in Section 4.3 of W3C.REC-css3-color-20110607 [2] or a
-   CSS3 RGB color hex value.  It is not intended that clients
-   necessarily use the exact RGB value, but rather that they find a
-   suitable color that works in the given UA context.
+   Specifies a color clients MAY use when displaying this calendar
+   object.  The value is a case-insensitive color name taken from the
+   CSS3 set of names, defined in Section 4.3 of W3C.REC-
+   css3-color-20110607 [3] or a CSS3 RGB color hex value.  It is not
+   intended that clients necessarily use the exact RGB value, but rather
+   that they find a suitable color that works in the given UA context.
 
 
 
@@ -1005,9 +1005,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 18]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 18]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.4.  Sharing and scheduling properties
@@ -1016,8 +1016,9 @@ Internet-Draft                   JSEvent                   November 2017
 
    Type: "Number"(defaults to "0" if omitted)
 
-   Specifies a priority for the event.  This may be used as part of
-   scheduling systems to help resolve conflicts for a time period.
+   Specifies a priority for the calendar object.  This may be used as
+   part of scheduling systems to help resolve conflicts for a time
+   period.
 
    The priority is specified as an integer in the range 0 to 9.  A value
    of 0 specifies an undefined priority.  A value of 1 is the highest
@@ -1057,15 +1058,15 @@ Internet-Draft                   JSEvent                   November 2017
    The value MUST be either one of the following values, registered in a
    future RFC, or a vendor-specific value.  Vendor specific values MUST
    be prefixed with a domain name controlled by the vendor, e.g.
-   "fastmail.com/topsecret".  Any value the client or server doesn't
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 19]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 19]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
+   "fastmail.com/topsecret".  Any value the client or server doesn't
    understand should be preserved but treated as equivalent to
    "private".
 
@@ -1116,10 +1117,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 20]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 20]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  "imip": The organizer accepts an iMIP [RFC6047] response.  The
@@ -1132,10 +1132,10 @@ Internet-Draft                   JSEvent                   November 2017
 
    Type: "String[Participant]|null"
 
-   A map of participant id to a participant describing their
+   A map of participant ids to participants, describing their
    participation in the calendar object.  A participant id may be any
-   string and need only be unique to this event; the email address of
-   the participant is a good choice.
+   string and need only be unique to this calendar object; the email
+   address of the participant is a good choice.
 
    A *Participant* object has the following properties.  Properties are
    mandatory unless marked otherwise:
@@ -1158,8 +1158,8 @@ Internet-Draft                   JSEvent                   November 2017
 
       *  "resource": a non-human resource, e.g. a projector
 
-      *  "location": a physical location involved in the event that
-         needs to be scheduled, e.g. a conference room.
+      *  "location": a physical location involved in the calendar object
+         that needs to be scheduled, e.g. a conference room.
 
       *  "unknown": no information is available about the kind of this
          participant.
@@ -1173,18 +1173,20 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 21]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 21]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
-      *  "owner": The participant is an organizer of the event, and
-         allowed to make alterations to any part of the event.
+      *  "owner": The participant is an owner of the object, and allowed
+         to make alterations to any part of it.
 
-      *  "attendee": The participant is an attendee of the event.
+      *  "attendee": The participant is an attendee of the calendar
+         object.  Attendees are only allowed to alter their own
+         participation.
 
-      *  "chair": The participant is in charge of the event when it
-         occurs.
+      *  "chair": The participant is in charge of the calendar object
+         when it occurs.
 
    o  *locationId|null*: "String"(optional, defaults to "null") The
       location at which this participant is expected to be attending.
@@ -1201,14 +1203,14 @@ Internet-Draft                   JSEvent                   November 2017
 
       *  "needs-action": No status yet set by the participant.
 
-      *  "accepted": The participant will attend.
+      *  "accepted": The invited participant will participate.
 
-      *  "declined": The participant may attend.
+      *  "declined": The invited participant will not participate.
 
-      *  "tentative": The participant will not attend.
+      *  "tentative": The invited participant may participate.
 
    o  *participation*: "String"(optional, defaults to "required") The
-      required attendance of this participant.
+      required participation of this participant.
 
       The value MUST be either one of the following values, registered
       in a future RFC, or a vendor-specific value.  Any value the client
@@ -1227,11 +1229,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 22]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 22]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  *rsvpWanted*: "Boolean"(optional, defaults to "false") If true,
@@ -1243,9 +1243,9 @@ Internet-Draft                   JSEvent                   November 2017
       defined, this MUST be a non-negative integer.
 
       This can be used to determine whether the partcipant has sent a
-      new RSVP following significant changes to the event, and to
-      determine if future responses are responding to a current or older
-      view of the data.
+      new RSVP following significant changes to the calendar object, and
+      to determine if future responses are responding to a current or
+      older view of the data.
 
    o  *scheduleUpdated*: "UTCDate|null"(optional, defaults to "null")
       The *updated* property of the last iMIP response from the
@@ -1285,9 +1285,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 23]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 23]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 3.5.  Alerts properties
@@ -1296,16 +1296,16 @@ Internet-Draft                   JSEvent                   November 2017
 
    Type: "Boolean" (defaults to "false" if omitted)
 
-   If "true", use the user's default alerts for this event and ignore
-   the Section 3.5.2 property.  Fetching user defaults is dependent on
-   the API from which this JSCalendar object is being fetched, and is
-   not defined in this specification.
+   If "true", use the user's default alerts for this calendar object and
+   ignore the Section 3.5.2 property.  Fetching user defaults is
+   dependent on the API from which this JSCalendar object is being
+   fetched, and is not defined in this specification.
 
 3.5.2.  alerts
 
    Type: "String[Alert]|null"
 
-   A map of of alert id to Alert objects, representing alerts/reminders
+   A map of of alert ids to Alert objects, representing alerts/reminders
    to display or send the user for this calendar object.  An alert id
    may be any string and need only be unique to this calendar object,
    although a globally unique id is a practical choice (also see
@@ -1341,9 +1341,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 24]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 24]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
       this account at the specified time.  How this message is formatted
@@ -1360,8 +1360,8 @@ Internet-Draft                   JSEvent                   November 2017
          duplicate alerts (alerts with the same alert id that triggered
          on or before this date-time).
 
-         For a recurring event, the *acknowledged* property of the
-         parent event MUST be updated, unless the alert is already
+         For a recurring calendar object, the *acknowledged* property of
+         the parent object MUST be updated, unless the alert is already
          overridden in *recurrenceOverrides*.
 
       *  *snoozed*: "UTCDate|null" (optional)
@@ -1373,10 +1373,11 @@ Internet-Draft                   JSEvent                   November 2017
          SHOULD be reshown unless acknowledged is now after the original
          trigger time.
 
-         Setting this property on an instance of a recurring event MUST
-         update the alarm on the master event, unless the respective
-         instance already is defined in "recurrenceOverrides".  It MUST
-         NOT generate an override for the sole use of snoozing an alarm.
+         Setting this property on an instance of a recurring calendar
+         object MUST update the alarm on the master object, unless the
+         respective instance already is defined in
+         "recurrenceOverrides".  It MUST NOT generate an override for
+         the sole use of snoozing an alarm.
 
       *  *audioLinkId*: "String|null " (optional)
 
@@ -1396,10 +1397,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 25]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 25]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
          +  name: String The name of the recipient.  If not known,
@@ -1409,13 +1409,14 @@ Internet-Draft                   JSEvent                   November 2017
 
       *  *subject*: "String" (optional) The subject to use for the
          email.  If omitted, this is implementation specific, but the
-         server SHOULD try to choose an appropriate subject (such as
-         "Event Summary: starting in 5 min").
+         server SHOULD try to choose an appropriate subject, e.g. by
+         including the summary.
 
       *  *textBody*: "String" (optional) The plain-text body to use for
          the email.  If omitted, the body of the email is implementation
          specific, but the server SHOULD include all pertinent details
-         about the event, such as summary, location and start time.
+         about the calendar object, such as summary, location and start
+         time.
 
       An *UnknownAction* object is an object that contains a _type _
       property whose value is not "email" or "string", plus zero or more
@@ -1452,17 +1453,16 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 26]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 26]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 4.1.2.  timeZone
 
    Type: "String|null"
 
-   The IANA Time Zone Database [3] name for the time zone the event is
+   The IANA Time Zone Database [4] name for the time zone the event is
    scheduled in, or "null" for floating time.  If omitted, this MUST be
    presumed to be "null" (i.e. floating time).
 
@@ -1509,9 +1509,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 27]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 27]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  "cancelled": Indicates the event is cancelled.
@@ -1565,9 +1565,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 28]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 28]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    If the *start* and *due* properties are set, the estimated duration
@@ -1621,9 +1621,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 29]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 29]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  *status*: "String" Describes the completion status of the
@@ -1638,7 +1638,7 @@ Internet-Draft                   JSEvent                   November 2017
          part of the task.
 
    o  *timestamp*: "UTCDate" Describes the latest time when the
-      participant updated her progress.
+      participant progress got updated.
 
 4.2.8.  status
 
@@ -1677,9 +1677,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 30]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 30]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    o  created
@@ -1733,9 +1733,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 31]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 31]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    *within* a VEVENT maps to the entries of the JSEvent
@@ -1789,9 +1789,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 32]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 32]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    +-------------------+-----------------------------------------------+
@@ -1845,9 +1845,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 33]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 33]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    +----------+--------------------------------------------------------+
@@ -1886,6 +1886,9 @@ Internet-Draft                   JSEvent                   November 2017
    |                     | standard, see                               |
    |                     | [draft-ietf-calext-ical-relations].         |
    |                     |                                             |
+   | color               | Corresponds to the COLOR property in        |
+   |                     | iCalendar, as specified in [RFC7986].       |
+   |                     |                                             |
    | created             | Corresponds to the CREATED property in      |
    |                     | iCalendar.                                  |
    |                     |                                             |
@@ -1895,21 +1898,21 @@ Internet-Draft                   JSEvent                   November 2017
    | htmlDescription     | There is no direct equivalent in iCalendar. |
    |                     | If the *description* is empty,              |
    |                     | implementations SHOUD store a plain text    |
+
+
+
+Jenkins & Stepanek        Expires June 15, 2018                [Page 34]
+
+Internet-Draft                   JSEvent                   December 2017
+
+
    |                     | version of *htmlDescription* in iCalendar   |
    |                     | DESCRIPTION.                                |
    |                     |                                             |
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 34]
-
-Internet-Draft                   JSEvent                   November 2017
-
-
    | freeBusyStatus      | Corresponds to the TRANSP property in       |
    |                     | iCalendar.                                  |
    |                     |                                             |
-   | keywords            | Corresponds to the COLOR property in        |
+   | keywords            | Corresponds to the CATEGORIES property in   |
    |                     | iCalendar, as specified in [RFC7986].       |
    |                     |                                             |
    | links               | Corresponds to the ATTACH ([RFC5545]) and   |
@@ -1951,17 +1954,17 @@ Internet-Draft                   JSEvent                   November 2017
    |                     | properties in iCalendar, plus VEVENT (for   |
    |                     | JSEvent) or VTODO (for JSTask) instances    |
    |                     | with a Recurrence-Id.                       |
+
+
+
+Jenkins & Stepanek        Expires June 15, 2018                [Page 35]
+
+Internet-Draft                   JSEvent                   December 2017
+
+
    |                     |                                             |
    | recurrenceRule      | Corresponds to the RRULE property in        |
    |                     | iCalendar. See the property definition at   |
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 35]
-
-Internet-Draft                   JSEvent                   November 2017
-
-
    |                     | section Section 3.2.1 how to map a RRULE    |
    |                     | value.                                      |
    |                     |                                             |
@@ -2010,12 +2013,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 36]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 36]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    +------------------+------------------------------------------------+
@@ -2027,7 +2027,11 @@ Internet-Draft                   JSEvent                   November 2017
    |                  |                                                |
    | rsvpResponse     | the PARTSTAT parameter                         |
    |                  |                                                |
-   | role             | the ORGANIZER and ATTENDEE property name       |
+   | role             | the ORGANIZER and ATTENDEE properties. Owners  |
+   |                  | map to the iCalendar ORGANIZER property, where |
+   |                  | mapping multiple owners to iCalendar is        |
+   |                  | implementation-specific but MUST be consistent |
+   |                  | across mappings of the same object.            |
    |                  |                                                |
    | participation    | the ROLE parameter                             |
    |                  |                                                |
@@ -2062,18 +2066,18 @@ Internet-Draft                   JSEvent                   November 2017
 
    An iCalendar LOCATION property becomes a JSCalendar Location with
    just a description property.  CONFERENCE property values in iCalendar
+
+
+
+Jenkins & Stepanek        Expires June 15, 2018                [Page 37]
+
+Internet-Draft                   JSEvent                   December 2017
+
+
    map to locations with *rel* type "virtual".  The location *feature*
    property value corresponds to the extended iCalendar FEATURE property
    parameter values defined in [RFC7986].  Both iCalendar PHONE and
    AUDIO features map to the "audio" feature and the FEED parameter
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 37]
-
-Internet-Draft                   JSEvent                   November 2017
-
-
    value is omitted.  See the mapping for *locationId* in Table 5 on how
    to map CONFERENCE properties that contain the MODERATOR feature.
 
@@ -2121,13 +2125,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 38]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 38]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
        {
@@ -2181,9 +2181,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 39]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 39]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
       {
@@ -2237,9 +2237,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 40]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 40]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
 7.  Security Considerations
@@ -2293,9 +2293,9 @@ Internet-Draft                   JSEvent                   November 2017
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 41]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 41]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
@@ -2332,10 +2332,6 @@ Internet-Draft                   JSEvent                   November 2017
               RFC 5870, DOI 10.17487/RFC5870, June 2010,
               <https://www.rfc-editor.org/info/rfc5870>.
 
-   [RFC5988]  Nottingham, M., "Web Linking", RFC 5988,
-              DOI 10.17487/RFC5988, October 2010,
-              <https://www.rfc-editor.org/info/rfc5988>.
-
    [RFC6047]  Melnikov, A., Ed., "iCalendar Message-Based
               Interoperability Protocol (iMIP)", RFC 6047,
               DOI 10.17487/RFC6047, December 2010,
@@ -2346,18 +2342,17 @@ Internet-Draft                   JSEvent                   November 2017
               RFC 6838, DOI 10.17487/RFC6838, January 2013,
               <https://www.rfc-editor.org/info/rfc6838>.
 
-
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 42]
-
-Internet-Draft                   JSEvent                   November 2017
-
-
    [RFC6901]  Bryan, P., Ed., Zyp, K., and M. Nottingham, Ed.,
               "JavaScript Object Notation (JSON) Pointer", RFC 6901,
               DOI 10.17487/RFC6901, April 2013,
               <https://www.rfc-editor.org/info/rfc6901>.
+
+
+
+Jenkins & Stepanek        Expires June 15, 2018                [Page 42]
+
+Internet-Draft                   JSEvent                   December 2017
+
 
    [RFC7159]  Bray, T., Ed., "The JavaScript Object Notation (JSON) Data
               Interchange Format", RFC 7159, DOI 10.17487/RFC7159, March
@@ -2381,6 +2376,10 @@ Internet-Draft                   JSEvent                   November 2017
               DOI 10.17487/RFC7986, October 2016,
               <https://www.rfc-editor.org/info/rfc7986>.
 
+   [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
+              DOI 10.17487/RFC8288, October 2017,
+              <https://www.rfc-editor.org/info/rfc8288>.
+
 10.2.  Informative References
 
    [draft-apthorp-ical-tasks]
@@ -2401,16 +2400,19 @@ Internet-Draft                   JSEvent                   November 2017
 
    [1] https://www.w3.org/TR/html/
 
-   [2] https://www.w3.org/TR/2011/REC-css3-color-20110607/#svg-color
+   [2] https://www.iana.org/assignments/link-relations/link-
+       relations.xhtml
 
 
 
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 43]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 43]
 
-Internet-Draft                   JSEvent                   November 2017
+Internet-Draft                   JSEvent                   December 2017
 
 
-   [3] http://www.iana.org/time-zones
+   [3] https://www.w3.org/TR/2011/REC-css3-color-20110607/#svg-color
+
+   [4] http://www.iana.org/time-zones
 
 Authors' Addresses
 
@@ -2459,6 +2461,4 @@ Authors' Addresses
 
 
 
-
-
-Jenkins & Stepanek        Expires May 16, 2018                 [Page 44]
+Jenkins & Stepanek        Expires June 15, 2018                [Page 44]
