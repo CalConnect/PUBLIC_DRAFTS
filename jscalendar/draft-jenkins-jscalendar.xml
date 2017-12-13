@@ -1838,7 +1838,7 @@
                             </t>
                             <t>
                                 <spanx style="strong">timestamp</spanx>: <spanx style="verb">UTCDate</spanx> Describes
-                                the latest time when the participant updated her progress.
+                                the latest time when the participant progress got updated.
                             </t>
                         </list>
                     </t>
