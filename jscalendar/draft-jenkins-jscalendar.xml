@@ -931,9 +931,8 @@
                                 <spanx style="strong">rel</spanx>: <spanx style="verb">String</spanx>(optional, defaults
                                 to <spanx style="verb">related</spanx>)
                                 Identifies the relation of the linked resource to the object. The value MUST be a
-                                registered relation type (see<xref target="RFC5988"/>).
-                                <vspace blankLines="1"/>
-                                The features supported by locations with rel-type <spanx style="verb">virtual</spanx> are:
+                                registered relation type (see <xref target="RFC5988"/> and <eref
+                                target="https://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA Link Relations</eref>).
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">enclosure</spanx> SHOULD be considered by the
                                 client as attachments for download.
