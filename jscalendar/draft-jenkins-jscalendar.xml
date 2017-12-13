@@ -2112,6 +2112,11 @@
                         see <xref target="draft-ietf-calext-ical-relations"/>.
                     </c>
 
+                    <c>color</c>
+                    <c>
+                        Corresponds to the COLOR property in iCalendar, as specified in <xref target="RFC7986"/>.
+                    </c>
+
                     <c>created</c>
                     <c>
                         Corresponds to the CREATED property in iCalendar.
@@ -2136,7 +2141,7 @@
 
                     <c>keywords</c>
                     <c>
-                        Corresponds to the COLOR property in iCalendar, as specified in <xref target="RFC7986"/>.
+                        Corresponds to the CATEGORIES property in iCalendar, as specified in <xref target="RFC7986"/>.
                     </c>
 
                     <c>links</c>
