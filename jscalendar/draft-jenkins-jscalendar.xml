@@ -1299,7 +1299,7 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">locationId|null</spanx>: <spanx style="verb">String</spanx>(optional,
+                                <spanx style="strong">locationId</spanx>: <spanx style="verb">String|null</spanx>(optional,
                                 defaults to <spanx style="verb">null</spanx>)
                                 The location at which this participant is expected to be attending.
                                 <vspace blankLines="1"/>
