@@ -1829,10 +1829,10 @@
                                 registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">completed</spanx>: The participant completed her part of the task.
+                                        <spanx style="verb">completed</spanx>: The progress of this participant is complete.
                                     </t>
                                     <t>
-                                        <spanx style="verb">in-process</spanx>: The participant is in process of completing her part of the task.
+                                        <spanx style="verb">in-process</spanx>: The progress of this participant is in process.
                                     </t>
                                 </list>
                             </t>
