@@ -756,7 +756,7 @@
                         <spanx style="verb">String[Location]|null</spanx>
                     </t>
                     <t>
-                        A map of of location ids to Location objects, representing locations associated with the object.
+                        A map of location ids to Location objects, representing locations associated with the object.
                         A location id may be any string and need only be unique to this object, although a UUID is a
                         practical choice.
                     </t>
@@ -882,7 +882,7 @@
                         <spanx style="verb">String[Link]|null</spanx>
                     </t>
                     <t>
-                        A map of of link ids to Link objects, representing external resources associated with the object.
+                        A map of link ids to Link objects, representing external resources associated with the object.
                         A link id may be any string and need only be unique to this object, although the href or a UUID
                         are practical choices.
                     </t>
@@ -1439,7 +1439,7 @@
                         <spanx style="verb">String[Alert]|null</spanx>
                     </t>
                     <t>
-                        A map of of alert ids to Alert objects, representing alerts/reminders to display or send the user
+                        A map of alert ids to Alert objects, representing alerts/reminders to display or send the user
                         for this calendar object. An alert id may be any string and need only be unique to this calendar
                         object, although a globally unique id is a practical choice (also see <xref target="uid"/>)).
                     </t>
