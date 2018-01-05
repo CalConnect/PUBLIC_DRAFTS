@@ -64,47 +64,47 @@
     <middle>
         <section anchor="introduction" title="Introduction">
             <t>
-                This document defines a JSON-based format to exchange event and task objects,
-                or groups of such objects, in electronic calendar applications and systems. It
-                uses a data model that aims to be unambiguous, extendable and simple to
-                process.
+              This document defines a data model for calendar event and task objects, or groups
+              of such objects, in electronic calendar applications and systems. It aims to be unambiguous,
+              extendable and simple to process.
             </t>
             <t>
-                The key design considerations for this format are as follows:
+                The key design considerations for this data model are as follows:
                 <list style="symbols">
                     <t>
                         The attributes of the calendar entry represented must be described as a simple key-value pair,
                         reducing complexity of its representation.
                     </t>
                     <t>
-                        The data format should avoid all ambiguities, making it difficult to make mistakes during
-                        implementation and increasing interoperability.
+                      The data model should avoid all ambiguities and make it difficult
+                      to make mistakes during implementation.
                     </t>
                     <t>
                         Most of the initial set of attributes should be taken from the iCalendar data format
-                        (<xref target="RFC5545"/>, also see <xref target="relation-to-icalendar"/>), but a
-                        conversion between the data formats is not guaranteed to be completed without losing semantic
-                        meaning.
+                        (<xref target="RFC5545"/>, also see <xref target="relation-to-icalendar"/>), but
+                        the specification should add new attributes or value types, or not support existing
+                        ones, where appropriate. Conversion between the data formats need not fully preserve
+                        semantic meaning.
                     </t>
                     <t>
                         Extensions, such as new properties and components, MUST NOT lead to requiring an update to this
                         document.
                     </t>
                 </list>
-            </t>
-            <t>
-                JSON is a text-based data interchange format as specified in <xref target="RFC7493"/>.
-                The I-JSON format defined in <xref target="RFC7493"/> is a strict subset of this, adding restrictions to
-                avoid potentially confusing scenarios (for example, it mandates that an object MUST NOT have two
-                properties with the same key).  Using JSON mostly is a pragmatic choice: its
-                widespread use helps to speed up JSCalendar adoption and a wide range of
-                production-ready JSON implementations allows to decrease interoperability issues.
-            </t>
+              </t>
+              <t>
+                  The representation of this
+                  data model is defined in the I-JSON format <xref target="RFC7493"/>, which is a strict subset
+                  of the JavaScript Object Notation (JSON) Data Interchange Format <xref target="RFC7159"/>.
+                  Using JSON mostly is a pragmatic choice: its widespread use should help to speed up JSCalendar
+                  adoption and a wide range of production-ready JSON implementations allows to decrease
+                  interoperability issues.
+                </t>
             <section anchor="relation-to-icalendar" title="Relation to the iCalendar format">
                 <t>
                     The iCalendar data format <xref target="RFC5545"/>, a widely deployed interchange format for calendaring
                     and scheduling data, has served calendaring vendors for a long while, but contains some ambiguities and
-                    pitfalls that can not be overcome without backwards incompatible changes.
+                    pitfalls that can not be overcome without backward-incompatible changes.
                 </t>
                 <t>
                     For example, iCalendar defines various formats for local times, UTC time and dates, which
