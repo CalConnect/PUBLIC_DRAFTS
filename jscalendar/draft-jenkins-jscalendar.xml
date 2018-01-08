@@ -319,12 +319,12 @@
                 <t>
                     Vendors MAY add additional properties to the calendar object to support their custom features. The
                     names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid
-                    conflict, e.g. <spanx style="verb">fastmail.com/customprop</spanx>.
+                    conflict, e.g. <spanx style="verb">example.com/customprop</spanx>.
                 </t>
                 <t>
                     Some JSCalendar properties allow vendor-specific value extensions. If so, vendor specific values
                     MUST be prefixed with a domain name controlled by the vendor,
-                    e.g. <spanx style="verb">fastmail.com/customrel</spanx>, unless otherwise noted.
+                    e.g. <spanx style="verb">example.com/customrel</spanx>, unless otherwise noted.
                 </t>
             </section>
         </section>
@@ -1147,7 +1147,7 @@
                     <t>
                         The value MUST be either one of the following values, registered in a future RFC, or a
                         vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by
-                        the vendor, e.g. <spanx style="verb">fastmail.com/topsecret</spanx>. Any value the client or
+                        the vendor, e.g. <spanx style="verb">example.com/topsecret</spanx>. Any value the client or
                         server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">
                         private</spanx>.
                         <list style="symbols">
