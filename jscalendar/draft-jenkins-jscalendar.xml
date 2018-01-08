@@ -289,12 +289,11 @@
                         properties, but does not define a general normalisation or equivalence method for
                         JSCalendar objects. This is because the notion of equivalence might range
                         from byte-level equivalence to semantic equivalence, depending on the
-                        respective use case.
-                        <vspace blankLines="1"/>
-                        For example, the CalDAV protocol
+                        respective use case. For example, the CalDAV protocol
                         <xref target="RFC4791"/> requires octet equivalence of the encoded calendar
                         object to determine ETag equivalence.
-                        In addition:
+                        <vspace blankLines="1"/>
+                        However, normalisation of JSCalendar objects is hindered because of the following reasons:
                         <list style="symbols">
                             <t>
                                 Custom JSCalendar properties may contain arbitrary JSON values,
