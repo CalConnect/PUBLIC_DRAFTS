@@ -244,21 +244,27 @@
                         <xref target="RFC6901"/>
                         JSON pointer format, with an implicit leading <spanx style="verb">/</spanx> (i.e. prefix each
                         key with <spanx style="verb">/</spanx> before applying the JSON pointer evaluation algorithm).
-
                     </t>
                     <t>
-                        The pointer MUST NOT reference inside an array (i.e. you MUST NOT insert/delete from an array;
-                        the array MUST be replaced in its entirety instead). Any patch with a key that attempts to do
-                        this MUST be ignored.
+                        A patch within a PatchObject is only valid, if all of the following conditions apply:
                     </t>
                     <t>
-                        When evaluating a path, all parts prior to the last (i.e. the value after the final slash) MUST
-                        exist for the patch to be valid. If not, the patch MUST be ignored.
-                    </t>
-                    <t>
-                        There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the
-                        pointer of the other, e.g. <spanx style="verb">alerts/1/offset</spanx> and <spanx style="verb">
-                        alerts</spanx>. The result in this case is undefined.
+                        <list style="numbers">
+                            <t>
+                                The pointer MUST NOT reference inside an array (i.e. it MUST NOT insert/delete from an array;
+                                the array MUST be replaced in its entirety instead). Any patch with a key that attempts to do
+                                this MUST be ignored.
+                            </t>
+                            <t>
+                                When evaluating a path, all parts prior to the last (i.e. the value after the final slash) MUST
+                                exist for the patch to be valid. If not, the patch MUST be ignored.
+                            </t>
+                            <t>
+                                There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the
+                                pointer of the other, e.g. <spanx style="verb">alerts/1/offset</spanx> and <spanx style="verb">
+                                alerts</spanx>. The result in this case is undefined.
+                            </t>
+                        </list>
                     </t>
                     <t>
                         The value associated with each pointer is either:
@@ -272,7 +278,9 @@
                                 present) or add to the property (if not present).
                             </t>
                         </list>
-
+                    </t>
+                    <t>
+                        Implementations MUST reject a PatchObject if any of its patches are invalid.
                     </t>
                 </section>
                 <section anchor="normalisation" title="Normalisation and equivalence">
