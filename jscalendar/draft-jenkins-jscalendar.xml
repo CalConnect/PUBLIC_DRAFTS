@@ -304,17 +304,16 @@
                         <list style="numbers">
                             <t>
                                 The pointer MUST NOT reference inside an array (i.e. it MUST NOT insert/delete from an array;
-                                the array MUST be replaced in its entirety instead). Any patch with a key that attempts to do
-                                this MUST be ignored.
+                                the array MUST be replaced in its entirety instead).
                             </t>
                             <t>
                                 When evaluating a path, all parts prior to the last (i.e. the value after the final slash) MUST
-                                exist for the patch to be valid. If not, the patch MUST be ignored.
+                                exist.
                             </t>
                             <t>
                                 There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the
                                 pointer of the other, e.g. <spanx style="verb">alerts/1/offset</spanx> and <spanx style="verb">
-                                alerts</spanx>. The result in this case is undefined.
+                                alerts</spanx>.
                             </t>
                         </list>
                     </t>
