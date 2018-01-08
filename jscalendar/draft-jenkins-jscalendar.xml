@@ -138,6 +138,58 @@
             </section>
         </section>
 
+        <section anchor="jscalendar-objects" title="JSCalendar objects">
+            <t>
+                This section describes the calendar object types specified by JSCalendar.
+            </t>
+            <section anchor="jsevent" title="JSEvent">
+                <t>
+                    MIME type: <spanx style="verb">application/calendar+json;type=jsevent</spanx>
+                </t>
+                <t>
+                    A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment,
+                    reminder or anniversary. Multiple participants may partake in the event at multiple locations.
+                </t>
+                <t>
+                    A JSEvent <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.
+
+                </t>
+            </section>
+
+            <section anchor="jstask" title="JSTask">
+                <t>
+                    MIME type: <spanx style="verb">application/calendar+json;type=jstask</spanx>
+                </t>
+                <t>
+                    A JSTask represents an action-item, assignment, to-do or work item .
+                </t>
+                <t>
+                    A  JSTask <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.
+
+                </t>
+                <t>
+                    A JSTask may start and be due at certain points in time, may take some estimated time to complete
+                    and may recur; none of which is required. This notably differs from <xref target="jsevent">
+                    JSEvent</xref> which is required to start at a certain point in time and typically takes some
+                    non-zero duration to complete.
+                </t>
+            </section>
+
+            <section anchor="jsgroup" title="JSGroup">
+                <t>
+                    MIME type: <spanx style="verb">application/calendar+json;type=jsgroup</spanx>
+                </t>
+                <t>
+                    A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and
+                    <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic
+                    (e.g. by keywords) or calendar membership.
+                </t>
+                <t>
+                    Its <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.
+                </t>
+            </section>
+        </section>
+
         <section anchor="structure-of-jscalendar-objects" title="Structure of JSCalendar objects">
             <t>
                 A JSCalendar object is a JSON object, which MUST be valid I-JSON (a stricter subset of JSON), as
@@ -329,14 +381,15 @@
             </section>
         </section>
 
-        <section anchor="jscalendar-props" title="JSCalendar properties">
+        <section anchor="jscalendar-props" title="Common JSCalendar properties">
             <t>
-                JSCalendar objects share a set of common properties, but might only support a subset of them.
-                Refer to the respective object type definitions (<xref target="jscalendar-objects"/>) for which common
-                properties they support.
+              This section describes the properties that are common to the various JSCalendar object
+              types. Specific JSCalendar object types may only support a subset of these properties.
+              The object type definitions in section <xref target="jscalendar-object-props"/> describe the
+              set of supported properties per type.
             </t>
-            <section anchor="metadata-properties" title="Metadata properties">
 
+            <section anchor="metadata-properties" title="Metadata properties">
                 <section anchor="type" title="@type">
                     <t>
                         Type:
@@ -499,225 +552,6 @@
                     </t>
                 </section>
 
-            </section>
-
-            <section anchor="time-properties" title="Time, duration and recurrence properties">
-
-                <section anchor="recurrenceRule" title="recurrenceRule">
-                    <t>
-                        Type:
-                        <spanx style="verb">Recurrence</spanx>
-                    </t>
-                    <t>
-                        Defines a recurrence rule (repeating pattern) for recurring calendar objects.
-                    </t>
-                    <t>
-                        A <spanx style="strong">Recurrence</spanx> object is a JSON object mapping of a RECUR value type
-                        in iCalendar, see
-                        <xref target="RFC5545"/>
-                        and<xref target="RFC7529"/>.
-                        Objects recur by applying the recurrence rule (and <spanx style="strong">
-                        recurrenceOverrides</spanx>) to the <spanx style="strong">start</spanx> date/time.
-                        A <xref target="jstask">JSTask</xref> without a <spanx style="strong">start</spanx> recurs by
-                        its <spanx style="strong">due</spanx> date/time, if defined.
-                    </t>
-                    <t>
-                        A Recurrence object has the following properties:
-                        <list style="symbols">
-                            <t>
-                                <spanx style="strong">frequency</spanx>:
-                                <spanx style="verb">String</spanx>
-                                This MUST be one of the following values:
-                                <list style="symbols">
-                                    <t>
-                                        <spanx style="verb">yearly</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">monthly</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">weekly</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">daily</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">hourly</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">minutely</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">secondly</spanx>
-                                    </t>
-                                </list>
-                                To convert from iCalendar, simply lower-case the FREQ part.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">interval</spanx>: <spanx style="verb">Number</spanx>(optional,
-                                defaults to <spanx style="verb">1</spanx>)
-                                The INTERVAL part from iCal. If included, it MUST be an integer <spanx style="verb">x >=
-                                1</spanx>.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">rscale</spanx>: <spanx style="verb">String</spanx>(optional,
-                                defaults to <spanx style="verb">"gregorian"</spanx>)
-                                The RSCALE part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to
-                                lower-case.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">skip</spanx>: <spanx style="verb">String</spanx>(optional,
-                                defaults to <spanx style="verb">"omit"</spanx>)
-                                The SKIP part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to
-                                lower-case.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">firstDayOfWeek</spanx>: <spanx style="verb">String</spanx>(optional,
-                                defaults to <spanx style="verb">"mo"</spanx>)
-                                The WKST part from iCalendar, represented as a lower-case abbreviated two-letter English
-                                day of the week.
-                                If included, it MUST be one of the following values: <spanx style="verb">
-                                "mo"|"tu"|"we"|"th"|"fr"|"sa"|"su"</spanx>.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byDay</spanx>: <spanx style="verb">NDay[]</spanx>(optional)
-                                An <spanx style="strong">NDay</spanx> object has the following properties:
-                                <list style="symbols">
-                                    <t>
-                                        <spanx style="strong">day</spanx>: <spanx style="verb">String</spanx> The
-                                        day-of-the-week part of the BYDAY value in iCalendar, lower-cased. MUST be one
-                                        of the following values: <spanx style="verb">
-                                        "mo"|"tu"|"we"|"th"|"fr"|"sa"|"su"</spanx>.
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">nthOfPeriod</spanx>: <spanx style="verb">Number</spanx>(optional)
-                                        If present, rather than representing every Friday (for example), it represents
-                                        only a specific instance within the period (month for monthly recurrences, year
-                                        for yearly recurrences). Must be a non-zero integer, negative integers means
-                                        nth-last of period. This is the <spanx style="verb">"+1"</spanx> or <spanx
-                                            style="verb">"-3"
-                                    </spanx> etc. prefix from the BYDAY values in iCal.
-                                    </t>
-
-                                </list>
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byDate</spanx>: <spanx style="verb">Number[]</spanx>(optional)
-                                The BYMONTHDAY part from iCalendar. The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byMonth</spanx>: <spanx style="verb">String[]</spanx>(optional)
-                                The BYMONTH part from iCalendar. Each entry is a string representation of a number,
-                                starting from <spanx style="verb">1</spanx> for the first month in the calendar (e.g. <spanx
-                                    style="verb">"1"
-                            </spanx> means <spanx style="verb">"January"</spanx> with Gregorian calendar), with an
-                                optional <spanx style="verb">"L"</spanx> suffix (see <xref target="RFC7529"/>) for
-                                leap months (this MUST be upper-case, e.g. <spanx style="verb">"3L"</spanx>).
-                                The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byYearDay</spanx>: <spanx style="verb">Number[]</spanx>(optional)
-                                The BYYEARDAY part from iCalendar. The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byWeekNo</spanx>: <spanx style="verb">Number[]</spanx>(optional)
-                                The BYWEEKNO part from iCalendar. The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byHour</spanx>: <spanx style="verb">Number[]</spanx>(optional)
-                                The BYHOUR part from iCalendar. The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">byMinute</spanx>: <spanx style="verb">Number[]</spanx>(optional)
-                                The BYMINUTE part from iCalendar. The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">bySecond</spanx>: <spanx style="verb">Number[]</spanx>(optional)
-                                The BYSECOND part from iCalendar. The array MUST have at least one entry if included.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">count</spanx>: <spanx style="verb">Number</spanx>(optional)
-                                The COUNT part from iCalendar. This MUST NOT be included if an
-                                <spanx style="strong">until</spanx> property is specified.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx>(optional)
-                                The UNTIL part from iCalendar. This MUST NOT be included if a
-                                <spanx style="strong">count</spanx> property is specified. Note, as in iCalendar, this
-                                date is presumed to be in the time-zone specified in
-                                <spanx style="strong">timeZone</spanx>. It is not a UTC time.
-
-                            </t>
-                        </list>
-
-                    </t>
-                </section>
-
-                <section anchor="recurrenceOverrides" title="recurrenceOverrides">
-                    <t>
-                        Type:
-                        <spanx style="verb">LocalDate[PatchObject|null]|null</spanx>
-                    </t>
-                    <t>
-                        The object is a map of the Recurrence-Ids (i.e. the date-time of the start of the occurrence) to
-                        either <spanx style="verb">null</spanx>, to indicate the occurrence should be deleted, or an
-                        object of patches to apply to the generated occurrence object.
-                    </t>
-                    <t>
-                        If the Recurrence-Id does not match an expanded start date from a recurrence rule, it is to be
-                        treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often
-                        be empty in this case.
-                    </t>
-                    <t>
-                        By default, an occurrence inherits all properties from the main object except the start (or due)
-                        date-time, which is shifted to the new start time. However, individual properties of the
-                        occurrence can be modified by a patch, or multiple patches.
-                    </t>
-                    <t>
-                        A pointer in the PatchObject MUST NOT start with one of the following prefixes; any patch with
-                        such a key MUST be ignored:
-                        <list style="symbols">
-                            <t>
-                                uid
-                            </t>
-                            <t>
-                                relatedTo
-                            </t>
-                            <t>
-                                prodId
-                            </t>
-                            <t>
-                                method
-                            </t>
-                            <t>
-                                isAllDay
-                            </t>
-                            <t>
-                                recurrenceRule
-                            </t>
-                            <t>
-                                recurrenceOverrides
-                            </t>
-                            <t>
-                                replyTo
-                            </t>
-                        </list>
-                    </t>
-                </section>
             </section>
 
             <section anchor="whatwhere-properties" title="What and where properties">
@@ -1086,7 +920,227 @@
                     </t>
                 </section>
 
+              </section>
+
+            <section anchor="recurrence-props" title="Recurrence properties">
+
+                <section anchor="recurrenceRule" title="recurrenceRule">
+                    <t>
+                        Type:
+                        <spanx style="verb">Recurrence</spanx>
+                    </t>
+                    <t>
+                        Defines a recurrence rule (repeating pattern) for recurring calendar objects.
+                    </t>
+                    <t>
+                        A <spanx style="strong">Recurrence</spanx> object is a JSON object mapping of a RECUR value type
+                        in iCalendar, see
+                        <xref target="RFC5545"/>
+                        and<xref target="RFC7529"/>.
+                        Objects recur by applying the recurrence rule (and <spanx style="strong">
+                        recurrenceOverrides</spanx>) to the <spanx style="strong">start</spanx> date/time.
+                        A <xref target="jstask">JSTask</xref> without a <spanx style="strong">start</spanx> recurs by
+                        its <spanx style="strong">due</spanx> date/time, if defined.
+                    </t>
+                    <t>
+                        A Recurrence object has the following properties:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="strong">frequency</spanx>:
+                                <spanx style="verb">String</spanx>
+                                This MUST be one of the following values:
+                                <list style="symbols">
+                                    <t>
+                                        <spanx style="verb">yearly</spanx>
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">monthly</spanx>
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">weekly</spanx>
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">daily</spanx>
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">hourly</spanx>
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">minutely</spanx>
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">secondly</spanx>
+                                    </t>
+                                </list>
+                                To convert from iCalendar, simply lower-case the FREQ part.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">interval</spanx>: <spanx style="verb">Number</spanx>(optional,
+                                defaults to <spanx style="verb">1</spanx>)
+                                The INTERVAL part from iCal. If included, it MUST be an integer <spanx style="verb">x >=
+                                1</spanx>.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">rscale</spanx>: <spanx style="verb">String</spanx>(optional,
+                                defaults to <spanx style="verb">"gregorian"</spanx>)
+                                The RSCALE part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to
+                                lower-case.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">skip</spanx>: <spanx style="verb">String</spanx>(optional,
+                                defaults to <spanx style="verb">"omit"</spanx>)
+                                The SKIP part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to
+                                lower-case.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">firstDayOfWeek</spanx>: <spanx style="verb">String</spanx>(optional,
+                                defaults to <spanx style="verb">"mo"</spanx>)
+                                The WKST part from iCalendar, represented as a lower-case abbreviated two-letter English
+                                day of the week.
+                                If included, it MUST be one of the following values: <spanx style="verb">
+                                "mo"|"tu"|"we"|"th"|"fr"|"sa"|"su"</spanx>.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byDay</spanx>: <spanx style="verb">NDay[]</spanx>(optional)
+                                An <spanx style="strong">NDay</spanx> object has the following properties:
+                                <list style="symbols">
+                                    <t>
+                                        <spanx style="strong">day</spanx>: <spanx style="verb">String</spanx> The
+                                        day-of-the-week part of the BYDAY value in iCalendar, lower-cased. MUST be one
+                                        of the following values: <spanx style="verb">
+                                        "mo"|"tu"|"we"|"th"|"fr"|"sa"|"su"</spanx>.
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">nthOfPeriod</spanx>: <spanx style="verb">Number</spanx>(optional)
+                                        If present, rather than representing every Friday (for example), it represents
+                                        only a specific instance within the period (month for monthly recurrences, year
+                                        for yearly recurrences). Must be a non-zero integer, negative integers means
+                                        nth-last of period. This is the <spanx style="verb">"+1"</spanx> or <spanx
+                                            style="verb">"-3"
+                                    </spanx> etc. prefix from the BYDAY values in iCal.
+                                    </t>
+
+                                </list>
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byDate</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYMONTHDAY part from iCalendar. The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byMonth</spanx>: <spanx style="verb">String[]</spanx>(optional)
+                                The BYMONTH part from iCalendar. Each entry is a string representation of a number,
+                                starting from <spanx style="verb">1</spanx> for the first month in the calendar (e.g. <spanx
+                                    style="verb">"1"
+                            </spanx> means <spanx style="verb">"January"</spanx> with Gregorian calendar), with an
+                                optional <spanx style="verb">"L"</spanx> suffix (see <xref target="RFC7529"/>) for
+                                leap months (this MUST be upper-case, e.g. <spanx style="verb">"3L"</spanx>).
+                                The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byYearDay</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYYEARDAY part from iCalendar. The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byWeekNo</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYWEEKNO part from iCalendar. The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byHour</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYHOUR part from iCalendar. The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">byMinute</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYMINUTE part from iCalendar. The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">bySecond</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYSECOND part from iCalendar. The array MUST have at least one entry if included.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">count</spanx>: <spanx style="verb">Number</spanx>(optional)
+                                The COUNT part from iCalendar. This MUST NOT be included if an
+                                <spanx style="strong">until</spanx> property is specified.
+
+                            </t>
+                            <t>
+                                <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx>(optional)
+                                The UNTIL part from iCalendar. This MUST NOT be included if a
+                                <spanx style="strong">count</spanx> property is specified. Note, as in iCalendar, this
+                                date is presumed to be in the time-zone specified in
+                                <spanx style="strong">timeZone</spanx>. It is not a UTC time.
+
+                            </t>
+                        </list>
+
+                    </t>
+                </section>
+
+                <section anchor="recurrenceOverrides" title="recurrenceOverrides">
+                    <t>
+                        Type:
+                        <spanx style="verb">LocalDate[PatchObject|null]|null</spanx>
+                    </t>
+                    <t>
+                        The object is a map of the Recurrence-Ids (i.e. the date-time of the start of the occurrence) to
+                        either <spanx style="verb">null</spanx>, to indicate the occurrence should be deleted, or an
+                        object of patches to apply to the generated occurrence object.
+                    </t>
+                    <t>
+                        If the Recurrence-Id does not match an expanded start date from a recurrence rule, it is to be
+                        treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often
+                        be empty in this case.
+                    </t>
+                    <t>
+                        By default, an occurrence inherits all properties from the main object except the start (or due)
+                        date-time, which is shifted to the new start time. However, individual properties of the
+                        occurrence can be modified by a patch, or multiple patches.
+                    </t>
+                    <t>
+                        A pointer in the PatchObject MUST NOT start with one of the following prefixes; any patch with
+                        such a key MUST be ignored:
+                        <list style="symbols">
+                            <t>
+                                uid
+                            </t>
+                            <t>
+                                relatedTo
+                            </t>
+                            <t>
+                                prodId
+                            </t>
+                            <t>
+                                method
+                            </t>
+                            <t>
+                                isAllDay
+                            </t>
+                            <t>
+                                recurrenceRule
+                            </t>
+                            <t>
+                                recurrenceOverrides
+                            </t>
+                            <t>
+                                replyTo
+                            </t>
+                        </list>
+                    </t>
+                </section>
             </section>
+
 
             <section anchor="sharing-scheduling-properties" title="Sharing and scheduling properties">
 
@@ -1592,19 +1646,8 @@
             </section>
         </section>
 
-        <section anchor="jscalendar-objects" title="JSCalendar objects">
-            <section anchor="jsevent" title="JSEvent">
-                <t>
-                    MIME type: <spanx style="verb">application/calendar+json;type=jsevent</spanx>
-                </t>
-                <t>
-                    A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment,
-                    reminder or anniversary. Multiple participants may partake in the event at multiple locations.
-                </t>
-                <t>
-                    A JSEvent <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.
-
-                </t>
+        <section anchor="jscalendar-object-props" title="Type-specific JSCalendar properties">
+            <section anchor="jsevent-props" title="JSEvent properties">
                 <t>
                     In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a
                     JSEvent
@@ -1705,23 +1748,7 @@
 
             </section>
 
-            <section anchor="jstask" title="JSTask">
-                <t>
-                    MIME type: <spanx style="verb">application/calendar+json;type=jstask</spanx>
-                </t>
-                <t>
-                    A JSTask represents an action-item, assignment, to-do or work item .
-                </t>
-                <t>
-                    A  JSTask <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.
-
-                </t>
-                <t>
-                    A JSTask may start and be due at certain points in time, may take some estimated time to complete
-                    and may recur; none of which is required. This notably differs from <xref target="jsevent">
-                    JSEvent</xref> which is required to start at a certain point in time and typically takes some
-                    non-zero duration to complete.
-                </t>
+            <section anchor="jstask-props" title="JSTask properties">
                 <t>
                     In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a
                     JSTask has the following properties:
@@ -1882,18 +1909,7 @@
 
             </section>
 
-            <section anchor="jsgroup" title="JSGroup">
-                <t>
-                    MIME type: <spanx style="verb">application/calendar+json;type=jsgroup</spanx>
-                </t>
-                <t>
-                    A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and
-                    <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic
-                    (e.g. by keywords) or calendar membership.
-                </t>
-                <t>
-                    Its <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.
-                </t>
+            <section anchor="jsgroup-props" title="JSGroup properties">
                 <t>
                     JSGroup supports the following <xref target="jscalendar-props">JSCalendar properties</xref>:
                     <list style="symbols">
