@@ -1543,14 +1543,12 @@
                                         for the sole use of snoozing an alarm.
                                     </t>
                                     <t>
-                                        <spanx style="strong">audioLinkId</spanx>: <spanx style="verb">String|null
+                                        <spanx style="strong">mediaLinkIds</spanx>: <spanx style="verb">String[]|null
                                     </spanx> (optional)
                                         <vspace blankLines="1"/>
-                                        The id of a link in the
-                                        <xref target="links"/>
-                                        property. If the linked file is of an audio type understood by the client, the
-                                        client SHOULD play this audio when triggering the alert.
-
+                                        A list of link identifiers in the <xref target="links">links</xref> property.
+                                        Clients SHOULD play one or more of the link contents that are supported by the
+                                        client implementation and are appropriate for the given device and user context.
                                     </t>
                                 </list>
                                 <vspace blankLines="1"/>
