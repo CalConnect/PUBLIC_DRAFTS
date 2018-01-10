@@ -1151,10 +1151,7 @@
                         Calendar objects are normally collected together and may be shared with other users. The privacy
                         property allows the object owner to indicate that it should not be shared, or should only have
                         the time information shared but the details withheld.
-                    </t>
-                    <t>
-                        As JSCalendar is simply a data model, enforcement of the restrictions indicated by this property
-                        are up to the implementations.
+                        Enforcement of the restrictions indicated by this property are up to the implementations.
                     </t>
                     <t>
                         This property MUST NOT affect the information sent to scheduled participants; it is only
