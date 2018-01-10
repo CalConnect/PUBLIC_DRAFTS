@@ -1420,7 +1420,7 @@
                             <t>
                                 <spanx style="strong">memberOf</spanx>: <spanx style="verb">String[]|null</spanx>(optional,
                                 defaults to <spanx style="verb">null</spanx>)
-                                A list of group addresses that were invited to this calendar object, which caused this
+                                A list of group participants that were invited to this calendar object, which caused this
                                 participant to be invited due to their membership of the group(s). This MUST be omitted
                                 if none (rather than an empty array).
                             </t>
