@@ -1025,7 +1025,7 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">byDate</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">byMonthDay</spanx>: <spanx style="verb">Number[]</spanx>(optional)
                                 The BYMONTHDAY part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
