@@ -1446,10 +1446,13 @@
                         omitted)
                     </t>
                     <t>
-                        If <spanx style="verb">true</spanx>, use the user's default alerts for this calendar object and ignore the
-                        <xref target="alerts"/>
+                        If <spanx style="verb">true</spanx>, use the user's default alerts and ignore the
+                        value of the <xref target="alerts">alerts</xref>
                         property. Fetching user defaults is dependent on the API from which this JSCalendar object is
                         being fetched, and is not defined in this specification.
+                        If an implementation cannot determine the user's default alerts, or none
+                        are set, it MUST process the alerts property as if
+                        useDefaultAlerts is set to <spanx style="verb">false</spanx>.
                     </t>
                 </section>
 
