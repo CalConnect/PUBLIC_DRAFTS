@@ -783,7 +783,8 @@
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">icon</spanx> SHOULD be considered by the client
                                 to be an image that it MAY use when presenting the calendar data to a user. The
-                                properties object of this link MAY include a display property indicating the intended
+                                <spanx style="strong">properties</spanx> object of this link MAY include a
+                                <spanx style="verb">display</spanx> property indicating the intended
                                 purpose of this image. If included, the value MUST be either one of the following
                                 values, registered in a future RFC, or a vendor-specific value.
                                 <list style="symbols">
@@ -836,48 +837,6 @@
                     </t>
                 </section>
 
-                <section anchor="localizations" title="localizations">
-                    <t>
-                        Type:
-                        <spanx style="verb">String[PatchObject]|null</spanx>
-                    </t>
-                    <t>
-                        A map of
-                        <xref target="RFC5646"/>
-                        language tags to patch objects, which localise the calendar object into the locale of the respective language tag.
-                    </t>
-                    <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
-                        structure of the PatchObject. The patches are applied to the top-level object. In addition to
-                        all the restrictions on patches specified there, the pointer also MUST NOT start with one of the
-                        following prefixes; any patch with a such a key MUST be ignored:
-                        <list style="symbols">
-                            <t>sequence
-                            </t>
-                            <t>
-                                localization
-                            </t>
-                            <t>start
-                            </t>
-                            <t>
-                                timeZone
-                            </t>
-                            <t>
-                                duration
-                            </t>
-                            <t>status</t>
-                            <t>
-                                freeBusyStatus
-                            </t>
-                            <t>
-                                participants
-                            </t>
-                            <t>
-                                useDefaultAlerts
-                            </t>
-                        </list>
-                    </t>
-                </section>
-
                 <section anchor="keywords" title="keywords">
                     <t>
                         Type:
@@ -919,6 +878,7 @@
                         rather that they find a suitable color that works in the given UA context.
                     </t>
                 </section>
+
 
               </section>
 
@@ -1648,6 +1608,66 @@
                 </section>
 
             </section>
+
+            <section anchor="localized-props" title="Multilingual properties">
+                <section anchor="localizations" title="localizations">
+                    <t>
+                        Type:
+                        <spanx style="verb">String[PatchObject]|null</spanx>
+                    </t>
+                    <t>
+                        A map of
+                        <xref target="RFC5646"/>
+                        language tags to patch objects, which localise the calendar object into the locale of the respective language tag.
+                    </t>
+                    <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
+                        structure of the PatchObject. The patches are applied to the top-level object
+                        and MUST only patch the following properties:
+                        <list style="symbols">
+                            <t>
+                                title
+                            </t>
+                            <t>
+                                description
+                            </t>
+                            <t>
+                                htmlDescription
+                            </t>
+                            <t>
+                                keywords
+                            </t>
+                            <t>
+                                Location name
+                            </t>
+                            <t>
+                                Location description
+                            </t>
+                            <t>
+                                Link title
+                            </t>
+                            <t>
+                                EmailAction alert subject
+                            </t>
+                            <t>
+                                EmailAction alert textBody
+                            </t>
+                            <t>
+                                any Link properties entry except the <spanx style="verb">display</spanx>
+                                field
+                            </t>
+                            <t>
+                                any UnknownAction alert property except the <spanx style="verb">type</spanx>
+                                field
+                            </t>
+                            <t>
+                                any unknown or vendor-specific property (if not defined otherwise
+                                in a future RFC or vendor-specific extension).
+                            </t>
+                        </list>
+                    </t>
+                </section>
+            </section>
+
         </section>
 
         <section anchor="jscalendar-object-props" title="Type-specific JSCalendar properties">
