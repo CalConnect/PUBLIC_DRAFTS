@@ -478,13 +478,9 @@
                         If an object is split to make a "this and future" change to a recurrence, the original object
                         MUST be truncated to end at the previous occurrence before this split, and a new object
                         created to represent all the objects after the split.
-                    </t>
-                    <t>
-                        A
-                        <spanx style="verb">relation=["next"]</spanx>
+                        A <spanx style="verb">relation=["next"]</spanx>
                         relatedTo property MUST be set on the original object with the
-                        uid of the new object. A
-                        <spanx style="verb">relation=["first"]</spanx>
+                        uid of the new object. A <spanx style="verb">relation=["first"]</spanx>
                         relatedTo property with the UID of the first object in the
                         series MUST be set on the new object. Clients can then follow these UIDs to get the complete
                         set of objects if the user wishes to modify them all at once.
