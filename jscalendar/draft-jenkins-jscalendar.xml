@@ -1012,12 +1012,13 @@
                                     </t>
                                     <t>
                                         <spanx style="strong">nthOfPeriod</spanx>: <spanx style="verb">Number</spanx>(optional)
-                                        If present, rather than representing every Friday (for example), it represents
-                                        only a specific instance within the period (month for monthly recurrences, year
-                                        for yearly recurrences). Must be a non-zero integer, negative integers means
-                                        nth-last of period. This is the <spanx style="verb">"+1"</spanx> or <spanx
-                                            style="verb">"-3"
-                                    </spanx> etc. prefix from the BYDAY values in iCal.
+                                        The optional ordinal part of the BYDAY value in iCalendar
+                                        (e.g. <spanx style="verb">"+1"</spanx> or <spanx style="verb">"-3"</spanx>).
+                                        If present, rather than representing every occurrence of the weekday defined
+                                        in the <spanx style="strong">day</spanx> property of this <spanx style="strong">NDay</spanx>,
+                                        it represents only a specific instance within the recurrence period.
+                                        The value can be positive or negative, but MUST NOT be
+                                        zero. A negative integer means nth-last of period.
                                     </t>
 
                                 </list>
