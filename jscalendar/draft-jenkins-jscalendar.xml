@@ -699,8 +699,8 @@
                                 A URI that represents how to connect to this location.
                                 <vspace blankLines="1"/>
                                 This may be a telephone number (represented as <spanx style="verb">
-                                tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or a
-                                custom URI for something like Skype (e.g. <spanx style="verb">skype:username</spanx>).
+                                tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or any
+                                custom URI.
 
                             </t>
                             <t>
