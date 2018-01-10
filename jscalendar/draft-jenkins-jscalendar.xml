@@ -1090,7 +1090,7 @@
                         <spanx style="verb">LocalDate[PatchObject|null]|null</spanx>
                     </t>
                     <t>
-                        The object is a map of the Recurrence-Ids (i.e. the date-time of the start of the occurrence) to
+                        A map of the Recurrence-Ids (the date-time of the start of the occurrence) to
                         either <spanx style="verb">null</spanx>, to indicate the occurrence should be deleted, or an
                         object of patches to apply to the generated occurrence object.
                     </t>
@@ -1108,6 +1108,9 @@
                         A pointer in the PatchObject MUST NOT start with one of the following prefixes; any patch with
                         such a key MUST be ignored:
                         <list style="symbols">
+                            <t>
+                                @type
+                            </t>
                             <t>
                                 uid
                             </t>
