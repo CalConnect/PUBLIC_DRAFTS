@@ -54,9 +54,10 @@
         <keyword>time</keyword>
         <abstract>
             <t>
-                This specification defines a JSON representation of calendar data that can be used for storage and data
-                exchange in a calendaring and scheduling environment. It aims to be an alternative to the widely
-                deployed iCalendar data format and to be unambiguous, extendable and simple to process.
+                This specification defines a data model and JSON representation of calendar data that can be used
+                for storage and data exchange in a calendaring and scheduling environment. It aims to be an
+                alternative to the widely deployed iCalendar data format and to be unambiguous, extendable and
+                simple to process.
             </t>
         </abstract>
     </front>
@@ -335,15 +336,15 @@
                 </section>
                 <section anchor="normalisation" title="Normalisation and equivalence">
                     <t>
-                        JSCalendar aims at providing unambiguous definitions for value types and
+                        JSCalendar aims to provide unambiguous definitions for value types and
                         properties, but does not define a general normalisation or equivalence method for
-                        JSCalendar objects. This is because the notion of equivalence might range
+                        JSCalendar objects and types. This is because the notion of equivalence might range
                         from byte-level equivalence to semantic equivalence, depending on the
-                        respective use case. For example, the CalDAV protocol
+                        respective use case (for example, the CalDAV protocol
                         <xref target="RFC4791"/> requires octet equivalence of the encoded calendar
-                        object to determine ETag equivalence.
+                        object to determine ETag equivalence).
                         <vspace blankLines="1"/>
-                        However, normalisation of JSCalendar objects is hindered because of the following reasons:
+                        Normalisation of JSCalendar objects is hindered because of the following reasons:
                         <list style="symbols">
                             <t>
                                 Custom JSCalendar properties may contain arbitrary JSON values,
@@ -354,8 +355,8 @@
                             <t>
                                 Several JSCalendar property values are defined as URIs
                                 and MIME types, but normalisation of these types is inherently
-                                protocol and scheme-specific (<xref target="RFC3986"/>), depending
-                                on the use-case of the equivalence definition.
+                                protocol and scheme-specific, depending on the use-case of the
+                                equivalence definition (see section 6 of <xref target="RFC3986"/>).
                             </t>
                         </list>
                         Considering this, the definition of equivalence and
