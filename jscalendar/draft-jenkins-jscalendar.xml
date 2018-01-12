@@ -151,7 +151,7 @@
                     reminder or anniversary. Multiple participants may partake in the event at multiple locations.
                 </t>
                 <t>
-                    A JSEvent <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.
+                    The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.
 
                 </t>
             </section>
@@ -164,8 +164,7 @@
                     A JSTask represents an action-item, assignment, to-do or work item .
                 </t>
                 <t>
-                    A  JSTask <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.
-
+                    The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.
                 </t>
                 <t>
                     A JSTask may start and be due at certain points in time, may take some estimated time to complete
@@ -185,7 +184,7 @@
                     (e.g. by keywords) or calendar membership.
                 </t>
                 <t>
-                    Its <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.
+                    The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.
                 </t>
             </section>
         </section>
