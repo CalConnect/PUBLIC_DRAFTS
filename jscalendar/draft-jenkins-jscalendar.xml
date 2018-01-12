@@ -1227,7 +1227,7 @@
                     <t>
                         Represents methods by which a participant may RSVP to the organizer of the calendar object. The
                         keys in the property value are the available methods. The value is a URI to use that method.
-                        Future methods may be defined in future specifications; a calendar client MUST just ignore any
+                        Future methods may be defined in future specifications; a calendar client MUST ignore any
                         method it does not understand.
                     </t>
                     <t>
@@ -1241,11 +1241,50 @@
                             <t>
                                 <spanx style="verb">web</spanx>: There is a web page where the user may submit an RSVP
                                 using their browser. The value MUST be an <spanx style="verb">http:</spanx> or
-                                <spanx style="verb">https:</spanx> URI.
+                                <spanx style="verb">https:</spanx> URI Template (<xref target="RFC6570"/>) in level 1
+                                format. The template MAY contain variables that MUST be expanded from the
+                                JSCalendar object as defined in table <xref target="replyTo-web-variables"/>.
+                                Calendar clients SHOULD be prepared to handle authentication requests
+                                from the respective web page and for the participant email, but this
+                                specification does not mandate any specific mechanism.
                             </t>
                         </list>
-
                     </t>
+                    <texttable anchor="replyTo-web-variables" title="replyTo URI Template variables">
+                        <ttcol align='left'>Variable</ttcol>
+                        <ttcol align='left'>Expand to</ttcol>
+                        <c>
+                            email
+                        </c>
+                        <c>
+                            The <spanx style="strong">email</spanx> property value of the
+                            replying <spanx style="strong">Participant</spanx> object.
+                        </c>
+                        <c>
+                            uid
+                        </c>
+                        <c>
+                            The <spanx style="strong">uid</spanx> property value of the
+                            JSCalendar object.
+                        </c>
+                        <c>
+                            sequence
+                        </c>
+                        <c>
+                            The <spanx style="strong">sequence</spanx> property value
+                            of the JSCalendar object.
+                        </c>
+                        <c>
+                            recurrenceId
+                        </c>
+                        <c>
+                            The recurrence-id when replying for a single occurrence
+                            of a recurring JSCalendar object. The value is
+                            the date-time of the non-overridden start as determined by
+                            expanding the <spanx style="strong">recurrenceRule</spanx>
+                            of the JSCalendar object.
+                        </c>
+                    </texttable>
                 </section>
 
                 <section anchor="participants" title="participants">
@@ -2613,8 +2652,8 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6570.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
@@ -2622,6 +2661,7 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7493.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
         </references>
         <references title="Informative References">
             <reference anchor="draft-apthorp-ical-tasks"
