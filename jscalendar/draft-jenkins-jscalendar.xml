@@ -583,6 +583,11 @@
                         To convert a CID URL to the <spanx style="strong">cid</spanx> property
                         value of a <spanx style="strong">Link</spanx> object, implementations MUST
                         follow the conversion described in section 2 of <xref target="RFC2392"/>.
+                        Implementations MAY choose not to follow untrusted external CID URLs
+                        referenced in the <spanx style="strong">links</spanx> property, in which
+                        case they MUST treat the <spanx style="strong">htmlDescription</spanx>
+                        property as if omitted. Implementations MUST preserve the value of this
+                        property, even if it contains untrusted links.
                     </t>
                 </section>
 
@@ -1590,15 +1595,12 @@
                                     <t>
                                         <spanx style="strong">htmlBody</spanx>: <spanx style="verb">String</spanx> (optional)
                                         The HTML body to use for the email, with rich-media content processed as for the
-                                        <spanx style="strong">htmlDescription</spanx> property of the JSCalendar object.
+                                        <spanx style="strong">htmlDescription</spanx> property of the JSCalendar object
+                                        (see <xref target="htmlDescription"/>).
                                         If the
                                         textBody property of this alert action is not set, the server SHOULD generate a plain-text version
                                         from the HTML body and include it in a <spanx style="verb">multipart/alternative</spanx>
                                         MIME message.
-                                        Implementations MAY refuse to obtain content from untrusted URIs pointed
-                                        to by entries in the <spanx style="strong">links</spanx> property while aggregating the
-                                        media composing the email. In this case they MUST ignore the contents
-                                        the htmlBody property.
                                     </t>
                                 </list>
                                 <vspace blankLines="1"/>
