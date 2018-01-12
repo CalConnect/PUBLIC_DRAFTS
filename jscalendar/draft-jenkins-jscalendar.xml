@@ -1058,12 +1058,12 @@
                         <spanx style="verb">LocalDate[PatchObject|null]|null</spanx>
                     </t>
                     <t>
-                        A map of the Recurrence-Ids (the date-time of the start of the occurrence) to
+                        A map of the recurrence-ids (the date-time of the start of the occurrence) to
                         either <spanx style="verb">null</spanx>, to indicate the occurrence should be deleted, or an
                         object of patches to apply to the generated occurrence object.
                     </t>
                     <t>
-                        If the Recurrence-Id does not match an expanded start date from a recurrence rule, it is to be
+                        If the recurrence-id does not match an expanded start date from a recurrence rule, it is to be
                         treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often
                         be empty in this case.
                     </t>
@@ -2295,7 +2295,7 @@
                     <c>recurrenceOverrides</c>
                     <c>
                         Corresponds to the RDATE and EXDATE properties in iCalendar, plus VEVENT (for JSEvent) or
-                        VTODO (for JSTask) instances with a Recurrence-Id.
+                        VTODO (for JSTask) instances with a recurrence-id.
                     </c>
 
                     <c>recurrenceRule</c>
