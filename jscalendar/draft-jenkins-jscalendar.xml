@@ -1630,7 +1630,9 @@
                                         <spanx style="strong">htmlBody</spanx>: <spanx style="verb">String</spanx> (optional)
                                         The HTML body to use for the email, with rich-media content processed as for the
                                         <spanx style="strong">htmlDescription</spanx> property of the JSCalendar object
-                                        (see <xref target="htmlDescription"/>).
+                                        (see <xref target="htmlDescription"/>), e.g. all CID URLs MUST be embedded in the
+                                        generated alert email HTML body, or the <spanx style="strong">htmlBody</spanx>
+                                        property ignored completely.
                                         If the
                                         textBody property of this alert action is not set, the server SHOULD generate a plain-text version
                                         from the HTML body and include it in a <spanx style="verb">multipart/alternative</spanx>
