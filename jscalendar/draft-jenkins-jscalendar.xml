@@ -611,14 +611,12 @@
                                 <spanx style="strong">name</spanx>:
                                 <spanx style="verb">String</spanx>
                                 The human-readable name of the location.
-
                             </t>
                             <t>
                                 <spanx style="strong">description</spanx>:
                                 <spanx style="verb">String</spanx>
                                 Human-readable instructions for accessing this location. This may be an address, set of
                                 directions, door access code, etc.
-
                             </t>
                             <t>
                                 <spanx style="strong">rel</spanx>:
@@ -685,9 +683,6 @@
                                 <spanx style="strong">timeZone</spanx> from the
                                 JSCalendar object MUST be presumed when a time-zone is needed in
                                 relation to this location.
-                                This property MUST be <spanx style="verb">null</spanx> if the
-                                <spanx style="strong">rel</spanx> property value of this location
-                                is <spanx style="verb">start</spanx>.
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
