@@ -1910,19 +1910,12 @@
                         Specifies if the task is an all day task.
                     </t>
                     <t>
-                        If <spanx style="strong">isAllDay</spanx> is true, then the following restrictions apply:
-                        <list style="symbols">
-                            <t>
-                                the <spanx style="strong">start</spanx> and <spanx style="strong">due</spanx> properties
-                                MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
-                            </t>
-                            <t>
-                                the <spanx style="strong">estimatedDuration</spanx> property MUST only include a day
-                                component.
-                            </t>
-                        </list>
-                          Note that all-day tasks MAY be bound to a specific time-zone, as defined by
-                          the <spanx style="strong">timeZone</spanx> property.
+                        If <spanx style="strong">isAllDay</spanx> is true, then
+                        the <spanx style="strong">start</spanx> and <spanx style="strong">due</spanx> properties
+                        MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
+                        Note that the <spanx style="strong">estimatedDuration</spanx> property MAY
+                        contain a non-zero time duration. All-day tasks MAY be bound to a
+                        specific time-zone, as defined by the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
 
