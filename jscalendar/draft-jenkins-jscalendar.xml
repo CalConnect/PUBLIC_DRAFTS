@@ -868,7 +868,7 @@
                 <section anchor="color" title="color">
                     <t>
                         Type:
-                        <spanx style="verb">String</spanx>
+                        <spanx style="verb">String|null</spanx>
                     </t>
                     <t>Specifies a color clients MAY use when displaying this calendar object. The value is a case-insensitive
                         color name taken from the CSS3 set of names, defined in Section 4.3 of <eref
