@@ -1,0 +1,226 @@
+[{
+  "t": "Simple event",
+  "a": "simple-event",
+  "d": "This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends after 1 hour.",
+  "o": 
+  {
+    "@type": "jsevent",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
+    "updated": "2018-01-15T18:00:00Z",
+    "title": "Some event",
+    "start": "2018-01-15T13:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT1H"
+  }
+}, {
+  "t": "Simple task",
+  "a": "simple-task",
+  "d": "This example illustrates a simple task for a plain to-do item.",
+  "o": 
+  {
+    "@type": "jstask",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
+    "updated": "2018-01-15T18:00:00Z",
+    "title": "Do something"
+  }
+}, {
+  "t": "Simple group",
+  "a": "simple-group",
+  "d": "This example illustrates a simple calendar object group that contains an event and a task.",
+  "o": 
+  {
+    "@type": "jsgroup",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
+    "updated": "2018-01-15T18:00:00Z",
+    "name": "A simple group",
+    "entries": [{
+    "@type": "jsevent",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
+    "updated": "2018-01-15T18:00:00Z",
+    "title": "Some event",
+    "start": "2018-01-15T13:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT1H"
+    }, {
+    "@type": "jstask",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
+    "updated": "2018-01-15T18:00:00Z",
+    "title": "Do something"
+  }]
+  }
+}, {
+  "t": "All-day event",
+  "a": "all-day-event",
+  "d": "This example illustrates an event for an international holiday. It specifies an all-day event on April 1 that occurs every year since the year 1900.",
+  "o": 
+  {
+    "...": "",
+    "title": "April Fool's Day",
+    "isAllDay": true,
+    "start": "1900-04-01T00:00:00",
+    "duration": "P1D",
+    "recurrenceRule": {
+      "frequency": "yearly"
+    }
+  }
+}, {
+  "t": "Task with a due date",
+  "a": "due-task",
+  "d": "This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm Vienna local time on January 19, 2018. The calendar user expects to need 1 hour for shopping.",
+  "o": 
+  {
+    "...": "",
+    "title": "Buy groceries",
+    "due": "2018-01-19T18:00:00",
+    "timeZone": "Europe/Vienna",
+    "estimatedDuration": "PT1H"
+  }
+}, {
+  "t": "Event with end time-zone",
+  "a": "zoned-event-endtz",
+  "d": "This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone  as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight.",
+  "o": 
+  {
+    "...": "",
+    "title": "Flight XY51 from FRA to NRT",
+    "start": "2018-04-01T09:00:00",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT10H30M",
+    "locations": {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "rel": "end",
+        "timeZone": "Asia/Tokyo"
+      }
+    }
+  }
+}, {
+  "t": "Floating-time event (with recurrence)",
+  "a": "floating-event",
+  "d": "This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.",
+  "o": 
+  {
+    "...": "",
+    "title": "Yoga",
+    "start": "2018-01-01T07:00:00",
+    "duration": "PT30M",
+    "recurrenceRule": {
+      "frequency": "daily"
+    }
+  }
+}, {
+  "t": "Event with multiple locations and localization",
+  "a": "multi-location-event",
+  "d": "This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This characte     r may have been replaced with ASCII characters in the plain-text rendering of this RFC document.)",
+  "o": 
+  {
+    "...": "",
+    "title": "Live from Music Bowl: The Band",
+    "description": "Go see the biggest music event ever!",
+    "locale": "en",
+    "start": "2018-07-04T17:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT3H",
+    "locations": {
+      "9366e041-bb4c-4aa4-b249-b4657cab925c" : {
+        "name": "The Music Bowl",
+        "description": "Music Bowl, Central Park, New York",
+        "coordinates": "geo:40.7829,73.9654"
+      },
+      "6f3696c6-1e07-47d0-9ce1-f50014b0041a" : {
+        "name": "Free live Stream from Music Bowl",
+        "rel": "virtual",
+        "features" : [ "video", "audio", "chat" ],
+        "uri": "https://stream.example.com/the_band_2018"
+      }
+    },
+    "localizations": {
+      "de": {
+        "title": "Live von der Music Bowl: The Band!",
+        "description": "Schau dir das größte Musikereignis an!",
+        "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name": "Gratis Live-Stream aus der Music Bowl"
+      }
+    }
+  }
+}, {
+  "t": "Recurring event with overrides",
+  "a": "recurring-overrides",
+  "d": "This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2, May 7 and May 28 no course is held.",
+  "o": 
+  {
+    "...": "",
+    "title": "Calculus I",
+    "start": "2018-01-08T09:00:00",
+    "timeZone": "Europe/London",
+    "duration": "PT1H30M",
+    "locations": {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "title": "Math lab room 1",
+        "description": "Math Lab I, Department of Mathematics"
+    },
+    "recurrenceRule": {
+      "frequency": "weekly",
+      "until": "2018-06-25T09:00:00"
+    },
+      "2018-04-02T09:00:00": null,
+      "2018-05-07T09:00:00": null,
+      "2018-05-28T09:00:00": null,
+      "2018-06-25T09:00:00": {
+        "title": "Calculus I Exam",
+        "start": "2018-06-25T10:00:00",
+        "duration": "PT2H",
+        "locations": {
+          "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+            "title": "Big Auditorium",
+            "description": "Big Auditorium, Other Road"
+          }
+        }
+      }
+    }
+  }
+}, {
+  "t": "Recurring event with participants",
+  "a": "recurring-participants",
+  "d": "This example illustrates scheduled events. A team meeting occurs every week since January 8, 2018 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 8, 2018 he is unavailable and declined participation for this occurrence.",
+  "o": 
+  {
+    "...": "",
+    "title": "FooBar team meeting",
+    "start": "2018-01-08T09:00:00",
+    "timeZone": "Africa/Johannesburg",
+    "duration": "PT1H",
+    "locations": {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "title": "ChatMe meeting room",
+        "rel": "virtual",
+        "features": [ "audio", "chat", "video" ],
+        "uri": "https://chatme.example.com?id=1234567"
+      }
+    },
+    "recurrenceRule": {
+      "frequency": "weekly"
+    },
+    "replyTo": {
+      "imip" : "zoe@foobar.example.com"
+    },
+    "participants": {
+      "tom@foobar.example.com": {
+        "name": "Tom Tool",
+        "email": "tom@foobar.example.com",
+        "rsvpResponse": "accepted",
+        "roles": [ "attendee" ]
+      },
+      "zoe@foobar.example.com": {
+        "name": "Zoe Zelda",
+        "email": "zoe@foobar.example.com",
+        "rsvpResponse": "accepted",
+        "roles": [ "owner", "chair" ]
+      },
+      "..." : ""
+    },
+    "recurrenceOverrides": {
+      "2018-03-08T09:00:00": {
+        "participants/tom@foobar.example.com/rsvpResponse": "declined"
+      }
+    }
+  }
+}]
