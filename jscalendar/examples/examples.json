@@ -156,11 +156,13 @@
       "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
         "title": "Math lab room 1",
         "description": "Math Lab I, Department of Mathematics"
+      }
     },
     "recurrenceRule": {
       "frequency": "weekly",
       "until": "2018-06-25T09:00:00"
     },
+    "recurrenceOverrides": {
       "2018-04-02T09:00:00": null,
       "2018-05-07T09:00:00": null,
       "2018-05-28T09:00:00": null,
