@@ -5,11 +5,11 @@
 Calendaring extensions                                        N. Jenkins
 Internet-Draft                                               R. Stepanek
 Intended status: Standards Track                                FastMail
-Expires: July 23, 2018                                  January 19, 2018
+Expires: August 2, 2018                                 January 29, 2018
 
 
            JSCalendar: A JSON representation of calendar data
-                      draft-jenkins-jscalendar-05
+                    draft-ietf-calext-jscalendar-00
 
 Abstract
 
@@ -34,7 +34,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 23, 2018.
+   This Internet-Draft will expire on August 2, 2018.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 1]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 1]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 2]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 2]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -154,7 +154,7 @@ Internet-Draft                   JSEvent                    January 2018
      7.7.  Floating-time event (with recurrence) . . . . . . . . . .  43
      7.8.  Event with multiple locations and localization  . . . . .  44
      7.9.  Recurring event with overrides  . . . . . . . . . . . . .  45
-     7.10. Recurring event with participants . . . . . . . . . . . .  45
+     7.10. Recurring event with participants . . . . . . . . . . . .  46
    8.  Security Considerations . . . . . . . . . . . . . . . . . . .  47
    9.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  47
    10. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  47
@@ -165,7 +165,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 3]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 3]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -221,7 +221,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 4]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 4]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -277,7 +277,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 5]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 5]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -333,7 +333,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 6]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 6]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -389,7 +389,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 7]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 7]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -445,7 +445,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 8]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 8]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -501,7 +501,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                 [Page 9]
+Jenkins & Stepanek       Expires August 2, 2018                 [Page 9]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -557,7 +557,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 10]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 10]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -613,7 +613,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 11]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 11]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -669,7 +669,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 12]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 12]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -725,7 +725,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 13]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 13]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -781,7 +781,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 14]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 14]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -837,7 +837,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 15]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 15]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -893,7 +893,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 16]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 16]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -949,7 +949,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 17]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 17]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1005,7 +1005,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 18]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 18]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1061,7 +1061,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 19]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 19]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1117,7 +1117,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 20]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 20]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1173,7 +1173,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 21]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 21]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1229,7 +1229,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 22]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 22]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1285,7 +1285,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 23]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 23]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1341,7 +1341,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 24]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 24]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1397,7 +1397,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 25]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 25]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1453,7 +1453,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 26]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 26]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1509,7 +1509,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 27]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 27]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1565,7 +1565,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 28]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 28]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1621,7 +1621,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 29]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 29]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1677,7 +1677,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 30]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 30]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1733,7 +1733,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 31]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 31]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1789,7 +1789,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 32]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 32]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1845,7 +1845,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 33]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 33]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1901,7 +1901,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 34]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 34]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -1957,7 +1957,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 35]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 35]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2013,7 +2013,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 36]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 36]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2069,7 +2069,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 37]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 37]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2125,7 +2125,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 38]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 38]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2181,7 +2181,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 39]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 39]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2237,7 +2237,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 40]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 40]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2293,7 +2293,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 41]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 41]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2349,7 +2349,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 42]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 42]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2405,7 +2405,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 43]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 43]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2416,8 +2416,8 @@ Internet-Draft                   JSEvent                    January 2018
    a virtual location.  Fans can see a live convert on premises or
    online.  The event title and descriptions are localized.  (Note: the
    localization of the event description contains an UTF-8 encoded
-   German Umlaut.  This characte r may have been replaced with ASCII
-   characters in the plain-text rendering of this RFC document.)
+   German Umlaut.  This character may have been replaced with ASCII
+   characters in the plain-text rendering of this RFC document)
 
    {
      "...": "",
@@ -2449,7 +2449,7 @@ Internet-Draft                   JSEvent                    January 2018
          "title": "Live von der Music Bowl: The Band!",
          "description": "Schau dir das groesste Musikereignis an!",
          "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
-           "Gratis Live-Stream aus der Music Bowl"
+                                "Gratis Live-Stream aus der Music Bowl"
        }
      }
    }
@@ -2461,7 +2461,7 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 44]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 44]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2487,11 +2487,13 @@ Internet-Draft                   JSEvent                    January 2018
        "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
          "title": "Math lab room 1",
          "description": "Math Lab I, Department of Mathematics"
-       },
-       "recurrenceRule": {
-         "frequency": "weekly",
-         "until": "2018-06-25T09:00:00"
-       },
+       }
+     },
+     "recurrenceRule": {
+       "frequency": "weekly",
+       "until": "2018-06-25T09:00:00"
+     },
+     "recurrenceOverrides": {
        "2018-04-02T09:00:00": null,
        "2018-05-07T09:00:00": null,
        "2018-05-28T09:00:00": null,
@@ -2509,19 +2511,22 @@ Internet-Draft                   JSEvent                    January 2018
      }
    }
 
+
+
+
+
+
+
+Jenkins & Stepanek       Expires August 2, 2018                [Page 45]
+
+Internet-Draft                   JSEvent                    January 2018
+
+
 7.10.  Recurring event with participants
 
    This example illustrates scheduled events.  A team meeting occurs
    every week since January 8, 2018 at 9am Johannesburg time.  The event
    owner also chairs the event.  Participants meet in a virtual meeting
-
-
-
-Jenkins & Stepanek        Expires July 23, 2018                [Page 45]
-
-Internet-Draft                   JSEvent                    January 2018
-
-
    room.  An attendee has accepted the invitation, but on March 8, 2018
    he is unavailable and declined participation for this occurrence.
 
@@ -2565,19 +2570,19 @@ Internet-Draft                   JSEvent                    January 2018
          "roles": [
            "owner",
            "chair"
+
+
+
+Jenkins & Stepanek       Expires August 2, 2018                [Page 46]
+
+Internet-Draft                   JSEvent                    January 2018
+
+
          ]
        },
        "...": ""
      },
      "recurrenceOverrides": {
-
-
-
-Jenkins & Stepanek        Expires July 23, 2018                [Page 46]
-
-Internet-Draft                   JSEvent                    January 2018
-
-
        "2018-03-08T09:00:00": {
          "participants/tom@foobar.example.com/rsvpResponse": "declined"
        }
@@ -2618,21 +2623,21 @@ Internet-Draft                   JSEvent                    January 2018
 
 11.1.  Normative References
 
+
+
+
+
+
+
+Jenkins & Stepanek       Expires August 2, 2018                [Page 47]
+
+Internet-Draft                   JSEvent                    January 2018
+
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
-
-
-
-
-Jenkins & Stepanek        Expires July 23, 2018                [Page 47]
-
-Internet-Draft                   JSEvent                    January 2018
-
 
    [RFC2183]  Troost, R., Dorner, S., and K. Moore, Ed., "Communicating
               Presentation Information in Internet Messages: The
@@ -2677,18 +2682,18 @@ Internet-Draft                   JSEvent                    January 2018
               Languages", BCP 47, RFC 5646, DOI 10.17487/RFC5646,
               September 2009, <https://www.rfc-editor.org/info/rfc5646>.
 
+
+
+
+Jenkins & Stepanek       Expires August 2, 2018                [Page 48]
+
+Internet-Draft                   JSEvent                    January 2018
+
+
    [RFC5870]  Mayrhofer, A. and C. Spanring, "A Uniform Resource
               Identifier for Geographic Locations ('geo' URI)",
               RFC 5870, DOI 10.17487/RFC5870, June 2010,
               <https://www.rfc-editor.org/info/rfc5870>.
-
-
-
-
-Jenkins & Stepanek        Expires July 23, 2018                [Page 48]
-
-Internet-Draft                   JSEvent                    January 2018
-
 
    [RFC6047]  Melnikov, A., Ed., "iCalendar Message-Based
               Interoperability Protocol (iMIP)", RFC 6047,
@@ -2733,18 +2738,17 @@ Internet-Draft                   JSEvent                    January 2018
               DOI 10.17487/RFC8259, December 2017,
               <https://www.rfc-editor.org/info/rfc8259>.
 
-   [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
-              DOI 10.17487/RFC8288, October 2017,
-              <https://www.rfc-editor.org/info/rfc8288>.
 
 
 
-
-
-Jenkins & Stepanek        Expires July 23, 2018                [Page 49]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 49]
 
 Internet-Draft                   JSEvent                    January 2018
 
+
+   [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
+              DOI 10.17487/RFC8288, October 2017,
+              <https://www.rfc-editor.org/info/rfc8288>.
 
 11.2.  Informative References
 
@@ -2793,11 +2797,7 @@ Authors' Addresses
 
 
 
-
-
-
-
-Jenkins & Stepanek        Expires July 23, 2018                [Page 50]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 50]
 
 Internet-Draft                   JSEvent                    January 2018
 
@@ -2853,4 +2853,4 @@ Internet-Draft                   JSEvent                    January 2018
 
 
 
-Jenkins & Stepanek        Expires July 23, 2018                [Page 51]
+Jenkins & Stepanek       Expires August 2, 2018                [Page 51]

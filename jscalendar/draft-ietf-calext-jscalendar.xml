@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="std" docName="draft-jenkins-jscalendar-05">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-00">
     <?rfc toc="yes"?>
     <?rfc symrefs="yes"?>
     <?rfc sortrefs="yes"?>
@@ -43,7 +43,7 @@
                 <uri>https://www.fastmail.com</uri>
             </address>
         </author>
-        <date year="2018" month="January" day="19"/>
+        <date year="2018" month="January" day="29"/>
         <area>Applications</area>
         <workgroup>Calendaring extensions</workgroup>
         <keyword>JSON</keyword>
@@ -2637,7 +2637,7 @@
 </section>
 <section anchor="example-multi-location-event" title="Event with multiple locations and localization">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This characte     r may have been replaced with ASCII characters in the plain-text rendering of this RFC document.)
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
     </t>
     <figure>
           <artwork><![CDATA[
