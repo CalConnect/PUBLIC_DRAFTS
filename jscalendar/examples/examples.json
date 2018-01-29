@@ -110,7 +110,7 @@
 }, {
   "t": "Event with multiple locations and localization",
   "a": "multi-location-event",
-  "d": "This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This characte     r may have been replaced with ASCII characters in the plain-text rendering of this RFC document.)",
+  "d": "This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)",
   "o": 
   {
     "...": "",
@@ -156,11 +156,13 @@
       "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
         "title": "Math lab room 1",
         "description": "Math Lab I, Department of Mathematics"
+      }
     },
     "recurrenceRule": {
       "frequency": "weekly",
       "until": "2018-06-25T09:00:00"
     },
+    "recurrenceOverrides": {
       "2018-04-02T09:00:00": null,
       "2018-05-07T09:00:00": null,
       "2018-05-28T09:00:00": null,
