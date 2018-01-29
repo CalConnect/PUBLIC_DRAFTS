@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="std" docName="draft-jenkins-jscalendar-05">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-00">
     <?rfc toc="yes"?>
     <?rfc symrefs="yes"?>
     <?rfc sortrefs="yes"?>
@@ -43,7 +43,7 @@
                 <uri>https://www.fastmail.com</uri>
             </address>
         </author>
-        <date year="2018" month="January" day="19"/>
+        <date year="2018" month="January" day="29"/>
         <area>Applications</area>
         <workgroup>Calendaring extensions</workgroup>
         <keyword>JSON</keyword>
