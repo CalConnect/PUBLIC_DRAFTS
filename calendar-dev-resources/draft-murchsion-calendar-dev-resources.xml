@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'
+[
+<!ENTITY rfc2119 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY rfc2518 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.2518.xml'>
+<!ENTITY rfc3864 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3864.xml'>
+<!ENTITY rfc4331 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4331.xml'>
+<!ENTITY rfc4791 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+<!ENTITY rfc4918 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4918.xml'>
+<!ENTITY rfc5234 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5234.xml'>
+<!ENTITY rfc5545 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml'>
+<!ENTITY rfc5546 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml'>
+<!ENTITY rfc6047 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6047.xml'>
+<!ENTITY rfc6266 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6266.xml'>
+<!ENTITY rfc6321 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6321.xml'>
+<!ENTITY rfc6578 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6578.xml'>
+<!ENTITY rfc6638 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6638.xml'>
+<!ENTITY rfc6868 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6868.xml'>
+<!ENTITY rfc6764 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6764.xml'>
+<!ENTITY rfc7230 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml'>
+<!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
+<!ENTITY rfc7240 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml'>
+<!ENTITY rfc7265 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7265.xml'>
+<!ENTITY rfc7529 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7529.xml'>
+<!ENTITY rfc7809 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7809.xml'>
+<!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
+<!ENTITY rfc7953 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7953.xml'>
+<!ENTITY rfc7986 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7986.xml'>
+<!ENTITY rfc8144 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8144.xml'>
+]>
+
+<?rfc toc="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<?rfc tocdepth="2"?>
+<?rfc strict="yes"?>
+<rfc category="info" ipr='trust200902'
+     docName='draft-murchison-calendar-dev-resources-00'>
+  <front>
+    <title abbrev="Calendar Dev Resources">Resources for Developing
+    Calendar Applications</title> 
+
+    <author initials="K." surname="Murchison"
+            fullname="Kenneth Murchison">
+      <organization abbrev="FastMail">FastMail US LLC</organization>
+      <address>
+<!--
+        <postal>
+          <street>1315 Walnut Street, Suite 320</street>
+          <city>Philadelphia</city> <region>PA</region>
+          <code>19107</code> <country>USA</country>
+          <street>Level 1, 91 William Street</street>
+          <city>Melbourne</city> <region>VIC</region>
+          <code>3000</code> <country>Australia</country>
+        </postal>
+-->
+        <email>murch@fastmail.com</email> 
+        <uri>http://www.fastmail.com/</uri>
+      </address> 
+    </author> 
+
+    <date />
+
+    <area>Applications and Real-Time</area> 
+    <workgroup>Calendering Extensions</workgroup>
+
+    <keyword>iCalendar</keyword>
+    <keyword>iTIP</keyword>
+    <keyword>CalDAV</keyword>
+
+    <abstract>
+      <t>This memo lists specifications and resources available to
+      developers of calendaring and scheduling applications.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title='Introduction'>
+      <t>This memo lists standards and resources available to
+      developers of calendaring and scheduling applications.</t>
+
+      <t>This list SHOULD NOT be considered exhaustive, but SHOULD be
+      sufficient as a starting point for developers new to calendaring
+      and scheduling.</t>
+    </section> <!-- Intro -->
+
+    <section title='The Standards'>
+      <t>The documents in the following sections define the standards
+      for calendaring and scheduling data formats and protocols.</t>
+  
+      <section title='Calendar Data Formats'>
+
+        <section title='iCalendar'>
+          <t><list style='symbols'>
+            <t><xref target='RFC5545'>Internet Calendaring and
+            Scheduling Core Object Specification (iCalendar)</xref></t>
+
+            <t><xref target='RFC6868'>Parameter Value Encoding in
+            iCalendar and vCard</xref></t>
+
+            <t><xref target='RFC7529'>Non-Gregorian Recurrence Rules in
+            iCalendar</xref></t>
+
+            <t><xref target='RFC7953'>Calendar Availability</xref></t>
+
+            <t><xref target='RFC7986'>New Properties for
+            iCalendar</xref></t>
+          </list></t>
+        </section>
+
+        <section title='Other Formats'>
+          <t><list style='symbols'>
+            <t><xref target='RFC6321'>The XML Format for
+            iCalendar</xref></t>
+
+            <t><xref target='RFC7265'>The JSON Format for
+            iCalendar</xref></t>
+          </list></t>
+        </section>
+      </section>
+
+      <section title='Calendar Scheduling'>
+        <t><list style='symbols'>
+          <t><xref target='RFC5546'>iCalendar Transport-Independent
+          Interoperability Protocol</xref></t>
+
+          <t><xref target='RFC6047'>iCalendar Message-Based
+          Interoperability Protocol</xref></t>
+
+          <t><xref target='RFC7953'>Calendar Availability</xref></t>
+        </list></t>
+      </section>
+
+      <section title='CalDAV: A Calendar Access Protocol'>
+        <section title='Core Standards'>
+          <t><list style='symbols'>
+            <t><xref target='RFC7230'>Hypertext Transfer Protocol
+            (HTTP/1.1)</xref></t>
+
+            <t><xref target='RFC4918'>HTTP Extensions for Web Distributed
+            Authoring and Versioning (WebDAV)</xref></t>
+
+            <t><xref target='RFC4791'>Calendaring Extensions to
+            WebDAV (CalDAV)</xref></t>
+
+            <t><xref target='RFC6638'>Scheduling Extensions to
+            CalDAV</xref></t>
+          </list></t>
+        </section>
+
+        <section title='Extensions and Related Standards'>
+          <t><list style='symbols'>
+            <t><xref target='RFC6764'>Locating Services for CalDAV and
+            CardDAV</xref></t> 
+          
+            <t><xref target='RFC6578'>Collection Synchronization for
+            WebDAV</xref></t>
+
+            <t><xref target='RFC7953'>Calendar Availability</xref></t>
+
+            <t><xref target='RFC7809'>CalDAV: Time Zones by
+            Reference</xref></t>
+
+            <t><xref target='RFC8144'>Use of the Prefer Header Field
+            in WebDAV</xref></t>
+          </list></t>
+        </section>
+      </section>
+    </section>
+
+    <section title='Other Resources'>
+      <t>The following documents outline guidelines and best
+      practices for developing interoperable calendar and scheduling
+      applications.</t>
+
+      <t><list style='symbols'>
+        <t><xref target='DEVGUIDE'>CalConnect Developer's Guide</xref></t>
+      </list></t>
+    </section>
+
+    <section title='Security Considerations'>
+      <t>There are no security considerations related to this memo.</t>
+    </section>
+
+    <section title='Acknowledgments'>
+      <t>This document came about via discussions at the
+      Calendaring and Scheduling Consortium. Thanks in particular to
+      Mike Douglass.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title='Normative References'>
+      &rfc4791;
+      &rfc4918;
+      &rfc5545;
+      &rfc5546;
+      &rfc6047;
+      &rfc6321;
+      &rfc6578;
+      &rfc6638;
+      &rfc6764;
+      &rfc6868;
+      &rfc7230;
+      &rfc7529;
+      &rfc7265;
+      &rfc7809;
+      &rfc7953;
+      &rfc7986;
+      &rfc8144;
+    </references>
+
+    <references title='Informative References'>
+      <reference anchor="DEVGUIDE"
+                 target="https://devguide.calconnect.org">
+        <front>
+          <title>CalConnect Developer's Guide</title>
+          <author surname="CalConnect"/>
+          <date/>
+        </front>
+      </reference>
+    </references>
+
+<!--
+    <section title="Change History (To be removed by RFC Editor before
+                    publication)">
+      <t>
+        Changes in calext-00:
+        <list style='numbers'>
+          <t>Added Murchison as editor.</t>
+          <t>Updated HTTP references to RFC7230 and RFC7231.</t>
+          <t>Updated Prefer header field references to RFC7240.</t>
+          <t>Added Implementation Status section.</t> 
+          <t>Minor editorial changes.</t> 
+       </list>
+      </t>
+    </section>
+-->
+  </back>
+</rfc>
