@@ -16,7 +16,7 @@
 <!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
 <!ENTITY rfc7240 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml'>
 <!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
-<!ENTITY idWebDAVPrefer PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.murchison-webdav-prefer.xml'>
+<!ENTITY rfc8144 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8144.xml'>
 ]>
 
 <?rfc toc="yes"?>
@@ -28,7 +28,7 @@
 <?rfc subcompact="no"?>
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
-<rfc category="std" ipr='trust200902'
+<rfc category="info" ipr='trust200902'
      docName='draft-ietf-calext-caldav-attachments-03'>
   <front>
     <title abbrev="CalDAV Managed Attachments">CalDAV Managed Attachments</title>
@@ -65,19 +65,15 @@
 
     <author role="editor" initials="K." surname="Murchison"
             fullname="Kenneth Murchison">
-      <organization abbrev="CMU">
-	Carnegie Mellon University
-      </organization>
+      <organization abbrev="FastMail">FastMail Pty Ltd.</organization>
       <address> 
-	<postal>
-	  <street>5000 Forbes Avenue</street>
-<!--	  <street>Cyert Hall 285</street>-->
-	  <city>Pittsburgh</city> <region>PA</region>
-	  <code>15213</code> <country>USA</country>
-	</postal>
-<!--	<phone>+1 412 268 1982</phone>-->
-        <email>murch@andrew.cmu.edu</email> 
-      <uri>http://www.cmu.edu/</uri>
+        <postal>
+          <street>Level 1, 91 William Street</street>
+          <city>Melbourne</city> <region>VIC</region>
+          <code>3000</code> <country>Australia</country>
+        </postal>
+        <email>murch@fastmail.com</email> 
+        <uri>http://www.fastmail.com/</uri>
       </address> 
     </author> 
 
@@ -95,6 +91,12 @@
       <t>This specification defines an extension to the calendar
       access protocol (CalDAV) to allow attachments associated with
       iCalendar data to be stored and managed on the server.</t>
+
+      <t>This specification documents existing code deployed by
+      multiple vendors.  It is published as an Informational
+      specification rather than Standards-Track due to its
+      non-standard method of updating an existing resource via
+      HTTP.</t>
     </abstract>
   </front>
 
@@ -1412,7 +1414,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
     <references title='Informative References'>
       &rfc5546;
       &rfc7942;
-      &idWebDAVPrefer;
+      &rfc8144;
     </references>
 
     <section title="Change History (To be removed by RFC Editor before
@@ -1420,6 +1422,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
       <t>
         Changes in calext-03:
         <list style='numbers'>
+          <t>Changed to Informational based on feedback regarding
+          non-standard method of updating an existing resource.</t>
           <t>Added references to sub-sections in Overview.</t>
           <t>Made support for Prefer header field a SHOULD for servers.</t>
           <t>Expanded recurring event examples to use conditional
@@ -1517,7 +1521,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         header fields in the request, thereby preventing itself from
         needlessly sending the attachment data, and requesting that the
         current resource be returned in the failure response (see
-        Section 3.2 of <xref target="I-D.murchison-webdav-prefer"/>).
+        Section 3.2 of <xref target="RFC8144"/>).
       </t>
       <figure>
         <preamble>

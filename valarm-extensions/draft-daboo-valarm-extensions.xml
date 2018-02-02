@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../../rfc2629.xslt"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt"?>
 <!DOCTYPE rfc SYSTEM 'rfc2629.dtd'
 [
-<!ENTITY rfc2119 PUBLIC '' 'bibxml/reference.RFC.2119.xml'>
-<!ENTITY rfc3261 PUBLIC '' 'bibxml/reference.RFC.3261.xml'>
-<!ENTITY rfc3860 PUBLIC '' 'bibxml/reference.RFC.3860.xml'>
-<!ENTITY rfc3966 PUBLIC '' 'bibxml/reference.RFC.3966.xml'>
-<!ENTITY rfc4791 PUBLIC '' 'bibxml/reference.RFC.4791.xml'>
-<!ENTITY rfc5545 PUBLIC '' 'bibxml/reference.RFC.5545.xml'>
-<!ENTITY rfc5724 PUBLIC '' 'bibxml/reference.RFC.5724.xml'>
-<!ENTITY rfc5870 PUBLIC '' 'bibxml/reference.RFC.5870.xml'>
-<!ENTITY rfc7986 PUBLIC '' 'bibxml/reference.RFC.7986.xml'>
+<!ENTITY rfc2119 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+<!ENTITY rfc3261 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3261.xml'>
+<!ENTITY rfc3860 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3860.xml'>
+<!ENTITY rfc3966 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3966.xml'>
+<!ENTITY rfc4791 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+<!ENTITY rfc5545 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml'>
+<!ENTITY rfc5546 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml'>
+<!ENTITY rfc5724 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5724.xml'>
+<!ENTITY rfc5870 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml'>
+<!ENTITY rfc7986 PUBLIC ''
+'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml'>
+<!ENTITY idEventPub PUBLIC ''
+'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-eventpub-extensions.xml'>
 ]>
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
 <?rfc toc="yes"?>
 <?rfc comments="yes"?>
 <?rfc inline="yes"?>
@@ -42,19 +55,15 @@
     </author>
     <author role="editor" initials="K." surname="Murchison"
             fullname="Kenneth Murchison">
-      <organization abbrev="CMU">
-        Carnegie Mellon University
-      </organization>
+      <organization abbrev="FastMail">FastMail Pty Ltd.</organization>
       <address> 
         <postal>
-	  <street>5000 Forbes Avenue</street>
-          <!--	  <street>Cyert Hall 285</street>-->
-	  <city>Pittsburgh</city> <region>PA</region>
-	  <code>15213</code> <country>USA</country>
+          <street>Level 1, 91 William Street</street>
+          <city>Melbourne</city> <region>VIC</region>
+          <code>3000</code> <country>Australia</country>
         </postal>
-        <!--	<phone>+1 412 268 1982</phone>-->
-        <email>murch@andrew.cmu.edu</email> 
-        <uri>http://www.cmu.edu/</uri>
+        <email>murch@fastmail.com</email> 
+        <uri>http://www.fastmail.com/</uri>
       </address> 
     </author>
     <date />
@@ -69,6 +78,7 @@
       interoperability between clients and servers.</t>
     </abstract>
   </front>
+
   <middle>
     <section title='Introduction'>
       <t>The <xref target="RFC5545">iCalendar</xref> specification
@@ -78,6 +88,7 @@
       component is used to specify a reminder for an event or
       task. Different alarm actions are possible, as are different
       ways to specify how the alarm is triggered.</t>
+
       <t>As iCalendar has become more widely used and as client-server
       protocols such as <xref target="RFC4791">CalDAV</xref> have
       become more popular, several issues with "VALARM" components
@@ -90,6 +101,7 @@
       been done through the use of custom "X-" properties specific to
       each client implementation, leading to poor
       interoperability.</t>
+
       <t>This specification defines a set of extensions to "VALARM"
       components to cover common requirements for alarms not currently
       addressed in iCalendar. Each extension is defined in a separate
@@ -99,17 +111,20 @@
       describes mechanisms by which clients can interoperably
       implement common features such as "snoozing".</t>
     </section>
+
     <section title='Conventions Used in This Document'>
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
       "MAY", and "OPTIONAL" in this document are to be interpreted as
       described in <xref target='RFC2119' />.</t>
+
       <t>When XML element types in the namespaces "DAV:" and
       "urn:ietf:params:xml:ns:caldav" are referenced in this document
       outside of the context of an XML fragment, the string "DAV:" and
       "CALDAV:" will be prefixed to the element type names
       respectively.</t>
     </section>
+
     <section title="Extensible syntax for VALARM" anchor="syntax">
       <t>Section 3.6.6 of <xref target="RFC5545" /> defines the syntax
       for "VALARM" components and properties within them. However, as
@@ -119,6 +134,7 @@
       syntax, an alternative form for the base syntax is defined here,
       with the goal of simplifying specification of the
       extensions.</t>
+
       <t>A "VALARM" calendar component is re-defined by the following notation: 
       <figure>
         <artwork name="abnf"><![CDATA[
@@ -199,16 +215,24 @@ emailpropext = *(
                )]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm Unique Identifier" anchor="uid">
+<!--
       <t>Several of the other extensions in this specification require
       identifying a specific instance of a "VALARM" component in an
-      iCalendar stream. To aid that, this extension adds a "UID"
+      iCalendar stream. To aid that, this
+-->
+      <t>This extension adds a "UID"
       property to "VALARM" components to allow a unique identifier to
       specified. The value of this property can then be used to refer
       uniquely to the "VALARM" component.</t> 
+
       <t>The "UID" property defined here follows the definition in
-      Section 3.8.4.7 of <xref target="RFC5545" />. In particular it
-      MUST be a globally unique identifier.</t> 
+      Section 3.8.4.7 of <xref target="RFC5545" /> with the security
+      and privacy updates in Section 5.3 of <xref target="RFC7986" />.
+      In particular it MUST be a globally unique identifier that does
+      not contain any security- or privacy-sensitive information.</t> 
+
       <t>The "VALARM" component defined in <xref target="syntax" /> is
       extended here as:
       <figure>
@@ -224,18 +248,21 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
+<!--
     <section title="Alarm Related To">
       <t>It is often convenient to relate one or more "VALARM"
       components to other "VALARM" components (e.g., see <xref
       target="snooze"/>). This can be accomplished if the "VALARM"
       components each have their own "UID" property (as per <xref
       target="uid" />).</t>
+
       <t>This specification updates the usage of the "RELATED-TO"
       property defined in Section 3.8.4.5 of <xref target="RFC5545" />
       to enable its use with "VALARM" components. Specific types of
       relationships between "VALARM" components can be identified by
       registering new values for the "RELTYPE" property parameter
       defined in Section 3.2.15 of <xref target="RFC5545" />.</t>
+
       <t>The "VALARM" component defined in <xref target="syntax" /> is
       extended here as:
       <figure>
@@ -251,15 +278,17 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm URI Action" anchor='URI-ACTION'>
       <t>Currently "VALARM" components have actions for audio, display
-      and email. New types of action are of interest, e.g., SMS,
+      and email. New types of actions are of interest, e.g., SMS,
       instant messaging, etc. Rather then specify separate actions for
       these, an alternative is to define a "URI" action that allows
       any URI scheme to be used as an action, where it makes
       sense. Thus URI schemes for SMS <xref target="RFC5724" />,
       IM <xref target="RFC3860" />, SIP <xref target="RFC3261" />,
-      TEL <xref target="RFC3966" />etc could be used.</t> 
+      TEL <xref target="RFC3966" />, etc could be used.</t> 
+
       <t>This extension defines a new "URI" property value for use
       with the "ACTION" property in "VALARM" components. A new set of
       action properties is defined for "VALARM" components based on
@@ -290,6 +319,7 @@ uriprop     = *(
 ]]></artwork>
       </figure></t>
     </section>
+
     <section title="Alarm Agent">
       <t>With the advent of a standard client/server protocol for
       calendaring and scheduling data (<xref target="RFC4791" />)
@@ -302,6 +332,7 @@ uriprop     = *(
       alarms. In addition it may be important for only the server or
       the client to be set to handle an alarm - and in some cases only
       specific servers or clients.</t>
+
       <t>To address this need, this specification defines an
       "ALARM-AGENT" iCalendar property that can be added to any
       "VALARM" component. This property specifies whether a client or
@@ -321,6 +352,7 @@ alarmprop  /= *(
               )
 ]]></artwork>
       </figure></t>
+
       <section title="Alarm Agent Property" anchor="ALARM-AGENT">
         <t>
           <list style="hanging">
@@ -396,6 +428,7 @@ ALARM-AGENT;AGENT-ID="tag:example.com,2011:cyrus-desktop":CLIENT
           </list>
         </t>
       </section>
+
       <section title="Agent ID Property Parameter" anchor="AGENT-ID-PARAM">
         <t>
           <list style="hanging">
@@ -425,6 +458,7 @@ ALARM-AGENT;AGENT-ID="http://calendar.example.com":SERVER
         </t>
       </section>
     </section>
+-->
     <section title="Alarm Acknowledgement">
       <t>There is currently no way for a "VALARM" component to
       indicate whether it has been triggered and acknowledged. With
@@ -491,9 +525,9 @@ alarmprop       /= *(
             time for the alarm, then the client SHOULD NOT trigger the
             alarm. Similarly, if an alarm has been triggered and an
             "alert" presented to a calendar user, clients can monitor
-            the iCalendar data to determine whether an "ACKNOWLEDGED"
+            the iCalendar data to determine whether an "ACKNOWLEDGED" property
             is added or changed in the alarm component. If the value
-            of any "ACKNOWLEDGED" in the alarm changes and is greater
+            of any "ACKNOWLEDGED" property in the alarm changes and is greater
             than or equal to the trigger time of the alarm, then
             clients SHOULD dismiss or cancel any "alert" presented to
             the calendar user.</t>
@@ -532,7 +566,9 @@ ACKNOWLEDGED:20090604T084500Z
       "VALARM" being snoozed). The new "VALARM" MUST be set to trigger
       at the user's chosen "snooze" interval after the original alarm
       triggered. Clients SHOULD use an absolute "TRIGGER" property
-      with a "DATE-TIME" value specified in UTC. Clients SHOULD add a
+      with a "DATE-TIME" value specified in UTC.</t>
+<!--
+      Clients SHOULD add a
       "RELATED-TO" property to the new "VALARM" component with a value
       set to the "UID" property value of the "VALARM" component being
       snoozed. If the "VALARM" component being snoozed does not
@@ -540,6 +576,7 @@ ACKNOWLEDGED:20090604T084500Z
       "RELATED-TO" property added to the new "VALARM" component SHOULD
       include a "RELTYPE" property parameter with a value set to
       "SNOOZE".</t>
+-->
       <t>When the "snooze" alarm is triggered and dismissed the client
       SHOULD remove the corresponding "VALARM" component, or set the
       "ACKNOWLEDGED" property (see <xref
@@ -547,6 +584,7 @@ ACKNOWLEDGED:20090604T084500Z
       is itself "snoozed", the client SHOULD remove the original
       "snooze" alarm and create a new one, with the appropriate
       trigger time and relationship set.</t>
+<!--
       <section title="Relationship Type Property Parameter" anchor="SNOOZE-PARAM">
         <t>
             This specification adds the "SNOOZE" relationship type for
@@ -555,8 +593,10 @@ ACKNOWLEDGED:20090604T084500Z
             "snoozed" "VALARM" component to the original alarm that
             the "snooze" was generated for.
         </t>
-      </section>
+        </section>
+-->
     </section>
+
     <section title="Alarm Proximity Trigger">
       <t>VALARMs are currently triggered when a specific date-time is
       reached. It is also desirable to be able to trigger alarms based
@@ -569,7 +609,8 @@ ACKNOWLEDGED:20090604T084500Z
         <t>"PROXIMITY" - indicates that a location based trigger is to
         be used and which direction of motion is used for the
         trigger</t>
-        <t>"STRUCTURED-LOCATION" - used to indicate the actual
+        <t><xref target="I-D.ietf-calext-eventpub-extensions">
+          "STRUCTURED-LOCATION"</xref> - used to indicate the actual
         location to trigger off, specified using a <xref
         target="RFC5870">geo: URI</xref> which allows for two or three
         coordinate values with an optional uncertainty</t>
@@ -600,7 +641,7 @@ alarmprop       /= *(
         it has to be present, but ignored. To indicate a "TRIGGER"
         that is to be ignored, clients SHOULD use a value a long time
         in the past. A value of "19760401T005545Z" has been commonly
-        used for that.
+        used for this purpose.
       </t>
       <section title="Proximity Property" anchor="PROXIMITY">
         <t>
@@ -624,6 +665,13 @@ alarmprop       /= *(
             "DEPART", the alarm is triggered when the calendar user
             agent departs from the vicinity of any specified
             locations.</t>
+            <t>When the property value is set to "CONNECT", the alarm
+            is triggered when the calendar user agent connects to a
+            <xref target="BTcore">Bluetooth(R)</xref>-enabled
+            automobile.  When set to "DISCONNECT", the alarm is
+            triggered when the calendar user agent disconnects from a
+            Bluetooth(R)-enabled automobile.</t>
+<!--  This contradicts what we say about TRIGGER above
             <t>The time-based "TRIGGER" property MUST also be present
             in the "VALARM" calendar component and MUST be set to a
             positive duration value (or zero duration). That value
@@ -631,6 +679,7 @@ alarmprop       /= *(
             the alarm after the location trigger is triggered. e.g.,
             an alarm could be set to trigger 30 minutes after arriving
             home.</t>
+-->
             <t hangText="Format Definition:">This property is defined
             by the following notation:
             <figure>
@@ -646,7 +695,8 @@ proximityparam  = *(
 
                   )
                   
-proximityvalue  = "ARRIVE" / "DEPART" / iana-token / x-name
+proximityvalue  = "ARRIVE" / "DEPART" /
+                  "CONNECT" / "DISCONNECT" / iana-token / x-name
 ]]></artwork>
             </figure></t>
             <t hangText="Example:">The following is an example of this property: 
@@ -671,9 +721,10 @@ BEGIN:VALARM
 UID:77D80D14-906B-4257-963F-85B1E734DBB6
 TRIGGER;VALUE=DATE-TIME:19760401T005545Z
 ACTION:DISPLAY
-PROXIMITY:DEPART
-STRUCTURE-LOCATION;VALUE=URI:geo:40.443,-79.945;u=10
 DESCRIPTION:Remember to buy milk
+TRIGGER;VALUE=DATE-TIME:19760401T005545Z
+PROXIMITY:DEPART
+STRUCTURED-LOCATION;VALUE=URI:geo:40.443,-79.945;u=10
 END:VALARM
 ]]></artwork>
             </figure></t>
@@ -729,22 +780,29 @@ END:VALARM
         home collection that contains the calendar collection. If
         present on the calendar home, the property value there is used
         as the default.</t>
+
         <t>The WebDAV property value MUST be one or more "VALARM"
         components or the empty string. If an empty string is used, no
         default alarms are applied. Note that these values contain
         just the "BEGIN:VALARM...END:VALARM" data (i.e., syntactically
         the "alarmcext" element as per <xref target="syntax"/>).</t>
+
         <t>When adding a default alarm to an event or task, the server
-        MUST ensure that a "DEFAULT-ALARM" property with a value of
+        MUST ensure that a
+        <xref target="default-alarm">"DEFAULT-ALARM"</xref> property
+        with a value of 
         "TRUE" is present in the "VALARM" component.</t>
+
         <t>If a "DESCRIPTION" property is present in the "VALARM"
         component, but its value is empty, the server SHOULD insert
         the value from any "SUMMARY" property of the component in
         which the default "VALARM" is being added.</t>
+
         <t>A default alarm MUST NOT be added to individual event or
         task components in a calendar object resource being created,
         if a "VALARM" component is already present in the
         component.</t>
+
         <t>When the client stores a new alarm in any of the WebDAV
         properties, servers MUST NOT change any existing calendar data
         within the calendar home or calendar where the WebDAV property
@@ -755,6 +813,7 @@ END:VALARM
         server. The reasoning for this is described further in the
         next section.</t>
       </section>
+
       <section title="Client Behavior">
         <t>Clients that support default alarms SHOULD allow users to
         set the four types of default provided by the WebDAV
@@ -784,6 +843,9 @@ END:VALARM
         values is a compromise designed to provide some backwards
         compatibility with clients not supporting default alarm
         behavior.</t>
+
+        <section title="Disabling Default Alarms" anchor="disable-default">
+        </section>
       </section>
       <section title="Action None" anchor="NONE-ACTION">
         <t>When default alarms are being used it is necessary to know
@@ -816,6 +878,13 @@ noneprop     = (
                )
 ]]></artwork>
         </figure></t>
+
+        <t>For backwards compatibility with clients and servers that
+        are unaware of the "NONE" property value action,
+        clients SHOULD use a "TRIGGER" value occurring a long time in
+        the past so that the alarm will be ignored.  A value of
+        "19760401T005545Z" has been commonly used for this purpose.
+        </t>
       </section>
       <section title="Default Alarm Property" anchor="default-alarm">
         <t>
@@ -861,11 +930,19 @@ defaultalarmparam = *(
         </t>
       </section>
     </section>
+
     <section title='Security Considerations'>
-      <t>TODO:talk about importance of stripping VALARMs from incoming
-      iTIP. Talk about VALARMs being used to "spam" - particularly
-      nasty if the server handles it.</t>
+      <t>VALARMs, if not monitored properly, can be used to "spam"
+      users and/or leak personal information.  For instance, an
+      unwanted audio or display alert could be considered spam.  Or an
+      email alert could be used to leak a user's location to a third
+      party or to send unsolicited email to multiple users.
+      Therefore, CalDAV clients and servers that accept iCalendar data
+      from a third party (e.g. via <xref target="RFC5546">iTIP</xref>,
+      a subscription feed, or a shared calendar) SHOULD remove all
+      VALARMs from the data prior to storing in their calendar system.</t>
     </section>
+
     <section title='IANA Considerations'>
       <section title='Property Registrations'>
         <t>This document defines the following new iCalendar
@@ -875,9 +952,11 @@ defaultalarmparam = *(
           <ttcol>Property</ttcol>
           <ttcol>Status</ttcol>
           <ttcol>Reference</ttcol>
+<!--
           <c>ALARM-AGENT</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="ALARM-AGENT" /></c>
+-->
           <c>ACKNOWLEDGED</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="ACKNOWLEDGED" /></c>
@@ -889,6 +968,7 @@ defaultalarmparam = *(
           <c>RFCXXXX, <xref target="default-alarm" /></c>
         </texttable>
       </section>
+<!--
       <section title='Parameter Registrations'>
         <t>This document defines the following new iCalendar property
         parameters to be added to the registry defined in Section
@@ -901,21 +981,25 @@ defaultalarmparam = *(
           <c>Current</c>
           <c>RFCXXXX, <xref target="AGENT-ID-PARAM" /></c>
         </texttable>
-      </section>
+        </section>
+-->
       <section title='Actions Registry'>
         <t>This document defines the following new iCalendar action to be added to the registry defined in Section 8.3.10 of <xref target="RFC5545" />:</t>
         <texttable>
           <ttcol>Action</ttcol>
           <ttcol>Status</ttcol>
-          <ttcol>Reference</ttcol>
+         <ttcol>Reference</ttcol>
+<!--
           <c>URI</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="URI-ACTION" /></c>
+-->
           <c>NONE</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="NONE-ACTION" /></c>
         </texttable>
       </section>
+<!--
       <section title='Relationship Types Registry'>
         <t>This document defines the following new iCalendar
         relationship type to be added to the registry defined in
@@ -928,7 +1012,8 @@ defaultalarmparam = *(
           <c>Current</c>
           <c>RFCXXXX, <xref target="SNOOZE-PARAM" /></c>
         </texttable>
-      </section>
+        </section>
+-->
       <section title="Proximity Value Registry">
           <t>This document creates a new iCalendar registry for values
           of the "PROXIMITY" property:</t>
@@ -942,6 +1027,12 @@ defaultalarmparam = *(
           <c>DEPART</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="PROXIMITY" /></c>
+          <c>CONNECT</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="PROXIMITY" /></c>
+          <c>DISCONNECT</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="PROXIMITY" /></c>
         </texttable>
       </section>
     </section>
@@ -953,24 +1044,55 @@ defaultalarmparam = *(
     </section>
   </middle>
   <back>
+
     <references title='Normative References'>
-    &rfc2119;
-    &rfc4791;
-    &rfc5545;
-    &rfc5870;
+      &rfc2119;
+      &rfc4791;
+      &rfc5545;
+      &rfc5870;
+      &rfc7986;
+      &idEventPub;
     </references>
+
     <references title='Informative References'>
-    &rfc3261;
-    &rfc3860;
-    &rfc3966;
-    &rfc5724;
+      &rfc5546;
+<!--
+      &rfc3261;
+      &rfc3860;
+      &rfc3966;
+      &rfc5724;
+-->
+      <reference anchor="BTcore"
+		 target="https://www.bluetooth.com/specifications/bluetooth-core-specification">
+	<front>
+	  <title>Bluetooth Core Specification Version 5.0</title>
+	  <author>
+	    <organization>Bluetooth Special Interest Group</organization>
+	  </author>
+	  <date month="December" year="2016"/>
+	</front>
+	<format type="HTML"
+	        target="https://www.bluetooth.com/specifications/bluetooth-core-specification"/>
+      </reference>
     </references>
+
     <section title="Change History (To be removed by RFC Editor before
                     publication)"> 
       <t>Changes in -05: 
       <list style='numbers'>
         <t>Added Murchison as editor.</t>
-        <t>Added reference to SMS URLs.</t>
+        <t>Added reference to UID security/privacy recommendations.</t>
+        <t>Removed ALARM-AGENT property.</t>
+        <t>Added text about using TRIGGER value in the past in
+        addition to ACTION:NONE to have a default alarm be
+        ignored.</t>
+        <t>Removed text about related alarms.</t>
+        <t>Removed URL alarm action.</t>
+        <t>Added reference to draft-ietf-calext-eventpub-extensions
+        for STRUCTURED-LOCATION.</t>
+        <t>Added CONNECT and DISCONNECT PROXIMITY property values.</t>
+        <t>Added Security Considerations.</t>
+        <t>Editorial fixes.</t>
       </list></t>
       <t>Changes in -04: 
       <list style='numbers'>
