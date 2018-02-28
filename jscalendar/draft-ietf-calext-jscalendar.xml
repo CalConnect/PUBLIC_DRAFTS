@@ -1029,6 +1029,10 @@
 
                             </t>
                             <t>
+                                <spanx style="strong">bySetPosition</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                The BYSETPOS part from iCalendar. The array MUST have at least one entry if included.
+                            </t>
+                            <t>
                                 <spanx style="strong">count</spanx>: <spanx style="verb">Number</spanx>(optional)
                                 The COUNT part from iCalendar. This MUST NOT be included if an
                                 <spanx style="strong">until</spanx> property is specified.
