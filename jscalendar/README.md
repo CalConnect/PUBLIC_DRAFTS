@@ -7,4 +7,4 @@ simple to process.
 The associated CalConnect technical committee is TC-API.
 
 The latest RFC draft version of this document is located at
-[drafts-jenkins-jscalendar](https://datatracker.ietf.org/doc/draft-jenkins-jscalendar/).
+[draft-ietf-calext-jscalendar](https://datatracker.ietf.org/doc/draft-ietf-calext-jscalendar/).
