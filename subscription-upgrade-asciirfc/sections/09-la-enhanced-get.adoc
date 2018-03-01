@@ -1,0 +1,5 @@
+= Link relation subscribe-enhanced-get
+
+This specifies an access point which supports something new.
+
+The client *MUST* follow that specification.

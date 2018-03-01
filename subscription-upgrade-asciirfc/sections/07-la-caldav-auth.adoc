@@ -1,0 +1,9 @@
+= Link relation subscribe-caldav-auth
+
+This specifies an access point which is a full implementation of
+caldav and requires authentication.  This may allow read-write access
+to the resource.
+
+The client *MUST* follow the specification to determine exactly what
+operations are allowed on the access point - for example to determine
+if sync-report is supported.

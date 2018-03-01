@@ -1,0 +1,6 @@
+= Changes to the iCalendar specifications
+
+This specification does not require any changes to <<RFC5545>> or its
+extensions.  However it does introduce the use of some properties to
+provide more information about the resource, for example the time
+range it covers.

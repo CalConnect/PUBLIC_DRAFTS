@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<reference anchor='I-D.ietf-calext-extensions'>
+<front>
+<title>New Properties for iCalendar</title>
+
+<author initials='C' surname='Daboo' fullname='Cyrus Daboo'>
+    <organization />
+</author>
+
+<date month='August' day='22' year='2016' />
+
+<abstract><t>This document defines a set of new properties for iCalendar data as well as extending the use of some existing properties to the entire iCalendar object.</t></abstract>
+
+</front>
+
+<seriesInfo name='Internet-Draft' value='draft-ietf-calext-extensions-05' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-calext-extensions-05.txt' />
+</reference>

@@ -1,0 +1,60 @@
+GIT
+  remote: https://github.com/riboseinc/asciidoctor-bibliography
+  revision: 891befda69651cd4ceea7be745816b662eb6cb08
+  specs:
+    asciidoctor-bibliography (0.7.1.pre)
+      asciidoctor (~> 1.5.6)
+      bibtex-ruby (~> 4.4.4)
+      citeproc-ruby (~> 1.1.7)
+      csl-styles (~> 1.0.1)
+      latex-decode (~> 0.2.2)
+      nokogiri (~> 1.8.1)
+
+GIT
+  remote: https://github.com/riboseinc/asciidoctor-rfc
+  revision: 8dda5f1fcc3b41e1ec5123bd87d76027ac14d41b
+  specs:
+    asciidoctor-rfc (0.8.0)
+      asciidoctor (~> 1.5.6)
+      htmlentities (~> 4.3.4)
+      nokogiri (~> 1.8.1)
+      ruby-jing
+      thread_safe
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (1.5.6.1)
+    bibtex-ruby (4.4.5)
+      latex-decode (~> 0.0)
+    citeproc (1.0.8)
+      namae (~> 1.0)
+    citeproc-ruby (1.1.8)
+      citeproc (>= 1.0.4, < 2.0)
+      csl (~> 1.4)
+    csl (1.5.0)
+      namae (~> 1.0)
+    csl-styles (1.0.1.8)
+      csl (~> 1.0)
+    htmlentities (4.3.4)
+    latex-decode (0.2.2)
+      unicode (~> 0.4)
+    mini_portile2 (2.3.0)
+    namae (1.0.1)
+    nokogiri (1.8.2)
+      mini_portile2 (~> 2.3.0)
+    optout (0.0.2)
+    ruby-jing (0.0.1)
+      optout (>= 0.0.2)
+    thread_safe (0.3.6)
+    unicode (0.4.4.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  asciidoctor-bibliography!
+  asciidoctor-rfc!
+
+BUNDLED WITH
+   1.16.1

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<reference  anchor='RFC4589' target='https://www.rfc-editor.org/info/rfc4589'>
+<front>
+<title>Location Types Registry</title>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'><organization /></author>
+<author initials='H.' surname='Tschofenig' fullname='H. Tschofenig'><organization /></author>
+<date year='2006' month='July' />
+<abstract><t>This document creates a registry for describing the types of places a human or end system might be found.  The registry is then referenced by other protocols that need a common set of location terms as protocol constants.  Examples of location terms defined in this document include aircraft, office, and train station.  [STANDARDS-TRACK]</t></abstract>
+</front>
+<seriesInfo name='RFC' value='4589'/>
+<seriesInfo name='DOI' value='10.17487/RFC4589'/>
+</reference>

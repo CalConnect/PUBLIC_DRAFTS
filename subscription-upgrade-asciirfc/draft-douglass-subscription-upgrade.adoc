@@ -1,0 +1,44 @@
+= Calendar subscription upgrades
+:doctype: internet-draft
+:name: draft-douglass-subscription-upgrade-02
+:status: standard
+:ipr: trust200902
+:updates: 5988
+:submissionType: IETF
+:area: Internet
+:intended-series: full-standard
+:revdate: 2017-09-05T00:00:00Z
+:fullname: Michael Douglass
+:lastname: Douglass
+:forename_initials: M.
+:organization: Spherical Cow Group
+:street: 226 3rd Street
+:city: Troy
+:code: 12180
+:country: United States of America
+:uri: http://sphericalcowgroup.com
+:email: mdouglass@sphericalcowgroup.com
+
+include::sections/00-abstract.adoc[leveloffset=+1]
+
+include::sections/01-intro.adoc[leveloffset=+1]
+include::sections/02-conventions.adoc[leveloffset=+1]
+include::sections/03-enhanced-get.adoc[leveloffset=+1]
+include::sections/04-changes.adoc[leveloffset=+1]
+include::sections/05-discovering.adoc[leveloffset=+1]
+include::sections/06-la-caldav.adoc[leveloffset=+1]
+include::sections/07-la-caldav-auth.adoc[leveloffset=+1]
+include::sections/08-la-webdav-sync.adoc[leveloffset=+1]
+include::sections/09-la-enhanced-get.adoc[leveloffset=+1]
+include::sections/10-security.adoc[leveloffset=+1]
+include::sections/11-privacy.adoc[leveloffset=+1]
+include::sections/12-iana.adoc[leveloffset=+1]
+
+// TODO MD: acknowledgements should be in appendix
+include::sections/13-acknowledgements.adoc[leveloffset=+1]
+
+// must give references before appendix!
+
+include::sections/98-references.adoc[leveloffset=+1]
+include::sections/a1-open-issues.adoc[leveloffset=+1]
+include::sections/a2-changelog.adoc[leveloffset=+1]
