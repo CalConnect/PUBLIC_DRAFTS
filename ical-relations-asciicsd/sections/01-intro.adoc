@@ -1,0 +1,128 @@
+
+[#introduction]
+= Introduction
+
+== General
+
+iCalendar entities often need to be related to each other or to
+associated meta-data.  These relationships can take the following
+forms
+
+Structured iCalendar: ::  iCalendar entities are related to each other
+in some structured way, for example as parent, sibling, before,
+after.
+
+Grouped iCalendar: ::  iCalendar entities are related to each other as a
+group.  CATEGORIES are often used for this purpose but are
+problematic for application developers.
+
+Linked: ::  Entities are linked to each other through typed references.
+
+==  Structured iCalendar relationships
+
+The currently existing iCalendar <<RFC5545>> RELATED-TO property has no
+support for temporal relationships as used by standard project
+management tools.
+
+The RELTYPE parameter is extended to take new values defining
+temporal relationships, a GAP parameter is defined to provide lead
+and lag values and RELATED-TO is extended to allow URI values.  These
+changes allow the RELATED-TO property to define a richer set of
+relationships useful for project management.
+
+==  Grouped iCalendar relationships
+
+This specification defines a new REFID property which allows
+arbitrary groups of entities to be associated with the same key
+value.
+
+REFID is used to identify a key allowing the association of tasks
+that are related to the same object and retrieval of a task based on
+this key.  This may be, for example, to identify the tasks associated
+with a given project without having to communicate the task structure
+of the project, or, for example, in a package delivery system all
+tasks associated to a specific package.
+
+As such, the presence of a REFID property imparts no meaning to the
+event.  It is merely a key to allow retrieval.  This is distinct from
+categorisation which, while allowing grouping also adds meaning to
+the entity to which it is attached.
+
+==  Concept relationships
+
+The name CONCEPT is used by the Simple Knowledge Organization System
+defined in <<W3C.CR-skos-reference-20090317>>.  This more accurately
+defines what we mean by a catgeory.  It's not the words but the
+meaning.
+
+The introduction of CONCEPT allows a more structured approach to
+categorization, with the possibility of namespaced and path-like
+values.  Unlike REFID the CONCEPT property imparts some meaning.  It
+is assumed that the value of this property will reference a well
+defined category.
+
+The current <<RFC5545>> CATEGORY property is used as a free form
+'tagging' field.  As such it is difficult to establish formal
+relationships between components based on their category.
+
+Rather than attempt to add semantics to the current property it
+seeems best to continue its usage as an informal tag and establish a
+new property with more constraints.
+
+==  Linked relationships
+
+The currently existing iCalendar standard <<RFC5545>> lacks a general
+purpose method for referencing additional, external information
+relating to calendar components.
+
+This document proposes a method for referencing typed external
+information that can provide additional information about an
+iCalendar component.  This new LINK property is closely aligned to
+the LINK header defined in <<RFC5988>>
+
+The LINK property defines a typed reference or relation to external
+meta-data or related resources.  By providing type and format
+information as parameters, clients and servers are able to discover
+interesting references and make use of them, perhaps for indexing or
+the presentation of interesting links for the user.
+
+It is often necessary to relate calendar components.  The current
+RELATED-TO property only allows for a UID which is inadequate for
+many purposes.  Allowing other types may help but might raise a
+number of backward compatibility issues.  The link property can link
+components in different collections or even on different servers.
+
+When publishing events it is useful to be able to refer back to the
+source of that information.  The actual event may have been consumed
+from a feed or an ics file on a web site.  A LINK property can
+provide a reference to the originator of the event.
+
+Beyond the need to relate elements temporally, project management
+tools often need to be able to specify the relationships between the
+various events and tasks which make up a project.  The LINK property
+provides such a mechanism.
+
+The LINK property SHOULD NOT be treated as just another attachment.
+The ATTACH property is being extended to handle server-side
+management and stripping of inline data.  Clients may choose to
+handle attachments differently as they are often an integral part of
+the message - for example, the agenda.  See
+<<I-D.daboo-caldav-attachments>>
+
+[[caching]]
+==  Caching and offline use
+
+To facilitate offline display the link type may identify important
+pieces of data which should be downloaded in advance.
+
+In general, the calendar entity should be self explanatory without
+the need to download referenced meta-data such as a web page.
+
+[[conventions]]
+==  Conventions Used in This Document
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+"OPTIONAL" in this document are to be interpreted as described in
+<<RFC2119>>.
+

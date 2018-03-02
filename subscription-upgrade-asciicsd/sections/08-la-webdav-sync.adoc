@@ -1,0 +1,11 @@
+= Link relation subscribe-webdav-sync
+
+This specifies an access point which supports only webdav sync.
+
+This allows the client to issue a sync-report on the resource to
+obtain updates.
+
+NOTE: say something about initial startup - use ics to populate?
+Initial token?
+
+The client *MUST* follow that specification.

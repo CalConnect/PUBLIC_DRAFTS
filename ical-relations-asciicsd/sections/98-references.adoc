@@ -1,0 +1,27 @@
+
+[bibliography]
+= Normative References
+
+* [[[RFC5545,IETF RFC 5545]]], B. Desruisseaux. _Internet Calendaring and Scheduling Core Object Specification (iCalendar)._ 2009. https://www.rfc-editor.org/info/rfc5545
+
+* [[[RFC2119,IETF RFC 2119]]], S. Bradner. _Key words for use in RFCs to Indicate Requirement Levels._ 1997. https://www.rfc-editor.org/info/rfc2119
+
+* [[[RFC5988,IETF RFC 5988]]], M. Nottingham. _Web Linking._ 2010. https://www.rfc-editor.org/info/rfc5988
+
+* [[[W3C.CR-skos-reference-20090317,W3C CR skos-reference-20090317]]], Sean Bechhofer, Alistair Miles. _SKOS Simple Knowledge Organization System Reference._ 2009. http://www.w3.org/TR/2009/CR-skos-reference-20090317
+
+* [[[W3C.WD-xptr-xpointer-20021219,W3C WD xptr-xpointer-20021219]]], Steven DeRose, Ron Daniel, Eve Maler. _XPointer xpointer() Scheme._ 2002. http://www.w3.org/TR/2002/WD-xptr-xpointer-20021219
+
+* [[[I-D.daboo-caldav-attachments,IETF I-D daboo-caldav-attachments]]], Cyrus Daboo, Arnaud Quillaud. _CalDAV Managed Attachments._ 2014. http://www.ietf.org/internet-drafts/draft-daboo-caldav-attachments-03.txt
+
+//bibliography::norm[]
+////
+[bibliography]
+= Bibliography
+
+//bibliography::info[]
+//++++
+//include::../references/informative/*.xml[]
+//++++
+////
+

@@ -1,0 +1,16 @@
+[[reference_types]]
+= Reference Types
+
+The actual reference value can take three forms specified by the type
+parameter
+
+URI: ::  The default type.  This is a URI referring to the target.
+
+UID: ::  This allows for linking within a single collection and the
+   value is assumed to be another component within that collection.
+
+REFERENCE: ::  An xpointer.  In an XML environment it may be necessary
+   to refer to an external XML artifact.  The XPointer is defined in
+   <<W3C.WD-xptr-xpointer-20021219>> and allows addressing portions of
+   XML documents.
+

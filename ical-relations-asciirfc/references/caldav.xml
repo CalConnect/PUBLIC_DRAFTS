@@ -1,0 +1,20 @@
+<reference anchor="I-D.daboo-caldav-attachments">
+<front>
+<title>CalDAV Managed Attachments</title>
+<author initials="C" surname="Daboo" fullname="Cyrus Daboo">
+<organization/>
+</author>
+<author initials="A" surname="Quillaud" fullname="Arnaud Quillaud">
+<organization/>
+</author>
+<date month="February" day="5" year="2014"/>
+<abstract>
+<t>
+This specification defines an extension to the calendar access protocol (CalDAV) to allow attachments associated with iCalendar data, to be stored and managed on the server.
+</t>
+</abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-daboo-caldav-attachments-03"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-daboo-caldav-attachments-03.txt"/>
+</reference>
+

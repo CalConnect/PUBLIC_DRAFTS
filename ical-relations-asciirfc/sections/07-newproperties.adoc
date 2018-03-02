@@ -1,0 +1,188 @@
+[[new_properties]]
+=  New Properties
+
+[[concept]]
+==  Concept
+
+Property name: :: CONCEPT
+
+Purpose: :: This property defines the formal categories for a calendar
+   component.
+
+Value type: :: URI
+
+Property Parameters: :: IANA, and non-standard parameters can be
+   specified on this property.
+
+Conformance: :: This property can be specified zero or more times in
+   any iCalendar component.
+
+Description:  This property is used to specify formal categories or
+   classifications of the calendar component.  The values are useful
+   in searching for a calendar component of a particular type and
+   category.
++
+Within the "VEVENT", "VTODO", or "VJOURNAL" calendar components,
+   more than one formal category can be specified by using multiple
+   CONCEPT properties.
++
+This categorization is distinct from the more informal "tagging"
+   of components provided by the existing CATEGORIES property.  It is
+   expected that the value of the CONCEPT property will reference an
+   external resource which provides information about the
+   categorization.
++
+In addition, a structured URI value allows for hierarchical
+   categorization of events.
++
+Possible category resources are the various proprietary systems,
+   for example Library of Congress, or an open source derived from
+   something like the dmoz.org data.
+
+Format Definition: ::
++
+This property is defined by the following notation:
++
+....
+  concept        =  "CONCEPT" conceptparam ":"
+                        uri CRLF
+
+  conceptparam = *(
+                ;
+                ; The following is OPTIONAL,
+                ; and MAY occur more than once.
+                ;
+                (";" other-param)
+                ;
+                )
+....
+
+Example: ::
++
+The following is an example of this property.  It points to a server
+acting as the source for the calendar object.
++
+....
+  SCONCEPT:http://example.com/event-types/sports
+  CONCEPT:http://example.com/event-types/arts/music
+  CONCEPT:http://example.com/task-types/delivery
+....
+
+[[link]]
+== Link
+
+Property name: :: LINK
+
+Purpose: :: This property provides a reference to external information
+   about a component.
+
+Value type: :: URI, TEXT or REFERENCE
+
+Property Parameters: :: Non-standard, reference type or format type
+   parameters can be specified on this property.
+
+Conformance: :: This property MAY be specified in any iCalendar
+   component.
+
+Description: :: When used in a component the value of this property
+   points to additional information related to the component.  For
+   example, it may reference the originating web server.
+
+Format Definition: ::
++
+This property is defined by the following notation:
++
+....
+  link            = "LINK" linkparam  /
+                    (
+                      ";" "VALUE" "=" "TEXT"
+                      ":" text
+                    )
+                    (
+                      ";" "VALUE" "=" "REFERENCE"
+                      ":" text
+                    )
+                    (
+                      ";" "VALUE" "=" "URI"
+                      ":" uri
+                    )
+                    CRLF
+
+
+  linkparam       = *(
+
+                  ; the following is MANDATORY
+                  ; and MAY occur more than once
+
+                  (";" relparam) /
+
+                  ; the following are MANDATORY
+                  ; but MUST NOT occur more than once
+
+                  (";" fmttypeparam) /
+                  (";" labelparam) /
+                  ; labelparam is defined in ...
+
+                  ; the following is OPTIONAL
+                  ; and MAY occur more than once
+
+                  (";" xparam)
+
+                  )
+....
+
+Example: ::
++
+The following is an example of this property.  It points to a server
+acting as the source for the calendar object.
++
+....
+  LINK;REL=SOURCE;LABEL=The Egg:http://example.com/events
+....
+
+[[refid]]
+==  Refid
+
+Property name: :: REFID
+
+Purpose: :: This property value acts as a key for associated iCalendar
+   entities.
+
+Value type: :: TEXT
+
+Property Parameters: :: Non-standard parameters can be specified on
+   this property.
+
+Conformance: :: This property MAY be specified multiple times in any
+   iCalendar component.
+
+Description: :: The value of this property is a text identifier that
+   allows associated components to be located or retrieved as a
+   whole.  For example all of the events in a travel itinerary would
+   have the same REFID value.
+
+Format Definition: ::
++
+This property is defined by the following notation:
++
+....
+  refid      = "REFID" refidparam ":" text CRLF
+
+
+  refidparam      = *(
+
+                  ; the following is OPTIONAL
+                  ; and MAY occur more than once
+
+                  (";" xparam)
+
+                  )
+....
+
+Example: ::
++
+The following is an example of this property.
++
+....
+  REFID:itinerary-2014-11-17
+....

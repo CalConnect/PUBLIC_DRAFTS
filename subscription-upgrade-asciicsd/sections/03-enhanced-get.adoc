@@ -1,0 +1,167 @@
+[#enhanced-get]
+= Enhanced GET
+
+== Introduction
+
+This is a lightweight protocol which allows simple clients to
+efficiently discover and download changes in the targeted resource.
+
+It has many similarities to WebDAV sync and for a server could be
+implemented as an extension of the specification.
+
+In this protocol the Etag is used as the sync change token.  By
+adding the If-None-Match header field to the vary header field we can
+ensure intermediate caching proxies will be able to cache different
+versions of the data.
+
+The resource is treated as a set of individual events each of which
+may be updated or deleted separately.  The client will first fetch
+the entire ics file.  On subsequent requests it uses the Prefer
+header with a value of "return=minimal" to indicate that it wants a
+set of changes since the last fetch.
+
+== Deletions
+
+When an entity (VEVENT, VTODO or other valid top-level component) is
+deleted from the source data the server needs to be able to inform a
+client of the deletion.  This specification introduces a new value
+for the STATUS property of DELETED.
+
+On the first conditional GET after the entity has been deleted a
+skeleton, but valid, entity will be returned with STATUS: DELETED.
+The receiving client is free to remove the entity or update it's
+STATUS property.
+
+On subsequent conditional fetches the entity will not be returned.
+
+== Examples
+
+This is an example of the initial request and response from a server
+that supports the extended GET protocol.
+
+[source]
+----
+>> Request <<
+
+GET /events.ics HTTP/1.1
+Host: example.com
+Accept: text/calendar
+
+>> Response <<
+
+HTTP/1.1 200 OK
+Content-Length: xxxx
+ETag: "1234"                    current ETag (for conditional GET)
+Vary: Prefer, If-None-Match     so caching proxy can key off of client's ETag (sync token) and preference
+
+BEGIN:VCALENDAR:
+?  /* full feed */
+END:VCALENDAR
+----
+
+
+This is an example of the subsequent request and response when no
+changes have occurred.  The Accept header field indicates that a
+VPATCH format is most desirable but simple text/calendar is
+acceptable.
+
+[source]
+----
+>> Request <<
+
+GET /events.ics HTTP/1.1
+Host: example.com
+Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+If-None-Match: ?1234?            conditional request
+Prefer: return=minimal
+
+>> Response <<
+
+HTTP/1.1 304 Not Modified
+Content-Length: 0
+ETag: ?1234?
+Vary: Prefer, If-None-Match
+----
+
+
+This is an example of the subsequent request and response when no
+changes have occurred.  The Accept header field indicates that a
+VPATCH format is most desirable but simple text/calendar is
+acceptable.
+
+
+[source]
+----
+>> Request <<
+
+GET /events.ics HTTP/1.1
+Host: example.com
+Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+If-None-Match: "1234"            conditional request
+Prefer: return=minimal
+
+>> Response <<
+
+HTTP/1.1 304 Not Modified
+Content-Length: 0
+ETag: "1234"
+Vary: Prefer, If-None-Match
+----
+
+
+This is an example of the subsequent request and response when
+changes have occurred and the server can create the minimal format.
+
+[source]
+----
+>> Request <<
+
+GET /events.ics HTTP/1.1
+Host: example.com
+Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+If-None-Match: "1234"            conditional request
+Prefer: return=minimal
+
+>> Response <<
+
+HTTP/1.1 200 OK
+Content-Type: text/calendar
+Content-Length: xxxx
+ETag: "5678"                    current ETag (for conditional GET)
+Preference-Applied: return=minimal    signals to client that stream is changes  only
+Vary: Prefer, If-None-Match            so caching proxy can key off of client?s  ETag (sync token) and preference
+
+BEGIN:VCALENDAR:
+...  only new/changed events
+...  when not returning VPATCH, deleted events have STATUS:DELETED
+END:VCALENDAR
+----
+
+
+This is an example of the subsequent request and response when
+changes have occurred and the server cannot create the minimal format
+- perhaps because of an old or invalid token.  Note there is no
+Preference-Applied header field.
+
+[source]
+----
+>> Request <<
+
+GET /events.ics HTTP/1.1
+Host: example.com
+Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+If-None-Match: "1234"            conditional request
+Prefer: return=minimal
+
+>> Response <<
+
+HTTP/1.1 200 OK
+Content-Type: text/calendar
+Content-Length: xxxx
+ETag: "5678"                    current ETag (for conditional GET)
+Vary: Prefer, If-None-Match     so caching proxy can key off of client?s  ETag (sync token) and preference
+
+BEGIN:VCALENDAR:
+...  full set of data
+END:VCALENDAR
+----

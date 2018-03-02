@@ -1,0 +1,7 @@
+= Scope
+
+This specification introduces an approach to allow subscribers to
+calendar feeds to upgrade to a more performant protocol.
+
+// No references allowed in the Abstract
+

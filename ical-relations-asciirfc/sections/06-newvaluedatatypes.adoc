@@ -1,0 +1,11 @@
+[[new_value_data_types]]
+=  New Value Data Types
+
+This specification defines the following new value types to be used
+   with the VALUE property parameter:
+
+UID :: VALUE=UID indicates that the associated value is the UID for a
+      component.
+
+REFERENCE :: VALUE=REFERENCE indicates that the associated value is an
+      xpointer referencing an associated XML artifact.

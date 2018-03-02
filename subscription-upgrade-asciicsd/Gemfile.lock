@@ -1,0 +1,110 @@
+GIT
+  remote: https://github.com/riboseinc/asciidoctor-bibliography
+  revision: 891befda69651cd4ceea7be745816b662eb6cb08
+  specs:
+    asciidoctor-bibliography (0.7.1.pre)
+      asciidoctor (~> 1.5.6)
+      bibtex-ruby (~> 4.4.4)
+      citeproc-ruby (~> 1.1.7)
+      csl-styles (~> 1.0.1)
+      latex-decode (~> 0.2.2)
+      nokogiri (~> 1.8.1)
+
+GIT
+  remote: https://github.com/riboseinc/asciidoctor-csd
+  revision: bd71eb839743a9bf3cbc58f11f41b834851a663b
+  specs:
+    asciidoctor-csd (0.2.0)
+      asciidoctor (~> 1.5.6)
+      asciidoctor-iso
+      asciimath
+      htmlentities (~> 4.3.4)
+      image_size
+      isodoc
+      mime-types
+      nokogiri (~> 1.8.1)
+      ruby-jing
+      ruby-xslt
+      thread_safe
+      uuidtools
+
+GIT
+  remote: https://github.com/riboseinc/asciidoctor-iso
+  revision: df2e5501659d938bf9a5535db7eddb7f94a992f5
+  specs:
+    asciidoctor-iso (0.6.1)
+      asciidoctor (~> 1.5.6)
+      html2doc
+      htmlentities (~> 4.3.4)
+      isodoc
+      nokogiri (= 1.8.1)
+      ruby-jing
+      thread_safe
+      uuidtools
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (1.5.6.1)
+    asciimath (1.0.4)
+    bibtex-ruby (4.4.6)
+      latex-decode (~> 0.0)
+    citeproc (1.0.9)
+      namae (~> 1.0)
+    citeproc-ruby (1.1.10)
+      citeproc (~> 1.0, >= 1.0.9)
+      csl (~> 1.5)
+    csl (1.5.0)
+      namae (~> 1.0)
+    csl-styles (1.0.1.8)
+      csl (~> 1.0)
+    html2doc (0.6.2)
+      asciimath
+      htmlentities (~> 4.3.4)
+      image_size
+      mime-types
+      nokogiri (~> 1.8.1)
+      ruby-xslt
+      thread_safe
+      uuidtools
+    htmlentities (4.3.4)
+    image_size (1.5.0)
+    isodoc (0.4.5)
+      asciimath
+      html2doc
+      htmlentities (~> 4.3.4)
+      image_size
+      liquid
+      mime-types
+      nokogiri (= 1.8.1)
+      ruby-xslt
+      thread_safe
+      uuidtools
+    latex-decode (0.2.2)
+      unicode (~> 0.4)
+    liquid (4.0.0)
+    mime-types (3.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0521)
+    mini_portile2 (2.3.0)
+    namae (1.0.1)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
+    optout (0.0.2)
+    ruby-jing (0.0.1)
+      optout (>= 0.0.2)
+    ruby-xslt (0.9.10)
+    thread_safe (0.3.6)
+    unicode (0.4.4.4)
+    uuidtools (2.1.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  asciidoctor-bibliography!
+  asciidoctor-csd!
+  asciidoctor-iso!
+
+BUNDLED WITH
+   1.16.1

@@ -1,0 +1,67 @@
+[[new_property_parameters]]
+=  New Property Parameters
+
+[[rel]]
+==  Rel
+
+Parameter name: ::  REL
+
+Purpose: :: To specify the relationship of data referenced by a LINK
+   property.
+
+Format Definition: ::
++
+This parameter is defined by the following notation:
++
+[source,bnf]
+----
+  relparam     = "REL" "="
+                 ("SOURCE"      ; Link to source of this component
+                 / DQUOTE uri DQUOTE
+                 / x-name        ; Experimental reference type
+                 / iana-token)   ; Other IANA registered type
+----
+
+Description: ::  This parameter MUST be specified on all LINK
+   properties, and defines the type of reference.  This allows
+   programs consuming this data to automatically scan for references
+   they support.  In addition to the values defined here any value
+   defined in <<RFC5988>> may be used.  There is no default relation
+   type.
+
+REL=SOURCE: :: identifies the source of the event information.
+
+Registration: :: These relation types are registered in <<RFC5988>>
+
+[[gap]]
+== Gap
+
+Parameter name: :: GAP
+
+Purpose: :: To specify the length of the gap, positive or negative
+   between two temporaly related components.
+
+Format Definition: ::
++
+This parameter is defined by the following notation:
++
+[source,bnf]
+----
+  gapparam      = "GAP" "=" dur-value
+----
+
+Description: ::  This parameter MAY be specified on the RELATED-TO
+   property, and defines the duration of time between the predecessor
+   and successor in an interval.  When positive it defines the lag
+   time between a task and its logical successor.  When negative it
+   defines the lead time.
++
+An example of lag time might be if task A is "paint the room" and
+   task B is "hang the drapes" then task A may be related to task B
+   with RELTYPE=FINISHTOSTART with a gap long enough for the paint to
+   dry.
++
+An example of lead time might be to relate a 1 week task A to the
+   end of task B with RELTYPE=STARTTOFINISH and a negative gap of 1
+   week so they finish at the same time.
+

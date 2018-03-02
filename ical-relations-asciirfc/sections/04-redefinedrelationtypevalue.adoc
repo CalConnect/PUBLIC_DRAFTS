@@ -1,0 +1,134 @@
+[[redefined_relation_type_value]]
+= Redefined Relation Type Value
+
+Relationship parameter type values are defined in 
+<<RFC5545,3.2.15 of>>.  This specification redefines that type to include the new
+temporal relationship values FINISHTOSTART, FINISHTOFINISH,
+STARTTOFINISH and STARTTOSTART.  It also adds the DEPENDS-ON value to
+provide a link to a component upon which the current component
+depends.
+
+Format Definition: ::
++
+This property parameter is defined by the following notation:
++
+....
+  reltypeparam   = "RELTYPE" "="
+                   ("PARENT"    ; Parent relationship - Default
+                  / "CHILD"     ; Child relationship
+                  / "SIBLING"   ; Sibling relationship
+                  / "DEPENDS-ON" ; refers to previous task
+                  / "REFID"     ; Relationship based on REFID
+                  / "CONCEPT"
+                          ; Relationship based on CONCEPT
+                  / "FINISHTOSTART" ;  Temporal relationship
+                  / "FINISHTOFINISH" ;  Temporal relationship
+                  / "STARTTOFINISH" ;  Temporal relationship
+                  / "STARTTOSTART" ;  Temporal relationship
+                  / iana-token  ; Some other IANA-registered
+                                ; iCalendar relationship type
+                  / x-name)     ; A non-standard, experimental
+                                ; relationship type
+....
+
+Description: ::  This parameter can be specified on a property that
+   references another related calendar component.  The parameter may
+   specify the hierarchical relationship type of the calendar
+   component referenced by the property when the value is PARENT,
+   CHILD or SIBLING.  If this parameter is not specified on an
+   allowable property, the default relationship type is PARENT.
+   Applications MUST treat x-name and iana-token values they don't
+   recognize the same way as they would the PARENT value.
++
+This parameter defines the temporal relationship when the value is
+   one of the project management standard relationships
+   FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
+   This property will be present in the predecessor entity and will
+   refer to the successor entity.  The GAP parameter specifies the
+   lead or lag time between the predecessor and the successor.  In
+   the description of each temporal relationship below we refer to
+   Task-A which contains and controls the relationship and Task-B the
+   target of the relationship.
+
+RELTYPE=PARENT: ::  See <<RFC5545,3.2.15 comma>>.
+
+RELTYPE=CHILD: ::  See <<RFC5545,3.2.15 comma>>.
+
+RELTYPE=SIBLING: ::  See <<RFC5545,3.2.15 comma>>.
+
+RELTYPE=DEPENDS-ON: ::  Indicates that the current calendar component
+   depends on the referenced calendar component in some manner.  For
+   example a task may be blocked waiting on the other, referenced,
+   task.
+
+RELTYPE=REFID: ::  Establishes a reference from the current component to
+   components with a REFID property which matches the value given in
+   the associated RELATED-TO property.
+
+RELTYPE=CONCEPT: ::  Establishes a reference from the current component
+   to components with a CONCEPT property which matches the value
+   given in the associated RELATED-TO property.
+
+RELTYPE=FINISHTOSTART: ::  Task-B cannot start until Task-A finishes.
+   For example, when sanding is complete, painting can begin.
++
+[[finishtostart]]
+.Finish to start relationship
+....
+            ============
+            |  Task-A  |--+
+            ============  |
+                          |
+                          V
+                          ============
+                          |  Task-B  |
+                          ============
+....
+
+RELTYPE=FINISHTOFINISH: ::  Task-B cannot finish before Task-A is
+   finished, that is the end of Task-A defines the end of Task-B.
+   For example, we start the potatoes, then the meat then the peas
+   but they should all be cooked at the same time.
++
+[[finishtofinish]]
+.Finish to finish relationship
+....
+                    ============
+                    |  Task-A  |--+
+                    ============  |
+                                  |
+                    ============  |
+                    |  Task-B  |<-+
+                    ============
+....
+
+RELTYPE=STARTTOFINISH: ::  The start of Task-A (which occurs after Task-
+   B) controls the finish of Task-B.  For example, ticket sales
+   (Task-B) end when the game starts (Task-A).
++
+[[starttofinish]]
+.Start to finish relationship
+....
+                                     ============
+                                  +--|  Task-A  |
+                                  |  ============
+                                  |
+                    ============  |
+                    |  Task-B  |<-+
+                    ============
+....
+
+RELTYPE=STARTTOSTART: ::  The start of Task-A triggers the start of
+   Task-B, that is Task-B can start anytime after Task-A starts.
++
+[[starttostart]]
+.Start to start relationship
+....
+                    ============
+                 +--|  Task-A  |
+                 |  ============
+                 |
+                 |  ============
+                 +->|  Task-B  |
+                    ============
+....
