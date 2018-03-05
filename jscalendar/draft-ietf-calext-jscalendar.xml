@@ -1931,6 +1931,8 @@
                             <t>
                                 <spanx style="strong">progress</spanx>:
                                 <spanx style="verb">ParticipantProgress|null</spanx> The progress of the participant for this task, if known.
+                                This property MUST be <spanx style="verb">null</spanx> if the <spanx style="strong">rsvpResponse</spanx>
+                                of this participant is any other value but <spanx style="verb">accepted</spanx>.
                             </t>
                         </list>
                         <vspace blankLines="1"/>
@@ -1945,16 +1947,19 @@
                                 registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">completed</spanx>: The progress of this participant is complete.
+                                        <spanx style="verb">completed</spanx>: The participant completed their progress.
                                     </t>
                                     <t>
-                                        <spanx style="verb">in-process</spanx>: The progress of this participant is in process.
+                                        <spanx style="verb">in-process</spanx>: The participant processes this task.
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">failed</spanx>: The participant failed to complete their progress.
                                     </t>
                                 </list>
                             </t>
                             <t>
                                 <spanx style="strong">timestamp</spanx>: <spanx style="verb">UTCDate</spanx> Describes
-                                the latest time when the participant progress got updated.
+                                the last time when the participant progress got updated.
                             </t>
                         </list>
                     </t>
@@ -1965,28 +1970,56 @@
                         Type: <spanx style="verb">String</spanx>
                     </t>
                     <t>
-                        The scheduling status (<xref target="sharing-scheduling-properties"/>) of a JSTask
-                        defaults to <spanx style="verb">needs-action</spanx> if omitted.
-                    </t>
-                    <t>
-                        If set, it MUST be one of:
+                        If omitted, the default scheduling status (<xref target="sharing-scheduling-properties"/>)
+                        of a JSTask is defined as follows (in order of evaluation):
                         <list style="symbols">
                             <t>
-                                <spanx style="verb">needs-action</spanx>: Indicates the task needs action.
+                                <spanx style="verb">needs-action</spanx>: if the task has no participants, or if at least
+                                one participant of the task has <spanx style="strong">rsvpResponse</spanx> set to
+                                <spanx style="verb">needs-action</spanx> (eiher explicitly or by default).
                             </t>
                             <t>
-                                <spanx style="verb">completed</spanx>: Indicates the task is completed.
-                                If this value is set, then the timestamp in the <spanx style="strong">completed</spanx>
-                                property MUST NOT be null.
+                                <spanx style="verb">completed</spanx>: if all the <spanx style="strong">ParticipantProgress</spanx>
+                                status of the task participants is <spanx style="verb">completed</spanx>.
                             </t>
                             <t>
-                                <spanx style="verb">in-process</spanx>: Indicates the task is in process.
+                                <spanx style="verb">failed</spanx>: if at least one <spanx style="strong">ParticipantProgress</spanx>
+                                status of the task participants is <spanx style="verb">failed</spanx>.
                             </t>
                             <t>
-                                <spanx style="verb">cancelled</spanx>: Indicates the task is cancelled.
+                                <spanx style="verb">in-process</spanx>: if at least one <spanx style="strong">ParticipantProgress</spanx>
+                                status of the task participants is <spanx style="verb">in-process</spanx>.
                             </t>
-                        </list>
-                    </t>
+                            <t>
+                                <spanx style="verb">pending</spanx>: If none of the other criteria match.
+                            </t>
+                          </list>
+                      </t>
+                      <t>
+                          If set, it MUST be one of:
+                          <list style="symbols">
+                              <t>
+                                  <spanx style="verb">needs-action</spanx>: Indicates the task needs action.
+                              </t>
+                              <t>
+                                  <spanx style="verb">completed</spanx>: Indicates the task is completed.
+                                  If this value is set, then the timestamp in the <spanx style="strong">completed</spanx>
+                                  property MUST NOT be null.
+                              </t>
+                              <t>
+                                  <spanx style="verb">in-process</spanx>: Indicates the task is in process.
+                              </t>
+                              <t>
+                                  <spanx style="verb">cancelled</spanx>: Indicates the task is cancelled.
+                              </t>
+                              <t>
+                                  <spanx style="verb">pending</spanx>: Indicates the task has been created, but not yet started.
+                              </t>
+                              <t>
+                                  <spanx style="verb">failed</spanx>: Indicates the task failed.
+                              </t>
+                          </list>
+                      </t>
                 </section>
 
             </section>
@@ -2157,7 +2190,14 @@
 
                     <c>progress</c>
                     <c>
-                        Corresponds to the PARTSTAT and COMPLETED properties in iCalendar.
+                        Corresponds to the PARTSTAT and COMPLETED properties in iCalendar, including the
+                        currently non-standard definitions in <xref target="draft-apthorp-ical-tasks"/>.
+                    </c>
+
+                    <c>status</c>
+                    <c>
+                        Corresponds to the STATUS property in iCalendar, including the
+                        currently non-standard definitions in <xref target="draft-apthorp-ical-tasks"/>.
                     </c>
 
                 </texttable>
