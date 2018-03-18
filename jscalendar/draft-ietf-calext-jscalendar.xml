@@ -2486,7 +2486,7 @@
                     <xref target="RFC7986"/> CONFERENCE properties.
                     <vspace blankLines="1"/>
                     An iCalendar LOCATION property becomes a JSCalendar Location with just a
-                    description property. CONFERENCE property values in iCalendar map to locations
+                    name property. CONFERENCE property values in iCalendar map to locations
                     with <spanx style="strong">rel</spanx> type <spanx style="verb">virtual</spanx>.
                     The location <spanx style="strong">feature</spanx> property value corresponds to
                     the extended iCalendar FEATURE property parameter values defined in
