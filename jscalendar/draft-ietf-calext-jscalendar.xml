@@ -614,7 +614,7 @@
                             </t>
                             <t>
                                 <spanx style="strong">description</spanx>:
-                                <spanx style="verb">String</spanx>
+                                <spanx style="verb">String|null</spanx>
                                 Human-readable instructions for accessing this location. This may be an address, set of
                                 directions, door access code, etc.
                             </t>
@@ -695,7 +695,7 @@
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
-                                <spanx style="verb">String</spanx>
+                                <spanx style="verb">String|null</spanx>
                                 An
                                 <xref target="RFC5870"/>
                                 <spanx style="verb">geo:</spanx>
@@ -704,7 +704,7 @@
                             </t>
                             <t>
                                 <spanx style="strong">uri</spanx>:
-                                <spanx style="verb">String</spanx>
+                                <spanx style="verb">String|null</spanx>
                                 A URI that represents how to connect to this location.
                                 <vspace blankLines="1"/>
                                 This may be a telephone number (represented as <spanx style="verb">
