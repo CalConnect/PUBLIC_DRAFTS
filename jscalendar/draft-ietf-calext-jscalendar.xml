@@ -663,6 +663,15 @@
                                         <spanx style="verb">chat</spanx>: chat or instant messaging
                                     </t>
                                     <t>
+                                        <spanx style="verb">feed</spanx>: blog or atom feed
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">moderator</spanx>: provides moderator-specific features
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">phone</spanx>: phone conferencing
+                                    </t>
+                                    <t>
                                         <spanx style="verb">screen</spanx>: screen sharing
                                     </t>
                                     <t>
@@ -2440,8 +2449,7 @@
                         the JSCalendar identifier of a mapped CONFERENCE property that has the
                         MODERATOR feature defined in its FEATURE parameter values. If multiple
                         such CONFERENCE properties are defined in iCalendar, then the one with the
-                        most interactive features is chosen (VIDEO over AUDIO over CHAT over
-                        anything else).
+                        most interactive features is chosen.
                     </c>
                     <c>
                         rsvpWanted
@@ -2492,9 +2500,8 @@
                     property in a JSCalendar Location.
                     The location <spanx style="strong">feature</spanx> property value corresponds to
                     the extended iCalendar FEATURE property parameter values defined in
-                    <xref target="RFC7986"/>. Both iCalendar PHONE and AUDIO features map to the
-                    <spanx style="verb">audio</spanx> feature and the FEED parameter value is
-                    omitted. See the mapping for <spanx style="strong">locationId</spanx> in
+                    <xref target="RFC7986"/>.
+                    Also see the mapping for <spanx style="strong">locationId</spanx> in
                     <xref target="translate-participants-table"/> on how to map CONFERENCE
                     properties that contain the MODERATOR feature.
                 </t>
