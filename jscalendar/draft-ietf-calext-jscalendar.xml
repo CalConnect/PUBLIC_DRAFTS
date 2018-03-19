@@ -610,6 +610,7 @@
                             <t>
                                 <spanx style="strong">name</spanx>:
                                 <spanx style="verb">String</spanx>
+                                (Defaults to the empty string if omitted)
                                 The human-readable name of the location.
                             </t>
                             <t>
@@ -621,6 +622,7 @@
                             <t>
                                 <spanx style="strong">rel</spanx>:
                                 <spanx style="verb">String</spanx>
+                                (Defaults to <spanx style="verb">unknown</spanx> if omitted)
                                 The relation type of this location to the JSCalendar object.
                                 <vspace blankLines="1"/>
                                 This MUST be either one of the following values, registered in a future RFC, or a
