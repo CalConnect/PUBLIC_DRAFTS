@@ -572,8 +572,7 @@
 
                 <section anchor="htmlDescription" title="htmlDescription">
                     <t>
-                        Type: <spanx style="verb">String</spanx> (Defaults to the empty string if
-                        omitted)
+                        Type: <spanx style="verb">String|null</spanx> (Defaults to null if omitted)
                     </t>
                     <t>
                         A longer form rich-text description of the object. This is
