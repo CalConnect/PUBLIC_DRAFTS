@@ -759,7 +759,8 @@
                                 The id used within the <spanx style="strong">htmlDescription</spanx> property
                                 to reference this link.
                                 <vspace blankLines="1"/>
-                                If not null, this MUST be a valid Content-ID MIME header value
+                                If not null, this MUST be a valid Content-ID MIME header value without CFWS
+                                and angle brackets
                                 (see <xref target="RFC2392"/>). The identifier MUST be unique within
                                 this JSCalendar object but has no meaning beyond that. Specifically,
                                 it MAY be different from the <spanx style="strong">Link</spanx>
