@@ -2283,7 +2283,7 @@
                     <c>htmlDescription</c>
                     <c>
                         There is no direct equivalent in iCalendar. If the <spanx style="strong">
-                        description</spanx> is empty, implementations SHOUD store a plain text
+                        description</spanx> is empty, implementations SHOULD store a plain text
                         version of <spanx style="strong">htmlDescription</spanx> in iCalendar
                         DESCRIPTION.
                     </c>
