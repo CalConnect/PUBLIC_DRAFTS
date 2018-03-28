@@ -2436,7 +2436,7 @@
                         role
                     </c>
                     <c>
-                        the ORGANIZER and ATTENDEE properties. Owners map to the iCalendar ORGANIZER property, where mapping multiple owners to iCalendar is implementation-specific but MUST be consistent across mappings of the same object.
+                        the ORGANIZER and ATTENDEE properties. Owners map to the iCalendar ORGANIZER property, and mapping multiple owners to iCalendar is implementation-specific. It is recommended to use the same mapping for objects with the same participants.
                     </c>
                     <c>
                         participation
