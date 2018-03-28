@@ -2448,7 +2448,8 @@
                         locationId
                     </c>
                     <c>
-                        the JSCalendar identifier of a mapped CONFERENCE property that has the
+                        Implementation-specific. When mapping from iCalendar to JSCalendar this
+                        may be the JSCalendar identifier of a CONFERENCE property that has the
                         MODERATOR feature defined in its FEATURE parameter values. If multiple
                         such CONFERENCE properties are defined in iCalendar, then the one with the
                         most interactive features is chosen.
