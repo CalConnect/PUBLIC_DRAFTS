@@ -718,10 +718,7 @@
                                 <spanx style="verb">String[]|null</spanx>
                                 A list of ids for links to alternate representations of this location.
                                 <vspace blankLines="1"/>
-                                For example, an alternative representation could be in vCard format. If a given value
-                                does not correspond to any link id in the links property of the instance, this MUST be
-                                ignored.
-
+                                For example, an alternative representation could be in vCard format.
                             </t>
                         </list>
                     </t>
@@ -1481,10 +1478,7 @@
                             <t>
                                 <spanx style="strong">linkIds</spanx>: <spanx style="verb">String[]|null</spanx>(optional,
                                 defaults to <spanx style="verb">null</spanx>)
-                                Links to more information about this participant, for example in vCard format. If a
-                                given value does not correspond to any link id in the links property of the instance,
-                                this id MUST be ignored. This MUST be omitted if none (rather than an empty array).
-
+                                Links to more information about this participant, for example in vCard format.
                             </t>
                         </list>
 
