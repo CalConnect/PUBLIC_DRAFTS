@@ -2368,9 +2368,10 @@
 
                     <c>replyTo</c>
                     <c>
-                        A <spanx style="strong">replyTo</spanx> property of type <spanx style="verb">imip</spanx> corresponds
-                        to the email address of the ORGANIZER property in iCalendar. There is no iCalendar
-                        representation for the <spanx style="verb">web</spanx> type.
+                      An iCalendar ORGANIZER with one of the mapped URIs as value. If URIs are defined
+                      for both the <spanx style="verb">imip</spanx> and <spanx style="verb">web</spanx>
+                      type, it is recommended to map the <spanx style="verb">imip</spanx> value to the
+                      calendar address value of the ORGANIZER.u
                     </c>
 
                     <c>sequence</c>
@@ -2442,13 +2443,18 @@
                         role
                     </c>
                     <c>
-                        the ORGANIZER and ATTENDEE properties. Owners map to the iCalendar ORGANIZER property, and mapping multiple owners to iCalendar is implementation-specific. It is recommended to use the same mapping for objects with the same participants.
+                      The <spanx style="verb">chair</spanx> role maps to the standard iCalendar ROLE
+                      parameter value <spanx style="verb">chair</spanx>, with an implicit participant
+                      of value <spanx style="verb">required</spanx>. The mapping of non-required chairs
+                      and other roles is implementation-specific, but using <spanx style="verb">x-name</spanx>
+                      parameter values is recommended.
                     </c>
                     <c>
                         participation
                     </c>
                     <c>
-                        the ROLE parameter
+                      Maps to the standard iCalendar ROLE parameter values REQ-PARTICIPANT, OPT-PARTICIPANT and
+                      NON-PARTICIPANT.
                     </c>
                     <c>
                         locationId
