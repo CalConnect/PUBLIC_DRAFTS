@@ -2421,6 +2421,12 @@
                         the CN parameter
                     </c>
                     <c>
+                        email
+                    </c>
+                    <c>
+                        the value of the ORGANIZER or ATTENDEE property
+                    </c>
+                    <c>
                         kind
                     </c>
                     <c>
@@ -2489,6 +2495,12 @@
                     </c>
                     <c>
                         the DTSTAMP property of the participant's latest iMIP message
+                    </c>
+                    <c>
+                        linkIds
+                    </c>
+                    <c>
+                        Implementation-specific.
                     </c>
                 </texttable>
                 <t>
