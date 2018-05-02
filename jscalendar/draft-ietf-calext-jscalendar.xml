@@ -1606,12 +1606,13 @@
                                         for the sole use of snoozing an alarm.
                                     </t>
                                     <t>
-                                        <spanx style="strong">mediaLinkIds</spanx>: <spanx style="verb">String[]|null
+                                        <spanx style="strong">mediaLinks</spanx>: <spanx style="verb">String[Link]|null
                                     </spanx> (optional)
-                                        <vspace blankLines="1"/>
-                                        A list of link identifiers in the JSCalendar object <spanx style="strong">links</spanx> property.
-                                        Clients SHOULD play one or more of the link contents that are supported by the
-                                        client implementation and are appropriate for the given device and user context.
+                                    <vspace blankLines="1"/>
+                                      A map of link identifiers to links (see <xref target="links"/>) that contain media to
+                                      display with this alert.
+                                      Clients SHOULD play one or more of the link contents that are supported by the
+                                      client implementation and are appropriate for the given device and user context.
                                     </t>
                                 </list>
                                 <vspace blankLines="1"/>
@@ -1663,8 +1664,8 @@
                                         MIME message.
                                     </t>
                                     <t>
-                                        <spanx style="strong">attachments</spanx>: <spanx style="verb">String[]|null</spanx> (optional)
-                                        A list of link identifiers in the JSCalendar object links property. Included attachments
+                                        <spanx style="strong">attachments</spanx>: <spanx style="verb">String[Link]|null</spanx> (optional)
+                                        A map of link identifiers to links (see <xref target="links"/>). Included attachments
                                         SHOULD be embedded in the MIME message with the <spanx style="verb">Content-Disposition</spanx>
                                         header value set to <spanx style="verb">attachment</spanx> (see <xref target="RFC2183"/>).
                                         Implementations MAY refuse to include one or more attachments when building an
