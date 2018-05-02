@@ -333,6 +333,16 @@
                     <t>
                         Implementations MUST reject a PatchObject if any of its patches are invalid.
                     </t>
+                  </section>
+                  <section anchor="ids" title="Identifiers">
+                    <t>
+                  If not noted otherwise, properties that define identifiers MUST be string values, MUST be at least 1 character in
+                  length and maximum 256 octets in size, and MUST only contain characters from the “URL and Filename safe”
+                  Base 64 Alphabet, as defined in section 5 of <xref target="RFC4648"/>. This is the ASCII alphanumeric
+                  characters (A-Za-z0-9), hyphen (-), and underscore (_).
+                  This also applies to the keys of JSCalendar properties that are defined as objects and map
+                  identifiers to values.
+                  </t>
                 </section>
                 <section anchor="normalisation" title="Normalisation and equivalence">
                     <t>
@@ -426,6 +436,10 @@
                         JSCalendar objects, even if they are of different type.
                         <xref target="RFC4122"/> describes a range of established algorithms to generate universally unique
                         identifiers (UUID), and the random or pseudo-random version is recommended to use.
+                        <vspace blankLines="1"/>
+                        For compatibility with <xref target="RFC5545"/> UIDs, implementations MUST be able to receive and
+                        persist values of at least 255 octets for this property, but they MUST NOT truncate values in the
+                        middle of a UTF-8 multi-octet sequence.
                     </t>
                     <t>
                         A valid JSCalendar object MUST include this property.
@@ -497,7 +511,8 @@
                     </t>
                     <t>
                         The vendor of the implementation SHOULD ensure that this is a globally unique identifier, using
-                        some technique such as an FPI value, as defined in [ISO.9070.1991].
+                        some technique such as an FPI value, as defined in [ISO.9070.1991]. It MUST only use characters
+                        of an iCalendar TEXT data value (see section 3.3.11 in <xref target="RFC5545"/>).
                     </t>
                     <t>
                         This property SHOULD NOT be used to alter the interpretation of an JSCalendar object beyond the
@@ -2901,6 +2916,7 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4122.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
