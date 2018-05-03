@@ -2255,15 +2255,19 @@
                     <c>
                         An <spanx style="strong">Alert</spanx> corresponds to the VALARM component in iCalendar, where
                         the <spanx style="strong">action</spanx> is determined by the iCalendar ACTION property value
-                        (e.g., a <spanx style="verb">DISPLAY</spanx> property indicates that the JSCalendar Alert
-                        action is a <spanx style="strong">DisplayAction</spanx> and similarly
-                        an iCalendar <spanx style="verb">EMAIL</spanx> value for <spanx style="strong">EmailAction</spanx>
-                        action).
+                        (e.g., both <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx> actions
+                        map to a JSCalendar <spanx style="strong">DisplayAction</spanx> alert, and similarly for
+                        an iCalendar <spanx style="verb">EMAIL</spanx>).
                         The <spanx style="strong">relativeTo</spanx> and <spanx style="strong">offset</spanx> properties
                         corresponds to the iCalendar TRIGGER
                         property.
+                        The <spanx style="strong">attachments</spanx> property of an <spanx style="strong">EmailAction</spanx>
+                        alert map to iCalendar ATTACH properties. For mapping <spanx style="strong">mediaLinks</spanx>, the
+                        iCalendar currently forbids to define ATTACH properties on VALARMs with DISPLAY action. Mapping
+                        this property is implementation-specific, but using <spanx style="verb">X-ATTACH</spanx> with the
+                        same semantics as ATTACH is a sane choice.
 
-                        <spanx style="strong">NON-STANDARD</spanx>: The iCalendar properties for
+                        <spanx style="strong">NON-STANDARD</spanx>: Some iCalendar properties for
                         JSCalendar Alert actions are non-standard, see
                         <xref target="draft-daboo-valarm-extensions"/>.
                     </c>
