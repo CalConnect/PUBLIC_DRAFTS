@@ -1,0 +1,72 @@
+
+[[terms]]
+== Terms and Definitions
+
+The key words "*MUST*", "*MUST NOT*", "*REQUIRED*", "*SHALL*", "*SHALL
+NOT*", "*SHOULD*", "*SHOULD NOT*", "*RECOMMENDED*", "*NOT
+RECOMMENDED*", "*MAY*", and "*OPTIONAL*" in this document are to be
+interpreted as described in BCP 14 <<RFC2119>> <<RFC8174>> when, and
+only when, they appear in all capitals, as shown here.
+
+=== publising actor
+person or machine who post publication items to a publication through a
+publisher
+
+=== publisher
+machine that receives publication items from publishing actors, and posts the
+publication items for subscriptions according to publications created
+
+=== subscriber
+person or machine who subscribes to publications as subscriptions
+
+=== publication item
+action item posted to a publication, originated from a publishing actor
+
+=== subscribed item
+action item to be transmitted to the subscriber according to the subscription
+
+=== delivery channel
+channel with delivery uri and type specified to receive subscribed item through a
+subscription
+
+=== action item
+item transmitted from a publisher or to a subscriber in either publication or
+subscribed form
+
+=== delivery format
+data format used to serialize the data from a publication items, in order to
+be transmitted to subscribers who subscribed to the publication
+
+=== serializer
+computer program to serialize the data of a publication item to the
+serialized form according to the delivery format
+
+=== serialized data
+data serialized from the data of a publication item by the serializer
+according to the delivery format
+
+=== unsubscribe
+action taken by a subscriber from a publication to remove the subscribers'
+subscription
+
+=== subscribe
+action taken by a person or machine to create a subscription to a publication
+
+=== publish
+action taken by a publishing actor to post a publication item to a publication
+through a publisher
+
+=== serialize
+action to transform data from a format to another
+
+=== deliverer
+machine that receives publication items from publisher, transforms publication
+items into subscribed items, and delivers the subscribed items to subscribers
+
+=== publication
+[TODO: WIP (a bit abstract)]
+
+=== subscription
+[TODO: WIP (a bit abstract)]
+
+

@@ -1,0 +1,8 @@
+
+[[acknowledgements]]
+== Acknowledgements
+
+The author would also like to thank the members of the Calendaring
+and Scheduling Consortium Calendar Sharing technical committee and
+the following individuals for contributing their ideas and support:
+

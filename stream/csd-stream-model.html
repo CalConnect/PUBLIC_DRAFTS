@@ -1,0 +1,1391 @@
+<?xml version="1.0"?>
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:epub="http://www.idpf.org/2007/ops">
+  <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>csd-stream-model</title><style>
+  <!--
+/*
+    0 CSS RESET
+*/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: "Overpass", sans-serif;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+/*
+ol, ul {
+	list-style: none;
+}
+*/
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/*
+    1. HTML & Body
+*/
+body {
+  margin: 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  color: #1d1d1d;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.4em;
+  background-color: #ffffff; }
+
+main {
+  margin: 0 3em 0 6em; }
+
+#toc {
+  font-family: "Overpass", sans-serif;
+  font-weight: 400; }
+
+/*
+    2. Responsive navigation layout
+*/
+@media (min-width: 768px) {
+  nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 323px;
+    font-size: 0.9em;
+    overflow: auto;
+    padding: 0 0 0 45px;
+    margin-right: 30px;
+    background-color: #f7f7f7; }
+
+  #toggle {
+    position: fixed;
+    height: 100%;
+    width: 30px;
+    background-color: #1d1d1d;
+    color: white !important;
+    cursor: pointer;
+    z-index: 100; }
+
+  #toggle span {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%); }
+
+  .container {
+    padding-left: 360px; }
+
+  .rule.toc {
+    display: none; }
+
+  h1.toc-contents {
+    margin-top: 1em; }
+
+  ul#toc-list {
+    padding: 0;
+    margin: 0; } }
+@media (max-width: 768px) {
+  #toc {
+    padding: 0 1.5em 0 1.5em;
+    overflow: visible; } }
+#toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+#toc li {
+  padding: 5px 10px; }
+
+#toc a {
+  color: #485094;
+  text-decoration: none;
+  display: block; }
+
+#toc a:hover {
+  color: white; }
+
+#toc .h2 {
+  padding-left: 30px; }
+
+#toc .h3 {
+  padding-left: 50px; }
+
+#toc .toc-active a {
+  color: white; }
+
+#toc .toc-active, #toc li:hover {
+  background: #1d1d1d;
+  box-shadow: inset -5px 0px 10px -5px #1d1d1d !important; }
+
+#toc li:hover a {
+  color: white; }
+
+/*
+    Document types + stages
+*/
+.document-type-band {
+  left: 0;
+  top: 180px;
+  height: 100%;
+  position: fixed;
+  display: block;
+  z-index: 99;
+  /*box-shadow: -5px 0px 10px #1d1d1d*/ }
+
+.document-stage-band {
+  left: 0;
+  top: 0;
+  height: 100%;
+  position: fixed;
+  display: block;
+  z-index: 98;
+  box-shadow: -5px 0px 10px #1d1d1d; }
+
+.document-type {
+  position: relative;
+  width: 25px; }
+
+.document-stage {
+  position: relative;
+  width: 25px; }
+
+p.document-type, p.document-stage {
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin: 0;
+  margin-left: 6px;
+  writing-mode: tb-rl;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  white-space: nowrap;
+  display: block;
+  bottom: 0; }
+
+p.document-type {
+  font-weight: 400;
+  height: 210px; }
+
+#governance-band p.document-type {
+  font-weight: 400;
+  height: 230px !important; }
+
+p.document-stage {
+  font-weight: 300;
+  height: 160px; }
+
+#standard-band {
+  background-color: #0ac442; }
+
+#standard {
+  border-bottom: solid 3px #0ac442; }
+
+#governance {
+  border-bottom: solid 3px #750697; }
+
+#governance-band {
+  background-color: #750697; }
+
+#guide {
+  border-bottom: solid 3px #48a0e7; }
+
+#guide-band {
+  background-color: #48a0e7; }
+
+.coverpage-maturity {
+  font-family: "Overpass", sans-serif;
+  font-weight: 400;
+  font-size: 1em;
+  margin: 0 0 2em 0;
+  text-transform: uppercase; }
+
+#proposal {
+  border-bottom: solid 3px #00BFFF; }
+
+#proposal-band {
+  background-color: #00BFFF; }
+
+#working-draft {
+  border-bottom: solid 3px #fda706; }
+
+#working-draft-band {
+  background-color: #fda706; }
+
+#committee-draft {
+  border-bottom: solid 3px #fd06fd; }
+
+#committee-draft-band {
+  background-color: #fd06fd; }
+
+#draft-standard {
+  border-bottom: solid 3px #fdf906; }
+
+#draft-standard-band {
+  background-color: #fdf906; }
+
+#final-draft {
+  border-bottom: solid 3px #7e0d13; }
+
+#final-draft-band {
+  background-color: #7e0d13; }
+
+#published {
+  border-bottom: solid 3px #0ac442; }
+
+#published-band {
+  background-color: #0ac442; }
+
+#withdrawn {
+  border-bottom: solid 3px #a0a0a0; }
+
+#withdrawn-band {
+  background-color: #a0a0a0; }
+
+/*
+    3. TYPOGRAPHY
+*/
+/*
+    3.1 Titles
+*/
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Overpass", sans-serif;
+  color: #0e1a85;
+  font-weight: 600;
+  margin-top: 2em;
+  margin-bottom: 0.3em; }
+
+h1 {
+  font-size: 1.4em;
+  text-transform: uppercase;
+  margin-top: 2em; }
+
+h1#content {
+  margin-top: 2em; }
+
+h2 {
+  font-size: 1.3em; }
+
+h3 {
+  font-size: 1.1em; }
+
+span[id^="toc"]:after {
+  float: left;
+  padding-right: 4px;
+  margin-left: -20px;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 0.8em;
+  color: #cfcfcf;
+  content: "\f0c1"; }
+
+p.TermNum, p.Terms, p.AltTerms {
+  color: #485094;
+  font-weight: 400; }
+
+p.TermNum {
+  font-size: 0.9em;
+  line-height: 1em;
+  margin: 0;
+  margin-top: 2em; }
+
+p.Terms {
+  font-size: 1.1em;
+  line-height: 1.7em;
+  margin: 0; }
+
+p.AltTerms {
+  font-style: italic;
+  margin: 0; }
+
+/*
+    3.2 Links
+*/
+a, a:visited {
+  text-decoration: none;
+  color: #485094; }
+
+a:hover {
+  color: white;
+  background: #1d1d1d;
+  box-shadow: 3px 0 0 #1d1d1d, -3px 0 0 #1d1d1d;
+  /* padding: 2px 0 2px 0; */ }
+
+::selection {
+  background: #1d1d1d;
+  /* WebKit/Blink Browsers */
+  color: white; }
+
+::-moz-selection {
+  background: #1d1d1d;
+  /* Gecko Browsers */
+  color: white; }
+
+.contact-info a:hover {
+  color: #485094;
+  text-decoration: underline;
+  background: none;
+  box-shadow: 0 0 0 0; }
+
+/*
+    3.3 Lists
+*/
+ul {
+  margin-left: 0.5em; }
+
+#toc-list ul {
+  margin-bottom: 0.25em; }
+
+#toc-list li {
+  list-style-type: none; }
+
+/*
+    3.4 Rules
+*/
+.rule {
+  width: 100%;
+  height: 1px;
+  background-color: #0e1a85;
+  margin: 2em 0; }
+
+/*
+    3.5 Bibliograhy
+*/
+p.Biblio {
+  margin-top: 1em;
+  margin-left: 2em; }
+
+/*
+    3.6 Source Code + figures
+*/
+.figure, .Sourcecode {
+  font-family: "Space Mono", monospace;
+  background-color: #f7f7f7;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  padding: 1.5em;
+  margin: 2em 0 1em 0;
+  overflow: auto; }
+
+.FigureTitle {
+  font-weight: 700;
+  font-size: 1em;
+  text-align: center; }
+
+/*
+    3.7 Notes
+*/
+.Note {
+  background-color: #fff495;
+  color: #47430c;
+  padding: 1.2em;
+  margin: 2em 0 1em 0; }
+
+/*
+    3.8 Examples
+*/
+.example {
+  background-color: #e1eef1;
+  padding: 1.2em;
+  margin: 2em 0 1em 0; }
+
+.example .example-title {
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 0; }
+
+/*
+    3.9 Tables
+*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-weight: 300;
+  margin: 1em 0 2em 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 2em; }
+
+table, th, td {
+  border: 1px solid black;
+  font-size: 0.95em; }
+
+td, th {
+  padding: 1em; }
+
+td.header {
+  font-weight: 400; }
+
+p.TableTitle {
+  text-align: center;
+  margin-top: 2.5em;
+  font-weight: 400; }
+
+/*
+  3.10 Footnotes
+*/
+a.footnote-number {
+  vertical-align: super;
+  font-size: 0.8em; }
+
+.footnote {
+  font-size: 0.9em; }
+
+/*
+    3.11 Blockquotes
+*/
+.Quote {
+  background-color: #f7f7f7;
+  font-style: italic;
+  width: 80%;
+  padding: 1.5em;
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto; }
+
+/*
+    3.12 Formulas
+*/
+.formula {
+  background-color: #f7f7f7;
+  padding: 1.5em;
+  margin-top: 2em;
+  text-align: center; }
+
+/*
+    3.13 Contact Info
+*/
+.contact-info {
+  background-color: #f7f7f7;
+  padding: 2em;
+  margin-top: 5em;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left; }
+
+.contact-info p, .contact-info a {
+  font-family: "Space Mono", monospace;
+  font-weight: 400; }
+
+.contact-info .name {
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-bottom: 0; }
+
+.contact-info .address {
+  font-size: 1em;
+  line-height: 1.3em;
+  margin-top: 0; }
+
+/*
+    Keywords
+*/
+span.keyword {
+  font-weight: 600; }
+
+/*
+    Paragraphs
+*/
+p {
+  margin-top: 1em;
+  margin-bottom: 1em; }
+
+/*
+    4.0 Page header
+*/
+/*
+    4.1 Top Logo
+*/
+.wrapper-top {
+  background-color: #0e1a85;
+  /* background-image: url("img/dots@2x.png"); */
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAABYlAAAWJQFJUiTwAAADwUlEQVR4nO3YgQ2AMAwDwcAiWZ1NizrH30lIeIEq9nPOGSDqPgC7+93v/suy3Mmvhx+6VAAIcwFAmc4nyzYAIMgGAGEuACirdyBZtgEASTYACHMBQFm9A8myDQBIsgFAmAsAyuodSJZtAECSDQDCXABQVu9AsmwDAJJsABDmAoCyegeSZRsAkGQDgDAXAJTVO5As2wCAJBsAhLkAoKzegWTZBgAk2QAgzAUAZfUOJMs2ACDJBgBhLgAoq3cgWbYBAEk2AAhzAUBZvQPJsg0ASLIBQJgLAMrqHUiWbQBAkg0AwlwAUFbvQLJsAwCSbAAQ5gKAsnoHkmUbAJBkA4AwFwCU1TuQLNsAgCQbAIS5AKCs3oFk2QYAJNkAIMwFAGX1DiTLNgAgyQYAYS4AKKt3IFm2AQBJNgAIcwFAWb0DybINAEiyAUCYCwDK6h1Ilm0AQJINAMJcAFBW70CybAMAkmwAEOYCgLJ6B5JlGwCQZAOAMBcAlNU7kCzbAIAkGwCEuQCgrN6BZNkGACTZACDMBQBl9Q4kyzYAIMkGAGEuACirdyBZtgEASTYACHMBQFm9A8myDQBIsgFAmAsAyuodSJZtAECSDQDCXABQVu9AsmwDAJJsABDmAoCyegeSZRsAkGQDgDAXAJTVO5As2wCAJBsAhLkAoKzegWTZBgAk2QAgzAUAZfUOJMs2ACDJBgBhLgAoq3cgWbYBAEk2AAhzAUBZvQPJsg0ASLIBQJgLAMrqHUiWbQBAkg0AwlwAUFbvQLJsAwCSbAAQ5gKAsnoHkmUbAJBkA4AwFwCU1TuQLNsAgCQbAIS5AKCs3oFk2QYAJNkAIMwFAGX1DiTLNgAgyQYAYS4AKKt3IFm2AQBJNgAIcwFAWb0DybINAEiyAUCYCwDK6h1Ilm0AQJINAMJcAFBW70CybAMAkmwAEOYCgLJ6B5JlGwCQZAOAMBcAlNU7kCzbAIAkGwCEuQCgrN6BZNkGACTZACDMBQBl9Q4kyzYAIMkGAGEuACirdyBZtgEASTYACHMBQFm9A8myDQBIsgFAmAsAyuodSJZtAECSDQDCXABQVu9AsmwDAJJsABDmAoCyegeSZRsAkGQDgDAXAJTVO5As2wCAJBsAhLkAoKzegWTZBgAk2QAgzAUAZfUOJMs2ACDJBgBhLgAoq3cgWbYBAEk2AAhzAUBZvQPJsg0ASLIBQJgLAMrqHUiWbQBAkg0AwlwAUFbvQLJsAwCSbAAQ5gKAsnoHkmUbAJBkA4AwFwCU1TuQLNsAgCQbAFTNzA9ggAr9aahO8QAAAABJRU5ErkJggg==");
+  color: #ffffff;
+  padding: 2em 0; }
+
+.doc-number {
+  font-size: 0.5em;
+  font-family: "Overpass", sans-serif; }
+
+.coverpage-title {
+  padding-bottom: 0.5em;
+  font-family: "Overpass", sans-serif;
+  font-size: 1.5em;
+  font-weight: 900; }
+
+.WordSection11 {
+  padding: 0 2em 0 3em; }
+
+.WordSection2 {
+  padding: 0 3em 0 6em; }
+
+.zzSTDTitle1, .MsoCommentText {
+  display: none; }
+
+.coverpage {
+  text-align: center; }
+
+.coverpage-logo span, .coverpage-tc-name span {
+  font-family: "Overpass", sans-serif;
+  text-transform: uppercase;
+  font-weight: 600; }
+
+.coverpage-tc-name {
+  font-size: 1.2em;
+  line-height: 1.2em;
+  margin: 0.25em 0; }
+
+/*
+    4.2 Document Identity
+*/
+.coverpage-doc-identity {
+  font-size: 2em;
+  line-height: 2em; }
+
+.coverpage-title .title-second {
+  display: none; }
+
+.coverpage-stage-block {
+  font-family: "Overpass", sans-serif;
+  font-weight: 700;
+  font-size: 1.25em;
+  margin: 2em 0em 2em 0em;
+  text-transform: uppercase; }
+
+/*
+    4.3 Draft Warning
+*/
+.coverpage-warning {
+  border-top: solid 1px #f36f36;
+  border-bottom: solid 1px #f36f36;
+  margin: 1em 2em;
+  color: #485094;
+  padding: 1em; }
+
+.coverpage-warning .title {
+  color: #f36f36;
+  font-family: "Overpass", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.2em; }
+
+/*
+    4.4 Copyright
+*/
+.copyright {
+  padding: 1em;
+  font-size: 0.8em;
+  text-align: left; }
+
+.copyright .name, .copyright .address {
+  color: #485094; }
+
+/*
+    5.0 Other styles
+*/
+/*
+To top button
+*/
+#myBtn {
+  font-family: "Space Mono", monospace;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 12px;
+  border: none;
+  outline: none;
+  background-color: #1d1d1d;
+  opacity: 0.15;
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px 10px 15px;
+  border-radius: 4px; }
+
+#myBtn:hover {
+  opacity: 1; }
+
+-->
+</style>
+    <style>
+      <!--
+p.Sourcecode, li.Sourcecode, div.Sourcecode, pre.Sourcecode {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 12.0pt;
+  margin-left: 0cm;
+  text-align: left;
+  line-height: 12.0pt;
+  tab-stops: 20.15pt;
+  font-size: 9.0pt;
+  font-family: "Space Mono", monospace; }
+
+p.Biblio, li.Biblio, div.Biblio {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 12.0pt;
+  margin-left: 33.15pt;
+  text-indent: -33.15pt;
+  tab-stops: 33.15pt;
+  line-height: 12.0pt;
+  font-size: 11.0pt;
+  font-weight: bold;
+  font-family: "Overpass", sans-serif; }
+
+p.FigureTitle {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 6.0pt;
+  margin-left: 0cm;
+  text-align: center;
+  line-height: 12.0pt;
+  page-break-before: avoid;
+  tab-stops: 20.15pt;
+  font-size: 11.0pt;
+  font-weight: bold;
+  font-family: "Overpass", sans-serif; }
+
+p.TableTitle {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 6.0pt;
+  margin-left: 0cm;
+  text-align: center;
+  page-break-after: avoid;
+  line-height: 12.0pt;
+  tab-stops: 20.15pt;
+  font-size: 11.0pt;
+  font-family: "Overpass", sans-serif; }
+
+p.Note, div.Note, li.Note, p.TableFootnote, div.TableFootnote, li.TableFootnote {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 12.0pt;
+  margin-left: 0cm;
+  text-align: justify;
+  line-height: 12.0pt;
+  tab-stops: 20.15pt;
+  font-size: 10.0pt;
+  font-family: "Overpass", sans-serif;
+  font-size: 10.0pt; }
+
+p.ANNEX, li.ANNEX, div.ANNEX {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 24.0pt;
+  margin-left: 0cm;
+  text-align: center;
+  text-indent: 0cm;
+  line-height: 15.5pt;
+  page-break-before: always;
+  page-break-after: avoid;
+  tab-stops: 20.15pt;
+  font-size: 14.0pt;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.BiblioTitle, li.BiblioTitle, div.BiblioTitle {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 15.5pt;
+  margin-left: 0cm;
+  text-align: center;
+  line-height: 15.5pt;
+  tab-stops: 20.15pt;
+  font-size: 14.0pt;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.Definition, li.Definition, div.Definition {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 12.0pt;
+  margin-left: 0cm;
+  text-align: justify;
+  line-height: 12.0pt;
+  tab-stops: 20.15pt;
+  font-size: 11.0pt;
+  font-family: "Overpass", sans-serif; }
+
+p.ForewordTitle, li.ForewordTitle, div.ForewordTitle {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 15.5pt;
+  margin-left: 0cm;
+  text-align: justify;
+  line-height: 15.5pt;
+  page-break-before: always;
+  page-break-after: avoid;
+  tab-stops: 20.15pt;
+  font-size: 14.0pt;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.IntroTitle, li.IntroTitle, div.IntroTitle {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 15.5pt;
+  margin-left: 0cm;
+  text-align: justify;
+  line-height: 15.5pt;
+  page-break-after: avoid;
+  tab-stops: 20.15pt;
+  font-size: 14.0pt;
+  page-break-before: always;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.zzContents, li.zzContents, div.zzContents {
+  margin-top: 48.0pt;
+  margin-right: 0cm;
+  margin-bottom: 15.5pt;
+  margin-left: 0cm;
+  line-height: 15.5pt;
+  page-break-before: always;
+  page-break-after: avoid;
+  tab-stops: 20.15pt;
+  font-size: 14.0pt;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.zzCopyright, li.zzCopyright {
+  margin-top: 0cm;
+  margin-right: 14.2pt;
+  margin-bottom: 12.0pt;
+  margin-left: 14.2pt;
+  text-align: justify;
+  line-height: 12.0pt;
+  tab-stops: 20.15pt 25.7pt 481.15pt;
+  padding: 0cm;
+  font-size: 11.0pt;
+  font-family: "Overpass", sans-serif; }
+
+div.zzCopyright {
+  border: solid windowtext 1.0pt;
+  padding: 1.0pt 4.0pt 0cm 4.0pt;
+  margin-left: 5.1pt;
+  margin-right: 5.1pt; }
+
+p.zzCopyright_address {
+  margin-top: 0cm;
+  margin-right: 14.2pt;
+  margin-bottom: 0.0pt;
+  margin-left: 14.2pt;
+  text-autospace: none;
+  padding-left: 20pt;
+  font-size: 10.0pt;
+  text-align: left; }
+
+p.zzSTDTitle, li.zzSTDTitle, div.zzSTDTitle {
+  margin-top: 20.0pt;
+  margin-right: 0cm;
+  margin-bottom: 38.0pt;
+  margin-left: 0cm;
+  line-height: 17.5pt;
+  tab-stops: 20.15pt;
+  font-size: 16.0pt;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.zzSTDTitle1, li.zzSTDTitle1, div.zzSTDTitle1 {
+  margin-top: 0pt;
+  margin-right: 0cm;
+  margin-bottom: 18.0pt;
+  margin-left: 0cm;
+  line-height: 17.5pt;
+  tab-stops: 20.15pt;
+  font-size: 16.0pt;
+  font-family: "Overpass", sans-serif;
+  font-weight: bold; }
+
+p.Quote, li.Quote, div.Quote {
+  margin-top: 0cm;
+  margin-right: 36.0pt;
+  margin-bottom: 0cm;
+  margin-left: 36.0pt;
+  text-align: justify;
+  line-height: 12.0pt;
+  tab-stops: 20.15pt;
+  font-size: 11.0pt;
+  font-family: "Overpass", sans-serif; }
+
+p.QuoteAttribution {
+  text-align: right; }
+
+p.Admonition, li.Admonition, div.Admonition {
+  margin-top: 0cm;
+  margin-right: 57.6pt;
+  margin-bottom: 0cm;
+  margin-left: 57.6pt;
+  margin-bottom: .0001pt;
+  border: none;
+  padding: 0cm;
+  font-size: 12.0pt;
+  font-family: "Overpass", sans-serif;
+  color: #4472C4;
+  font-style: italic; }
+
+p.Code, li.Code, div.Code {
+  margin: 0cm;
+  margin-bottom: .0001pt;
+  line-height: 10.0pt;
+  tab-stops: 20.15pt;
+  font-size: 9.0pt;
+  font-family: "Space Mono", monospace; }
+
+p.Formula, li.Formula, div.Formula {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 11.0pt;
+  margin-left: 20.15pt;
+  line-height: 12.0pt;
+  tab-stops: right 487.45pt;
+  font-size: 11.0pt;
+  font-family: "Overpass", sans-serif; }
+
+@page WordSection1 {
+  size: 595.3pt 841.9pt;
+  margin: 39.7pt 53.85pt 1.0cm 53.85pt; }
+div.WordSection1 {
+  page: WordSection1; }
+
+@page WordSection2 {
+  size: 595.3pt 841.9pt;
+  margin: 39.7pt 53.85pt 1.0cm 53.85pt; }
+div.WordSection2 {
+  page: WordSection2; }
+
+@page WordSection3 {
+  size: 595.3pt 841.9pt;
+  margin: 39.7pt 53.85pt 1.0cm 53.85pt; }
+div.WordSection3 {
+  page: WordSection3; }
+
+ol {
+  margin-bottom: 0cm; }
+
+ul {
+  margin-bottom: 0cm; }
+
+table.MsoISOTable {
+  border-collapse: collapse;
+  border: solid windowtext 2pt;
+  font-size: 10.0pt;
+  font-family: "Overpass", sans-serif; }
+
+table.MsoISOTable tr {
+  page-break-inside: avoid; }
+
+table.MsoISOTable th {
+  border: solid windowtext 1pt;
+  padding: 0cm 2.85pt 0cm 2.85pt; }
+
+table.MsoISOTable td {
+  border: solid windowtext 1pt;
+  padding: 0cm 2.85pt 0cm 2.85pt; }
+
+table.MsoTableGrid {
+  border: solid windowtext 1.0pt;
+  font-size: 10.0pt;
+  font-family: "Overpass", sans-serif; }
+
+td {
+  page-break-inside: avoid; }
+
+tr {
+  page-break-after: avoid; }
+
+span.stem {
+  font-family: "Cambria Math",serif;
+  font-style: italic; }
+
+div.formula {
+  tab-stops: right 487.45pt; }
+
+body {
+  tab-interval: 36.0pt; }
+
+dt {
+  page-break-inside: avoid;
+  page-break-after: avoid; }
+
+.coverpage_docnumber {
+  text-align: center;
+  font-size: 14.0pt;
+  font-weight: bold; }
+
+.coverpage_techcommittee {
+  text-align: center; }
+
+.coverpage_docstage {
+  text-align: center;
+  font-size: 30.0pt;
+  color: #485094; }
+
+div.coverpage_warning {
+  border: solid windowtext 1.0pt #485094;
+  padding: 1.0pt 4.0pt 1.0pt 4.0pt #485094;
+  margin-left: 4.25pt;
+  margin-right: 4.25pt; }
+
+.coverpage_warning {
+  color: #485094;
+  font-size: 10.0pt; }
+
+a.TableFootnoteRef {
+  vertical-align: super; }
+
+aside {
+  font-size: 10.0pt; }
+
+div.example {
+  border: solid black .25pt;
+  padding: 10pt;
+  margin: 10pt; }
+
+table.dl {
+  margin-top: 0cm;
+  margin-right: 0cm;
+  margin-bottom: 11.0pt;
+  margin-left: 20.15pt; }
+
+ol {
+  margin-bottom: 0cm;
+  margin-left: 0cm; }
+
+ul {
+  margin-bottom: 0cm;
+  margin-left: 0cm; }
+
+-->
+    </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!--TOC script import-->
+<script type="text/javascript" src="https://cdn.rawgit.com/jgallen23/toc/0.3.2/dist/toc.min.js"></script>
+
+<!--Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i|Space+Mono:400,700" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Overpass:300,300i,600,900" rel="stylesheet" />
+<!--Font awesome import for the link icon-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous" />
+</head>
+  <body lang="EN-US" link="blue" vlink="#954F72" xml:lang="EN-US" class="container">
+    <div class="WordSection1"><div class="document-stage-band" id="working-draft-band">
+    <p class="document-stage">Standard</p>
+</div>
+
+<div class="document-type-band" id="standard-band">
+    <p class="document-type">Calconnect International Standard</p>
+</div>
+  
+    
+
+  <div id="toggle"> <span>&#x2022;</span> </div>
+
+  <header>
+
+<!--<div class="WordSection1">-->
+  <div class="coverpage">
+    <div class="wrapper-top">
+
+  <div class="coverpage-doc-identity">
+    <div class="doc-number">
+      <span class="docnumber">Douglass Subscription</span>
+      <span class="docnumber-separator">:</span>
+      <span class="docyear">2018</span>
+    </div>
+
+    <div class="coverpage-title">
+      <span class="title-first">Calendar subscription upgrades</span>
+      <!--<span class="title-second"></span>-->
+    </div>
+  </div>
+
+  <div class="coverpage-logo">
+    <span>The Calendaring and Scheduling Consortium</span>
+  </div>
+
+  <div class="coverpage-tc-name">
+    <span>TC </span>
+  </div>
+  </div>
+
+  <div class="WordSection11">
+  <div class="coverpage-stage-block">
+    <span class="coverpage-stage" id="international-standard">Calconnect International Standard</span>
+  </div>
+
+  <div class="coverpage-stage-block">
+    <span class="coverpage-maturity" id="standard">Standard</span>
+</div>
+
+
+  <div class="coverpage-warning">
+    <span class="title">Warning for Drafts</span>
+
+    <p class="content">
+    This document is not a CalConnect Standard. It is distributed for review and
+    comment, and is subject to change without notice and may not be referred to as
+    a Standard. Recipients of this draft are invited to submit, with their
+    comments, notification of any relevant patent rights of which they are aware
+    and to provide supporting documentation.
+    </p>
+  </div>
+
+
+<div class="copyright">
+  <p class="year">
+    &#xA9; 2018 The Calendaring and Scheduling Consortium, Inc.
+  </p>
+
+  <p class="message">
+    All rights reserved. Unless otherwise specified, no part of this
+    publication may be reproduced or utilized otherwise in any form or by any
+    means, electronic or mechanical, including photocopying, or posting on the
+    internet or an intranet, without prior written permission. Permission can
+    be requested from the address below.
+  </p>
+
+<div class="contact-info">
+  <p class="name">The Calendaring and Scheduling Consortium, Inc.</p>
+  <p class="address">
+    4390 Chaffin Lane<br />
+    McKinleyville<br />
+    California 95519<br />
+    United States of America<br />
+    <br />
+    <a href="mailto:copyright@calconnect.org">copyright@calconnect.org</a><br />
+    <a href="www.calconnect.org">www.calconnect.org</a>
+  </p>
+</div>
+</div>
+
+<div class="rule"></div>
+</div>
+
+
+
+</div></header>
+      <p>&#xA0;</p>
+    </div>
+    <br />
+    <div class="WordSection2"><nav>
+  <h1 id="content">Contents</h1>
+  <div id="toc"></div>
+
+</nav>
+
+
+<div class="rule toc"></div>
+
+      <br />
+      <div class="Section3" id="introduction">
+        <h1 class="IntroTitle">Introduction</h1>
+        <p id="_2145b461-d748-4c3f-aa1c-a50fe94e5439">TODO.</p>
+      </div>
+      <p>&#xA0;</p>
+    </div>
+    <br />
+    <main><button onclick="topFunction()" id="myBtn" title="Go to top">Top</button><div class="WordSection3">
+      <p class="zzSTDTitle1">Calendar subscription upgrades</p>
+      <div id="_scope">
+        <h1>1.&#xA0; Scope</h1>
+        <p id="_1e8a9c20-3e7a-45d9-bb8f-bacc3ea195b3">This specification introduces an approach to allow subscribers to
+calendar feeds to upgrade to a more performant protocol.</p>
+      </div>
+      <div id="terms"><h1>2.&#xA0; Terms and Definitions</h1><p>For the purposes of this document,
+    the following terms and definitions apply.</p>
+<h2 class="TermNum" id="_publising_actor">3.1</h2>
+  <p class="Terms" style="text-align:left;">publising actor</p>
+  <p id="_7696d4af-9a6c-40f5-b0c9-96a623efd55d">person or machine who post publication items to a publication through a
+publisher</p>
+<h2 class="TermNum" id="_publisher">3.2</h2>
+  <p class="Terms" style="text-align:left;">publisher</p>
+  <p id="_11b8476d-8111-452e-848e-e60311bf4dfa">machine that receives publication items from publishing actors, and posts the
+publication items for subscriptions according to publications created</p>
+<h2 class="TermNum" id="_subscriber">3.3</h2>
+  <p class="Terms" style="text-align:left;">subscriber</p>
+  <p id="_27142472-b20e-4508-b0db-6d999a7bf186">person or machine who subscribes to publications as subscriptions</p>
+<h2 class="TermNum" id="_publication_item">3.4</h2>
+  <p class="Terms" style="text-align:left;">publication item</p>
+  <p id="_066ece91-ea47-4020-9500-c54a4ea46fc6">action item posted to a publication, originated from a publishing actor</p>
+<h2 class="TermNum" id="_subscribed_item">3.5</h2>
+  <p class="Terms" style="text-align:left;">subscribed item</p>
+  <p id="_664c8535-65bd-4ed9-95a6-2742df65a420">action item to be transmitted to the subscriber according to the subscription</p>
+<h2 class="TermNum" id="_delivery_channel">3.6</h2>
+  <p class="Terms" style="text-align:left;">delivery channel</p>
+  <p id="_550dd04a-cc15-4842-bff6-f876b7115e8f">channel with delivery uri and type specified to receive subscribed item through a
+subscription</p>
+<h2 class="TermNum" id="_action_item">3.7</h2>
+  <p class="Terms" style="text-align:left;">action item</p>
+  <p id="_4c21a465-b60d-4f1e-8d0d-2cb2a5663be4">item transmitted from a publisher or to a subscriber in either publication or
+subscribed form</p>
+<h2 class="TermNum" id="_delivery_format">3.8</h2>
+  <p class="Terms" style="text-align:left;">delivery format</p>
+  <p id="_cef2bfd4-7b54-4e35-a8fb-c138e2db4fc2">data format used to serialize the data from a publication items, in order to
+be transmitted to subscribers who subscribed to the publication</p>
+<h2 class="TermNum" id="_serializer">3.9</h2>
+  <p class="Terms" style="text-align:left;">serializer</p>
+  <p id="_a7e46925-6826-4de8-9625-099fc8e28e63">computer program to serialize the data of a publication item to the
+serialized form according to the delivery format</p>
+<h2 class="TermNum" id="_serialized_data">3.10</h2>
+  <p class="Terms" style="text-align:left;">serialized data</p>
+  <p id="_a5c77c7f-5461-4942-b387-04252ec7a5db">data serialized from the data of a publication item by the serializer
+according to the delivery format</p>
+<h2 class="TermNum" id="_unsubscribe">3.11</h2>
+  <p class="Terms" style="text-align:left;">unsubscribe</p>
+  <p id="_1abf004c-6df5-4be7-8be5-da4687661f9d">action taken by a subscriber from a publication to remove the subscribers'
+subscription</p>
+<h2 class="TermNum" id="_subscribe">3.12</h2>
+  <p class="Terms" style="text-align:left;">subscribe</p>
+  <p id="_8f228fbd-1730-43ea-9895-ffa6eff06cc7">action taken by a person or machine to create a subscription to a publication</p>
+<h2 class="TermNum" id="_publish">3.13</h2>
+  <p class="Terms" style="text-align:left;">publish</p>
+  <p id="_28b6b24d-7938-4f6a-8087-e85eb827508c">action taken by a publishing actor to post a publication item to a publication
+through a publisher</p>
+<h2 class="TermNum" id="_serialize">3.14</h2>
+  <p class="Terms" style="text-align:left;">serialize</p>
+  <p id="_600e3f99-bbb7-438a-950a-6452010a2a03">action to transform data from a format to another</p>
+<h2 class="TermNum" id="_deliverer">3.15</h2>
+  <p class="Terms" style="text-align:left;">deliverer</p>
+  <p id="_69c0c75e-0754-4a29-9902-8045ce40ff10">machine that receives publication items from publisher, transforms publication
+items into subscribed items, and delivers the subscribed items to subscribers</p>
+<h2 class="TermNum" id="_publication">3.16</h2>
+  <p class="Terms" style="text-align:left;">publication</p>
+<h2 class="TermNum" id="_subscription">3.17</h2>
+  <p class="Terms" style="text-align:left;">subscription</p>
+</div>
+      <div id="_flow">
+        <h1>4.&#xA0; Flow</h1>
+        <div id="_publication_created_within_publisher">
+  <h2>4.1. Publication created within publisher</h2>
+</div>
+        <div id="_subscriber_subscribes_a_publication"><h2>4.2. Subscriber subscribes a publication</h2><p id="_205e954e-a03c-404b-9e49-512b663899b4">To subscribe a publication, a person or machine submits a subscription request
+to a deliverer of the publication. When the deliverer receives the subscription
+request, it MUST check whether the person or machine for the permission to the
+publication.</p>
+<p id="_1df769dc-737b-4ac2-877d-867de7327bf1">If the person or machine is permitted to subscribe to the publication, the
+deliverer MUST respond with a success response, and any publication item posted
+to the publication afterwards MUST be delivered to the subscriber as a
+subscribed item according to the newly created subscription.</p>
+<p id="_bd2dd1ae-1962-431f-b30d-3d78a87a59f7">If the person or machine is NOT permitted to subscribe to the publication, the
+deliverer MUST respond with a failure response, and any publication item posted
+to the publication afterwards MUST NOT be delivered to the person or machine.</p></div>
+        <div id="_publishing_actor_posts_a_publication_item"><h2>4.3. Publishing actor posts a publication item</h2><p id="_0f62384b-e0c6-4d0d-86d8-63499592f73e">To post a publication item, a publishing actor sends a publication request to
+the publisher. A publication request SHALL contain the id of the publication
+and a publication item.</p>
+<p id="_4b067282-e96a-440b-a709-07985ac00457">When a publisher receives a publication request, the publisher MUST check the
+publishing actor for its eligibility to post a publication item. The publisher
+MUST also check the data in the publication item of whether its item type and
+format are both supported by the publication.</p>
+<p id="_5030572a-5720-42c7-99c1-cf37c0acd481">If all the checks are truthy, the publisher MUST respond with a success
+response, and the publication item MUST be transmitted to the deliverer by any
+mean in order to transform the publication item into subscribed item and
+deliver</p>
+<p id="_6e176d6f-8f21-4aa8-a040-19c6c8d1d3dc">If any of the checks found falsy, the publisher MUST respond with a failure
+response, and the publication item MUST be ignored and not further processed.</p></div>
+        <div id="_publication_item_transforms_into_subscribed_items">
+  <h2>4.4. Publication item transforms into subscribed items</h2>
+  <p id="_c0e27266-5673-4533-8fc1-5ac5270536de">When the deliverer receives the publication item posted to a publication,
+the deliverer MUST process for each subscription associated with the
+publication. For each subscription associated, the deliverer MUST transform the
+publication item into a subscribed item by serializing the data in the
+publication item into serialized data with the serializer given in the
+subscription.</p>
+</div>
+        <div id="_subscribers_receive_subscribed_items_through_delivery_channels_defined">
+  <h2>4.5. Subscribers receive subscribed items through delivery channels defined</h2>
+  <p id="_19e49247-944e-482c-89ad-2ebd85c900cb">The subscribed item then delivers to the subscriber according to the delivery
+channels defined in the subscription. The subscribers get the subscribed item
+through the delivery channels.</p>
+</div>
+        <div id="_subscriber_unsubscribes_a_publication"><h2>4.6. Subscriber unsubscribes a publication</h2><p id="_58973e5a-263e-4b00-9080-f4893295770d">To stop receiving subscribed items from a subscription, the subscriber can
+unsubscribe from the subscription. To unsubscribe, the subscriber sends
+an unsubscription request with the subscription id provided to the deliverer.
+The deliverer then remove the subscription for the subscriber.</p>
+<p id="_51667411-c235-4862-b06a-9cf3c0575931">After the removal of a subscription, the deliverer MUST NOT deliver any item
+to the subscriber about the subscription removed.</p></div>
+      </div>
+      <div id="security">
+        <h1>5.&#xA0; Security Considerations</h1>
+        <p id="_1d843d88-1c4a-4d95-9b01-332bb8c954fa">Applications using these properties need to be aware of the risks
+entailed in using the URIs provided as values.  See <a href="#RFC3986">IETF RFC 3986</a> for a
+discussion of the security considerations relating to URIs.</p>
+        <div id="privacy">
+  <h2>5.1. Privacy Considerations</h2>
+  <p id="_77f43f00-f5dd-4818-b7ca-a86cfa01dfeb">Properties with a "URI" value type can expose their users to privacy
+leaks as any network access of the URI data can be tracked.  Clients
+<b>SHOULD NOT</b> automatically download data referenced by the URI without
+explicit instruction from users.  This specification does not
+introduce any additional privacy concerns beyond those described in
+<a href="#RFC5545">IETF RFC 5545</a>.</p>
+</div>
+        <div id="iana">
+  <h2>5.2. IANA Considerations</h2>
+</div>
+        <div id="acknowledgements">
+  <h2>5.3. Acknowledgements</h2>
+  <p id="_e002ee58-67d2-47b5-8e43-0ad36e1d1852">The author would also like to thank the members of the Calendaring
+and Scheduling Consortium Calendar Sharing technical committee and
+the following individuals for contributing their ideas and support:</p>
+</div>
+        <para>
+          <b role="strong">&lt;annex id="appendix-a" obligation="normative"&gt;
+  &lt;title&gt;Open issues&lt;/title&gt;
+&lt;/annex&gt;</b>
+        </para>
+        <para>
+          <b role="strong">&lt;annex id="appendix-b" obligation="normative"&gt;
+  &lt;title&gt;Change log&lt;/title&gt;
+&lt;/annex&gt;</b>
+        </para>
+        <div>
+          <h2 class="Section3">Normative References</h2>
+          <p id="I-D.ietf-calext-extension" class="Biblio">[1]&#xA0; IETF I.D. Calext Extensions,C. Daboo. <i>New Properties for iCalendar</i>. 2016. <a href="http://www.ietf.org/internet-drafts/draft-ietf-calext-extensions-05.txt">http://www.ietf.org/internet-drafts/draft-ietf-calext-extensions-05.txt</a></p>
+          <p id="RFC2119" class="Biblio">[2]&#xA0; IETF RFC 2119,S. Bradner. <i>Key words for use in RFCs to Indicate Requirement Levels</i>. 1997. <a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a></p>
+          <p id="RFC2434" class="Biblio">[3]&#xA0; IETF RFC 2434,T. Narten &amp; H. Alvestrand. <i>Guidelines for Writing an IANA Considerations Section in RFCs</i>. 1998. <a href="https://www.rfc-editor.org/info/rfc2434">https://www.rfc-editor.org/info/rfc2434</a></p>
+          <p id="RFC3688" class="Biblio">[4]&#xA0; IETF RFC 3688,M. Mealling. <i>The IETF XML Registry</i>. 2004. <a href="https://www.rfc-editor.org/info/rfc3688">https://www.rfc-editor.org/info/rfc3688</a></p>
+          <p id="RFC3986" class="Biblio">[5]&#xA0; IETF RFC 3986,T. Berners-Lee, R. Fielding, L. Masinter. <i>Uniform Resource Identifier (URI): Generic Syntax</i>. 2005. <a href="https://www.rfc-editor.org/info/rfc3986">https://www.rfc-editor.org/info/rfc3986</a></p>
+          <p id="RFC4589" class="Biblio">[6]&#xA0; IETF RFC 4589,H. Schulzrinne, H. Tschofenig. <i>Location Types Registry</i>. 2006. <a href="https://www.rfc-editor.org/info/rfc4589">https://www.rfc-editor.org/info/rfc4589</a></p>
+          <p id="RFC5545" class="Biblio">[7]&#xA0; IETF RFC 5545,B. Desruisseaux. <i>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</i>. 2009. <a href="https://www.rfc-editor.org/info/rfc5545">https://www.rfc-editor.org/info/rfc5545</a></p>
+          <p id="RFC5546" class="Biblio">[8]&#xA0; IETF RFC 5546,C. Daboo. <i>iCalendar Transport-Independent Interoperability Protocol (iTIP)</i>. 2009. <a href="https://www.rfc-editor.org/info/rfc5546">https://www.rfc-editor.org/info/rfc5546</a></p>
+          <p id="RFC5988" class="Biblio">[9]&#xA0; IETF RFC 5988,M. Nottingham. <i>Web Linking</i>. 2010. <a href="https://www.rfc-editor.org/info/rfc5988">https://www.rfc-editor.org/info/rfc5988</a></p>
+          <p id="RFC7991" class="Biblio">[10]&#xA0; IETF RFC 7991,P. Hoffman. <i>The "xml2rfc" Version 3 Vocabulary.</i> 2016. <a href="https://www.rfc-editor.org/info/rfc7991">https://www.rfc-editor.org/info/rfc7991</a></p>
+          <p id="RFC8174" class="Biblio">[11]&#xA0; IETF RFC 8174,B. Leiba. <i>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words.</i> 2017. <a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a></p>
+          <p id="W3C-REC-xml-20060816" class="Biblio">[12]&#xA0; W3C REC xml20060816,Tim Bray, Jean Paoli, Michael Sperberg-McQueen, Eve Maler, Fran&#xE7;ois Yergeau. <i>Extensible Markup Language (XML) 1.0 (Fourth Edition)</i>. 2006. <a href="http://www.w3.org/TR/2006/REC-xml-20060816">http://www.w3.org/TR/2006/REC-xml-20060816</a></p>
+        </div>
+        <div>
+          <h2 class="Section3">Bibliography</h2>
+        </div>
+      </div>
+      <br />
+      <div id="appendix-a" class="Section3">
+        <h1 class="Annex"><b>Appendix A</b><br />(normative)<br /><br /><b>Open issues</b></h1>
+      </div>
+      <br />
+      <div id="appendix-b" class="Section3">
+        <h1 class="Annex"><b>Appendix B</b><br />(normative)<br /><br /><b>Change log</b></h1>
+      </div>
+    </div></main>
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    asciimath2jax: {
+      delimiters: [['(#(', ')#)']]
+    }
+ });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=AM_HTMLorMML"></script>
+  <script>//TOC generation
+      $('#toc').toc({
+          'selectors': 'h1,h2:not(.TermNum)', //elements to use as headings
+          'container': 'main', //element to find all selectors in
+          'smoothScrolling': true, //enable or disable smooth scrolling on click
+          'prefix': 'toc', //prefix for anchor tags and class names
+          'onHighlight': function(el) {}, //called when a new section is highlighted 
+          'highlightOnScroll': true, //add class to heading that is currently in focus
+          'highlightOffset': 100, //offset to trigger the next headline
+          'anchorName': function(i, heading, prefix) { //custom function for anchor name
+              return prefix+i;
+          },
+          'headerText': function(i, heading, $heading) { //custom function building the header-item text
+              return $heading.text();
+          },
+      'itemClass': function(i, heading, $heading, prefix) { // custom function for item class
+        return $heading[0].tagName.toLowerCase();
+      }
+      });
+      
+  </script>
+
+<script>
+  //TOC toggle animation
+$('#toggle').on('click', function(){
+    if( $('nav').is(':visible') ) {
+        $('nav').animate({ 'left': '-353px' }, 'slow', function(){
+            $('nav').hide();
+        });
+        $('.container').animate({ 'padding-left': '31px' }, 'slow');
+    }
+    else {
+        $('nav').show();
+        $('nav').animate({ 'left': '0px' }, 'slow');
+        $('.container').animate({ 'padding-left': '360px' }, 'slow');
+    }
+});
+</script>
+
+<script>
+    // Scroll to top button
+    window.onscroll = function() {scrollFunction()};
+    
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            document.getElementById("myBtn").style.display = "block";
+        } else {
+            document.getElementById("myBtn").style.display = "none";
+        }
+    }
+    
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+    </script>
+
+<script>
+  $(document).ready(function() {
+	  $('[id^=toc]').each(function ()
+	  {
+	     var currentToc = $(this);
+       var url = window.location.href;
+	     currentToc.wrap("<a href='" + url + "#" + currentToc.attr("id") + "' </a>");
+	  });
+});
+</script>
+</body>
+</html>

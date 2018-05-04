@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csd-standard xmlns="https://www.calconnect.org/standards/csd">
+<bibdata type="international-standard">
+  <title language="en" format="plain">Calendar subscription upgrades</title>
+  <docidentifier>Douglass Subscription</docidentifier>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>CalConnect</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>CalConnect</name>
+    </organization>
+  </contributor>
+  
+  <script>Latn</script>
+  <status format="plain">standard</status>
+  <copyright>
+    <from>2018</from>
+    <owner>
+      <organization>
+        <name>CalConnect</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <technical-committee/>
+  </editorialgroup>
+</bibdata><version>
+  <revision-date>2017-09-05T00:00:00Z</revision-date>
+</version>
+<preface><introduction id="introduction" obligation="informative">
+  <title>Introduction</title>
+  <p id="_2145b461-d748-4c3f-aa1c-a50fe94e5439">TODO.</p>
+</introduction></preface><sections>
+<clause id="_scope" obligation="normative">
+  <title>Scope</title>
+  <p id="_1e8a9c20-3e7a-45d9-bb8f-bacc3ea195b3">This specification introduces an approach to allow subscribers to
+calendar feeds to upgrade to a more performant protocol.</p>
+</clause>
+<terms id="terms" obligation="normative"><title>Terms and Definitions</title>
+<term id="_publising_actor">
+  <preferred>publising actor</preferred>
+  <definition><p id="_7696d4af-9a6c-40f5-b0c9-96a623efd55d">person or machine who post publication items to a publication through a
+publisher</p></definition>
+</term>
+<term id="_publisher">
+  <preferred>publisher</preferred>
+  <definition><p id="_11b8476d-8111-452e-848e-e60311bf4dfa">machine that receives publication items from publishing actors, and posts the
+publication items for subscriptions according to publications created</p></definition>
+</term>
+<term id="_subscriber">
+  <preferred>subscriber</preferred>
+  <definition><p id="_27142472-b20e-4508-b0db-6d999a7bf186">person or machine who subscribes to publications as subscriptions</p></definition>
+</term>
+<term id="_publication_item">
+  <preferred>publication item</preferred>
+  <definition><p id="_066ece91-ea47-4020-9500-c54a4ea46fc6">action item posted to a publication, originated from a publishing actor</p></definition>
+</term>
+<term id="_subscribed_item">
+  <preferred>subscribed item</preferred>
+  <definition><p id="_664c8535-65bd-4ed9-95a6-2742df65a420">action item to be transmitted to the subscriber according to the subscription</p></definition>
+</term>
+<term id="_delivery_channel">
+  <preferred>delivery channel</preferred>
+  <definition><p id="_550dd04a-cc15-4842-bff6-f876b7115e8f">channel with delivery uri and type specified to receive subscribed item through a
+subscription</p></definition>
+</term>
+<term id="_action_item">
+  <preferred>action item</preferred>
+  <definition><p id="_4c21a465-b60d-4f1e-8d0d-2cb2a5663be4">item transmitted from a publisher or to a subscriber in either publication or
+subscribed form</p></definition>
+</term>
+<term id="_delivery_format">
+  <preferred>delivery format</preferred>
+  <definition><p id="_cef2bfd4-7b54-4e35-a8fb-c138e2db4fc2">data format used to serialize the data from a publication items, in order to
+be transmitted to subscribers who subscribed to the publication</p></definition>
+</term>
+<term id="_serializer">
+  <preferred>serializer</preferred>
+  <definition><p id="_a7e46925-6826-4de8-9625-099fc8e28e63">computer program to serialize the data of a publication item to the
+serialized form according to the delivery format</p></definition>
+</term>
+<term id="_serialized_data">
+  <preferred>serialized data</preferred>
+  <definition><p id="_a5c77c7f-5461-4942-b387-04252ec7a5db">data serialized from the data of a publication item by the serializer
+according to the delivery format</p></definition>
+</term>
+<term id="_unsubscribe">
+  <preferred>unsubscribe</preferred>
+  <definition><p id="_1abf004c-6df5-4be7-8be5-da4687661f9d">action taken by a subscriber from a publication to remove the subscribers'
+subscription</p></definition>
+</term>
+<term id="_subscribe">
+  <preferred>subscribe</preferred>
+  <definition><p id="_8f228fbd-1730-43ea-9895-ffa6eff06cc7">action taken by a person or machine to create a subscription to a publication</p></definition>
+</term>
+<term id="_publish">
+  <preferred>publish</preferred>
+  <definition><p id="_28b6b24d-7938-4f6a-8087-e85eb827508c">action taken by a publishing actor to post a publication item to a publication
+through a publisher</p></definition>
+</term>
+<term id="_serialize">
+  <preferred>serialize</preferred>
+  <definition><p id="_600e3f99-bbb7-438a-950a-6452010a2a03">action to transform data from a format to another</p></definition>
+</term>
+<term id="_deliverer">
+  <preferred>deliverer</preferred>
+  <definition><p id="_69c0c75e-0754-4a29-9902-8045ce40ff10">machine that receives publication items from publisher, transforms publication
+items into subscribed items, and delivers the subscribed items to subscribers</p></definition>
+</term>
+<term id="_publication">
+  <preferred>publication</preferred>
+</term>
+<term id="_subscription">
+  <preferred>subscription</preferred>
+</term></terms>
+<clause id="_flow" obligation="normative"><title>Flow</title><clause id="_publication_created_within_publisher" obligation="normative">
+  <title>Publication created within publisher</title>
+</clause>
+<clause id="_subscriber_subscribes_a_publication" obligation="normative"><title>Subscriber subscribes a publication</title><p id="_205e954e-a03c-404b-9e49-512b663899b4">To subscribe a publication, a person or machine submits a subscription request
+to a deliverer of the publication. When the deliverer receives the subscription
+request, it MUST check whether the person or machine for the permission to the
+publication.</p>
+<p id="_1df769dc-737b-4ac2-877d-867de7327bf1">If the person or machine is permitted to subscribe to the publication, the
+deliverer MUST respond with a success response, and any publication item posted
+to the publication afterwards MUST be delivered to the subscriber as a
+subscribed item according to the newly created subscription.</p>
+<p id="_bd2dd1ae-1962-431f-b30d-3d78a87a59f7">If the person or machine is NOT permitted to subscribe to the publication, the
+deliverer MUST respond with a failure response, and any publication item posted
+to the publication afterwards MUST NOT be delivered to the person or machine.</p></clause>
+<clause id="_publishing_actor_posts_a_publication_item" obligation="normative"><title>Publishing actor posts a publication item</title><p id="_0f62384b-e0c6-4d0d-86d8-63499592f73e">To post a publication item, a publishing actor sends a publication request to
+the publisher. A publication request SHALL contain the id of the publication
+and a publication item.</p>
+<p id="_4b067282-e96a-440b-a709-07985ac00457">When a publisher receives a publication request, the publisher MUST check the
+publishing actor for its eligibility to post a publication item. The publisher
+MUST also check the data in the publication item of whether its item type and
+format are both supported by the publication.</p>
+<p id="_5030572a-5720-42c7-99c1-cf37c0acd481">If all the checks are truthy, the publisher MUST respond with a success
+response, and the publication item MUST be transmitted to the deliverer by any
+mean in order to transform the publication item into subscribed item and
+deliver</p>
+<p id="_6e176d6f-8f21-4aa8-a040-19c6c8d1d3dc">If any of the checks found falsy, the publisher MUST respond with a failure
+response, and the publication item MUST be ignored and not further processed.</p></clause>
+<clause id="_publication_item_transforms_into_subscribed_items" obligation="normative">
+  <title>Publication item transforms into subscribed items</title>
+  <p id="_c0e27266-5673-4533-8fc1-5ac5270536de">When the deliverer receives the publication item posted to a publication,
+the deliverer MUST process for each subscription associated with the
+publication. For each subscription associated, the deliverer MUST transform the
+publication item into a subscribed item by serializing the data in the
+publication item into serialized data with the serializer given in the
+subscription.</p>
+</clause>
+<clause id="_subscribers_receive_subscribed_items_through_delivery_channels_defined" obligation="normative">
+  <title>Subscribers receive subscribed items through delivery channels defined</title>
+  <p id="_19e49247-944e-482c-89ad-2ebd85c900cb">The subscribed item then delivers to the subscriber according to the delivery
+channels defined in the subscription. The subscribers get the subscribed item
+through the delivery channels.</p>
+</clause>
+<clause id="_subscriber_unsubscribes_a_publication" obligation="normative"><title>Subscriber unsubscribes a publication</title><p id="_58973e5a-263e-4b00-9080-f4893295770d">To stop receiving subscribed items from a subscription, the subscriber can
+unsubscribe from the subscription. To unsubscribe, the subscriber sends
+an unsubscription request with the subscription id provided to the deliverer.
+The deliverer then remove the subscription for the subscriber.</p>
+<p id="_51667411-c235-4862-b06a-9cf3c0575931">After the removal of a subscription, the deliverer MUST NOT deliver any item
+to the subscriber about the subscription removed.</p></clause></clause>
+<clause id="security" obligation="normative"><title>Security Considerations</title><p id="_1d843d88-1c4a-4d95-9b01-332bb8c954fa">Applications using these properties need to be aware of the risks
+entailed in using the URIs provided as values.  See <eref type="inline" bibitemid="RFC3986" citeas="IETF RFC 3986"/> for a
+discussion of the security considerations relating to URIs.</p>
+<clause id="privacy" obligation="normative">
+  <title>Privacy Considerations</title>
+  <p id="_77f43f00-f5dd-4818-b7ca-a86cfa01dfeb">Properties with a "URI" value type can expose their users to privacy
+leaks as any network access of the URI data can be tracked.  Clients
+<strong>SHOULD NOT</strong> automatically download data referenced by the URI without
+explicit instruction from users.  This specification does not
+introduce any additional privacy concerns beyond those described in
+<eref type="inline" bibitemid="RFC5545" citeas="IETF RFC 5545"/>.</p>
+</clause>
+<clause id="iana" obligation="normative">
+  <title>IANA Considerations</title>
+</clause>
+<clause id="acknowledgements" obligation="normative">
+  <title>Acknowledgements</title>
+  <p id="_e002ee58-67d2-47b5-8e43-0ad36e1d1852">The author would also like to thank the members of the Calendaring
+and Scheduling Consortium Calendar Sharing technical committee and
+the following individuals for contributing their ideas and support:</p>
+</clause>
+<annex id="appendix-a" obligation="normative">
+  <title>Open issues</title>
+</annex>
+<annex id="appendix-b" obligation="normative">
+  <title>Change log</title>
+</annex>
+<references id="_normative_references" obligation="informative">
+  <title>Normative References</title>
+  <bibitem id="I-D.ietf-calext-extension">
+  <formattedref format="application/x-isodoc+xml">C. Daboo. <em>New Properties for iCalendar</em>. 2016. <link target="http://www.ietf.org/internet-drafts/draft-ietf-calext-extensions-05.txt"/></formattedref>
+  <docidentifier>IETF I.D. Calext Extensions</docidentifier>
+</bibitem>
+  <bibitem id="RFC2119">
+  <formattedref format="application/x-isodoc+xml">S. Bradner. <em>Key words for use in RFCs to Indicate Requirement Levels</em>. 1997. <link target="https://www.rfc-editor.org/info/rfc2119"/></formattedref>
+  <docidentifier>IETF RFC 2119</docidentifier>
+</bibitem>
+  <bibitem id="RFC2434">
+  <formattedref format="application/x-isodoc+xml">T. Narten &amp; H. Alvestrand. <em>Guidelines for Writing an IANA Considerations Section in RFCs</em>. 1998. <link target="https://www.rfc-editor.org/info/rfc2434"/></formattedref>
+  <docidentifier>IETF RFC 2434</docidentifier>
+</bibitem>
+  <bibitem id="RFC3688">
+  <formattedref format="application/x-isodoc+xml">M. Mealling. <em>The IETF XML Registry</em>. 2004. <link target="https://www.rfc-editor.org/info/rfc3688"/></formattedref>
+  <docidentifier>IETF RFC 3688</docidentifier>
+</bibitem>
+  <bibitem id="RFC3986">
+  <formattedref format="application/x-isodoc+xml">T. Berners-Lee, R. Fielding, L. Masinter. <em>Uniform Resource Identifier (URI): Generic Syntax</em>. 2005. <link target="https://www.rfc-editor.org/info/rfc3986"/></formattedref>
+  <docidentifier>IETF RFC 3986</docidentifier>
+</bibitem>
+  <bibitem id="RFC4589">
+  <formattedref format="application/x-isodoc+xml">H. Schulzrinne, H. Tschofenig. <em>Location Types Registry</em>. 2006. <link target="https://www.rfc-editor.org/info/rfc4589"/></formattedref>
+  <docidentifier>IETF RFC 4589</docidentifier>
+</bibitem>
+  <bibitem id="RFC5545">
+  <formattedref format="application/x-isodoc+xml">B. Desruisseaux. <em>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</em>. 2009. <link target="https://www.rfc-editor.org/info/rfc5545"/></formattedref>
+  <docidentifier>IETF RFC 5545</docidentifier>
+</bibitem>
+  <bibitem id="RFC5546">
+  <formattedref format="application/x-isodoc+xml">C. Daboo. <em>iCalendar Transport-Independent Interoperability Protocol (iTIP)</em>. 2009. <link target="https://www.rfc-editor.org/info/rfc5546"/></formattedref>
+  <docidentifier>IETF RFC 5546</docidentifier>
+</bibitem>
+  <bibitem id="RFC5988">
+  <formattedref format="application/x-isodoc+xml">M. Nottingham. <em>Web Linking</em>. 2010. <link target="https://www.rfc-editor.org/info/rfc5988"/></formattedref>
+  <docidentifier>IETF RFC 5988</docidentifier>
+</bibitem>
+  <bibitem id="RFC7991">
+  <formattedref format="application/x-isodoc+xml">P. Hoffman. <em>The "xml2rfc" Version 3 Vocabulary.</em> 2016. <link target="https://www.rfc-editor.org/info/rfc7991"/></formattedref>
+  <docidentifier>IETF RFC 7991</docidentifier>
+</bibitem>
+  <bibitem id="RFC8174">
+  <formattedref format="application/x-isodoc+xml">B. Leiba. <em>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words.</em> 2017. <link target="https://www.rfc-editor.org/info/rfc8174"/></formattedref>
+  <docidentifier>IETF RFC 8174</docidentifier>
+</bibitem>
+  <bibitem id="W3C-REC-xml-20060816">
+  <formattedref format="application/x-isodoc+xml">Tim Bray, Jean Paoli, Michael Sperberg-McQueen, Eve Maler, François Yergeau. <em>Extensible Markup Language (XML) 1.0 (Fourth Edition)</em>. 2006. <link target="http://www.w3.org/TR/2006/REC-xml-20060816"/></formattedref>
+  <docidentifier>W3C REC xml20060816</docidentifier>
+</bibitem>
+</references>
+<references id="_bibliography" obligation="informative">
+  <title>Bibliography</title>
+</references></clause></sections>
+</csd-standard>
