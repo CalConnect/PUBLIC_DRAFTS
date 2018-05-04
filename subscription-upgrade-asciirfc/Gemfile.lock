@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/riboseinc/asciidoctor-bibliography
-  revision: 891befda69651cd4ceea7be745816b662eb6cb08
+  revision: 618305c5970870df2a575f20e58a6ad4ba442685
   specs:
-    asciidoctor-bibliography (0.7.1.pre)
+    asciidoctor-bibliography (0.8.0)
       asciidoctor (~> 1.5.6)
       bibtex-ruby (~> 4.4.4)
       citeproc-ruby (~> 1.1.7)
@@ -12,19 +12,19 @@ GIT
 
 GIT
   remote: https://github.com/riboseinc/asciidoctor-rfc
-  revision: 8dda5f1fcc3b41e1ec5123bd87d76027ac14d41b
+  revision: f61da20d4339f3208dbf6f041a3770d0181af496
   specs:
-    asciidoctor-rfc (0.8.0)
-      asciidoctor (~> 1.5.6)
+    asciidoctor-rfc (0.8.3)
+      asciidoctor (~> 1.5.7)
       htmlentities (~> 4.3.4)
-      nokogiri (~> 1.8.1)
+      nokogiri
       ruby-jing
       thread_safe
 
 GEM
   remote: https://rubygems.org/
   specs:
-    asciidoctor (1.5.6.1)
+    asciidoctor (1.5.7)
     bibtex-ruby (4.4.6)
       latex-decode (~> 0.0)
     citeproc (1.0.9)

@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/riboseinc/asciidoctor-bibliography
-  revision: 891befda69651cd4ceea7be745816b662eb6cb08
+  revision: 618305c5970870df2a575f20e58a6ad4ba442685
   specs:
-    asciidoctor-bibliography (0.7.1.pre)
+    asciidoctor-bibliography (0.8.0)
       asciidoctor (~> 1.5.6)
       bibtex-ruby (~> 4.4.4)
       citeproc-ruby (~> 1.1.7)
@@ -12,17 +12,17 @@ GIT
 
 GIT
   remote: https://github.com/riboseinc/asciidoctor-csd
-  revision: bd71eb839743a9bf3cbc58f11f41b834851a663b
+  revision: 50163de9053c85a98250ace4443f039f6feca071
   specs:
-    asciidoctor-csd (0.2.0)
+    asciidoctor-csd (0.2.4)
       asciidoctor (~> 1.5.6)
-      asciidoctor-iso
+      asciidoctor-iso (>= 0.7.5)
       asciimath
       htmlentities (~> 4.3.4)
       image_size
       isodoc
       mime-types
-      nokogiri (~> 1.8.1)
+      nokogiri
       ruby-jing
       ruby-xslt
       thread_safe
@@ -30,22 +30,23 @@ GIT
 
 GIT
   remote: https://github.com/riboseinc/asciidoctor-iso
-  revision: df2e5501659d938bf9a5535db7eddb7f94a992f5
+  revision: 129796651bcf93168f7e1b75f90daf13a46fd506
   specs:
-    asciidoctor-iso (0.6.1)
+    asciidoctor-iso (0.7.5)
       asciidoctor (~> 1.5.6)
       html2doc
       htmlentities (~> 4.3.4)
       isodoc
-      nokogiri (= 1.8.1)
+      nokogiri
       ruby-jing
+      sass
       thread_safe
       uuidtools
 
 GEM
   remote: https://rubygems.org/
   specs:
-    asciidoctor (1.5.6.1)
+    asciidoctor (1.5.7)
     asciimath (1.0.4)
     bibtex-ruby (4.4.6)
       latex-decode (~> 0.0)
@@ -58,25 +59,27 @@ GEM
       namae (~> 1.0)
     csl-styles (1.0.1.8)
       csl (~> 1.0)
-    html2doc (0.6.2)
+    ffi (1.9.23)
+    html2doc (0.7.0)
       asciimath
       htmlentities (~> 4.3.4)
       image_size
       mime-types
-      nokogiri (~> 1.8.1)
+      nokogiri
       ruby-xslt
       thread_safe
       uuidtools
     htmlentities (4.3.4)
-    image_size (1.5.0)
-    isodoc (0.4.5)
+    image_size (2.0.0)
+    isodoc (0.5.9)
       asciimath
       html2doc
       htmlentities (~> 4.3.4)
       image_size
       liquid
       mime-types
-      nokogiri (= 1.8.1)
+      nokogiri
+      roman-numerals
       ruby-xslt
       thread_safe
       uuidtools
@@ -88,12 +91,21 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.3.0)
     namae (1.0.1)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     optout (0.0.2)
+    rb-fsevent (0.10.3)
+    rb-inotify (0.9.10)
+      ffi (>= 0.5.0, < 2)
+    roman-numerals (0.3.0)
     ruby-jing (0.0.1)
       optout (>= 0.0.2)
     ruby-xslt (0.9.10)
+    sass (3.5.6)
+      sass-listen (~> 4.0.0)
+    sass-listen (4.0.0)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
     thread_safe (0.3.6)
     unicode (0.4.4.4)
     uuidtools (2.1.5)

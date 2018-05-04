@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/riboseinc/asciidoctor-csd
-  revision: 14aa4eecf7a6f68602479dede41edde201e68593
+  revision: 50163de9053c85a98250ace4443f039f6feca071
   specs:
-    asciidoctor-csd (0.2.2)
+    asciidoctor-csd (0.2.4)
       asciidoctor (~> 1.5.6)
-      asciidoctor-iso
+      asciidoctor-iso (>= 0.7.5)
       asciimath
       htmlentities (~> 4.3.4)
       image_size
@@ -18,9 +18,9 @@ GIT
 
 GIT
   remote: https://github.com/riboseinc/asciidoctor-iso
-  revision: 20efdb08dba56163a38a0e1b0c1e7873ad0d7046
+  revision: 129796651bcf93168f7e1b75f90daf13a46fd506
   specs:
-    asciidoctor-iso (0.7.3)
+    asciidoctor-iso (0.7.5)
       asciidoctor (~> 1.5.6)
       html2doc
       htmlentities (~> 4.3.4)
