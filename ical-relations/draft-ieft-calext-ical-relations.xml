@@ -20,7 +20,7 @@
 <?rfc subcompact="no" ?>
 <rfc category="std"
      updates='5545' 
-     docName="draft-ietf-calext-ical-relations-03" ipr="trust200902">
+     docName="draft-ietf-calext-ical-relations-04" ipr="trust200902">
 
   <front>
     <title abbrev="iCalendar Relationships">Support for iCalendar Relationships</title>
@@ -42,7 +42,7 @@
       </address>
     </author>
 
-    <date month='October' year='2017' />
+    <date month='May' year='2018' />
 
     <area>Applications</area>
 
@@ -108,8 +108,8 @@
         </t>
         
         <t>
-          REFID is used to identify a key allowing the association of tasks
-          that are related to the same object and retrieval of a task based on
+          REFID is used to identify a key allowing the association of components
+          that are related to the same object and retrieval of a component based on
           this key. This may be, for example, to identify the tasks associated
           with a given project without having to communicate the task structure
           of the project, or, for example, in a package delivery system
@@ -118,9 +118,9 @@
 
         <t>
           As such, the presence of a REFID property imparts no meaning
-          to the event. It is merely a key to allow retrieval. This is
+          to the component. It is merely a key to allow retrieval. This is
           distinct from categorisation which, while allowing grouping
-          also adds meaning to the entity to which it is attached.
+          also adds meaning to the component to which it is attached.
         </t>
       </section>
 
@@ -128,7 +128,7 @@
         <t>
           The name CONCEPT is used by the Simple Knowledge Organization
           System defined in <xref target='W3C.CR-skos-reference-20090317'/>. This more accurately
-          defines what we mean by a catgeory. It's not the words but the
+          defines what we mean by a category. It's not the words but the
           meaning.
         </t>
 
@@ -179,7 +179,8 @@
         <t>
           It is often necessary to relate calendar components. The current
           RELATED-TO property only allows for a UID which is inadequate for many
-          purposes. Allowing other types may help but might raise a number of
+          purposes. Allowing other value types for that property may help
+          but might raise a number of
           backward compatibility issues. The link property can link components
           in different collections or even on different servers.
         </t>
@@ -258,7 +259,7 @@
     <section anchor="link_relation_types"
              title="Link Relation Types">
       <t>
-        <xref target='RFC5988'/> defines two form of relation types, registered
+        <xref target='RFC5988'/> defines two forms of relation type, registered
         and extension. Registered relation types are added to a registry defined
         by <xref target='RFC5988'/> while extension relation types are specified
         as unique unregistered URIs, (at least unregistered in the
@@ -296,7 +297,7 @@
                    ("PARENT"    ; Parent relationship - Default
                   / "CHILD"     ; Child relationship
                   / "SIBLING"   ; Sibling relationship
-                  / "DEPENDS-ON" ; refers to previous task
+                  / "DEPENDS-ON" ; refers to previous component
                   / "REFID"     ; Relationship based on REFID
                   / "CONCEPT"
                           ; Relationship based on CONCEPT
@@ -1123,7 +1124,7 @@
         Adrian Apthorp, Cyrus Daboo, Marten Gajda, Ken Murchison
       </t>
       <t>
-        The author would also like to thank the Calendaring and
+        The author would also like to thank CalConnect, the Calendaring and
         Scheduling Consortium for advice with this specification.
       </t>
     </section>
