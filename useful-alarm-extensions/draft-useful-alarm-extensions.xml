@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="rfc2629.xslt"?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'
+        [
+  <!ENTITY rfc2119 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml'>
+  <!ENTITY rfc3261 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3261.xml'>
+  <!ENTITY rfc3860 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3860.xml'>
+  <!ENTITY rfc3966 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3966.xml'>
+  <!ENTITY rfc4791 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+  <!ENTITY rfc5545 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml'>
+  <!ENTITY rfc5546 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml'>
+  <!ENTITY rfc5724 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5724.xml'>
+  <!ENTITY rfc5870 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml'>
+  <!ENTITY rfc7986 SYSTEM 
+          'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml'>
+  <!ENTITY idEventPub SYSTEM 
+          'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-eventpub-extensions.xml'>
+  ]>
+
+<?rfc toc="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<?rfc tocdepth="2"?>
+<?rfc strict="yes"?>
+<rfc category="std" updates='5545'
+     ipr='trust200902' >
+  <front>
+    <title abbrev="VALARM Extensions">VALARM Extensions for iCalendar</title>
+    <author initials="M." surname="Douglass" fullname="Michael Douglass" role="editor">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+    <date />
+    <area>Applications</area>
+    <keyword>alarms</keyword>
+    <keyword>calendaring</keyword>
+    <keyword>iCalendar</keyword>
+    <abstract>
+      <t>This document defines a set of extensions to the iCalendar
+        VALARM component which seem to be missing for certain classes
+        of calendar user.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title='Introduction'>
+      <t>The <xref target="RFC5545">iCalendar</xref> specification
+        defines a set of components used to describe calendar data. One
+        of those is the "VALARM" component which appears as a
+        sub-component of "VEVENT" and "VTODO" components. The "VALARM"
+        component is used to specify a reminder for an event or
+        task. Different alarm actions are possible, as are different
+        ways to specify how the alarm is triggered.
+      </t>
+
+      <t>This specification defines a set of extensions to "VALARM"
+        components to cover requirements for alarms not currently
+        addressed in iCalendar. Each extension is defined in a separate
+        section below. For the most part, each extension can be
+        supported independently of the others, though in some cases one
+        extension will require another. </t>
+    </section>
+
+    <section title='Conventions Used in This Document'>
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+        "MAY", and "OPTIONAL" in this document are to be interpreted as
+        described in <xref target='RFC2119' />.</t>
+
+      <t>When XML element types in the namespaces "DAV:" and
+        "urn:ietf:params:xml:ns:caldav" are referenced in this document
+        outside of the context of an XML fragment, the string "DAV:" and
+        "CALDAV:" will be prefixed to the element type names
+        respectively.</t>
+    </section>
+
+    <section title="Extensible syntax for VALARM" anchor="syntax">
+      <t>Section 3.6.6 of <xref target="RFC5545" /> defines the syntax
+        for "VALARM" components and properties within them. However, as
+        written, it is hard to extend this by adding, e.g., a new
+        property common to all types of alarm. This specification builds
+        on draft-daboo-valarm-extensions which defines an extensible
+        form for the VALARM speification.</t>
+
+    </section>
+
+    <section title="Alarm Action Types" anchor='action_types'>
+      <t>This adds some new action types to the specification</t>
+      
+      <section title="Alarm Butler Action" anchor='butler_action'>
+        <t>This action is appropriate for those users who would prefer
+          not to be required to operate calendar applications themselves
+          but have their manservant handle that for them.
+        </t>
+        <t>
+          The specification does not attempt to define exactly how the
+          butler would notify the user as this is highly client specific,
+          for example, a card on a silver tray is often the most
+          appropriate mechanism, for others a pot of tea and a quiet
+          reminder is better.
+        </t>
+  
+        <t>
+          <figure>
+            <artwork name="abnf"><![CDATA[
+actionvalue /= "BUTLER"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= butlerprop
+               ; Re-defines the "VALARM" component to include
+               ; "butlerprop" as a new set of action properties 
+
+butlerprop   = *(
+
+               ; no properties are required. It is assumed
+               ; ones manservnt knows best how to awaken the sleeping 
+               ; master.
+
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+
+               duration / repeat
+
+               )
+]]></artwork>
+          </figure></t>
+      </section>
+  
+      <section title="Alarm Town Crier Action" anchor='town_crier_action'>
+        <t>This action is appropriate for those situations where the
+          alarm is intended for large numbers of users who may not pay
+          sufficient attention to their clients and require the services
+          of some public agent to ensure they are aware of the alarm.
+        </t>
+  
+        <t>
+          <figure>
+            <artwork name="abnf"><![CDATA[
+actionvalue /= "TOWN-CRIER"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= towncrierprop
+               ; Re-defines the "VALARM" component to include
+               ; "towncrierprop" as a new set of action properties 
+
+towncrierprop  = *(
+
+               ; no properties are required. However, the 
+               ; PRIORITY property in the event may indicate whether simple
+               ; shouting will be sufficient. More urgent alarms may
+               ; indicate that the use of a handbell is appropriate. 
+               ;
+               ; To standardize the response it is suggested that the 
+               ; following levels be used for PRIORITY
+               ; 1-20 - shouting
+               ; 21-40 - handbell
+               ; 41-60 - hunting horns
+               ; 61-80 - church bells and all of the above
+               ; 81 upwards - abject panic is probably already the 
+               ;      situation so whatever seems appropriate, e.g.
+               ;      screaming.
+
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+               ;
+               ; For less urgent alarms these guide the crier on their
+               ; rounds.
+
+               duration / repeat
+
+               )
+]]></artwork>
+          </figure></t>
+      </section>
+  
+      <section title="Carrier Pigeon Action" anchor='pigeon_action'>
+        <t>This action is appropriate for those users who may be
+          separated from their client application. In this case pigeon
+          post may be an appropriate medium to notify the user that some
+          action is(was) necessary.
+        </t>
+        <t>
+          The acknowledgement feature defined in ? may be used if the
+          recipient of the alarm has their own set of pigeons for use
+          when replying. In this case the alarm UID MUST be used to differentiate
+          one pigeons message from another
+        </t>
+  
+        <t>
+          <figure>
+            <artwork name="abnf"><![CDATA[
+actionvalue /= "PIGEON"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= pigeonprop
+               ; Re-defines the "VALARM" component to include
+               ; "pigeonprop" as a new set of action properties 
+
+pigeonprop   = *(
+
+               ; no properties are required. It is assumed
+               ; pigeons will in general be unable to do much more
+               ; than return to their loft with an attached alarm.
+
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+               
+               ; For the service this indicates how many pigeons they
+               ; SHOULD use in trying to get the message across. In  
+               ; the case of insufficient pigeons, or the sender simply
+               ; feeling the recipient isn't worth the expense there is
+               ; no requirement that any more pigeons be used on what is 
+               ; clearly a pointless excercise.
+
+               duration / repeat
+
+               )
+]]></artwork>
+          </figure></t>
+      </section>
+  
+      <section title="Owl Post Action" anchor='owl_action'>
+        <t>This action may be used to indicate that the owl postal
+          service should be used where available.
+        </t>
+  
+        <t>
+          <figure>
+            <artwork name="abnf"><![CDATA[
+actionvalue /= "OWL"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= owlprop
+               ; Re-defines the "VALARM" component to include
+               ; "owlprop" as a new set of action properties 
+
+owlprop       = *(
+
+               ; no properties are required. The following may help
+               ; improve the quality of service.
+
+               ; when specified the owl-cost property indicates the cost 
+               ; of using the 
+               ; owl. The default units are mice, e.g. a value of "1"
+               ; indicates a single mouse. The value is of type TEXT
+               ; so any value may be used to handle a particularly
+               ; fussy owl, e.g. "1 vole"
+               
+               owl-cost /
+               
+               ; the recipient-owl-cost has the same form as cost and 
+               ; indicates what the recipient is expected to pay. 
+               ; This handles the situation of a particularly tired owl
+               ; needing sustenance to return to their nest. Some owls
+               ; MAY refuse to hand over the alarm until paid so some 
+               ; form of out of band messaging SHOULD be used to indicate
+               ; what payments may need to be at hand.
+
+               recipient-owl-cost /
+               
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+               
+               ; A high repeat value together with a recipient cost 
+               ; may lead to large numebr of owls
+               ; awaiting payment. Services shoudl take care to validate 
+               ; alarms to avoid service attacks by e.g. vole suppliers.
+
+               duration / repeat
+
+               )
+]]></artwork>
+          </figure></t>
+      </section>
+    </section>
+
+    <section anchor="new_properties"
+             title="New Properties">
+      <section anchor="owl_cost"
+               title="Owl-Cost">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              OWL-COST
+            </t>
+
+            <t hangText="Purpose:">
+              This property is used in a VALARM components to specify the
+              cost of sending the message.
+            </t>
+
+            <t hangText="Value type:">
+              TEXT
+            </t>
+
+            <t hangText="Property Parameters:">
+              Non-standard parameters
+              can be specified on this property.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MAY be specified in a VALARM component.
+            </t>
+
+            <t hangText="Description:">
+              In a METHOD:REQUEST each alarm component MAY have a 
+              OWL-COST property. This cost SHOULD be paid by the sender .
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+
+                <artwork type="abnf">
+    owlcost = "OWL-COST" owlcostparams ":"
+                  ctext CRLF
+
+    owlcostarams = *(
+                  (";" other-param)
+                  )
+
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="recipient_owl_cost"
+               title="Recipient Owl Cost">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              RECIPIENT-OWL-COST
+            </t>
+
+            <t hangText="Purpose:">
+              This property is used in a VALARM components to specify the
+              cost of receiving the message.
+            </t>
+
+            <t hangText="Value type:">
+              TEXT
+            </t>
+
+            <t hangText="Property Parameters:">
+              Non-standard parameters
+              can be specified on this property.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MAY be specified in a VALARM component.
+            </t>
+
+            <t hangText="Description:">
+              In a METHOD:REQUEST each alarm component MAY have a
+              RECIPIENT-OWL-COST property. This cost SHOULD be paid by 
+              the receiver.
+            </t>
+
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+
+                <artwork type="abnf">
+    rowlcost   = "RECIPIENT-OWL-COST" rowlcostparams ":"
+                  ctext CRLF
+
+      rowlcostarams = *(
+                  (";" other-param)
+                  )
+
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title="Example">
+      <t>The following example shows a "VALARM" component with an
+        owl action for a moderately expensive owl.
+        <figure>
+          <artwork name="abnf"><![CDATA[
+BEGIN:VALARM
+UID:77D80D14-906B-4257-963F-85B1E734DBB6
+TRIGGER;VALUE=DATE-TIME:19760401T005545Z
+ACTION:OWL
+DESCRIPTION:Catch the Hogwarts express home
+TRIGGER;VALUE=DATE-TIME:19760401T005545Z
+OWL-COST:1 vole; 1 shrew
+END:VALARM
+]]></artwork>
+        </figure></t>
+    </section>
+
+    <section title='Security Considerations'>
+      <t>VALARMs, if not monitored properly, can be used to "spam"
+        users and/or leak personal information.  For instance, an
+        unwanted owl could be considered spam. </t>
+    </section>
+
+    <section title='IANA Considerations'>
+      <section title='Property Registrations'>
+        <t>This document defines the following new iCalendar
+          properties to be added to the registry defined in Section
+          8.2.3 of <xref target="RFC5545" />:</t>
+        <texttable>
+          <ttcol>Property</ttcol>
+          <ttcol>Status</ttcol>
+          <ttcol>Reference</ttcol>
+          <!--
+                    <c>ALARM-AGENT</c>
+                    <c>Current</c>
+                    <c>RFCXXXX, <xref target="ALARM-AGENT" /></c>
+          -->
+          <c>OWL-COST</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="owl_cost" /></c>
+          <c>RECIPIENT-OWL-COST</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="recipient_owl_cost" /></c>
+        </texttable>
+      </section>
+      <!--
+            <section title='Parameter Registrations'>
+              <t>This document defines the following new iCalendar property
+              parameters to be added to the registry defined in Section
+              8.2.4 of <xref target="RFC5545" />:</t>
+              <texttable>
+                <ttcol>Property Parameter</ttcol>
+                <ttcol>Status</ttcol>
+                <ttcol>Reference</ttcol>
+                <c>AGENT-ID</c>
+                <c>Current</c>
+                <c>RFCXXXX, <xref target="AGENT-ID-PARAM" /></c>
+              </texttable>
+              </section>
+      -->
+      <section title='Actions Registry'>
+        <t>This document defines the following new iCalendar action to be added to the registry defined in Section 8.3.10 of <xref target="RFC5545" />:</t>
+        <texttable>
+          <ttcol>Action</ttcol>
+          <ttcol>Status</ttcol>
+          <ttcol>Reference</ttcol>
+          <!--
+                    <c>URI</c>
+                    <c>Current</c>
+                    <c>RFCXXXX, <xref target="URI-ACTION" /></c>
+          -->
+          <c>BUTLER</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="butler_action" /></c>
+          <c>OWL</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="owl_action" /></c>
+          <c>PIGEON</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="pigeon_action" /></c>
+          <c>TOWN-CRIER</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="town_crier_action" /></c>
+        </texttable>
+      </section>
+      <!--
+            <section title='Relationship Types Registry'>
+              <t>This document defines the following new iCalendar
+              relationship type to be added to the registry defined in
+              Section 8.3.8 of <xref target="RFC5545" />:</t>
+              <texttable>
+                <ttcol>Relationship Type</ttcol>
+                <ttcol>Status</ttcol>
+                <ttcol>Reference</ttcol>
+                <c>SNOOZE</c>
+                <c>Current</c>
+                <c>RFCXXXX, <xref target="SNOOZE-PARAM" /></c>
+              </texttable>
+              </section>
+      -->
+    </section>
+    <section title='Acknowledgments'>
+      <t>This specification came about via discussions at the
+        Calendaring and Scheduling Consortium. </t>
+    </section>
+  </middle>
+  <back>
+
+    <references title='Normative References'>
+      &rfc2119;
+      &rfc4791;
+      &rfc5545;
+      &rfc5870;
+      &rfc7986;
+      &idEventPub;
+    </references>
+  </back>
+</rfc>

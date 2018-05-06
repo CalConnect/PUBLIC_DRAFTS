@@ -1,0 +1,560 @@
+
+
+
+
+Network Working Group                                   M. Douglass, Ed.
+Internet-Draft                                       Spherical Cow Group
+Updates: 5545 (if approved)                              October 1, 2017
+Intended status: Standards Track
+Expires: April 4, 2018
+
+
+                    VALARM Extensions for iCalendar
+
+Abstract
+
+   This document defines a set of extensions to the iCalendar VALARM
+   component which seem to be missing for certain classes of calendar
+   user.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on April 4, 2018.
+
+Copyright Notice
+
+   Copyright (c) 2017 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (https://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 1]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Conventions Used in This Document . . . . . . . . . . . . . .   2
+   3.  Extensible syntax for VALARM  . . . . . . . . . . . . . . . .   3
+   4.  Alarm Action Types  . . . . . . . . . . . . . . . . . . . . .   3
+     4.1.  Alarm Butler Action . . . . . . . . . . . . . . . . . . .   3
+     4.2.  Alarm Town Crier Action . . . . . . . . . . . . . . . . .   4
+     4.3.  Carrier Pigeon Action . . . . . . . . . . . . . . . . . .   4
+     4.4.  Owl Post Action . . . . . . . . . . . . . . . . . . . . .   5
+   5.  New Properties  . . . . . . . . . . . . . . . . . . . . . . .   7
+     5.1.  Owl-Cost  . . . . . . . . . . . . . . . . . . . . . . . .   7
+     5.2.  Recipient Owl Cost  . . . . . . . . . . . . . . . . . . .   7
+   6.  Example . . . . . . . . . . . . . . . . . . . . . . . . . . .   8
+   7.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   8
+     8.1.  Property Registrations  . . . . . . . . . . . . . . . . .   8
+     8.2.  Actions Registry  . . . . . . . . . . . . . . . . . . . .   9
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .   9
+   10. Normative References  . . . . . . . . . . . . . . . . . . . .   9
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  10
+
+1.  Introduction
+
+   The iCalendar [RFC5545] specification defines a set of components
+   used to describe calendar data.  One of those is the "VALARM"
+   component which appears as a sub-component of "VEVENT" and "VTODO"
+   components.  The "VALARM" component is used to specify a reminder for
+   an event or task.  Different alarm actions are possible, as are
+   different ways to specify how the alarm is triggered.
+
+   This specification defines a set of extensions to "VALARM" components
+   to cover requirements for alarms not currently addressed in
+   iCalendar.  Each extension is defined in a separate section below.
+   For the most part, each extension can be supported independently of
+   the others, though in some cases one extension will require another.
+
+2.  Conventions Used in This Document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   [RFC2119].
+
+   When XML element types in the namespaces "DAV:" and
+   "urn:ietf:params:xml:ns:caldav" are referenced in this document
+   outside of the context of an XML fragment, the string "DAV:" and
+   "CALDAV:" will be prefixed to the element type names respectively.
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 2]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+3.  Extensible syntax for VALARM
+
+   Section 3.6.6 of [RFC5545] defines the syntax for "VALARM" components
+   and properties within them.  However, as written, it is hard to
+   extend this by adding, e.g., a new property common to all types of
+   alarm.  This specification builds on draft-daboo-valarm-extensions
+   which defines an extensible form for the VALARM speification.
+
+4.  Alarm Action Types
+
+   This adds some new action types to the specification
+
+4.1.  Alarm Butler Action
+
+   This action is appropriate for those users who would prefer not to be
+   required to operate calendar applications themselves but have their
+   manservant handle that for them.
+
+   The specification does not attempt to define exactly how the butler
+   would notify the user as this is highly client specific, for example,
+   a card on a silver tray is often the most appropriate mechanism, for
+   others a pot of tea and a quiet reminder is better.
+
+   actionvalue /= "BUTLER"
+                  ; Adds a new action for a "VALARM"
+
+   actionprop  /= butlerprop
+                  ; Re-defines the "VALARM" component to include
+                  ; "butlerprop" as a new set of action properties
+
+   butlerprop   = *(
+
+                  ; no properties are required. It is assumed
+                  ; ones manservnt knows best how to awaken the sleeping
+                  ; master.
+
+                  ; 'duration' and 'repeat' are both OPTIONAL,
+                  ; and MUST NOT occur more than once each,
+                  ; but if one occurs, so MUST the other
+
+                  duration / repeat
+
+                  )
+
+
+
+
+
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 3]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+4.2.  Alarm Town Crier Action
+
+   This action is appropriate for those situations where the alarm is
+   intended for large numbers of users who may not pay sufficient
+   attention to their clients and require the services of some public
+   agent to ensure they are aware of the alarm.
+
+actionvalue /= "TOWN-CRIER"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= towncrierprop
+               ; Re-defines the "VALARM" component to include
+               ; "towncrierprop" as a new set of action properties
+
+towncrierprop  = *(
+
+               ; no properties are required. However, the
+               ; PRIORITY property in the event may indicate whether simple
+               ; shouting will be sufficient. More urgent alarms may
+               ; indicate that the use of a handbell is appropriate.
+               ;
+               ; To standardize the response it is suggested that the
+               ; following levels be used for PRIORITY
+               ; 1-20 - shouting
+               ; 21-40 - handbell
+               ; 41-60 - hunting horns
+               ; 61-80 - church bells and all of the above
+               ; 81 upwards - abject panic is probably already the
+               ;      situation so whatever seems appropriate, e.g.
+               ;      screaming.
+
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+               ;
+               ; For less urgent alarms these guide the crier on their
+               ; rounds.
+
+               duration / repeat
+
+               )
+
+4.3.  Carrier Pigeon Action
+
+   This action is appropriate for those users who may be separated from
+   their client application.  In this case pigeon post may be an
+   appropriate medium to notify the user that some action is(was)
+   necessary.
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 4]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+   The acknowledgement feature defined in ? may be used if the recipient
+   of the alarm has their own set of pigeons for use when replying.  In
+   this case the alarm UID MUST be used to differentiate one pigeons
+   message from another
+
+actionvalue /= "PIGEON"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= pigeonprop
+               ; Re-defines the "VALARM" component to include
+               ; "pigeonprop" as a new set of action properties
+
+pigeonprop   = *(
+
+               ; no properties are required. It is assumed
+               ; pigeons will in general be unable to do much more
+               ; than return to their loft with an attached alarm.
+
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+
+               ; For the service this indicates how many pigeons they
+               ; SHOULD use in trying to get the message across. In
+               ; the case of insufficient pigeons, or the sender simply
+               ; feeling the recipient isn't worth the expense there is
+               ; no requirement that any more pigeons be used on what is
+               ; clearly a pointless excercise.
+
+               duration / repeat
+
+               )
+
+4.4.  Owl Post Action
+
+   This action may be used to indicate that the owl postal service
+   should be used where available.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 5]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+actionvalue /= "OWL"
+               ; Adds a new action for a "VALARM"
+
+actionprop  /= owlprop
+               ; Re-defines the "VALARM" component to include
+               ; "owlprop" as a new set of action properties
+
+owlprop       = *(
+
+               ; no properties are required. The following may help
+               ; improve the quality of service.
+
+               ; when specified the owl-cost property indicates the cost
+               ; of using the
+               ; owl. The default units are mice, e.g. a value of "1"
+               ; indicates a single mouse. The value is of type TEXT
+               ; so any value may be used to handle a particularly
+               ; fussy owl, e.g. "1 vole"
+
+               owl-cost /
+
+               ; the recipient-owl-cost has the same form as cost and
+               ; indicates what the recipient is expected to pay.
+               ; This handles the situation of a particularly tired owl
+               ; needing sustenance to return to their nest. Some owls
+               ; MAY refuse to hand over the alarm until paid so some
+               ; form of out of band messaging SHOULD be used to indicate
+               ; what payments may need to be at hand.
+
+               recipient-owl-cost /
+
+               ; 'duration' and 'repeat' are both OPTIONAL,
+               ; and MUST NOT occur more than once each,
+               ; but if one occurs, so MUST the other
+
+               ; A high repeat value together with a recipient cost
+               ; may lead to large numebr of owls
+               ; awaiting payment. Services shoudl take care to validate
+               ; alarms to avoid service attacks by e.g. vole suppliers.
+
+               duration / repeat
+
+               )
+
+
+
+
+
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 6]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+5.  New Properties
+
+5.1.  Owl-Cost
+
+   Property name:  OWL-COST
+
+   Purpose:  This property is used in a VALARM components to specify the
+      cost of sending the message.
+
+   Value type:  TEXT
+
+   Property Parameters:  Non-standard parameters can be specified on
+      this property.
+
+   Conformance:  This property MAY be specified in a VALARM component.
+
+   Description:  In a METHOD:REQUEST each alarm component MAY have a
+      OWL-COST property.  This cost SHOULD be paid by the sender .
+
+   Format Definition:
+
+   This property is defined by the following notation:
+
+       owlcost = "OWL-COST" owlcostparams ":"
+                     ctext CRLF
+
+       owlcostarams = *(
+                     (";" other-param)
+                     )
+
+
+5.2.  Recipient Owl Cost
+
+   Property name:  RECIPIENT-OWL-COST
+
+   Purpose:  This property is used in a VALARM components to specify the
+      cost of receiving the message.
+
+   Value type:  TEXT
+
+   Property Parameters:  Non-standard parameters can be specified on
+      this property.
+
+   Conformance:  This property MAY be specified in a VALARM component.
+
+   Description:  In a METHOD:REQUEST each alarm component MAY have a
+      RECIPIENT-OWL-COST property.  This cost SHOULD be paid by the
+      receiver.
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 7]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+   Format Definition:
+
+   This property is defined by the following notation:
+
+       rowlcost   = "RECIPIENT-OWL-COST" rowlcostparams ":"
+                     ctext CRLF
+
+       rowlcostarams = *(
+                     (";" other-param)
+                     )
+
+
+6.  Example
+
+   The following example shows a "VALARM" component with an owl action
+   for a moderately expensive owl.
+
+   BEGIN:VALARM
+   UID:77D80D14-906B-4257-963F-85B1E734DBB6
+   TRIGGER;VALUE=DATE-TIME:19760401T005545Z
+   ACTION:OWL
+   DESCRIPTION:Catch the Hogwarts express home
+   TRIGGER;VALUE=DATE-TIME:19760401T005545Z
+   OWL-COST:1 vole; 1 shrew
+   END:VALARM
+
+7.  Security Considerations
+
+   VALARMs, if not monitored properly, can be used to "spam" users and/
+   or leak personal information.  For instance, an unwanted owl could be
+   considered spam.
+
+8.  IANA Considerations
+
+8.1.  Property Registrations
+
+   This document defines the following new iCalendar properties to be
+   added to the registry defined in Section 8.2.3 of [RFC5545]:
+
+          +--------------------+---------+----------------------+
+          | Property           | Status  | Reference            |
+          +--------------------+---------+----------------------+
+          | OWL-COST           | Current | RFCXXXX, Section 5.1 |
+          | RECIPIENT-OWL-COST | Current | RFCXXXX, Section 5.2 |
+          +--------------------+---------+----------------------+
+
+
+
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 8]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+8.2.  Actions Registry
+
+   This document defines the following new iCalendar action to be added
+   to the registry defined in Section 8.3.10 of [RFC5545]:
+
+              +------------+---------+----------------------+
+              | Action     | Status  | Reference            |
+              +------------+---------+----------------------+
+              | BUTLER     | Current | RFCXXXX, Section 4.1 |
+              | OWL        | Current | RFCXXXX, Section 4.4 |
+              | PIGEON     | Current | RFCXXXX, Section 4.3 |
+              | TOWN-CRIER | Current | RFCXXXX, Section 4.2 |
+              +------------+---------+----------------------+
+
+9.  Acknowledgments
+
+   This specification came about via discussions at the Calendaring and
+   Scheduling Consortium.
+
+10.  Normative References
+
+   [I-D.ietf-calext-eventpub-extensions]
+              Douglass, M., "Event Publishing Extensions to iCalendar",
+              draft-ietf-calext-eventpub-extensions-03 (work in
+              progress), May 2017.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+   [RFC4791]  Daboo, C., Desruisseaux, B., and L. Dusseault,
+              "Calendaring Extensions to WebDAV (CalDAV)", RFC 4791,
+              DOI 10.17487/RFC4791, March 2007,
+              <https://www.rfc-editor.org/info/rfc4791>.
+
+   [RFC5545]  Desruisseaux, B., Ed., "Internet Calendaring and
+              Scheduling Core Object Specification (iCalendar)",
+              RFC 5545, DOI 10.17487/RFC5545, September 2009,
+              <https://www.rfc-editor.org/info/rfc5545>.
+
+   [RFC5870]  Mayrhofer, A. and C. Spanring, "A Uniform Resource
+              Identifier for Geographic Locations ('geo' URI)",
+              RFC 5870, DOI 10.17487/RFC5870, June 2010,
+              <https://www.rfc-editor.org/info/rfc5870>.
+
+
+
+
+
+
+Douglass                  Expires April 4, 2018                 [Page 9]
+
+Internet-Draft              VALARM Extensions               October 2017
+
+
+   [RFC7986]  Daboo, C., "New Properties for iCalendar", RFC 7986,
+              DOI 10.17487/RFC7986, October 2016,
+              <https://www.rfc-editor.org/info/rfc7986>.
+
+Author's Address
+
+   Michael Douglass (editor)
+   Spherical Cow Group
+   226 3rd Street
+   Troy, NY  12180
+   USA
+
+   Email: mdouglass@sphericalcowgroup.com
+   URI:   http://sphericalcowgroup.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Douglass                  Expires April 4, 2018                [Page 10]
