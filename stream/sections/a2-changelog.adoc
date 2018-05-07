@@ -1,5 +1,0 @@
-
-[#appendix-b]
-[appendix]
-== Change log
-

@@ -1,5 +1,0 @@
-
-[#appendix-a]
-[appendix]
-== Open issues
-
