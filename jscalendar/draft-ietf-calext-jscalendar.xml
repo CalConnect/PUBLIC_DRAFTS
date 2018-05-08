@@ -1705,7 +1705,8 @@
                     </t>
                     <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
                         structure of the PatchObject. The patches are applied to the top-level object
-                        and MUST only patch the following properties:
+                        and MUST only patch the following properties of the JSCalendar object or one
+                        of its recurrence overrides:
                         <list style="symbols">
                             <t>
                                 title
@@ -1715,9 +1716,6 @@
                             </t>
                             <t>
                                 htmlDescription
-                            </t>
-                            <t>
-                                keywords
                             </t>
                             <t>
                                 Location name
@@ -1736,14 +1734,6 @@
                             </t>
                             <t>
                                 EmailAction alert htmlBody
-                            </t>
-                            <t>
-                                any Link properties entry except the <spanx style="verb">display</spanx>
-                                field
-                            </t>
-                            <t>
-                                any UnknownAction alert property except the <spanx style="verb">type</spanx>
-                                field
                             </t>
                             <t>
                                 any unknown or vendor-specific property (if not defined otherwise
