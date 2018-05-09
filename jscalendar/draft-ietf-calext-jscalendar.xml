@@ -2356,10 +2356,13 @@
                     <ttcol align='left'>Property</ttcol>
                     <ttcol align='left'>iCalendar counterpart</ttcol>
                     <c>
-                        name
+                        delegatedFrom
                     </c>
                     <c>
-                        the CN parameter
+                        the DELEGATED-FROM parameter
+                    </c>
+                    <c>
+                        delegatedTo
                     </c>
                     <c>
                         email
@@ -2374,27 +2377,10 @@
                         the CUTYPE parameter
                     </c>
                     <c>
-                        rsvpResponse
+                        linkIds
                     </c>
                     <c>
-                        the PARTSTAT parameter
-                    </c>
-                    <c>
-                        role
-                    </c>
-                    <c>
-                      The <spanx style="verb">chair</spanx> role maps to the standard iCalendar ROLE
-                      parameter value <spanx style="verb">chair</spanx>, with an implicit participant
-                      of value <spanx style="verb">required</spanx>. The mapping of non-required chairs
-                      and other roles is implementation-specific, but using <spanx style="verb">x-name</spanx>
-                      parameter values is recommended.
-                    </c>
-                    <c>
-                        participation
-                    </c>
-                    <c>
-                      Maps to the standard iCalendar ROLE parameter values REQ-PARTICIPANT, OPT-PARTICIPANT and
-                      NON-PARTICIPANT.
+                        Implementation-specific.
                     </c>
                     <c>
                         locationId
@@ -2407,28 +2393,42 @@
                         most interactive features is chosen.
                     </c>
                     <c>
-                        rsvpWanted
-                    </c>
-                    <c>
-                        the RSVP parameter
-                    </c>
-                    <c>
-                        delegatedTo
-                    </c>
-                    <c>
-                        the DELEGATED-TO parameter
-                    </c>
-                    <c>
-                        delegatedFrom
-                    </c>
-                    <c>
-                        the DELEGATED-FROM parameter
-                    </c>
-                    <c>
                         memberOf
                     </c>
                     <c>
                         the MEMBER parameter
+                    </c>
+                    <c>
+                        name
+                    </c>
+                    <c>
+                        the CN parameter
+                    </c>
+                    <c>
+                        participation
+                    </c>
+                    <c>
+                      Maps to the standard iCalendar ROLE parameter values REQ-PARTICIPANT, OPT-PARTICIPANT and
+                      NON-PARTICIPANT.
+                    </c>
+                    <c>
+                        roles
+                    </c>
+                    <c>
+                      The <spanx style="verb">chair</spanx> role maps to the standard iCalendar ROLE
+                      parameter value <spanx style="verb">chair</spanx>, with an implicit participant
+                      of value <spanx style="verb">required</spanx>. The mapping of non-required chairs
+                      and other roles is implementation-specific, but using <spanx style="verb">x-name</spanx>
+                      parameter values is recommended.
+                    </c>
+                    <c>
+                        rsvpResponse
+                    </c>
+                    <c>
+                        the PARTSTAT parameter
+                    </c>
+                    <c>
+                        the DELEGATED-TO parameter
                     </c>
                     <c>
                         scheduleSequence
@@ -2441,12 +2441,6 @@
                     </c>
                     <c>
                         the DTSTAMP property of the participant's latest iMIP message
-                    </c>
-                    <c>
-                        linkIds
-                    </c>
-                    <c>
-                        Implementation-specific.
                     </c>
                 </texttable>
                 <t>
