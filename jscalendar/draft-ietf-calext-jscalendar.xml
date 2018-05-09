@@ -2199,10 +2199,6 @@
                         iCalendar currently forbids to define ATTACH properties on VALARMs with DISPLAY action. Mapping
                         this property is implementation-specific, but using <spanx style="verb">X-ATTACH</spanx> with the
                         same semantics as ATTACH is a sane choice.
-
-                        <spanx style="strong">NON-STANDARD</spanx>: Some iCalendar properties for
-                        JSCalendar Alert actions are non-standard, see
-                        <xref target="draft-daboo-valarm-extensions"/>.
                     </c>
 
                     <c>categories</c>
