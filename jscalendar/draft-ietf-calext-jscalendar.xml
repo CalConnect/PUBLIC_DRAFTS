@@ -2248,8 +2248,12 @@
 
                     <c>links</c>
                     <c>
-                        Corresponds to the ATTACH (<xref target="RFC5545"/>) and IMAGE iCalendar properties
-                        (<xref target="RFC7986"/>).
+                      Corresponds to the ATTACH (<xref target="RFC5545"/>) or IMAGE (<xref target="RFC7986"/>)
+                      properties with a URI value type set to the link <spanx style="verb">href</spanx>.
+                      (<xref target="RFC7986"/>). The <spanx style="strong">type</spanx> property
+                      corresponds to the FMTTYPE parameter, the <spanx style="strong">size</spanx>
+                      property to the SIZE parameter.
+                      Mapping all other properties is implementation-specific.
                     </c>
 
                     <c>locale</c>
