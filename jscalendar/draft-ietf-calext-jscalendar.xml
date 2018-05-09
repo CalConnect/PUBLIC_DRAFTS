@@ -1217,9 +1217,6 @@
                                         locale
                                     </t>
                                     <t>
-                                        localizations
-                                    </t>
-                                    <t>
                                         participants
                                     </t>
                                     <t>
@@ -1690,59 +1687,6 @@
                 </section>
 
             </section>
-
-            <section anchor="localized-props" title="Multilingual properties">
-                <section anchor="localizations" title="localizations">
-                    <t>
-                        Type:
-                        <spanx style="verb">String[PatchObject]|null</spanx>
-                    </t>
-                    <t>
-                        A map of
-                        <xref target="RFC5646"/>
-                        language tags to patch objects, which localise the calendar object into the locale of the respective language tag.
-                    </t>
-                    <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
-                        structure of the PatchObject. The patches are applied to the top-level object
-                        and MUST only patch the following properties of the JSCalendar object or one
-                        of its recurrence overrides:
-                        <list style="symbols">
-                            <t>
-                                title
-                            </t>
-                            <t>
-                                description
-                            </t>
-                            <t>
-                                htmlDescription
-                            </t>
-                            <t>
-                                Location name
-                            </t>
-                            <t>
-                                Location description
-                            </t>
-                            <t>
-                                Link title
-                            </t>
-                            <t>
-                                EmailAction alert subject
-                            </t>
-                            <t>
-                                EmailAction alert textBody
-                            </t>
-                            <t>
-                                EmailAction alert htmlBody
-                            </t>
-                            <t>
-                                any unknown or vendor-specific property (if not defined otherwise
-                                in a future RFC or vendor-specific extension).
-                            </t>
-                        </list>
-                    </t>
-                </section>
-            </section>
-
         </section>
 
         <section anchor="jscalendar-object-props" title="Type-specific JSCalendar properties">
@@ -2310,15 +2254,7 @@
                     <c>locale</c>
                     <c>
                         Corresponds to the LANGUAGE parameter in iCalendar, which is added to individual properties.
-                        When converting from iCalendar, one language must be picked as the main locale for the
-                        object, and all properties in other languages moved to the localizations JSEvent property.
-                    </c>
-
-                    <c>localizations</c>
-                    <c>
-                        Corresponds to the LANGUAGE parameter in iCalendar, which is added to individual properties.
-                        When converting from iCalendar, one language must be picked as the main locale for the
-                        object, and all properties in other languages moved to the localizations JSEvent property.
+                        When converting from iCalendar, one language must be picked as the main locale.
                     </c>
 
                     <c>locations</c>
@@ -2716,9 +2652,9 @@
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-multi-location-event" title="Event with multiple locations and localization">
+<section anchor="example-multi-location-event" title="Event with multiple locations">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2745,14 +2681,6 @@
         "chat"
       ],
       "uri": "https://stream.example.com/the_band_2018"
-    }
-  },
-  "localizations": {
-    "de": {
-      "title": "Live von der Music Bowl: The Band!",
-      "description": "Schau dir das größte Musikereignis an!",
-      "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
-                             "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
