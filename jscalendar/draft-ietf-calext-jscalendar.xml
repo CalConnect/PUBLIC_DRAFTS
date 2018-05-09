@@ -2452,24 +2452,70 @@
                 <t>
                     For JSCalendar locations, the iCalendar counterparts are the
                     <xref target="RFC5545"/> LOCATION and the extended iCalendar
-                    <xref target="RFC7986"/> CONFERENCE properties.
-                    <vspace blankLines="1"/>
-                    An iCalendar LOCATION property becomes a JSCalendar Location with just a
-                    name property. CONFERENCE properties in iCalendar by default map to locations
-                    with <spanx style="strong">rel</spanx> type <spanx style="verb">virtual</spanx>,
-                    but implementations MAY choose to map to other <spanx style="strong">rel</spanx>
-                    types where appropriate.
-                    The URI value of the CONFERENCE property maps to the <spanx style="strong">uri</spanx>
-                    property in a JSCalendar Location.
-                    The location <spanx style="strong">feature</spanx> property value corresponds to
-                    the extended iCalendar FEATURE property parameter values defined in
-                    <xref target="RFC7986"/>.
-                    Any additional location properties MAY be mapped from the CONFERENCE or
-                    LOCATION property using extension parameters.
-                    Also see the mapping for <spanx style="strong">locationId</spanx> in
-                    <xref target="translate-participants-table"/> on how to map CONFERENCE
-                    properties that contain the MODERATOR feature.
-                </t>
+                    <xref target="RFC7986"/> CONFERENCE properties. Generally,
+                    use a LOCATION property if only the name property is set,
+                    CONFERENCE otherwise. For backwards compatibility
+                    with client implementations that do not support the CONFERENCE
+                    property, it is recommended to set use at least one LOCATION
+                    property, if the JSCalendar object contains locations.
+                  </t>
+                <texttable anchor="translate-locations-table"
+                  title="Translation of Location between JSCalendar and iCalendar">
+                    <ttcol align='left'>Property</ttcol>
+                    <ttcol align='left'>iCalendar counterpart</ttcol>
+                    <c>
+                       name
+                    </c>
+                    <c>
+                      For LOCATION: corresponds to the property value.
+                      For CONFERENCE: corresponds to the LABEL parameter.
+                    </c>
+                    <c>
+                       description
+                    </c>
+                    <c>
+                      Implementation-specific.
+                    </c>
+                    <c>
+                       rel
+                    </c>
+                    <c>
+                      For CONFERENCE: implicitly <spanx style="verb">virtual</spanx>.
+                      Implementation-specific for LOCATION.
+                      </c>
+                    <c>
+                       features
+                    </c>
+                    <c>
+                      For CONFERENCE: corresponds to the FEATURE parameter.
+                      Implementation-specific for LOCATION.
+                      </c>
+                    <c>
+                       timeZone
+                    </c>
+                    <c>
+                      Implementation-specific.
+                    </c>
+                    <c>
+                       coordinates
+                    </c>
+                    <c>
+                      Implementation-specific. Consider using a GEO iCalendar property, along with one LOCATION or CONFERENCE.
+                      </c>
+                    <c>
+                       uri
+                    </c>
+                    <c>
+                      For LOCATION: corresponds to the ALTREP parameter.
+                      For CONFERENCE: corresponds to the property value.
+                      </c>
+                    <c>
+                      linkIds
+                    </c>
+                    <c>
+                      Implementation-specific.
+                    </c>
+                </texttable>
             </section>
 
             <section title="Unknown properties">
