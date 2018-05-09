@@ -2229,10 +2229,11 @@
                     </c>
                     <c>htmlDescription</c>
                     <c>
-                        There is no direct equivalent in iCalendar. If the <spanx style="strong">
-                        description</spanx> is empty, implementations SHOULD store a plain text
-                        version of <spanx style="strong">htmlDescription</spanx> in iCalendar
-                        DESCRIPTION.
+                      Corresponds to the ALTREP parameter of the DESCRIPTION property (e.g.
+                      by setting ALTREP to a <spanx style="verb">data:text/html</spanx> URL
+                      containing the HTML text). Alternatively, use the STYLED-DESCRIPTION property.
+                      <spanx style="strong">NON-STANDARD</spanx>: the STYLED-DESCRIPTION property
+                      currently is non-standard, see <xref target="draft-ietf-calext-eventpub-extensions"/>.
                     </c>
 
                     <c>freeBusyStatus</c>
@@ -2868,6 +2869,14 @@
                        target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
                 <front>
                     <title>Support for iCalendar Relationships</title>
+                    <author/>
+                    <date/>
+                </front>
+              </reference>
+            <reference anchor="draft-ietf-calext-eventpub-extensions"
+                       target="https://tools.ietf.org/html/draft-ietf-calext-eventpub-extensions">
+                <front>
+                    <title>Event Publishing Extensions to iCalendar</title>
                     <author/>
                     <date/>
                 </front>
