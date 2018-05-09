@@ -2311,7 +2311,7 @@
                       An iCalendar ORGANIZER with one of the mapped URIs as value. If URIs are defined
                       for both the <spanx style="verb">imip</spanx> and <spanx style="verb">web</spanx>
                       type, it is recommended to map the <spanx style="verb">imip</spanx> value to the
-                      calendar address value of the ORGANIZER.u
+                      calendar address value of the ORGANIZER.
                     </c>
 
                     <c>sequence</c>
