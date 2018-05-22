@@ -1272,7 +1272,8 @@
                     <t>
                         By default, an occurrence inherits all properties from the main object except the start (or due)
                         date-time, which is shifted to the new start time. However, individual properties of the
-                        occurrence can be modified by a patch, or multiple patches.
+                        occurrence can be modified by a patch, or multiple patches. It is valid to override the start
+                        property value, including date-times that occur before the original JSCalendar object's start or due date.
                     </t>
                     <t>
                         A pointer in the PatchObject MUST NOT start with one of the following prefixes; any patch with
