@@ -1456,7 +1456,7 @@
                             </t>
                             <t>
                                 <spanx style="verb">web</spanx>: There is a web page where the user may submit an RSVP
-                                using their browser. The value MUST be an <spanx style="verb">http:</spanx> or
+                                using their browser. The value MUST be a
                                 <spanx style="verb">https:</spanx> URI Template (<xref target="RFC6570"/>) in level 1
                                 format. The template MAY contain variables that MUST be expanded from the
                                 JSCalendar object as defined in table <xref target="replyTo-web-variables"/>.
