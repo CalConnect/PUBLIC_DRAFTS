@@ -916,10 +916,10 @@
                         in iCalendar, see
                         <xref target="RFC5545"/>
                         and<xref target="RFC7529"/>.
-                        Objects recur by applying the recurrence rule (and <spanx style="strong">
+                        A JSEvent recurs by applying the recurrence rule (and <spanx style="strong">
                         recurrenceOverrides</spanx>) to the <spanx style="strong">start</spanx> date/time.
-                        A <xref target="jstask">JSTask</xref> without a <spanx style="strong">start</spanx> property value recurs by
-                        its <spanx style="strong">due</spanx> date/time, if defined.
+                        A JSTask recurs by applying the recurrence rule to its <spanx style="strong">due</spanx> date/time, if defined.
+                        If the task does not define a due date-time, it recurs by its start date-time.
                     </t>
                     <t>
                         A Recurrence object has the following properties:
