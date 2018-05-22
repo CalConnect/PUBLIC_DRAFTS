@@ -1412,6 +1412,9 @@
                                         locale
                                     </t>
                                     <t>
+                                        localizations
+                                    </t>
+                                    <t>
                                         participants
                                     </t>
                                     <t>
@@ -1882,6 +1885,51 @@
                 </section>
 
             </section>
+
+            <section anchor="localized-props" title="Multilingual properties">
+                <section anchor="localizations" title="localizations">
+                    <t>
+                        Type:
+                        <spanx style="verb">String[PatchObject]|null</spanx>
+                    </t>
+                    <t>
+                        A map of
+                        <xref target="RFC5646"/>
+                        language tags to patch objects, which localise the calendar object into the locale of the respective language tag.
+                    </t>
+                    <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the
+                        structure of the PatchObject. The patches are applied to the top-level object.
+                      In addition to all the restrictions on patches specified there, the pointer also
+                      MUST NOT start with one of the following prefixes; any
+                      patch with a such a key MUST be ignored:
+                      <list style="symbols">
+                        <t>@type</t>
+                        <t>due</t>
+                        <t>duration</t>
+                        <t>freeBusyStatus</t>
+                        <t>localization</t>
+                        <t>method</t>
+                        <t>participants</t>
+                        <t>prodId</t>
+                        <t>progress</t>
+                        <t>relatedTo</t>
+                        <t>sequence</t>
+                        <t>start</t>
+                        <t>status</t>
+                        <t>timeZone</t>
+                        <t>uid</t>
+                        <t>useDefaultAlerts</t>
+                      </list>
+                      Note that this specification does not define how to maintain validity of
+                      localized content. For example, a client application changing a JSCalendar
+                      object's title property might also need to update any localizations
+                      of this property. Client implementations SHOULD provide the means to
+                      manage localizations, but how to achieve this is specific to the
+                      application's workflow and requirements.
+                    </t>
+                </section>
+            </section>
+
         </section>
 
         <section anchor="jscalendar-object-props" title="Type-specific JSCalendar properties">
@@ -2450,7 +2498,13 @@
                     <c>locale</c>
                     <c>
                         Corresponds to the LANGUAGE parameter in iCalendar, which is added to individual properties.
-                        When converting from iCalendar, one language must be picked as the main locale.
+                        When converting from iCalendar, one language must be picked as the main locale for the
+                        object, and all properties in other languages moved to the localizations JSEvent property.
+                    </c>
+
+                    <c>localizations</c>
+                    <c>
+                        Implementation-specific.
                     </c>
 
                     <c>locations</c>
@@ -2888,9 +2942,9 @@
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-multi-location-event" title="Event with multiple locations">
+<section anchor="example-multi-location-event" title="Event with multiple locations and localization">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online.
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2917,6 +2971,14 @@
         "chat"
       ],
       "uri": "https://stream.example.com/the_band_2018"
+    }
+  },
+  "localizations": {
+    "de": {
+      "title": "Live von der Music Bowl: The Band!",
+      "description": "Schau dir das größte Musikereignis an!",
+      "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
+                             "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
