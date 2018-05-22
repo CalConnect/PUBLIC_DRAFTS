@@ -1256,13 +1256,18 @@
                     </t>
                     <t>
                         A map of the recurrence-ids (the date-time of the start of the occurrence) to
-                        either <spanx style="verb">null</spanx>, to indicate the occurrence should be deleted, or an
-                        object of patches to apply to the generated occurrence object.
+                        an object of patches to apply to the generated occurrence object.
                     </t>
                     <t>
                         If the recurrence-id does not match an expanded start date from a recurrence rule, it is to be
                         treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often
                         be empty in this case.
+                    </t>
+                    <t>
+                      If the patch object defines the <spanx style="strong">excluded</spanx> property to be
+                      <spanx style="verb">true</spanx>, then the recurring calendar object does not occur
+                      at the recurrence-id date-time (like an EXDATE from iCalendar). Such a patch object
+                      MUST NOT patch any property.
                     </t>
                     <t>
                         By default, an occurrence inherits all properties from the main object except the start (or due)
@@ -1303,6 +1308,19 @@
                         </list>
                     </t>
                 </section>
+
+              <section anchor="excluded" title="excluded">
+                <t>
+                  Type:
+                  <spanx style="verb">Boolean</spanx>(defaults to <spanx style="verb">false</spanx> if omitted)
+                </t>
+                <t>
+                  Defines if this object is an overridden, excluded instance of a recurring
+                  JSCalendar object (also see <xref target="recurrenceOverrides"/>). If this property
+                  value is <spanx style="verb">true</spanx>, this calendar object instance MUST be
+                  treated as if not existent.
+                </t>
+              </section>
             </section>
 
 
