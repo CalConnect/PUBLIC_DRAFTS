@@ -1070,6 +1070,183 @@
                         </list>
 
                     </t>
+                    <t>
+                        A recurrence rule specifies a set of set of date-times for recurring
+                        calendar objects. A recurrence rule has the following semantics:
+                        <list style="numbers">
+                            <t>
+                                A set of candidates is generated. This is every second within a
+                                period defined by the frequency property:
+                                <list style="symbols">
+                                    <t>
+                                        <spanx style="strong">yearly</spanx>:
+                                        every second from midnight on the 1st January
+                                        (inclusive) to midnight the following 1st January
+                                        (exclusive)
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">monthly</spanx>: every second from
+                                        midnight on the 1st of a month (inclusive) to midnight
+                                        on the 1st of the following month (exclusive)
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">weekly</spanx>: every second from
+                                        midnight (inclusive) on the first day of the week (as
+                                        defined by the firstDayOfWeek property, or Monday if
+                                        omitted), to midnight 7 days later (exclusive).
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">daily</spanx>: every second from
+                                        midnight at the start of the day (inclusive) to midnight
+                                        at the end of the day (exclusive).
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">hourly</spanx>: every second from
+                                        the beginning of the hour (inclusive) to the beginning
+                                        of the next hour (exclusive).
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">minutely</spanx>: every second
+                                        from the beginning of the minute (inclusive) to the
+                                        beginning of the next minute (exclusive).
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">secondly</spanx>: the second
+                                        itself, only.
+                                    </t>
+                                </list>
+                            </t>
+                            <t>
+                                Each date-time candidate is compared against all of the byX
+                                properties of the rule except bySetPosition. If any property in
+                                the rule does not match the date-time, it is eliminated. Each
+                                byX property is an array; the date-time matches the property if
+                                it matches any of the values in the array. The properties have
+                                the following semantics:
+                                <list style="symbols">
+                                    <t><spanx style="strong">byMonth</spanx>: the date-time is
+                                        in the given month.
+                                    </t>
+                                    <t><spanx style="strong">byMonthDay</spanx>: the date-time
+                                        is on the given day of the month. Negative numbers mean
+                                        the nth last day of the month.
+                                    </t>
+                                    <t><spanx style="strong">byDay</spanx>: the date-time is on
+                                        the given day of the week. If the day is prefixed by a
+                                        number, it is the nth occurrence of that day of the week
+                                        within the month (if frequency is monthly) or year (if
+                                        frequency is yearly). Negative numbers means nth last
+                                        occurrence within that period.
+                                    </t>
+                                    <t><spanx style="strong">byYearDay</spanx>: the date-time is
+                                        on the nth day of year. Negative numbers mean the nth
+                                        last day of the year.
+                                    </t>
+                                    <t><spanx style="strong">byWeekNo</spanx>: the date-time is
+                                        in the nth week of the year. Negative numbers mean the
+                                        nth last week of the year. This corresponds to weeks
+                                        according to week numbering as defined in ISO.8601.2004,
+                                        with a week defined as a seven day period, starting on
+                                        the firstDayOfWeek property value or Monday if omitted.
+                                        Week number one
+                                        of the calendar year is the first week that contains at
+                                        least four days in that calendar year.
+                                    </t>
+                                    <t><spanx style="strong">byHour</spanx>: the date-time has
+                                        the given hour value.
+                                    </t>
+                                    <t><spanx style="strong">byMinute</spanx>: the date-time has
+                                        the given minute value.
+                                    </t>
+                                    <t><spanx style="strong">bySecond</spanx>: the date-time has
+                                        the given second value.
+                                    </t>
+                                </list>
+                            </t>
+                            <t>
+                                If a bySetPosition property is included, this is now applied to
+                                the ordered list of remaining dates (this property specifies the
+                                indexes of date-times to keep; all others should be eliminated.
+                                Negative numbers are indexes from the end of the list, with -1
+                                being the list item).
+                            </t>
+                            <t>
+                                Any date-times before the start date of the event are eliminated
+                                (see below for why this might be needed).
+                            </t>
+                            <t>
+                                If further dates are required (we have not reached the until
+                                date, or count limit) skip the next (interval - 1) sets of
+                                candidates, then continue from step 1.
+                            </t>
+                        </list>
+                      When determining the set of occurrence dates for an event or task, the
+                      following extra rules must be applied:
+                      <list style="numbers">
+                        <t>
+                          The start date-time is always the first occurrence in the expansion (and
+                          is counted if the recurrence is limited by a "count" property), even if it
+                          would normally not match the rule. If the calendar object is a JSTask with
+                          a due date-time, use this value instead of start in this and any following
+                          steps.
+                        </t>
+                        <t>
+                          The first set of candidates to consider is that which would contain the
+                          start date-time. This means the first set may include candidates before
+                          the start; such candidates are eliminated from the results in step (4) as
+                          outlined before.
+                        </t>
+                        <t>
+                          The following properties MUST be implicitly added to the rule under the
+                          given conditions:
+                          <list style="symbols">
+                            <t>
+                              If frequency > <spanx style="verb">secondly</spanx> and no bySecond property:
+                              Add a bySecond property with the sole value being the seconds value of
+                              the start date-time.
+                            </t>
+                            <t>
+                              If frequency > <spanx style="verb">minutely</spanx> and no byMinute property:
+                              Add a byMinute property with the sole value being the minutes value of
+                              the start date-time.
+                            </t>
+                            <t>
+                              If frequency > <spanx style="verb">hourly</spanx> and no byHour property:
+                              Add a byHour property with the sole value being the hours value of the
+                              start date-time.
+                            </t>
+                            <t>
+                              If frequency is <spanx style="verb">weekly</spanx> and no byDay property:
+                              Add a byDay property with the sole value being the day-of-the-week of
+                              the start date-time.
+                            </t>
+                            <t>
+                              If frequency is <spanx style="verb">monthly</spanx> and no byDay property and no byMonthDay
+                              property:
+                              Add a byMonthDay property with the sole value being the
+                              day-of-the-month of the start date-time.
+                            </t>
+                            <t>
+                              If frequency is <spanx style="verb">yearly</spanx> and no byDay, byYearDay or byWeekNo
+                              properties:
+                              <list style="symbols">
+                                <t>
+                                  if there is no byMonthDate property:
+                                  Add a byMonthDay property with the sole value being the
+                                  day-of-the-month of the start date-time.
+                                </t>
+                                <t>
+                                  if there is no byMonth property:
+                                  Add a byMonth property with the sole value being the month of the
+                                  start date-time.
+                                </t>
+                              </list>
+                            </t>
+                          </list>
+                        </t>
+                      </list>
+                    </t>
+
                 </section>
 
                 <section anchor="recurrenceOverrides" title="recurrenceOverrides">
