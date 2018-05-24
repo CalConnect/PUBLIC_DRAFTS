@@ -144,7 +144,7 @@
 }, {
   "t": "Recurring event with overrides",
   "a": "recurring-overrides",
-  "d": "This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2, May 7 and May 28 no course is held.",
+  "d": "This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2 no course is held. On January 5 at 2pm is an optional introduction course, that occurs before the first regular lecture.",
   "o": 
   {
     "...": "",
@@ -163,9 +163,12 @@
       "until": "2018-06-25T09:00:00"
     },
     "recurrenceOverrides": {
-      "2018-04-02T09:00:00": null,
-      "2018-05-07T09:00:00": null,
-      "2018-05-28T09:00:00": null,
+      "2018-01-05T14:00:00": {
+        "title": "Introduction to Calculus I (optional)"
+      },
+      "2018-04-02T09:00:00": {
+        "excluded": "true"
+      },
       "2018-06-25T09:00:00": {
         "title": "Calculus I Exam",
         "start": "2018-06-25T10:00:00",
