@@ -918,8 +918,9 @@
                         and<xref target="RFC7529"/>.
                         A JSEvent recurs by applying the recurrence rule (and <spanx style="strong">
                         recurrenceOverrides</spanx>) to the <spanx style="strong">start</spanx> date/time.
-                        A JSTask recurs by applying the recurrence rule to its <spanx style="strong">due</spanx> date/time, if defined.
-                        If the task does not define a due date-time, it recurs by its start date-time.
+                        A JSTask recurs by applying the recurrence rule (and <spanx style="strong">recurrenceOverrides</spanx>) to its <spanx style="strong">start</spanx> date/time, if defined.
+                        If the task does not define a start date-time, it recurs by its <spanx style="strong">due</spanx> date-time. If it neither defines a start
+                        or due date-time, it MUST NOT define a <spanx style="strong">recurrenceRule</spanx>.
                     </t>
                     <t>
                         A Recurrence object has the following properties:
@@ -1186,9 +1187,7 @@
                         <t>
                           The start date-time is always the first occurrence in the expansion (and
                           is counted if the recurrence is limited by a "count" property), even if it
-                          would normally not match the rule. If the calendar object is a JSTask with
-                          a due date-time, use this value instead of start in this and any following
-                          steps.
+                          would normally not match the rule.
                         </t>
                         <t>
                           The first set of candidates to consider is that which would contain the
