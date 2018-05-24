@@ -3179,14 +3179,6 @@
                     <date/>
                 </front>
             </reference>
-            <reference anchor="draft-daboo-valarm-extensions"
-                       target="https://tools.ietf.org/html/draft-daboo-valarm-extensions">
-                <front>
-                    <title>VALARM Extensions for iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
 
         </references>
     </back>
