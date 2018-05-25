@@ -1266,13 +1266,15 @@
                       If the patch object defines the <spanx style="strong">excluded</spanx> property to be
                       <spanx style="verb">true</spanx>, then the recurring calendar object does not occur
                       at the recurrence-id date-time (like an EXDATE from iCalendar). Such a patch object
-                      MUST NOT patch any property.
+                      MUST NOT patch any other property.
                     </t>
                     <t>
                         By default, an occurrence inherits all properties from the main object except the start (or due)
-                        date-time, which is shifted to the new start time. However, individual properties of the
-                        occurrence can be modified by a patch, or multiple patches. It is valid to override the start
-                        property value, including date-times that occur before the original JSCalendar object's start or due date.
+                        date-time, which is shifted to the new start time of the LocalDate key. However, individual
+                        properties of the occurrence can be modified by a patch, or multiple patches. It is valid to patch
+                        the start property value, and this patch takes precedence over the LocalDate key. Both the LocalDate
+                        key as well as the patched start date-time may occur before the original JSCalendar object's start or
+                        due date.
                     </t>
                     <t>
                         A pointer in the PatchObject MUST NOT start with one of the following prefixes; any patch with
