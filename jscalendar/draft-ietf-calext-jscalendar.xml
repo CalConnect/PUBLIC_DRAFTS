@@ -1251,7 +1251,7 @@
                 <section anchor="recurrenceOverrides" title="recurrenceOverrides">
                     <t>
                         Type:
-                        <spanx style="verb">LocalDate[PatchObject|null]|null</spanx>
+                        <spanx style="verb">LocalDate[PatchObject]|null</spanx>
                     </t>
                     <t>
                         A map of the recurrence-ids (the date-time of the start of the occurrence) to
