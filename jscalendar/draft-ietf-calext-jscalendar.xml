@@ -2978,7 +2978,8 @@
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name": "Gratis Live-Stream aus der Music Bowl"
+      "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
+          "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
