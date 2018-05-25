@@ -1496,10 +1496,9 @@
                         </c>
                         <c>
                             The recurrence-id when replying for a single occurrence
-                            of a recurring JSCalendar object. The value is
-                            the date-time of the non-overridden start as determined by
-                            expanding the <spanx style="strong">recurrenceRule</spanx>
-                            of the JSCalendar object.
+                            of a recurring JSCalendar object. The LocalDate-typed value is
+                            the recurrence-id of a non-overriden recurrence,
+                            or the key of a recurrenceOverride of this JSCalendar object.
                         </c>
                     </texttable>
                 </section>
