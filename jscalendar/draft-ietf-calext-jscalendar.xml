@@ -2447,7 +2447,7 @@
 
                     <c>categories</c>
                     <c>
-                        Corresponds to the STRUCTURED-CATEGORY property in iCalendar,
+                        Corresponds to the CONCEPT property in iCalendar,
                         see.
                         <spanx style="strong">NON-STANDARD</spanx>: this property is currently non-standard,
                         see <xref target="draft-ietf-calext-ical-relations"/>.
