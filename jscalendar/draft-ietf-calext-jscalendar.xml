@@ -2211,11 +2211,13 @@
                 </t>
                 <section title="entries">
                     <t>
-                        Type: <spanx style="verb">(JSTask|JSEvent)[]</spanx> (optional)
+                        Type: <spanx style="verb">String[JSTask|JSEvent]</spanx>
                     </t>
                     <t>
-                        A list of group members. The list MAY contain multiple object types and
-                        implementations MUST ignore entries of unknown type.
+                        A collection of group members. This is represented as a map of
+                        the <spanx style="strong">uid</spanx> property value to the
+                        JSCalendar object member having that uid. Implementations MUST ignore
+                        entries of unknown type.
                     </t>
                 </section>
                 <section title="source">
