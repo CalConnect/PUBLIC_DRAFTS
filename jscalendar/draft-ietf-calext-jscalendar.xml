@@ -1534,12 +1534,11 @@
                                 Any value the client or server doesn't understand should be preserved but ignored.
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">owner</spanx>: The participant is an owner of the object,
-                                        and allowed to make alterations to any part of it.
+                                        <spanx style="verb">owner</spanx>: The participant is an owner of the object.
                                     </t>
                                     <t>
                                         <spanx style="verb">attendee</spanx>: The participant is an attendee of the
-                                        calendar object. Attendees are only allowed to alter their own participation. 
+                                        calendar object.
                                     </t>
                                     <t>
                                         <spanx style="verb">chair</spanx>: The participant is in charge of the calendar
