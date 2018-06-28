@@ -11,7 +11,7 @@
     <?rfc comments="no"?>
 
     <front>
-        <title abbrev="JSEvent">JSCalendar: A JSON representation of calendar data</title>
+        <title abbrev="JSCalendar">JSCalendar: A JSON representation of calendar data</title>
         <author initials="N.M." surname="Jenkins" fullname="Neil Jenkins">
             <organization>FastMail</organization>
             <address>
