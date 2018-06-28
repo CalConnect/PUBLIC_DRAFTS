@@ -2326,9 +2326,7 @@
                     <c>estimatedDuration</c>
                     <c>
                         Corresponds to the ESTIMATED-DURATION iCalendar
-                        property.
-                        <spanx style="strong">NON-STANDARD</spanx>: this property is currently non-standard,
-                        see <xref target="draft-apthorp-ical-tasks"/>.
+                        property in the RFC draft <xref target="draft-apthorp-ical-tasks"/>.
                     </c>
 
                     <c>completed</c>
@@ -2339,13 +2337,13 @@
                     <c>progress</c>
                     <c>
                         Corresponds to the PARTSTAT and COMPLETED properties in iCalendar, including the
-                        currently non-standard definitions in <xref target="draft-apthorp-ical-tasks"/>.
+                        definitions in the RFC draft <xref target="draft-apthorp-ical-tasks"/>.
                     </c>
 
                     <c>status</c>
                     <c>
                         Corresponds to the STATUS property in iCalendar, including the
-                        currently non-standard definitions in <xref target="draft-apthorp-ical-tasks"/>.
+                        definitions in the RFC draft <xref target="draft-apthorp-ical-tasks"/>.
                     </c>
 
                 </texttable>
@@ -2398,9 +2396,7 @@
                     <c>categories</c>
                     <c>
                         Corresponds to the CONCEPT property in iCalendar,
-                        see.
-                        <spanx style="strong">NON-STANDARD</spanx>: this property is currently non-standard,
-                        see <xref target="draft-ietf-calext-ical-relations"/>.
+                        see in the RFC draft <xref target="draft-ietf-calext-ical-relations"/>.
                     </c>
 
                     <c>color</c>
@@ -2421,9 +2417,8 @@
                     <c>
                       Corresponds to the ALTREP parameter of the DESCRIPTION property (e.g.
                       by setting ALTREP to a <spanx style="verb">data:text/html</spanx> URL
-                      containing the HTML text). Alternatively, use the STYLED-DESCRIPTION property.
-                      <spanx style="strong">NON-STANDARD</spanx>: the STYLED-DESCRIPTION property
-                      currently is non-standard, see <xref target="draft-ietf-calext-eventpub-extensions"/>.
+                      containing the HTML text). Alternatively, use the STYLED-DESCRIPTION property
+                        of the RFC draft <xref target="draft-ietf-calext-eventpub-extensions"/>.
                     </c>
 
                     <c>freeBusyStatus</c>
