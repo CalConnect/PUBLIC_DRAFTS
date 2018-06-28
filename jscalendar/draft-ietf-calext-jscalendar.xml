@@ -311,7 +311,7 @@
                             </t>
                             <t>
                                 There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the
-                                pointer of the other, e.g. <spanx style="verb">alerts/1/offset</spanx> and <spanx style="verb">
+                                pointer of the other, e.g. <spanx style="verb">alerts/foo/offset</spanx> and <spanx style="verb">
                                 alerts</spanx>.
                             </t>
                         </list>
