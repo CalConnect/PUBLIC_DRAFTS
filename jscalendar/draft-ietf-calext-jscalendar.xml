@@ -1606,7 +1606,7 @@
                                 <spanx style="strong">scheduleSequence</spanx>: <spanx style="verb">Number</spanx>(optional, default:<spanx style="verb">0</spanx>)
                                 The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
                                 <vspace blankLines="1"/>
-                                This can be used to determine whether the partcipant has sent a new RSVP following
+                                This can be used to determine whether the participant has sent a new RSVP following
                                 significant changes to the calendar object, and to determine if future responses are responding to
                                 a current or older view of the data.
 
