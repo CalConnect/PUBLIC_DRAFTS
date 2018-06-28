@@ -787,7 +787,6 @@
                                 defaults to <spanx style="verb">null</spanx>)
                                 The size, in bytes, of the resource when fully decoded (i.e. the number of bytes in the
                                 file the user would download), if known.
-
                             </t>
                             <t>
                                 <spanx style="strong">rel</spanx>: <spanx style="verb">String</spanx>(optional, defaults
@@ -804,10 +803,16 @@
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">icon</spanx> SHOULD be considered by the client
                                 to be an image that it MAY use when presenting the calendar data to a user. The
-                                <spanx style="strong">properties</spanx> object of this link MAY include a
-                                <spanx style="verb">display</spanx> property indicating the intended
-                                purpose of this image. If included, the value MUST be either one of the following
-                                values, registered in a future RFC, or a vendor-specific value.
+                                <spanx style="strong">display</spanx> property MAY be set to indicate the purpose
+                                of this image.
+                            </t>
+                            <t>
+                                <spanx style="strong">display</spanx>: <spanx style="verb">String|null</spanx>(optional, defaults
+                                to <spanx style="verb">null</spanx>)
+                                Describes the intended purpose of a link to an image. If set,
+                                the <spanx style="strong">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>.
+                                The value MUST be either
+                                one of the following values, registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
                                         <spanx style="verb">badge</spanx>: an image inline with the title of the object
@@ -831,16 +836,6 @@
                                 <spanx style="strong">title</spanx>: <spanx style="verb">String|null</spanx>(optional,
                                 defaults to <spanx style="verb">null</spanx>)
                                 A human-readable description of the resource.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">properties</spanx>: <spanx style="verb">
-                                String[String|null]|null</spanx>(optional, defaults to <spanx style="verb">null</spanx>)
-                                Extra metadata submitted by clients about a link. Server implementations MUST preserve these properties.
-                                <vspace blankLines="1"/>
-                                The keys are as defined in this document, as defined in a future RFC, or URIs that
-                                should be owned by the client author to avoid conflicts.
-
                             </t>
                         </list>
                     </t>
