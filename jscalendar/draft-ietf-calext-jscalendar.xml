@@ -843,24 +843,27 @@
                 <section anchor="keywords" title="keywords">
                     <t>
                         Type:
-                        <spanx style="verb">String[]</spanx> (optional)
+                        <spanx style="verb">String[Boolean]</spanx> (optional)
                     </t>
                     <t>
-                        A list of keywords or tags related to the object. The values are free-form
-                        and do not have to follow any particular structure.
+                        A set of keywords or tags that relate to the object.
+                        The set is represented as a map, with the keys being the keywords.
+                        The value for each key in the map MUST be <spanx style="verb">true</spanx>.
                     </t>
                 </section>
 
                 <section anchor="categories" title="categories">
                     <t>
                         Type:
-                        <spanx style="verb">String[]</spanx> (optional)
+                        <spanx style="verb">String[Boolean]</spanx> (optional)
                     </t>
                     <t>
-                        Specifies the categories related to the calendar object. Array values MUST be URIs.
+                        A set of categories that relate to the calendar object.
+                        The set is represented as a map, with the keys being the categories specified
+                        as URIs. The value for each key in the map MUST be <spanx style="verb">true</spanx>.
+                        <vspace blankLines="1"/>
                         In contrast to <spanx style="strong">keywords</spanx>, categories typically
                         are structured.
-                        <vspace blankLines="1"/>
                         For example, a vendor owning the domain <spanx style="verb">example.com</spanx>
                         might define the categories
                         <spanx style="verb">http://example.com/categories/sports/american-football"</spanx>
