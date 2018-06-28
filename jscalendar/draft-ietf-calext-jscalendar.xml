@@ -342,17 +342,17 @@
                   characters (A-Za-z0-9), hyphen (-), and underscore (_).
                   </t>
                 </section>
-                <section anchor="normalisation" title="Normalisation and equivalence">
+                <section anchor="normalization" title="Normalization and equivalence">
                     <t>
                         JSCalendar aims to provide unambiguous definitions for value types and
-                        properties, but does not define a general normalisation or equivalence method for
+                        properties, but does not define a general normalization or equivalence method for
                         JSCalendar objects and types. This is because the notion of equivalence might range
                         from byte-level equivalence to semantic equivalence, depending on the
                         respective use case (for example, the CalDAV protocol
                         <xref target="RFC4791"/> requires octet equivalence of the encoded calendar
                         object to determine ETag equivalence).
                         <vspace blankLines="1"/>
-                        Normalisation of JSCalendar objects is hindered because of the following reasons:
+                        Normalization of JSCalendar objects is hindered because of the following reasons:
                         <list style="symbols">
                             <t>
                                 Custom JSCalendar properties may contain arbitrary JSON values,
@@ -362,13 +362,13 @@
                             </t>
                             <t>
                                 Several JSCalendar property values are defined as URIs
-                                and MIME types, but normalisation of these types is inherently
+                                and MIME types, but normalization of these types is inherently
                                 protocol and scheme-specific, depending on the use-case of the
                                 equivalence definition (see section 6 of <xref target="RFC3986"/>).
                             </t>
                         </list>
                         Considering this, the definition of equivalence and
-                        normalisation is left to client and server implementations and to be negotiated
+                        normalization is left to client and server implementations and to be negotiated
                         by a calendar exchange protocol or defined by another RFC.
                     </t>
                 </section>
@@ -392,7 +392,7 @@
             <t>
               This section describes the properties that are common to the various JSCalendar object
               types. Specific JSCalendar object types may only support a subset of these properties.
-              The object type definitions in section <xref target="jscalendar-object-props"/> describe the
+              The object type definitions in <xref target="jscalendar-object-props"/> describe the
               set of supported properties per type.
             </t>
 
@@ -759,7 +759,7 @@
                                 A URI from which the resource may be fetched.
                                 <vspace blankLines="1"/>
                                 This MAY be a <spanx style="verb">data:</spanx> URL, but it is recommended that the file
-                                be hosted on a server to avoid embedding arbitrary large data in JSCalendar
+                                be hosted on a server to avoid embedding arbitrarily large data in JSCalendar
                                 object instances.
                             </t>
                             <t>
@@ -1442,7 +1442,7 @@
                         <spanx style="verb">String[String]|null</spanx>
                     </t>
                     <t>
-                        Represents methods by which a participant may RSVP to the organizer of the calendar object. The
+                        Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The
                         keys in the property value are the available methods. The value is a URI to use that method.
                         Future methods may be defined in future specifications; a calendar client MUST ignore any
                         method it does not understand.
@@ -1456,8 +1456,8 @@
                                 response. The value MUST be a <spanx style="verb">mailto:</spanx> URI.
                             </t>
                             <t>
-                                <spanx style="verb">web</spanx>: There is a web page where the user may submit an RSVP
-                                using their browser. The value MUST be a
+                              <spanx style="verb">web</spanx>: There is a web page where the user may submit the RSVP
+                              response using a browser. The value MUST be a
                                 <spanx style="verb">https:</spanx> URI Template (<xref target="RFC6570"/>) in level 1
                                 format. The template MAY contain variables that MUST be expanded from the
                                 JSCalendar object as defined in table <xref target="replyTo-web-variables"/>.
@@ -2945,7 +2945,7 @@
 </section>
 <section anchor="example-multi-location-event" title="Event with multiple locations and localization">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live concert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
     </t>
     <figure>
           <artwork><![CDATA[
