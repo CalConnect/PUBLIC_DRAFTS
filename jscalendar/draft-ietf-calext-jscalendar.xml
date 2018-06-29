@@ -613,8 +613,8 @@
                         to this object; a UUID is a practical choice.
                     </t>
                     <t>
-                        A <spanx style="strong">Location</spanx> object has the following properties. All properties are
-                        optional, but every Location object MUST have at least one property:
+                        A <spanx style="strong">Location</spanx> object has the following properties. It must define
+                        at least one other property than <spanx style="strong">rel</spanx>.
                     </t>
                     <t>
                         <list style="symbols">
@@ -645,48 +645,6 @@
                                     <t>
                                         <spanx style="verb">end</spanx>: The JSCalendar object ends at this location.
                                     </t>
-                                    <t>
-                                        <spanx style="verb">virtual</spanx>: This is not a physical location (e.g. this
-                                        location is an online chat room where people will meet).
-                                    </t>
-                                </list>
-
-                            </t>
-                            <t>
-                                <spanx style="strong">features</spanx>:
-                                <spanx style="verb">String[]</spanx> (optional)
-                                The features supported by this location.
-                                <vspace blankLines="1"/>
-                                The strings in the array MUST each be either one of the following values, registered in
-                                a future RFC, or a vendor-specific value. Any value the client or server doesn't
-                                understand should be ignored, but preserved.
-                                <vspace blankLines="1"/>
-                                The features supported by locations with rel-type <spanx style="verb">virtual</spanx> are:
-                                <list style="symbols">
-                                    <t>
-                                        <spanx style="verb">audio</spanx>: audio conferencing
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">chat</spanx>: chat or instant messaging
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">feed</spanx>: blog or atom feed
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">moderator</spanx>: provides moderator-specific features
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">phone</spanx>: phone conferencing
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">screen</spanx>: screen sharing
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">video</spanx>: video conferencing
-                                    </t>
-                                    <t>
-                                        any vendor-prefixed custom value
-                                    </t>
                                 </list>
                             </t>
                             <t>
@@ -706,17 +664,6 @@
                                 <xref target="RFC5870"/>
                                 <spanx style="verb">geo:</spanx>
                                 URI for the location.
-
-                            </t>
-                            <t>
-                                <spanx style="strong">uri</spanx>:
-                                <spanx style="verb">String</spanx> (optional)
-                                A URI that represents how to connect to this location.
-                                <vspace blankLines="1"/>
-                                This may be a telephone number (represented as <spanx style="verb">
-                                tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or any
-                                custom URI.
-
                             </t>
                             <t>
                                 <spanx style="strong">linkIds</spanx>:
@@ -724,6 +671,46 @@
                                 A list of ids for links to alternate representations of this location.
                                 <vspace blankLines="1"/>
                                 For example, an alternative representation could be in vCard format.
+                            </t>
+                        </list>
+                    </t>
+                </section>
+
+                <section anchor="virtualLocations" title="virtualLocations">
+                    <t>
+                        Type:
+                        <spanx style="verb">String[VirtualLocation]</spanx> (optional)
+                    </t>
+                    <t>
+                        A map of ids to VirtualLocation objects, representing virtual locations, such as
+                        video conferences or chat rooms, associated with the object.
+                        A virtual location id may be any valid <xref target="RFC6901"/> JSON pointer and need only be unique
+                        to this object; a UUID is a practical choice.
+                    </t>
+                    <t>
+                        A <spanx style="strong">VirtualLocation</spanx> object has the following properties.
+                    </t>
+                    <t>
+                        <list style="symbols">
+                            <t>
+                                <spanx style="strong">name</spanx>:
+                                <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">""</spanx>)
+                                The human-readable name of the virtual location.
+                            </t>
+                            <t>
+                                <spanx style="strong">description</spanx>:
+                                <spanx style="verb">String</spanx> (optional)
+                                Human-readable instructions for accessing this location. This may be an address, set of
+                                directions, door access code, etc.
+                            </t>
+                            <t>
+                                <spanx style="strong">uri</spanx>:
+                                <spanx style="verb">String</spanx>
+                                A URI that represents how to connect to this virtual location.
+                                <vspace blankLines="1"/>
+                                This may be a telephone number (represented as <spanx style="verb">
+                                tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or any
+                                custom URI.
                             </t>
                         </list>
                     </t>
@@ -1554,8 +1541,8 @@
                                 <spanx style="strong">locationId</spanx>: <spanx style="verb">String</spanx> (optional)
                                 The location at which this participant is expected to be attending.
                                 <vspace blankLines="1"/>
-                                If the value does not correspond to any location id in the locations property of the
-                                instance, this MUST be treated the same as if the participant's locationId were omitted.
+                                If the value does not correspond to any location id in the <spanx style="strong">locations</spanx>
+                                property of the instance, this MUST be treated the same as if the participant's locationId were omitted.
 
                             </t>
                             <t>
@@ -2548,14 +2535,8 @@
                     </c>
                 </texttable>
                 <t>
-                    For JSCalendar locations, the iCalendar counterparts are the
-                    <xref target="RFC5545"/> LOCATION and the extended iCalendar
-                    <xref target="RFC7986"/> CONFERENCE properties. Generally,
-                    use a LOCATION property if only the name property is set,
-                    CONFERENCE otherwise. For backwards compatibility
-                    with client implementations that do not support the CONFERENCE
-                    property, it is recommended to set use at least one LOCATION
-                    property, if the JSCalendar object contains locations.
+                    The iCalendar counterpart for JSCalendar Location objects is the iCalendar
+                    <xref target="RFC5545"/> LOCATION property, or implementation-specific.
                   </t>
                 <texttable anchor="translate-locations-table"
                   title="Translation of Location between JSCalendar and iCalendar">
@@ -2565,8 +2546,7 @@
                        name
                     </c>
                     <c>
-                      For LOCATION: corresponds to the property value.
-                      For CONFERENCE: corresponds to the LABEL parameter.
+                      Corresponds to the LOCATION property value.
                     </c>
                     <c>
                        description
@@ -2578,16 +2558,8 @@
                        rel
                     </c>
                     <c>
-                      For CONFERENCE: implicitly <spanx style="verb">virtual</spanx>.
-                      Implementation-specific for LOCATION.
-                      </c>
-                    <c>
-                       features
+                      Implementation-specific.
                     </c>
-                    <c>
-                      For CONFERENCE: corresponds to the FEATURE parameter.
-                      Implementation-specific for LOCATION.
-                      </c>
                     <c>
                        timeZone
                     </c>
@@ -2598,20 +2570,46 @@
                        coordinates
                     </c>
                     <c>
-                      Implementation-specific. Consider using a GEO iCalendar property, along with one LOCATION or CONFERENCE.
+                      Implementation-specific. Consider using a GEO iCalendar property, along with one LOCATION.
                       </c>
                     <c>
                        uri
                     </c>
                     <c>
-                      For LOCATION: corresponds to the ALTREP parameter.
-                      For CONFERENCE: corresponds to the property value.
-                      </c>
+                      Corresponds to the LOCATION ALTREP parameter.
+                    </c>
                     <c>
                       linkIds
                     </c>
                     <c>
                       Implementation-specific.
+                    </c>
+                </texttable>
+                <t>
+                    The iCalendar counterpart for JSCalendar VirtualLocation objects is the iCalendar
+                    <xref target="RFC7986"/> CONFERENCE property, or implementation-specific.
+                </t>
+                <texttable anchor="translate-virtualLocations-table"
+                  title="Translation of VirtualLocation between JSCalendar and iCalendar">
+                    <ttcol align='left'>Property</ttcol>
+                    <ttcol align='left'>iCalendar counterpart</ttcol>
+                    <c>
+                        name
+                    </c>
+                    <c>
+                        Corresponds to the CONFERENCE LABEL parameter.
+                    </c>
+                    <c>
+                        description
+                    </c>
+                    <c>
+                        Implementation-specific.
+                    </c>
+                    <c>
+                        uri
+                    </c>
+                    <c>
+                        Corresponds to the CONFERENCE property value.
                     </c>
                 </texttable>
             </section>
@@ -2799,7 +2797,7 @@
 </section>
 <section anchor="example-multi-location-event" title="Event with multiple locations and localization">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live concert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2812,19 +2810,15 @@
   "timeZone": "America/New_York",
   "duration": "PT3H",
   "locations": {
-    "9366e041-bb4c-4aa4-b249-b4657cab925c": {
+    "c0503d30-8c50-4372-87b5-7657e8e0fedd": {
       "name": "The Music Bowl",
       "description": "Music Bowl, Central Park, New York",
       "coordinates": "geo:40.7829,73.9654"
-    },
+    }
+  },
+  "virtualLocations": {
     "6f3696c6-1e07-47d0-9ce1-f50014b0041a": {
       "name": "Free live Stream from Music Bowl",
-      "rel": "virtual",
-      "features": [
-        "video",
-        "audio",
-        "chat"
-      ],
       "uri": "https://stream.example.com/the_band_2018"
     }
   },
@@ -2832,8 +2826,7 @@
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "locations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
-          "Gratis Live-Stream aus der Music Bowl"
+      "virtualLocations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name": "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
@@ -2944,6 +2937,7 @@
           ]]></artwork>
     </figure>
 </section>
+
             <!-- EXAMPLES END -->
         </section>
 
