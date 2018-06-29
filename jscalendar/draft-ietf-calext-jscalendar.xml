@@ -1714,129 +1714,44 @@
                                 if known. Otherwise, the time-zone to use is implementation specific.
                             </t>
                             <t>
-                                <spanx style="strong">action</spanx>:
-                                <spanx style="verb">DisplayAction|EmailAction|UnknownAction</spanx>
+                                <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
                                 <vspace blankLines="1"/>
+                                When the user has permanently dismissed the alert the client MUST set this to
+                                the current time in UTC. Other clients which sync this property can then
+                                automatically dismiss or suppress duplicate alerts (alerts with the same alert
+                                id that triggered on or before this date-time).
+                                <vspace blankLines="1"/>
+                                For a recurring calendar object, the <spanx style="strong">acknowledged</spanx> property of
+                                the parent object MUST be updated, unless the alert is already overridden
+                                in <spanx style="strong">recurrenceOverrides</spanx>.
+                            </t>
+                            <t>
+                                <spanx style="strong">snoozed</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
+                                <vspace blankLines="1"/>
+                                If the user temporarily dismisses the alert, this is the UTC date-time after
+                                which it should trigger again.
+                                Setting this property on an instance of a recurring calendar object MUST update the alarm
+                                on the master object, unless the respective instance already is defined in
+                                <spanx style="verb">recurrenceOverrides</spanx>. It MUST NOT generate an override
+                                for the sole use of snoozing an alarm.
+                            </t>
+                            <t>
+                                <spanx style="strong">action</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">display</spanx>)
                                 Describes how to alert the user.
                                 <vspace blankLines="1"/>
-                                A <spanx style="strong">DisplayAction</spanx> means a message (which is service dependent,
-                                but SHOULD include the title and start or due time of the calendar object) SHOULD be
-                                shown to the user on any client connected to this account at the specified time. How
-                                this message is formatted (and any sound or other method of drawing the user's
-                                attention) is client specific. It has the following properties:
+                                The value MUST  be at most one of the following values,
+                                registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="strong">type</spanx>: <spanx style="verb">String</spanx> The value
-                                        MUST be <spanx style="verb">display</spanx>.
+                                        <spanx style="verb">display</spanx>: The alert should be displayed as appropriate for the current device and user context.
                                     </t>
                                     <t>
-                                        <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
-                                        <vspace blankLines="1"/>
-                                        When the user has permanently dismissed the alert the client MUST set this to
-                                        the current time in UTC. Other clients which sync this property can then
-                                        automatically dismiss or suppress duplicate alerts (alerts with the same alert
-                                        id that triggered on or before this date-time).
-                                        <vspace blankLines="1"/>
-                                        For a recurring calendar object, the <spanx style="strong">acknowledged</spanx> property of
-                                        the parent object MUST be updated, unless the alert is already overridden
-                                        in <spanx style="strong">recurrenceOverrides</spanx>.
-
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">snoozed</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
-                                        <vspace blankLines="1"/>
-                                        If the user temporarily dismisses the alert, this is the UTC date-time after
-                                        which it should be reshown.
-                                        Clients displaying this alert SHOULD hide it if the snoozed property is updated
-                                        to a time in the future. When that time is reached, the alert SHOULD be reshown
-                                        unless acknowledged is now after the original trigger time.
-                                        <vspace blankLines="1"/>
-                                        Setting this property on an instance of a recurring calendar object MUST update the alarm
-                                        on the master object, unless the respective instance already is defined in
-                                        <spanx style="verb">recurrenceOverrides</spanx>. It MUST NOT generate an override
-                                        for the sole use of snoozing an alarm.
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">mediaLinks</spanx>: <spanx style="verb">String[Link]</spanx> (optional)
-                                    <vspace blankLines="1"/>
-                                      A map of link identifiers to links (see <xref target="links"/>) that contain media to
-                                      display with this alert.
-                                      Clients SHOULD play one or more of the link contents that are supported by the
-                                      client implementation and are appropriate for the given device and user context.
+                                        <spanx style="verb">email</spanx>: The alert should trigger an email sent out to the user, notifying about the alert.
+                                        This action is typically only appropriate for server implementations.
                                     </t>
                                 </list>
-                                <vspace blankLines="1"/>
-                                An <spanx style="strong">EmailAction</spanx> means an email SHOULD be sent as
-                                specified in the object at the specified time. It has the following properties:
-                                <list style="symbols">
-                                    <t>
-                                        <spanx style="strong">type</spanx>: <spanx style="verb">String</spanx> The value
-                                        MUST be <spanx style="verb">email</spanx>.
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">to</spanx>: <spanx style="verb">Emailer[]</spanx> An array
-                                        of name/email objects to send the alert to.
-                                        <vspace blankLines="1"/>
-                                        An <spanx style="strong">Emailer</spanx> object has the following properties:
-                                        <list style="symbols">
-                                            <t>
-                                                name: String The name of the recipient. If not known, clients SHOULD use
-                                                the empty string.
-                                            </t>
-                                            <t>
-                                                email: String The email address of the recipient.
-                                            </t>
-                                        </list>
-
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">subject</spanx>: <spanx style="verb">String</spanx> (optional)
-                                        The subject to use for the email. If omitted, the server
-                                        SHOULD try to choose an appropriate subject, e.g. by including the
-                                        summary.
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">textBody</spanx>: <spanx style="verb">String</spanx> (optional)
-                                        The plain-text body to use for the email. If omitted,
-                                        the server SHOULD include all pertinent details
-                                        about the calendar object, such as summary, location and start time.
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">htmlBody</spanx>: <spanx style="verb">String</spanx> (optional)
-                                        The HTML body to use for the email, with rich-media content processed as for the
-                                        <spanx style="strong">htmlDescription</spanx> property of the JSCalendar object
-                                        (see <xref target="htmlDescription"/>), e.g. all CID URLs MUST be embedded in the
-                                        generated alert email HTML body, or the <spanx style="strong">htmlBody</spanx>
-                                        property ignored completely.
-                                        If the
-                                        textBody property of this alert action is not set, the server SHOULD generate a plain-text version
-                                        from the HTML body and include it in a <spanx style="verb">multipart/alternative</spanx>
-                                        MIME message.
-                                    </t>
-                                    <t>
-                                        <spanx style="strong">attachments</spanx>: <spanx style="verb">String[Link]</spanx> (optional)
-                                        A map of link identifiers to links (see <xref target="links"/>). Included attachments
-                                        SHOULD be embedded in the MIME message with the <spanx style="verb">Content-Disposition</spanx>
-                                        header value set to <spanx style="verb">attachment</spanx> (see <xref target="RFC2183"/>).
-                                        Implementations MAY refuse to include one or more attachments when building an
-                                        alert email, in which case they MUST ignore the
-                                        contents of the <spanx style="strong">attachments</spanx> property (e.g. they
-                                        MUST NOT include a subset of attachments).
-
-                                    </t>
-                                </list>
-                                <vspace blankLines="1"/>
-                                An <spanx style="strong">UnknownAction</spanx> object is an object that contains a <spanx
-                                    style="strong">type
-                            </spanx> property whose value is not <spanx style="verb">email</spanx> or <spanx
-                                    style="verb">string</spanx>, plus zero or more other properties. This is for
-                                compatibility with client extensions and future RFCs. The client or server SHOULD NOT
-                                trigger any type of alert for action types they do not understand, but MUST preserve
-                                them.
-
                             </t>
                         </list>
-
                     </t>
                 </section>
 
@@ -2381,16 +2296,10 @@
                         An <spanx style="strong">Alert</spanx> corresponds to the VALARM component in iCalendar, where
                         the <spanx style="strong">action</spanx> is determined by the iCalendar ACTION property value
                         (e.g., both <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx> actions
-                        map to a JSCalendar <spanx style="strong">DisplayAction</spanx> alert, and similarly for
-                        an iCalendar <spanx style="verb">EMAIL</spanx>).
+                        map to a JSCalendar <spanx style="strong">display</spanx> action, and similarly for
+                        <spanx style="verb">EMAIL</spanx>).
                         The <spanx style="strong">relativeTo</spanx> and <spanx style="strong">offset</spanx> properties
-                        corresponds to the iCalendar TRIGGER
-                        property.
-                        The <spanx style="strong">attachments</spanx> property of an <spanx style="strong">EmailAction</spanx>
-                        alert map to iCalendar ATTACH properties. For mapping <spanx style="strong">mediaLinks</spanx>, the
-                        iCalendar currently forbids to define ATTACH properties on VALARMs with DISPLAY action. Mapping
-                        this property is implementation-specific, but using <spanx style="verb">X-ATTACH</spanx> with the
-                        same semantics as ATTACH is a sane choice.
+                        corresponds to the iCalendar TRIGGER property.
                     </c>
 
                     <c>categories</c>
