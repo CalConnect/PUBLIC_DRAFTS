@@ -572,33 +572,33 @@
                     </t>
                 </section>
 
-                <section anchor="textDescription" title="description">
+                <section anchor="description" title="description">
                     <t>
                         Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">""</spanx>)
                     </t>
                     <t>
-                        A longer form description of the object. This is plain text, but a client SHOULD attempt to
-                        hyperlink URLs when displaying it.
+                        A longer-form text description of the object. The content is formatted according
+                        to the <spanx style="strong">descriptionContentType</spanx> property.
                     </t>
                 </section>
 
-                <section anchor="htmlDescription" title="htmlDescription">
+                <section anchor="descriptionContentType" title="descriptionContentType">
                     <t>
-                        Type: <spanx style="verb">String</spanx> (optional)
+                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">text/plain</spanx>
                     </t>
                     <t>
-                        A longer form rich-text description of the object. This is
-                        <eref target="https://www.w3.org/TR/html/">HTML text</eref>
-                        and allows to reference resources in the <spanx style="strong">links</spanx> property
-                        by use of CID URLs (see <xref target="RFC2392"/>).
-                        To convert a CID URL to the <spanx style="strong">cid</spanx> property
-                        value of a <spanx style="strong">Link</spanx> object, implementations MUST
-                        follow the conversion described in section 2 of <xref target="RFC2392"/>.
-                        Implementations MAY choose not to follow untrusted external CID URLs
-                        referenced in the <spanx style="strong">links</spanx> property, in which
-                        case they MUST treat the <spanx style="strong">htmlDescription</spanx>
-                        property as if omitted. Implementations MUST preserve the value of this
-                        property, even if it contains untrusted links.
+                        Describes the media type (<xref target="RFC6838"/>) of the
+                        contents of the <spanx style="verb">description</spanx> property.
+                        Media types MUST be sub-types of type <spanx style="verb">text</spanx>,
+                        and SHOULD be <spanx style="verb">text/plain</spanx> or
+                        <spanx style="verb">text/html</spanx> (<xref target="MIME"/>).
+                        They MAY define parameters and the
+                        <spanx style="verb">charset</spanx> parameter MUST be <spanx style="verb">utf-8</spanx>, if specified.
+                        Descriptions of type <spanx style="verb">text/html</spanx> MAY contain
+                        <spanx style="verb">cid</spanx> URLs
+                        (<xref target="RFC2392"/>) to reference links in the calendar object by use of
+                        the <spanx style="strong">cid</spanx> property of the <spanx style="strong">Link</spanx>
+                        object.
                     </t>
                 </section>
 
@@ -626,7 +626,7 @@
                             <t>
                                 <spanx style="strong">description</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
-                                Human-readable instructions for accessing this location. This may be an address, set of
+                                Human-readable, plain-text instructions for accessing this location. This may be an address, set of
                                 directions, door access code, etc.
                             </t>
                             <t>
@@ -700,7 +700,7 @@
                             <t>
                                 <spanx style="strong">description</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
-                                Human-readable instructions for accessing this location. This may be an address, set of
+                                Human-readable plain-text instructions for accessing this location. This may be an address, set of
                                 directions, door access code, etc.
                             </t>
                             <t>
@@ -744,15 +744,12 @@
                             <t>
                                 <spanx style="strong">cid</spanx>
                                 <spanx style="verb">String</spanx> (optional)
-                                The id used within the <spanx style="strong">htmlDescription</spanx> property
-                                to reference this link.
-                                <vspace blankLines="1"/>
-                                If set, this MUST be a valid Content-ID MIME header value without CFWS
-                                and angle brackets
-                                (see <xref target="RFC2392"/>). The identifier MUST be unique within
+                                This MUST be a valid <spanx style="verb">content-id</spanx>
+                                value according to the definition of section 2 in <xref target="RFC2392"/>.
+                                The identifier MUST be unique within
                                 this JSCalendar object but has no meaning beyond that. Specifically,
-                                it MAY be different from the <spanx style="strong">Link</spanx>
-                                object identifier in the enclosing <spanx style="strong">links</spanx>
+                                it MAY be different from the link
+                                identifier in the enclosing <spanx style="strong">links</spanx>
                                 property.
                             </t>
                             <t>
@@ -775,7 +772,7 @@
                                 client as attachments for download.
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">describedby</spanx> SHOULD be considered by the
-                                client to be an alternate representation of the description and HTML description.
+                                client to be an alternate representation of the description.
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">icon</spanx> SHOULD be considered by the client
                                 to be an image that it MAY use when presenting the calendar data to a user. The
@@ -809,7 +806,7 @@
                             </t>
                             <t>
                                 <spanx style="strong">title</spanx>: <spanx style="verb">String</spanx> (optional)
-                                A human-readable description of the resource.
+                                A human-readable plain-text description of the resource.
                             </t>
                         </list>
                     </t>
@@ -1366,9 +1363,6 @@
                                     </t>
                                     <t>
                                         description
-                                    </t>
-                                    <t>
-                                        htmlDescription
                                     </t>
                                     <t>
                                         locations
@@ -2103,9 +2097,6 @@
                             description
                         </t>
                         <t>
-                            htmlDescription
-                        </t>
-                        <t>
                             color
                         </t>
                         <t>
@@ -2307,14 +2298,11 @@
 
                     <c>description</c>
                     <c>
-                        Corresponds to the DESCRIPTION property in iCalendar.
+                        Corresponds to the DESCRIPTION property and its ALTREP parameters in iCalendar.
                     </c>
-                    <c>htmlDescription</c>
+                    <c>descriptionContentType</c>
                     <c>
-                      Corresponds to the ALTREP parameter of the DESCRIPTION property (e.g.
-                      by setting ALTREP to a <spanx style="verb">data:text/html</spanx> URL
-                      containing the HTML text). Alternatively, use the STYLED-DESCRIPTION property
-                        of the RFC draft <xref target="draft-ietf-calext-eventpub-extensions"/>.
+                      Implementation-specific.
                     </c>
 
                     <c>freeBusyStatus</c>
@@ -3025,6 +3013,14 @@
                        target="https://tools.ietf.org/html/draft-ietf-calext-eventpub-extensions">
                 <front>
                     <title>Event Publishing Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+            <reference anchor="MIME"
+              target="https://www.iana.org/assignments/media-types/media-types.xhtml">
+                <front>
+                    <title>IANA Media Types</title>
                     <author/>
                     <date/>
                 </front>
