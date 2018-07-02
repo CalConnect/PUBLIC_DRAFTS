@@ -282,7 +282,6 @@
     duration    = "P" (dur-day [dur-time] / dur-time / dur-week)
     ]]></artwork>
                     </figure>
-
                     <t>
                         In addition, the duration MUST NOT include fractional second values unless the fraction is
                         non-zero.
@@ -2815,7 +2814,8 @@
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "virtualLocations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name": "Gratis Live-Stream aus der Music Bowl"
+      "virtualLocations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
+                              "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
