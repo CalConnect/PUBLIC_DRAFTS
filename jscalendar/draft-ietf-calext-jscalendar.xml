@@ -277,14 +277,15 @@
     dur-hour    = 1*DIGIT "H" [dur-minute]
     dur-time    = "T" (dur-hour / dur-minute / dur-second)
     dur-day     = 1*DIGIT "D"
+    dur-week    = 1*DIGIT "W"
 
-    duration    = "P" (dur-day [dur-time] / dur-time)
+    duration    = "P" (dur-day [dur-time] / dur-time / dur-week)
     ]]></artwork>
                     </figure>
 
                     <t>
                         In addition, the duration MUST NOT include fractional second values unless the fraction is
-                        non-zero. A zero duration MUST be represented as <spanx style="verb">P0D</spanx>.
+                        non-zero.
                     </t>
                 </section>
                 <section anchor="patchobject-type" title="PatchObject">
