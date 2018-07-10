@@ -1191,17 +1191,20 @@
                               day-of-the-month of the start date-time.
                             </t>
                             <t>
-                              If frequency is <spanx style="verb">yearly</spanx> and no byDay, byYearDay or byWeekNo
-                              properties:
+                              If frequency is <spanx style="verb">yearly</spanx> and no byYearDay property:
                               <list style="symbols">
                                 <t>
-                                  if there is no byMonthDate property:
-                                  Add a byMonthDay property with the sole value being the
-                                  day-of-the-month of the start date-time.
+                                  if there are no byMonth or byWeekNo properties, and either there is a
+                                  byMonthDay property or there is no byDay property: Add a byMonth property
+                                  with the sole value being the month of the start date-time.
                                 </t>
                                 <t>
-                                  if there is no byMonth property:
-                                  Add a byMonth property with the sole value being the month of the
+                                  if there is no byMonthDay, byWeekNo or byDay properties: Add a byMonthDay
+                                  property with the sole value being the day-of-the-month of the start date-time.
+                                </t>
+                                <t>
+                                  if there is a byWeekNo property and no byMonthDay or byDay properties:
+                                  Add a byDay property with the sole value being the day-of-the-week of the
                                   start date-time.
                                 </t>
                               </list>
