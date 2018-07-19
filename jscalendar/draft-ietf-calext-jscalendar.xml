@@ -584,7 +584,7 @@
 
                 <section anchor="descriptionContentType" title="descriptionContentType">
                     <t>
-                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">text/plain</spanx>
+                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">text/plain</spanx>)
                     </t>
                     <t>
                         Describes the media type (<xref target="RFC6838"/>) of the
