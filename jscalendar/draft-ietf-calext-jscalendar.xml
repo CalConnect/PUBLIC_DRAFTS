@@ -565,7 +565,7 @@
 
                 <section anchor="title" title="title">
                     <t>
-                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">""</spanx>)
+                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb"></spanx>)
                     </t>
                     <t>
                         A short summary of the object.
@@ -574,7 +574,7 @@
 
                 <section anchor="description" title="description">
                     <t>
-                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">""</spanx>)
+                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb"></spanx>)
                     </t>
                     <t>
                         A longer-form text description of the object. The content is formatted according
@@ -620,7 +620,7 @@
                         <list style="symbols">
                             <t>
                                 <spanx style="strong">name</spanx>:
-                                <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">""</spanx>)
+                                <spanx style="verb">String</spanx> (optional, default:<spanx style="verb"></spanx>)
                                 The human-readable name of the location.
                             </t>
                             <t>
@@ -694,7 +694,7 @@
                         <list style="symbols">
                             <t>
                                 <spanx style="strong">name</spanx>:
-                                <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">""</spanx>)
+                                <spanx style="verb">String</spanx> (optional, default:<spanx style="verb"></spanx>)
                                 The human-readable name of the virtual location.
                             </t>
                             <t>
