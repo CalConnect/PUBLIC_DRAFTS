@@ -2342,7 +2342,7 @@
 
                     <c>method</c>
                     <c>
-                        Corresponds to the METHOD property in iCalendar.
+                      Corresponds to the METHOD property of the embedding VCALENDAR in iCalendar.
                     </c>
 
                     <c>participants</c>
