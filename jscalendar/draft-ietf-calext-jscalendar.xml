@@ -1928,11 +1928,6 @@
                     </t>
                     <t>Specifies the estimated positive duration of time the task takes to complete.
                     </t>
-                    <t>
-                        If the <spanx style="strong">start</spanx> and <spanx style="strong">due</spanx> properties are
-                        set, the estimated duration SHOULD be less than or equal to the time interval between these
-                        properties.
-                    </t>
                 </section>
                 <section anchor="completed" title="completed">
                     <t>
