@@ -461,8 +461,8 @@
                                 <spanx style="strong">relation</spanx>: <spanx style="verb">String[]</spanx> Describes
                                 how the linked object is related to this object.
                                 <vspace blankLines="1"/>
-                                The strings in the array MUST each be at most one of the following values,
-                                registered in a future RFC, or a vendor-specific value:
+                                Strings in the array MUST be one of the following values, defined in a future specification or a vendor-specific value.
+                                There MUST NOT be duplicate strings in the array.
                                 <list style="symbols">
                                     <t>
                                         <spanx style="verb">first</spanx>: The linked object is the first in the series
