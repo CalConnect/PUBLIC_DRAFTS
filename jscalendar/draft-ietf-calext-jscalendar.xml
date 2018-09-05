@@ -1990,13 +1990,13 @@
                                 registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">completed</spanx>: The participant completed their progress.
+                                        <spanx style="verb">completed</spanx>: The participant completed their task.
                                     </t>
                                     <t>
-                                        <spanx style="verb">in-process</spanx>: The participant processes this task.
+                                        <spanx style="verb">in-process</spanx>:  The participant has started this task.
                                     </t>
                                     <t>
-                                        <spanx style="verb">failed</spanx>: The participant failed to complete their progress.
+                                        <spanx style="verb">failed</spanx>: The participant failed to complete their task.
                                     </t>
                                 </list>
                             </t>
