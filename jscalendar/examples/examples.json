@@ -78,17 +78,22 @@
 }, {
   "t": "Event with end time-zone",
   "a": "zoned-event-endtz",
-  "d": "This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone  as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight.",
+  "d": "This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.",
   "o": 
   {
     "...": "",
-    "title": "Flight XY51 from FRA to NRT",
+    "title": "Flight XY51 to Tokyo",
     "start": "2018-04-01T09:00:00",
     "timeZone": "Europe/Berlin",
     "duration": "PT10H30M",
     "locations": {
       "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "rel": "start",
+        "name": "Frankfurt Airport (FRA)"
+      },
+      "c2c7ac67-dc13-411e-a7d4-0780fb61fb08": {
         "rel": "end",
+        "name": "Narita International Airport (NRT)",
         "timeZone": "Asia/Tokyo"
       }
     }
