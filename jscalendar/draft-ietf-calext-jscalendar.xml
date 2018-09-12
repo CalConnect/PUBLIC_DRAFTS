@@ -2428,18 +2428,17 @@
                   title="Translation of Participant between JSCalendar and iCalendar">
                     <ttcol align='left'>Property</ttcol>
                     <ttcol align='left'>iCalendar counterpart</ttcol>
-                    <c>
-                        delegatedFrom
-                    </c>
+                    <c>delegatedFrom</c>
                     <c>
                         the DELEGATED-FROM parameter
                     </c>
+
+                    <c> delegatedTo</c>
                     <c>
-                        delegatedTo
+                      the DELEGATED-TO parameter
                     </c>
-                    <c>
-                        email
-                    </c>
+
+                    <c>email</c>
                     <c>
                         the value of the ORGANIZER or ATTENDEE property
                     </c>
