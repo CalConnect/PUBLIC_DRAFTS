@@ -1416,21 +1416,22 @@
                             <t>
                                 <spanx style="verb">imip</spanx>: The organizer accepts an iMIP
                                 <xref target="RFC6047"/>
-                                response. The value MUST be a <spanx style="verb">mailto:</spanx> URI.
+                                response at this email address.
+                                The value MUST be a <spanx style="verb">mailto:</spanx> URI.
                             </t>
                             <t>
-                              <spanx style="verb">web</spanx>: There is a web page where the user may submit the RSVP
-                              response using a browser. The value MUST be a
-                                <spanx style="verb">https:</spanx> URI Template (<xref target="RFC6570"/>) in level 1
+                              <spanx style="verb">other</spanx>:
+                                The user may submit the RSVP using this URI. The URI MUST be a
+                                valid URI Template (<xref target="RFC6570"/>) in level 1
                                 format. The template MAY contain variables that MUST be expanded from the
-                                JSCalendar object as defined in table <xref target="replyTo-web-variables"/>.
+                                JSCalendar object as defined in table <xref target="replyTo-other-variables"/>.
                                 Calendar clients SHOULD be prepared to handle authentication requests
-                                from the respective web page and for the participant email, but this
+                                from the respective URI and for the participant email, but this
                                 specification does not mandate any specific mechanism.
                             </t>
                         </list>
                     </t>
-                    <texttable anchor="replyTo-web-variables" title="replyTo URI Template variables">
+                    <texttable anchor="replyTo-other-variables" title="replyTo URI Template variables">
                         <ttcol align='left'>Variable</ttcol>
                         <ttcol align='left'>Expand to</ttcol>
                         <c>
@@ -1439,6 +1440,12 @@
                         <c>
                             The <spanx style="strong">email</spanx> property value of the
                             replying <spanx style="strong">Participant</spanx> object.
+                        </c>
+                        <c>
+                            participantId
+                        </c>
+                        <c>
+                            The participant id of the replying <spanx style="strong">Participant</spanx> object.
                         </c>
                         <c>
                             uid
@@ -2382,7 +2389,7 @@
                     <c>replyTo</c>
                     <c>
                       An iCalendar ORGANIZER with one of the mapped URIs as value. If URIs are defined
-                      for both the <spanx style="verb">imip</spanx> and <spanx style="verb">web</spanx>
+                      for both the <spanx style="verb">imip</spanx> and <spanx style="verb">other</spanx>
                       type, it is recommended to map the <spanx style="verb">imip</spanx> value to the
                       calendar address value of the ORGANIZER.
                     </c>
