@@ -1494,8 +1494,8 @@
                                 of the participant (e.g. "Joe Bloggs").
                             </t>
                             <t>
-                                <spanx style="strong">email</spanx>: <spanx style="verb">String</spanx> The email
-                                address for the participant.
+                              <spanx style="strong">email</spanx>: <spanx style="verb">String</spanx> (optional)
+                              The email address for the participant.
                             </t>
                             <t>
                                 <spanx style="strong">kind</spanx>: <spanx style="verb">String</spanx> (optional)
