@@ -1437,13 +1437,6 @@
                         <ttcol align='left'>Variable</ttcol>
                         <ttcol align='left'>Expand to</ttcol>
                         <c>
-                            email
-                        </c>
-                        <c>
-                            The <spanx style="strong">email</spanx> property value of the
-                            replying <spanx style="strong">Participant</spanx> object.
-                        </c>
-                        <c>
                             participantId
                         </c>
                         <c>
