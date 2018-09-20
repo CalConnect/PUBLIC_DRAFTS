@@ -333,12 +333,14 @@
                         Implementations MUST reject a PatchObject if any of its patches are invalid.
                     </t>
                   </section>
-                  <section anchor="ids" title="Identifiers">
+                  <section anchor="identifiers" title="Identifiers">
                     <t>
-                  If not noted otherwise, properties that define identifiers MUST be string values, MUST be at least 1 character in
-                  length and maximum 256 octets in size, and MUST only contain characters from the “URL and Filename safe”
-                  Base 64 Alphabet, as defined in section 5 of <xref target="RFC4648"/>. This is the ASCII alphanumeric
-                  characters (A-Za-z0-9), hyphen (-), and underscore (_).
+                      If not noted otherwise, properties and object keys that define identifiers MUST
+                      be string values, MUST be at least 1 character in
+                      length and maximum 256 octets in size, and MUST only contain characters from the
+                      “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
+                      <xref target="RFC4648"/>. This is the ASCII alphanumeric
+                      characters (A-Za-z0-9), hyphen (-), and underscore (_).
                   </t>
                 </section>
                 <section anchor="normalization" title="Normalization and equivalence">
@@ -609,7 +611,7 @@
                     </t>
                     <t>
                         A map of location ids to Location objects, representing locations associated with the object.
-                        A location id may be any valid <xref target="RFC6901"/> JSON pointer and need only be unique
+                        A location id MUST be unique
                         to this object; a UUID is a practical choice.
                     </t>
                     <t>
@@ -684,7 +686,7 @@
                     <t>
                         A map of ids to VirtualLocation objects, representing virtual locations, such as
                         video conferences or chat rooms, associated with the object.
-                        A virtual location id may be any valid <xref target="RFC6901"/> JSON pointer and need only be unique
+                        A virtual location id MUST be unique
                         to this object; a UUID is a practical choice.
                     </t>
                     <t>
@@ -723,8 +725,8 @@
                     </t>
                     <t>
                         A map of link ids to Link objects, representing external resources associated with the object.
-                        A link id may be any valid <xref target="RFC6901"/> JSON pointer and need only be unique to this
-                        object; the href or a UUID are practical choices.
+                        A link id MUST be unique to this
+                        calendar object; a UUID is a practical choice.
                     </t>
 
                     <t>
@@ -1422,7 +1424,7 @@
                             <t>
                               <spanx style="verb">other</spanx>:
                                 The user may submit the RSVP using this URI. The URI MUST be a
-                                valid URI Template (<xref target="RFC6570"/>) in level 1
+                                valid URI Template (<xref target="RFC6570"/>) in level 2
                                 format. The template MAY contain variables that MUST be expanded from the
                                 JSCalendar object as defined in table <xref target="replyTo-other-variables"/>.
                                 Calendar clients SHOULD be prepared to handle authentication requests
@@ -1480,8 +1482,9 @@
                     </t>
                     <t>
                         A map of participant ids to participants, describing their participation in the calendar object.
-                        A participant id may be any valid <xref target="RFC6901"/> JSON pointer and need only be unique
-                        to this calendar object; the email address of the participant is a good choice.
+                        A participant id MUST be a valid <xref target="RFC3986"/> URI and MUST be unique
+                        to this calendar object; a <spanx style="verb">mailto:</spanx> URI with the email
+                        address of the participant is a good choice.
                     </t>
                     <t>
                         A <spanx style="strong">Participant</spanx> object has the following properties:
@@ -1669,9 +1672,8 @@
                     </t>
                     <t>
                         A map of alert ids to Alert objects, representing alerts/reminders to display or send the user
-                        for this calendar object. An alert id may be any valid <xref target="RFC6901"/> JSON pointer
-                        and need only be unique to this calendar object; a globally unique id is a practical choice
-                        (also see <xref target="uid"/>)).
+                        for this calendar object. The id MUST be unique to this calendar object;
+                        a UUID is a practical choice.
                     </t>
                     <t>
                         An <spanx style="strong">Alert</spanx> Object has the following properties:
