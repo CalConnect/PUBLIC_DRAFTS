@@ -1,0 +1,103 @@
+# Introduction
+
+This document defines a JSON-based format describing a calendar task, using a data model that aims to be unambigous, extendable and simple to process.
+
+Tasks in this format are named JSTask and build on the specification of JSEvent calendar events [@!JSEvent]. This document only highlights where the definition of JSTask differs from JSEvent. Any JSEvent property that isn't redefined in this document is also a valid JSTask property.
+
+Best practices for conversion between iCalendar VTODO and JSTask can be found in [@!TODO]. Mappings to iCalendar properties refer to both the updated iCalendar specifications [@!RFC5545] and [@!RFC7986].
+
+## Notational Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119].
+
+The underlying format used for this specification is JSON. Consequently, the terms "object" and "array" as well as the four primitive types (strings, numbers, booleans, and null) are to be interpreted as described in Section 1 of [@!RFC7159].
+
+Some examples in this document contain "partial" JSON documents used for illustrative purposes.  In these examples, three periods "..." are used to indicate a portion of the document that has been removed for compactness.
+
+## Data Types
+
+In addition to the standard JSON data types, the data types defined in [@!JSEvent] are used in this specification.
+
+# Structure of a JSTask object
+
+The same structural considerations as for JSEvent [@!JSEvent] apply.
+
+# Security considerations
+
+The same security considerations as for JSEvent [@!JSEvent] apply.
+
+## MIME Type
+
+A JSTask has MIME type `application/json+cal;type=task`.
+
+# Metadata properties
+
+## @type
+
+Type: `String`
+
+Specifies that this object represents a calendar task. The value MUST be `task`.
+
+This property redefines the `type` property of JSEvent.
+
+# Time, duration and recurrence properties
+
+A task may start and be due at certain points in time, may take some estimated time to complete and may recur. None of it is required. This notably differs from JSEvent which is _required_ to start at a certain point in time and may take some non-zero duration to complete.
+
+## due
+
+Type: `LocalDate|null` e.g. `2015-09-02T00:00:00`
+
+The date/time the task is due in the task's time zone. If the *isAllDay* property is true, the time component of this property must be all zeros.
+
+Corresponds to the DUE and DTSTART+DURATION properties in iCalendar. When mapping iCalendar VTODOs with DTSTART+DURATION, the due date is the result of adding DURATION to DTSTART in the DTSTART timezone.
+
+## start
+
+Type: `LocalDate|null` e.g. `2015-09-02T00:00:00`
+
+The date/time the task should start in the task's time zone (also see the *timeZone* property specification of JSEvent).
+
+If the *due* property is set, the *start* property value MUST be earlier than or at *due*. If the *isAllDay* property is true, the time component of this property must be all zeros.
+
+Corresponds to the DTSTART property in iCalendar.
+
+This property redefines the *start* property of JSEvent.
+
+## duration
+
+This property MUST NOT be set for a JSTask.
+
+This property redefines the *duration* property of JSEvent.
+
+## estimatedDuration
+
+Type: `Duration|null`, e.g. `P2DT3H`
+
+Specifies the estimated positive duration of time the task takes to complete.
+
+If *isAllDay* is `true`, then the *duration* MUST only include a day component.
+
+If the *start* and *due* properties are set, the estimated duration MUST be less than or equal to the time interval between *start* and *due*.
+
+Corresponds to the ESTIMATED-DURATION iCalendar property in [@!draft-apthorp-ical-tasks].
+
+## recurrenceRule
+
+Type: `Recurrence|null`
+
+Defines a recurrence rule (repeating pattern) for recurring tasks.
+
+Tasks with a *start* property value recur by applying the recurrenceRule (and *recurrenceOverrides*) to the *start* date/time. If only the *due* property is set, its value is used to apply the recurrence rule. If neither the *start* nor the *due* property values are set, the *recurrenceRule* property MUST be null.
+
+Corresponds to the RRULE property in iCalendar.
+
+This property redefines the *recurrenceRule* property of JSEvent.
+
+## completed
+
+Type: `UTCDate|null` e.g. `2016-06-13T12:00:00Z`
+
+The date/time the task was completed. If the task is recurring and has future instances, implementations SHOULD split the JSTask into a current, single instance of JSTask with this instance's completion time and a future, not completed recurring instance. Also see the definition of the *relatedTo* property on splitting. Alternatively, implementations MAY store an instance's completion time in the *recurrenceOverrides* property. The latter is not recommended.
+
+Correspondes to the COMPLETED property in iCalendar.

@@ -1,0 +1,106 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+PRODID:Data::ICal 0.22
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+X-LIC-LOCATION:Europe/Berlin
+BEGIN:DAYLIGHT
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+TZNAME:CEST
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+END:DAYLIGHT
+BEGIN:STANDARD
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+TZNAME:CET
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+END:STANDARD
+END:VTIMEZONE
+
+BEGIN:VEVENT
+UID:9d50ed3e-c85c-44f7-94dd-da9e2bdd78ae
+SEQUENCE:0
+CREATED:20160915T072246Z
+DTSTAMP:20160915T072113Z
+SUMMARY:Complicated Exceptions Example
+LOCATION:Normally here
+DTSTART;TZID=Europe/Berlin:20161017T090000
+DTEND;TZID=Europe/Berlin:20161017T100000
+RRULE:FREQ=DAILY;INTERVAL=2;UNTIL=20161021T215959Z
+TRANSP:OPAQUE
+ATTENDEE;CN=Diana H;CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTSTAMP=20160507T
+ 073308Z:MAILTO:diana@example.com
+ATTENDEE;CN=Neil J;CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTSTAMP=20160507T0
+ 70808Z:MAILTO:neil@example.com
+END:VEVENT
+
+BEGIN:VEVENT
+UID:9d50ed3e-c85c-44f7-94dd-da9e2bdd78ae
+RECURRENCE-ID;TZID=Europe/Berlin:20161019T090000
+SEQUENCE:2
+CREATED:20160915T072246Z
+DTSTAMP:20160915T072113Z
+SUMMARY:Complicated Exceptions Example
+DESCRIPTION:We've had to move the location due to a conflict.
+LOCATION:New location
+DTSTART;TZID=Europe/Berlin:20161019T090000
+DTEND;TZID=Europe/Berlin:20161019T100000
+TRANSP:OPAQUE
+ATTENDEE;CN=Diana H;CUTYPE=INDIVIDUAL;PARTSTAT=DECLINED;X-DTSTAMP=20160507T
+ 073308Z:MAILTO:diana@example.com
+ATTENDEE;CN=Neil J;CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTSTAMP=20160507T0
+ 70808Z:MAILTO:neil@example.com
+END:VEVENT
+
+END:VCALENDAR
+
+{
+   "uid" : "9d50ed3e-c85c-44f7-94dd-da9e2bdd78ae",
+   "created" : "2016-09-15T07:22:46Z",
+   "updated" : "2016-09-15T07:21:13Z",
+   "title" : "Complicated Exceptions Example",
+   "isAllDay" : false,
+   "start" : "2016-10-17T09:00:00",
+   "timeZone" : "Europe/Berlin",
+   "duration" : "PT1H",
+   "locations" : {
+      "location" : { "name" : "Normally here" }
+   },
+   "recurrenceRule" : {
+      "frequency" : "daily",
+      "interval" : 2,
+      "until" : "2016-10-21T23:59:59"
+   },
+   "participants" : {
+      "neil@example.com" : {
+         "name" : "Neil J",
+         "email" : "neil@example.com",
+         "kind" : "individual",
+         "roles" : [ "owner", "attendee" ],
+         "scheduleStatus" : "accepted",
+         "scheduleUpdated" : "2016-05-07T07:08:08Z"
+      },
+      "diana@example.com" : {
+         "name" : "Diana H",
+         "email" : "diana@example.com",
+         "kind" : "individual",
+         "roles" : [ "attendee" ],
+         "scheduleStatus" : "accepted",
+         "scheduleUpdated" : "2016-05-07T07:33:08Z"
+      }
+   },
+   "recurrenceOverrides" : {
+      "2016-10-19T09:00:00" : {
+         "sequence" : 2,
+         "description" : "We've had to move the location due to a conflict.",
+         "locations" : {
+            "location" : { "name" : "New location" }
+         },
+         "participants/diana@example.com/scheduleStatus": "declined"
+      }
+   }
+}

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<reference anchor='RFC5545'>
+
+<front>
+<title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
+<author initials='B.' surname='Desruisseaux' fullname='B. Desruisseaux'>
+<organization /></author>
+<date year='2009' month='September' />
+<abstract>
+<t>This document defines the iCalendar data format for representing and exchanging calendaring and scheduling information such as events, to-dos, journal entries, and free/busy information, independent of any particular calendar service or protocol. [STANDARDS-TRACK]</t></abstract></front>
+
+<seriesInfo name='RFC' value='5545' />
+<format type='TXT' octets='345537' target='http://www.rfc-editor.org/rfc/rfc5545.txt' />
+</reference>
