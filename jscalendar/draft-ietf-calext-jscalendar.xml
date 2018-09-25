@@ -1136,7 +1136,7 @@
                                 the ordered list of remaining dates (this property specifies the
                                 indexes of date-times to keep; all others should be eliminated.
                                 Negative numbers are indexes from the end of the list, with -1
-                                being the list item).
+                                being the last item).
                             </t>
                             <t>
                                 Any date-times before the start date of the event are eliminated
