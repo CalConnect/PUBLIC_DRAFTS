@@ -1562,24 +1562,24 @@
                                 </list>
                             </t>
                             <t>
-                                <spanx style="strong">participation</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">required</spanx>)
-                                The required participation of this participant.
+                                <spanx style="strong">attendance</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">required</spanx>)
+                                The required attendance of this participant.
                                 <vspace blankLines="1"/>
                                 The value MUST be either one of the following values, registered in a future RFC, or a
                                 vendor-specific value. Any value the client or server doesn't understand should be
                                 treated the same as <spanx style="verb">required</spanx>.
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">non-participant</spanx>: Indicates a participant who is
+                                        <spanx style="verb">none</spanx>: Indicates a participant who is
                                         copied for information purposes only.
                                     </t>
                                     <t>
                                         <spanx style="verb">optional</spanx>: Indicates a participant whose
-                                        participation is optional.
+                                        attendance is optional.
                                     </t>
                                     <t>
                                         <spanx style="verb">required</spanx>: Indicates a participant whose
-                                        participation is required.
+                                        attendance is required.
                                     </t>
                                 </list>
                             </t>
@@ -2495,7 +2495,7 @@
                         the CN parameter
                     </c>
                     <c>
-                        participation
+                        attendance
                     </c>
                     <c>
                       Maps to the standard iCalendar ROLE parameter values REQ-PARTICIPANT, OPT-PARTICIPANT and
