@@ -1830,12 +1830,23 @@
                 <section anchor="duration" title="duration">
                     <t>
                         Type: <spanx style="verb">Duration</spanx>, e.g. <spanx style="verb">P2DT3H</spanx>
-                        (optional, default: <spanx style="verb">P0D</spanx>)
+                        (optional, default: <spanx style="verb">PT0S</spanx>)
                     </t>
                     <t>
-                        The zero or positive duration of the event in absolute time (i.e. in UTC time; ignoring DST shifts).
-                        To get the end date in the event time-zone, convert start into UTC, then add the duration,
-                        then convert the result into the appropriate time-zone.
+                        The zero or positive duration of the event in the event's start time-zone.
+                        The same rules as for the iCalendar DURATION value type (<xref target="RFC5545"/>)
+                        apply:
+                        The duration of a week or a day depends on its position in the
+                        calendar.  In the case of discontinuities in the time scale, such
+                        as the change from standard time to daylight time and back, the
+                        computation of the exact duration requires the subtraction or
+                        addition of the change of duration of the discontinuity.  Leap
+                        seconds MUST NOT be considered when computing an exact duration.
+                        When computing an exact duration, the greatest order time
+                        components MUST be added first, that is, the number of days MUST
+                        be added first, followed by the number of hours, number of
+                        minutes, and number of seconds.
+                        Fractional seconds MUST be added last.
                     </t>
                     <t>
                         A JSEvent MAY be end in a different time-zone (e.g. a plane flight crossing
