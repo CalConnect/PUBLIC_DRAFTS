@@ -653,11 +653,6 @@
                                 <spanx style="strong">timeZone</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
                                 A time-zone for this location.
-                                <vspace blankLines="1"/>
-                                If omitted, the
-                                <spanx style="strong">timeZone</spanx> from the
-                                JSCalendar object MUST be presumed when a time-zone is needed in
-                                relation to this location.
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
