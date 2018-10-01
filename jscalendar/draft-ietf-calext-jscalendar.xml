@@ -1510,12 +1510,12 @@
 
                             <t>
                                 <spanx style="strong">roles</spanx>:
-                                <spanx style="verb">String[]</spanx>
-                                A list of roles that this participant fulfills.
+                                <spanx style="verb">String[Boolean]</spanx>
+                                A set of roles that this participant fulfills.
                                 <vspace blankLines="1"/>
-                                At least one value MUST be specified for the participant. This MUST be either one of the
-                                following values, registered in a future RFC, or a vendor-specific value.
-                                Any value the client or server doesn't understand should be preserved but ignored.
+                                At least one role MUST be specified for the participant. The keys in the
+                                set MUST be either one of the
+                                following values, registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
                                         <spanx style="verb">owner</spanx>: The participant is an owner of the object.
@@ -1529,7 +1529,8 @@
                                         object when it occurs.
                                     </t>
                                 </list>
-
+                                The value for each key in the set MUST be <spanx style="verb">true</spanx>.
+                                Roles that are unknown to the implementation MUST be preserved and MAY be ignored.
                             </t>
                             <t>
                                 <spanx style="strong">locationId</spanx>: <spanx style="verb">String</spanx> (optional)
