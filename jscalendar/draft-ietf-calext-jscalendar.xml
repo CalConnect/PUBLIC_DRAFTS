@@ -451,7 +451,7 @@
                         <spanx style="verb">String[Relation]</spanx> (optional)
                     </t>
                     <t>
-                        Relates the object to other JSCalendar objects. This is represented as a map of the uids of
+                        Relates the object to other JSCalendar objects. This is represented as a map of the UIDs of
                         the related objects to information about the relation.
                     </t>
                     <t>
@@ -460,11 +460,10 @@
                     <t>
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">relation</spanx>: <spanx style="verb">String[]</spanx> Describes
-                                how the linked object is related to this object.
+                                <spanx style="strong">relation</spanx>: <spanx style="verb">String[Boolean]</spanx>
+                                Describes how the linked object is related to this object as a set of relation types.
                                 <vspace blankLines="1"/>
-                                Strings in the array MUST be one of the following values, defined in a future specification or a vendor-specific value.
-                                There MUST NOT be duplicate strings in the array.
+                                Keys in the set MUST be one of the following values, defined in a future specification or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
                                         <spanx style="verb">first</spanx>: The linked object is the first in the series
@@ -483,7 +482,7 @@
                                         object.
                                     </t>
                                 </list>
-
+                                The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                             </t>
                         </list>
                     </t>
@@ -491,10 +490,10 @@
                         If an object is split to make a "this and future" change to a recurrence, the original object
                         MUST be truncated to end at the previous occurrence before this split, and a new object
                         created to represent all the objects after the split.
-                        A <spanx style="verb">relation=["next"]</spanx>
-                        relatedTo property MUST be set on the original object with the
-                        uid of the new object. A <spanx style="verb">relation=["first"]</spanx>
-                        relatedTo property with the UID of the first object in the
+                        A <spanx style="verb">next</spanx> relation
+                        MUST be set on the original object's relatedTo property for the
+                        UID of the new object. A <spanx style="verb">first</spanx>
+                        relation for the UID of the first object in the
                         series MUST be set on the new object. Clients can then follow these UIDs to get the complete
                         set of objects if the user wishes to modify them all at once.
                     </t>
