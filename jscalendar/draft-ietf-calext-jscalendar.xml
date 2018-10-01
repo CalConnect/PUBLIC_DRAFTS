@@ -1584,7 +1584,7 @@
                                 </list>
                             </t>
                             <t>
-                                <spanx style="strong">rsvpWanted</spanx>: <spanx style="verb">Boolean</spanx>(optional, default:<spanx style="verb">false</spanx>)
+                                <spanx style="strong">expectReply</spanx>: <spanx style="verb">Boolean</spanx>(optional, default:<spanx style="verb">false</spanx>)
                                 If true, the organizer is expecting the participant to notify them of their status.
                             </t>
                             <t>
@@ -2454,6 +2454,12 @@
                     <c> delegatedTo</c>
                     <c>
                       the DELEGATED-TO parameter
+                    </c>
+                    <c>
+                        expectReply
+                    </c>
+                    <c>
+                        the RSVP parameter
                     </c>
 
                     <c>email</c>
