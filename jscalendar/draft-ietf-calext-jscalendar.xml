@@ -1541,8 +1541,8 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">rsvpResponse</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">needs-action</spanx>)
-                                The RSVP response, if any, of this participant.
+                                <spanx style="strong">participationStatus</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">needs-action</spanx>)
+                                The participation status, if any, of this participant.
                                 <vspace blankLines="1"/>
                                 The value MUST be either one of the following values, registered in a future RFC, or a
                                 vendor-specific value:
@@ -1992,7 +1992,7 @@
                             <t>
                                 <spanx style="strong">progress</spanx>:
                                 <spanx style="verb">ParticipantProgress</spanx> (optional) The progress of the participant for this task, if known.
-                                This property MUST NOT be set if the <spanx style="strong">rsvpResponse</spanx>
+                                This property MUST NOT be set if the <spanx style="strong">participationStatus</spanx>
                                 of this participant is any other value but <spanx style="verb">accepted</spanx>.
                             </t>
                         </list>
@@ -2512,13 +2512,10 @@
                       parameter values is recommended.
                     </c>
                     <c>
-                        rsvpResponse
+                        participationStatus
                     </c>
                     <c>
                         the PARTSTAT parameter
-                    </c>
-                    <c>
-                        the DELEGATED-TO parameter
                     </c>
                     <c>
                         scheduleSequence
@@ -2918,7 +2915,7 @@
     "tom@foobar.example.com": {
       "name": "Tom Tool",
       "email": "tom@foobar.example.com",
-      "rsvpResponse": "accepted",
+      "participationStatus": "accepted",
       "roles": [
         "attendee"
       ]
@@ -2926,7 +2923,7 @@
     "zoe@foobar.example.com": {
       "name": "Zoe Zelda",
       "email": "zoe@foobar.example.com",
-      "rsvpResponse": "accepted",
+      "participationStatus": "accepted",
       "roles": [
         "owner",
         "chair"
@@ -2936,7 +2933,8 @@
   },
   "recurrenceOverrides": {
     "2018-03-08T09:00:00": {
-      "participants/tom@foobar.example.com/rsvpResponse": "declined"
+      "participants/tom@foobar.example.com/participationStatus":
+                                                           "declined"
     }
   }
 }
