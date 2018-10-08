@@ -1401,10 +1401,13 @@
                         <spanx style="verb">String[String]</spanx> (optional)
                     </t>
                     <t>
-                        Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The
-                        keys in the property value are the available methods. The value is a URI to use that method.
-                        Future methods may be defined in future specifications; a calendar client MUST ignore any
-                        method it does not understand.
+                        Represents methods by which participants may submit their RSVP response to
+                        the organizer of the calendar object. The
+                        keys in the property value are the available methods. The value is a URI to
+                        use that method.
+                        Future methods may be defined in future specifications; a calendar client
+                        MUST ignore any
+                        method it does not understand, but MUST preserve the method key and URI.
                     </t>
                     <t>
                         The following methods are defined:
@@ -1417,49 +1420,11 @@
                             </t>
                             <t>
                               <spanx style="verb">other</spanx>:
-                                The user may submit the RSVP using this URI. The URI MUST be a
-                                valid URI Template (<xref target="RFC6570"/>) in level 2
-                                format. The template MAY contain variables that MUST be expanded from the
-                                JSCalendar object as defined in table <xref target="replyTo-other-variables"/>.
-                                Calendar clients SHOULD be prepared to handle authentication requests
-                                from the respective URI and for the participant email, but this
-                                specification does not mandate any specific mechanism.
+                                The organizer is identified by this URI but the method how to
+                                submit the RSVP is undefined.
                             </t>
                         </list>
                     </t>
-                    <texttable anchor="replyTo-other-variables" title="replyTo URI Template variables">
-                        <ttcol align='left'>Variable</ttcol>
-                        <ttcol align='left'>Expand to</ttcol>
-                        <c>
-                            participantId
-                        </c>
-                        <c>
-                            The participant id of the replying <spanx style="strong">Participant</spanx> object.
-                        </c>
-                        <c>
-                            uid
-                        </c>
-                        <c>
-                            The <spanx style="strong">uid</spanx> property value of the
-                            JSCalendar object.
-                        </c>
-                        <c>
-                            sequence
-                        </c>
-                        <c>
-                            The <spanx style="strong">sequence</spanx> property value
-                            of the JSCalendar object.
-                        </c>
-                        <c>
-                            recurrenceId
-                        </c>
-                        <c>
-                            The recurrence-id when replying for a single occurrence
-                            of a recurring JSCalendar object. The LocalDate-typed value is
-                            the recurrence-id of a non-overridden recurrence,
-                            or the key of a recurrenceOverride of this JSCalendar object.
-                        </c>
-                    </texttable>
                 </section>
 
                 <section anchor="participants" title="participants">
@@ -1469,9 +1434,9 @@
                     </t>
                     <t>
                         A map of participant ids to participants, describing their participation in the calendar object.
-                        A participant id MUST be a valid <xref target="RFC3986"/> URI and MUST be unique
-                        to this calendar object; a <spanx style="verb">mailto:</spanx> URI with the email
-                        address of the participant is a good choice.
+                        A participant id MUST unique
+                        to this calendar object; a UUID or the base-64 encoded email address of the
+                        participant is a good choice.
                     </t>
                     <t>
                         A <spanx style="strong">Participant</spanx> object has the following properties:
@@ -1482,7 +1447,34 @@
                             </t>
                             <t>
                               <spanx style="strong">email</spanx>: <spanx style="verb">String</spanx> (optional)
-                              The email address for the participant.
+                                The email address for the participant.
+                            </t>
+                            <t>
+                                <spanx style="strong">sendTo</spanx>: <spanx style="verb">String[String]</spanx>
+                                Represents methods by which the participant may receive the invitation
+                                and updates to the calendar object.
+                                <vspace blankLines="1"/>
+                                The keys in the property value are
+                                the available methods. The value is a URI to use that method.
+                                Future methods may be defined in future specifications; a calendar client
+                                MUST ignore any
+                                method it does not understand, but MUST preserve the method key and URI.
+                                <vspace blankLines="1"/>
+                                The following methods are defined:
+                                <list style="symbols">
+                                    <t>
+                                        <spanx style="verb">imip</spanx>: The participant accepts an
+                                        iMIP <xref target="RFC6047"/> request at this email address.
+                                        The value MUST be a <spanx style="verb">mailto:</spanx> URI.
+                                        It MAY be different from the value of the participant's
+                                        <spanx style="strong">email</spanx> property.
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">other</spanx>:
+                                        The participant is identified by this URI but the method how
+                                        to submit the invitation or update is undefined.
+                                    </t>
+                                </list>
                             </t>
                             <t>
                                 <spanx style="strong">kind</spanx>: <spanx style="verb">String</spanx> (optional)
@@ -2399,10 +2391,10 @@
 
                     <c>replyTo</c>
                     <c>
-                      An iCalendar ORGANIZER with one of the mapped URIs as value. If URIs are defined
-                      for both the <spanx style="verb">imip</spanx> and <spanx style="verb">other</spanx>
-                      type, it is recommended to map the <spanx style="verb">imip</spanx> value to the
-                      calendar address value of the ORGANIZER.
+                      An iCalendar ORGANIZER with a mailto: URI mapped to the
+                        <spanx style="verb">imip</spanx> method, or any other
+                        URI mapped to the <spanx style="verb">other</spanx>
+                        method. Mapping multiple methods is implementation-specific.
                     </c>
 
                     <c>sequence</c>
@@ -2464,7 +2456,15 @@
 
                     <c>email</c>
                     <c>
-                        the value of the ORGANIZER or ATTENDEE property
+                        The value of the EMAIL parameter of the ORGANIZER or ATTENDEE property, if
+                        defined. Otherwise the property value, if it is a mailto: URI.
+                    </c>
+                    <c>sendTo</c>
+                    <c>
+                        An iCalendar ATTENDEE with a mailto: URI mapped to the
+                        <spanx style="verb">imip</spanx> method, or any other
+                        URI mapped to the <spanx style="verb">other</spanx>
+                        method. Mapping multiple methods is implementation-specific.
                     </c>
                     <c>
                         kind
@@ -3003,7 +3003,6 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6570.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
