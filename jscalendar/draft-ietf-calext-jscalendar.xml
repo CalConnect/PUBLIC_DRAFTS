@@ -97,9 +97,7 @@
                   The representation of this
                   data model is defined in the I-JSON format <xref target="RFC7493"/>, which is a strict subset
                   of the JavaScript Object Notation (JSON) Data Interchange Format <xref target="RFC8259"/>.
-                  Using JSON mostly is a pragmatic choice: its widespread use should help to speed up JSCalendar
-                  adoption and a wide range of production-ready JSON implementations allows to decrease
-                  interoperability issues.
+                  Using JSON is mostly a pragmatic choice: its widespread use makes JSCalendar easier to adopt, and the ready availability of production-ready JSON implementations eliminates a whole category of parser-related interoperability issues.
                 </t>
             <section anchor="relation-to-icalendar" title="Relation to the iCalendar format">
                 <t>
