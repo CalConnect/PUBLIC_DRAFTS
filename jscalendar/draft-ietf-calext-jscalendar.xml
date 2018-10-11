@@ -1864,8 +1864,7 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="strong">duration</spanx> property MUST only include a day
-                                component.
+                                the <spanx style="strong">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
                             </t>
                           </list>
                           Note that all-day events MAY be bound to a specific time-zone, as defined by
