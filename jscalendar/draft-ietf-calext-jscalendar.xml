@@ -110,8 +110,7 @@
                     confuses new users. Other sources for errors are the requirement for custom time-zone definitions
                     within a single calendar component, as well as the iCalendar format itself; the latter causing
                     interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle
-                    differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not allow to
-                    express the difference between two calendar components, which results in verbose exchanges during
+                    differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not have a way to express a concise difference between two calendar components, which results in verbose exchanges during
                     scheduling.
                 </t>
                 <t>
