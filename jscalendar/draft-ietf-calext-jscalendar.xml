@@ -107,7 +107,7 @@
                 </t>
                 <t>
                     For example, iCalendar defines various formats for local times, UTC time and dates, which
-                    confuses new users. Other sources for errors are the requirement for custom time-zone definitions
+                    confuses new users. Other sources for errors are the requirement for custom time zone definitions
                     within a single calendar component, as well as the iCalendar format itself; the latter causing
                     interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle
                     differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not have a way to express a concise difference between two calendar components, which results in verbose exchanges during
@@ -252,12 +252,12 @@
                 </section>
                 <section anchor="localdate-type" title="LocalDate">
                     <t>
-                        This is a date-time string <spanx style="emph">with no time-zone/offset information</spanx>.
+                        This is a date-time string <spanx style="emph">with no time zone/offset information</spanx>.
                         It is otherwise in the same format as UTCDate: <spanx style="verb">
-                        YYYY-MM-DDTHH:MM:SS</spanx>. The time-zone to associate the LocalDate with comes from an
-                        associated property, or if no time-zone is associated it defines
+                        YYYY-MM-DDTHH:MM:SS</spanx>. The time zone to associate the LocalDate with comes from an
+                        associated property, or if no time zone is associated it defines
                         <spanx style="emph">floating time</spanx>. Floating date-times are not tied to any specific
-                        time-zone. Instead, they occur in every timezone at the same <spanx style="emph">wall-clock</spanx>
+                        time zone. Instead, they occur in every timezone at the same <spanx style="emph">wall-clock</spanx>
                         time (as opposed to the same instant point in time).
                     </t>
                 </section>
@@ -431,7 +431,7 @@
                         calendars and views. The value of this property MUST be unique across <spanx style="emph">all</spanx>
                         JSCalendar objects, even if they are of different type.
                         <xref target="RFC4122"/> describes a range of established algorithms to generate universally unique
-                        identifiers (UUID), and the random or pseudo-random version is recommended to use.
+                        identifiers (UUID), and the random or pseudo-random version is recommended.
                         <vspace blankLines="1"/>
                         For compatibility with <xref target="RFC5545"/> UIDs, implementations MUST be able to receive and
                         persist values of at least 255 octets for this property, but they MUST NOT truncate values in the
@@ -648,7 +648,7 @@
                             <t>
                                 <spanx style="strong">timeZone</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
-                                A time-zone for this location.
+                                A time zone for this location.
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
@@ -1022,7 +1022,7 @@
                                 <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx>(optional)
                                 The UNTIL part from iCalendar. This MUST NOT be included if a
                                 <spanx style="strong">count</spanx> property is specified. Note, as in iCalendar, this
-                                date is presumed to be in the time-zone specified in
+                                date is presumed to be in the time zone specified in
                                 <spanx style="strong">timeZone</spanx>. It is not a UTC time.
 
                             </t>
@@ -1689,9 +1689,9 @@
                                 <spanx style="strong">offset</spanx>:
                                 <spanx style="verb">Duration</spanx>
                                 The offset from the start and end/due of the calendar object to fire the alert.
-                                If the calendar object does not define a time-zone,
-                                the user's default time-zone SHOULD be used when determining the offset,
-                                if known. Otherwise, the time-zone to use is implementation specific.
+                                If the calendar object does not define a time zone,
+                                the user's default time zone SHOULD be used when determining the offset,
+                                if known. Otherwise, the time zone to use is implementation specific.
                             </t>
                             <t>
                                 <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
@@ -1797,7 +1797,7 @@
                         <spanx style="verb">2015-09-02T00:00:00</spanx>
                     </t>
                     <t>
-                        The date/time the event would start in the event's time-zone.
+                        The date/time the event would start in the event's time zone.
                     </t>
                     <t>
                         A valid JSEvent MUST include this property.
@@ -1810,8 +1810,8 @@
                         <spanx style="verb">String|null</spanx> (optional, default:<spanx style="verb">null</spanx>)
                     </t>
                     <t>
-                        The <eref target="http://www.iana.org/time-zones">IANA Time Zone Database</eref> name for the
-                        time-zone the event is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
+                        The <eref target="http://www.iana.org/time zones">IANA Time Zone Database</eref> name for the
+                        time zone the event is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
                         omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
                     </t>
                 </section>
@@ -1822,7 +1822,7 @@
                         (optional, default: <spanx style="verb">PT0S</spanx>)
                     </t>
                     <t>
-                        The zero or positive duration of the event in the event's start time-zone.
+                        The zero or positive duration of the event in the event's start time zone.
                         The same rules as for the iCalendar DURATION value type (<xref target="RFC5545"/>)
                         apply:
                         The duration of a week or a day depends on its position in the
@@ -1838,11 +1838,11 @@
                         Fractional seconds MUST be added last.
                     </t>
                     <t>
-                        A JSEvent MAY be end in a different time-zone (e.g. a plane flight crossing
-                        time-zones). In this case, the JSEvent MUST specify the end time-zone in a
+                        A JSEvent MAY be end in a different time zone (e.g. a plane flight crossing
+                        time zones). In this case, the JSEvent MUST specify the end time zone in a
                         <spanx style="strong">location</spanx> property value that defines its
                         <spanx style="strong">rel</spanx> to be <spanx style="verb">end</spanx> and
-                        the end time-zone in its <spanx style="strong">timeZone</spanx> property.
+                        the end time zone in its <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
 
@@ -1864,7 +1864,7 @@
                                 the <spanx style="strong">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
                             </t>
                           </list>
-                          Note that all-day events MAY be bound to a specific time-zone, as defined by
+                          Note that all-day events MAY be bound to a specific time zone, as defined by
                           the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
@@ -1903,7 +1903,7 @@
                         <spanx style="verb">2015-09-02T00:00:00</spanx>
                     </t>
                     <t>
-                        The date/time the task is due in the task's time-zone.
+                        The date/time the task is due in the task's time zone.
                     </t>
                 </section>
                 <section anchor="start-task" title="start">
@@ -1912,7 +1912,7 @@
                         <spanx style="verb">2015-09-02T00:00:00</spanx>
                     </t>
                     <t>
-                        The date/time the task should start in the task's time-zone.
+                        The date/time the task should start in the task's time zone.
                     </t>
                 </section>
                 <section anchor="timeZone-task" title="timeZone">
@@ -1922,7 +1922,7 @@
                     </t>
                     <t>
                         The IANA Time Zone Database name for the
-                        time-zone the task is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
+                        time zone the task is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
                         omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
                     </t>
                 </section>
@@ -1968,7 +1968,7 @@
                         MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                         Note that the <spanx style="strong">estimatedDuration</spanx> property MAY
                         contain a non-zero time duration. All-day tasks MAY be bound to a
-                        specific time-zone, as defined by the <spanx style="strong">timeZone</spanx> property.
+                        specific time zone, as defined by the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
 
@@ -2156,13 +2156,13 @@
 
                     <c>start</c>
                     <c>
-                        Corresponds to the DTSTART property in iCalendar. Note that time-zone information is stored separately in JSEvent.
+                        Corresponds to the DTSTART property in iCalendar. Note that time zone information is stored separately in JSEvent.
                     </c>
 
                     <c>timeZone</c>
                     <c>
                         Corresponds to the TZID part of the DTSTART property in iCalendar.
-                        If the event has a different end time-zone to start time-zone, this should be
+                        If the event has a different end time zone to start time zone, this should be
                         added as a JSCalendar <spanx style="strong">location</spanx> with just a
                         <spanx style="strong">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
                     </c>
@@ -2199,7 +2199,7 @@
                     <c>
                         Corresponds to the DUE and DTSTART+DURATION properties in iCalendar. When mapping iCalendar
                         VTODOs with DTSTART+DURATION, the due date is the result of adding DURATION to DTSTART in the
-                        DTSTART time-zone.
+                        DTSTART time zone.
                     </c>
 
                     <c>start</c>
@@ -2210,7 +2210,7 @@
                     <c>timeZone</c>
                     <c>
                         Corresponds to the TZID part of the DTSTART/DUE properties in iCalendar.
-                        If the task has a different end time-zone to start or due time-zone, this should be
+                        If the task has a different end time zone to start or due time zone, this should be
                         added as a JSCalendar <spanx style="strong">location</spanx> with just a
                         <spanx style="strong">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
                     </c>
@@ -2754,9 +2754,9 @@
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-zoned-event-endtz" title="Event with end time-zone">
+<section anchor="example-zoned-event-endtz" title="Event with end time zone">
     <t>
-    This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.
+    This example illustrates the use of end time zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in Tokyo local time and highlight the time zone difference of the flight. The location names can serve as input for navigation systems.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2783,7 +2783,7 @@
 </section>
 <section anchor="example-floating-event" title="Floating-time event (with recurrence)">
     <t>
-    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.
+    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the user is located on that date.
     </t>
     <figure>
           <artwork><![CDATA[
