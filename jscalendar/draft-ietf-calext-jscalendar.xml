@@ -1439,7 +1439,7 @@
                         A <spanx style="strong">Participant</spanx> object has the following properties:
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">name</spanx>: <spanx style="verb">String</spanx> The display name
+                                <spanx style="strong">name</spanx>: <spanx style="verb">String</spanx> (optional) The display name
                                 of the participant (e.g. "Joe Bloggs").
                             </t>
                             <t>
