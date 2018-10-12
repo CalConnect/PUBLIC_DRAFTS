@@ -1599,7 +1599,7 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">delegatedTo</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">delegatedTo</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of participant ids that this participant has delegated their
                                 participation to.
                                 Each key in the set MUST be the identifier of a participant.
@@ -1607,14 +1607,14 @@
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
-                                <spanx style="strong">delegatedFrom</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">delegatedFrom</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of participant ids that this participant is acting as a delegate for.
                                 Each key in the set MUST be the identifier of a participant.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
-                                <spanx style="strong">memberOf</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">memberOf</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of group participants that were invited to this calendar object, which caused this
                                 participant to be invited due to their membership of the group(s).
                                 Each key in the set MUST be the identifier of a participant.
@@ -1622,7 +1622,7 @@
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
-                                <spanx style="strong">linkIds</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">linkIds</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of links to more information about this participant, for example in vCard format.
                                 The keys in the set MUST be the identifier of a Link object in the
                                 calendar object's <spanx style="strong">links</spanx> property.
