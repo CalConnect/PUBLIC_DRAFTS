@@ -1825,16 +1825,9 @@
                         The zero or positive duration of the event in the event's start time zone.
                         The same rules as for the iCalendar DURATION value type (<xref target="RFC5545"/>)
                         apply:
-                        The duration of a week or a day depends on its position in the
-                        calendar.  In the case of discontinuities in the time scale, such
-                        as the change from standard time to daylight time and back, the
-                        computation of the exact duration requires the subtraction or
-                        addition of the change of duration of the discontinuity.  Leap
-                        seconds MUST NOT be considered when computing an exact duration.
-                        When computing an exact duration, the greatest order time
-                        components MUST be added first, that is, the number of days MUST
-                        be added first, followed by the number of hours, number of
-                        minutes, and number of seconds.
+                        The duration of a week or a day in hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time.
+                        Leap seconds MUST NOT be considered when computing an exact duration.
+                        When computing an exact duration, the greatest order time components MUST be added first, that is, the number of days MUST be added first, followed by the number of hours, number of minutes, and number of seconds.
                         Fractional seconds MUST be added last.
                     </t>
                     <t>
