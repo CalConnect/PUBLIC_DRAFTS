@@ -198,11 +198,9 @@
     "start": "2018-01-08T09:00:00",
     "timeZone": "Africa/Johannesburg",
     "duration": "PT1H",
-    "locations": {
-      "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
-        "title": "ChatMe meeting room",
-        "rel": "virtual",
-        "features": [ "audio", "chat", "video" ],
+    "virtualLocations": {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1" : {
+        "name": "ChatMe meeting room",
         "uri": "https://chatme.example.com?id=1234567"
       }
     },
@@ -210,26 +208,32 @@
       "frequency": "weekly"
     },
     "replyTo": {
-      "imip" : "zoe@foobar.example.com"
+      "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
     },
     "participants": {
-      "tom@foobar.example.com": {
+      "dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ": {
         "name": "Tom Tool",
         "email": "tom@foobar.example.com",
-        "rsvpResponse": "accepted",
-        "roles": [ "attendee" ]
+        "sendTo": {
+          "imip": "mailto:6489-4f14-a57f-c1@calendar.example.com"
+        },
+        "participationStatus": "accepted",
+        "roles": { "attendee": true }
       },
-      "zoe@foobar.example.com": {
+      "em9lQGZvb2Jhci5leGFtcGxlLmNvbQ": {
         "name": "Zoe Zelda",
         "email": "zoe@foobar.example.com",
-        "rsvpResponse": "accepted",
-        "roles": [ "owner", "chair" ]
+        "sendTo": {
+          "imip": "mailto:zoe@foobar.example.com"
+        },
+        "participationStatus": "accepted",
+        "roles": { "owner": true, "attendee": true, "chair": true }
       },
       "..." : ""
     },
     "recurrenceOverrides": {
       "2018-03-08T09:00:00": {
-        "participants/tom@foobar.example.com/rsvpResponse": "declined"
+        "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationStatus": "declined"
       }
     }
   }
