@@ -1281,7 +1281,7 @@
                   Defines if this object is an overridden, excluded instance of a recurring
                   JSCalendar object (also see <xref target="recurrenceOverrides"/>). If this property
                   value is <spanx style="verb">true</spanx>, this calendar object instance MUST be
-                  treated as if not existent.
+                  removed from the occurrence expansion.
                 </t>
               </section>
             </section>
