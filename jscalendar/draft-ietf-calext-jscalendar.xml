@@ -1431,7 +1431,7 @@
                     </t>
                     <t>
                         A map of participant ids to participants, describing their participation in the calendar object.
-                        A participant id MUST unique
+                        A participant id MUST be unique
                         to this calendar object; a UUID or the base-64 encoded email address of the
                         participant is a good choice.
                     </t>
@@ -1851,7 +1851,7 @@
                         Type: <spanx style="verb">Boolean</spanx> (optional, default:<spanx style="verb">false</spanx>)
                     </t>
                     <t>
-                        Specifies if the event an all day event, such as a birthday or public holiday.
+                        Specifies if the event is an all day event, such as a birthday or public holiday.
                     </t>
                     <t>
                         If <spanx style="strong">isAllDay</spanx> is true, then the following restrictions apply:
