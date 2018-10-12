@@ -1831,11 +1831,7 @@
                         Fractional seconds MUST be added last.
                     </t>
                     <t>
-                        A JSEvent MAY be end in a different time zone (e.g. a plane flight crossing
-                        time zones). In this case, the JSEvent MUST specify the end time zone in a
-                        <spanx style="strong">location</spanx> property value that defines its
-                        <spanx style="strong">rel</spanx> to be <spanx style="verb">end</spanx> and
-                        the end time zone in its <spanx style="strong">timeZone</spanx> property.
+                        A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="strong">rel</spanx> and <spanx style="strong">timeZone</spanx> properties of the JSEvent's <spanx style="strong">location</spanx> objects.
                     </t>
                 </section>
 
