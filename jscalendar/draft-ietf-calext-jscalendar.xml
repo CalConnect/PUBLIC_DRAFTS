@@ -97,9 +97,7 @@
                   The representation of this
                   data model is defined in the I-JSON format <xref target="RFC7493"/>, which is a strict subset
                   of the JavaScript Object Notation (JSON) Data Interchange Format <xref target="RFC8259"/>.
-                  Using JSON mostly is a pragmatic choice: its widespread use should help to speed up JSCalendar
-                  adoption and a wide range of production-ready JSON implementations allows to decrease
-                  interoperability issues.
+                  Using JSON is mostly a pragmatic choice: its widespread use makes JSCalendar easier to adopt, and the ready availability of production-ready JSON implementations eliminates a whole category of parser-related interoperability issues.
                 </t>
             <section anchor="relation-to-icalendar" title="Relation to the iCalendar format">
                 <t>
@@ -109,11 +107,10 @@
                 </t>
                 <t>
                     For example, iCalendar defines various formats for local times, UTC time and dates, which
-                    confuses new users. Other sources for errors are the requirement for custom time-zone definitions
+                    confuses new users. Other sources for errors are the requirement for custom time zone definitions
                     within a single calendar component, as well as the iCalendar format itself; the latter causing
                     interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle
-                    differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not allow to
-                    express the difference between two calendar components, which results in verbose exchanges during
+                    differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not have a way to express a concise difference between two calendar components, which results in verbose exchanges during
                     scheduling.
                 </t>
                 <t>
@@ -130,7 +127,7 @@
                 <t>
                     The underlying format used for this specification is JSON. Consequently, the terms "object" and
                     "array" as well as the four primitive types (strings, numbers, booleans, and null) are to be
-                    interpreted as described in Section 1 of<xref target="RFC8259"/>.
+                    interpreted as described in Section 1 of <xref target="RFC8259"/>.
                 </t>
                 <t>Some examples in this document contain "partial" JSON documents used for illustrative purposes. In
                     these examples, three periods "..." are used to indicate a portion of the document that has been
@@ -255,12 +252,12 @@
                 </section>
                 <section anchor="localdate-type" title="LocalDate">
                     <t>
-                        This is a date-time string <spanx style="emph">with no time-zone/offset information</spanx>.
+                        This is a date-time string <spanx style="emph">with no time zone/offset information</spanx>.
                         It is otherwise in the same format as UTCDate: <spanx style="verb">
-                        YYYY-MM-DDTHH:MM:SS</spanx>. The time-zone to associate the LocalDate with comes from an
-                        associated property, or if no time-zone is associated it defines
+                        YYYY-MM-DDTHH:MM:SS</spanx>. The time zone to associate the LocalDate with comes from an
+                        associated property, or if no time zone is associated it defines
                         <spanx style="emph">floating time</spanx>. Floating date-times are not tied to any specific
-                        time-zone. Instead, they occur in every timezone at the same <spanx style="emph">wall-clock</spanx>
+                        time zone. Instead, they occur in every timezone at the same <spanx style="emph">wall-clock</spanx>
                         time (as opposed to the same instant point in time).
                     </t>
                 </section>
@@ -434,7 +431,7 @@
                         calendars and views. The value of this property MUST be unique across <spanx style="emph">all</spanx>
                         JSCalendar objects, even if they are of different type.
                         <xref target="RFC4122"/> describes a range of established algorithms to generate universally unique
-                        identifiers (UUID), and the random or pseudo-random version is recommended to use.
+                        identifiers (UUID), and the random or pseudo-random version is recommended.
                         <vspace blankLines="1"/>
                         For compatibility with <xref target="RFC5545"/> UIDs, implementations MUST be able to receive and
                         persist values of at least 255 octets for this property, but they MUST NOT truncate values in the
@@ -651,7 +648,7 @@
                             <t>
                                 <spanx style="strong">timeZone</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
-                                A time-zone for this location.
+                                A time zone for this location.
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
@@ -921,25 +918,25 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">interval</spanx>: <spanx style="verb">Number</spanx>(optional, default:<spanx style="verb">1</spanx>)
+                                <spanx style="strong">interval</spanx>: <spanx style="verb">Number</spanx> (optional, default:<spanx style="verb">1</spanx>)
                                 The INTERVAL part from iCal. If included, it MUST be an integer <spanx style="verb">x >=
                                 1</spanx>.
 
                             </t>
                             <t>
-                                <spanx style="strong">rscale</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">"gregorian"</spanx>)
+                                <spanx style="strong">rscale</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">"gregorian"</spanx>)
                                 The RSCALE part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to
                                 lower-case.
 
                             </t>
                             <t>
-                                <spanx style="strong">skip</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">"omit"</spanx>)
+                                <spanx style="strong">skip</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">"omit"</spanx>)
                                 The SKIP part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to
                                 lower-case.
 
                             </t>
                             <t>
-                                <spanx style="strong">firstDayOfWeek</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">"mo"</spanx>)
+                                <spanx style="strong">firstDayOfWeek</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">"mo"</spanx>)
                                 The WKST part from iCalendar, represented as a lower-case abbreviated two-letter English
                                 day of the week.
                                 If included, it MUST be one of the following values: <spanx style="verb">
@@ -987,45 +984,45 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">byYearDay</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">byYearDay</spanx>: <spanx style="verb">Number[]</spanx> (optional)
                                 The BYYEARDAY part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                <spanx style="strong">byWeekNo</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">byWeekNo</spanx>: <spanx style="verb">Number[]</spanx> (optional)
                                 The BYWEEKNO part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                <spanx style="strong">byHour</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">byHour</spanx>: <spanx style="verb">Number[]</spanx> (optional)
                                 The BYHOUR part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                <spanx style="strong">byMinute</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">byMinute</spanx>: <spanx style="verb">Number[]</spanx> (optional)
                                 The BYMINUTE part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                <spanx style="strong">bySecond</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">bySecond</spanx>: <spanx style="verb">Number[]</spanx> (optional)
                                 The BYSECOND part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                <spanx style="strong">bySetPosition</spanx>: <spanx style="verb">Number[]</spanx>(optional)
+                                <spanx style="strong">bySetPosition</spanx>: <spanx style="verb">Number[]</spanx> (optional)
                                 The BYSETPOS part from iCalendar. The array MUST have at least one entry if included.
                             </t>
                             <t>
-                                <spanx style="strong">count</spanx>: <spanx style="verb">Number</spanx>(optional)
+                                <spanx style="strong">count</spanx>: <spanx style="verb">Number</spanx> (optional)
                                 The COUNT part from iCalendar. This MUST NOT be included if an
                                 <spanx style="strong">until</spanx> property is specified.
 
                             </t>
                             <t>
-                                <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx>(optional)
+                                <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx> (optional)
                                 The UNTIL part from iCalendar. This MUST NOT be included if a
                                 <spanx style="strong">count</spanx> property is specified. Note, as in iCalendar, this
-                                date is presumed to be in the time-zone specified in
+                                date is presumed to be in the time zone specified in
                                 <spanx style="strong">timeZone</spanx>. It is not a UTC time.
 
                             </t>
@@ -1284,7 +1281,7 @@
                   Defines if this object is an overridden, excluded instance of a recurring
                   JSCalendar object (also see <xref target="recurrenceOverrides"/>). If this property
                   value is <spanx style="verb">true</spanx>, this calendar object instance MUST be
-                  treated as if not existent.
+                  removed from the occurrence expansion.
                 </t>
               </section>
             </section>
@@ -1309,7 +1306,7 @@
 
                 <section anchor="freeBusyStatus" title="freeBusyStatus">
                     <t>
-                        Type: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">busy</spanx>)
+                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">busy</spanx>)
                     </t>
                     <t>Specifies how this property should be treated when calculating free-busy state. The value MUST be
                         one of:
@@ -1329,7 +1326,7 @@
 
                 <section anchor="privacy" title="privacy">
                     <t>
-                        Type: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">public</spanx>)
+                        Type: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">public</spanx>)
                     </t>
                     <t>
                         Calendar objects are normally collected together and may be shared with other users. The privacy
@@ -1434,7 +1431,7 @@
                     </t>
                     <t>
                         A map of participant ids to participants, describing their participation in the calendar object.
-                        A participant id MUST unique
+                        A participant id MUST be unique
                         to this calendar object; a UUID or the base-64 encoded email address of the
                         participant is a good choice.
                     </t>
@@ -1442,7 +1439,7 @@
                         A <spanx style="strong">Participant</spanx> object has the following properties:
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">name</spanx>: <spanx style="verb">String</spanx> The display name
+                                <spanx style="strong">name</spanx>: <spanx style="verb">String</spanx> (optional) The display name
                                 of the participant (e.g. "Joe Bloggs").
                             </t>
                             <t>
@@ -1533,7 +1530,7 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">participationStatus</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">needs-action</spanx>)
+                                <spanx style="strong">participationStatus</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">needs-action</spanx>)
                                 The participation status, if any, of this participant.
                                 <vspace blankLines="1"/>
                                 The value MUST be either one of the following values, registered in a future RFC, or a
@@ -1554,7 +1551,7 @@
                                 </list>
                             </t>
                             <t>
-                                <spanx style="strong">attendance</spanx>: <spanx style="verb">String</spanx>(optional, default:<spanx style="verb">required</spanx>)
+                                <spanx style="strong">attendance</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">required</spanx>)
                                 The required attendance of this participant.
                                 <vspace blankLines="1"/>
                                 The value MUST be either one of the following values, registered in a future RFC, or a
@@ -1576,11 +1573,11 @@
                                 </list>
                             </t>
                             <t>
-                                <spanx style="strong">expectReply</spanx>: <spanx style="verb">Boolean</spanx>(optional, default:<spanx style="verb">false</spanx>)
+                                <spanx style="strong">expectReply</spanx>: <spanx style="verb">Boolean</spanx> (optional, default:<spanx style="verb">false</spanx>)
                                 If true, the organizer is expecting the participant to notify them of their status.
                             </t>
                             <t>
-                                <spanx style="strong">scheduleSequence</spanx>: <spanx style="verb">Number</spanx>(optional, default:<spanx style="verb">0</spanx>)
+                                <spanx style="strong">scheduleSequence</spanx>: <spanx style="verb">Number</spanx> (optional, default:<spanx style="verb">0</spanx>)
                                 The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
                                 <vspace blankLines="1"/>
                                 This can be used to determine whether the participant has sent a new RSVP following
@@ -1602,7 +1599,7 @@
 
                             </t>
                             <t>
-                                <spanx style="strong">delegatedTo</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">delegatedTo</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of participant ids that this participant has delegated their
                                 participation to.
                                 Each key in the set MUST be the identifier of a participant.
@@ -1610,14 +1607,14 @@
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
-                                <spanx style="strong">delegatedFrom</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">delegatedFrom</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of participant ids that this participant is acting as a delegate for.
                                 Each key in the set MUST be the identifier of a participant.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
-                                <spanx style="strong">memberOf</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">memberOf</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of group participants that were invited to this calendar object, which caused this
                                 participant to be invited due to their membership of the group(s).
                                 Each key in the set MUST be the identifier of a participant.
@@ -1625,7 +1622,7 @@
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
-                                <spanx style="strong">linkIds</spanx>: <spanx style="verb">String[Boolean]|null</spanx> (optional)
+                                <spanx style="strong">linkIds</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of links to more information about this participant, for example in vCard format.
                                 The keys in the set MUST be the identifier of a Link object in the
                                 calendar object's <spanx style="strong">links</spanx> property.
@@ -1692,9 +1689,9 @@
                                 <spanx style="strong">offset</spanx>:
                                 <spanx style="verb">Duration</spanx>
                                 The offset from the start and end/due of the calendar object to fire the alert.
-                                If the calendar object does not define a time-zone,
-                                the user's default time-zone SHOULD be used when determining the offset,
-                                if known. Otherwise, the time-zone to use is implementation specific.
+                                If the calendar object does not define a time zone,
+                                the user's default time zone SHOULD be used when determining the offset,
+                                if known. Otherwise, the time zone to use is implementation specific.
                             </t>
                             <t>
                                 <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
@@ -1800,7 +1797,7 @@
                         <spanx style="verb">2015-09-02T00:00:00</spanx>
                     </t>
                     <t>
-                        The date/time the event would start in the event's time-zone.
+                        The date/time the event would start in the event's time zone.
                     </t>
                     <t>
                         A valid JSEvent MUST include this property.
@@ -1813,8 +1810,8 @@
                         <spanx style="verb">String|null</spanx> (optional, default:<spanx style="verb">null</spanx>)
                     </t>
                     <t>
-                        The <eref target="http://www.iana.org/time-zones">IANA Time Zone Database</eref> name for the
-                        time-zone the event is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
+                        The <eref target="http://www.iana.org/time zones">IANA Time Zone Database</eref> name for the
+                        time zone the event is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
                         omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
                     </t>
                 </section>
@@ -1825,27 +1822,16 @@
                         (optional, default: <spanx style="verb">PT0S</spanx>)
                     </t>
                     <t>
-                        The zero or positive duration of the event in the event's start time-zone.
+                        The zero or positive duration of the event in the event's start time zone.
                         The same rules as for the iCalendar DURATION value type (<xref target="RFC5545"/>)
                         apply:
-                        The duration of a week or a day depends on its position in the
-                        calendar.  In the case of discontinuities in the time scale, such
-                        as the change from standard time to daylight time and back, the
-                        computation of the exact duration requires the subtraction or
-                        addition of the change of duration of the discontinuity.  Leap
-                        seconds MUST NOT be considered when computing an exact duration.
-                        When computing an exact duration, the greatest order time
-                        components MUST be added first, that is, the number of days MUST
-                        be added first, followed by the number of hours, number of
-                        minutes, and number of seconds.
+                        The duration of a week or a day in hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time.
+                        Leap seconds MUST NOT be considered when computing an exact duration.
+                        When computing an exact duration, the greatest order time components MUST be added first, that is, the number of days MUST be added first, followed by the number of hours, number of minutes, and number of seconds.
                         Fractional seconds MUST be added last.
                     </t>
                     <t>
-                        A JSEvent MAY be end in a different time-zone (e.g. a plane flight crossing
-                        time-zones). In this case, the JSEvent MUST specify the end time-zone in a
-                        <spanx style="strong">location</spanx> property value that defines its
-                        <spanx style="strong">rel</spanx> to be <spanx style="verb">end</spanx> and
-                        the end time-zone in its <spanx style="strong">timeZone</spanx> property.
+                        A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="strong">rel</spanx> and <spanx style="strong">timeZone</spanx> properties of the JSEvent's <spanx style="strong">location</spanx> objects.
                     </t>
                 </section>
 
@@ -1854,7 +1840,7 @@
                         Type: <spanx style="verb">Boolean</spanx> (optional, default:<spanx style="verb">false</spanx>)
                     </t>
                     <t>
-                        Specifies if the event an all day event, such as a birthday or public holiday.
+                        Specifies if the event is an all day event, such as a birthday or public holiday.
                     </t>
                     <t>
                         If <spanx style="strong">isAllDay</spanx> is true, then the following restrictions apply:
@@ -1864,11 +1850,10 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="strong">duration</spanx> property MUST only include a day
-                                component.
+                                the <spanx style="strong">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
                             </t>
                           </list>
-                          Note that all-day events MAY be bound to a specific time-zone, as defined by
+                          Note that all-day events MAY be bound to a specific time zone, as defined by
                           the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
@@ -1907,7 +1892,7 @@
                         <spanx style="verb">2015-09-02T00:00:00</spanx>
                     </t>
                     <t>
-                        The date/time the task is due in the task's time-zone.
+                        The date/time the task is due in the task's time zone.
                     </t>
                 </section>
                 <section anchor="start-task" title="start">
@@ -1916,7 +1901,7 @@
                         <spanx style="verb">2015-09-02T00:00:00</spanx>
                     </t>
                     <t>
-                        The date/time the task should start in the task's time-zone.
+                        The date/time the task should start in the task's time zone.
                     </t>
                 </section>
                 <section anchor="timeZone-task" title="timeZone">
@@ -1926,7 +1911,7 @@
                     </t>
                     <t>
                         The IANA Time Zone Database name for the
-                        time-zone the task is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
+                        time zone the task is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
                         omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
                     </t>
                 </section>
@@ -1972,7 +1957,7 @@
                         MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                         Note that the <spanx style="strong">estimatedDuration</spanx> property MAY
                         contain a non-zero time duration. All-day tasks MAY be bound to a
-                        specific time-zone, as defined by the <spanx style="strong">timeZone</spanx> property.
+                        specific time zone, as defined by the <spanx style="strong">timeZone</spanx> property.
                     </t>
                 </section>
 
@@ -2160,13 +2145,13 @@
 
                     <c>start</c>
                     <c>
-                        Corresponds to the DTSTART property in iCalendar. Note that time-zone information is stored separately in JSEvent.
+                        Corresponds to the DTSTART property in iCalendar. Note that time zone information is stored separately in JSEvent.
                     </c>
 
                     <c>timeZone</c>
                     <c>
                         Corresponds to the TZID part of the DTSTART property in iCalendar.
-                        If the event has a different end time-zone to start time-zone, this should be
+                        If the event has a different end time zone to start time zone, this should be
                         added as a JSCalendar <spanx style="strong">location</spanx> with just a
                         <spanx style="strong">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
                     </c>
@@ -2203,7 +2188,7 @@
                     <c>
                         Corresponds to the DUE and DTSTART+DURATION properties in iCalendar. When mapping iCalendar
                         VTODOs with DTSTART+DURATION, the due date is the result of adding DURATION to DTSTART in the
-                        DTSTART time-zone.
+                        DTSTART time zone.
                     </c>
 
                     <c>start</c>
@@ -2214,7 +2199,7 @@
                     <c>timeZone</c>
                     <c>
                         Corresponds to the TZID part of the DTSTART/DUE properties in iCalendar.
-                        If the task has a different end time-zone to start or due time-zone, this should be
+                        If the task has a different end time zone to start or due time zone, this should be
                         added as a JSCalendar <spanx style="strong">location</spanx> with just a
                         <spanx style="strong">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
                     </c>
@@ -2758,9 +2743,9 @@
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-zoned-event-endtz" title="Event with end time-zone">
+<section anchor="example-zoned-event-endtz" title="Event with end time zone">
     <t>
-    This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.
+    This example illustrates the use of end time zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in Tokyo local time and highlight the time zone difference of the flight. The location names can serve as input for navigation systems.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2787,7 +2772,7 @@
 </section>
 <section anchor="example-floating-event" title="Floating-time event (with recurrence)">
     <t>
-    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.
+    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the user is located on that date.
     </t>
     <figure>
           <artwork><![CDATA[
