@@ -1400,7 +1400,8 @@
                     <t>
                         Represents methods by which participants may submit their RSVP response to
                         the organizer of the calendar object. The
-                        keys in the property value are the available methods. The value is a URI to
+			keys in the property value are the available methods and MUST only
+		        contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to
                         use that method.
                         Future methods may be defined in future specifications; a calendar client
                         MUST ignore any
@@ -1457,7 +1458,9 @@
                                 and updates to the calendar object.
                                 <vspace blankLines="1"/>
                                 The keys in the property value are
-                                the available methods. The value is a URI to use that method.
+				the available methods
+				and MUST only contain ASCII alphanumeric characters (A-Za-z0-9).
+				The value is a URI to use that method.
                                 Future methods may be defined in future specifications; a calendar client
                                 MUST ignore any
                                 method it does not understand, but MUST preserve the method key and URI.
