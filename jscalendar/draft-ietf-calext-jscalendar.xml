@@ -1405,7 +1405,9 @@
                         use that method.
                         Future methods may be defined in future specifications; a calendar client
                         MUST ignore any
-                        method it does not understand, but MUST preserve the method key and URI.
+			method it does not understand, but MUST preserve the method key and URI.
+			This property MUST be omitted if no method is defined (rather than an
+			empty object).
                     </t>
                     <t>
                         The following methods are defined:
@@ -1463,7 +1465,9 @@
 				The value is a URI to use that method.
                                 Future methods may be defined in future specifications; a calendar client
                                 MUST ignore any
-                                method it does not understand, but MUST preserve the method key and URI.
+				method it does not understand, but MUST preserve the method key and URI.
+				This property MUST be omitted if no method is defined (rather than an
+				empty object).
                                 <vspace blankLines="1"/>
                                 The following methods are defined:
                                 <list style="symbols">
