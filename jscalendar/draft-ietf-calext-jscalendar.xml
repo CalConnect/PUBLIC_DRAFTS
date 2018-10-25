@@ -1414,6 +1414,11 @@
                                 <xref target="RFC6047"/>
                                 response at this email address.
                                 The value MUST be a <spanx style="verb">mailto:</spanx> URI.
+			    </t>
+	                    <t>
+				<spanx style="verb">web</spanx>: Opening this URI in a web browser
+				will provide the user with a page where they can submit a reply
+				to the organizer.
                             </t>
                             <t>
                               <spanx style="verb">other</spanx>:
