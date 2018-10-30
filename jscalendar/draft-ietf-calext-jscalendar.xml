@@ -457,8 +457,8 @@
                     <t>
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">relation</spanx>: <spanx style="verb">String[Boolean]</spanx>
-                                Describes how the linked object is related to this object as a set of relation types.
+                                <spanx style="strong">relation</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
+                                Describes how the linked object is related to this object as a set of relation types. If not null, the set MUST NOT be empty.
                                 <vspace blankLines="1"/>
                                 Keys in the set MUST be one of the following values, defined in a future specification or a vendor-specific value:
                                 <list style="symbols">
