@@ -660,8 +660,12 @@
                             </t>
                             <t>
                                 <spanx style="strong">linkIds</spanx>:
-                                <spanx style="verb">String[]</spanx> (optional)
-                                A list of ids for links to alternate representations of this location.
+                                <spanx style="verb">String[Boolean]</spanx> (optional)
+				A set of link ids for links to alternate representations of this location.
+				Each key in the set MUST be the identifier of a Link object defined in the <spanx style="strong">links</spanx> property of this calendar object.
+                                The value for each key in the set MUST be <spanx style="verb">true</spanx>.
+                                This MUST be omitted if none (rather than an empty set).
+
                                 <vspace blankLines="1"/>
                                 For example, an alternative representation could be in vCard format.
                             </t>
