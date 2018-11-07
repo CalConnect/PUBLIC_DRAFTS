@@ -1046,11 +1046,31 @@
                                         every second from midnight on the 1st day of a year
                                         (inclusive) to midnight the 1st day of the following year
                                         (exclusive).
+
+                                        <vspace blankLines="1"/>
+
+                                        If skip is not "omit", the calendar system has leap months
+                                        and there is a byMonth property, generate candidates for the
+                                        leap months even if they don't occur in this year.
+
+                                        <vspace blankLines="1"/>
+
+                                        If skip is not "omit" and there is a byMonthDay property,
+                                        presume each month has the maximum number of days any month
+                                        may have in this calendar system when generating candidates,
+                                        even if it's more than this month actually has.
                                     </t>
                                     <t>
                                         <spanx style="strong">monthly</spanx>: every second from
                                         midnight on the 1st day of a month (inclusive) to midnight
                                         on the 1st of the following month (exclusive).
+
+                                        <vspace blankLines="1"/>
+
+                                        If skip is not "omit" and there is a byMonthDay property,
+                                        presume the month has the maximum number of days any month
+                                        may have in this calendar system when generating candidates,
+                                        even if it's more than this month actually has.
                                     </t>
                                     <t>
                                         <spanx style="strong">weekly</spanx>: every second from
@@ -1090,6 +1110,19 @@
                                     <t><spanx style="strong">byMonth</spanx>: the date-time is
                                         in the given month.
                                     </t>
+                                    <t><spanx style="strong">byWeekNo</spanx>: the date-time is
+                                        in the nth week of the year. Negative numbers mean the
+                                        nth last week of the year. This corresponds to weeks
+                                        according to week numbering as defined in ISO.8601.2004,
+                                        with a week defined as a seven day period, starting on
+                                        the firstDayOfWeek property value or Monday if omitted.
+                                        Week number one of the calendar year is the first week
+                                        that contains at least four days in that calendar year.
+                                    </t>
+                                    <t><spanx style="strong">byYearDay</spanx>: the date-time is
+                                        on the nth day of year. Negative numbers mean the nth
+                                        last day of the year.
+                                    </t>
                                     <t><spanx style="strong">byMonthDay</spanx>: the date-time
                                         is on the given day of the month. Negative numbers mean
                                         the nth last day of the month.
@@ -1101,19 +1134,6 @@
                                         frequency is yearly). Negative numbers means nth last
                                         occurrence within that period.
                                     </t>
-                                    <t><spanx style="strong">byYearDay</spanx>: the date-time is
-                                        on the nth day of year. Negative numbers mean the nth
-                                        last day of the year.
-                                    </t>
-                                    <t><spanx style="strong">byWeekNo</spanx>: the date-time is
-                                        in the nth week of the year. Negative numbers mean the
-                                        nth last week of the year. This corresponds to weeks
-                                        according to week numbering as defined in ISO.8601.2004,
-                                        with a week defined as a seven day period, starting on
-                                        the firstDayOfWeek property value or Monday if omitted.
-                                        Week number one of the calendar year is the first week
-                                        that contains at least four days in that calendar year.
-                                    </t>
                                     <t><spanx style="strong">byHour</spanx>: the date-time has
                                         the given hour value.
                                     </t>
@@ -1123,6 +1143,29 @@
                                     <t><spanx style="strong">bySecond</spanx>: the date-time has
                                         the given second value.
                                     </t>
+                                </list>
+
+                                If a skip property is defined and is not "omit", there may be
+                                candidates that do not correspond to valid dates (e.g. 31st
+                                Februrary in the gregorian calendar). In this case, the properties
+                                MUST be considered in the order above and:
+
+                                <list style="numbers">
+                                    <t>After applying the byMonth filter, if the candidate's month is
+                                        invalid for the given year increment it
+                                        (if skip is "forward") or decrement it (if skip is
+                                        "backward") until a valid month is found,
+                                        incrementing/decrementing the year as well if you pass
+                                        through the  beginning/end of the year. This only applies
+                                        to calendar systems with leap months.</t>
+                                    <t>After applying the byMonthDay filter, if the day of the month is
+                                        invalid for the given month and year, change the date to the
+                                        first day of the next month (if skip == "forward") or the last
+                                        day of the current month (if skip == "backward").</t>
+                                    <t>If any valid date produced after applying the skip is already a
+                                        candidate, eliminate the duplicate. (For example after adjusting,
+                                        30th Februrary and 31st February would both become the same
+                                        "real" date, so one is eliminated as a duplicate.)</t>
                                 </list>
                             </t>
                             <t>
@@ -1135,6 +1178,11 @@
                             <t>
                                 Any date-times before the start date of the event are eliminated
                                 (see below for why this might be needed).
+                            </t>
+                            <t>
+                                If a skip property is included and is not "omit", eliminate any
+                                date-times that have already been produced by previous iterations
+                                of the algorithm. (This is not possible if skip == "omit".)
                             </t>
                             <t>
                                 If further dates are required (we have not reached the until
