@@ -1031,7 +1031,11 @@
                     </t>
                     <t>
                         A recurrence rule specifies a set of set of date-times for recurring
-                        calendar objects. A recurrence rule has the following semantics:
+                        calendar objects. A recurrence rule has the following semantics. Note,
+                        wherever "year", "month" or "day of month" is used, this is within the
+                        calendar system given by the "rscale" property, which defaults to
+                        gregorian if omitted.
+
                         <list style="numbers">
                             <t>
                                 A set of candidates is generated. This is every second within a
@@ -1039,14 +1043,14 @@
                                 <list style="symbols">
                                     <t>
                                         <spanx style="strong">yearly</spanx>:
-                                        every second from midnight on the 1st January
-                                        (inclusive) to midnight the following 1st January
-                                        (exclusive)
+                                        every second from midnight on the 1st day of a year
+                                        (inclusive) to midnight the 1st day of the following year
+                                        (exclusive).
                                     </t>
                                     <t>
                                         <spanx style="strong">monthly</spanx>: every second from
-                                        midnight on the 1st of a month (inclusive) to midnight
-                                        on the 1st of the following month (exclusive)
+                                        midnight on the 1st day of a month (inclusive) to midnight
+                                        on the 1st of the following month (exclusive).
                                     </t>
                                     <t>
                                         <spanx style="strong">weekly</spanx>: every second from
@@ -1107,9 +1111,8 @@
                                         according to week numbering as defined in ISO.8601.2004,
                                         with a week defined as a seven day period, starting on
                                         the firstDayOfWeek property value or Monday if omitted.
-                                        Week number one
-                                        of the calendar year is the first week that contains at
-                                        least four days in that calendar year.
+                                        Week number one of the calendar year is the first week
+                                        that contains at least four days in that calendar year.
                                     </t>
                                     <t><spanx style="strong">byHour</spanx>: the date-time has
                                         the given hour value.
