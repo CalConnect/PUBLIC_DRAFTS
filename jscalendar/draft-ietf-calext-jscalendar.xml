@@ -1118,10 +1118,22 @@
                                         the firstDayOfWeek property value or Monday if omitted.
                                         Week number one of the calendar year is the first week
                                         that contains at least four days in that calendar year.
+
+                                        <vspace blankLines="1"/>
+
+                                        If the date-time is not valid (this may happen when
+                                        generating candidates with a skip property in effect),
+                                        it is always eliminated by this property.
                                     </t>
                                     <t><spanx style="strong">byYearDay</spanx>: the date-time is
                                         on the nth day of year. Negative numbers mean the nth
                                         last day of the year.
+
+                                        <vspace blankLines="1"/>
+
+                                        If the date-time is not valid (this may happen when
+                                        generating candidates with a skip property in effect),
+                                        it is always eliminated by this property.
                                     </t>
                                     <t><spanx style="strong">byMonthDay</spanx>: the date-time
                                         is on the given day of the month. Negative numbers mean
