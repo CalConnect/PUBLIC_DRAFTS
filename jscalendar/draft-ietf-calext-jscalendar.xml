@@ -335,11 +335,13 @@
                   <section anchor="identifiers" title="Identifiers">
                     <t>
                       If not noted otherwise, properties and object keys that define identifiers MUST
-                      be string values, MUST be at least 1 character in
-                      length and maximum 256 octets in size, and MUST only contain characters from the
+		      be string values, MUST be at least 1 character and maximum 256 characters in size,
+		      and MUST only contain characters from the
                       “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
                       <xref target="RFC4648"/>. This is the ASCII alphanumeric
-                      characters (A-Za-z0-9), hyphen (-), and underscore (_).
+		      characters (A-Za-z0-9), hyphen (-), and underscore (_). Note that <xref target="RFC7493"/>
+		      requires string values be encoded in UTF-8, so the maximum size of an
+		      identifier according to this definition is 256 octets.
                   </t>
                 </section>
                 <section anchor="normalization" title="Normalization and equivalence">
