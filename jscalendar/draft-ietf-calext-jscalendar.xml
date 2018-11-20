@@ -131,7 +131,9 @@
                 </t>
                 <t>Some examples in this document contain "partial" JSON documents used for illustrative purposes. In
                     these examples, three periods "..." are used to indicate a portion of the document that has been
-                    removed for compactness.
+		    removed for compactness. In this document, property and object definitions are formatted
+		    like <spanx style="strong">this</spanx> and are referred to in other sections
+		    like <spanx style="emph">this</spanx>. Verbatim text is formatted like <spanx style="verb">this</spanx>.
                 </t>
             </section>
         </section>
@@ -576,7 +578,7 @@
                     </t>
                     <t>
                         A longer-form text description of the object. The content is formatted according
-                        to the <spanx style="strong">descriptionContentType</spanx> property.
+                        to the <spanx style="emph">descriptionContentType</spanx> property.
                     </t>
                 </section>
 
@@ -595,7 +597,7 @@
                         Descriptions of type <spanx style="verb">text/html</spanx> MAY contain
                         <spanx style="verb">cid</spanx> URLs
                         (<xref target="RFC2392"/>) to reference links in the calendar object by use of
-                        the <spanx style="strong">cid</spanx> property of the <spanx style="strong">Link</spanx>
+                        the <spanx style="emph">cid</spanx> property of the <spanx style="emph">Link</spanx>
                         object.
                     </t>
                 </section>
@@ -612,7 +614,7 @@
                     </t>
                     <t>
                         A <spanx style="strong">Location</spanx> object has the following properties. It must define
-                        at least one other property than <spanx style="strong">rel</spanx>.
+                        at least one other property than <spanx style="emph">rel</spanx>.
                     </t>
                     <t>
                         <list style="symbols">
@@ -662,7 +664,7 @@
                                 <spanx style="strong">linkIds</spanx>:
                                 <spanx style="verb">String[Boolean]</spanx> (optional)
 				A set of link ids for links to alternate representations of this location.
-				Each key in the set MUST be the identifier of a Link object defined in the <spanx style="strong">links</spanx> property of this calendar object.
+				Each key in the set MUST be the identifier of a Link object defined in the <spanx style="emph">links</spanx> property of this calendar object.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
 
@@ -746,7 +748,7 @@
                                 The identifier MUST be unique within
                                 this JSCalendar object but has no meaning beyond that. Specifically,
                                 it MAY be different from the link
-                                identifier in the enclosing <spanx style="strong">links</spanx>
+                                identifier in the enclosing <spanx style="emph">links</spanx>
                                 property.
                             </t>
                             <t>
@@ -773,13 +775,13 @@
                                 <vspace blankLines="1"/>
                                 Links with a rel of <spanx style="verb">icon</spanx> SHOULD be considered by the client
                                 to be an image that it MAY use when presenting the calendar data to a user. The
-                                <spanx style="strong">display</spanx> property MAY be set to indicate the purpose
+                                <spanx style="emph">display</spanx> property MAY be set to indicate the purpose
                                 of this image.
                             </t>
                             <t>
                                 <spanx style="strong">display</spanx>: <spanx style="verb">String</spanx> (optional)
                                 Describes the intended purpose of a link to an image. If set,
-                                the <spanx style="strong">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>.
+                                the <spanx style="emph">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>.
                                 The value MUST be either
                                 one of the following values, registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
@@ -843,7 +845,7 @@
                         The set is represented as a map, with the keys being the categories specified
                         as URIs. The value for each key in the map MUST be <spanx style="verb">true</spanx>.
                         <vspace blankLines="1"/>
-                        In contrast to <spanx style="strong">keywords</spanx>, categories typically
+                        In contrast to <spanx style="emph">keywords</spanx>, categories typically
                         are structured.
                         For example, a vendor owning the domain <spanx style="verb">example.com</spanx>
                         might define the categories
@@ -882,11 +884,11 @@
                         in iCalendar, see
                         <xref target="RFC5545"/>
                         and<xref target="RFC7529"/>.
-                        A JSEvent recurs by applying the recurrence rule (and <spanx style="strong">
-                        recurrenceOverrides</spanx>) to the <spanx style="strong">start</spanx> date/time.
-                        A JSTask recurs by applying the recurrence rule (and <spanx style="strong">recurrenceOverrides</spanx>) to its <spanx style="strong">start</spanx> date/time, if defined.
-                        If the task does not define a start date-time, it recurs by its <spanx style="strong">due</spanx> date-time. If it neither defines a start
-                        or due date-time, it MUST NOT define a <spanx style="strong">recurrenceRule</spanx>.
+                        A JSEvent recurs by applying the recurrence rule (and <spanx style="emph">
+                        recurrenceOverrides</spanx>) to the <spanx style="emph">start</spanx> date/time.
+                        A JSTask recurs by applying the recurrence rule (and <spanx style="emph">recurrenceOverrides</spanx>) to its <spanx style="emph">start</spanx> date/time, if defined.
+                        If the task does not define a start date-time, it recurs by its <spanx style="emph">due</spanx> date-time. If it neither defines a start
+                        or due date-time, it MUST NOT define a <spanx style="emph">recurrenceRule</spanx>.
                     </t>
                     <t>
                         A Recurrence object has the following properties:
@@ -962,7 +964,7 @@
                                         The ordinal part of the BYDAY value in iCalendar
                                         (e.g. <spanx style="verb">"+1"</spanx> or <spanx style="verb">"-3"</spanx>).
                                         If present, rather than representing every occurrence of the weekday defined
-                                        in the <spanx style="strong">day</spanx> property of this <spanx style="strong">NDay</spanx>,
+                                        in the <spanx style="emph">day</spanx> property of this <spanx style="emph">NDay</spanx>,
                                         it represents only a specific instance within the recurrence period.
                                         The value can be positive or negative, but MUST NOT be
                                         zero. A negative integer means nth-last of period.
@@ -1019,15 +1021,15 @@
                             <t>
                                 <spanx style="strong">count</spanx>: <spanx style="verb">Number</spanx> (optional)
                                 The COUNT part from iCalendar. This MUST NOT be included if an
-                                <spanx style="strong">until</spanx> property is specified.
+                                <spanx style="emph">until</spanx> property is specified.
 
                             </t>
                             <t>
                                 <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx> (optional)
                                 The UNTIL part from iCalendar. This MUST NOT be included if a
-                                <spanx style="strong">count</spanx> property is specified. Note, as in iCalendar, this
+                                <spanx style="emph">count</spanx> property is specified. Note, as in iCalendar, this
                                 date is presumed to be in the time zone specified in
-                                <spanx style="strong">timeZone</spanx>. It is not a UTC time.
+                                <spanx style="emph">timeZone</spanx>. It is not a UTC time.
 
                             </t>
                         </list>
@@ -1228,7 +1230,7 @@
                         be empty in this case.
                     </t>
                     <t>
-                      If the patch object defines the <spanx style="strong">excluded</spanx> property to be
+                      If the patch object defines the <spanx style="emph">excluded</spanx> property to be
                       <spanx style="verb">true</spanx>, then the recurring calendar object does not occur
                       at the recurrence-id date-time (like an EXDATE from iCalendar). Such a patch object
                       MUST NOT patch any other property.
@@ -1480,7 +1482,7 @@
                                         iMIP <xref target="RFC6047"/> request at this email address.
                                         The value MUST be a <spanx style="verb">mailto:</spanx> URI.
                                         It MAY be different from the value of the participant's
-                                        <spanx style="strong">email</spanx> property.
+                                        <spanx style="emph">email</spanx> property.
                                     </t>
                                     <t>
                                         <spanx style="verb">other</spanx>:
@@ -1541,7 +1543,7 @@
                                 <spanx style="strong">locationId</spanx>: <spanx style="verb">String</spanx> (optional)
                                 The location at which this participant is expected to be attending.
                                 <vspace blankLines="1"/>
-                                If the value does not correspond to any location id in the <spanx style="strong">locations</spanx>
+                                If the value does not correspond to any location id in the <spanx style="emph">locations</spanx>
                                 property of the instance, this MUST be treated the same as if the participant's locationId were omitted.
 
                             </t>
@@ -1603,10 +1605,10 @@
                             </t>
                             <t>
                                 <spanx style="strong">scheduleUpdated</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
-                                The <spanx style="strong">updated</spanx> property of the last iMIP response from the
+                                The <spanx style="emph">updated</spanx> property of the last iMIP response from the
                                 participant.
                                 <vspace blankLines="1"/>
-                                This can be compared to the <spanx style="strong">updated</spanx> timestamp in future iMIP
+                                This can be compared to the <spanx style="emph">updated</spanx> timestamp in future iMIP
                                 responses to determine if the response is older or newer than the current data.
                             </t>
                             <t>
@@ -1641,7 +1643,7 @@
                                 <spanx style="strong">linkIds</spanx>: <spanx style="verb">String[Boolean]</spanx> (optional)
                                 A set of links to more information about this participant, for example in vCard format.
                                 The keys in the set MUST be the identifier of a Link object in the
-                                calendar object's <spanx style="strong">links</spanx> property.
+                                calendar object's <spanx style="emph">links</spanx> property.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
@@ -1659,7 +1661,7 @@
                     </t>
                     <t>
                         If <spanx style="verb">true</spanx>, use the user's default alerts and ignore the
-                        value of the <spanx style="strong">alerts</spanx>
+                        value of the <spanx style="emph">alerts</spanx>
                         property. Fetching user defaults is dependent on the API from which this JSCalendar object is
                         being fetched, and is not defined in this specification.
                         If an implementation cannot determine the user's default alerts, or none
@@ -1717,9 +1719,9 @@
                                 automatically dismiss or suppress duplicate alerts (alerts with the same alert
                                 id that triggered on or before this date-time).
                                 <vspace blankLines="1"/>
-                                For a recurring calendar object, the <spanx style="strong">acknowledged</spanx> property of
+                                For a recurring calendar object, the <spanx style="emph">acknowledged</spanx> property of
                                 the parent object MUST be updated, unless the alert is already overridden
-                                in <spanx style="strong">recurrenceOverrides</spanx>.
+                                in <spanx style="emph">recurrenceOverrides</spanx>.
                             </t>
                             <t>
                                 <spanx style="strong">snoozed</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
@@ -1847,7 +1849,7 @@
                         Fractional seconds MUST be added last.
                     </t>
                     <t>
-                        A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="strong">rel</spanx> and <spanx style="strong">timeZone</spanx> properties of the JSEvent's <spanx style="strong">location</spanx> objects.
+                        A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="emph">rel</spanx> and <spanx style="emph">timeZone</spanx> properties of the JSEvent's <spanx style="emph">location</spanx> objects.
                     </t>
                 </section>
 
@@ -1859,18 +1861,18 @@
                         Specifies if the event is an all day event, such as a birthday or public holiday.
                     </t>
                     <t>
-                        If <spanx style="strong">isAllDay</spanx> is true, then the following restrictions apply:
+                        If <spanx style="emph">isAllDay</spanx> is true, then the following restrictions apply:
                         <list style="symbols">
                             <t>
-                                the <spanx style="strong">start</spanx> property
+                                the <spanx style="emph">start</spanx> property
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="strong">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
+                                the <spanx style="emph">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
                             </t>
                           </list>
                           Note that all-day events MAY be bound to a specific time zone, as defined by
-                          the <spanx style="strong">timeZone</spanx> property.
+                          the <spanx style="emph">timeZone</spanx> property.
                     </t>
                 </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
@@ -1952,11 +1954,11 @@
                       last status update timestamp of a specific task recurrence, but leave other instances
                       unchanged. One way to achieve
                         this is by overriding the statusUpdatedAt property in the task
-                        <spanx style="strong">recurrenceOverrides</spanx>.
+                        <spanx style="emph">recurrenceOverrides</spanx>.
                         However, this could produce a long list of timestamps for regularly recurring tasks. An
                         alternative approach is to split the JSTask into a current, single instance of JSTask with this
                         instance status update time and a future recurring instance. Also see the definition of the
-                        <spanx style="strong">relatedTo</spanx> on splitting.
+                        <spanx style="emph">relatedTo</spanx> on splitting.
                     </t>
                 </section>
 
@@ -1968,24 +1970,24 @@
                         Specifies if the task is an all day task.
                     </t>
                     <t>
-                        If <spanx style="strong">isAllDay</spanx> is true, then
-                        the <spanx style="strong">start</spanx> and <spanx style="strong">due</spanx> properties
+                        If <spanx style="emph">isAllDay</spanx> is true, then
+                        the <spanx style="emph">start</spanx> and <spanx style="emph">due</spanx> properties
                         MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
-                        Note that the <spanx style="strong">estimatedDuration</spanx> property MAY
+                        Note that the <spanx style="emph">estimatedDuration</spanx> property MAY
                         contain a non-zero time duration. All-day tasks MAY be bound to a
-                        specific time zone, as defined by the <spanx style="strong">timeZone</spanx> property.
+                        specific time zone, as defined by the <spanx style="emph">timeZone</spanx> property.
                     </t>
                 </section>
 
                 <section anchor="progress-participant-task" title="progress">
                     <t>
-                        In addition to the common properties of a <spanx style="strong">Participant</spanx>
+                        In addition to the common properties of a <spanx style="emph">Participant</spanx>
                         object (<xref target="participants"/>), a Participant within a JSTask supports the  following property:
                         <list style="symbols">
                             <t>
                                 <spanx style="strong">progress</spanx>:
                                 <spanx style="verb">ParticipantProgress</spanx> (optional) The progress of the participant for this task, if known.
-                                This property MUST NOT be set if the <spanx style="strong">participationStatus</spanx>
+                                This property MUST NOT be set if the <spanx style="emph">participationStatus</spanx>
                                 of this participant is any other value but <spanx style="verb">accepted</spanx>.
                             </t>
                         </list>
@@ -2029,15 +2031,15 @@
                       (in order of evaluation):
                         <list style="symbols">
                             <t>
-                                <spanx style="verb">completed</spanx>: if all the <spanx style="strong">ParticipantProgress</spanx>
+                                <spanx style="verb">completed</spanx>: if all the <spanx style="emph">ParticipantProgress</spanx>
                                 status of the task participants is <spanx style="verb">completed</spanx>.
                             </t>
                             <t>
-                                <spanx style="verb">failed</spanx>: if at least one <spanx style="strong">ParticipantProgress</spanx>
+                                <spanx style="verb">failed</spanx>: if at least one <spanx style="emph">ParticipantProgress</spanx>
                                 status of the task participants is <spanx style="verb">failed</spanx>.
                             </t>
                             <t>
-                                <spanx style="verb">in-process</spanx>: if at least one <spanx style="strong">ParticipantProgress</spanx>
+                                <spanx style="verb">in-process</spanx>: if at least one <spanx style="emph">ParticipantProgress</spanx>
                                 status of the task participants is <spanx style="verb">in-process</spanx>.
                             </t>
                             <t>
@@ -2115,7 +2117,7 @@
                     </t>
                     <t>
                         A collection of group members. This is represented as a map of
-                        the <spanx style="strong">uid</spanx> property value to the
+                        the <spanx style="emph">uid</spanx> property value to the
                         JSCalendar object member having that uid. Implementations MUST ignore
                         entries of unknown type.
                     </t>
@@ -2140,11 +2142,11 @@
             </t>
             <section anchor="translate-jsevent" title="JSEvent">
                 <t>
-                    The iCalendar counterpart to <spanx style="strong">JSEvent</spanx> is the VEVENT component type
+                    The iCalendar counterpart to <spanx style="emph">JSEvent</spanx> is the VEVENT component type
                     <xref target="RFC5545"/>. A VEVENT component that is a direct child of a VCALENDAR component is
-                    equivalent to a standalone JSEvent. A VEVENT component <spanx style="strong">within</spanx> a VEVENT
+                    equivalent to a standalone JSEvent. A VEVENT component within a VEVENT
                     maps to the entries of
-                    the JSEvent <spanx style="strong">recurrenceOverrides</spanx> property.
+                    the JSEvent <spanx style="emph">recurrenceOverrides</spanx> property.
                 </t>
 
 
@@ -2155,8 +2157,8 @@
                     <c>isAllDay</c>
                     <c>
                         True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
-                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="strong">isAllDay</spanx>
-                        property is set to true and the <spanx style="strong">timeZone</spanx> property is null.
+                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="emph">isAllDay</spanx>
+                        property is set to true and the <spanx style="emph">timeZone</spanx> property is null.
                     </c>
 
                     <c>start</c>
@@ -2168,8 +2170,8 @@
                     <c>
                         Corresponds to the TZID part of the DTSTART property in iCalendar.
                         If the event has a different end time zone to start time zone, this should be
-                        added as a JSCalendar <spanx style="strong">location</spanx> with just a
-                        <spanx style="strong">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
+                        added as a JSCalendar <spanx style="emph">location</spanx> with just a
+                        <spanx style="emph">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
                     </c>
 
                     <c>duration</c>
@@ -2182,11 +2184,11 @@
 
             <section anchor="translate-jstask" title="JSTask">
                 <t>
-                    The iCalendar counterpart to <spanx style="strong">JSTask</spanx> is the VTODO component type
+                    The iCalendar counterpart to <spanx style="emph">JSTask</spanx> is the VTODO component type
                     <xref target="RFC5545"/>. A VTODO component that is a direct child of a VCALENDAR component is
-                    equivalent to a standalone JSTask. A VTODO component <spanx style="strong">within</spanx> a master
+                    equivalent to a standalone JSTask. A VTODO component within a master
                     VTODO maps to the entries of
-                    the JSTask <spanx style="strong">recurrenceOverrides</spanx> property.
+                    the JSTask <spanx style="emph">recurrenceOverrides</spanx> property.
                 </t>
 
                 <texttable anchor="translate-jstask-table" title="Translation between JSTask and iCalendar">
@@ -2196,8 +2198,8 @@
                     <c>isAllDay</c>
                     <c>
                         True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
-                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="strong">isAllDay</spanx>
-                        property is set to true and the <spanx style="strong">timeZone</spanx> property is null.
+                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="emph">isAllDay</spanx>
+                        property is set to true and the <spanx style="emph">timeZone</spanx> property is null.
                     </c>
 
                     <c>due</c>
@@ -2216,8 +2218,8 @@
                     <c>
                         Corresponds to the TZID part of the DTSTART/DUE properties in iCalendar.
                         If the task has a different end time zone to start or due time zone, this should be
-                        added as a JSCalendar <spanx style="strong">location</spanx> with just a
-                        <spanx style="strong">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
+                        added as a JSCalendar <spanx style="emph">location</spanx> with just a
+                        <spanx style="emph">timeZone</spanx> property and <spanx style="verb">rel="end"</spanx>.
                     </c>
 
                     <c>estimatedDuration</c>
@@ -2276,12 +2278,12 @@
 
                     <c>alerts</c>
                     <c>
-                        An <spanx style="strong">Alert</spanx> corresponds to the VALARM component in iCalendar, where
-                        the <spanx style="strong">action</spanx> is determined by the iCalendar ACTION property value
+                        An <spanx style="emph">Alert</spanx> corresponds to the VALARM component in iCalendar, where
+                        the <spanx style="emph">action</spanx> is determined by the iCalendar ACTION property value
                         (e.g., both <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx> actions
-                        map to a JSCalendar <spanx style="strong">display</spanx> action, and similarly for
+                        map to a JSCalendar <spanx style="emph">display</spanx> action, and similarly for
                         <spanx style="verb">EMAIL</spanx>).
-                        The <spanx style="strong">relativeTo</spanx> and <spanx style="strong">offset</spanx> properties
+                        The <spanx style="emph">relativeTo</spanx> and <spanx style="emph">offset</spanx> properties
                         corresponds to the iCalendar TRIGGER property.
                     </c>
 
@@ -2324,8 +2326,8 @@
                     <c>
                       Corresponds to the ATTACH (<xref target="RFC5545"/>) or IMAGE (<xref target="RFC7986"/>)
                       properties with a URI value type set to the link <spanx style="verb">href</spanx>.
-                      (<xref target="RFC7986"/>). The <spanx style="strong">type</spanx> property
-                      corresponds to the FMTTYPE parameter, the <spanx style="strong">size</spanx>
+                      (<xref target="RFC7986"/>). The <spanx style="emph">type</spanx> property
+                      corresponds to the FMTTYPE parameter, the <spanx style="emph">size</spanx>
                       property to the SIZE parameter.
                       Mapping all other properties is implementation-specific.
                     </c>
@@ -2629,7 +2631,7 @@
                     properties in JSCalendar are:
                     <list style="symbols">
                         <t>
-                            <spanx style="strong">JCal</spanx>: Define iCalendar properties in JCal
+                            <spanx style="emph">JCal</spanx>: Define iCalendar properties in JCal
                             format
                             (<xref target="RFC7265"/>) in a vendor-specific property of the
                             JCalendar
@@ -2638,7 +2640,7 @@
                             complete iCalendar object representation.
                         </t>
                         <t>
-                            <spanx style="strong">Alternate link</spanx>: Define an alternate link
+                            <spanx style="emph">Alternate link</spanx>: Define an alternate link
                             (<xref target="links"/>)
                             value pointing to the iCalendar representation of the JSCalendar object.
                             E.g. the alternative representation of a VEVENT would be represented as
