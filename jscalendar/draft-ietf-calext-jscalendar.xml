@@ -2810,7 +2810,7 @@
 </section>
 <section anchor="example-multi-location-event" title="Event with multiple locations and localization">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized. (Note: the localization of the event description contains an UTF-8 encoded German Umlaut. This character may have been replaced with ASCII characters in the plain-text rendering of this RFC document)
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized.
     </t>
     <figure>
           <artwork><![CDATA[
