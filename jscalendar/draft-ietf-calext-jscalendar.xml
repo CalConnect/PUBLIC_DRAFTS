@@ -2661,7 +2661,7 @@
                 placeholder property with key <spanx style="verb">...</spanx>. While most of the
                 examples use calendar event objects, they are also illustrative for tasks.
             </t>
-            <!-- EXAMPLES START -->
+	     <!-- EXAMPLES START -->
 
 <section anchor="example-simple-event" title="Simple event">
     <t>
@@ -2763,9 +2763,9 @@
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-zoned-event-endtz" title="Event with end time zone">
+<section anchor="example-zoned-event-endtz" title="Event with end time-zone">
     <t>
-    This example illustrates the use of end time zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in Tokyo local time and highlight the time zone difference of the flight. The location names can serve as input for navigation systems.
+    This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2792,7 +2792,7 @@
 </section>
 <section anchor="example-floating-event" title="Floating-time event (with recurrence)">
     <t>
-    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the user is located on that date.
+    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -2840,7 +2840,7 @@
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
       "virtualLocations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
-                              "Gratis Live-Stream aus der Music Bowl"
+                                "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
@@ -2904,15 +2904,9 @@
   "start": "2018-01-08T09:00:00",
   "timeZone": "Africa/Johannesburg",
   "duration": "PT1H",
-  "locations": {
+  "virtualLocations": {
     "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
-      "title": "ChatMe meeting room",
-      "rel": "virtual",
-      "features": [
-        "audio",
-        "chat",
-        "video"
-      ],
+      "name": "ChatMe meeting room",
       "uri": "https://chatme.example.com?id=1234567"
     }
   },
@@ -2920,32 +2914,39 @@
     "frequency": "weekly"
   },
   "replyTo": {
-    "imip": "zoe@foobar.example.com"
+    "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
   },
   "participants": {
-    "tom@foobar.example.com": {
+    "dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ": {
       "name": "Tom Tool",
       "email": "tom@foobar.example.com",
+      "sendTo": {
+        "imip": "mailto:6489-4f14-a57f-c1@calendar.example.com"
+      },
       "participationStatus": "accepted",
-      "roles": [
-        "attendee"
-      ]
+      "roles": {
+        "attendee": true
+      }
     },
-    "zoe@foobar.example.com": {
+    "em9lQGZvb2Jhci5leGFtcGxlLmNvbQ": {
       "name": "Zoe Zelda",
       "email": "zoe@foobar.example.com",
+      "sendTo": {
+        "imip": "mailto:zoe@foobar.example.com"
+      },
       "participationStatus": "accepted",
-      "roles": [
-        "owner",
-        "chair"
-      ]
+      "roles": {
+        "owner": true,
+        "attendee": true,
+        "chair": true
+      }
     },
     "...": ""
   },
   "recurrenceOverrides": {
     "2018-03-08T09:00:00": {
-      "participants/tom@foobar.example.com/participationStatus":
-                                                           "declined"
+      "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationStatus":
+                                                                "declined"
     }
   }
 }
