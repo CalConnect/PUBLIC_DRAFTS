@@ -1,9 +1,0 @@
-[abstract]
-= Scope
-
-This specification updates RELATED-TO defined in <<RFC5545>> and
-introduces new iCalendar properties LINK, CONCEPT and REFID to allow 
-better linking and grouping of iCalendar components and related data.
-   
-// No references allowed in the Abstract
-

@@ -1,9 +1,0 @@
-
-[#appendix-a]
-[appendix]
-= Open issues
-
-restype values::
-  Need to determine what if any registry of resource
-  types already exists and use that.
-

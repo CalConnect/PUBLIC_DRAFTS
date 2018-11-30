@@ -1,9 +1,0 @@
-= Security Considerations
-
-Applications using the LINK property need to be aware of the risks
-entailed in using the URIs provided as values.  See <RFC3986>> for a
-discussion of the security considerations relating to URIs.
-
-The CONCEPT and redefined RELATED-TO property have the same issues in
-that values may be URIs.
-
