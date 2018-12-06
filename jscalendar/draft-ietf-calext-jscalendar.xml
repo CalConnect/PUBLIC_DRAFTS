@@ -56,8 +56,9 @@
             <t>
                 This specification defines a data model and JSON representation of calendar data that can be used
                 for storage and data exchange in a calendaring and scheduling environment. It aims to be an
-                alternative to the widely deployed iCalendar data format and to be unambiguous, extendable and
-                simple to process.
+		alternative to the widely deployed iCalendar data format <xref target="RFC5545"/> and to be unambiguous,
+		extendable and simple to process. In contrast to the JSON-based jCal format <xref target="RFC7529"/>, it
+		is not a direct mapping from iCalendar and expands semantics where appropriate.
             </t>
         </abstract>
     </front>
@@ -113,9 +114,14 @@
                     differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not have a way to express a concise difference between two calendar components, which results in verbose exchanges during
                     scheduling.
                 </t>
+            </section>
+            <section anchor="relation-to-jcal" title="Relation to the jCal format">
                 <t>
-                    Some of these issues were addressed by the <xref target="RFC7265">jCal</xref> format, which is a direct
-                    mapping between iCalendar and JSON. However, it did not attempt to extend or update iCalendar semantics.
+                    The JSON format for iCalendar data, <xref target="RFC7265">jCal</xref>, is a direct
+		    mapping between iCalendar and JSON. It does not attempt to extend or update iCalendar semantics, and consequently does not address the issues outlined in <xref target="relation-to-icalendar"/>.
+                </t>
+                <t>
+			Since the standardization of jCal, the majority of implementations and service providers either kept using iCalendar, or came up with their own proprietary JSON representation, which often are incompatible with each other. JSCalendar is intended to meet this demand for JSON formatted calendar data, and to provide a standard representation as an alternative to new proprietary formats.
                 </t>
             </section>
             <section anchor="notational-conventions" title="Notational Conventions">
