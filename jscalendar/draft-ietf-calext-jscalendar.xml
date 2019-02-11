@@ -339,15 +339,21 @@
                     </t>
                   </section>
                   <section anchor="identifiers" title="Identifiers">
-                    <t>
-                      If not noted otherwise, properties and object keys that define identifiers MUST
-		      be string values, MUST be at least 1 character and maximum 256 characters in size,
-		      and MUST only contain characters from the
-                      “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
-                      <xref target="RFC4648"/>. This is the ASCII alphanumeric
-		      characters (A-Za-z0-9), hyphen (-), and underscore (_). Note that <xref target="RFC7493"/>
-		      requires string values be encoded in UTF-8, so the maximum size of an
-		      identifier according to this definition is 256 octets.
+                      <t>
+                          If not stated otherwise in the respective property definition, properties and object
+                          keys that define identifiers MUST
+                          be string values, MUST be at least 1 character and maximum 256 characters in size,
+                          and MUST only contain characters from the
+                          “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
+                          <xref target="RFC4648"/>. This is the ASCII alphanumeric
+                          characters (A-Za-z0-9), hyphen (-), and underscore (_). Note that <xref target="RFC7493"/>
+                          requires string values be encoded in UTF-8, so the maximum size of an
+                          identifier according to this definition is 256 octets.
+                          <vspace blankLines="1"/>. Identifiers in object maps need not be universally unique,
+                          e.g. two calendar objects MAY use the same identifiers in their respective
+                          <spanx style="emph">links</spanx> properties.
+                          <vspace blankLines="1"/>
+                          Nevertheless, a UUID typically is a good choice.
                   </t>
                 </section>
                 <section anchor="normalization" title="Normalization and equivalence">
@@ -616,9 +622,7 @@
                         <spanx style="verb">String[Location]</spanx> (optional)
                     </t>
                     <t>
-                        A map of location ids to Location objects, representing locations associated with the object.
-                        A location id MUST be unique
-                        to this object; a UUID is a practical choice.
+                        A map of location identifiers to Location objects, representing locations associated with the object.
                     </t>
                     <t>
                         A <spanx style="strong">Location</spanx> object has the following properties. It must define
@@ -689,10 +693,8 @@
                         <spanx style="verb">String[VirtualLocation]</spanx> (optional)
                     </t>
                     <t>
-                        A map of ids to VirtualLocation objects, representing virtual locations, such as
+                        A map of identifiers to VirtualLocation objects, representing virtual locations, such as
                         video conferences or chat rooms, associated with the object.
-                        A virtual location id MUST be unique
-                        to this object; a UUID is a practical choice.
                     </t>
                     <t>
                         A <spanx style="strong">VirtualLocation</spanx> object has the following properties.
@@ -729,9 +731,7 @@
                         <spanx style="verb">String[Link]</spanx> (optional)
                     </t>
                     <t>
-                        A map of link ids to Link objects, representing external resources associated with the object.
-                        A link id MUST be unique to this
-                        calendar object; a UUID is a practical choice.
+                        A map of link identifiers to Link objects, representing external resources associated with the object.
                     </t>
 
                     <t>
@@ -754,7 +754,7 @@
                                 This MUST be a valid <spanx style="verb">content-id</spanx>
                                 value according to the definition of section 2 in <xref target="RFC2392"/>.
                                 The identifier MUST be unique within
-                                this JSCalendar object but has no meaning beyond that. Specifically,
+                                this JSCalendar object Link objects but has no meaning beyond that. Specifically,
                                 it MAY be different from the link
                                 identifier in the enclosing <spanx style="emph">links</spanx>
                                 property.
@@ -1515,10 +1515,8 @@
                         <spanx style="verb">String[Participant]</spanx> (optional)
                     </t>
                     <t>
-                        A map of participant ids to participants, describing their participation in the calendar object.
-                        A participant id MUST be unique
-                        to this calendar object; a UUID or the base-64 encoded email address of the
-                        participant is a good choice.
+                        A map of participant identifiers to participants, describing their participation in the calendar object.
+                        A UUID or the base-64 encoded email address of the participant is a good choice for the identifier.
                     </t>
                     <t>
                         A <spanx style="strong">Participant</spanx> object has the following properties:
@@ -1747,9 +1745,8 @@
                         <spanx style="verb">String[Alert]</spanx> (optional)
                     </t>
                     <t>
-                        A map of alert ids to Alert objects, representing alerts/reminders to display or send the user
-                        for this calendar object. The id MUST be unique to this calendar object;
-                        a UUID is a practical choice.
+                        A map of alert identifiers to Alert objects, representing alerts/reminders to display or send the user
+                        for this calendar object.
                     </t>
                     <t>
                         An <spanx style="strong">Alert</spanx> Object has the following properties:
