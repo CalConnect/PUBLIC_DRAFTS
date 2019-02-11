@@ -1477,14 +1477,16 @@
                     <t>
                         Represents methods by which participants may submit their RSVP response to
                         the organizer of the calendar object. The
-			keys in the property value are the available methods and MUST only
-		        contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to
+                        keys in the property value are the available methods and MUST only
+                        contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to
                         use that method.
                         Future methods may be defined in future specifications; a calendar client
                         MUST ignore any
-			method it does not understand, but MUST preserve the method key and URI.
-			This property MUST be omitted if no method is defined (rather than an
-			empty object).
+                        method it does not understand, but MUST preserve the method key and URI.
+                        This property MUST be omitted if no method is defined (rather than an
+                        empty object). If this property is set, the
+                        <spanx style="emph">participants</spanx> property of this calendar object
+                        MUST contain at least one participant.
                     </t>
                     <t>
                         The following methods are defined:
@@ -1494,14 +1496,14 @@
                                 <xref target="RFC6047"/>
                                 response at this email address.
                                 The value MUST be a <spanx style="verb">mailto:</spanx> URI.
-			    </t>
-	                    <t>
-				<spanx style="verb">web</spanx>: Opening this URI in a web browser
-				will provide the user with a page where they can submit a reply
-				to the organizer.
                             </t>
                             <t>
-                              <spanx style="verb">other</spanx>:
+                                <spanx style="verb">web</spanx>: Opening this URI in a web browser
+                                will provide the user with a page where they can submit a reply
+                                to the organizer.
+                            </t>
+                            <t>
+                                <spanx style="verb">other</spanx>:
                                 The organizer is identified by this URI but the method how to
                                 submit the RSVP is undefined.
                             </t>
@@ -1517,6 +1519,10 @@
                     <t>
                         A map of participant identifiers to participants, describing their participation in the calendar object.
                         A UUID or the base-64 encoded email address of the participant is a good choice for the identifier.
+                    </t>
+                    <t>
+                        If this property is set, then the <spanx style="emph">replyTo</spanx>
+                        property of this calendar object MUST define at least one reply method.
                     </t>
                     <t>
                         A <spanx style="strong">Participant</spanx> object has the following properties:
