@@ -1942,11 +1942,15 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="emph">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
+                                the <spanx style="emph">timeZone</spanx> property MUST be <spanx style="verb">null</spanx>
+                            </t>
+                            <t>
+                                the <spanx style="emph">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds)
+                            </t>
+                            <t>
+                                the <spanx style="emph">freeBusyStatus</spanx> property MUST NOT be <spanx style="verb">busy</spanx>
                             </t>
                           </list>
-                          Note that all-day events MAY be bound to a specific time zone, as defined by
-                          the <spanx style="emph">timeZone</spanx> property.
                     </t>
                 </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
@@ -2044,12 +2048,19 @@
                         Specifies if the task is an all day task.
                     </t>
                     <t>
-                        If <spanx style="emph">isAllDay</spanx> is true, then
-                        the <spanx style="emph">start</spanx> and <spanx style="emph">due</spanx> properties
-                        MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
-                        Note that the <spanx style="emph">estimatedDuration</spanx> property MAY
-                        contain a non-zero time duration. All-day tasks MAY be bound to a
-                        specific time zone, as defined by the <spanx style="emph">timeZone</spanx> property.
+                        If <spanx style="emph">isAllDay</spanx> is true, then the following restrictions apply:
+                        <list style="symbols">
+                            <t>
+                                the <spanx style="emph">start</spanx> and <spanx style="emph">due</spanx> properties
+                                MUST have a time component of <spanx style="verb">T00:00:00</spanx>, or not be set
+                            </t>
+                            <t>
+                                the <spanx style="emph">timeZone</spanx> property MUST be <spanx style="verb">null</spanx>
+                            </t>
+                            <t>
+                                the <spanx style="emph">freeBusyStatus</spanx> property MUST NOT be <spanx style="verb">busy</spanx>
+                            </t>
+                        </list>
                     </t>
                 </section>
 
@@ -2230,9 +2241,7 @@
 
                     <c>isAllDay</c>
                     <c>
-                        True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
-                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="emph">isAllDay</spanx>
-                        property is set to true and the <spanx style="emph">timeZone</spanx> property is null.
+                        True, if the type of the DTSTART property in iCalendar is DATE.
                     </c>
 
                     <c>start</c>
@@ -2271,9 +2280,7 @@
 
                     <c>isAllDay</c>
                     <c>
-                        True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
-                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="emph">isAllDay</spanx>
-                        property is set to true and the <spanx style="emph">timeZone</spanx> property is null.
+                        True, if the type of the DTSTART property in iCalendar is DATE.
                     </c>
 
                     <c>due</c>
