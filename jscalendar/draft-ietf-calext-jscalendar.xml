@@ -354,7 +354,18 @@
                           <spanx style="emph">links</spanx> properties.
                           <vspace blankLines="1"/>
                           Nevertheless, a UUID typically is a good choice.
-                  </t>
+                      </t>
+                  </section>
+                  <section anchor="timezones" title="Time Zones">
+                      <t>
+                        By default, time zones in JSCalendar are identified by their name in the
+                        <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref>,
+                        and the zone rules of the respective zone record apply.
+                        Other identifiers MUST start with a solidus character (ASCII decimal 47),
+                        and lookup or evaluation of their zone rules are out of scope of this
+                        specification. Also see section 3.2.19 of <xref target="RFC5545"/> and
+                        section 3.6. of <xref target="RFC7808"/> for discussion of such identifiers.
+                      </t>
                 </section>
                 <section anchor="normalization" title="Normalization and equivalence">
                     <t>
@@ -1902,9 +1913,9 @@
                         <spanx style="verb">String|null</spanx> (optional, default:<spanx style="verb">null</spanx>)
                     </t>
                     <t>
-                        The <eref target="http://www.iana.org/time zones">IANA Time Zone Database</eref> name for the
-                        time zone the event is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
-                        omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
+                        Identifies the time zone the event is scheduled in, or <spanx style="verb">null</spanx> for
+                        floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
+                        (i.e. floating time).
                     </t>
                 </section>
 
@@ -2006,9 +2017,9 @@
                         <spanx style="verb">String|null</spanx> (optional, default:<spanx style="verb">null</spanx>)
                     </t>
                     <t>
-                        The IANA Time Zone Database name for the
-                        time zone the task is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
-                        omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
+                        Identifies the time zone the task is scheduled in, or <spanx style="verb">null</spanx> for
+                        floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
+                        (i.e. floating time).
                     </t>
                 </section>
 
@@ -3142,6 +3153,7 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7493.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
