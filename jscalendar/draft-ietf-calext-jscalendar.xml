@@ -2398,9 +2398,9 @@
 
                     <c>links</c>
                     <c>
-                      Corresponds to the ATTACH (<xref target="RFC5545"/>) or IMAGE (<xref target="RFC7986"/>)
-                      properties with a URI value type set to the link <spanx style="verb">href</spanx>.
-                      (<xref target="RFC7986"/>). The <spanx style="emph">type</spanx> property
+                      Use the ATTACH (<xref target="RFC5545"/>), URL or IMAGE (<xref target="RFC7986"/>)
+                      property values of URI value type as the Link <spanx style="emph">href</spanx>.
+                      The Link <spanx style="emph">type</spanx> property
                       corresponds to the FMTTYPE parameter, the <spanx style="emph">size</spanx>
                       property to the SIZE parameter.
                       Mapping all other properties is implementation-specific.
