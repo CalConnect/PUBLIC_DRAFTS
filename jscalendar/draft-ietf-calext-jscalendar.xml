@@ -1049,7 +1049,11 @@
                                 <spanx style="emph">count</spanx> property is specified. Note, as in iCalendar, this
                                 date is presumed to be in the time zone specified in
                                 <spanx style="emph">timeZone</spanx>. It is not a UTC time.
-
+                                As in iCalendar, the until value bounds the recurrence rule inclusively.
+                                To allow for using the same bound regardless of the
+                                value of the <spanx style="emph">isAllDay</spanx> property, the
+                                <spanx style="emph">until</spanx> date time MAY include non-zero time components
+                                even for all-day calendar objects.
                             </t>
                         </list>
 
@@ -2474,9 +2478,12 @@
 
                     <c>recurrenceRule</c>
                     <c>
-                        Corresponds to the RRULE property in iCalendar. See the property definition at section
-                        <xref target="recurrenceRule"/>
-                        how to map a RRULE value.
+                        Corresponds to the RRULE property in iCalendar. For all-day calendar objects,
+                        convert the <spanx style="emph">until</spanx> property value to an iCalendar
+                        DATE (effectively removing the time component). To convert a DATE-typed UNTIL
+                        from iCalendar, set the time components of the LocalDate value to
+                        <spanx style="verb">23:59:59</spanx>. If the iCalendar UNTIL value is a
+                        UTC date time, convert to the local time in the calendar object time zone.
                     </c>
 
                     <c>relatedTo</c>
