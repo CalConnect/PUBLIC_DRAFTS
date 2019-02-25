@@ -18,6 +18,7 @@
 <!ENTITY rfc7538 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7538.xml'>
 <!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
 <!ENTITY rfc8144 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8144.xml'>
+<!ENTITY rfc8174 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml'>
 ]>
 
 <?rfc toc="yes"?>
@@ -143,8 +144,10 @@
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
       "MAY", and "OPTIONAL" in this document are to be interpreted as
-      described in <xref target='RFC2119' />.</t>
-      
+      described in <eref target="https://tools.ietf.org/html/bcp14">BCP 14</eref>
+      <xref target='RFC2119' /> <xref target='RFC8174' /> 
+      when, and only when, they appear in all capitals, as shown here.</t>
+
       <t>The notation used in this memo is the ABNF notation of <xref
       target='RFC5234' /> as used by <xref
       target='RFC5545'>iCalendar</xref>. Any syntax elements shown
@@ -1421,6 +1424,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
       &rfc7231;
       &rfc7240;
       &rfc7538;
+      &rfc8174;
     </references>
 
     <references title='Informative References'>
@@ -1436,6 +1440,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         <list style='numbers'>
           <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
           <t>Editorial changes from Adam Roach.</t>
+          <t>Minor editorial changes.</t>
        </list>
       </t>
       <t>
