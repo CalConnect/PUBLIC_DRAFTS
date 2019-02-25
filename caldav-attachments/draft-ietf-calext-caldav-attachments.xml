@@ -29,7 +29,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="info" ipr='trust200902'
-     docName='draft-ietf-calext-caldav-attachments-03'>
+     docName='draft-ietf-calext-caldav-attachments-04'>
   <front>
     <title abbrev="CalDAV Managed Attachments">CalDAV Managed Attachments</title>
 
@@ -107,8 +107,9 @@
       target='RFC5546'>iTIP</xref> to handle scheduling operations
       between calendar users.</t>
 
-      <t><xref target="RFC4791" /> defines the CalDAV Calendar Access
-      protocol, based on <xref target="RFC7230">HTTP</xref>, for
+      <t><xref target="RFC4791" /> defines the Calendaring Extensions
+      to WebDAV (CalDAV),
+      based on <xref target="RFC7230">HTTP</xref>, for
       accessing calendar data stored on a server.</t>
 
       <t>Calendar users often want to include attachments with their
@@ -131,7 +132,7 @@
       send the attachment to the server, separately from the iCalendar
       data, and the server takes care of adding appropriate "ATTACH"
       properties in the iCalendar data as well as managing access
-      privileges . The server can also provide additional information
+      privileges. The server can also provide additional information
       to the client about each attachment in the iCalendar data, such
       as the size and an identifier.</t>
     </section> <!-- Intro -->
@@ -262,7 +263,9 @@
             RECURRENCE-ID value as stored in the calendar object
             resource (i.e. without any conversion to UTC). If multiple
             items of this form are used, they MUST be unique
-            values.</t>
+            values.  For example, to target a recurrence defined by property
+            RECURRENCE-ID;TZID=America/Montreal:20111022T160000, the
+            query parameter rid=20111022T160000 would be used.</t>
       	  </list>
       	  If the "rid" query parameter is not present, all recurrence
           instances in the calendar object resource are targeted.
@@ -275,7 +278,8 @@
 
           <figure>
             <preamble>
-              Example:
+              Example (targeting the master instance and a specific
+              overridden instance):
             </preamble>
             <artwork>http://calendar.example.com/events/1.ics?
   action=attachment-add&amp;rid=M,20111022T160000</artwork>
@@ -285,7 +289,8 @@
       	<section title="managed-id= Query Parameter" anchor="managed-id">
       	  <t>The "managed-id" query parameter is used to identify
           which "ATTACH" property is being updated or removed. The
-          value of this query parameter MUST match the "MANAGED-ID"
+          value of this query parameter MUST match the <xref
+          target="MANAGED-ID-parameter">"MANAGED-ID"</xref>
           property parameter value on the "ATTACH" property in the
           calendar object resource instance(s) targeted by the
           request.
@@ -1329,8 +1334,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
     </section> <!-- Implementations -->
 
     <section title='Security Considerations'>
-      <t>Malicious content could be introduced into the Calendar
-      Server by way of a managed attachment, and propagated to many
+      <t>Malicious content could be introduced into the calendar
+      server by way of a managed attachment, and propagated to many
       end users via scheduling. Servers SHOULD check managed
       attachments for malicious or inappropriate content. Upon
       detecting of such content, servers SHOULD remove the attachment,
@@ -1419,6 +1424,12 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)">
+      <t>
+        Changes in calext-04:
+        <list style='numbers'>
+          <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
+       </list>
+      </t>
       <t>
         Changes in calext-03:
         <list style='numbers'>
