@@ -15,6 +15,7 @@
 <!ENTITY rfc7230 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml'>
 <!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
 <!ENTITY rfc7240 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml'>
+<!ENTITY rfc7538 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7538.xml'>
 <!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
 <!ENTITY rfc8144 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8144.xml'>
 ]>
@@ -104,7 +105,8 @@
     <section title='Introduction'>
       <t>The <xref target='RFC5545'>iCalendar</xref> data format is
       used to represent calendar data and is used with <xref
-      target='RFC5546'>iTIP</xref> to handle scheduling operations
+      target='RFC5546'>iCalendar Transport-independent Interoperability
+      Protocol (iTIP)</xref> to handle scheduling operations 
       between calendar users.</t>
 
       <t><xref target="RFC4791" /> defines the Calendaring Extensions
@@ -198,7 +200,7 @@
         <t>A server might choose to not support storing managed
         attachments on a per-recurrence instance basis (i.e., they can
         only be added to all instances as a whole). If that is the
-        case, the server MUST include
+        case, the server MUST also include
         "calendar-managed-attachments-no-recurrence" as a field in the
         DAV response header field from an OPTIONS request on a calendar home
         collection. When that field is present, clients MUST NOT
@@ -864,7 +866,10 @@ Content-Length: 0
 
         <section title="Redirects" anchor="redirects">
           <t>For POST requests that add or update attachment data, the
-          server MAY issue an HTTP redirect to require the client to
+          server MAY issue
+          a <xref target="RFC7231">307 (Temporary Redirect)</xref>
+          or <xref target="RFC7538">308 (Permanent Redirect)</xref>
+          response to require the client to
           re-issue the POST request using a different request-URI. As
           a result, it is always best for clients to use the
           "100-continue" expectation defined in Section 5.1.1 of
@@ -1206,8 +1211,9 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <section title="Implementation Status" anchor="impl">
 
-      <t>&lt; RFC Editor: before publication please remove this section
-	and the reference to <xref target="RFC7942"/> &gt;</t>
+      <t>&lt; RFC Editor: before publication please remove this section,
+	the reference to <xref target="RFC7942"/>, and any resulting
+        "URIs" references sub-section. &gt;</t>
 
       <t>This section records the status of known implementations of
 	the protocol defined by this specification at the time of
@@ -1414,6 +1420,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
       &rfc7230;
       &rfc7231;
       &rfc7240;
+      &rfc7538;
     </references>
 
     <references title='Informative References'>
@@ -1428,6 +1435,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         Changes in calext-04:
         <list style='numbers'>
           <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
+          <t>Editorial changes from Adam Roach.</t>
        </list>
       </t>
       <t>
