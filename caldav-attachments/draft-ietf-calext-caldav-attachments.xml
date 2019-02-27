@@ -7,6 +7,7 @@
 <!ENTITY rfc3864 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3864.xml'>
 <!ENTITY rfc4331 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4331.xml'>
 <!ENTITY rfc4791 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+<!ENTITY rfc4918 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4918.xml'>
 <!ENTITY rfc5234 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5234.xml'>
 <!ENTITY rfc5545 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml'>
 <!ENTITY rfc5546 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml'>
@@ -197,14 +198,15 @@
       <section title="Discovering Support for Managed Attachments">
         <t>A server supporting the features described in this
         specification MUST include "calendar-managed-attachments" as a
-        field in the DAV response header field from an OPTIONS request on a
+        token in the DAV response header field (as defined in Section
+        10.1 of <xref target="RFC4918" />) from an OPTIONS request on a
         calendar home collection.</t>
         
         <t>A server might choose to not support storing managed
         attachments on a per-recurrence instance basis (i.e., they can
         only be added to all instances as a whole). If that is the
         case, the server MUST also include
-        "calendar-managed-attachments-no-recurrence" as a field in the
+        "calendar-managed-attachments-no-recurrence" as a token in the
         DAV response header field from an OPTIONS request on a calendar home
         collection. When that field is present, clients MUST NOT
         attempt any managed attachment operations that target specific
@@ -1416,6 +1418,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
       &rfc3864;
       &rfc4331;
       &rfc4791;
+      &rfc4918;
       &rfc5234;
       &rfc5545;
       &rfc6266;
@@ -1440,6 +1443,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
         <list style='numbers'>
           <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
           <t>Editorial changes from Adam Roach.</t>
+          <t>Added reference to RFC4918.</t>
           <t>Minor editorial changes.</t>
        </list>
       </t>
