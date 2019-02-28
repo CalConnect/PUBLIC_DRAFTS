@@ -339,33 +339,16 @@
                     </t>
                   </section>
                   <section anchor="identifiers" title="Identifiers">
-                      <t>
-                          If not stated otherwise in the respective property definition, properties and object
-                          keys that define identifiers MUST
-                          be string values, MUST be at least 1 character and maximum 256 characters in size,
-                          and MUST only contain characters from the
-                          “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
-                          <xref target="RFC4648"/>. This is the ASCII alphanumeric
-                          characters (A-Za-z0-9), hyphen (-), and underscore (_). Note that <xref target="RFC7493"/>
-                          requires string values be encoded in UTF-8, so the maximum size of an
-                          identifier according to this definition is 256 octets.
-                          <vspace blankLines="1"/>. Identifiers in object maps need not be universally unique,
-                          e.g. two calendar objects MAY use the same identifiers in their respective
-                          <spanx style="emph">links</spanx> properties.
-                          <vspace blankLines="1"/>
-                          Nevertheless, a UUID typically is a good choice.
-                      </t>
-                  </section>
-                  <section anchor="timezones" title="Time Zones">
-                      <t>
-                        By default, time zones in JSCalendar are identified by their name in the
-                        <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref>,
-                        and the zone rules of the respective zone record apply.
-                        Other identifiers MUST start with a solidus character (ASCII decimal 47),
-                        and lookup or evaluation of their zone rules are out of scope of this
-                        specification. Also see section 3.2.19 of <xref target="RFC5545"/> and
-                        section 3.6. of <xref target="RFC7808"/> for discussion of such identifiers.
-                      </t>
+                    <t>
+                      If not noted otherwise, properties and object keys that define identifiers MUST
+		      be string values, MUST be at least 1 character and maximum 256 characters in size,
+		      and MUST only contain characters from the
+                      “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
+                      <xref target="RFC4648"/>. This is the ASCII alphanumeric
+		      characters (A-Za-z0-9), hyphen (-), and underscore (_). Note that <xref target="RFC7493"/>
+		      requires string values be encoded in UTF-8, so the maximum size of an
+		      identifier according to this definition is 256 octets.
+                  </t>
                 </section>
                 <section anchor="normalization" title="Normalization and equivalence">
                     <t>
@@ -633,7 +616,9 @@
                         <spanx style="verb">String[Location]</spanx> (optional)
                     </t>
                     <t>
-                        A map of location identifiers to Location objects, representing locations associated with the object.
+                        A map of location ids to Location objects, representing locations associated with the object.
+                        A location id MUST be unique
+                        to this object; a UUID is a practical choice.
                     </t>
                     <t>
                         A <spanx style="strong">Location</spanx> object has the following properties. It must define
@@ -704,8 +689,10 @@
                         <spanx style="verb">String[VirtualLocation]</spanx> (optional)
                     </t>
                     <t>
-                        A map of identifiers to VirtualLocation objects, representing virtual locations, such as
+                        A map of ids to VirtualLocation objects, representing virtual locations, such as
                         video conferences or chat rooms, associated with the object.
+                        A virtual location id MUST be unique
+                        to this object; a UUID is a practical choice.
                     </t>
                     <t>
                         A <spanx style="strong">VirtualLocation</spanx> object has the following properties.
@@ -742,7 +729,9 @@
                         <spanx style="verb">String[Link]</spanx> (optional)
                     </t>
                     <t>
-                        A map of link identifiers to Link objects, representing external resources associated with the object.
+                        A map of link ids to Link objects, representing external resources associated with the object.
+                        A link id MUST be unique to this
+                        calendar object; a UUID is a practical choice.
                     </t>
 
                     <t>
@@ -765,7 +754,7 @@
                                 This MUST be a valid <spanx style="verb">content-id</spanx>
                                 value according to the definition of section 2 in <xref target="RFC2392"/>.
                                 The identifier MUST be unique within
-                                this JSCalendar object Link objects but has no meaning beyond that. Specifically,
+                                this JSCalendar object but has no meaning beyond that. Specifically,
                                 it MAY be different from the link
                                 identifier in the enclosing <spanx style="emph">links</spanx>
                                 property.
@@ -1049,11 +1038,7 @@
                                 <spanx style="emph">count</spanx> property is specified. Note, as in iCalendar, this
                                 date is presumed to be in the time zone specified in
                                 <spanx style="emph">timeZone</spanx>. It is not a UTC time.
-                                As in iCalendar, the until value bounds the recurrence rule inclusively.
-                                To allow for using the same bound regardless of the
-                                value of the <spanx style="emph">isAllDay</spanx> property, the
-                                <spanx style="emph">until</spanx> date time MAY include non-zero time components
-                                even for all-day calendar objects.
+
                             </t>
                         </list>
 
@@ -1492,16 +1477,14 @@
                     <t>
                         Represents methods by which participants may submit their RSVP response to
                         the organizer of the calendar object. The
-                        keys in the property value are the available methods and MUST only
-                        contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to
+			keys in the property value are the available methods and MUST only
+		        contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to
                         use that method.
                         Future methods may be defined in future specifications; a calendar client
                         MUST ignore any
-                        method it does not understand, but MUST preserve the method key and URI.
-                        This property MUST be omitted if no method is defined (rather than an
-                        empty object). If this property is set, the
-                        <spanx style="emph">participants</spanx> property of this calendar object
-                        MUST contain at least one participant.
+			method it does not understand, but MUST preserve the method key and URI.
+			This property MUST be omitted if no method is defined (rather than an
+			empty object).
                     </t>
                     <t>
                         The following methods are defined:
@@ -1511,14 +1494,14 @@
                                 <xref target="RFC6047"/>
                                 response at this email address.
                                 The value MUST be a <spanx style="verb">mailto:</spanx> URI.
+			    </t>
+	                    <t>
+				<spanx style="verb">web</spanx>: Opening this URI in a web browser
+				will provide the user with a page where they can submit a reply
+				to the organizer.
                             </t>
                             <t>
-                                <spanx style="verb">web</spanx>: Opening this URI in a web browser
-                                will provide the user with a page where they can submit a reply
-                                to the organizer.
-                            </t>
-                            <t>
-                                <spanx style="verb">other</spanx>:
+                              <spanx style="verb">other</spanx>:
                                 The organizer is identified by this URI but the method how to
                                 submit the RSVP is undefined.
                             </t>
@@ -1532,12 +1515,10 @@
                         <spanx style="verb">String[Participant]</spanx> (optional)
                     </t>
                     <t>
-                        A map of participant identifiers to participants, describing their participation in the calendar object.
-                        A UUID or the base-64 encoded email address of the participant is a good choice for the identifier.
-                    </t>
-                    <t>
-                        If this property is set, then the <spanx style="emph">replyTo</spanx>
-                        property of this calendar object MUST define at least one reply method.
+                        A map of participant ids to participants, describing their participation in the calendar object.
+                        A participant id MUST be unique
+                        to this calendar object; a UUID or the base-64 encoded email address of the
+                        participant is a good choice.
                     </t>
                     <t>
                         A <spanx style="strong">Participant</spanx> object has the following properties:
@@ -1766,8 +1747,9 @@
                         <spanx style="verb">String[Alert]</spanx> (optional)
                     </t>
                     <t>
-                        A map of alert identifiers to Alert objects, representing alerts/reminders to display or send the user
-                        for this calendar object.
+                        A map of alert ids to Alert objects, representing alerts/reminders to display or send the user
+                        for this calendar object. The id MUST be unique to this calendar object;
+                        a UUID is a practical choice.
                     </t>
                     <t>
                         An <spanx style="strong">Alert</spanx> Object has the following properties:
@@ -1917,9 +1899,9 @@
                         <spanx style="verb">String|null</spanx> (optional, default:<spanx style="verb">null</spanx>)
                     </t>
                     <t>
-                        Identifies the time zone the event is scheduled in, or <spanx style="verb">null</spanx> for
-                        floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
-                        (i.e. floating time).
+                        The <eref target="http://www.iana.org/time zones">IANA Time Zone Database</eref> name for the
+                        time zone the event is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
+                        omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
                     </t>
                 </section>
 
@@ -1957,15 +1939,11 @@
                                 MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
                             </t>
                             <t>
-                                the <spanx style="emph">timeZone</spanx> property MUST be <spanx style="verb">null</spanx>
-                            </t>
-                            <t>
-                                the <spanx style="emph">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds)
-                            </t>
-                            <t>
-                                the <spanx style="emph">freeBusyStatus</spanx> property MUST NOT be <spanx style="verb">busy</spanx>
+                                the <spanx style="emph">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds).
                             </t>
                           </list>
+                          Note that all-day events MAY be bound to a specific time zone, as defined by
+                          the <spanx style="emph">timeZone</spanx> property.
                     </t>
                 </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
@@ -2021,9 +1999,9 @@
                         <spanx style="verb">String|null</spanx> (optional, default:<spanx style="verb">null</spanx>)
                     </t>
                     <t>
-                        Identifies the time zone the task is scheduled in, or <spanx style="verb">null</spanx> for
-                        floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
-                        (i.e. floating time).
+                        The IANA Time Zone Database name for the
+                        time zone the task is scheduled in, or <spanx style="verb">null</spanx> for floating time. If
+                        omitted, this MUST be presumed to be <spanx style="verb">null</spanx> (i.e. floating time).
                     </t>
                 </section>
 
@@ -2063,19 +2041,12 @@
                         Specifies if the task is an all day task.
                     </t>
                     <t>
-                        If <spanx style="emph">isAllDay</spanx> is true, then the following restrictions apply:
-                        <list style="symbols">
-                            <t>
-                                the <spanx style="emph">start</spanx> and <spanx style="emph">due</spanx> properties
-                                MUST have a time component of <spanx style="verb">T00:00:00</spanx>, or not be set
-                            </t>
-                            <t>
-                                the <spanx style="emph">timeZone</spanx> property MUST be <spanx style="verb">null</spanx>
-                            </t>
-                            <t>
-                                the <spanx style="emph">freeBusyStatus</spanx> property MUST NOT be <spanx style="verb">busy</spanx>
-                            </t>
-                        </list>
+                        If <spanx style="emph">isAllDay</spanx> is true, then
+                        the <spanx style="emph">start</spanx> and <spanx style="emph">due</spanx> properties
+                        MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
+                        Note that the <spanx style="emph">estimatedDuration</spanx> property MAY
+                        contain a non-zero time duration. All-day tasks MAY be bound to a
+                        specific time zone, as defined by the <spanx style="emph">timeZone</spanx> property.
                     </t>
                 </section>
 
@@ -2256,7 +2227,9 @@
 
                     <c>isAllDay</c>
                     <c>
-                        True, if the type of the DTSTART property in iCalendar is DATE.
+                        True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
+                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="emph">isAllDay</spanx>
+                        property is set to true and the <spanx style="emph">timeZone</spanx> property is null.
                     </c>
 
                     <c>start</c>
@@ -2295,7 +2268,9 @@
 
                     <c>isAllDay</c>
                     <c>
-                        True, if the type of the DTSTART property in iCalendar is DATE.
+                        True, if the type of the DTSTART property in iCalendar is DATE. When translating from JSCalendar
+                        the iCalendar DTSTART property is of DATE value type, if the <spanx style="emph">isAllDay</spanx>
+                        property is set to true and the <spanx style="emph">timeZone</spanx> property is null.
                     </c>
 
                     <c>due</c>
@@ -2420,9 +2395,9 @@
 
                     <c>links</c>
                     <c>
-                      Use the ATTACH (<xref target="RFC5545"/>), URL or IMAGE (<xref target="RFC7986"/>)
-                      property values of URI value type as the Link <spanx style="emph">href</spanx>.
-                      The Link <spanx style="emph">type</spanx> property
+                      Corresponds to the ATTACH (<xref target="RFC5545"/>) or IMAGE (<xref target="RFC7986"/>)
+                      properties with a URI value type set to the link <spanx style="verb">href</spanx>.
+                      (<xref target="RFC7986"/>). The <spanx style="emph">type</spanx> property
                       corresponds to the FMTTYPE parameter, the <spanx style="emph">size</spanx>
                       property to the SIZE parameter.
                       Mapping all other properties is implementation-specific.
@@ -2478,12 +2453,9 @@
 
                     <c>recurrenceRule</c>
                     <c>
-                        Corresponds to the RRULE property in iCalendar. For all-day calendar objects,
-                        convert the <spanx style="emph">until</spanx> property value to an iCalendar
-                        DATE (effectively removing the time component). To convert a DATE-typed UNTIL
-                        from iCalendar, set the time components of the LocalDate value to
-                        <spanx style="verb">23:59:59</spanx>. If the iCalendar UNTIL value is a
-                        UTC date time, convert to the local time in the calendar object time zone.
+                        Corresponds to the RRULE property in iCalendar. See the property definition at section
+                        <xref target="recurrenceRule"/>
+                        how to map a RRULE value.
                     </c>
 
                     <c>relatedTo</c>
@@ -3160,7 +3132,6 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7493.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>

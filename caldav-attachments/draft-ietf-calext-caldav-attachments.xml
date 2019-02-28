@@ -7,6 +7,7 @@
 <!ENTITY rfc3864 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.3864.xml'>
 <!ENTITY rfc4331 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4331.xml'>
 <!ENTITY rfc4791 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml'>
+<!ENTITY rfc4918 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4918.xml'>
 <!ENTITY rfc5234 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5234.xml'>
 <!ENTITY rfc5545 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml'>
 <!ENTITY rfc5546 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml'>
@@ -15,8 +16,10 @@
 <!ENTITY rfc7230 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml'>
 <!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
 <!ENTITY rfc7240 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml'>
+<!ENTITY rfc7538 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7538.xml'>
 <!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
 <!ENTITY rfc8144 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8144.xml'>
+<!ENTITY rfc8174 PUBLIC '' 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml'>
 ]>
 
 <?rfc toc="yes"?>
@@ -29,7 +32,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="info" ipr='trust200902'
-     docName='draft-ietf-calext-caldav-attachments-03'>
+     docName='draft-ietf-calext-caldav-attachments-04'>
   <front>
     <title abbrev="CalDAV Managed Attachments">CalDAV Managed Attachments</title>
 
@@ -104,11 +107,13 @@
     <section title='Introduction'>
       <t>The <xref target='RFC5545'>iCalendar</xref> data format is
       used to represent calendar data and is used with <xref
-      target='RFC5546'>iTIP</xref> to handle scheduling operations
+      target='RFC5546'>iCalendar Transport-independent Interoperability
+      Protocol (iTIP)</xref> to handle scheduling operations 
       between calendar users.</t>
 
-      <t><xref target="RFC4791" /> defines the CalDAV Calendar Access
-      protocol, based on <xref target="RFC7230">HTTP</xref>, for
+      <t><xref target="RFC4791" /> defines the Calendaring Extensions
+      to WebDAV (CalDAV),
+      based on <xref target="RFC7230">HTTP</xref>, for
       accessing calendar data stored on a server.</t>
 
       <t>Calendar users often want to include attachments with their
@@ -131,7 +136,7 @@
       send the attachment to the server, separately from the iCalendar
       data, and the server takes care of adding appropriate "ATTACH"
       properties in the iCalendar data as well as managing access
-      privileges . The server can also provide additional information
+      privileges. The server can also provide additional information
       to the client about each attachment in the iCalendar data, such
       as the size and an identifier.</t>
     </section> <!-- Intro -->
@@ -140,8 +145,10 @@
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
       "MAY", and "OPTIONAL" in this document are to be interpreted as
-      described in <xref target='RFC2119' />.</t>
-      
+      described in <eref target="https://tools.ietf.org/html/bcp14">BCP 14</eref>
+      <xref target='RFC2119' /> <xref target='RFC8174' /> 
+      when, and only when, they appear in all capitals, as shown here.</t>
+
       <t>The notation used in this memo is the ABNF notation of <xref
       target='RFC5234' /> as used by <xref
       target='RFC5545'>iCalendar</xref>. Any syntax elements shown
@@ -191,14 +198,15 @@
       <section title="Discovering Support for Managed Attachments">
         <t>A server supporting the features described in this
         specification MUST include "calendar-managed-attachments" as a
-        field in the DAV response header field from an OPTIONS request on a
+        token in the DAV response header field (as defined in Section
+        10.1 of <xref target="RFC4918" />) from an OPTIONS request on a
         calendar home collection.</t>
         
         <t>A server might choose to not support storing managed
         attachments on a per-recurrence instance basis (i.e., they can
         only be added to all instances as a whole). If that is the
-        case, the server MUST include
-        "calendar-managed-attachments-no-recurrence" as a field in the
+        case, the server MUST also include
+        "calendar-managed-attachments-no-recurrence" as a token in the
         DAV response header field from an OPTIONS request on a calendar home
         collection. When that field is present, clients MUST NOT
         attempt any managed attachment operations that target specific
@@ -262,7 +270,9 @@
             RECURRENCE-ID value as stored in the calendar object
             resource (i.e. without any conversion to UTC). If multiple
             items of this form are used, they MUST be unique
-            values.</t>
+            values.  For example, to target a recurrence defined by property
+            RECURRENCE-ID;TZID=America/Montreal:20111022T160000, the
+            query parameter rid=20111022T160000 would be used.</t>
       	  </list>
       	  If the "rid" query parameter is not present, all recurrence
           instances in the calendar object resource are targeted.
@@ -275,7 +285,8 @@
 
           <figure>
             <preamble>
-              Example:
+              Example (targeting the master instance and a specific
+              overridden instance):
             </preamble>
             <artwork>http://calendar.example.com/events/1.ics?
   action=attachment-add&amp;rid=M,20111022T160000</artwork>
@@ -285,7 +296,8 @@
       	<section title="managed-id= Query Parameter" anchor="managed-id">
       	  <t>The "managed-id" query parameter is used to identify
           which "ATTACH" property is being updated or removed. The
-          value of this query parameter MUST match the "MANAGED-ID"
+          value of this query parameter MUST match the <xref
+          target="MANAGED-ID-parameter">"MANAGED-ID"</xref>
           property parameter value on the "ATTACH" property in the
           calendar object resource instance(s) targeted by the
           request.
@@ -859,7 +871,10 @@ Content-Length: 0
 
         <section title="Redirects" anchor="redirects">
           <t>For POST requests that add or update attachment data, the
-          server MAY issue an HTTP redirect to require the client to
+          server MAY issue
+          a <xref target="RFC7231">307 (Temporary Redirect)</xref>
+          or <xref target="RFC7538">308 (Permanent Redirect)</xref>
+          response to require the client to
           re-issue the POST request using a different request-URI. As
           a result, it is always best for clients to use the
           "100-continue" expectation defined in Section 5.1.1 of
@@ -991,7 +1006,8 @@ managedidparam = "MANAGED-ID" "=" paramtext
                 This property parameter MUST be specified on "ATTACH"
                 properties corresponding to managed attachments.
                 Its value is generated by the server and uniquely
-                identifies a managed attachment.
+                identifies a managed attachment within the scope of
+                the CalDAV server.
                 This property parameter MUST NOT be present in the
                 case of non-managed attachments.
               </t>
@@ -1201,8 +1217,9 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <section title="Implementation Status" anchor="impl">
 
-      <t>&lt; RFC Editor: before publication please remove this section
-	and the reference to <xref target="RFC7942"/> &gt;</t>
+      <t>&lt; RFC Editor: before publication please remove this section,
+	the reference to <xref target="RFC7942"/>, and any resulting
+        "URIs" references sub-section. &gt;</t>
 
       <t>This section records the status of known implementations of
 	the protocol defined by this specification at the time of
@@ -1329,8 +1346,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
     </section> <!-- Implementations -->
 
     <section title='Security Considerations'>
-      <t>Malicious content could be introduced into the Calendar
-      Server by way of a managed attachment, and propagated to many
+      <t>Malicious content could be introduced into the calendar
+      server by way of a managed attachment, and propagated to many
       end users via scheduling. Servers SHOULD check managed
       attachments for malicious or inappropriate content. Upon
       detecting of such content, servers SHOULD remove the attachment,
@@ -1402,6 +1419,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
       &rfc3864;
       &rfc4331;
       &rfc4791;
+      &rfc4918;
       &rfc5234;
       &rfc5545;
       &rfc6266;
@@ -1409,6 +1427,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
       &rfc7230;
       &rfc7231;
       &rfc7240;
+      &rfc7538;
+      &rfc8174;
     </references>
 
     <references title='Informative References'>
@@ -1419,6 +1439,17 @@ Cal-Managed-ID:aUNhbGVuZGFy
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)">
+      <t>
+        Changes in calext-04:
+        <list style='numbers'>
+          <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
+          <t>Editorial changes from Adam Roach.</t>
+          <t>Added reference to RFC4918.</t>
+          <t>Specified that the MANAGED-ID parameter value is unique
+          within the scope of the server.</t>
+          <t>Minor editorial changes.</t>
+       </list>
+      </t>
       <t>
         Changes in calext-03:
         <list style='numbers'>

@@ -1,0 +1,292 @@
+## TC-API Discussion and reasonings
+
+### Title
+
+Renamed from SUMMARY in iCalendar to make its purpose clearer (people often confuse summary and description).
+
+### The different representations of "when"
+
+#### isAllDay vs. date format:
+
+1. Using a Boolean is easier to understand and is a closer match to what it means (the time span is the same, but it should be displayed differently). Universal agreement on this among current JSON APIs (but name always slightly different!).
+2. Single serialisation format for DateTime objects (midnight time part); you don't have to look at an unrelated property to know how to serialise the object.
+
+Advantages of date format:
+
+1. Automatically enforces 00:00:00 time.
+
+#### Local vs. UTC time for date objects:
+
+1. This is how the server has to store it. Time zone definitions can and do change. If you set up an event at 8am next year in Europe/London, it should remain at 8am in Europe/London even if daylight savings is cancelled that year after you create the event. For clients with persistent data stores, this is how they should do it too.
+2. Recurrences have to be done in local time, so all other dates on the object (e.g. RDATEs) are in LocalTime, so would be inconsistent to use UTC here.
+3. Following on from this, a client can do recurrences without having to support time zones (it can just ignore the time zone data and expand the recurrence to show every event in the event's time zone, which will normally be correct).
+4. If the server is doing the recurrences and/or time zone handling then the server would translate the local start/end time into the time zone requested, and not send the time zone fields, so again needs to send local times, not UTC.
+5. Easier for humans to read to verify the data is correct (don't have to do date-time conversions in your head!).
+
+Advantages of UTC:
+
+1. Easy to sort events by start time (but still have to resort after translating into viewing time zones because floating time events, so not a big win).
+2. Easy to calculate duration if using start/end pair (need to convert local times into UTC before subtracting to get duration in case there's a DST shift).
+
+#### Time zone as a property vs. part of date format:
+
+1. Easier serialisation: single format still for start/end properties.
+2. Can be omitted if server is doing time zone translation without changing format of a property.
+3. Are semi-independent (often fix time zone after time has been set).
+
+#### Duration vs. End:
+
+Advantages of duration:
+
+1. Should time zone definitions change, it is more likely the duration should remain fixed and the end should shift (e.g. for flights).
+2. Recurrences expand the start date and then use duration of first event to determine end date, so it's easier and more consistent if the end date is calculated from duration on normal events too.
+3. Guarantees positive duration (required for valid event).
+4. Less error prone: if you move the start of a series of events you don't need to make sure to keep the end in sync. You cannot produce a duration that puts the end before the start (negative durations are not allowed).
+
+Advantages of using end date:
+
+1. End is slightly more human-readable (depends on whether the duration is broken up into weeks/days/hours etc. or all in seconds!).
+2. Calculating end date 100% accurately requires converting start date to UTC first, then adding duration, then converting back to TZ. Quite complex, however the client will have to be able to do all the elements of this conversion regardless.
+
+Why not allow either?
+
+1. No extra expressivity in choice (or rather, expressivity will be ignored).
+2. Complicates all clients and servers that have to deal with them.
+
+#### Time zone format is Olsen name.
+
+1. Much more compact.
+2. Almost everyone is using this data.
+3. Represents all useful time zones.
+
+### Recurrences
+
+This representation means all data about the event, and all occurrences, are represented in a single object. This is preferable to the current CalDAV way (where exceptions are completely separate events, but with a recurrence ID + UID to link it to the parent event) as it reduces overall data transfer and makes it easier to get all the information about an event and its occurrences. The patch mechanism for exceptions can also massively reduce data transfer.
+
+In the *Recurrence* object, we chose to use full day names rather than numbers or abbreviated days (e.g. "MO"). Using a string is easier to understand without having to reference the spec, and makes it less likely to get decoding errors (which day is 0/1 etc.? You need to look it up). Using full lower-case names rather than abbreviated is consistent with the naming scheme used in the rest of the spec.
+
+An Event is a representation of one or more instances in time with related attributes.
+
+To generate instance objects, you must first calculate the set of start dates from the *start*, *recurrenceRule* and *recurrenceOverrides* properties. Each start date can be converted to an instance object with that *start* property; all other properties inherit from the parent instance, and then any patches in *recurrenceOverrides* are applied.
+
+It *happens* that the result of this expansion is an instance object identical to the parent event when there is no recurrence involved. This is a *good* property, as it makes it simpler for systems that don't care about recurrences, while allowing them to keep with the spec.
+
+#### How to (conceptually) expand a recurring event:
+
+1. Apply the recurrence rule to the start date to get a set of start dates for occurrences.
+2. Iterate through recurrenceOverrides. For each start date (recurrence id):
+   - if it maps to `null`, remove this start date from the set if present.
+   - otherwise add it to the set if not present.
+
+You now have the complete list of start dates. The generated event object for each instance is identical to the master event, except:
+* The `start` property is set to the occurrence start date.
+* The `recurrenceRule` and `recurrenceOverrides` properties are set to `null`/removed.
+
+If the recurrence date maps to an array of patches in the `recurrenceOverrides` property of the master object, you then apply these patches, in order, to the instance object.
+
+#### Example event with recurrence and exceptions
+
+    {
+      "title": "Team Meeting",
+      "isAllDay": false,
+      "start": "2016-01-05T10:00:00"
+      "timeZone": "Australia/Melbourne",
+      "duration": "PT1H"
+      "recurrenceRule": {
+        "frequency": "weekly"
+      },
+      "recurrenceOverrides": {
+        "2016-01-05T10:00:00": null, // Australia day!
+        "2016-02-02T10:00:00": [
+          { "op": "add", "path": "/start", "value": "2016-02-02T11:00:00" },
+          { "op": "add", "path": "/end", "value": "2016-02-02T12:00:00" },
+          { "op": "add", "path": "/description", "value": "Meeting moved 1h later than normal." },
+        ]
+      }
+    }
+
+### The "start" property.
+
+Proposal summary: When you have RDATEs, the start is then just a special-case RDATE. It would be cleaner if these are represented the same way.
+
+It might be cleaner. Let's try it and see what happens. So we rename "recurrenceOverrides" to "instances", and instead of "start" you just add it as an instance. So if we take a simple event (like 99%+ of events):
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "start": "2016-04-21T12:00:00"
+}
+
+becomes:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "instances": {
+        "2016-04-21T12:00:00": []
+    }
+}
+
+Now let's consider a simple recurring event. We need a start date for the recurrence rule. Marten's proposal put the recurrence on the instance, but  this makes it much more complex and difficult to maintain backwards compatibility with iCalendar, which is a very necessary goal, since we would then have multiple recurrences associated with the event. So I would suggest instead:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "start": "2016-04-21T12:00:00",
+    "recurrenceRule": {
+        frequency: "weekly"
+    }
+}
+
+becomes:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "recurrence": {
+        start: "2016-04-21T12:00:00",
+        rule: {
+            frequency: "weekly"
+        }
+    }
+}
+
+Now, let's take a more complex case with RDATEs, and overrides:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "start": "2016-04-21T12:00:00",
+    "recurrenceRule": {
+        frequency: "weekly"
+    },
+    "recurrenceOverrides": {
+        "2016-04-28T12:00:00": [
+            { "op": "add", "path": "/title",
+              "value": "Friday meeting this week" },
+            { "op": "add", "path": "/start",
+              "value": "20160429T120000" },
+        ],
+        "2016-05-05T12:00:00": null,
+        "2016-05-09T12:00:00": [
+            { "op": "add", "path": "/title",
+              "value": "Extra meeting this week" }
+        ]
+    }
+}
+
+Now, there's a bit of an issue with the proposed changed format here. We need to override the "start" of an event. But we don't have a start property any more, so it seems a bit weird to override that? The only other option though is to remove the instance (EXDATE it) and then add a new one, but that loses the ability to translate from iCalendar and is not as semantically rich. So let's go with overriding the phantom "start" property:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "recurrence": {
+        start: "2016-04-21T12:00:00",
+        rule: {
+            frequency: "weekly"
+        }
+    },
+    "instances": {
+        "2016-04-28T12:00:00": [
+            { "op": "add", "path": "/title",
+              "value": "Friday meeting this week" },
+            { "op": "add", "path": "/start",
+              "value": "20160429T120000" },
+        ],
+        "2016-05-05T12:00:00": null,
+        "2016-05-09T12:00:00": [
+            { "op": "add", "path": "/title",
+              "value": "Extra meeting this week" }
+        ]
+    }
+}
+
+
+Conclusion: The concept has merits, but I remain unconvinced the benefits outweigh the downsides. In the (very common) simple case, it's reasonably clean although slightly more complex. The main downside is that many systems (I would imagine; ours does) optimise the simple event case, and determining whether it's a simple event now requires deeper, more expensive inspection of the "instances" property (there must be only one key, value of an empty array), as opposed to simply a presence check on recurrenceRule/recurrenceOverrides properties.
+
+In the simple recurrence case they are practically identical. In the complex recurrence case I also struggle to see a huge benefit, and you have the (conceptual) problem of overriding "start" when that's no longer a property.
+
+The one case where it fares better than the current proposal is when you have no recurrence rule, but you do have RDATEs, (most commonly when you've been invited to 2+ instances of a recurring event only). As Marten points out, this is somewhat awkward to represent in the current model: You either create a phantom "start" and EXDATE it out, or you make the first RDATE the "start" and the other one an RDATE (override). (Of the two, I prefer the former as the change is cleaner if you remove the first event). So:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "start": "1970-01-01T00:00:00"
+    "recurrenceOverrides": {
+        "1970-01-01T00:00:00": null,
+        "2016-04-21T12:00:00": [],
+        "2016-04-28T12:00:00": []
+    }
+}
+
+might become:
+
+{
+    "uid": "abc",
+    "title": "Thursday Lunch",
+    "timeZone": "Europe/Berlin",
+    "duration": "PT1H",
+    "instances": {
+        "2016-04-21T12:00:00": []
+        "2016-04-28T12:00:00": []
+    }
+}
+
+
+This is cleaner, but only slightly so. The benefit is not enough to outweigh making the common case (with no recurrence) more complex, in my opinion.
+
+### This and future
+
+Proposal summary: Move the recurrence rule onto instances, so you can have multiple recurrences. Any other properties on the instance are inherited by all occurrences (but presumably can be overridden again by a specific instance that matches the start date of the occurrence?).
+
+This is *much* more complex than the current proposal and not really backwards-compatible with iCalendar. This makes it much less likely to be fully supported, or to use in an environment that has to go back and forth a bit with iCalenar (e.g. for iMIP). For that reason alone I don't think this is a good idea.
+
+If we think This and Future is important enough to need representation (and last time this was brought up I think the conclusion was that the iCalendar version had lacklustre adoption, and you might as well just split into two events with a "related" property), then there's a simpler way to do it:
+
+Add a "thisAndFutureOverrides" property to the top-level object, with format the same as "recurrenceOverrides".  You then:
+1. Expand the recurrence. For each start date, the instance inherits properties by default from the top-level event as normal. But if it's in "recurrenceOverrides" separately, add those as patches. If it's not, look for the latest date in "thisAndFutureOverrides" which is equal to or before the start. If found, apply the patches from here.
+
+It's still complex, because this and future is complex, but it removes the whole multiple recurrence rules thing.
+
+### instance-template
+
+Proposal summary: Move all props other than uid/recurrence/instances into "instance-template" object. The idea is that you can't override uid/recurrence/instances properties in a recurrence override, so they should be separate. However, this doesn't actually *stop* people from putting "uid" etc. into an override, and systems will still have to just ignore that. So I don't see it makes a practical difference. And it does add extra complexity, especially in the very common simple case. So I'm very much against this idea.
+
+### Patch format
+
+Proposal summary: I don't think this was so much a proposal as much as Marten not having updated to the latest version of the spec, however there is an interesting point here. For the instances/recurrenceOverrides, Marten was using the old format. This is very simple, just a top-level key and the new value to override the inherited one. We switched to using JSON patch format a while ago, mainly so that making a small change to the part-stat of one participant didn't result in huge data duplication in events with many participants. However, the patch format is itself more verbose and arguably harder to read and use, and we don't need most of its power. I wonder if we could get the best of both worlds by allowing keys to be paths into the object (so they are more like patches). So:
+
+[
+    { "op": "add", "path": "/title", "value": "foo" }
+    { "op": "add",
+      "path": "/participants/neilj@fastmail.com/scheduleStatus",
+      "value": "accepted" },
+    { "op": "remove", "path": "/alerts/f67da92afsdf" }
+]
+
+would become:
+
+{
+    "title": 'foo',
+    "participants/neilj@fastmail.com/scheduleStatus": "accepted",
+    "alerts/f67da92afsdf": null
+}
+
+(Alert mapped to null removes it; this is consistent with how recurrenceOverrides remove instances.)
+
+This is better. It's shorter, simpler and makes it very easy to override everything without a mess of patch syntax gunk.
+

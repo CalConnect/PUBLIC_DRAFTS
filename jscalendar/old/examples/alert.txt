@@ -1,0 +1,39 @@
+BEGIN:VEVENT
+UID:9ab56a09-132e-427a-8e48-e79771dec0fa
+CREATED:20160714T032256Z
+DTSTAMP:20160802T230824Z
+LAST-MODIFIED:20160714T032256Z
+SEQUENCE:0
+SUMMARY:Writer's Festival
+DTSTART;VALUE=DATE:20160804
+DTEND;VALUE=DATE:20160808
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+UID:596EF954-520D-4C36-8141-53ECE91F04CB
+TRIGGER:-PT15H
+ACTION:DISPLAY
+ACKNOWLEDGED:20160802T230824Z
+END:VALARM
+END:VEVENT
+
+{
+   "uid" : "9ab56a09-132e-427a-8e48-e79771dec0fa",
+   "created" : "2016-07-14T03:22:56Z",
+   "updated" : "2016-08-02T23:08:24Z",
+   "sequence" : 0,
+   "title" : "Writer's Festival",
+   "isAllDay" : true,
+   "start" : "2016-08-04T00:00:00",
+   "duration" : "P4D",
+   "showAsFree" : true,
+   "alerts": {
+      "596EF954-520D-4C36-8141-53ECE91F04CB": {
+         "offset" : "PT15H",
+         "relativeTo" : "before-start",
+         "action": {
+            "type" : "display",
+            "acknowledged": "2016-08-02T23:08:24Z"
+         }
+      }
+   }
+}

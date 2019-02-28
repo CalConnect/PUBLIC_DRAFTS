@@ -1,0 +1,40 @@
+BEGIN:VEVENT
+UID:9f160501-da22-4a96-a4e9-c56cef8158e8
+DTSTAMP:20160913T121600Z
+SEQUENCE:1
+SUMMARY:Journey
+DTSTART;TZID=Europe/London:20160916T100000
+DTEND;TZID=Australia/Sydney:20160921T200000
+LOCATION:Home
+TRANSP:OPAQUE
+END:VEVENT
+
+{
+  "uid" : "9f160501-da22-4a96-a4e9-c56cef8158e8",
+  "updated" : "2016-09-13T12:16:00Z",
+  "title" : "Journey",
+  "locations" : {
+    "start": {
+      "name": "Home",
+      "rel": "start",
+      "timeZone": "Europe/London",
+      "address": {
+        "street": "1 Primrose Lane",
+        "locality": "Tickleton",
+        "region": "Gritonshire",
+        "postcode": "GT3 7AH",
+        "country": "United Kingdom"
+      },
+      "coordinates": "geo:..."
+    },
+    "end": {
+      "name" : "Neverland",
+      "accessInstructions": "Second star to the right, and straight on till morning. Access code is 1234.",
+      "rel": "end",
+      "timeZone": "Australia/Sydney"
+    }
+  },
+  "start" : "2016-09-16T10:00:00",
+  "timeZone": "Europe/London",
+  "duration": "P5D"
+}

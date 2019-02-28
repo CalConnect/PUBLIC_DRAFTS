@@ -1,0 +1,26 @@
+BEGIN:VEVENT
+UID:9f160501-da22-4a96-a4e9-c56cef8158e8
+DTSTAMP:20160913T121600Z
+SEQUENCE:1
+SUMMARY:Simple Event
+DTEND;TZID=Europe/Berlin:20160916T110000
+DTSTART;TZID=Europe/Berlin:20160916T100000
+LOCATION:At a location
+TRANSP:OPAQUE
+END:VEVENT
+
+{
+  "uid" : "9f160501-da22-4a96-a4e9-c56cef8158e8",
+  "updated" : "2016-09-13T12:16:00Z",
+  "sequence" : 1,
+  "title" : "Simple Event",
+  "locations" : {
+    "94a9131": {
+      "name" : "At a location"
+    }
+  },
+  "isAllDay" : false,
+  "start" : "2016-09-16T10:00:00",
+  "timeZone" : "Europe/Berlin",
+  "duration" : "PT1H"
+}

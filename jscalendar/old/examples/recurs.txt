@@ -1,0 +1,28 @@
+BEGIN:VEVENT
+UID:5d0d7158-5ac7-48fa-8549-60bfa47335d8
+DTSTAMP:20160913T121600Z
+SEQUENCE:1
+SUMMARY:Recurs 3rd Sunday every month
+DTSTART;TZID=Europe/Berlin:20160918T100000
+DTEND;TZID=Europe/Berlin:20160918T123000
+RRULE:FREQ=MONTHLY;BYDAY=3SU
+TRANSP:OPAQUE
+END:VEVENT
+
+{
+  "uid" : "5d0d7158-5ac7-48fa-8549-60bfa47335d8",
+  "updated" : "2016-09-13T12:16:00Z",
+  "sequence" : 1,
+  "title" : "Recurs 3rd Sunday every month",
+  "isAllDay" : false,
+  "start" : "2016-09-18T10:00:00",
+  "duration" : "PT2H30M",
+  "recurrenceRule" : {
+     "frequency" : "monthly",
+     "byDay" : [{
+        "day" : "su",
+        "nthOfPeriod" : 3
+     }]
+  },
+  "timeZone" : "Europe/Berlin"
+}

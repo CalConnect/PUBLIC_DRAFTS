@@ -1,0 +1,59 @@
+BEGIN:VEVENT
+UID:0053564f-9b21-4d0e-a3cd-185dfb9f88fe
+CREATED:20160725T074301Z
+DTSTAMP:20160507T073309Z
+SEQUENCE:2
+TRANSP:OPAQUE
+SUMMARY:Lunch at du Fermier
+LOCATION:42 High Street\nTrentham
+DTSTART;TZID=Australia/Melbourne:20160625T123000
+DTEND;TZID=Australia/Melbourne:20160625T140000
+ORGANIZER;CN="Neil J":MAILTO:neil@example.com
+ATTENDEE;CN="Diana H";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTS
+ TAMP=20160507T073308Z:MAILTO:diana@example.com
+ATTENDEE;CN="Neil J";CUTYPE=INDIVIDUAL;PARTSTAT=ACCEPTED;X-DTSTAMP
+ =20160507T070808Z:MAILTO:neil@example.com
+END:VEVENT
+
+{
+   "uid" : "0053564f-9b21-4d0e-a3cd-185dfb9f88fe",
+   "created" : "2016-07-25T07:43:01Z",
+   "updated" : "2016-05-07T07:33:09Z",
+   "sequence" : 2,
+   "title" : "Lunch at du Fermier",
+   "isAllDay" : false,
+   "start" : "2016-06-25T12:30:00",
+   "timeZone" : "Australia/Melbourne",
+   "duration" : "PT1H30M",
+   "locations" : {
+      "1": {
+         "name" : "42 High Street\nTrentham"
+      }
+   },
+   "replyTo" : {
+      "imip" : "mailto:neil@example.com"
+   },
+   "participants" : {
+      "neil@example.com" : {
+         "email" : "neil@example.com",
+         "kind" : "individual",
+         "name" : "Neil J",
+         "roles" : [
+            "owner",
+            "attendee"
+         ],
+         "scheduleStatus" : "accepted",
+         "scheduleUpdated" : "2016-05-07T07:08:08Z"
+      },
+      "diana@example.com" : {
+         "email" : "diana@example.com",
+         "kind" : "individual",
+         "name" : "Diana H",
+         "roles" : [
+            "attendee"
+         ],
+         "scheduleStatus" : "accepted",
+         "scheduleUpdated" : "2016-05-07T07:33:08Z"
+      }
+   }
+}

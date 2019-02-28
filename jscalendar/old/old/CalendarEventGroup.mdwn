@@ -1,0 +1,182 @@
+# Introduction
+
+This document defines a JSON-based format describing a group of calendar events, using a data model that aims to be unambigous, extendable and simple to process.
+
+Best practices for conversion between iCalendar and JSEventGroup can be found in [@!TODO]. Mappings to iCalendar
+properties refer to both the updated iCalendar specifications [@!RFC5545] and [@!RFC7986].
+
+## Notational Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119].
+
+The underlying format used for this specification is JSON. Consequently, the terms "object" and "array" as well as the four primitive types (strings, numbers, booleans, and null) are to be interpreted as described in Section 1 of [@!RFC7159].
+
+Some examples in this document contain "partial" JSON documents used for illustrative purposes.  In these examples, three periods "..." are used to indicate a portion of the document that has been removed for compactness.
+
+## Data Types
+
+In addition to the standard JSON data types, the following data types are used in this specification:
+
+### UTCDate
+
+This is a string in [@!RFC3339] `date-time` format, with the further restrictions that any letters MUST be in upper-case, the time component MUST be included and the time MUST be in UTC. Fractional second values MUST NOT be included unless non-zero (so, for example `2010-10-10T10:10:10.003Z` is OK, but `2010-10-10T10:10:10.000Z` is invalid and MUST be encoded as `2010-10-10T10:10:10Z`).
+
+In common notation, it should be of the form `YYYY-MM-DDTHH:MM:SSZ`.
+
+## Type signatures
+
+Types signatures are given for all properties in this document. The following conventions are used:
+
+* `Boolean|String` – The value is either a JSON `Boolean` value, or a JSON `String` value.
+* `Foo` – Any name that is not a native JSON type means an object for which the properties (and their types) are defined elsewhere within this document.
+* `Foo[]` – An array of objects of type `Foo`.
+* `String[Foo]` – A JSON `Object` being used as a map (associative array), where all the values are of type `Foo`.
+
+# Structure of a JSEventGroup object
+
+A JSEventGroup object is a JSON object, which MUST be valid I-JSON, as specified in [@!RFC7159]. Property names and values are case-sensitive. The I-JSON format adds restrictions to avoid potentially confusing scenarios (for example, it mandates that an object MUST NOT have two properties with the same key).
+
+The object has a collection of properties, as specified in the following sections. A valid JSEventGroup object MUST include the `type`, `uid`, `updated` and `events` properties. All other properties are optional; omitted properties MUST be treated identically to if that property had the value of `null`, unless otherwise specified.
+
+Vendors MAY add additional properties to the event group object to support their custom features. The names of these properties SHOULD be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. `fastmail.com/customprop`. Other systems that interact with events with properties they do not recognise SHOULD try to preserve them, but MUST otherwise ignore them.
+
+# Security considerations
+
+The `url`, `source` and `links` properties all point clients to external data related to this event group. Access to such data MAY be protected, but this specification does not recommend or define mechanisms for authentication or authorization. Client implementations MUST NOT assume granted access to any external data. In addition, client implementations MUST NOT assume external data to be trusted.
+
+## MIME Type
+
+A JSEventGroup has MIME type `application/json+cal;type=eventgroup`.
+
+# Metadata properties
+
+## @type
+
+Type: `String`
+
+Specifies that this object represents a group of calendar events. The value MUST be `eventgroup`.
+
+## uid
+
+Type: `String`
+
+A globally unique identifier, used to associate the event group as the same across different systems, calendars and views. The generator of the identifier MUST guarantee that the identifier is unique.
+
+## updated
+
+Type: `UTCDate`
+
+The date and time the data in this event group was last modified.
+
+Corresponds to the LAST-MODIFIED property in iCalendar [@!RFC7986].
+
+# Data properties
+
+## events
+
+Type: `String[JSEvent]`
+
+The events belonging to this event group, keyed by their respective `uid` property value. Clients MUST NOT assume any specific order of keys in the JSON respresentation (e.g. by event start time).
+
+## source
+
+Type: `String|null`
+
+The source from which updated versions of this event group may be retrieved. If the value is not null, it MUST be an URI where updates for this event group may be retrieved from.
+
+Corresponds to the SOURCE property in iCalendar.
+
+## refreshInterval
+
+Type: `String|null`
+
+Defines the minimum polling interval for checking `source` for updates to the event group. If not null, the value of this property MUST be a positive iCalendar duration. If `source` is null then `refreshInterval` MUST be null as well.
+
+Corresponds to the REFRESH-INTERVAL property in iCalendar.
+
+## categories
+Type: `String[]|null`
+
+Specifies the categories related to the events in this event group. Array values MUST be URIs. Individual events in this event group MAY have additional category values.
+
+Corresponds to the STRUCTURED-CATEGORY property of the VCALENDAR component in iCalendar, see [draft-ietf-calext-ical-relations](https://tools.ietf.org/html/draft-ietf-calext-ical-relations).
+
+## keywords
+
+Type: `String[]|null`
+
+A list of keywords or tags related to the event. The values are freeform and do not have to follow any particular structure.
+
+Corresponds to the CATEGORIES property of the VCALENDAR component in iCalendar.
+
+
+# Display properties
+
+## name
+
+Type: `String` (Defaults to `''` (the empty string) if omitted)
+
+Specifies the name of this event group.
+
+Corresponds to the NAME property in iCalendar.
+
+## description
+
+Type: `String` (Defaults to `''` (the empty string) if omitted)
+
+A longer form description of the event group. This is plain text, but a client SHOULD attempt to hyperlink URLs when displaying it.
+
+Corresponds to the DESCRIPTION property in iCalendar.
+
+## color
+
+Type: `String|null`
+
+Specifies a color that clients MAY use when presenting the relevant data to a user. Typically, this would appear as the "background" color of events. The value is a case-insensitive color name taken from the CSS3 set of names, defined in Section 4.3 of [@!W3C.REC-css3-color-20110607].
+
+Corresponds to the COLOR property in iCalendar.
+
+## links
+
+Type: `String[Link]|null`
+
+A map of of link id to Link objects, representing external resources associated with the event group. A link id may be any string and need only be unique to this event group, although the href or a UUID are practical choices.
+
+Corresponds to the URL and IMAGE properties in iCalendar.
+
+A **Link** object has the following properties:
+
+- **href**: `String`
+
+    A URI from which the resource may be fetched. This MAY be a `data:` URL, but it is recommended that the file be hosted on a server.
+
+- **type**: `String|null` (optional, defaults to `null`)
+
+    The content-type of the resource, if known.
+
+- **size**: `Number|null` (optional, defaults to `null`)
+
+    The size, in bytes, of the resource when fully decoded (i.e. the number of bytes in the file the user would download), if known.
+
+- **rel**: `String` (optional, defaults to `related`)
+
+    The value of the "rel" member is a string that is a [registered relation type](http://www.iana.org/assignments/link-relations/link-relations.xhtml) (see [@!RFC5988]). The value identifies the relation of the linked resource to the event.
+
+    Links with a *rel* of `enclosure` SHOULD be considered by the client as attachments for download.
+
+    Links with a *rel* of `describedby` SHOULD be considered by the client to be an alternate representation of the *description*, for example an HTML page describing the event. Renditions at the specified location MUST match the event group specified by UID, but MAY differ in contents if the group values have changed since its retrieval. To keep up to date with changes, see the `sources` property. Corresponds to the URL property in iCalendar [@!RFC7986].
+
+    Links with a *rel* of `icon` SHOULD be considered by the client to be an image that it MAY use when presenting the calendar data to a user. This corresponds to the IMAGE iCalendar property as specified in [@!RFC7986]. The *properties* object of this link MAY include a *display* property indicating the intended purpose of this image. If included, the value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor.
+
+    - `"badge"`: an image inline with the title of the event
+    - `"graphic"`: a full image replacement for the event itself
+    - `"fullsize"`: an image that is used to enhance the event
+    - `"thumbnail"`: a smaller variant of "FULLSIZE" to be used when space for
+      the image is constrained
+
+- **title**: `String|null` (optional, defaults to `null`)
+
+    A human-readable description of the resource.
+
+- **properties**: `String[String|null]|null` (optional, defaults to `null`)
+    Extra metadata stored by a client about a link. The keys are as defined in this document, as defined in a future RFC, or URIs that should be owned by the client author to avoid conflicts. The values MUST be strings or `null`.
