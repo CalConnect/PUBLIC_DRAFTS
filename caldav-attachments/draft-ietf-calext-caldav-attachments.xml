@@ -280,7 +280,7 @@
             <preamble>
               Example:
             </preamble>
-            <artwork>http://calendar.example.com/events/1.ics?action=attachment-add</artwork>
+            <artwork>https://calendar.example.com/events/1.ics?action=attachment-add</artwork>
           </figure>      	  
       	</section>
 
@@ -322,7 +322,7 @@
               Example (targeting the master instance and a specific
               overridden instance):
             </preamble>
-            <artwork>http://calendar.example.com/events/1.ics?
+            <artwork>https://calendar.example.com/events/1.ics?
   action=attachment-add&amp;rid=M,20111022T160000</artwork>
           </figure>
       	</section>
@@ -343,7 +343,7 @@
             <preamble>
               Example:
             </preamble>
-            <artwork>http://calendar.example.com/events/1.ics?
+            <artwork>https://calendar.example.com/events/1.ics?
   action=attachment-update&amp;managed-id=aUNhbGVuZGFy</artwork>
           </figure>
       	</section>
@@ -481,7 +481,7 @@ Prefer: return=representation
 HTTP/1.1 201 Created
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
-Content-Location: http://cal.example.com/events/64.ics
+Content-Location: https://cal.example.com/events/64.ics
 ETag: "123456789-000-111"
 Cal-Managed-ID: 97S
 
@@ -639,7 +639,7 @@ Prefer: return=representation
 HTTP/1.1 200 OK
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyz
-Content-Location: http://cal.example.com/events/64.ics
+Content-Location: https://cal.example.com/events/64.ics
 Cal-Managed-ID: 98S
 ETag: "123456789-000-222"
 
@@ -981,7 +981,7 @@ sizeparam = "SIZE" "=" paramtext
               </t>
               <t hangText="Example:">
                 <figure><artwork><![CDATA[
-ATTACH;SIZE=1234:http://attachments.example.com/abcd.txt
+ATTACH;SIZE=1234:https://attachments.example.com/abcd.txt
 ]]></artwork></figure>
               </t>
           </list>
@@ -1017,7 +1017,7 @@ filenameparam = "FILENAME" "=" paramtext
               </t>
               <t hangText="Example:">
                 <figure><artwork><![CDATA[
-ATTACH;FILENAME=agenda.html:http://attachments.example.c
+ATTACH;FILENAME=agenda.html:https://attachments.example.c
  om/rt452S
 ]]></artwork></figure>
               </t>
@@ -1049,7 +1049,7 @@ managedidparam = "MANAGED-ID" "=" paramtext
               </t>
               <t hangText="Example:">
                 <figure><artwork><![CDATA[
-ATTACH;MANAGED-ID=aUNhbGVuZGFy:http://attachments.example.c
+ATTACH;MANAGED-ID=aUNhbGVuZGFy:https://attachments.example.c
  om/abcd.txt
 ]]></artwork></figure>
               </t>
@@ -1618,7 +1618,7 @@ Prefer: return=representation
 HTTP/1.1 412 Precondition Failed
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
-Content-Location: http://cal.example.com/events/65.ics
+Content-Location: https://cal.example.com/events/65.ics
 ETag: "123456789-000-000"
 
 BEGIN:VCALENDAR
@@ -1715,7 +1715,7 @@ HTTP/1.1 100 Continue
 HTTP/1.1 201 Created
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
-Content-Location: http://cal.example.com/events/65.ics
+Content-Location: https://cal.example.com/events/65.ics
 ETag: "123456789-000-111"
 Cal-Managed-ID: 97S
 
@@ -1823,7 +1823,7 @@ HTTP/1.1 102 Processing
 HTTP/1.1 201 Created
 Content-Type: text/calendar; charset="utf-8"
 Content-Length: yyyy
-Content-Location: http://cal.example.com/events/65.ics
+Content-Location: https://cal.example.com/events/65.ics
 ETag: "123456789-000-222"
 Cal-Managed-ID: 33225
 
