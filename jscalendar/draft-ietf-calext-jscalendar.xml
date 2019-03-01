@@ -1064,8 +1064,8 @@
                             <t>
                                 <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx> (optional)
                                 The UNTIL part from iCalendar. This MUST NOT be included if a
-                                <spanx style="emph">count</spanx> property is specified. Note, as in iCalendar, this
-                                date is presumed to be in the time zone specified in
+                                <spanx style="emph">count</spanx> property is specified. Note
+                                that this date is presumed to be in the time zone specified in
                                 <spanx style="emph">timeZone</spanx>. It is not a UTC time.
                                 As in iCalendar, the until value bounds the recurrence rule inclusively.
                                 To allow for using the same bound regardless of the
