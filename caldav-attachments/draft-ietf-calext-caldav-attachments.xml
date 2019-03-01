@@ -13,11 +13,11 @@
 <!ENTITY rfc5545 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml'>
 <!ENTITY rfc5546 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml'>
 <!ENTITY rfc6266 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6266.xml'>
-<!ENTITY rfc6570 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
-<!ENTITY rfc6638 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6638.xml'>
 <!ENTITY rfc7230 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml'>
 <!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
 <!ENTITY rfc7240 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml'>
+<!ENTITY rfc7320 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7320.xml'>
+<!ENTITY rfc6638 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6638.xml'>
 <!ENTITY rfc7538 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7538.xml'>
 <!ENTITY rfc7942 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7942.xml'>
 <!ENTITY rfc8144 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.8144.xml'>
@@ -155,8 +155,7 @@
           PUT, and DELETE methods where appropriate.</t>
 
           <t>Specific query strings are hardwired into the protocol
-          instead of using discoverable
-          <xref target="RFC6570">URI templates</xref>.</t>
+          in violation of Section 2.4 of <xref target="RFC7320" />.</t>
         </list></t>
 
         <t>Additionally, this extension misuses the
@@ -1472,7 +1471,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
     <references title='Informative References'>
       &rfc5023;
       &rfc5546;
-      &rfc6570;
+      &rfc7320;
       &rfc7942;
       &rfc8144;
     </references>
