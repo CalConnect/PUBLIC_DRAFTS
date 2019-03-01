@@ -271,7 +271,8 @@
                 </section>
                 <section anchor="duration-type" title="Duration">
                     <t>
-                        A duration is represented by a subset of ISO8601 duration format, as specified by the following
+                        A <spanx style="strong">Duration</spanx> is represented by a
+                        subset of ISO8601 duration format, as specified by the following
                         ABNF:
                     </t>
                     <figure>
@@ -288,8 +289,25 @@
     ]]></artwork>
                     </figure>
                     <t>
-                        In addition, the duration MUST NOT include fractional second values unless the fraction is
-                        non-zero.
+                        In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.
+                    </t>
+                    <t>
+                        A <spanx style="strong">SignedDuration</spanx> is represented
+                        as a duration, optionally preceeded by a sign character. It
+                        typically is used to express the offset of a point in time
+                        relative to an associated time.
+                        It is specified by the following ABNF:
+                    </t>
+                    <figure>
+                        <artwork><![CDATA[
+    signed-duration = (["+"] / "-") duration
+    ]]></artwork>
+                    </figure>
+                    <t>
+                        A negative sign indicates a point in time
+                        at or <spanx style="emph">before</spanx> the associated time,
+                        a positive or no sign a time at or
+                        <spanx style="emph">after</spanx> the associated time.
                     </t>
                 </section>
                 <section anchor="patchobject-type" title="PatchObject">
@@ -1773,32 +1791,24 @@
                         An <spanx style="strong">Alert</spanx> Object has the following properties:
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">relativeTo</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">before-start</spanx>)
-                                Specifies where the offset is relative to for the alarm to trigger. The value MUST be
-                                one of:
-                                <list style="symbols">
-                                    <t>
-                                        <spanx style="verb">before-start</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">after-start</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">before-end</spanx>
-                                    </t>
-                                    <t>
-                                        <spanx style="verb">after-end</spanx>
-                                    </t>
-                                </list>
-
-                            </t>
-                            <t>
                                 <spanx style="strong">offset</spanx>:
-                                <spanx style="verb">Duration</spanx>
-                                The offset from the start and end/due of the calendar object to fire the alert.
+                                <spanx style="verb">SignedDuration</spanx>
+                                Defines when to trigger the alert, relative to the time property defined in the <spanx style="emph">relativeTo</spanx> property.
                                 If the calendar object does not define a time zone,
                                 the user's default time zone SHOULD be used when determining the offset,
                                 if known. Otherwise, the time zone to use is implementation specific.
+                            </t>
+                    <t>
+                                <spanx style="strong">relativeTo</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">start</spanx>)
+                                Specifies the time property which the alert <spanx style="emph">offset</spanx> is relative to. The value MUST be one of:
+                                <list style="symbols">
+                                    <t>
+                                        <spanx style="verb">start</spanx>: triggers the alert relative to the start of the calendar object
+                                    </t>
+                                    <t>
+                                        <spanx style="verb">end</spanx>: triggers the alert relative to the end/due time of the calendar object
+                                    </t>
+                                </list>
                             </t>
                             <t>
                                 <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
