@@ -70,14 +70,16 @@
 
     <author role="editor" initials="K." surname="Murchison"
             fullname="Kenneth Murchison">
-      <organization abbrev="FastMail">FastMail Pty Ltd.</organization>
+      <organization abbrev="FastMail">FastMail US LLC</organization>
       <address> 
         <postal>
-          <street>Level 1, 91 William Street</street>
-          <city>Melbourne</city> <region>VIC</region>
-          <code>3000</code> <country>Australia</country>
+          <street>1429 Walnut St, Suite 1201</street>
+          <city>Philadephia</city>
+          <region>PA</region>
+          <code>19102</code>
+          <country>USA</country>
         </postal>
-        <email>murch@fastmail.com</email> 
+        <email>murch@fastmailteam.com</email> 
         <uri>http://www.fastmail.com/</uri>
       </address> 
     </author> 
