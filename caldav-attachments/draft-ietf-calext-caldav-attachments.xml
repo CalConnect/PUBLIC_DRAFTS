@@ -912,7 +912,7 @@ Content-Length: 0
           or <xref target="RFC7538">308 (Permanent Redirect)</xref>
           response to require the client to
           re-issue the POST request using a different request-URI. As
-          a result, it is always best for clients to use the
+          a result, clients SHOULD use the
           "100-continue" expectation defined in Section 5.1.1 of
           <xref target="RFC7231" />.
           Using this mechanism ensures that, if a redirect does occur,
