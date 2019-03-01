@@ -8,10 +8,12 @@
 <!ENTITY rfc4331 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4331.xml'>
 <!ENTITY rfc4791 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml'>
 <!ENTITY rfc4918 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.4918.xml'>
+<!ENTITY rfc5023 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5023.xml'>
 <!ENTITY rfc5234 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5234.xml'>
 <!ENTITY rfc5545 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml'>
 <!ENTITY rfc5546 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml'>
 <!ENTITY rfc6266 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6266.xml'>
+<!ENTITY rfc6570 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6570.xml'>
 <!ENTITY rfc6638 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.6638.xml'>
 <!ENTITY rfc7230 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7230.xml'>
 <!ENTITY rfc7231 PUBLIC '' 'http://xml.resource.org/public/rfc/bibxml/reference.RFC.7231.xml'>
@@ -97,9 +99,8 @@
 
       <t>This specification documents existing code deployed by
       multiple vendors.  It is published as an Informational
-      specification rather than Standards-Track due to its
-      non-standard method of updating an existing resource via
-      HTTP.</t>
+      specification rather than Standards Track due to its
+      noncompliance with multiple best current practices of HTTP.</t>
     </abstract>
   </front>
 
@@ -139,6 +140,39 @@
       privileges. The server can also provide additional information
       to the client about each attachment in the iCalendar data, such
       as the size and an identifier.</t>
+
+      <section title='Rationale for Informational Status'>
+        <t>Although this extension to CalDAV has wide deployment, its
+        design does not comply with some of the best current practices
+        of HTTP, namely:
+
+      	<list style="symbols">
+          <t>All operations on attachments are modeled as HTTP POST
+          operations, where the actual type of operation is specified
+          using a query parameter, instead of using separate HTTP POST,
+          PUT, and DELETE methods where appropriate.</t>
+
+          <t>Specific query strings are hardwired into the protocol
+          instead of using discoverable
+          <xref target="RFC6570">URI templates</xref>.</t>
+        </list></t>
+
+        <t>Additionally, this extension misuses the
+        <xref target="RFC6266">Content-Disposition header field</xref>
+        as a request header field to convey a filename for an
+        attachment rather than using an existing request header field
+        suitable for that purpose, such as "Slug"
+        (see Section 9.7 of <xref target="RFC5023" />).</t>
+
+        <t>Rather than creating interoperability problems with deployed
+        code by updating the design of this extension to be compliant
+        with best current practices and to allow this specification to
+        be placed on the Standards Track, it was decided to simply
+        document how existing implementations interoperate and to
+        publish the document as Informational.</t>
+        
+      </section> <!-- Rationale -->
+
     </section> <!-- Intro -->
 
     <section title='Conventions Used in This Document'>
@@ -346,7 +380,9 @@
             target="RFC6266">Content-Disposition header field</xref>
             with a "type" parameter set to "attachment", and a
             "filename" parameter that indicates the name of the
-            attachment.</t>
+            attachment.  Note that the use of Content-Disposition as a
+            request header field is nonstandard and specific to this
+            protocol.</t>
 
             <t>The client MAY include a <xref target="RFC7240">Prefer
             header field</xref> with the "return=representation"
@@ -1432,7 +1468,9 @@ Cal-Managed-ID:aUNhbGVuZGFy
     </references>
 
     <references title='Informative References'>
+      &rfc5023;
       &rfc5546;
+      &rfc6570;
       &rfc7942;
       &rfc8144;
     </references>
@@ -1442,6 +1480,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
       <t>
         Changes in calext-04:
         <list style='numbers'>
+          <t>Added text explaining why this document is being
+          published as Informational.</t>
           <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
           <t>Editorial changes from Adam Roach.</t>
           <t>Added reference to RFC4918.</t>
