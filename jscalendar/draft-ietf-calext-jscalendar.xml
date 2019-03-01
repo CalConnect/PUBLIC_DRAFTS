@@ -962,7 +962,7 @@
                             </t>
                             <t>
                                 <spanx style="strong">interval</spanx>: <spanx style="verb">Number</spanx> (optional, default:<spanx style="verb">1</spanx>)
-                                The INTERVAL part from iCal. If included, it MUST be an integer <spanx style="verb">x >=
+                                The INTERVAL part from iCalendar. If included, it MUST be an integer <spanx style="verb">x >=
                                 1</spanx>.
 
                             </t>
