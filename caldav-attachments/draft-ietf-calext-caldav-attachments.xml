@@ -781,7 +781,9 @@ Content-Length: 0
         property value for any managed attachments - this ensures that
         clients do not have to download the attachment data again if
         they already have it cached, because it is used in another
-        calendar resource.</t>
+        calendar resource.  Additionally, servers SHOULD validate
+        "SIZE" parameter values and replace incorrect values with the
+        actual sizes of existing attachments.</t> 
       </section>
 
       <section title="Updating Attachments via PUT"
@@ -1393,6 +1395,14 @@ Cal-Managed-ID:aUNhbGVuZGFy
     </section> <!-- Implementations -->
 
     <section title='Security Considerations'>
+      <t>The security considerations in <xref target="RFC4791" />
+      and <xref target="RFC4918" /> apply to this extension.
+      Additionally, servers need to be aware that a client could
+      attack underlying storage by POSTing extremely large attachments
+      and could attack processing time by uploading a recurring event
+      with a large number of overrides and then repeatedly adding,
+      updating, and deleting attachments.</t>
+
       <t>Malicious content could be introduced into the calendar
       server by way of a managed attachment, and propagated to many
       end users via scheduling. Servers SHOULD check managed
@@ -1495,11 +1505,13 @@ Cal-Managed-ID:aUNhbGVuZGFy
           published as Informational.</t>
           <t>Further specified Cal-Managed-ID per Section 8.3.1 of
           RFC 7231.</t>
-          <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
-          <t>Editorial changes from Adam Roach.</t>
-          <t>Added reference to RFC4918.</t>
           <t>Specified that the MANAGED-ID parameter value is unique
           within the scope of the server.</t>
+          <t>Added text about specific DoS attack vectors.</t>
+          <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
+          <t>Editorial changes from Adam Roach.</t>
+          <t>Editorial changes from Alexey Melnikov.</t>
+          <t>Added reference to RFC4918.</t>
           <t>Minor editorial changes.</t>
        </list>
       </t>
