@@ -1064,19 +1064,29 @@ ATTACH;MANAGED-ID=aUNhbGVuZGFy:https://attachments.example.c
                title="Cal-Managed-ID Response Header Field">
         <t>The Cal-Managed-ID response header field provides the value of
         the MANAGED-ID parameter corresponding to a newly added ATTACH
-        property. It MUST be sent only in response to a successful
-        POST request with an action set to attachment-add or
-        attachment-update.</t>
+        property.</t>
         <figure>
+          <preamble>ABNF:</preamble>
           <artwork name="abnf-rfc5545"><![CDATA[
 Cal-Managed-ID = "Cal-Managed-ID" ":" paramtext
 ; "paramtext" is defined in Section 3.1 of [RFC5545]
 ]]></artwork>
         </figure>
-        <t>Example:</t>
-        <figure><artwork><![CDATA[
+        <figure>
+          <preamble>Example:</preamble>
+          <artwork><![CDATA[
 Cal-Managed-ID:aUNhbGVuZGFy
-]]></artwork></figure>
+]]></artwork>
+        </figure>
+
+        <t>The Cal-Managed-ID header field MUST only be sent by an
+        origin server in response to a successful POST request with an
+        action set to attachment-add or attachment-update.  It MUST
+        only appear once in a response and MUST NOT appear in trailers.</t>
+
+        <t>The Cal-Managed-ID header field is end to end and MUST be
+        forwarded by intermediaries.  Intermediaries MUST NOT insert,
+        delete, or modify a Cal-Managed-ID header field.</t>
       </section>
     </section>
 
@@ -1483,6 +1493,8 @@ Cal-Managed-ID:aUNhbGVuZGFy
         <list style='numbers'>
           <t>Added text explaining why this document is being
           published as Informational.</t>
+          <t>Further specified Cal-Managed-ID per Section 8.3.1 of
+          RFC 7231.</t>
           <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
           <t>Editorial changes from Adam Roach.</t>
           <t>Added reference to RFC4918.</t>
