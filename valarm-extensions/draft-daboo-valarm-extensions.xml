@@ -22,6 +22,8 @@
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml'>
 <!ENTITY rfc7986 PUBLIC ''
 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml'>
+<!ENTITY rfc8174 PUBLIC ''
+ 'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml'>
 <!ENTITY idEventPub PUBLIC ''
 'http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-eventpub-extensions.xml'>
 ]>
@@ -36,7 +38,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="std" updates='5545'
-     ipr='trust200902' docName='draft-daboo-valarm-extensions-05'>
+     ipr='trust200902' docName='draft-daboo-valarm-extensions-06'>
   <front>
     <title abbrev="VALARM Extensions">VALARM Extensions for iCalendar</title>
     <author initials="C." surname="Daboo" fullname="Cyrus Daboo">
@@ -55,14 +57,16 @@
     </author>
     <author role="editor" initials="K." surname="Murchison"
             fullname="Kenneth Murchison">
-      <organization abbrev="FastMail">FastMail Pty Ltd.</organization>
+      <organization abbrev="FastMail">FastMail US LLC</organization>
       <address> 
         <postal>
-          <street>Level 1, 91 William Street</street>
-          <city>Melbourne</city> <region>VIC</region>
-          <code>3000</code> <country>Australia</country>
+          <street>1429 Walnut St, Suite 1201</street>
+          <city>Philadephia</city>
+          <region>PA</region>
+          <code>19102</code>
+          <country>USA</country>
         </postal>
-        <email>murch@fastmail.com</email> 
+        <email>murch@fastmailteam.com</email> 
         <uri>http://www.fastmail.com/</uri>
       </address> 
     </author>
@@ -116,7 +120,9 @@
       <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
       "MAY", and "OPTIONAL" in this document are to be interpreted as
-      described in <xref target='RFC2119' />.</t>
+      described in <eref target="https://tools.ietf.org/html/bcp14">BCP 14</eref>
+      <xref target='RFC2119' /> <xref target='RFC8174' /> 
+      when, and only when, they appear in all capitals, as shown here.</t>
 
       <t>When XML element types in the namespaces "DAV:" and
       "urn:ietf:params:xml:ns:caldav" are referenced in this document
@@ -730,6 +736,7 @@ END:VALARM
             </figure></t>
       </section>
     </section>
+<!--
     <section title="Default Alarms in CalDAV">
       <t>Users often want to have a default alarm applied to new
       events that they create or to new invitations that arrive on a
@@ -930,7 +937,7 @@ defaultalarmparam = *(
         </t>
       </section>
     </section>
-
+-->
     <section title='Security Considerations'>
       <t>VALARMs, if not monitored properly, can be used to "spam"
       users and/or leak personal information.  For instance, an
@@ -963,9 +970,11 @@ defaultalarmparam = *(
           <c>PROXIMITY</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="PROXIMITY" /></c>
+<!--
           <c>DEFAULT-ALARM</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="default-alarm" /></c>
+-->
         </texttable>
       </section>
 <!--
@@ -982,24 +991,22 @@ defaultalarmparam = *(
           <c>RFCXXXX, <xref target="AGENT-ID-PARAM" /></c>
         </texttable>
         </section>
--->
+
       <section title='Actions Registry'>
         <t>This document defines the following new iCalendar action to be added to the registry defined in Section 8.3.10 of <xref target="RFC5545" />:</t>
         <texttable>
           <ttcol>Action</ttcol>
           <ttcol>Status</ttcol>
          <ttcol>Reference</ttcol>
-<!--
           <c>URI</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="URI-ACTION" /></c>
--->
           <c>NONE</c>
           <c>Current</c>
           <c>RFCXXXX, <xref target="NONE-ACTION" /></c>
         </texttable>
       </section>
-<!--
+
       <section title='Relationship Types Registry'>
         <t>This document defines the following new iCalendar
         relationship type to be added to the registry defined in
@@ -1051,6 +1058,7 @@ defaultalarmparam = *(
       &rfc5545;
       &rfc5870;
       &rfc7986;
+      &rfc8174;
       &idEventPub;
     </references>
 
@@ -1078,6 +1086,11 @@ defaultalarmparam = *(
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)"> 
+      <t>Changes in -06: 
+      <list style='numbers'>
+        <t>Updated keywords boilerplate.</t>
+        <t>Removed default alarms.</t>
+      </list></t>
       <t>Changes in -05: 
       <list style='numbers'>
         <t>Added Murchison as editor.</t>
