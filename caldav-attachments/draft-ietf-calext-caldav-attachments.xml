@@ -31,7 +31,7 @@
 <?rfc sortrefs="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<?rfc tocdepth="2"?>
+<?rfc tocdepth="3"?>
 <?rfc strict="yes"?>
 <rfc category="info" ipr='trust200902'
      docName='draft-ietf-calext-caldav-attachments-04'>
@@ -251,7 +251,10 @@
       <section title="POST Request for Managing Attachments"
                anchor="attachment-post-request">
       	<t>An HTTP POST request is used to add, update, or remove
-        attachments. The request-URI will contain various query
+        attachments.
+        These requests are subject to the preconditions listed in
+        <xref target="errors" />.
+        The request-URI will contain various query
         parameters to specify the behavior.</t>
 
       	<section title="action= Query Parameter" anchor="action">
@@ -776,14 +779,20 @@ Content-Length: 0
         <t>Clients can make use of existing managed attachments by
         adding the corresponding "ATTACH" property to calendar object
         resources (subject to the restrictions described in <xref
-        target="acls"/>). When this occurs, servers SHOULD NOT change
+        target="acls"/>)</t>
+
+        <t>If a managed attachment is used in more than calendar resource,
+        servers SHOULD NOT change
         either the "MANAGED-ID" parameter value or the "ATTACH"
-        property value for any managed attachments - this ensures that
+        property value for these attachments - this ensures that
         clients do not have to download the attachment data again if
-        they already have it cached, because it is used in another
-        calendar resource.  Additionally, servers SHOULD validate
+        they already have it cached.
+        Additionally, servers SHOULD validate
         "SIZE" parameter values and replace incorrect values with the
-        actual sizes of existing attachments.</t> 
+        actual sizes of existing attachments.</t>
+
+        <t>These PUT requests are subject to the preconditions listed in
+        <xref target="errors" />.</t>
       </section>
 
       <section title="Updating Attachments via PUT"
@@ -834,9 +843,22 @@ Content-Length: 0
           CALDAV:max-attachments-per-resource property value (<xref
           target="max-attachments-per-resource-property"/>) on the
           calendar collection of the target calendar resource;</t>
+
+          <t>(CALDAV:valid-action): The action query
+          parameter in the POST request
+          MUST contain one of "attachment-add", "attachment-update",
+          or "attachment-remove".</t>
+
+          <t>(CALDAV:valid-rid): The rid query
+          parameter in the POST request
+          MUST NOT be present for an attachment-update action, and
+          MUST contain the value "M" and/or values corresponding to
+          "RECURRENCE-ID" property values in the iCalendar
+          data targeted by the request.</t>
             
           <t>(CALDAV:valid-managed-id): The managed-id query
           parameter in the POST request
+          MUST NOT be present for an attachment-add action, and
           MUST contain a value corresponding to a
           "MANAGED-ID" property parameter value in the iCalendar
           data targeted by the request.</t>
@@ -873,6 +895,20 @@ Content-Length: 0
           managed attachment).</t>
         </list>
         </t>
+
+        <t>If a precondition for a request is not satisfied:
+
+        <list style="numbers">
+          <t>The response status of the request MUST either be
+          403 (Forbidden), if the request should not be repeated because
+          it will always fail, or 409 (Conflict), if it is expected that
+          the user might be able to resolve the conflict and resubmit
+          the request.</t>
+
+          <t>The appropriate XML element MUST be returned as the
+          child of a top-level DAV:error element in the response
+          body.</t>
+        </list></t>
       </section>
 
       <section title="Additional Considerations">
@@ -1507,6 +1543,7 @@ Cal-Managed-ID:aUNhbGVuZGFy
           RFC 7231.</t>
           <t>Specified that the MANAGED-ID parameter value is unique
           within the scope of the server.</t>
+          <t>Added more text regarding preconditions.</t>
           <t>Added text about specific DoS attack vectors.</t>
           <t>Editorial changes from Gren Elliot and Phillip Kewisch.</t>
           <t>Editorial changes from Adam Roach.</t>
