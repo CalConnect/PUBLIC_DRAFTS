@@ -38,7 +38,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="std" updates='5545'
-     ipr='trust200902' docName='draft-daboo-valarm-extensions-06'>
+     ipr='trust200902' docName='draft-daboo-valarm-extensions-05'>
   <front>
     <title abbrev="VALARM Extensions">VALARM Extensions for iCalendar</title>
     <author initials="C." surname="Daboo" fullname="Cyrus Daboo">
@@ -1086,15 +1086,12 @@ defaultalarmparam = *(
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)"> 
-      <t>Changes in -06: 
-      <list style='numbers'>
-        <t>Updated keywords boilerplate.</t>
-        <t>Removed default alarms.</t>
-      </list></t>
       <t>Changes in -05: 
       <list style='numbers'>
         <t>Added Murchison as editor.</t>
+        <t>Updated keywords boilerplate.</t>
         <t>Added reference to UID security/privacy recommendations.</t>
+        <t>Removed default alarms.</t>
         <t>Removed ALARM-AGENT property.</t>
         <t>Added text about using TRIGGER value in the past in
         addition to ACTION:NONE to have a default alarm be
