@@ -1827,7 +1827,10 @@ END:VCALENDAR
         February meeting.
         It is added to that particular instance of the meeting by
         specifying the rid parameter.
-        Note that the server takes significant time to complete the
+        Note that an overridden instance is created with the
+        RECURRENCE-ID property value matching the value of the "rid"
+        query parameter in the request.
+        Also note that the server takes significant time to complete the
         request and notifies the client accordingly.
       </t>
       <figure>
