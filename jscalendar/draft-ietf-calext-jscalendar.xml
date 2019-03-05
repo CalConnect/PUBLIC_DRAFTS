@@ -265,7 +265,7 @@
                         YYYY-MM-DDTHH:MM:SS</spanx>. The time zone to associate the LocalDate with comes from an
                         associated property, or if no time zone is associated it defines
                         <spanx style="emph">floating time</spanx>. Floating date-times are not tied to any specific
-                        time zone. Instead, they occur in every timezone at the same <spanx style="emph">wall-clock</spanx>
+                        time zone. Instead, they occur in every time zone at the same <spanx style="emph">wall-clock</spanx>
                         time (as opposed to the same instant point in time).
                     </t>
                 </section>
@@ -379,11 +379,12 @@
                         By default, time zones in JSCalendar are identified by their name in the
                         <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref>,
                         and the zone rules of the respective zone record apply.
-                        Other identifiers MUST start with a solidus character (ASCII decimal 47),
-                        and lookup or evaluation of their zone rules are out of scope of this
-                        specification. Also see section 3.2.19 of <xref target="RFC5545"/> and
-                        section 3.6. of <xref target="RFC7808"/> for discussion of such identifiers.
-                      </t>
+                    </t>
+                    <t>
+                        Implementations MAY embed the definition of custom time zones
+                        in the <spanx style="emph">timeZones</spanx> property
+                        (see <xref target="timezones-prop"/>).
+                    </t>
                 </section>
                 <section anchor="normalization" title="Normalization and equivalence">
                     <t>
@@ -691,7 +692,7 @@
                             <t>
                                 <spanx style="strong">timeZone</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
-                                A time zone for this location.
+                                A time zone for this location. Also see <xref target="timezones"/>.
                             </t>
                             <t>
                                 <spanx style="strong">coordinates</spanx>:
@@ -1064,9 +1065,10 @@
                             <t>
                                 <spanx style="strong">until</spanx>: <spanx style="verb">LocalDate</spanx> (optional)
                                 The UNTIL part from iCalendar. This MUST NOT be included if a
-                                <spanx style="emph">count</spanx> property is specified. Note
-                                that this date is presumed to be in the time zone specified in
-                                <spanx style="emph">timeZone</spanx>. It is not a UTC time.
+                                <spanx style="emph">count</spanx> property is specified. Note:
+                                if not specified otherwise for a specific JSCalendar object,
+                                this date is presumed to be in the time zone specified in
+                                <spanx style="emph">timeZone</spanx>.
                                 As in iCalendar, the until value bounds the recurrence rule inclusively.
                                 To allow for using the same bound regardless of the
                                 value of the <spanx style="emph">isAllDay</spanx> property, the
@@ -1395,7 +1397,6 @@
                 </t>
               </section>
             </section>
-
 
             <section anchor="sharing-scheduling-properties" title="Sharing and scheduling properties">
 
@@ -1898,6 +1899,150 @@
                 </section>
             </section>
 
+            <section anchor="timezone-props" title="Time zone properties">
+                <section anchor="timezones-prop" title="timeZones">
+                    <t>
+                        Type:
+                        <spanx style="verb">String[TimeZone]</spanx> (optional)
+                    </t>
+                    <t>
+                        Maps identifiers of custom time zones to their time zone definition.
+                        The following restrictions apply for each key in the map:
+                        <list style="symbols">
+                            <t>
+                                It MUST start with the <spanx style="verb">/</spanx> character (ASCII decimal 47;
+                                also see sections 3.2.19 of <xref target="RFC5545"/> and
+                                3.6. of <xref target="RFC7808"/> for discussion
+                                of the forward slash character in time zone identifiers).
+                            </t>
+                            <t>
+                                It MUST be a valid <spanx style="emph">paramtext</spanx> value
+                                as specified in section 3.1. of <xref target="RFC5545"/>.
+                            </t>
+                            <t>
+                                At least one other property in the same JSCalendar object
+                                MUST reference a time zone using this identifier
+                                (i.e. orphaned time zones are not allowed).
+                            </t>
+                        </list>
+                        An identifier need only be unique to this JSCalendar object.
+                    </t>
+                    <t>
+                        A <spanx style="strong">TimeZone</spanx> object
+                        maps a VTIMEZONE component from iCalendar (<xref target="RFC5545"/>).
+                        A valid time zone MUST define at least one transition rule in the
+                        <spanx style="emph">standard</spanx> or
+                        <spanx style="emph">daylight</spanx> property. Its properties are:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="strong">tzId</spanx>:
+                                <spanx style="verb">String</spanx>
+                                The TZID property from iCalendar.
+                            </t>
+                            <t>
+                                <spanx style="strong">lastModified</spanx>:
+                                <spanx style="verb">UTCDate</spanx> (optional)
+                                The LAST-MODIFIED property from iCalendar.
+                            </t>
+                            <t>
+                                <spanx style="strong">url</spanx>:
+                                <spanx style="verb">String</spanx> (optional)
+                                The TZURL property from iCalendar.
+                            </t>
+                            <t>
+                                <spanx style="strong">validUntil</spanx>:
+                                <spanx style="verb">UTCDate</spanx> (optional)
+                                The TZUNTIL property from iCalendar specified
+                                in <xref target="RFC7808"/>.
+                            </t>
+                            <t>
+                                <spanx style="strong">aliases</spanx>:
+                                <spanx style="verb">String[Boolean]</spanx>
+                                Maps the TZID-ALIAS-OF properties from iCalendar
+                                specified in <xref target="RFC7808"/> to a
+                                JSON set of aliases. The set is represented as an
+                                object, with the keys being the aliases.
+                                The value for each key in the
+                                set MUST be <spanx style="verb">true</spanx>.
+                            </t>
+                            <t>
+                                <spanx style="strong">standard</spanx>:
+                                <spanx style="verb">TimeZoneRule[]</spanx> (optional)
+                                The STANDARD sub-components from iCalendar.
+                                The order MUST be preserved during conversion.
+                            </t>
+                            <t>
+                                <spanx style="strong">daylight</spanx>:
+                                <spanx style="verb">TimeZoneRule[]</spanx> (optional)
+                                The DAYLIGHT sub-components from iCalendar.
+                                The order MUST be preserved during conversion.
+                            </t>
+                        </list>
+                    </t>
+                    <t>
+                        A <spanx style="strong">TimeZoneRule</spanx> object maps a
+                        STANDARD or DAYLIGHT sub-component from iCalendar, with the
+                        restriction that <spanx style="emph">at most one</spanx>
+                        recurrence rule is allowed per rule.
+                        It has the following properties:
+                        <list style="symbols">
+                            <t>
+                                <spanx style="strong">start</spanx>:
+                                <spanx style="verb">LocalDate</spanx>
+                                The DTSTART property from iCalendar.
+                            </t>
+                            <t>
+                                <spanx style="strong">offsetTo</spanx>:
+                                <spanx style="verb">String</spanx>
+                                The TZOFFSETTO property from iCalendar.
+                            </t>
+                            <t>
+                                <spanx style="strong">offsetFrom</spanx>:
+                                <spanx style="verb">String</spanx>
+                                The TZOFFSETFROM property from iCalendar.
+                            </t>
+                            <t>
+                                <spanx style="strong">recurrenceRule</spanx>:
+                                <spanx style="verb">RecurrenceRule</spanx> (optional)
+                                The RRULE property mapped as
+                                specified in <xref target="recurrenceRule"/>.
+                                During recurrence rule evaluation, the
+                                <spanx style="emph">until</spanx>
+                                property value MUST be interpreted
+                                as a local time in the UTC time zone.
+                            </t>
+                            <t>
+                                <spanx style="strong">recurrenceDates</spanx>:
+                                <spanx style="verb">LocalDate[Boolean]</spanx> (optional)
+                                Maps the RDATE properties from iCalendar to a
+                                JSON set. The set is represented as an
+                                object, with the keys being the recurrence dates.
+                                The value for each key in the
+                                set MUST be <spanx style="verb">true</spanx>.
+                            </t>
+                            <t>
+                                <spanx style="strong">names</spanx>:
+                                <spanx style="verb">String[Boolean]</spanx> (optional)
+                                Maps the TZNAME properties from iCalendar to a
+                                JSON set. The set is represented as an
+                                object, with the keys being the names.
+                                The value for each key in the
+                                set MUST be <spanx style="verb">true</spanx>.
+                            </t>
+                            <t>
+                                <spanx style="strong">comments</spanx>:
+                                <spanx style="verb">String[]</spanx> (optional)
+                                Maps the COMMENT properties from iCalendar.
+                                The order MUST be preserved during conversion.
+                            </t>
+                        </list>
+                    </t>
+                </section>
+            </section>
+
+
+
+
         </section>
 
         <section anchor="jscalendar-object-props" title="Type-specific JSCalendar properties">
@@ -1930,6 +2075,7 @@
                         Identifies the time zone the event is scheduled in, or <spanx style="verb">null</spanx> for
                         floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
                         (i.e. floating time).
+                        Also see <xref target="timezones"/>.
                     </t>
                 </section>
 
@@ -2034,6 +2180,7 @@
                         Identifies the time zone the task is scheduled in, or <spanx style="verb">null</spanx> for
                         floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
                         (i.e. floating time).
+                        Also see <xref target="timezones"/>.
                     </t>
                 </section>
 
