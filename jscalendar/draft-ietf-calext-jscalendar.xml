@@ -656,7 +656,7 @@
                     </t>
                     <t>
                         A <spanx style="strong">Location</spanx> object has the following properties. It must define
-                        at least one other property than <spanx style="emph">rel</spanx>.
+                        at least one other property than <spanx style="emph">relativeTo</spanx>.
                     </t>
                     <t>
                         <list style="symbols">
@@ -672,7 +672,7 @@
                                 directions, door access code, etc.
                             </t>
                             <t>
-                                <spanx style="strong">rel</spanx>:
+                                <spanx style="strong">relativeTo</spanx>:
                                 <spanx style="verb">String</spanx> (optional)
                                 The relation type of this location to the JSCalendar object.
                                 <vspace blankLines="1"/>
@@ -2094,7 +2094,7 @@
                         Fractional seconds MUST be added last.
                     </t>
                     <t>
-                        A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="emph">rel</spanx> and <spanx style="emph">timeZone</spanx> properties of the JSEvent's <spanx style="emph">location</spanx> objects.
+                        A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="emph">relativeTo</spanx> and <spanx style="emph">timeZone</spanx> properties of the JSEvent's <spanx style="emph">location</spanx> objects.
                     </t>
                 </section>
 
