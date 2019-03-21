@@ -1792,24 +1792,43 @@
                         An <spanx style="strong">Alert</spanx> Object has the following properties:
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">offset</spanx>:
-                                <spanx style="verb">SignedDuration</spanx>
-                                Defines when to trigger the alert, relative to the time property defined in the <spanx style="emph">relativeTo</spanx> property.
-                                If the calendar object does not define a time zone,
-                                the user's default time zone SHOULD be used when determining the offset,
-                                if known. Otherwise, the time zone to use is implementation specific.
-                            </t>
-                    <t>
-                                <spanx style="strong">relativeTo</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">start</spanx>)
-                                Specifies the time property which the alert <spanx style="emph">offset</spanx> is relative to. The value MUST be one of:
+                                <spanx style="strong">trigger</spanx>:
+                                <spanx style="verb">OffsetTrigger|UnknownTrigger</spanx>
+                                Defines when to trigger the alert.
+                                <vspace blankLines="1"/>
+                                An <spanx style="strong">OffsetTrigger</spanx> object has the following properties:
                                 <list style="symbols">
                                     <t>
-                                        <spanx style="verb">start</spanx>: triggers the alert relative to the start of the calendar object
+                                        <spanx style="strong">type</spanx>:
+                                        <spanx style="verb">String</spanx>
+                                        The value of this property MUST be <spanx style="verb">offset</spanx>.
                                     </t>
                                     <t>
-                                        <spanx style="verb">end</spanx>: triggers the alert relative to the end/due time of the calendar object
+                                        <spanx style="strong">offset</spanx>:
+                                        <spanx style="verb">SignedDuration</spanx>
+                                        Defines to trigger the alert relative to the time property defined in the <spanx style="emph">relativeTo</spanx> property.
+                                        If the calendar object does not define a time zone,
+                                        the user's default time zone SHOULD be used when determining the offset,
+                                        if known. Otherwise, the time zone to use is implementation specific.
+                                    </t>
+                                    <t>
+                                        <spanx style="strong">relativeTo</spanx>: <spanx style="verb">String</spanx> (optional, default:<spanx style="verb">start</spanx>)
+                                        Specifies the time property which the alert <spanx style="emph">offset</spanx> is relative to. The value MUST be one of:
+                                        <list style="symbols">
+                                            <t>
+                                                <spanx style="verb">start</spanx>: triggers the alert relative to the start of the calendar object
+                                            </t>
+                                            <t>
+                                                <spanx style="verb">end</spanx>: triggers the alert relative to the end/due time of the calendar object
+                                            </t>
+                                        </list>
                                     </t>
                                 </list>
+                                An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains
+                                a <spanx style="strong">type</spanx> property whose value is not <spanx style="verb">offset</spanx>,
+                                plus zero or more other properties.  This is for compatibility with client extensions
+                                and future RFCs.  Implementations SHOULD NOT trigger for trigger types they do not understand,
+                                but MUST preserve them.
                             </t>
                             <t>
                                 <spanx style="strong">acknowledged</spanx>: <spanx style="verb">UTCDate</spanx> (optional)
@@ -1851,6 +1870,7 @@
                             </t>
                         </list>
                     </t>
+
                 </section>
 
             </section>
@@ -2536,8 +2556,8 @@
                         (e.g., both <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx> actions
                         map to a JSCalendar <spanx style="emph">display</spanx> action, and similarly for
                         <spanx style="verb">EMAIL</spanx>).
-                        The <spanx style="emph">relativeTo</spanx> and <spanx style="emph">offset</spanx> properties
-                        corresponds to the iCalendar TRIGGER property.
+                        The OffsetTrigger <spanx style="emph">relativeTo</spanx> and <spanx style="emph">offset</spanx>
+                        properties corresponds to the iCalendar TRIGGER property.
                     </c>
 
                     <c>categories</c>
