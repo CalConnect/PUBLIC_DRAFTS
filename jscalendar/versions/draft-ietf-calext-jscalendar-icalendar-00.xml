@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<rfc ipr="trust200902" category="info" docName="draft-ietf-calext-jscalendar-icalendar-00">
+    <?rfc toc="yes"?>
+    <?rfc symrefs="yes"?>
+    <?rfc sortrefs="yes"?>
+    <?rfc compact="no"?>
+    <?rfc subcompact="no"?>
+    <?rfc private=""?>
+    <?rfc topblock="yes"?>
+    <?rfc comments="no"?>
+
+    <front>
+        <title abbrev="JSCalendar">JSCalendar: Converting from and to iCalendar</title>
+        <author initials="N.M." surname="Jenkins" fullname="Neil Jenkins">
+            <organization>FastMail</organization>
+            <address>
+                <postal>
+                    <street>PO Box 234</street>
+                    <street>Collins St West</street>
+                    <city>Melbourne</city>
+                    <code>VIC 8007</code>
+                    <country>Australia</country>
+                    <region/>
+                </postal>
+                <phone/>
+                <email>neilj@fastmailteam.com</email>
+                <uri>https://www.fastmail.com</uri>
+            </address>
+        </author>
+        <author initials="R." surname="Stepanek" fullname="Robert Stepanek">
+            <organization>FastMail</organization>
+            <address>
+                <postal>
+                    <street>PO Box 234</street>
+                    <street>Collins St West</street>
+                    <city>Melbourne</city>
+                    <code>VIC 8007</code>
+                    <country>Australia</country>
+                    <region/>
+                </postal>
+                <email>rsto@fastmailteam.com</email>
+                <uri>https://www.fastmail.com</uri>
+            </address>
+        </author>
+        <date year="2019" month="May" day="2"/>
+        <area>Applications</area>
+        <workgroup>Calendaring extensions</workgroup>
+        <keyword>JSON</keyword>
+        <keyword>iCalendar</keyword>
+        <keyword>calendar</keyword>
+        <keyword>events</keyword>
+        <keyword>date</keyword>
+        <keyword>time</keyword>
+        <abstract>
+            <t>
+                This document provides an informational guideline for converting
+                JSCalendar from and to iCalendar.
+            </t>
+        </abstract>
+    </front>
+
+    <middle>
+        <section anchor="introduction" title="Introduction">
+
+            <section anchor="motivation" title="Motivation">
+                <t>
+                    The JSCalendar <xref target="draft-ietf-calext-jscalendar"/> data format
+                    is used to represent calendar data, and is meant as an alternative to
+                    the widely deployed iCalendar <xref target="RFC5545"/> data format.
+                </t>
+                <t>
+                    While new calendaring services and applications might use JSCalendar
+                    as their main data format to exchange calendaring data, they are
+                    likely to interoperate with services and clients that just support iCalendar.
+                    Similarly, existing calendaring data is stored in iCalendar format
+                    in databases and other calendar stores, and providers and users might
+                    want to represent this data also in JSCalendar. Lastly, some implementations
+                    might want to preserve custom iCalendar properties, that have no
+                    equivalent in JSCalendar when converting between these formats.
+                </t>
+                <t>
+                    To facilitate these use cases, this document provides an
+                    informational guide how to convert JSCalendar data from and to
+                    iCalendar.
+                </t>
+            </section>
+
+            <section anchor="scope" title="Scope and caveats">
+                <t>
+                    JSCalendar and iCalendar have a lot of semantics in common, but
+                    they are not interchangeable formats:
+                    <list style="symbols">
+                        <t>
+                            JSCalendar contains a richer data model to express calendar
+                            information such as event locations and participants;
+                            while future iCalendar extensions
+                            may allow a direct mapping, for now there may be no representation
+                            directly in iCalendar of some properties and these have been marked
+                            as implementation specific for mapping.
+                        </t>
+                        <t>
+                            iCalendar may contain arbitrary, non-standardised data with custom
+                            properties/attributes. Translating these into JSCalendar is implementation
+                            specific.
+                        </t>
+                        <t>
+                            iCalendar has some obsolete features that have been removed from JSCalendar
+                            due to not being useful and/or supported in the real world (e.g. custom
+                            email alerts to send to random people). Translating these may lose some
+                            of the original fidelity.
+                        </t>
+                        <t>
+                            Implementations may use a custom property to store data that could not
+                            be mapped directly in either direction in the original or a custom format,
+                            however this is not interoperable.
+                        </t>
+                    </list>
+                    Accordingly, this document does not standardize a canonical translation
+                    between iCalendar and JSCalendar, and implementations MUST NOT make
+                    any assumptions how iCalendar data is represented in JSCalendar
+                    by other systems.
+                </t>
+            </section>
+
+            <section anchor="notational-conventions" title="Notational Conventions">
+                <t>
+                    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
+                    "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in
+                    <xref target="RFC2119"/>.
+                </t>
+            </section>
+
+        </section>
+
+        <section anchor="translate-jsevent" title="JSEvent">
+            <t>
+                A <spanx style="emph">JSEvent</spanx> maps to the the iCalendar VEVENT component type
+                <xref target="RFC5545"/>.
+                The following tables maps the JSEvent-specific properties to iCalendar:
+            </t>
+
+            <texttable anchor="translate-jsevent-properties" title="Mapping JSEvent properties">
+                <ttcol align='left'>Property</ttcol>
+                <ttcol align='left'>iCalendar counterpart</ttcol>
+                <c>duration</c>
+                <c>
+                    DURATION property.
+                    If the VEVENT contains a DTEND
+                    property, the this maps to the <spanx style="emph">duration</spanx> property
+                    as the time span between DTSTART and DTEND when converting the
+                    respective time points to the UTC time zone.
+                </c>
+
+            </texttable>
+        </section>
+
+        <section anchor="translate-jstask" title="JSTask">
+            <t>
+                A <spanx style="emph">JSTask</spanx> object maps to the iCalendar VTODO component type
+                <xref target="RFC5545"/>.
+                The following tables maps the JSTask-specific properties to iCalendar:
+            </t>
+            <texttable anchor="translate-jstask-time-table" title="Mapping JSTask properties">
+                <ttcol align='left'>Property</ttcol>
+                <ttcol align='left'>iCalendar counterpart</ttcol>
+                <c>due</c>
+                <c>
+                    DUE property
+                </c>
+
+                <c>estimatedDuration</c>
+                <c>
+                    ESTIMATED-DURATION property in the RFC draft <xref target="draft-apthorp-ical-tasks"/>,
+                    or the DURATION property otherwise.
+                </c>
+
+                <c>statusUpdatedAt</c>
+                <c>
+                    COMPLETED property. The JSTask status property
+                    MUST have value <spanx style="verb">completed</spanx>.
+                </c>
+
+                <c>progress</c>
+                <c>
+                    PARTSTAT and COMPLETED properties, including the
+                    definitions in the RFC draft <xref target="draft-apthorp-ical-tasks"/>.
+                </c>
+
+                <c>status</c>
+                <c>
+                    STATUS property, including the
+                    definitions in the RFC draft <xref target="draft-apthorp-ical-tasks"/>.
+                </c>
+
+            </texttable>
+        </section>
+
+        <section title="JSGroup">
+            <t>
+                A JSGroup maps to a iCalendar VCALENDAR containing VEVENT or VTODO components.
+            </t>
+            <texttable anchor="translate-jsgroup-table" title="Mapping JSGroup properties">
+                <ttcol align='left'>Property</ttcol>
+                <ttcol align='left'>iCalendar counterpart</ttcol>
+
+                <c>entries</c>
+                <c>
+                    VEVENT and VTODO components embedded in a VCALENDAR component.
+                </c>
+
+                <c>source</c>
+                <c>
+                    SOURCE property.
+                </c>
+            </texttable>
+        </section>
+
+        <section anchor="icalendar-translation" title="Common properties">
+            <t>
+                This section contains recommendations how to map JSCalendar from and to iCalendar.
+                It lists all common JSCalendar object properties in alphabetical order.
+            </t>
+
+            <texttable anchor="translate-commonprops-table" title="Translation between JSCalendar and iCalendar">
+
+                <ttcol align='left'>Property</ttcol>
+                <ttcol align='left'>iCalendar counterpart</ttcol>
+
+                <c>@type</c>
+                <c>
+                    Determined by the iCalendar component type: <spanx style="verb">jsevent</spanx>
+                    for VEVENT, <spanx style="verb">jstask</spanx> for VTODO,
+                    <spanx style="verb">jsgroup</spanx> for VCALENDAR.
+                </c>
+
+                <c>alerts</c>
+                <c>
+                    Each entry maps to a VALARM component.
+
+                    The ACTION property maps to  <spanx style="emph">action</spanx>, where
+                    both <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx>
+                    values map to the <spanx style="verb">display</spanx> action. An EMAIL value maps
+                    to a JSCalendar <spanx style="verb">email</spanx> action.
+                    <spanx style="emph">relativeTo</spanx> and <spanx style="emph">offset</spanx>
+                    map to the TRIGGER property.
+                </c>
+
+                <c>categories</c>
+                <c>
+                    CONCEPT property, defined in <xref target="draft-ietf-calext-ical-relations"/>.
+                </c>
+
+                <c>color</c>
+                <c>
+                    COLOR property, as specified in <xref target="RFC7986"/>.
+                </c>
+
+                <c>created</c>
+                <c>
+                    CREATED property.
+                </c>
+
+                <c>description</c>
+                <c>
+                    DESCRIPTION property.
+                </c>
+
+                <c>descriptionContentType</c>
+                <c>
+                    Implementation-specific.
+                </c>
+
+                <c>excluded</c>
+                <c>
+                    EXDATE property.
+                </c>
+
+                <c>freeBusyStatus</c>
+                <c>
+                    TRANSP property.
+                </c>
+
+                <c>isAllDay</c>
+                <c>
+                    See <xref target="translate-time"/>.
+                </c>
+
+                <c>keywords</c>
+                <c>
+                    CATEGORIES property, as specified in <xref target="RFC7986"/>.
+                </c>
+
+                <c>links</c>
+                <c>
+                    ATTACH (<xref target="RFC5545"/>), URL or IMAGE (<xref target="RFC7986"/>)
+                    properties with URI value types map to the the Link <spanx style="emph">href</spanx>.
+                    The FMTTYPE parameter maps to <spanx style="emph">type</spanx>,
+                    the SIZE parameter to <spanx style="emph">size</spanx>.
+                    Mapping other properties is implementation-specific.
+                </c>
+
+                <c>locale</c>
+                <c>
+                    LANGUAGE parameter of the SUMMARY or DESCRIPTION property.
+                </c>
+
+                <c>localizations</c>
+                <c>
+                    Implementation-specific.
+                </c>
+
+                <c>locations</c>
+                <c>
+                    See <xref target="translate-locations"/>.
+                </c>
+
+                <c>method</c>
+                <c>
+                    METHOD property of the embedding VCALENDAR.
+                </c>
+
+                <c>participants</c>
+                <c>
+                    See <xref target="translate-participants"/>.
+                </c>
+
+                <c>priority</c>
+                <c>
+                    PRIORITY property.
+                </c>
+
+                <c>privacy</c>
+                <c>
+                    CLASS property.
+                </c>
+
+                <c>prodId</c>
+                <c>
+                    PRODID property.
+                </c>
+
+                <c>recurrenceOverrides</c>
+                <c>
+                    RDATE and EXDATE properties, and any VEVENT or
+                    VTODO instances with a recurrence-id and same UID
+                    as the mapped main object.
+                </c>
+
+                <c>recurrenceRule</c>
+                <c>
+                    RRULE property. For all-day calendar objects,
+                    map the <spanx style="emph">until</spanx> property value to an iCalendar
+                    DATE (effectively removing the time component). To convert a DATE-typed UNTIL
+                    from iCalendar, set the time components of the LocalDate value to
+                    <spanx style="verb">23:59:59</spanx>. If the iCalendar UNTIL value is a
+                    UTC date time, convert it to the local time in the JSCalendar calendar
+                    object time zone.
+                </c>
+
+                <c>relatedTo</c>
+                <c>
+                    RELATED-TO property.
+                </c>
+
+                <c>replyTo</c>
+                <c>
+                    An iCalendar ORGANIZER with a mailto: URI mapped to the
+                    <spanx style="verb">imip</spanx> method, or any other
+                    URI mapped to the <spanx style="verb">other</spanx>
+                    method. Mapping multiple methods is implementation-specific.
+                </c>
+
+                <c>sequence</c>
+                <c>
+                    SEQUENCE property.
+                </c>
+
+                <c>start</c>
+                <c>
+                    See <xref target="translate-time"/>.
+                </c>
+
+                <c>status</c>
+                <c>
+                    STATUS property.
+                </c>
+
+                <c>timeZone</c>
+                <c>
+                    See <xref target="translate-time"/>.
+                </c>
+
+                <c>timeZones</c>
+                <c>
+                    Each entry in the property maps to a VTIMEZONE in the embedding VCALENDAR component.
+                </c>
+
+                <c>title</c>
+                <c>
+                    SUMMARY property.
+                </c>
+
+                <c>uid</c>
+                <c>
+                    UID property.
+                </c>
+
+                <c>updated</c>
+                <c>
+                    DTSTAMP and LAST-MODIFIED properties.
+                </c>
+
+                <c>useDefaultAlerts</c>
+                <c>
+                    Implementation-specific.
+                </c>
+
+                <c>virtualLocations</c>
+                <c>
+                    See <xref target="translate-locations"/>.
+                </c>
+
+            </texttable>
+
+            <section anchor="translate-time" title="Time">
+                <t>
+                    JSEvent and JSTask objects share the <spanx style="emph">start</spanx>,
+                    <spanx style="emph">timeZone</spanx> and <spanx style="emph">isAllDay</spanx>
+                    properties to express their occurrence in time.
+                    The following table defines how to map these properties:
+                </t>
+                <texttable anchor="translate-common-time-table" title="Mapping common time properties">
+                    <ttcol align='left'>Property</ttcol>
+                    <ttcol align='left'>iCalendar counterpart</ttcol>
+
+                    <c>start and non-null timeZone</c>
+                    <c>
+                        The <spanx style="emph">start</spanx> property value maps to
+                        an iCalendar DTSTART of type local DATE-TIME and the
+                        <spanx style="emph">timeZone</spanx> value to its TZID
+                        parameter. If the time zone is <spanx style="verb">Etc/UTC</spanx>,
+                        then the start time may alternatively map to an iCalendar
+                        UTC DATE-TIME without a TZID parameter.
+                    </c>
+
+                    <c>start and isAllDay is true</c>
+                    <c>
+                        The <spanx style="emph">start</spanx> property value maps to
+                        an iCalendar DTSTART property value of type DATE. When mapping
+                        from iCalendar, the time component of the
+                        <spanx style="emph">start</spanx> property value is zero.
+                    </c>
+
+                    <c>start and null timeZone and isAllDay is false</c>
+                    <c>
+                        The <spanx style="emph">start</spanx> property value maps
+                        to an iCalendar DTSTART of type local DATE-TIME and no TZID
+                        parameter.
+                    </c>
+                </texttable>
+            </section>
+
+
+            <section anchor="translate-locations" title="Locations">
+                <t>
+                    The iCalendar counterpart for JSCalendar Location objects is the iCalendar
+                    <xref target="RFC5545"/> LOCATION property, or implementation-specific.
+                  </t>
+                <texttable anchor="translate-locations-table"
+                  title="Mapping Location properties">
+                  <ttcol align='left'>Property</ttcol>
+                  <ttcol align='left'>iCalendar counterpart</ttcol>
+
+                  <c>coordinates</c>
+                  <c>
+                      GEO property.
+                  </c>
+
+                  <c>description</c>
+                  <c>
+                      Implementation-specific.
+                  </c>
+
+                  <c>linkIds</c>
+                  <c>
+                      Implementation-specific.
+                  </c>
+
+                  <c>name</c>
+                  <c>
+                      LOCATION property value.
+                  </c>
+
+                  <c>rel</c>
+                  <c>
+                      Implementation-specific.
+                  </c>
+
+                  <c>timeZone</c>
+                  <c>
+                      Implementation-specific.
+                  </c>
+
+                  <c>uri</c>
+                  <c>
+                      The LOCATION ALTREP parameter.
+                  </c>
+
+                </texttable>
+                <t>
+                    The iCalendar counterpart for JSCalendar VirtualLocation objects is the iCalendar
+                    <xref target="RFC7986"/> CONFERENCE property.
+                </t>
+                <texttable anchor="translate-virtualLocations-table"
+                    title="Mapping virtualLocation properties">
+                    <ttcol align='left'>Property</ttcol>
+                    <ttcol align='left'>iCalendar counterpart</ttcol>
+                    <c>description</c>
+                    <c>
+                        Implementation-specific.
+                    </c>
+
+                    <c>name</c>
+                    <c>
+                        LABEL parameter.
+                    </c>
+
+                    <c>uri</c>
+                    <c>
+                        CONFERENCE property value.
+                    </c>
+                </texttable>
+            </section>
+
+            <section anchor="translate-participants" title="Participants">
+                <t>
+                    The following table outlines translation of JSCalendar participants.
+                    An iCalendar ORGANIZER maps to <spanx style="emph">replyTo</spanx>
+                    and a participant with role <spanx style="verb">owner</spanx>. If
+                    an ATTENDEE with the same CAL-ADDRESS value exists, then it maps
+                    to the same participant as the ORGANIZER participant. Other participants
+                    map to ATTENDEEs.
+                </t>
+                <texttable anchor="translate-participants-table"
+                    title="Mapping Participant properties">
+                    <ttcol align='left'>Property</ttcol>
+                    <ttcol align='left'>iCalendar counterpart</ttcol>
+
+                    <c>attendance</c>
+                    <c>
+                        ROLE parameter values REQ-PARTICIPANT, OPT-PARTICIPANT and
+                        NON-PARTICIPANT.
+                    </c>
+
+                    <c>delegatedFrom</c>
+                    <c>
+                        DELEGATED-FROM parameter
+                    </c>
+
+                    <c>delegatedTo</c>
+                    <c>
+                        DELEGATED-TO parameter
+                    </c>
+
+                    <c>email</c>
+                    <c>
+                        EMAIL parameter, if
+                        defined. Otherwise the CAL-ADDRESS property value, if it is a mailto: URI.
+                    </c>
+
+                    <c>expectReply</c>
+                    <c>
+                        RSVP parameter
+                    </c>
+
+                    <c>kind</c>
+                    <c>
+                        CUTYPE parameter
+                    </c>
+
+                    <c>linkIds</c>
+                    <c>
+                        Implementation-specific.
+                    </c>
+
+                    <c>locationId</c>
+                    <c>
+                        Implementation-specific.
+                    </c>
+
+                    <c>memberOf</c>
+                    <c>
+                        MEMBER parameter
+                    </c>
+
+                    <c>name</c>
+                    <c>
+                        CN parameter
+                    </c>
+
+                    <c>participationStatus</c>
+                    <c>
+                        PARTSTAT parameter
+                    </c>
+
+                    <c>roles</c>
+                    <c>
+                        ROLE parameter.
+                    </c>
+
+                    <c>scheduleSequence</c>
+                    <c>
+                        SEQUENCE property of the participant's latest iMIP message
+                    </c>
+
+                    <c>scheduleUpdated</c>
+                    <c>
+                        DTSTAMP property of the participant's latest iMIP message
+                    </c>
+
+                    <c>sendTo</c>
+                    <c>
+                        A CAL-ADDRESS with a mailto: URI maps to the
+                        JSCalendar <spanx style="verb">imip</spanx> method, any other
+                        URI to the <spanx style="verb">other</spanx>
+                        method. Mapping multiple methods is implementation-specific.
+                    </c>
+
+                </texttable>
+            </section>
+
+        </section>
+
+        <section anchor="translate-custom" title="Custom properties">
+            <t>
+                Mapping custom or unknown properties between JSCalendar and iCalendar
+                is implementation-specific. Implementations might use vendor-extension
+                properties, which could
+                also serve as basis for discussion for a JSCalendar standard extension.
+                Alternatively, an implementation could preserve iCalendar properties
+                and components in JSCalendar by use of a vendor-extension
+                property formatted as jCal <xref target="RFC7265"/> data.
+            </t>
+        </section>
+
+        <section anchor="security-considerations" title="Security Considerations">
+            <t>
+                The same security considerations as for <xref target="draft-ietf-calext-jscalendar"/> apply.
+            </t>
+        </section>
+
+        <section anchor="iana-considerations" title="IANA Considerations">
+            <t>
+                None.
+            </t>
+        </section>
+
+        <section anchor="acknowledgments" title="Acknowledgments">
+            <t>
+                The authors would like to thank the members of CalConnect for their valuable contributions. This
+                specification originated from the work of the API technical committee of CalConnect, the Calendaring and
+                Scheduling Consortium.
+            </t>
+        </section>
+    </middle>
+
+    <back>
+        <references title="Normative References">
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
+        </references>
+        <references title="Informative References">
+            <reference anchor="draft-ietf-calext-jscalendar"
+                target="https://tools.ietf.org/html/draft-ietf-calext-jscalendar">
+                <front>
+                    <title>Task Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+            <reference anchor="draft-apthorp-ical-tasks"
+                       target="https://tools.ietf.org/html/draft-apthorp-ical-tasks">
+                <front>
+                    <title>Task Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+            <reference anchor="draft-ietf-calext-ical-relations"
+                       target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
+                <front>
+                    <title>Support for iCalendar Relationships</title>
+                    <author/>
+                    <date/>
+                </front>
+              </reference>
+        </references>
+    </back>
+</rfc>
