@@ -912,7 +912,7 @@
                 <section anchor="recurrenceRule" title="recurrenceRule">
                     <t>
                         Type:
-                        <spanx style="verb">Recurrence</spanx>
+                        <spanx style="verb">Recurrence</spanx> (optional)
                     </t>
                     <t>
                         Defines a recurrence rule (repeating pattern) for recurring calendar objects.
