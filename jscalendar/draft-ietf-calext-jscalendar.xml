@@ -1552,7 +1552,6 @@
                     </t>
                     <t>
                         A map of participant identifiers to participants, describing their participation in the calendar object.
-                        A UUID or the base-64 encoded email address of the participant is a good choice for the identifier.
                     </t>
                     <t>
                         If this property is set, then the <spanx style="emph">replyTo</spanx>
