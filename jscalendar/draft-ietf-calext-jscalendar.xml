@@ -1847,7 +1847,7 @@
                                 If the user temporarily dismisses the alert, this is the UTC date-time after
                                 which it should trigger again.
                                 Setting this property on an instance of a recurring calendar object MUST update the alarm
-                                on the master object, unless the respective instance already is defined in
+                                on the top-level object, unless the respective instance already is defined in
                                 <spanx style="verb">recurrenceOverrides</spanx>. It MUST NOT generate an override
                                 for the sole use of snoozing an alarm.
                             </t>
