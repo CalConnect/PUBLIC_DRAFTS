@@ -83,7 +83,7 @@
                     </t>
                     <t>
                         Most of the initial set of attributes should be taken from the iCalendar data format
-                        (<xref target="RFC5545"/>, also see <xref target="relation-to-icalendar"/>), but
+                        (<xref target="RFC5545"/> and <xref target="RFC7986"/>, also see <xref target="relation-to-icalendar"/>), but
                         the specification should add new attributes or value types, or not support existing
                         ones, where appropriate. Conversion between the data formats need not fully preserve
                         semantic meaning.
@@ -2825,22 +2825,6 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
         </references>
         <references title="Informative References">
-            <reference anchor="draft-apthorp-ical-tasks"
-                       target="https://tools.ietf.org/html/draft-apthorp-ical-tasks">
-                <front>
-                    <title>Task Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-            <reference anchor="draft-ietf-calext-ical-relations"
-                       target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
-                <front>
-                    <title>Support for iCalendar Relationships</title>
-                    <author/>
-                    <date/>
-                </front>
-              </reference>
             <reference anchor="MIME"
               target="https://www.iana.org/assignments/media-types/media-types.xhtml">
                 <front>
