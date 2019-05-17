@@ -1464,8 +1464,7 @@
                             </t>
                             <t>
                                 <spanx style="verb">private</spanx>: The details of the object are hidden; only the
-                                basic time and metadata is shared. Implementations MUST ensure the following
-                                properties are stripped when the object is accessed by a sharee:
+                                basic time and metadata is shared. The following properties MUST NOT be shared:
                                 <list style="symbols">
                                     <t>
                                         title
@@ -1493,12 +1492,12 @@
                                     </t>
                                 </list>
                                 In addition, any patches in <spanx style="verb">recurrenceOverrides</spanx> whose key is
-                                prefixed with one of the above properties MUST be stripped.
+                                prefixed with one of the above properties MUST NOT be shared.
 
                             </t>
                             <t>
                                 <spanx style="verb">secret</spanx>: The object is hidden completely (as though it did
-                                not exist) when the calendar is shared.
+                                not exist) when the object is shared.
                             </t>
                         </list>
 
