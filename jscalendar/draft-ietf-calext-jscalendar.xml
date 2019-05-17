@@ -1393,7 +1393,9 @@
                   Defines if this object is an overridden, excluded instance of a recurring
                   JSCalendar object (also see <xref target="recurrenceOverrides"/>). If this property
                   value is <spanx style="verb">true</spanx>, this calendar object instance MUST be
-                  removed from the occurrence expansion.
+                  removed from the occurrence expansion. The absence of this property or its
+                  default value <spanx style="verb">false</spanx> indicates that this instance
+                  MUST be added to the occurrence expansion.
                 </t>
               </section>
             </section>
