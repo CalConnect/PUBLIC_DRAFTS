@@ -66,21 +66,21 @@
     </author>
 
     <author initials="M." surname="Douglass" fullname="Michael Douglass" role="editor">
-      <organization abbrev="RPI">Rensselaer Polytechnic Institute</organization>
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
       <address>
         <postal>
-          <street>110 8th Street</street>
+          <street>226 3rd Street</street>
           <city>Troy</city>
           <region>NY</region>
           <code>12180</code>
           <country>USA</country>
         </postal>
-        <email>douglm@rpi.edu</email>
-        <uri>http://www.rpi.edu/</uri>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
       </address>
     </author>
 
-    <date month="May" year="2014"/>
+    <date month="February" year="2017"/>
 
     <area>Applications</area>
 

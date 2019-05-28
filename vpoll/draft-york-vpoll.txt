@@ -6,8 +6,8 @@ Network Working Group                                       E. York, Ed.
 Internet-Draft                                             C. Daboo, Ed.
 Updates: 5545 (if approved)                                   Apple Inc.
 Intended status: Standards Track                        M. Douglass, Ed.
-Expires: November 2, 2014                                            RPI
-                                                                May 2014
+Expires: August 5, 2017                              Spherical Cow Group
+                                                           February 2017
 
 
           VPOLL: Consensus Scheduling Component for iCalendar
@@ -34,11 +34,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on November 2, 2014.
+   This Internet-Draft will expire on August 5, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2014 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-York, et al.            Expires November 2, 2014                [Page 1]
+York, et al.             Expires August 5, 2017                 [Page 1]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 Table of Contents
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-York, et al.            Expires November 2, 2014                [Page 2]
+York, et al.             Expires August 5, 2017                 [Page 2]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
            6.3.1.2.3.  Confirmation of a Poll  . . . . . . . . . . .  36
@@ -165,9 +165,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 3]
+York, et al.             Expires August 5, 2017                 [Page 3]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    information or availability as this may reveal something of the
@@ -221,9 +221,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 4]
+York, et al.             Expires August 5, 2017                 [Page 4]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 3.  Simple Consensus Scheduling
@@ -277,9 +277,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 5]
+York, et al.             Expires August 5, 2017                 [Page 5]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    POLL-COMPLETION:  A new property which defines who (server or client)
@@ -333,9 +333,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 6]
+York, et al.             Expires August 5, 2017                 [Page 6]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
           BEGIN:VCALENDAR
@@ -389,9 +389,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 7]
+York, et al.             Expires August 5, 2017                 [Page 7]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 3.3.  VPOLL responses
@@ -445,9 +445,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 8]
+York, et al.             Expires August 5, 2017                 [Page 8]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
           BEGIN:VCALENDAR
@@ -501,9 +501,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014                [Page 9]
+York, et al.             Expires August 5, 2017                 [Page 9]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
           BEGIN:VCALENDAR
@@ -557,9 +557,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 10]
+York, et al.             Expires August 5, 2017                [Page 10]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 3.5.  VPOLL Completion
@@ -613,9 +613,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 11]
+York, et al.             Expires August 5, 2017                [Page 11]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    An alternative response, which may be disallowed by the ORGANIZER, is
@@ -669,9 +669,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 12]
+York, et al.             Expires August 5, 2017                [Page 12]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    This property parameter is redefined by the following notation:
@@ -725,9 +725,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 13]
+York, et al.             Expires August 5, 2017                [Page 13]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Format Definition:
@@ -781,9 +781,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 14]
+York, et al.             Expires August 5, 2017                [Page 14]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Purpose:  This property is used in VPOLL to indicate whether the
@@ -837,9 +837,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 15]
+York, et al.             Expires August 5, 2017                [Page 15]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 4.4.3.  Poll-Item-Id
@@ -893,9 +893,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 16]
+York, et al.             Expires August 5, 2017                [Page 16]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Conformance:  This property MAY be specified in a VPOLL component or
@@ -949,9 +949,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 17]
+York, et al.             Expires August 5, 2017                [Page 17]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 4.4.6.  Poll-Winner
@@ -1005,9 +1005,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 18]
+York, et al.             Expires August 5, 2017                [Page 18]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Format Definition:
@@ -1061,9 +1061,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 19]
+York, et al.             Expires August 5, 2017                [Page 19]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 4.4.9.  Voter
@@ -1117,9 +1117,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 20]
+York, et al.             Expires August 5, 2017                [Page 20]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    This property is defined by the following notation:
@@ -1173,9 +1173,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 21]
+York, et al.             Expires August 5, 2017                [Page 21]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 4.5.1.  VPOLL Component
@@ -1229,9 +1229,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 22]
+York, et al.             Expires August 5, 2017                [Page 22]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    This property is defined by the following notation:
@@ -1285,9 +1285,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 23]
+York, et al.             Expires August 5, 2017                [Page 23]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Description:  This component provides a mechanism by which voters can
@@ -1341,9 +1341,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 24]
+York, et al.             Expires August 5, 2017                [Page 24]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    This property is defined by the following notation:
@@ -1397,9 +1397,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 25]
+York, et al.             Expires August 5, 2017                [Page 25]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    This property is defined by the following notation:
@@ -1453,9 +1453,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 26]
+York, et al.             Expires August 5, 2017                [Page 26]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 5.1.  POLL-MODE:BASIC
@@ -1509,9 +1509,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 27]
+York, et al.             Expires August 5, 2017                [Page 27]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    +----------------+--------------------------------------------------+
@@ -1565,9 +1565,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 28]
+York, et al.             Expires August 5, 2017                [Page 28]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 6.2.  Interoperability Models
@@ -1621,9 +1621,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 29]
+York, et al.             Expires August 5, 2017                [Page 29]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    The following summarizes the methods that are defined for the "VPOLL"
@@ -1677,9 +1677,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 30]
+York, et al.             Expires August 5, 2017                [Page 30]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
              +----------------------------------------------+
@@ -1733,9 +1733,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 31]
+York, et al.             Expires August 5, 2017                [Page 31]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    | REQUEST-STATUS     | 0        |                                   |
@@ -1789,9 +1789,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 32]
+York, et al.             Expires August 5, 2017                [Page 32]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    o  Complete or confirm the poll.
@@ -1845,9 +1845,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 33]
+York, et al.             Expires August 5, 2017                [Page 33]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    |                    |          | starts when it is created and     |
@@ -1901,9 +1901,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 34]
+York, et al.             Expires August 5, 2017                [Page 34]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    |                    |          | components included in the poll   |
@@ -1957,9 +1957,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 35]
+York, et al.             Expires August 5, 2017                [Page 35]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    describes an update of the poll details, but not a rescheduling of
@@ -2013,9 +2013,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 36]
+York, et al.             Expires August 5, 2017                [Page 36]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    method SHOULD include the "Voter" property with the "DELEGATED-FROM"
@@ -2069,9 +2069,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 37]
+York, et al.             Expires August 5, 2017                [Page 37]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    If the "Organizer" decides to add the new CU, the new "Voter"
@@ -2125,9 +2125,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 38]
+York, et al.             Expires August 5, 2017                [Page 38]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    The "Organizer" may also receive a "REPLY" from one CU on behalf of
@@ -2181,9 +2181,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 39]
+York, et al.             Expires August 5, 2017                [Page 39]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    | LAST-MODIFIED      | 0 or 1   |                                   |
@@ -2237,9 +2237,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 40]
+York, et al.             Expires August 5, 2017                [Page 40]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    The "Organizer" MUST send a "CANCEL" message to each "Voter" affected
@@ -2293,9 +2293,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 41]
+York, et al.             Expires August 5, 2017                [Page 41]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    | GEO                | 0 or 1   |                                   |
@@ -2349,9 +2349,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 42]
+York, et al.             Expires August 5, 2017                [Page 42]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
              +----------------------------------------------+
@@ -2405,9 +2405,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 43]
+York, et al.             Expires August 5, 2017                [Page 43]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    |                    |          |                                   |
@@ -2461,9 +2461,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 44]
+York, et al.             Expires August 5, 2017                [Page 44]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    | ATTACH             | 0        |                                   |
@@ -2517,9 +2517,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 45]
+York, et al.             Expires August 5, 2017                [Page 45]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    | X-COMPONENT        | 0+       |                                   |
@@ -2573,9 +2573,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 46]
+York, et al.             Expires August 5, 2017                [Page 46]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Definition:
@@ -2629,9 +2629,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 47]
+York, et al.             Expires August 5, 2017                [Page 47]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Conformance:  This property MAY be defined on any calendar
@@ -2685,9 +2685,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 48]
+York, et al.             Expires August 5, 2017                [Page 48]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
       client can assume that the server can handle any number of active
@@ -2741,9 +2741,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 49]
+York, et al.             Expires August 5, 2017                [Page 49]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
             <C:vpoll-max-voters
@@ -2797,9 +2797,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 50]
+York, et al.             Expires August 5, 2017                [Page 50]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    (CALDAV:vpoll-max-voters):  The VPOLL resource submitted in the PUT
@@ -2853,9 +2853,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 51]
+York, et al.             Expires August 5, 2017                [Page 51]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
             </C:comp>
@@ -2909,9 +2909,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 52]
+York, et al.             Expires August 5, 2017                [Page 52]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
       VERSION:2.0
@@ -2965,9 +2965,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 53]
+York, et al.             Expires August 5, 2017                [Page 53]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    +-------------------------------------------------------------------+
@@ -3021,9 +3021,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 54]
+York, et al.             Expires August 5, 2017                [Page 54]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
 9.1.  Parameter Registrations
@@ -3077,9 +3077,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 55]
+York, et al.             Expires August 5, 2017                [Page 55]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    +----------+--------------------------------------------+-----------+
@@ -3110,22 +3110,22 @@ Internet-Draft                    VPOLL                         May 2014
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <http://www.rfc-editor.org/info/rfc2119>.
+              DOI 10.17487/RFC2119, March 1997, <https://www.rfc-
+              editor.org/info/rfc2119>.
 
    [RFC2434]  Narten, T. and H. Alvestrand, "Guidelines for Writing an
               IANA Considerations Section in RFCs", RFC 2434,
-              DOI 10.17487/RFC2434, October 1998,
-              <http://www.rfc-editor.org/info/rfc2434>.
+              DOI 10.17487/RFC2434, October 1998, <https://www.rfc-
+              editor.org/info/rfc2434>.
 
    [RFC2518]  Goland, Y., Whitehead, E., Faizi, A., Carter, S., and D.
               Jensen, "HTTP Extensions for Distributed Authoring --
               WEBDAV", RFC 2518, DOI 10.17487/RFC2518, February 1999,
-              <http://www.rfc-editor.org/info/rfc2518>.
+              <https://www.rfc-editor.org/info/rfc2518>.
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <http://www.rfc-editor.org/info/rfc3688>.
+              DOI 10.17487/RFC3688, January 2004, <https://www.rfc-
+              editor.org/info/rfc3688>.
 
 
 
@@ -3133,43 +3133,43 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 56]
+York, et al.             Expires August 5, 2017                [Page 56]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    [RFC3986]  Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform
               Resource Identifier (URI): Generic Syntax", STD 66,
               RFC 3986, DOI 10.17487/RFC3986, January 2005,
-              <http://www.rfc-editor.org/info/rfc3986>.
+              <https://www.rfc-editor.org/info/rfc3986>.
 
    [RFC4589]  Schulzrinne, H. and H. Tschofenig, "Location Types
               Registry", RFC 4589, DOI 10.17487/RFC4589, July 2006,
-              <http://www.rfc-editor.org/info/rfc4589>.
+              <https://www.rfc-editor.org/info/rfc4589>.
 
    [RFC4791]  Daboo, C., Desruisseaux, B., and L. Dusseault,
               "Calendaring Extensions to WebDAV (CalDAV)", RFC 4791,
-              DOI 10.17487/RFC4791, March 2007,
-              <http://www.rfc-editor.org/info/rfc4791>.
+              DOI 10.17487/RFC4791, March 2007, <https://www.rfc-
+              editor.org/info/rfc4791>.
 
    [RFC5545]  Desruisseaux, B., Ed., "Internet Calendaring and
               Scheduling Core Object Specification (iCalendar)",
               RFC 5545, DOI 10.17487/RFC5545, September 2009,
-              <http://www.rfc-editor.org/info/rfc5545>.
+              <https://www.rfc-editor.org/info/rfc5545>.
 
    [RFC5546]  Daboo, C., Ed., "iCalendar Transport-Independent
               Interoperability Protocol (iTIP)", RFC 5546,
-              DOI 10.17487/RFC5546, December 2009,
-              <http://www.rfc-editor.org/info/rfc5546>.
+              DOI 10.17487/RFC5546, December 2009, <https://www.rfc-
+              editor.org/info/rfc5546>.
 
    [RFC6047]  Melnikov, A., Ed., "iCalendar Message-Based
               Interoperability Protocol (iMIP)", RFC 6047,
-              DOI 10.17487/RFC6047, December 2010,
-              <http://www.rfc-editor.org/info/rfc6047>.
+              DOI 10.17487/RFC6047, December 2010, <https://www.rfc-
+              editor.org/info/rfc6047>.
 
    [RFC6638]  Daboo, C. and B. Desruisseaux, "Scheduling Extensions to
               CalDAV", RFC 6638, DOI 10.17487/RFC6638, June 2012,
-              <http://www.rfc-editor.org/info/rfc6638>.
+              <https://www.rfc-editor.org/info/rfc6638>.
 
    [W3C.REC-xml-20060816]
               Bray, T., Paoli, J., Sperberg-McQueen, M., Maler, E., and
@@ -3189,9 +3189,9 @@ Appendix A.  Open issues
 
 
 
-York, et al.            Expires November 2, 2014               [Page 57]
+York, et al.             Expires August 5, 2017                [Page 57]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Future: Restarting a confirmed/completed VPOLL  What to do with
@@ -3245,9 +3245,9 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 58]
+York, et al.             Expires August 5, 2017                [Page 58]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
                    BEGIN:VCALENDAR
@@ -3301,9 +3301,9 @@ Appendix B.  Change log
 
 
 
-York, et al.            Expires November 2, 2014               [Page 59]
+York, et al.             Expires August 5, 2017                [Page 59]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    o  Added Caldav scheduling section
@@ -3357,19 +3357,19 @@ Authors' Addresses
 
 
 
-York, et al.            Expires November 2, 2014               [Page 60]
+York, et al.             Expires August 5, 2017                [Page 60]
 
-Internet-Draft                    VPOLL                         May 2014
+Internet-Draft                    VPOLL                    February 2017
 
 
    Michael Douglass (editor)
-   Rensselaer Polytechnic Institute
-   110 8th Street
+   Spherical Cow Group
+   226 3rd Street
    Troy, NY  12180
    USA
 
-   Email: douglm@rpi.edu
-   URI:   http://www.rpi.edu/
+   Email: mdouglass@sphericalcowgroup.com
+   URI:   http://sphericalcowgroup.com
 
 
 
@@ -3413,4 +3413,4 @@ Internet-Draft                    VPOLL                         May 2014
 
 
 
-York, et al.            Expires November 2, 2014               [Page 61]
+York, et al.             Expires August 5, 2017                [Page 61]

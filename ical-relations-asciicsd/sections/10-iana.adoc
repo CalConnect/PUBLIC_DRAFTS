@@ -1,0 +1,76 @@
+[#iana]
+= IANA Considerations
+
+[[property_registrations]]
+==  iCalendar Property Registrations
+
+The following iCalendar property names have been added to the
+iCalendar Properties Registry defined in <<RFC5545,section 8.3.2>>
+
+|===
+| Property | Status  | Reference   
+
+| CONCEPT  | Current | <<concept>> 
+| LINK     | Current | <<link>> 
+| REFID    | Current | <<refid>> 
+|===
+
+[[property_parameter_registrations]]
+== iCalendar Property Parameter Registrations
+
+The following iCalendar property parameter names have been added to
+the iCalendar Parameters Registry defined in 
+<<RFC5545,section 8.3.3>>
+
+|===
+| Parameter | Status  | Reference   
+
+| REL       | Current | <<rel>> 
+| GAP       | Current | <<gap>> 
+|===
+
+[[value_data_types_registrations]]
+== iCalendar Value Data Type Registrations
+
+The following iCalendar property parameter names have been added to
+the iCalendar Value Data Types Registry defined in 
+<<RFC5545,section 8.3.4>>
+
+|===
+| Value Data Type | Status  | Reference 
+
+| UID             | Current | <<new_value_data_types>>
+| REFERENCE       | Current | <<new_value_data_types>>
+|===
+
+[[reltype_value_registrations]]
+== iCalendar RELTYPE Value Registrations
+
+The following iCalendar "RELTYPE" values have been added to the
+iCalendar Relationship Types Registry defined in 
+<<RFC5545,section 8.3.8>>
+
+|===
+| Relationship Type | Status  | Reference 
+
+| DEPENDS-ON        | Current | <<redefined_relation_type_value>> 
+| REFID             | Current | <<redefined_relation_type_value>> 
+| CONCEPT           | Current | <<redefined_relation_type_value>> 
+| FINISHTOSTART     | Current | <<redefined_relation_type_value>> 
+| FINISHTOFINISH    | Current | <<redefined_relation_type_value>> 
+| STARTTOFINISH     | Current | <<redefined_relation_type_value>> 
+| STARTTOSTART      | Current | <<redefined_relation_type_value>> 
+|===
+
+
+[[new_rel_registration]]
+== New Reference Type Registration
+
+The following link relation values have been added to the Reference
+Types Registry defined in <<RFC5988,section 6.2.2>>
+
+|===
+| Name   | Status  | Reference   
+
+| SOURCE | Current | <<rel>>
+|===

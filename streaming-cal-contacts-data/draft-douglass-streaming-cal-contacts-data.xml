@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2434 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2434.xml">
+<!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
+<!ENTITY RFC4589 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4589.xml">
+<!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
+<!ENTITY RFC5546 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml">
+<!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
+<!ENTITY I-D.ietf-calext-extensions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-extensions.xml">
+<!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="5"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<rfc category="std" updates="5545"
+     docName="draft-douglass-streaming-cal-contacts-data-00" ipr="trust200902">
+  <front>
+    <title abbrev="Streaming Calendar and Contacts Data">Streaming Calendar and Contacts Data</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+
+    <date month='August' year='2018' />
+
+    <area>Applications</area>
+
+    <keyword>icalendar</keyword>
+
+    <keyword>properties</keyword>
+
+    <abstract>
+      <t>
+        This specification defines a model for streaming calendar and
+        contact data. This allows for a more efficient method for
+        synchronizing collections of data and may be used to augment
+        existing protocols such as CalDAV.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>
+        Currently clients or servers maintain a synchronized copy of
+        external data through subscriptions and polling or by the use
+        of protocol extensions such as DAV Sync Report.
+      </t>
+
+      <t>
+        These methods in essence require polling at more or less regular
+        intervals to detect changes. For more timely detection of
+        changes, frequent polling is required. This leads to inefficiencies
+        and costs in battery and network usage.
+      </t>
+      
+      <t>
+        The situation may be improved by the use of push notifications
+        but this adds complications to the system.
+      </t>
+
+      <t>
+        This specification introduces an approach whereby a clients opens
+        streams and then simply writes to or reads from the stream. This
+        is not conceptually a new invention. Messaging systems already
+        provide such features. What this specification provides is the
+        data structures which can be passed as messages and defines the
+        allowable operations.
+      </t>
+
+      <t>
+        This specification will provide an approach to implementations
+        using websockets or currently existing messaging systems such
+        as JMS.
+      </t>
+      
+      <section anchor="conventions" title='Conventions Used in This Document'>
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+          NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+          "MAY", and "OPTIONAL" in this document are to be interpreted as
+          described in <xref target='RFC2119'/>.
+        </t>
+      </section>
+    </section>
+
+    <section title="Connections">
+      <section title="Introduction">
+        <t>
+          This specification assumes that there are two virtual streams
+          open for each established virtual connection: an output stream
+          and an input stream.
+        </t>
+        <t>
+          All operations are carried out by either end writing a message
+          on the output stream and receiving an acknowledgment on the
+          input stream.
+        </t>
+        <t>
+          All messages MUST receive an acknowledgement within the defined
+          timeout period or they or their acknowledgement will be
+          assumed to have been lost. The sender will need to carry out
+          any appropriate recovery.
+        </t>
+        
+        <t>
+          Each message sent MUST include a unique (within the connection)
+          identifier which will be returned in the acknowledgment.
+        </t>
+      </section>
+      <section title="Virtual Connections">
+        <t>
+          The actual systems on which this is running may have many
+          restrictions. Connections may be forcibly shut down after
+          some idle time and there will be the usual issues with mobile
+          devices and connectivity.
+        </t>
+        <t>
+          The virtual connection MUST hide these issues from the client.
+          A connection will last until one end is deemed to have shut
+          down the connection.
+        </t>
+        <t>
+          On subsequent conditional fetches the entity will not be returned.
+        </t>
+        
+      </section>
+      <section title="Examples">
+        <t>
+          This is an example of the initial request and response from a  
+          server that supports the extended GET protocol. 
+          <figure>
+            <artwork><![CDATA[
+   >> Request <<
+
+   GET /events.ics HTTP/1.1
+   Host: example.com
+   Accept: text/calendar
+
+   >> Response <<
+
+   HTTP/1.1 200 OK
+   Content-Length: xxxx
+   ETag: "1234"                    current ETag (for conditional GET)
+   Vary: Prefer, If-None-Match            so caching proxy can key off of client?s ETag (sync token) and preference
+     
+    BEGIN:VCALENDAR:
+    ?  /* full feed */
+    END:VCALENDAR
+
+]]></artwork>
+          </figure>
+        </t>
+
+        <t>
+          This is an example of the subsequent request and response
+          when no changes have occurred. The Accept header field
+          indicates that a VPATCH format is most desirable but simple
+          text/calendar is acceptable.
+          <figure>
+            <artwork><![CDATA[
+   >> Request <<
+
+   GET /events.ics HTTP/1.1
+   Host: example.com
+   Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+   If-None-Match: ?1234?            conditional request
+   Prefer: return=minimal
+
+   >> Response <<
+
+   HTTP/1.1 304 Not Modified
+   Content-Length: 0
+   ETag: ?1234?
+   Vary: Prefer, If-None-Match
+
+]]></artwork>
+          </figure>
+        </t>
+
+        <t>
+          This is an example of the subsequent request and response
+          when no changes have occurred. The Accept header field
+          indicates that a VPATCH format is most desirable but simple
+          text/calendar is acceptable.
+          <figure>
+            <artwork><![CDATA[
+   >> Request <<
+
+   GET /events.ics HTTP/1.1
+   Host: example.com
+   Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+   If-None-Match: "1234"            conditional request
+   Prefer: return=minimal
+
+   >> Response <<
+
+   HTTP/1.1 304 Not Modified
+   Content-Length: 0
+   ETag: "1234"
+   Vary: Prefer, If-None-Match
+
+]]></artwork>
+          </figure>
+        </t>
+
+        <t>
+          This is an example of the subsequent request and response
+          when changes have occurred and the server can create the 
+          minimal format. 
+          <figure>
+            <artwork><![CDATA[
+   >> Request <<
+
+   GET /events.ics HTTP/1.1
+   Host: example.com
+   Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+   If-None-Match: "1234"            conditional request
+   Prefer: return=minimal
+
+   >> Response <<
+
+   HTTP/1.1 200 OK
+   Content-Type: text/calendar
+   Content-Length: xxxx
+   ETag: "5678"                    current ETag (for conditional GET)
+   Preference-Applied: return=minimal    signals to client that stream is changes  only
+   Vary: Prefer, If-None-Match            so caching proxy can key off of client?s  ETag (sync token) and preference
+
+   BEGIN:VCALENDAR:
+   ...  only new/changed events
+   ...  when not returning VPATCH, deleted events have STATUS:DELETED 
+   END:VCALENDAR
+
+]]></artwork>
+          </figure>
+        </t>
+
+        <t>
+          This is an example of the subsequent request and response
+          when changes have occurred and the server cannot create the 
+          minimal format - perhaps because of an old or invalid token. 
+          Note there is no Preference-Applied header field.
+          <figure>
+            <artwork><![CDATA[
+   >> Request <<
+
+   GET /events.ics HTTP/1.1
+   Host: example.com
+   Accept: text/calendar; q=0.5, component=VPATCH, text/calendar;
+   If-None-Match: "1234"            conditional request
+   Prefer: return=minimal
+
+   >> Response <<
+
+   HTTP/1.1 200 OK
+   Content-Type: text/calendar
+   Content-Length: xxxx
+   ETag: "5678"                    current ETag (for conditional GET)
+   Vary: Prefer, If-None-Match            so caching proxy can key off of client?s  ETag (sync token) and preference
+
+   BEGIN:VCALENDAR:
+   ...  full set of data
+   END:VCALENDAR
+
+]]></artwork>
+          </figure>
+        </t>
+        
+      </section>
+    </section>
+
+    <section title="Changes to the iCalendar specifications">
+      <t>
+        This specification updates <xref target='RFC5545'/> to add the
+        value DELETED to the STATUS property. It also introduces the 
+        use of some properties to provide more information 
+        about the resource, for example the time range it covers.
+      </t>
+      <section anchor="status_property"
+               title="Redefined Status property">
+
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              STATUS
+            </t>
+    
+            <t hangText="Purpose:">
+              This property defines the overall status or confirmation
+              for the calendar component.
+            </t>
+    
+            <t hangText="Value Type:">
+              TEXT
+            </t>
+    
+            <t hangText="Property Parameters:">
+              IANA and non-standard property parameters can
+              be specified on this property.
+            </t>
+    
+            <t hangText="Conformance:">
+              This property can be specified once in "VEVENT",
+              "VTODO", or "VJOURNAL" calendar components.
+            </t>
+    
+            <t hangText="Description:">
+              In a group-scheduled calendar component, the property
+              is used by the "Organizer" to provide a confirmation of the event
+              to the "Attendees".  For example in a "VEVENT" calendar component,
+              the "Organizer" can indicate that a meeting is tentative,
+              confirmed, or cancelled.  In a "VTODO" calendar component, the
+              "Organizer" can indicate that an action item needs action, is
+              completed, is in process or being worked on, or has been
+              cancelled.  In a "VJOURNAL" calendar component, the "Organizer"
+              can indicate that a journal entry is draft, final, or has been
+              cancelled or removed.
+            </t>
+    
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+    
+                <artwork type="abnf">
+  status          = "STATUS" statparam ":" statvalue CRLF
+
+  statparam       = *(";" other-param)
+
+  statvalue       = (statvalue-event
+                  /  statvalue-todo
+                  /  statvalue-jour)
+
+  statvalue-event = "TENTATIVE"    ;Indicates event is tentative.
+                  / "CONFIRMED"    ;Indicates event is definite.
+                  / "CANCELLED"    ;Indicates event was cancelled.
+                  / "DELETED"      ;Indicates event was deleted.
+  ;Status values for a "VEVENT"
+
+  statvalue-todo  = "NEEDS-ACTION" ;Indicates to-do needs action.
+                  / "COMPLETED"    ;Indicates to-do completed.
+                  / "IN-PROCESS"   ;Indicates to-do in process of.
+                  / "CANCELLED"    ;Indicates to-do was cancelled.
+                  / "DELETED"      ;Indicates to-do was deleted.
+  ;Status values for "VTODO".
+
+  statvalue-jour  = "DRAFT"        ;Indicates journal is draft.
+                  / "FINAL"        ;Indicates journal is final.
+                  / "CANCELLED"    ;Indicates journal is removed.
+                  / "DELETED"      ;Indicates journal was deleted.
+  ;Status values for "VJOURNAL".
+                </artwork>
+              </figure>
+            </t>
+    
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  Example:  The following is an example of this property for a "VEVENT"
+                  calendar component:
+                </preamble>
+    
+                <artwork>
+  STATUS:TENTATIVE
+                </artwork>
+              </figure>
+    
+              <figure>
+                <preamble>
+                  The following is an example of this property for a "VTODO"
+                  calendar component:
+                 </preamble>
+    
+                <artwork>
+  STATUS:NEEDS-ACTION
+                </artwork>
+              </figure>
+      
+              <figure>
+                <preamble>
+                  The following is an example of this property for a "VJOURNAL"
+                  calendar component:
+                </preamble>
+      
+                <artwork>
+  STATUS:DRAFT
+                </artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title="Discovering alternative access methods">
+      <t>
+        The advertising of other access points is achieved through the 
+        use of the LINK header as defined in <xref target='RFC5988'/>. 
+        New link relation types are 
+        defined in this specification - each being associated with a 
+        protocol or protocol subset.
+      </t>
+      
+      <t>
+        These LINK headers will be delivered when a client carries out
+        an OPTIONS request targeting the URL of the resource.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_caldav"
+             title="Link relation subscribe-caldav">
+      <t>
+        This specifies an access point which is a full implementation of 
+        caldav but requires no authentication. The end point allows the 
+        full range of reports as defined by the CalDAV
+        specification.
+      </t>
+      <t>
+        The client MUST follow the specification to determine exactly 
+        what operations are allowed on the access point - for example 
+        to determine if sync-report is supported.
+      </t>
+      <t>
+        The URL MAY include some form of token to allow write access
+        to the targeted collection. The client must check it's 
+        permissions to determine whether or not it has been granted 
+        write access.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_caldav_auth"
+             title="Link relation subscribe-caldav-auth">
+      <t>
+        This specifies an access point which is a full implementation of
+        caldav and requires authentication. This may allow read-write
+        access to the resource.
+      </t>
+      <t>
+        The client MUST follow the specification to determine exactly
+        what operations are allowed on the access point - for example
+        to determine if sync-report is supported.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_webdav_sync"
+             title="Link relation subscribe-webdav-sync">
+      <t>
+        This specifies an access point which supports only webdav sync.
+      </t>
+      <t>
+        This allows the client to issue a sync-report on the resource
+        to obtain updates.
+      </t>
+      <t>
+        NOTE: say something about initial startup - use ics to populate? 
+        Initial token?
+      </t>
+      <t>
+        The client MUST follow that specification.
+      </t>
+    </section>
+
+    <section anchor="link_relation_subscribe_enhanced_get"
+             title="Link relation subscribe-enhanced-get">
+      <t>
+        This specifies an access point which supports something new.
+      </t>
+      <t>
+        The client MUST follow that specification.
+      </t>
+    </section>
+
+    <section title='Security Considerations'>
+      <t>
+       Applications using these properties need to be aware of the risks
+       entailed in using the URIs provided as values. See [RFC3986] for
+       a discussion of the security considerations relating to URIs.
+      </t>
+    </section>
+
+    <section title='Privacy Considerations' anchor='privacy'>
+      <t>
+        Properties with a "URI" value type can expose their users to 
+        privacy leaks as any network access of the URI data can be 
+        tracked. Clients SHOULD NOT automatically download data 
+        referenced by the URI without explicit instruction from users. 
+        This specification does not introduce any additional privacy 
+        concerns beyond those described in <xref target="RFC5545" />.
+      </t>
+    </section>
+
+    <section anchor="iana_considerations" title='IANA Considerations'>
+      <section anchor="link_relation_registrations"
+               title="Link Relation Registrations" >
+        <t>
+          This document defines the following new iCalendar properties to be
+          added to the registry defined in Section 8.2.3 of <xref target='RFC5545'/>:
+        </t>
+        <texttable>
+          <ttcol align="left">Relation Name</ttcol>
+          <ttcol align="left">Description</ttcol>
+          <ttcol align="left">Reference</ttcol>
+
+          <c>subscribe-caldav</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_caldav"/></c>
+
+          <c>subscribe-caldav_auth</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_caldav_auth" /></c>
+
+          <c>subscribe-webdav-sync</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_webdav_sync"/></c>
+
+          <c>subscribe-enhanced_get</c>
+          <c>Current</c>
+          <c>RFCXXXX, <xref target="link_relation_subscribe_enhanced_get"/></c>
+        </texttable>
+      </section>
+    </section>
+
+    <section title="Acknowledgements">
+      <t>
+        The author would also like to thank the members of the CalConnect
+        Calendar Sharing technical committee and the following
+        individuals for contributing their ideas and support:
+      </t>
+      <t>
+        Marten Gajda, Ken Murchison
+      </t>
+      <t>
+        The authors would also like to thank CalConnect the Calendaring and
+        Scheduling Consortium for advice with this specification.
+      </t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      &RFC2119;
+      &RFC2434;
+      &RFC3688;
+      &RFC3986;
+      &RFC4589;
+      &RFC5545;
+      &RFC5546;
+      &RFC5988;
+      &W3C.REC-xml-20060816;
+      &I-D.ietf-calext-extensions;
+    </references>
+
+    <section title="Open issues">
+      <t>
+        <list style='hanging'>
+          <t hangText="restype values:" >
+            Need to determine what if any registry of resource types already
+            exists and use that.
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Change log">
+      <t>
+        v01 2017-07-28  MD
+        <list style='symbols'>
+          <t>
+            Examples
+          </t>
+          <t>
+            More text for extended get. Talk about deletions.
+          </t>
+        </list>
+      </t>
+      <t>
+        v01 2017-02-17  MD
+        <list style='symbols'>
+          <t>
+            Add text about OPTIONS
+          </t>
+          <t>
+            Add text abut read/write CalDAV
+          </t>
+        </list>
+      </t>
+      <t>
+        v00 2017-02-15  MD
+        <list style='symbols'>
+          <t>
+            First pass
+          </t>
+        </list>
+      </t>
+    </section>
+  </back>
+</rfc>

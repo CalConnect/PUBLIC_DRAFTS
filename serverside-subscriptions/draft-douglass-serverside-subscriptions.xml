@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2434 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2434.xml">
+<!ENTITY RFC2518 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2518.xml">
+<!ENTITY RFC3339 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3339.xml">
+<!ENTITY RFC3688 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
+<!ENTITY RFC4791 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4791.xml">
+<!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
+<!ENTITY RFC5546 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml">
+<!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
+<!ENTITY RFC7240 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml">
+<!ENTITY I-D.ietf-calext-extensions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-extensions.xml">
+<!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<?rfc strict="yes" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="5"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<rfc category="std" updates="2518"
+     docName="draft-douglass-serverside-subscriptions-00" ipr="trust200902">
+  <front>
+    <title abbrev="Serverside Subscriptions">Serverside Subscriptions</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>USA</country>
+        </postal>
+        <email>mdouglass@sphericalcowgroup.com</email>
+        <uri>http://sphericalcowgroup.com</uri>
+      </address>
+    </author>
+
+    <date month='September' year='2018' />
+
+    <area>Applications</area>
+
+    <keyword>icalendar</keyword>
+
+    <keyword>properties</keyword>
+
+    <abstract>
+      <t>
+        This specification provides a mechanism whereby subscriptions
+        to external resources can be handled by the server.
+      </t>
+      <t>
+        This specification updates <xref target='RFC4791'/> to add new
+        properties for the MKCOL request.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>
+        The motivation for this specification was initially to handle
+        external subscriptions to calendar data. However, any resource
+        which allows subscriptions might make use of this specification.
+      </t>
+
+      <t>
+        Currently subscriptions to calendar feeds are handled by
+        calendar clients. There are a number of disadvantages to this
+        approach: users
+        have to subscribe from multiple devices and the subscription
+        cannot affect scheduling handled by the server.
+      </t>
+
+      <t>
+        This specification defines a mechanism whereby the server will
+        subscribe to the feed and make it visible in the user's
+        home.
+      </t>
+
+      <t>
+        The advantages are popular feeds can be cached by the server and
+        the user only has to make a single subscription.
+      </t>
+      
+      <section anchor="conventions" title='Conventions Used in This Document'>
+        <t>
+          The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+          NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+          "MAY", and "OPTIONAL" in this document are to be interpreted as
+          described in <xref target='RFC2119'/>.
+        </t>
+      </section>
+    </section>
+
+    <section title="CalDAV Subscriptions">
+      <section title="Request">
+        <t>
+          A client will subscribe to a URL by performing a MKCOL request
+          with resource type elements of at least DAV:collection and
+          DAV:subscription. For a calendar subscription there will also be
+          a caldav calendar element.
+        </t>
+
+        <t>
+          This is an example of the MKCOL request and response from a
+          server that supports extended MKCOL.
+          <figure>
+            <artwork><![CDATA[
+    >> Request <<
+
+    POST /caldav/user/mike/calendars/parrots HTTP/1.1
+    Host: example.com
+    Content-Type: text/calendar; component=VEVENT; method=REQUEST
+    Content-Length: xxxx
+
+    <?xml version="1.0" encoding="utf-8" ?>
+    <D:mkcol xmlns:D="DAV:"
+             xmlns:C="urn:ietf:params:xml:ns:caldav">
+      <D:set>
+        <D:prop>
+          <D:resourcetype>
+            <D:collection/>
+            <C:calendar/>
+            <D:subscription/>
+          </D:resourcetype>
+          <D:displayname>Parrot Events</D:displayname>
+          <D:subscription-href>http://example.org/parrot-events.ics</D:subscription-href>
+          <D:subscription-deletions-suppressed>true</D:subscription-deletions-suppressed>
+          <D:subscription-suggested-refresh-interval>PT1H</D:subscription-suggested-refresh-interval>
+        </D:prop>
+      </D:set>
+    </D:mkcol>
+
+    >> Response <<
+
+    HTTP/1.1 200 OK
+]]></artwork>
+          </figure>
+        </t>
+      </section>
+    </section>
+
+    <section title="New DAV and CALDAV properties">
+      <section anchor="dav_subscription"
+               title="DAV:subscription">
+        <t>
+          <list style='hanging'>
+            <t hangText="Name:">
+              subscription
+            </t>
+
+            <t hangText="Namespace:">DAV</t>
+
+            <t hangText="Purpose:">
+              To indicate that the resource is a subscription
+              to an external resource which is managed by the server.
+            </t>
+
+            <t hangText="Conformance:">
+              When this is specified the request MUST also contain at
+              least a DAV:subscription-href element as defined in this
+              specification.
+            </t>
+
+            <t hangText="Description:">
+              The DAV:specification resource type element is used to
+              indicate a collection that is a subscription. A subscription
+              MUST report the DAV:subscription XML element in the value of the DAV:
+              resourcetype property.
+            </t>
+
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+         <!ELEMENT subscription empty>
+]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="dav_subscription_href"
+               title="DAV:subscription-href">
+        <t>
+          <list style='hanging'>
+            <t hangText="Name:">
+              subscription-href
+            </t>
+
+            <t hangText="Namespace:">DAV</t>
+
+            <t hangText="Purpose:">
+              Provides the url for the external subscription.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MUST be defined on any collection which has
+              a resource-type containing a DAV:subscription element.
+            </t>
+
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+         <!ELEMENT vpoll-max-items (#PCDATA)>
+         PCDATA value: a url
+
+]]></artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <artwork><![CDATA[
+         <D:subscription-href xmlns:D="DAV"
+         >https://example.com/events.ics</D:subscription-href>
+
+]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="dav_subscription_deletions_suppressed"
+               title="DAV:subscription-deletions-suppressed">
+        <t>
+          <list style='hanging'>
+            <t hangText="Name:">
+              subscription-deletions-suppressed
+            </t>
+
+            <t hangText="Namespace:">DAV</t>
+
+            <t hangText="Purpose:">
+              To indicate that resources that no longer appear in the
+              feed should be retained by the server.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MAY be defined on any subscription.
+            </t>
+
+            <t hangText="Description:">
+              Many feeds provide only the current active set of resources.
+              For example, a calendar feed may only contain events from
+              the current date onwards - while many subscribers would like
+              to retain a copy of all events received over time.
+            </t>
+
+            <t>
+              This property indicates that the server SHOULD retain
+              resources that disappear from the feed. Services MAY
+              define some mechanism to indicate that a particular resource
+              SHOULD be removed. For example this specification suggests
+              setting a status of DELETED on a calendar event.
+            </t>
+
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+         <!ELEMENT subscription-deletions-suppressed empty>
+]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="dav_subscription_disabled"
+               title="DAV:subscription-disabled">
+        <t>
+          <list style='hanging'>
+            <t hangText="Name:">
+              subscription-disabled
+            </t>
+
+            <t hangText="Namespace:">DAV</t>
+
+            <t hangText="Purpose:">
+              To indicate that subscription has been disabled.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MUST be reported for any disabled subscription.
+            </t>
+
+            <t hangText="Description:">
+              A server MAY choose to disable a subscription if there
+              is an excessive number of errors when attempting to
+              synchronize with the target This property indicates to
+              the client that the subscription has been disabled.
+            </t>
+
+            <t>
+              There is no explicit action that can be taken to reenable
+              a subscription. However, on subsequent requests a client
+              may indicate a refresh is desired which MAY have the effect of
+              reenabling the subscription.
+            </t>
+
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+         <!ELEMENT subscription-enabled empty>
+]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="dav_subscription_next_refresh-interval"
+               title="DAV:subscription-next-refresh-interval">
+        <t>
+          <list style='hanging'>
+            <t hangText="Name:">
+              subscription-next-refresh-interval
+            </t>
+
+            <t hangText="Namespace:">DAV</t>
+
+            <t hangText="Purpose:">
+              To indicate the time interval till the  next refresh of a subscription.
+            </t>
+
+            <t hangText="Conformance:">
+              This property MUST be reported for any active subscription.
+            </t>
+
+            <t hangText="Description:">
+              This provides a time period to the next refresh. It
+              uses the period format defined in <xref target="RFC3339" />.
+            </t>
+
+            <t hangText="Definition:">
+              <figure>
+                <artwork><![CDATA[
+         <!ELEMENT subscription-next-refresh-interval (#PCDATA)>
+         PCDATA value: a duration value
+
+]]></artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <artwork><![CDATA[
+         <D:subscription-next-refresh-interval xmlns:D="DAV"
+         >PT30M</D:subscription-next-refresh-interval>
+
+]]></artwork>
+              </figure>
+            </t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section anchor="dav_subscription_suggested_refresh-interval"
+             title="DAV:subscription-suggested-refresh-interval">
+      <t>
+        <list style='hanging'>
+          <t hangText="Name:">
+            subscription-suggested-refresh-interval
+          </t>
+
+          <t hangText="Namespace:">DAV</t>
+
+          <t hangText="Purpose:">
+            To indicate the desired time interval between refreshes of
+            a subscription.
+          </t>
+
+          <t hangText="Conformance:">
+            This property MUST be reported for any active subscription.
+          </t>
+
+          <t hangText="Description:">
+            This provides a suggested time period between refresh. It
+            uses the period format defined in <xref target="RFC3339" />.
+          </t>
+
+          <t hangText="Definition:">
+            <figure>
+              <artwork><![CDATA[
+         <!ELEMENT subscription-suggested-refresh-interval (#PCDATA)>
+         PCDATA value: a duration value
+
+]]></artwork>
+            </figure>
+          </t>
+
+          <t hangText="Example:">
+            <figure>
+              <artwork><![CDATA[
+         <D:subscription-suggested-refresh-interval xmlns:D="DAV"
+         >PT30M</D:subscription-suggested-refresh-interval>
+
+]]></artwork>
+            </figure>
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section title='Refreshing and Reenabling the subscription'>
+      <t>
+        When creating the subscription the client may indicate to the
+        server a desired refresh interval using the  a refresh of the
+        data is desired by using the PROPPATCH method to set the
+        subscription-next-refresh-interval to 0, e.g. "PT0S".
+      </t>
+
+      <t>
+        The client may indicate to the server that a refresh of the
+        data is desired by using the PROPPATCH method to set the
+        subscription-next-refresh-interval to 0, e.g. "PT0S".
+      </t>
+
+      <t>
+        A server MAY choose to always ignore the attempted refresh or
+        to ignore the patch if it appears too often.
+      </t>
+
+      <t>
+        If the server decides to initiate a refresh it MAY choose to respond
+        with a 102 HTTP status indicating that it is still waiting for
+        the data or a 202 HTTP status to indicate the request was accepted.
+      </t>
+    </section>
+
+    <section title='Response Delays'>
+      <t>
+        Implementations of this feature may have an outboard or background
+        process handling the actaul synchronization of the data. The
+        target may be hosted on a slow service or the data may be very large
+      </t>
+
+      <t>
+        All these factors may lead to a significant delay in having data
+        ready for delivery to the client.
+      </t>
+
+      <t>
+        The following approaches are more or less appropriate for
+        handling requests:
+        <list style='hanging'>
+          <t hangText="Return with available data:">
+            This is the normal behavior. The subscription looks like
+            a regular collection so the server can respond to the
+            normal requests with whatever data is available.
+          </t>
+
+          <t hangText="Wait for completion:">
+            If the synchronization process is active the server may
+            just choose to wait. This risks a request timeout if the
+            data synchronization takes a significant amount of time.
+          </t>
+
+          <t hangText="Return 102 status(es):">
+            The server may choose to wait but periodically send a 102
+            response to keep the connection alive.
+          </t>
+
+          <t hangText="Return 202 status:">
+            This is probably the best response. There is no need to
+            indicate where the client should go to retrieve the data.
+            All it needs to do is retry the operation after an appropriate
+            delay.
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section title='CalDAV service Considerations'>
+      <t>
+        As mentioned above, this feature is particularly useful for
+        CalDAV servers and clients. There are some specific
+        considerations.
+      </t>
+
+      <section title='Deleted events'>
+        <t>
+          If subscription-deletions-suppressed is specified then the server
+          SHOULD retain all events. However, the server MAY choose to
+          remove old events once they become older than the CALDAV:min-date-time
+          property as specified in <xref target="RFC4791" /> section 5.2.6.
+        </t>
+      </section>
+
+      <section title='CalDAV restrictions'>
+        <t>
+          A server SHOULD apply all appropriate restrictions
+          on events obtained from a subscription. In particular the
+          CALDAV:min-date-time and CALDAV:max-date-time
+          properties as specified in <xref target="RFC4791" />
+          sections 5.2.6 and 5.2.7 SHOULD be applied.
+        </t>
+
+        <t>
+          Additionally the CALDAV:max-resource-size property restricts the
+          size of events and the CALDAV:max-instances property the number of
+          instances.
+        </t>
+      </section>
+
+      <section title='Invitations in Subscriptions'>
+        <t>
+          Any reason not to allow them?
+        </t>
+      </section>
+    </section>
+
+    <section title='Security Considerations'>
+      <t>
+       Servers implementing this feature need to be aware of the risks
+       entailed in using the URIs provided as values to subscription-href.
+        See <xref target="RFC3986" /> for
+       a discussion of the security considerations relating to URIs.
+      </t>
+    </section>
+
+    <section title='Privacy Considerations' anchor='privacy'>
+      <t>
+        Properties with a "URI" value type can expose their users to 
+        privacy leaks as any network access of the URI data can be 
+        tracked. Clients SHOULD NOT automatically download data 
+        referenced by the URI without explicit instruction from users. 
+        This specification does not introduce any additional privacy 
+        concerns beyond those described in <xref target="RFC5545" />.
+      </t>
+    </section>
+
+    <section anchor="iana_considerations" title='IANA Considerations'>
+    </section>
+
+    <section title="Acknowledgements">
+      <t>
+        The author would also like to thank the members of the Calendaring and
+        Scheduling Consortium Calendar Sharing technical committee and the following
+        individuals for contributing their ideas and support:
+      </t>
+      <t>
+        ...
+      </t>
+      <t>
+        The authors would also like to thank the Calendaring and
+        Scheduling Consortium for advice with this specification.
+      </t>
+    </section>
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+     Both are cited textually in the same manner: by using xref elements.
+     If you use the PI option, xml2rfc will, by default, try to find included files in the same
+     directory as the including file. You can also define the XML_LIBRARY environment variable
+     with a value containing a set of directories to search.  These can be either in the local
+     filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      &RFC2119;
+      &RFC2434;
+      &RFC2518;
+      &RFC3339;
+      &RFC3688;
+      &RFC3986;
+      &RFC4791;
+      &RFC5545;
+      &RFC5546;
+      &RFC5988;
+      &RFC7240;
+      &W3C.REC-xml-20060816;
+      &I-D.ietf-calext-extensions;
+    </references>
+
+    <section title="Open issues">
+      <t>
+        <list style='hanging'>
+          <t hangText="invitations:" >
+            Any reason not to allow them?
+          </t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Change log">
+      <t>
+        v00 2018-06-26  MD
+        <list style='symbols'>
+          <t>
+            First pass
+          </t>
+        </list>
+      </t>
+    </section>
+  </back>
+</rfc>

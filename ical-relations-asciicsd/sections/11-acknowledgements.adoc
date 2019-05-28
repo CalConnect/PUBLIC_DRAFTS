@@ -1,0 +1,11 @@
+[#acknowledgements]
+= Acknowledgements
+
+The author would like to thank the members of the Calendaring and
+Scheduling Consortium technical committees and the following
+individuals for contributing their ideas, support and comments:
+
+Adrian Apthorp, Cyrus Daboo, Marten Gajda, Ken Murchison
+
+The author would also like to thank the Calendaring and Scheduling
+Consortium for advice with this specification.

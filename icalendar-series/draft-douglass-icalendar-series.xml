@@ -65,8 +65,8 @@
   <middle>
     <section title="Introduction">
       <t>
-        Since iCalendar was first defined there has been only one way
-        to express a repeating set of events - the recurrence. This
+        Since iCalendar was first defined there has been only one standard 
+        way to express a repeating set of events - the recurrence. This
         defined a master event, a set of rules for computing the
         instances and a way of overriding certain instances.
       </t>
@@ -86,7 +86,7 @@
     <section title="Overrides and iCalendar recurrences">
       <t>
         The recurrence rules specify how instances are to be computed.
-        These rules provide a set of keys - the RECURRENCE-ID - and 
+        These rules provide a set of keys - the RECURRENCE-IDs - and 
         an instance can be created with the calculated start date/time 
         and a copy of the duration (or calculated end date/time).
       </t>
@@ -102,8 +102,8 @@
       <t>
         If a long lived recurrence is heavily overridden it becomes
         very cumbersome. The master plus overrides is considered a single
-        resource in most circumstances (iTip allows the delivery of a single 
-        instance in certain situations).
+        resource in most circumstances (however iTip allows the 
+        delivery of a single instance in certain situations).
       </t>
 
       <t>
@@ -114,8 +114,9 @@
 
       <t>
         There are approaches being considered to mitigate some of these
-        issues which mostly involve only storing changes but recurrences
-        are still awkward to deal with.
+        issues which mostly involve only storing differences. Depending on 
+        the actual changes this may be more or less succesful. However 
+        recurrences are still awkward to deal with.
       </t>
 
       <section title="Changing the master start or the recurrence rules">
@@ -136,7 +137,9 @@
 
         <t>
           To be sure - some of these problems are not totally resolved
-          by a series approach but they become more tractable.
+          by a series approach but they become more tractable. An
+          approach on how to mitigate these problems is defined later on
+          in this specification.
         </t>
       </section>
 
@@ -222,6 +225,18 @@
         room as an attendee ensuring that at least the room is booked 
         at the regular time.
       </t>
+
+      <t>
+        This does not prevent a client or server from creating dummy 
+        events out into the future as a guide for people managing their 
+        calendars. The application or server merely has to ensure that 
+        those dummy events are marked as such and are read-only.
+      </t>
+
+      <t>
+        To facilitate this there is a new SITEM-STATUS property which
+        may be used to mark such an instance.
+      </t>
     
       <section title="Modifying series patterns and splitting">
         <t>
@@ -277,9 +292,9 @@
         </t>
         
         <t>
-          It is important to note that the series master is the first 
-          member of the series. Thus the first instance always occurs 
-          AFTER the series master. 
+          It is important to note that the series master is NOT a 
+          member of the series. This makes it easier for services to 
+          filter out series masters.
         </t>
       </section>
 
@@ -632,7 +647,7 @@
       </t>
 
       <t>
-        The SRULE property vakue is identical in form to the RRULE property
+        The SRULE property value is identical in form to the RRULE property
         defined in <xref target='RFC5545'/>. The
         LOOKAHEAD-COUNT and LOOKAHEAD-PERIOD parameters indicate how many
         instances should be generated in advance.
@@ -727,8 +742,8 @@
           the value specified in the master.  This leads to a 
           complication as the master needs to be preserved as a 
           container for the values which define the series.
-          This is flagged by adding a DELETED-MASTER elemeng to the 
-          SERIES-STATUS property..
+          This is flagged by adding a DELETED-MASTER element to the 
+          SERIES-STATUS property.
         </t>
       </section>
 
@@ -1123,9 +1138,9 @@
             </t>
 
             <t hangText="Description:">
-              When used in a component the value of this property points to
-              additional information related to the component. For example,
-              it may reference the originating web server.
+              This property allows a client or server to delete the trailing
+              instances in a series without having them recreated by some other
+              agent.
             </t>
 
             <t hangText="Format Definition:">
@@ -1198,7 +1213,7 @@
         <t>
           <list style='hanging'>
             <t hangText="Property name:">
-              RRULE
+              SRULE
             </t>
 
             <t hangText="Purpose:">
@@ -1217,8 +1232,23 @@
 
             <t hangText="Conformance:">
               This property can be specified in any "VEVENT",
-              "VTODO", and "VJOURNAL" calendar component, but it 
-              SHOULD NOT be specified more than once.
+              "VTODO", and "VJOURNAL" calendar component.
+            </t>
+            
+            <t>
+              <xref target='RFC5545'/> states that the RRULE component
+              SHOULD only appear once. This is unduly limiting for those
+              applications that require more than one rule to specify 
+              the series. In fact, some complex rules are better expressed
+              as multiple rules. Recipients of iCalendar data containing
+              SRULE MUST support the occurrence of multiple SRULEs.
+            </t>
+
+            <t>
+              Clients and servers MAY choose to reduce the number of 
+              SRULE properties to 1. In reality many - if not most - 
+              clients are unable to handle the full set of SRULE 
+              or RRULE features.
             </t>
 
             <t hangText="Description:">
@@ -1234,8 +1264,8 @@
             <t>
               Unlike the RRULE the "DTSTART" property MUST be synchronized 
               with the series rule, if specified. For example, if the 
-              DTSTARTS species a date on Wednesday but the SRULE speciee
-              every Tuesday then a server or client MUSt reject the 
+              DTSTART specifies a date on Wednesday but the SRULE specifies
+              every Tuesday then a server or client MUST reject the 
               component.
             </t>
           
@@ -1247,7 +1277,7 @@
               TIME values specified by "SXDATE" properties take precedence over
               those specified by inclusion properties (i.e., "SDATE" and
               "SRULE").  Where duplicate instances are generated by the "SRULE"
-              and "SDATE" properties, only one imstance is considered.
+              and "SDATE" properties, only one instance is considered.
               Duplicate instances are ignored.
             </t>
 
@@ -1304,13 +1334,77 @@
             </t>
 
             <t hangText="Examples:">
-              Say they are pretty much the same as RRULE but extra params
+              Refer to <xref target='RFC5545'/> for example of the use
+              of RRULE which has identical format. 
+            </t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="series_item_status"
+               title="SITEM-STATUS Property">
+        <t>
+          <list style='hanging'>
+            <t hangText="Property name:">
+              SITEM-STATUS
+            </t>
+  
+            <t hangText="Purpose:">
+              This property is used to define the status of a series item.
+            </t>
+  
+            <t hangText="Conformance:">
+              This property MAY be specified in any iCalendar series
+              item.
+            </t>
+  
+            <t hangText="Description:">
+              An item may be generated to provide an indication to a user or
+              client of when an event may occur - even if that event is
+              outside of the generated period.
+            </t>
+            
+            <t>
+              When this property is absent the series item is treated
+              as a concrete item which may be updated subject to the 
+              constraints of the server/storage for the item.
+            </t>
+  
+            <t hangText="Format Definition:">
+              <figure>
+                <preamble>
+                  This property is defined by the following notation:
+                </preamble>
+  
+                <artwork>
+    sitem-status    = "SITEM-STATUS" sisparam ":" SISvalue CRLF
+  
+    sisparam   = *(";" other-param)
+  
+    sisvalue = "DUMMY"  ; This item is generated as an indication of where 
+                  ; an item might appear when it is generated
+                / iana-token
+                / x-name
+                </artwork>
+              </figure>
+            </t>
+  
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following is an example of this property.
+                </preamble>
+  
+                <artwork>
+    SITEM-STATUS:DUMMY
+                </artwork>
+              </figure>
             </t>
           </list>
         </t>
       </section>
     </section>
-
+    
     <section anchor="redefined_property_related_to"
              title="Redefined RELATED-TO Property">
       <section anchor="related-to"
@@ -1325,7 +1419,7 @@
               This property is used to represent a relationship or
               reference between one calendar component and others. The definition
               here extends the definition in Section 3.8.4.5. of
-              <xref target='RFC5545'/> by including a section on 
+              <xref target='RFC5545'/> by including a section on
               RELTYPE=SERIES-MASTER.
             </t>
 
@@ -1376,7 +1470,7 @@
 
             <t>
               The SERIES-MASTER relationship when included in a series
-              instance refers to the master of that series. When included 
+              instance refers to the master of that series. When included
               in a series master it refers to a previous master in a chain
               of spilt series.
             </t>
@@ -1402,31 +1496,31 @@
                 </preamble>
 
                 <artwork>
-  related    = "RELATED-TO" relparam ( ":" text ) /
-               (
-                 ";" "VALUE" "=" "UID"
-                 ":" uid
-               )
-               (
-                 ";" "VALUE" "=" "URI"
-                 ":" uri
-               )
-               CRLF
+                  related    = "RELATED-TO" relparam ( ":" text ) /
+                  (
+                  ";" "VALUE" "=" "UID"
+                  ":" uid
+                  )
+                  (
+                  ";" "VALUE" "=" "URI"
+                  ":" uri
+                  )
+                  CRLF
 
-  relparam   = *(
-              ;
-              ; The following are OPTIONAL,
-              ; but MUST NOT occur more than once.
-              ;
-              (";" reltypeparam) /
-              (";" gapparam) /
-              ;
-              ; The following is OPTIONAL,
-              ; and MAY occur more than once.
-              ;
-              (";" other-param)
-              ;
-              )
+                  relparam   = *(
+                  ;
+                  ; The following are OPTIONAL,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  (";" reltypeparam) /
+                  (";" gapparam) /
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                  )
                 </artwork>
               </figure>
             </t>
@@ -1438,7 +1532,7 @@
                 </preamble>
 
                 <artwork>
-  RELATED-TO;RELTYPE=SERIES-MASTER:19960401-080045-4000F192713
+                  RELATED-TO;RELTYPE=SERIES-MASTER:19960401-080045-4000F192713
                 </artwork>
               </figure>
             </t>
@@ -1450,8 +1544,8 @@
     <section title='Backwards compatibility'>
       <t>
         Any clients following the approach specified in 
-        <xref target='RFC5545'/> are expected to ignore any properties
-        or parameters they don't recognize.
+        <xref target='RFC5545'/> are expected to ignore any properties,
+        parameters or components they don't recognize.
       </t>
 
       <t>
@@ -1468,7 +1562,23 @@
       </t>
 
       <t>
-        More text needed here...
+        There are two possible problem areas: first we must prevent 
+        series unaware clients from updating the masters and secondly 
+        we must prevent attempts to update dummy instances. 
+      </t>
+
+      <t>
+        Both case are handled by the definition of a new header 
+        field : "ICAL-SERIES". The presence of this header 
+        field in requests from a client indicates that it is aware of
+        this specification. In the absence of the header servers MUST NOT
+        send master template items.
+      </t>
+      
+      <t>
+        In the case of an absent header servers MUST refuse to accept
+        updates to dummy items - e.g. with an HTTP forbidden status in
+        CalDAV.
       </t>
     </section>
 
@@ -1476,7 +1586,7 @@
       <t>
         This specification may extend Caldav by adding reports to return
         all members of a series given the series master UID. This 
-        could be handled by the current query mechganism but it
+        could be handled by the current query mechanism but it
         is likely to be sufficiently frequently used that a special 
          query is appropriate.
       </t>
@@ -1602,18 +1712,6 @@
   <!--  *****BACK MATTER ***** -->
 
   <back>
-    <!-- References split into informative and normative -->
-
-    <!-- There are 2 ways to insert reference entries from the citation libraries:
-     1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
-     2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
-        (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
-
-     Both are cited textually in the same manner: by using xref elements.
-     If you use the PI option, xml2rfc will, by default, try to find included files in the same
-     directory as the including file. You can also define the XML_LIBRARY environment variable
-     with a value containing a set of directories to search.  These can be either in the local
-     filing system or remote ones accessed by http (http://domain/dir/... ).-->
 
     <references title="Normative References">
       &RFC2119;
@@ -1629,22 +1727,6 @@
     <section title="Points for discussion">
       <t>
         <list style='hanging'>
-          <t hangText="Detecting changes from old clients:">
-            If such a client updates properties in the master ... what
-            do we say here? Is there a way we can determine that the client
-            doesn't realize that it's a series? If it doesn't then updating
-            the dtstart is a big deal - maybe we add a parameter to a dtstart
-            update to indicate the client knows it's a series but wants
-            to do so anyway.
-          </t>
-
-          <t>
-            Or perhaps we add a new operation - or extend patch. Simple
-            update returns FORBIDDEN if you try to change any of the
-            important properties (should do that for recurrences) and requires
-            an explicit flag to say you (think you) know what you're doing.
-          </t>
-          
           <t hangText="Splitting and linking:">
             The spec currently only allows for backward linking to 
             previous masters. There is a parameter added to the rule 
@@ -1654,7 +1736,7 @@
           <t>
             It makes sense to have a forward link to the new(er) series.
             However, a client/server may not know what the UID is until
-            after data is stored. The new chain can be determined vis
+            after data is stored. The new chain can be determined via
             a query so perhaps we can leave it up to the protocols 
             to figure out that mechanism.
           </t>
@@ -1669,6 +1751,12 @@
     </section>
 
     <section title="Change log">
+      <t>
+        2018-01-01  MD Better descriptions - LAST-SESSION-ID.
+      </t>
+      <t>
+        2017-09-30  MD Minor updates: better backward compatibility.
+      </t>
       <t>
         2017-02-12  MD Initial version
       </t>
