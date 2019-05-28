@@ -1,9 +1,0 @@
-== Discovering alternative access methods
-
-The advertising of other access points is achieved through the use of
-the LINK header as defined in <<RFC5988>>.  New link relation types are
-defined in this specification - each being associated with a protocol
-or protocol subset.
-
-These LINK headers will be delivered when a client carries out an
-OPTIONS request targeting the URL of the resource.
