@@ -123,9 +123,9 @@
 
     </section>
 
-    <section title="Querying Collections" anchor="query">
+    <section title="Querying Collections">
 
-      <section title="Overview">
+      <section title="Overview" anchor="overview">
         <t>WebDAV <xref target="RFC4918" /> defines the concept of
         'collections', which are hierarchical groupings of WebDAV
         resources on an HTTP <xref target="RFC7230" /> server.
@@ -143,7 +143,7 @@
 
       </section>
 
-      <section title="DAV:collection-query Report">
+      <section title="DAV:collection-query Report" anchor="query">
         <t>If the DAV:collection-query report is implemented by a
         WebDAV server, then the server MUST list the report in the
         "DAV:supported-report-set" property on any collection that
@@ -158,14 +158,16 @@
               The request-URI MUST identify a collection.
               The request body MUST be a DAV:collection-query XML
               element (see <xref target="collection-query" />), which
-              MUST contain one DAV:query XML element and one DAV:prop
-              XML element, and MAY contain a DAV:limit XML element.
+              MUST contain one DAV:criteria XML element and one DAV:prop
+              XML element, and MAY contain a DAV:limit XML element
+              and/or a DAV:query-token XML element.
               <vspace /><vspace />
 
               The response body for a successful request MUST be a
               DAV:multistatus XML element, which MUST contain one
               DAV:response element for each collection that matches
-              the search criteria.
+              the search criteria and MAY contain a DAV:query-token
+              XML element and/or a DAV:total-matches XML element.
               Each response MAY contain one DAV:score XML element
               indicating the relevancy of the response to the search
               criteria.
@@ -191,13 +193,37 @@
 
       </section>
 
-      <section title="Search Criteria">
+      <section title="Search Criteria" anchor="criteria">
       </section>
 
-      <section title="Depth Behavior">
+      <section title="Depth Behavior" anchor="depth">
       </section>
 
       <section title="Truncation of Results" anchor="truncation">
+        <t>A server MAY limit the number of member URLs in a response,
+        for example, to limit the amount of work expended in
+        processing a request, or as the result of an explicit limit
+        set by the client.
+        If  the result set is truncated, the response MUST use status
+        code 207 (Multi-Status), return a DAV:multistatus response
+        body, and indicate a status of 507 (Insufficient Storage) for
+        the request-URI.
+        That DAV:response element SHOULD include a DAV:error element
+        with the DAV:number-of-matches-within-limits precondition, as
+        defined in <xref target="RFC3744" /> (Section 9.2).
+        DAV:response elements for all the collections being reported
+        are also included.</t>
+
+        <t>When truncation occurs, the DAV:query-token value returned
+        in the response MUST represent the correct state for the
+        partial set of results returned.
+        That allows the client to use the returned DAV:query-token to
+        fetch the next set of results.
+        In this way, the client can effectively "page" through the
+        entire set of results in a consistent manner.</t>
+
+        <t>Clients MUST handle the 507 status on the request-URI in
+        the response to the report.</t>
       </section>
 
       <section title="Limiting Results" anchor="limiting">
@@ -232,7 +258,7 @@
         <t>Description: See <xref target="query" />
         <vspace /><vspace />
 
-        &lt;!ELEMENT collection-query (query, limit?, prop) &gt;
+        &lt;!ELEMENT collection-query (criteria, limit?, query-token?, prop) &gt;
         <vspace /><vspace />
         &lt;!-- DAV:limit defined in <xref target="RFC5323" />,
         Section 5.17 --&gt;
@@ -244,18 +270,18 @@
 
       </section>
 
-      <section title="DAV:query XML Element">
+      <section title="DAV:criteria XML Element">
       <t><list style='empty'>
-        <t>Name: query</t>
+        <t>Name: criteria</t>
 
         <t>Namespace: DAV:</t>
 
         <t>Purpose: The criteria to use for the collection search.</t>
 
-        <t>Description: See <xref target="query" />
+        <t>Description: See <xref target="criteria" />
         <vspace /><vspace />
 
-        &lt;!ELEMENT query (terms) &gt;
+        &lt;!ELEMENT criteria (terms) &gt;
         </t>
       </list></t>
 
@@ -269,7 +295,7 @@
 
         <t>Purpose: A set of search terms.</t>
 
-        <t>Description: See <xref target="query" />
+        <t>Description: See <xref target="criteria" />
         <vspace /><vspace />
 
         &lt;!ELEMENT terms CDATA&gt;
@@ -280,6 +306,52 @@
 
       </section>
 
+      <section title="DAV:query-token XML Element">
+      <t><list style='empty'>
+        <t>Name: query-token</t>
+
+        <t>Namespace: DAV:</t>
+
+        <t>Purpose: An opaque token provided by the server and
+        returned by the client.</t>
+
+        <t>Description: See <xref target="truncation" />
+        <vspace /><vspace />
+
+        &lt;!ELEMENT query-token CDATA&gt;
+        <vspace /><vspace />
+        &lt;!-- Text MUST be a valid URI --&gt;
+        </t>
+      </list></t>
+
+      </section>
+
+      <section title="DAV:multistatus XML Element">
+      <t><list style='empty'>
+        <t>Name: multistatus</t>
+
+        <t>Namespace: DAV:</t>
+
+        <t>Purpose: Extends the DAV:multistatus element to include
+        matching details.</t>
+
+        <t>Description: See <xref target="query" />
+        <vspace /><vspace />
+
+        &lt;!ELEMENT multistatus (response*, responsedescription?,
+        <vspace/>
+                                  query-token?, total-matches?) &gt;
+        <vspace /><vspace />
+        &lt;!-- DAV:multistatus originally defined in <xref target="RFC4918" />,
+        Section 14.16 but overridden here to add the DAV:query-token
+        and DAV:total-matches elements --&gt;
+        <vspace />
+        &lt;!-- DAV:responsedescription defined in <xref target="RFC4918" />,
+        Section 14.25 --&gt;
+        </t>
+      </list></t>
+
+      </section>
       <section title="DAV:response XML Element">
       <t><list style='empty'>
         <t>Name: response</t>
@@ -296,8 +368,8 @@
         <vspace />
                      error?, responsedescription?, location?, score?) &gt;
         <vspace /><vspace />
-        &lt;!-- DAV:response defined in <xref target="RFC4918" />,
-        Section 14.24 --&gt;
+        &lt;!-- DAV:response originally defined in <xref target="RFC4918" />,
+        Section 14.24 but overridden here to add the DAV:score element --&gt;
         <vspace />
         &lt;!-- DAV:href defined in <xref target="RFC4918" />,
         Section 14.7 --&gt;
@@ -335,6 +407,25 @@
         &lt;!ELEMENT score CDATA&gt;
         <vspace /><vspace />
         &lt;!-- Text MUST be a floating point number between 0.0 and 1.0 --&gt;
+        </t>
+      </list></t>
+
+      </section>
+
+      <section title="DAV:total-matches XML Element">
+      <t><list style='empty'>
+        <t>Name: total-matches</t>
+
+        <t>Namespace: DAV:</t>
+
+        <t>Purpose: The total number of collections matching the query.</t>
+
+        <t>Description: See <xref target="query" />
+        <vspace /><vspace />
+
+        &lt;!ELEMENT total-matches CDATA&gt;
+        <vspace /><vspace />
+        &lt;!-- Text MUST be a non-negative integer --&gt;
         </t>
       </list></t>
 
