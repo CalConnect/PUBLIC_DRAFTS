@@ -178,8 +178,8 @@
 
             <t hangText="Postconditions:">
               (DAV:number-of-matches-within-limits):
-              The number of changes reported in the response must fall
-              within the client-specified limit.
+              The number of collections reported in the response must
+              fall within the client-specified limit.
               This condition might be triggered if a client requests a
               limit on the number of responses
               (as per <xref target="limiting" />), but the server is
