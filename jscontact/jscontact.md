@@ -64,7 +64,7 @@ they appear in all capitals, as shown here.
 
 MIME type: `application/jscontact+json;type=jscontact`
 
-A JSContact object stores contact information about a person or company. It has the following properties:
+A JSContact object stores contact information about a person, organization or company. It has the following properties:
 
 - uid: String (mandatory).
   A globally unique identifier, used to associate the object as the same across different
@@ -93,33 +93,33 @@ A JSContact object stores contact information about a person or company. It has 
 - nickname: String (optional).
   The nickname(s) of the contact.
 - birthday: String (optional).
-  The person's birth date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
+  The contact's birth date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
 - anniversary: String (optional).
-  The person's anniversary date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
+  The contact's anniversary date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
 - organization: String[] (optional).
   The company or organization name and units associated with this contact.
   The first entry in the list names the organization, and any following
   entries name organizational units.
 - jobTitle: String (optional).
-  The job title of the person.
+  The job title or functional position of the contact.
 - emails: ContactInformation[] (optional).
   An array of ContactInformation objects where the values are email addresses. Types are:
-  - `personal` The address is for emailing the person in a personal context.
-  - `work` The address is for emailing the person in a professional context.
+  - `personal` The address is for emailing the contact in a personal context.
+  - `work` The address is for emailing the contact in a professional context.
   - `other` The address is for some other purpose. A label property MAY be included to display next to the address to help the user identify its purpose.
 - phones: ContactInformation[] (optional).
   An array of ContactInformation objects where the values are phone numbers. Types are:
-  - `home` The number is for contacting the person at their residence.
-  - `work` The number is for contacting the person at their workplace.
-  - `mobile` The number is for contacting the person regardless of location.
+  - `home` The number is for calling the contact at their residence.
+  - `work` The number is for calling the contact at their workplace.
+  - `mobile` The number is for calling the contact regardless of location.
   - `fax` The number is for sending faxes to the contact.
   - `pager` The number is for a pager or beeper associated with the contact.
   - `other` The number is for some other purpose. A label property MAY be included to display next to the number to help the user identify its purpose.
 - online: ContactInformation[] (optional).
-  An array of ContactInformation objects where the values are URIs or usernames associated with the person for online services.
+  An array of ContactInformation objects where the values are URIs or usernames associated with the contact for online services.
   Types are:
   - `uri` The value is a URI, e.g. a website link.
-  - `username` The value is a username associated with the person (e.g. for social media, or an IM client). A label property SHOULD be included to identify what service this is for. For compatibility between clients, this label SHOULD be the canonical service name, including capitalisation. e.g. `Twitter`, `Facebook`, `Skype`, `GitHub`, `XMPP`.
+  - `username` The value is a username associated with the contact (e.g. for social media, or an IM client). A label property SHOULD be included to identify what service this is for. For compatibility between clients, this label SHOULD be the canonical service name, including capitalisation. e.g. `Twitter`, `Facebook`, `Skype`, `GitHub`, `XMPP`.
   - `other` The value is something else not covered by the above categories. A label property MAY be included to display next to the number to help the user identify its purpose.
 - addresses: Address[] (optional).
   An array of Address objects, containing physical locations associated with the contact.
