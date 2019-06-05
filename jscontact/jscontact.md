@@ -150,6 +150,7 @@ An Address object has the following properties:
   - `other` An address not covered by the above categories.
 - label: String (optional).
   A label describing the value in more detail, especially if `type === "other` (but MAY be included with any type).
+- fullAddress: String (optional). The complete address, excluding type and label. This property is mainly useful to represent addresses of which the individual address components are unknown.
 - street: String (optional).
   The street address. This MAY be multiple lines; newlines MUST be preserved.
 - locality: String (optional).
