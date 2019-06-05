@@ -159,6 +159,8 @@ An Address object has the following properties:
   The postal code, post code, ZIP code or other short code associated with the address by the relevant country's postal system.
 - country: String (optional).
   The country name.
+- countryCode: String (optional).
+  The ISO-3166-1 country code.
 - isDefault: Boolean (optional, default: `false`).
   Whether this Address is the default for its type. This SHOULD only be one per type.
 
