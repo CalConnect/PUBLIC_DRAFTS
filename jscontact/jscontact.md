@@ -72,6 +72,12 @@ A JSContact object stores contact information about a person or company. It has 
   JSContact objects. [@!RFC4122] describes a range of established algorithms to generate
   universally unique identifiers (UUID), and the random or pseudo-random version is recommended.
   For compatibility with [@!RFC6350] UIDs, implementations MUST accept both URI and free-form text.
+- kind: String (optional). The kind of the entity the Contact represents.
+  The value MUST be either one of the following values, registered in a future
+  RFC, or a vendor-specific value:
+    - `individual`: a single person
+    - `org`: an organization
+    - `location`: a named location
 - fullName: String (mandatory)
   The full name(s) of a contact (e.g. the personal name and surname of an individual, the name of an organization).
 - prefix: String (optional).
