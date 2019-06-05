@@ -123,12 +123,6 @@ A JSContact object stores contact information about a person or company. It has 
   - `other` The value is something else not covered by the above categories. A label property MAY be included to display next to the number to help the user identify its purpose.
 - addresses: Address[] (optional).
   An array of Address objects, containing physical locations associated with the contact.
-  Types are:
-  - `home` An address of a residence associated with the person.
-  - `work` An address of a workplace associated with the person.
-  - `billing` An address to be used with billing associated with the person.
-  - `postal` An address to be used for delivering physical items to the person.
-  - `other` An address not covered by the above categories.
 - notes: String (optional).
   Arbitrary notes about the contact.
 
@@ -146,7 +140,14 @@ A ContactInformation object has the following properties:
 An Address object has the following properties:
 
 - type: String (mandatory).
-  Specifies the context of the address information. This MUST be taken from the set of values allowed (see above).
+  Specifies the context of the address information.
+  The value MUST be either one of the following values, registered in a future
+  RFC, or a vendor-specific value:
+  - `home` An address of a residence associated with the contact.
+  - `work` An address of a workplace associated with the contact.
+  - `billing` An address to be used with billing associated with the contact..
+  - `postal` An address to be used for delivering physical items to the contact.
+  - `other` An address not covered by the above categories.
 - label: String (optional).
   A label describing the value in more detail, especially if `type === "other` (but MAY be included with any type).
 - street: String (optional).
