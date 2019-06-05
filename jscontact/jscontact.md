@@ -122,7 +122,7 @@ A JSContact object stores contact information about a person or company. It has 
   - `username` The value is a username associated with the person (e.g. for social media, or an IM client). A label property SHOULD be included to identify what service this is for. For compatibility between clients, this label SHOULD be the canonical service name, including capitalisation. e.g. `Twitter`, `Facebook`, `Skype`, `GitHub`, `XMPP`.
   - `other` The value is something else not covered by the above categories. A label property MAY be included to display next to the number to help the user identify its purpose.
 - addresses: Address[] (optional).
-  An array of Address objects, containing physical locations associated with the person.
+  An array of Address objects, containing physical locations associated with the contact.
   Types are:
   - `home` An address of a residence associated with the person.
   - `work` An address of a workplace associated with the person.
