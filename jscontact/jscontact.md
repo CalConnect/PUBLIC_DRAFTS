@@ -71,16 +71,20 @@ A **JSContact** object stores contact information about a person or company. It 
      For compatibility with [@!RFC6350] UIDs, implementations MUST accept both URI and free-form text.
      A valid JSContact object MUST include this property.
 
+- **fullName**: `String` (mandatory)
+  The full name(s) of a contact (e.g. the personal name and surname of an individual, the name of an organization).
 - **prefix**: `String` (optional)
-  The honorific title of the contact, e.g. "Mr", "Ms", "Dr", etc.
-- **firstName**: `String` (optional)
-  The first name(s) of a contact.
-- **lastName**: `String` (optional)
-  The last name of a contact.
+  The honorific title(s) of the contact (e.g. "Mr", "Ms", "Dr").
+- **personalName**: `String` (optional)
+  The personal name(s) of a contact (also known as "first name").
+- **surname**: `String` (optional)
+  The surname(s) of a contact (also known as "last name").
+- **additionalName**: `String` (optional)
+  The additional name(s) of a contact (also known as "middle name").
 - **suffix**: `String` (optional)
-  The honorific suffix of the contact, e.g. "B.A.", "Esq." etc.
+  The honorific suffix(es) of the contact (e.g. "B.A.", "Esq.").
 - **nickname**: `String` (optional)
-  The nickname of the contact.
+  The nickname(s) of the contact.
 - **birthday**: `String` (optional)
   The person's birth date in the form `"YYYY-MM-DD"` (any part may be all `0`s for unknown).
 - **anniversary**: `String` (optional)
