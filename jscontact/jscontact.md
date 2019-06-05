@@ -151,16 +151,6 @@ An **Address** object has the following properties:
 - **isDefault**: `Boolean` (optional, default: `false`)
   Whether this *Address* is the default for its type. This SHOULD only be one per type.
 
-A **File** Object has the following properties:
-
-- **href**: `String`  A URI from which the resource may be fetched.  This MAY be a "data:" URL, but it is recommended that the file be hosted on a server to avoid embedding arbitrarily large data in JSContact object instances.
-- **type**: `String` (optional)
-  The content-type of the file, if known.
-- **name**: `String` (optional)
-  The full file name, if known. e.g. "myface.png"
-- **size**: `Number` (optional)
-  The positive integer size, in octets, of the file when fully decoded (i.e. the number of octets in the file the user would download), if known.
-
 # Contact Group
 
 MIME type: `application/jscontact+json;type=jscontactgroup`
