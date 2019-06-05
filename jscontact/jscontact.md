@@ -96,10 +96,10 @@ A JSContact object stores contact information about a person or company. It has 
   The person's birth date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
 - anniversary: String (optional).
   The person's anniversary date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
-- company: String (optional).
-  The company for which the person works.
-- department: String (optional).
-  The department within the company for which the person works.
+- organization: String[] (optional).
+  The company or organization name and units associated with this contact.
+  The first entry in the list names the organization, and any following
+  entries name organizational units.
 - jobTitle: String (optional).
   The job title of the person.
 - emails: ContactInformation[] (optional).
