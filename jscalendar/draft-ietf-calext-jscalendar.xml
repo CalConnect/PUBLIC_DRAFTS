@@ -1430,36 +1430,56 @@
                             </t>
                             <t>
                                 <spanx style="verb">private</spanx>: The details of the object are hidden; only the
-                                basic time and metadata is shared. The following properties MUST NOT be shared:
+                                basic time and metadata is shared. The following properties MAY be shared, any
+                                other properties MUST NOT be shared:
                                 <list style="symbols">
                                     <t>
-                                        title
+                                        @type
                                     </t>
                                     <t>
-                                        description
+                                        uid
                                     </t>
                                     <t>
-                                        locations
+                                        created
                                     </t>
                                     <t>
-                                        links
+                                        updated
                                     </t>
                                     <t>
-                                        locale
+                                        sequence
                                     </t>
                                     <t>
-                                        localizations
+                                        freeBusyStatus
                                     </t>
                                     <t>
-                                        participants
+                                        privacy
                                     </t>
                                     <t>
-                                        replyTo
+                                        start
+                                    </t>
+                                    <t>
+                                        isAllDay
+                                    </t>
+                                    <t>
+                                        timeZone
+                                    </t>
+                                    <t>
+                                        timeZones
+                                    </t>
+                                    <t>
+                                        duration
+                                    </t>
+                                    <t>
+                                        estimatedDuration
+                                    </t>
+                                    <t>
+                                        due
+                                    </t>
+                                    <t>
+                                        recurrenceOverrides. Only patches whose keys are prefixed
+                                        with one of the above properties are allowed to be shared.
                                     </t>
                                 </list>
-                                In addition, any patches in <spanx style="verb">recurrenceOverrides</spanx> whose key is
-                                prefixed with one of the above properties MUST NOT be shared.
-
                             </t>
                             <t>
                                 <spanx style="verb">secret</spanx>: The object is hidden completely (as though it did
