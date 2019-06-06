@@ -170,6 +170,8 @@ An Address object has the following properties:
   The country name.
 - countryCode: String (optional).
   The ISO-3166-1 country code.
+- coordinates: String (optional) A [@!RFC5870] "geo:" URI for the address.
+- timeZone: String (optional) Identifies the time zone this address is located in. This SHOULD be a time zone name registered in the [IANA Time Zone Database](https://www.iana.org/time-zones). Unknown time zone identifiers MAY be ignored by implementations.
 - isPreferred: Boolean (optional, default: `false`).
   Whether this Address is the preferred for its type. This SHOULD only be one per type.
 
