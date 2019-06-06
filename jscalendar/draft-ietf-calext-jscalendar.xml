@@ -263,7 +263,7 @@
                         YYYY-MM-DDTHH:MM:SS</spanx>. The time zone to associate the LocalDate with comes from an
                         associated property, or if no time zone is associated it defines
                         <spanx style="emph">floating time</spanx>. Floating date-times are not tied to any specific
-                        time zone. Instead, they occur in every time zone at the same <spanx style="emph">wall-clock</spanx>
+                        time zone. Instead, they occur in every time zone at the same wall-clock
                         time (as opposed to the same instant point in time).
                     </t>
                 </section>
@@ -303,9 +303,9 @@
                     </figure>
                     <t>
                         A negative sign indicates a point in time
-                        at or <spanx style="emph">before</spanx> the associated time,
+                        at or before the associated time,
                         a positive or no sign a time at or
-                        <spanx style="emph">after</spanx> the associated time.
+                        after the associated time.
                     </t>
                 </section>
                 <section anchor="patchobject-type" title="PatchObject">
@@ -470,7 +470,7 @@
                     </t>
                     <t>
                         A globally unique identifier, used to associate the object as the same across different systems,
-                        calendars and views. The value of this property MUST be unique across <spanx style="emph">all</spanx>
+                        calendars and views. The value of this property MUST be unique across all
                         JSCalendar objects, even if they are of different type.
                         <xref target="RFC4122"/> describes a range of established algorithms to generate universally unique
                         identifiers (UUID), and the random or pseudo-random version is recommended.
@@ -1958,7 +1958,7 @@
                     <t>
                         A TimeZoneRule object maps a
                         STANDARD or DAYLIGHT sub-component from iCalendar, with the
-                        restriction that <spanx style="emph">at most one</spanx>
+                        restriction that at most one
                         recurrence rule is allowed per rule.
                         It has the following properties:
                         <list style="symbols">
