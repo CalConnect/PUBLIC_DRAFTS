@@ -141,8 +141,8 @@ A ContactInformation object has the following properties:
   A label describing the value in more detail, especially if the type property has value `other` (but MAY be included with any type).
 - value: String (mandatory).
   The actual contact information, e.g. the email address or phone number.
-- isDefault: Boolean (optional, default: `false`).
-  Whether this ContactInformation is the default for its type. This SHOULD only be one per type.
+- isPreferred: Boolean (optional, default: `false`).
+  Whether this ContactInformation is the preferred for its type. This SHOULD only be one per type.
 
 An Address object has the following properties:
 
@@ -170,8 +170,8 @@ An Address object has the following properties:
   The country name.
 - countryCode: String (optional).
   The ISO-3166-1 country code.
-- isDefault: Boolean (optional, default: `false`).
-  Whether this Address is the default for its type. This SHOULD only be one per type.
+- isPreferred: Boolean (optional, default: `false`).
+  Whether this Address is the preferred for its type. This SHOULD only be one per type.
 
 # Contact Group
 
