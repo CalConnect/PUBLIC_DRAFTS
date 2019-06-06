@@ -260,8 +260,10 @@
                 <section anchor="localdate-type" title="LocalDate">
                     <t>
                         This is a date-time string <spanx style="emph">with no time zone/offset information</spanx>.
-                        It is otherwise in the same format as UTCDate: <spanx style="verb">
-                        YYYY-MM-DDTHH:MM:SS</spanx>. The time zone to associate the LocalDate with comes from an
+                        It is otherwise in the same format as UTCDate, including fractional seconds.
+                        For example <spanx style="verb">2006-01-02T15:04:05</spanx> and
+                        <spanx style="verb">2006-01-02T15:04:05.003</spanx> are both valid.
+                        The time zone to associate the LocalDate with comes from an
                         associated property, or if no time zone is associated it defines
                         <spanx style="emph">floating time</spanx>. Floating date-times are not tied to any specific
                         time zone. Instead, they occur in every time zone at the same wall-clock
