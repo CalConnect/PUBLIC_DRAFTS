@@ -199,8 +199,9 @@
                 specified in <xref target="RFC8259"/>. Property names and values are case-sensitive.
             </t>
             <t>
-                The object has a collection of properties, as specified in the following sections. Unless otherwise
-                specified, all properties are mandatory. Optional properties may have a default value, if explicitly
+                The object has a collection of properties, as specified in the following sections.
+                Properties are specified as being either mandatory or optional.
+                Optional properties may have a default value, if explicitly
                 specified in the property definition.
             </t>
             <section anchor="type-signatures" title="Type signatures">
@@ -441,7 +442,7 @@
             <section anchor="metadata-properties" title="Metadata properties">
                 <section anchor="type" title="@type">
                     <t>
-                        Type: String.
+                        Type: String (mandatory).
                     </t>
                     <t>
                         Specifies the type which this object represents.
@@ -459,14 +460,11 @@
                             </t>
                         </list>
                     </t>
-                    <t>
-                        A valid JSCalendar object MUST include this property.
-                    </t>
                 </section>
 
                 <section anchor="uid" title="uid">
                     <t>
-                        Type: String.
+                        Type: String (mandatory).
                     </t>
                     <t>
                         A globally unique identifier, used to associate the object as the same across different systems,
@@ -478,9 +476,6 @@
                         For compatibility with <xref target="RFC5545"/> UIDs, implementations MUST be able to receive and
                         persist values of at least 255 octets for this property, but they MUST NOT truncate values in the
                         middle of a UTF-8 multi-octet sequence.
-                    </t>
-                    <t>
-                        A valid JSCalendar object MUST include this property.
                     </t>
                 </section>
 
@@ -568,7 +563,7 @@
 
                 <section anchor="updated" title="updated">
                     <t>
-                        Type: UTCDate.
+                        Type: UTCDate (mandatory).
                     </t>
                     <t>
                         The date and time the data in this object was last modified.
@@ -720,7 +715,7 @@
                                 directions, door access code, etc.
                             </t>
                             <t>
-                                uri: String.
+                                uri: String (mandatory).
                                 A URI that represents how to connect to this virtual location.
                                 <vspace blankLines="1"/>
                                 This may be a telephone number (represented as <spanx style="verb">
@@ -745,7 +740,7 @@
                     <t>
                         <list style="symbols">
                             <t>
-                                href: String.
+                                href: String (mandatory).
                                 A URI from which the resource may be fetched.
                                 <vspace blankLines="1"/>
                                 This MAY be a <spanx style="verb">data:</spanx> URL, but it is recommended that the file
@@ -899,7 +894,7 @@
                         A Recurrence object has the following properties:
                         <list style="symbols">
                             <t>
-                                frequency: String.
+                                frequency: String (mandatory).
                                 This MUST be one of the following values:
                                 <list style="symbols">
                                     <t>
@@ -1766,11 +1761,11 @@
                                 An <spanx style="strong">OffsetTrigger</spanx> object has the following properties:
                                 <list style="symbols">
                                     <t>
-                                        type: String.
+                                        type: String (mandatory).
                                         The value of this property MUST be <spanx style="verb">offset</spanx>.
                                     </t>
                                     <t>
-                                        offset: SignedDuration.
+                                        offset: SignedDuration (mandatory).
                                         Defines to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property.
                                         If the calendar object does not define a time zone,
                                         the user's default time zone SHOULD be used when determining the offset,
@@ -1918,7 +1913,7 @@
                         <spanx style="verb">daylight</spanx> property. Its properties are:
                         <list style="symbols">
                             <t>
-                                tzId: String.
+                                tzId: String (mandatory).
                                 The TZID property from iCalendar.
                             </t>
                             <t>
@@ -1935,7 +1930,7 @@
                                 in <xref target="RFC7808"/>.
                             </t>
                             <t>
-                                aliases: String[Boolean].
+                                aliases: String[Boolean] (optional).
                                 Maps the TZID-ALIAS-OF properties from iCalendar
                                 specified in <xref target="RFC7808"/> to a
                                 JSON set of aliases. The set is represented as an
@@ -1963,15 +1958,15 @@
                         It has the following properties:
                         <list style="symbols">
                             <t>
-                                start: LocalDate.
+                                start: LocalDate (mandatory).
                                 The DTSTART property from iCalendar.
                             </t>
                             <t>
-                                offsetTo: String.
+                                offsetTo: String (mandatory).
                                 The TZOFFSETTO property from iCalendar.
                             </t>
                             <t>
-                                offsetFrom: String.
+                                offsetFrom: String (mandatory).
                                 The TZOFFSETFROM property from iCalendar.
                             </t>
                             <t>
@@ -2024,13 +2019,10 @@
 
                 <section anchor="start" title="start">
                     <t>
-                        Type: LocalDate.
+                        Type: LocalDate (mandatory).
                     </t>
                     <t>
                         The date/time the event would start in the event's time zone.
-                    </t>
-                    <t>
-                        A valid JSEvent MUST include this property.
                     </t>
                 </section>
 
@@ -2199,11 +2191,10 @@
                 <section anchor="progress-participant-task" title="progress">
                     <t>
                         In addition to the common properties of a Participant
-                        object (<xref target="participants"/>), a Participant within a JSTask supports the  following property:
+                        object (<xref target="participants"/>), a Participant within a JSTask supports the following property:
                         <list style="symbols">
                             <t>
-                                <spanx style="strong">progress</spanx>:
-                                <spanx style="verb">ParticipantProgress</spanx> (optional) The progress of the participant for this task, if known.
+                                progress: ParticipantProgress (optional). The progress of the participant for this task, if known.
                                 This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx>
                                 of this participant is any other value but <spanx style="verb">accepted</spanx>.
                             </t>
@@ -2213,10 +2204,9 @@
                         <vspace blankLines="1"/>
                         <list style="symbols">
                             <t>
-                                status: String. Describes
-                                the completion status of the participant's progress.
+                                status: String (mandatory). Describes the completion status of the participant's progress.
                                 <vspace blankLines="1"/>
-                                The value MUST  be at most one of the following values,
+                                The value MUST be at most one of the following values,
                                 registered in a future RFC, or a vendor-specific value:
                                 <list style="symbols">
                                     <t>
@@ -2231,7 +2221,7 @@
                                 </list>
                             </t>
                             <t>
-                                timestamp: UTCDate.
+                                timestamp: UTCDate (mandatory).
                                 Describes the last time when the participant progress got updated.
                             </t>
                         </list>
@@ -2240,7 +2230,7 @@
 
                 <section anchor="status-jstask" title="status">
                     <t>
-                        Type: String.
+                        Type: String (optional).
                     </t>
                     <t>
                       Defines the overall status of this task. If omitted, the default status
@@ -2330,7 +2320,7 @@
                 </t>
                 <section title="entries">
                     <t>
-                        Type: String[JSTask|JSEvent].
+                        Type: String[JSTask|JSEvent] (mandatory).
                     </t>
                     <t>
                         A collection of group members. This is represented as a map of
