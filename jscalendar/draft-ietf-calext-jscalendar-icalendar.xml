@@ -133,6 +133,50 @@
 
         </section>
 
+        <section anchor="new-icalendar-parameters" title="New iCalendar parameters">
+            <section anchor="fracsec-parameter" title="FRACSEC parameter">
+                <t>
+                    <list style='hanging'>
+                        <t hangText="Parameter name:">
+                            FRACSEC
+                        </t>
+                        <t hangText="Purpose:">
+                            This parameter is used to define fractional seconds for
+                            time values and durations.
+                            It is meant to preserve time precision on time
+                            values and duration with sub-second precision, without
+                            increasing the time value range within iCalendar.
+                        </t>
+                        <t hangText="Description:">
+                            This parameter MAY be specified on properties of type DATE-TIME
+                            or DURATION.
+                            The integral part of the float value MUST be zero. The value
+                            MUST NOT be negative.
+                            iCalendar implementations MAY ignore this parameter in date time arithmetic.
+                            Implementations MUST ignore presence of the FRACSEC parameter
+                            on RECURRENCE-ID properties when determining recurrence overrides.
+                            If present on a RECURRENCE-ID property, its value MUST match the
+                            FRACSEC parameter value on the DTSTART property.
+                        </t>
+                        <t hangText="Format Definition:">
+                            <figure>
+                                <preamble>
+                                    This parameter is defined by the following notation:
+                                </preamble>
+
+                                <artwork type="abnf">
+                                    fracsec-param = float
+                                </artwork>
+                            </figure>
+                        </t>
+                        <t hangText="Example:">
+                            DTSTART;FRACSEC=0.03:20190605T133015
+                        </t>
+                    </list>
+                </t>
+            </section>
+        </section>
+
         <section anchor="translate-jsevent" title="JSEvent">
             <t>
                 A <spanx style="emph">JSEvent</spanx> maps to the the iCalendar VEVENT component type
@@ -150,6 +194,7 @@
                     property, the this maps to the <spanx style="emph">duration</spanx> property
                     as the time span between DTSTART and DTEND when converting the
                     respective time points to the UTC time zone.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
             </texttable>
@@ -166,19 +211,22 @@
                 <ttcol align='left'>iCalendar counterpart</ttcol>
                 <c>due</c>
                 <c>
-                    DUE property
+                    DUE property.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
                 <c>estimatedDuration</c>
                 <c>
                     ESTIMATED-DURATION property in the RFC draft <xref target="draft-apthorp-ical-tasks"/>,
                     or the DURATION property otherwise.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
                 <c>statusUpdatedAt</c>
                 <c>
                     COMPLETED property. The JSTask status property
                     MUST have value <spanx style="verb">completed</spanx>.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
                 <c>progress</c>
@@ -259,6 +307,7 @@
                 <c>created</c>
                 <c>
                     CREATED property.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
                 <c>description</c>
@@ -274,6 +323,7 @@
                 <c>excluded</c>
                 <c>
                     EXDATE property.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
                 <c>freeBusyStatus</c>
@@ -344,7 +394,11 @@
                 <c>
                     RDATE and EXDATE properties, and any VEVENT or
                     VTODO instances with a recurrence-id and same UID
-                    as the mapped main object.
+                    as the mapped main object. If the DTSTART property
+                    defines a FRACSEC parameter, but the RECURRENCE-ID
+                    of a recurrence instance does not, then use the
+                    FRACSEC parameter value of DTSTART to determine
+                    the recurrence override time stamp.
                 </c>
 
                 <c>recurrenceRule</c>
@@ -409,6 +463,7 @@
                 <c>updated</c>
                 <c>
                     DTSTAMP and LAST-MODIFIED properties.
+                    Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                 </c>
 
                 <c>useDefaultAlerts</c>
@@ -442,6 +497,7 @@
                         parameter. If the time zone is <spanx style="verb">Etc/UTC</spanx>,
                         then the start time may alternatively map to an iCalendar
                         UTC DATE-TIME without a TZID parameter.
+                        Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                     </c>
 
                     <c>start and isAllDay is true</c>
@@ -450,6 +506,7 @@
                         an iCalendar DTSTART property value of type DATE. When mapping
                         from iCalendar, the time component of the
                         <spanx style="emph">start</spanx> property value is zero.
+                        Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                     </c>
 
                     <c>start and null timeZone and isAllDay is false</c>
@@ -457,7 +514,9 @@
                         The <spanx style="emph">start</spanx> property value maps
                         to an iCalendar DTSTART of type local DATE-TIME and no TZID
                         parameter.
+                        Fractional seconds SHOULD be preserved with the FRACSEC parameter.
                     </c>
+
                 </texttable>
             </section>
 
