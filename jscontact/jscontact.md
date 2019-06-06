@@ -109,17 +109,22 @@ A JSContact object stores contact information about a person, organization or co
   - `other` The address is for some other purpose. A label property MAY be included to display next to the address to help the user identify its purpose.
 - phones: ContactInformation[] (optional).
   An array of ContactInformation objects where the values are phone numbers. Types are:
-  - `home` The number is for calling the contact at their residence.
-  - `work` The number is for calling the contact at their workplace.
-  - `mobile` The number is for calling the contact regardless of location.
+  - `voice` The number is for calling the contact.
   - `fax` The number is for sending faxes to the contact.
   - `pager` The number is for a pager or beeper associated with the contact.
   - `other` The number is for some other purpose. A label property MAY be included to display next to the number to help the user identify its purpose.
+     
+     The following labels are pre-defined for phone contact information:
+
+       - `private` The phone number should be used in a private context.
+       - `work` The phone number should be used in a professional context
+
 - online: ContactInformation[] (optional).
   An array of ContactInformation objects where the values are URIs or usernames associated with the contact for online services.
   Types are:
   - `uri` The value is a URI, e.g. a website link.
   - `username` The value is a username associated with the contact (e.g. for social media, or an IM client). A label property SHOULD be included to identify what service this is for. For compatibility between clients, this label SHOULD be the canonical service name, including capitalisation. e.g. `Twitter`, `Facebook`, `Skype`, `GitHub`, `XMPP`.
+
   - `other` The value is something else not covered by the above categories. A label property MAY be included to display next to the number to help the user identify its purpose.
 - addresses: Address[] (optional).
   An array of Address objects, containing physical locations associated with the contact.
@@ -131,7 +136,7 @@ A ContactInformation object has the following properties:
 - type: String (mandatory).
   Specifies the context of the contact information. This MUST be taken from the set of values allowed depending on whether this is part of the phones, emails or online property (see above).
 - label: String (optional).
-  A label describing the value in more detail, especially if `type === "other` (but MAY be included with any type).
+  A label describing the value in more detail, especially if the type property has value `other` (but MAY be included with any type).
 - value: String (mandatory).
   The actual contact information, e.g. the email address or phone number.
 - isDefault: Boolean (optional, default: `false`).
@@ -149,7 +154,7 @@ An Address object has the following properties:
   - `postal` An address to be used for delivering physical items to the contact.
   - `other` An address not covered by the above categories.
 - label: String (optional).
-  A label describing the value in more detail, especially if `type === "other` (but MAY be included with any type).
+  A label describing the value in more detail.
 - fullAddress: String (optional). The complete address, excluding type and label. This property is mainly useful to represent addresses of which the individual address components are unknown.
 - street: String (optional).
   The street address. This MAY be multiple lines; newlines MUST be preserved.
