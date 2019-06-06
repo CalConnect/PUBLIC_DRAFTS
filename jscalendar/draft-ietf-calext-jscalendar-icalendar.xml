@@ -143,6 +143,8 @@
                         <t hangText="Purpose:">
                             This parameter is used to define fractional seconds for
                             time values and durations.
+                            FRACSEC MUST NOT be used in date-time calculations or comparisons in 
+                            iCalendar.
                             It is meant to preserve time precision on time
                             values and duration with sub-second precision, without
                             increasing the time value range within iCalendar.
@@ -156,8 +158,9 @@
                             time arithmetic.
                             Implementations MUST ignore presence of the FRACSEC parameter
                             on RECURRENCE-ID properties when determining recurrence overrides.
-                            If present on a RECURRENCE-ID property, its value MUST match the
-                            FRACSEC parameter value on the DTSTART property.
+                            If present on a RECURRENCE-ID property, its value MUST match
+                            the FRACSEC parameter value on the DATE-TIME
+                            property that defines the reference point for the recurring instances.
                         </t>
                         <t hangText="Format Definition:">
                             <figure>
