@@ -152,7 +152,8 @@
                             or DURATION.
                             The integral part of the float value MUST be zero. The value
                             MUST NOT be negative.
-                            iCalendar implementations MAY ignore this parameter in date time arithmetic.
+                            iCalendar implementations SHOULD ignore this parameter in date
+                            time arithmetic.
                             Implementations MUST ignore presence of the FRACSEC parameter
                             on RECURRENCE-ID properties when determining recurrence overrides.
                             If present on a RECURRENCE-ID property, its value MUST match the
