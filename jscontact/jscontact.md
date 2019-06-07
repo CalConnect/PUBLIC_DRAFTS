@@ -80,17 +80,17 @@ A JSContact object stores contact information about a person, organization or co
     - `location`: a named location
 - fullName: String (mandatory)
   The full name(s) of a contact (e.g. the personal name and surname of an individual, the name of an organization).
-- prefix: String (optional).
+- prefix: String[] (optional).
   The honorific title(s) of the contact (e.g. `Mr`, `Ms`, `Dr`).
-- personalName: String (optional).
+- personalName: String[] (optional).
   The personal name(s) of a contact (also known as "first name").
-- surname: String (optional).
+- surname: String[] (optional).
   The surname(s) of a contact (also known as "last name").
-- additionalName: String (optional).
+- additionalName: String[] (optional).
   The additional name(s) of a contact (also known as "middle name").
-- suffix: String (optional).
+- suffix: String[] (optional).
   The honorific suffix(es) of the contact (e.g. `B.A.`, `Esq.`).
-- nickname: String (optional).
+- nickname: String[] (optional).
   The nickname(s) of the contact.
 - birthday: String (optional).
   The contact's birth date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
