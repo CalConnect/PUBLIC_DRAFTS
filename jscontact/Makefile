@@ -6,7 +6,7 @@ MMARK := mmark
 
 .PHONY: build
 
-xml: jscontact.xml
+xml: draft-stepanek-jscontact.xml
 
 distclean:
-	rm -f jscontact.xml
+	rm -f draft-stepanek-jscontact.xml

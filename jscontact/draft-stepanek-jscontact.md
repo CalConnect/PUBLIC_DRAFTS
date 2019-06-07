@@ -8,11 +8,11 @@ workgroup = "TBD"
 submissiontype = "IETF"
 keyword = ["JSON", "addressbook", "contacts", "VCARD"]
 
-date = 2019-02-28T11:55:00Z
+date = 2019-06-07T09:44:00Z
 
 [seriesInfo]
 name = "Internet-Draft"
-value = "draft-stepanek-jscontact-00"
+value = "draft-stepanek-jscontact-01"
 stream = "IETF"
 status = "standard"
 
@@ -24,10 +24,11 @@ organization = "FastMail"
   [author.address]
   email = "rsto@fastmailteam.com"
   [author.address.postal]
-  city = "Melbourne"
   street = "PO Box 234, Collins St West"
+  city = "Melbourne"
   code = "VIC 8007"
   country = "Australia"
+  region = " "
 %%%
 
 .# Abstract
@@ -102,6 +103,9 @@ A JSContact object stores contact information about a person, organization or co
   entries name organizational units.
 - jobTitle: String (optional).
   The job title or functional position of the contact.
+- role: String (optional).
+  The role, function or part played in a particular situation by the contact. In contrast
+  to a job title, the role might differ for example in project contexts.
 - emails: ContactInformation[] (optional).
   An array of ContactInformation objects where the values are email addresses. Types are:
   - `personal` The address is for emailing the contact in a personal context.
