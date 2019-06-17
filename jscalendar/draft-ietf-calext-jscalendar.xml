@@ -1033,10 +1033,6 @@
                                 this date is presumed to be in the time zone specified in
                                 <spanx style="verb">timeZone</spanx>.
                                 As in iCalendar, the until value bounds the recurrence rule inclusively.
-                                To allow for using the same bound regardless of the
-                                value of the <spanx style="verb">isAllDay</spanx> property, the
-                                <spanx style="verb">until</spanx> property date-time MAY include non-zero time components
-                                even for all-day calendar objects.
                             </t>
                         </list>
 
@@ -1336,9 +1332,6 @@
                             </t>
                             <t>
                                 method
-                            </t>
-                            <t>
-                                isAllDay
                             </t>
                             <t>
                                 recurrenceRule
@@ -2083,25 +2076,10 @@
                         Type: Boolean (optional, default: <spanx style="verb">false</spanx>).
                     </t>
                     <t>
-                        Specifies if the event is an all day event, such as a birthday or public holiday.
-                    </t>
-                    <t>
-                        If the <spanx style="verb">isAllDay</spanx> property value is true, then the following restrictions apply:
-                        <list style="symbols">
-                            <t>
-                                the <spanx style="verb">start</spanx> property
-                                MUST have a time component of <spanx style="verb">T00:00:00</spanx>.
-                            </t>
-                            <t>
-                                the <spanx style="verb">timeZone</spanx> property MUST be <spanx style="verb">null</spanx>
-                            </t>
-                            <t>
-                                the <spanx style="verb">duration</spanx> property MUST NOT include non-zero time components (hours, minutes, or seconds)
-                            </t>
-                            <t>
-                                the <spanx style="verb">freeBusyStatus</spanx> property MUST NOT be <spanx style="verb">busy</spanx>
-                            </t>
-                          </list>
+                        Indicates whether this event is meant to represent an all-day event,
+                        and SHOULD be presented accordingly in a calendaring application.
+                        The value of this property is independent of the actual time-span
+                        covered by this event.
                     </t>
                 </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
@@ -2183,30 +2161,6 @@
                         However, this could produce a long list of timestamps for regularly recurring tasks. An
                         alternative approach is to split the JSTask into a current, single instance of JSTask with this
                         instance status update time and a future recurring instance. Also see <xref target="relatedTo"/> on splitting.
-                    </t>
-                </section>
-
-                <section anchor="isAllDay-task" title="isAllDay">
-                    <t>
-                        Type: Boolean (optional, default: <spanx style="verb">false</spanx>).
-                    </t>
-                    <t>
-                        Specifies if the task is an all day task.
-                    </t>
-                    <t>
-                        If the <spanx style="verb">isAllDay</spanx> property value is true, then the following restrictions apply:
-                        <list style="symbols">
-                            <t>
-                                the <spanx style="verb">start</spanx> and <spanx style="verb">due</spanx> properties
-                                MUST have a time component of <spanx style="verb">T00:00:00</spanx>, or not be set
-                            </t>
-                            <t>
-                                the <spanx style="verb">timeZone</spanx> property MUST be <spanx style="verb">null</spanx>
-                            </t>
-                            <t>
-                                the <spanx style="verb">freeBusyStatus</spanx> property MUST NOT be <spanx style="verb">busy</spanx>
-                            </t>
-                        </list>
                     </t>
                 </section>
 
