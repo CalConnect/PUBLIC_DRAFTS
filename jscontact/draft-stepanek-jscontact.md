@@ -43,7 +43,7 @@ This document defines a data model for contact data normally used in address boo
 
 The key design considerations for this data model are as follows:
 
-- Most of the initial set of attributes should be taken from the vCard data format [@!RFC6350], but the specification should add new attributes or value types, or not support existing ones, where appropriate. Conversion between the data formats need not fully preserve semantic meaning.
+- Most of the initial set of attributes should be taken from the vCard data format [@!RFC6350] and extensions ([@RFC6473], [@RFC6474], [@RFC6715], [@RFC6869], [@RFC8605]). The specification should add new attributes or value types, or not support existing ones, where appropriate. Conversion between the data formats need not fully preserve semantic meaning.
 - The attributes of the contacts data represented must be described as a simple key-value pair, reducing complexity of its representation.
 - The data model should avoid all ambiguities and make it difficult to make mistakes during implementation.
 - Extensions, such as new properties and components, MUST NOT lead to requiring an update to this document.
