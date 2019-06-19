@@ -127,32 +127,32 @@ A JSContact object stores contact information about a person, organization or co
 - role[]: String (optional).
   The role(s), function(s) or part(s) played in a particular situation by the contact. In contrast
   to a job title, the roles might differ for example in project contexts.
-- emails: ContactInformation[] (optional).
-  An array of ContactInformation objects where the values are email addresses. Types are:
+- emails: ContactMethod[] (optional).
+  An array of ContactMethod objects where the values are email addresses. Types are:
   - `personal` The address is for emailing the contact in a personal context.
   - `work` The address is for emailing the contact in a professional context.
   - `other` The address is for some other purpose. A label property MAY be included to display next to the address to help the user identify its purpose.
-- phones: ContactInformation[] (optional).
-  An array of ContactInformation objects where the values are phone numbers. Types are:
+- phones: ContactMethod[] (optional).
+  An array of ContactMethod objects where the values are phone numbers. Types are:
   - `voice` The number is for calling the contact.
   - `fax` The number is for sending faxes to the contact.
   - `pager` The number is for a pager or beeper associated with the contact.
   - `other` The number is for some other purpose. A label property MAY be included to display next to the number to help the user identify its purpose.
      
-     The following labels are pre-defined for phone contact information:
+     The following labels are pre-defined for phone contact methods:
 
        - `private` The phone number should be used in a private context.
        - `work` The phone number should be used in a professional context
 
-- online: ContactInformation[] (optional).
-  An array of ContactInformation objects where the values are URIs or usernames associated with the contact for online services.
+- online: ContactMethod[] (optional).
+  An array of ContactMethod objects where the values are URIs or usernames associated with the contact for online services.
   Types are:
   - `uri` The value is a URI, e.g. a website link.
   - `username` The value is a username associated with the contact (e.g. for social media, or an IM client). A label property SHOULD be included to identify what service this is for. For compatibility between clients, this label SHOULD be the canonical service name, including capitalisation. e.g. `Twitter`, `Facebook`, `Skype`, `GitHub`, `XMPP`.
 
   - `other` The value is something else not covered by the above categories. A label property MAY be included to display next to the number to help the user identify its purpose.
 - preferredContactMethod: String (optional)
-  Defines the preferred contact method. The value MUST be the property name of one of the ContactInformation lists: `emails`, `phones`, `online`, `other`.
+  Defines the preferred contact method. The value MUST be the property name of one of the ContactMethod lists: `emails`, `phones`, `online`, `other`.
 - addresses: Address[] (optional).
   An array of Address objects, containing physical locations associated with the contact.
 - notes: String (optional).
@@ -160,16 +160,16 @@ A JSContact object stores contact information about a person, organization or co
 - categories: String[] (optional).
   A list of free-text or URI categories that relate to the contact.
 
-A ContactInformation object has the following properties:
+A ContactMethod object has the following properties:
 
 - type: String (mandatory).
-  Specifies the context of the contact information. This MUST be taken from the set of values allowed depending on whether this is part of the phones, emails or online property (see above).
+  Specifies the context of the contact method. This MUST be taken from the set of values allowed depending on whether this is part of the phones, emails or online property (see above).
 - label: String (optional).
   A label describing the value in more detail, especially if the type property has value `other` (but MAY be included with any type).
 - value: String (mandatory).
-  The actual contact information, e.g. the email address or phone number.
+  The actual contact method, e.g. the email address or phone number.
 - isPreferred: Boolean (optional, default: `false`).
-  Whether this ContactInformation is the preferred for its type. This SHOULD only be one per type.
+  Whether this ContactMethod is the preferred for its type. This SHOULD only be one per type.
 
 An Address object has the following properties:
 
