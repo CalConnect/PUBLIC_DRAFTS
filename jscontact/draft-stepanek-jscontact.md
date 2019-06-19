@@ -68,11 +68,7 @@ MIME type: `application/jscontact+json;type=jscontact`
 A JSContact object stores contact information about a person, organization or company. It has the following properties:
 
 - uid: String (mandatory).
-  A globally unique identifier, used to associate the object as the same across different
-  systems, addressbooks and views.  The value of this property MUST be unique across _all_
-  JSContact objects. [@!RFC4122] describes a range of established algorithms to generate
-  universally unique identifiers (UUID), and the random or pseudo-random version is recommended.
-  For compatibility with [@!RFC6350] UIDs, implementations MUST accept both URI and free-form text.
+  An identifier, used to associate the object as the same across different systems, addressbooks and views.  [@!RFC4122] describes a range of established algorithms to generate universally unique identifiers (UUID), and the random or pseudo-random version is recommended.  For compatibility with [@!RFC6350] UIDs, implementations MUST accept both URI and free-form text.
 - prodId: String (optional).
   The identifier for the product that created the JSContact object.
 - updated: String (mandatory).
