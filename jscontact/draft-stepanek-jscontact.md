@@ -75,6 +75,8 @@ A JSContact object stores contact information about a person, organization or co
   For compatibility with [@!RFC6350] UIDs, implementations MUST accept both URI and free-form text.
 - prodId: String (optional).
   The identifier for the product that created the JSContact object.
+- updated: String (mandatory).
+  The date and time when the data in this JSContact object was last modified. The timestamp MUST be formatted as specified in [@RFC3339].
 - kind: String (optional). The kind of the entity the Contact represents.
   The value MUST be either one of the following values, registered in a future
   RFC, or a vendor-specific value:
