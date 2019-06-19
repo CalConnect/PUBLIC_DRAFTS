@@ -110,6 +110,12 @@ A JSContact object stores contact information about a person, organization or co
   The nickname(s) of the contact.
 - birthday: String (optional).
   The contact's birth date in the form "YYYY-MM-DD" (any part may be all 0s for unknown) or a [@RFC3339] timestamp.
+- birthPlace: String (optional).
+  The contact's birth place.
+- deathDate: String (optional).
+  The contact's death date in the form "YYYY-MM-DD" (any part may be all 0s for unknown) or a [@RFC3339] timestamp.
+- deathPlace: String (optional).
+  The contact's death place.
 - anniversary: String (optional).
   The contact's anniversary date in the form "YYYY-MM-DD" (any part may be all 0s for unknown).
 - organization: String[] (optional).
