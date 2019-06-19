@@ -73,6 +73,8 @@ A JSContact object stores contact information about a person, organization or co
   JSContact objects. [@!RFC4122] describes a range of established algorithms to generate
   universally unique identifiers (UUID), and the random or pseudo-random version is recommended.
   For compatibility with [@!RFC6350] UIDs, implementations MUST accept both URI and free-form text.
+- prodId: String (optional).
+  The identifier for the product that created the JSContact object.
 - kind: String (optional). The kind of the entity the Contact represents.
   The value MUST be either one of the following values, registered in a future
   RFC, or a vendor-specific value:
