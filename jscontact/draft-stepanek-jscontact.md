@@ -173,6 +173,10 @@ An Address object has the following properties:
 - fullAddress: String (optional). The complete address, excluding type and label. This property is mainly useful to represent addresses of which the individual address components are unknown.
 - street: String (optional).
   The street address. This MAY be multiple lines; newlines MUST be preserved.
+- extension: String (optional)
+  The extended address, such as an apartment or suite number, or care-of address.
+- postOfficeBox: String (optional)
+  The post office box.
 - locality: String (optional).
   The city, town, village, post town, or other locality within which the street address may be found.
 - region: String (optional).
