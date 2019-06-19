@@ -79,8 +79,15 @@ A JSContact object stores contact information about a person, organization or co
     - `individual`: a single person
     - `org`: an organization
     - `location`: a named location
-- fullName: String (mandatory)
+- fullName: FullName[] (mandatory).
   The full name(s) of a contact (e.g. the personal name and surname of an individual, the name of an organization).
+  A FullName object has the following properties:
+    - name: String (mandatory)
+      The full name.
+    - language: String (optional)
+      The [@RFC5646] language tag of this name, if any.
+    - isPreferred: Boolean (optional, default: `false`).
+      Whether this FullName is the preferred name for this contact.
 - prefix: String[] (optional).
   The honorific title(s) of the contact (e.g. `Mr`, `Ms`, `Dr`).
 - personalName: String[] (optional).
