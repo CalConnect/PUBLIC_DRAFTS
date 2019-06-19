@@ -151,6 +151,8 @@ A JSContact object stores contact information about a person, organization or co
   An array of Address objects, containing physical locations associated with the contact.
 - notes: String (optional).
   Arbitrary notes about the contact.
+- categories: String[] (optional).
+  A list of free-text or URI categories that relate to the contact.
 
 A ContactInformation object has the following properties:
 
