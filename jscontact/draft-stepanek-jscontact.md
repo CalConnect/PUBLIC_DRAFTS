@@ -155,6 +155,18 @@ A JSContact object stores contact information about a person, organization or co
   Defines the preferred contact method. The value MUST be the property name of one of the ContactMethod lists: `emails`, `phones`, `online`, `other`.
 - addresses: Address[] (optional).
   An array of Address objects, containing physical locations associated with the contact.
+- personalInfo: PersonalInformation[] (optional).
+  A list of personal information about this contact. A PersonalInformation object has the following properties:
+     - type: String (mandatory).
+       Specifies the type for this personal information. Allowed values are:
+          - `expertise`: a field of expertise or credential
+          - `hobby`: a hobby of this contact
+          - `interest`: an interest of this contact
+          - `other`: an information not covered by the above categories
+     - value: String (mandatory).
+       The actual contact information. This generally is free-text, but future specifications MAY restrict allowed values depending on the type of this PersonalInformation.
+     - level: String (optional)
+       Indicates the level of expertise, or engagement in hobby or interest. Allowed values are: `high`, `medium` and `low`.
 - notes: String (optional).
   Arbitrary notes about the contact.
 - categories: String[] (optional).
