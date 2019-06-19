@@ -83,6 +83,8 @@ A JSContact object stores contact information about a person, organization or co
     - `individual`: a single person
     - `org`: an organization
     - `location`: a named location
+    - `device`: a device, such as appliances, computers, or network elements
+    - `application`: a software application
 - fullName: FullName[] (mandatory).
   The full name(s) of a contact (e.g. the personal name and surname of an individual, the name of an organization).
   A FullName object has the following properties:
