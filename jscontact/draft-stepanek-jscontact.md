@@ -88,16 +88,18 @@ A JSContact object stores contact information about a person, organization or co
       The [@RFC5646] language tag of this name, if any.
     - isPreferred: Boolean (optional, default: `false`).
       Whether this FullName is the preferred name for this contact.
-- prefix: String[] (optional).
-  The honorific title(s) of the contact (e.g. `Mr`, `Ms`, `Dr`).
-- personalName: String[] (optional).
-  The personal name(s) of a contact (also known as "first name", "give name").
-- surname: String[] (optional).
-  The surname(s) of a contact (also known as "last name", "family name").
-- additionalName: String[] (optional).
-  The additional name(s) of a contact (also known as "middle name").
-- suffix: String[] (optional).
-  The honorific suffix(es) of the contact (e.g. `B.A.`, `Esq.`).
+- structuredName: StructuredName (optional).
+  The name of this contact, structured by its constituents. A StructuredName object has the following properties:
+    - prefix: String[] (optional).
+      The honorific title(s) of the contact (e.g. `Mr`, `Ms`, `Dr`).
+    - personalName: String[] (optional).
+      The personal name(s) of a contact (also known as "first name", "give name").
+    - surname: String[] (optional).
+      The surname(s) of a contact (also known as "last name", "family name").
+    - additionalName: String[] (optional).
+      The additional name(s) of a contact (also known as "middle name").
+    - suffix: String[] (optional).
+      The honorific suffix(es) of the contact (e.g. `B.A.`, `Esq.`).
 - nickname: String[] (optional).
   The nickname(s) of the contact.
 - birthday: String (optional).
