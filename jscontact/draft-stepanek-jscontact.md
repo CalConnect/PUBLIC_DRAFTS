@@ -110,11 +110,11 @@ A JSContact object stores contact information about a person, organization or co
   The company or organization name and units associated with this contact.
   The first entry in the list names the organization, and any following
   entries name organizational units.
-- jobTitle: String (optional).
-  The job title or functional position of the contact.
-- role: String (optional).
-  The role, function or part played in a particular situation by the contact. In contrast
-  to a job title, the role might differ for example in project contexts.
+- jobTitle[]: String (optional).
+  The job title(s) or functional position(s) of the contact.
+- role[]: String (optional).
+  The role(s), function(s) or part(s) played in a particular situation by the contact. In contrast
+  to a job title, the roles might differ for example in project contexts.
 - emails: ContactInformation[] (optional).
   An array of ContactInformation objects where the values are email addresses. Types are:
   - `personal` The address is for emailing the contact in a personal context.
