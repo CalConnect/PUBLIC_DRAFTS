@@ -633,6 +633,20 @@
                     </t>
                 </section>
 
+                <section anchor="showWithoutTime" title="showWithoutTime">
+                    <t>
+                        Type: Boolean (optional, default: <spanx style="verb">false</spanx>).
+                    </t>
+                    <t>
+                        Indicates the time is not important to display to the user when rendering
+                        this calendar object, for example an event that conceptually occurs all day
+                        or across multiple days, such as "New Year's Day" or "Italy Vacation". While
+                        the time component is important for free-busy calculations and checking for
+                        scheduling clashes, calendars may choose to omit displaying it and/or display
+                        the object separately to other objects to enhance the user's view of their schedule.
+                    </t>
+                </section>
+
                 <section anchor="locations" title="locations">
                     <t>
                         Type: String[Location] (optional).
@@ -1447,9 +1461,6 @@
                                         freeBusyStatus
                                     </t>
                                     <t>
-                                        isAllDay
-                                    </t>
-                                    <t>
                                         privacy
                                     </t>
                                     <t>
@@ -1458,6 +1469,9 @@
                                     </t>
                                     <t>
                                         sequence
+                                    </t>
+                                    <t>
+                                        showWithoutTime
                                     </t>
                                     <t>
                                         start
@@ -2071,17 +2085,6 @@
                     </t>
                 </section>
 
-                <section anchor="isAllDay" title="isAllDay">
-                    <t>
-                        Type: Boolean (optional, default: <spanx style="verb">false</spanx>).
-                    </t>
-                    <t>
-                        Indicates whether this event is meant to represent an all-day event,
-                        and SHOULD be presented accordingly in a calendaring application.
-                        The value of this property is independent of the actual time-span
-                        covered by this event.
-                    </t>
-                </section>
                 <section anchor="sharing-scheduling-status-jsevent" title="status">
                     <t>
                         Type: String (optional, default: <spanx style="verb">confirmed</spanx>).
@@ -2400,7 +2403,7 @@
 {
   "...": "",
   "title": "April Fool's Day",
-  "isAllDay": true,
+  "showWithoutTime": true,
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
   "recurrenceRule": {
