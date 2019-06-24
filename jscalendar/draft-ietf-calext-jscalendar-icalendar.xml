@@ -183,7 +183,7 @@
 
         <section anchor="translate-jsevent" title="JSEvent">
             <t>
-                A <spanx style="emph">JSEvent</spanx> maps to the the iCalendar VEVENT component type
+                A JSEvent maps to the the iCalendar VEVENT component type
                 <xref target="RFC5545"/>.
                 The following tables maps the JSEvent-specific properties to iCalendar:
             </t>
@@ -195,7 +195,7 @@
                 <c>
                     DURATION property.
                     If the VEVENT contains a DTEND
-                    property, the this maps to the <spanx style="emph">duration</spanx> property
+                    property, the this maps to the duration property
                     as the time span between DTSTART and DTEND when converting the
                     respective time points to the UTC time zone.
                     Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
@@ -205,7 +205,7 @@
 
         <section anchor="translate-jstask" title="JSTask">
             <t>
-                A <spanx style="emph">JSTask</spanx> object maps to the iCalendar VTODO component type
+                A JSTask object maps to the iCalendar VTODO component type
                 <xref target="RFC5545"/>.
                 The following tables maps the JSTask-specific properties to iCalendar:
             </t>
@@ -287,8 +287,8 @@
                 <c>
                     Each entry maps to a VALARM component.
 
-                    The ACTION property maps to  <spanx style="emph">action</spanx>, where
-                    both <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx>
+                    The action property maps to iCalendar ACTION, where
+                    both iCalendar <spanx style="verb">DISPLAY</spanx> and <spanx style="verb">AUDIO</spanx>
                     values map to the <spanx style="verb">display</spanx> action. An EMAIL value maps
                     to a JSCalendar <spanx style="verb">email</spanx> action.
                     <spanx style="emph">relativeTo</spanx> and <spanx style="emph">offset</spanx>
@@ -400,7 +400,7 @@
                 <c>recurrenceRule</c>
                 <c>
                     RRULE property. For all-day calendar objects,
-                    map the <spanx style="emph">until</spanx> property value to an iCalendar
+                    map the <spanx style="verg">until</spanx> property value to an iCalendar
                     DATE (effectively removing the time component). To convert a DATE-typed UNTIL
                     from iCalendar, set the time components of the LocalDate value to
                     <spanx style="verb">23:59:59</spanx>. If the iCalendar UNTIL value is a
@@ -599,7 +599,7 @@
             <section anchor="translate-participants" title="Participants">
                 <t>
                     The following table outlines translation of JSCalendar participants.
-                    An iCalendar ORGANIZER maps to <spanx style="emph">replyTo</spanx>
+                    An iCalendar ORGANIZER maps to both the replyTo property
                     and a participant with role <spanx style="verb">owner</spanx>. If
                     an ATTENDEE with the same CAL-ADDRESS value exists, then it maps
                     to the same participant as the ORGANIZER participant. Other participants
