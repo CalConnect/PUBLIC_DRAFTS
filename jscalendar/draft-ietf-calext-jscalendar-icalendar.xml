@@ -522,6 +522,7 @@
                         </t>
                     </list>
                     Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
+                </t>
             </section>
 
             <section anchor="translate-locations" title="Locations">
