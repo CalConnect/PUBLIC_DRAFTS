@@ -1432,34 +1432,10 @@
                                         @type
                                     </t>
                                     <t>
-                                        uid
-                                    </t>
-                                    <t>
                                         created
                                     </t>
                                     <t>
-                                        updated
-                                    </t>
-                                    <t>
-                                        sequence
-                                    </t>
-                                    <t>
-                                        freeBusyStatus
-                                    </t>
-                                    <t>
-                                        privacy
-                                    </t>
-                                    <t>
-                                        start
-                                    </t>
-                                    <t>
-                                        isAllDay
-                                    </t>
-                                    <t>
-                                        timeZone
-                                    </t>
-                                    <t>
-                                        timeZones
+                                        due
                                     </t>
                                     <t>
                                         duration
@@ -1468,11 +1444,35 @@
                                         estimatedDuration
                                     </t>
                                     <t>
-                                        due
+                                        freeBusyStatus
+                                    </t>
+                                    <t>
+                                        isAllDay
+                                    </t>
+                                    <t>
+                                        privacy
                                     </t>
                                     <t>
                                         recurrenceOverrides. Only patches whose keys are prefixed
                                         with one of the above properties are allowed to be shared.
+                                    </t>
+                                    <t>
+                                        sequence
+                                    </t>
+                                    <t>
+                                        start
+                                    </t>
+                                    <t>
+                                        timeZone
+                                    </t>
+                                    <t>
+                                        timeZones
+                                    </t>
+                                    <t>
+                                        uid
+                                    </t>
+                                    <t>
+                                        updated
                                     </t>
                                 </list>
                             </t>
