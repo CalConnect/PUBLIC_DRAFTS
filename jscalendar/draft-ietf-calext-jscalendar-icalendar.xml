@@ -200,7 +200,6 @@
                     respective time points to the UTC time zone.
                     Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
                 </c>
-
             </texttable>
         </section>
 
@@ -215,10 +214,8 @@
                 <ttcol align='left'>iCalendar counterpart</ttcol>
                 <c>due</c>
                 <c>
-                    DUE property.
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
+                    Maps to the DUE property. See <xref target="translate-time"/>.
                 </c>
-
                 <c>estimatedDuration</c>
                 <c>
                     ESTIMATED-DURATION property in the RFC draft <xref target="draft-apthorp-ical-tasks"/>,
@@ -335,11 +332,6 @@
                     TRANSP property.
                 </c>
 
-                <c>isAllDay</c>
-                <c>
-                    See <xref target="translate-time"/>.
-                </c>
-
                 <c>keywords</c>
                 <c>
                     CATEGORIES property, as specified in <xref target="RFC7986"/>.
@@ -413,7 +405,8 @@
                     from iCalendar, set the time components of the LocalDate value to
                     <spanx style="verb">23:59:59</spanx>. If the iCalendar UNTIL value is a
                     UTC date time, convert it to the local time in the JSCalendar calendar
-                    object time zone.
+                    object time zone. To convert to iCalendar where the DTSTART or DUE property
+                    is of type DATE, omit the time component of the LocalDate value.
                 </c>
 
                 <c>relatedTo</c>
@@ -434,9 +427,14 @@
                     SEQUENCE property.
                 </c>
 
+                <c>showWithoutTime</c>
+                <c>
+                    Implementation-specific.
+                </c>
+
                 <c>start</c>
                 <c>
-                    See <xref target="translate-time"/>.
+                    Maps to the DTSTART property. See <xref target="translate-time"/>.
                 </c>
 
                 <c>status</c>
@@ -446,7 +444,7 @@
 
                 <c>timeZone</c>
                 <c>
-                    See <xref target="translate-time"/>.
+                    Maps to the TZID parameter.  See <xref target="translate-time"/>.
                 </c>
 
                 <c>timeZones</c>
@@ -482,48 +480,49 @@
 
             </texttable>
 
-            <section anchor="translate-time" title="Time">
+            <section anchor="translate-time" title="Time properties and types">
                 <t>
-                    JSEvent and JSTask objects share the <spanx style="emph">start</spanx>,
-                    <spanx style="emph">timeZone</spanx> and <spanx style="emph">isAllDay</spanx>
-                    properties to express their occurrence in time.
-                    The following table defines how to map these properties:
-                </t>
-                <texttable anchor="translate-common-time-table" title="Mapping common time properties">
-                    <ttcol align='left'>Property</ttcol>
-                    <ttcol align='left'>iCalendar counterpart</ttcol>
-
-                    <c>start and non-null timeZone</c>
-                    <c>
-                        The <spanx style="emph">start</spanx> property value maps to
-                        an iCalendar DTSTART of type local DATE-TIME and the
-                        <spanx style="emph">timeZone</spanx> value to its TZID
-                        parameter. If the time zone is <spanx style="verb">Etc/UTC</spanx>,
-                        then the start time may alternatively map to an iCalendar
-                        UTC DATE-TIME without a TZID parameter.
-                        Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
-                    </c>
-
-                    <c>start and isAllDay is true</c>
-                    <c>
-                        The <spanx style="emph">start</spanx> property value maps to
-                        an iCalendar DTSTART property value of type DATE. When mapping
-                        from iCalendar, the time component of the
-                        <spanx style="emph">start</spanx> property value is zero.
-                        Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
-                    </c>
-
-                    <c>start and null timeZone and isAllDay is false</c>
-                    <c>
-                        The <spanx style="emph">start</spanx> property value maps
-                        to an iCalendar DTSTART of type local DATE-TIME and no TZID
-                        parameter.
-                        Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
-                    </c>
-
-                </texttable>
+                    iCalendar defines two different time types, DATE and DATE-TIME, where
+                    the latter may occur in three forms (with local time, with UTC time,
+                    with local time and time zone reference). In contrast, JSCalendar does
+                    not define a distinct type for dates, and date times are defined with the
+                    LocalDate type only.
+                    <vspace blankLines="1"/>
+                    A JSCalendar time maps to the iCalendar DATE type if all of the following
+                    criteria apply:
+                    <list style="symbols">
+                        <t>
+                            The <spanx style="verb">start</spanx> (<spanx style="verb">due</spanx>)
+                            property value has zero time, or is not set.
+                        </t>
+                        <t>
+                            The <spanx style="verb">duration</spanx>
+                            (<spanx style="verb">estimatedDuration</spanx>) property value has
+                            zero time, or is a multiple of days or weeks, or is not set.
+                        </t>
+                        <t>
+                            The <spanx style="verb">timeZone</spanx> property value is null,
+                            or is not set.
+                        </t>
+                    </list>
+                    <vspace blankLines="1"/>
+                    For all other cases, the time maps to an iCalendar DATE-TIME:
+                    <list style="symbols">
+                        <t>
+                            With local time and time zone reference, if the <spanx style="verb">timeZone</spanx>
+                            property value is set and does not equal <spanx style="verb">Etc/UTC</spanx>.
+                        </t>
+                        <t>
+                            With UTC time, if the <spanx style="verb">timeZone</spanx> property value
+                            equals <spanx style="verb">Etc/UTC</spanx>.
+                        </t>
+                        <t>
+                            With local time, if the <spanx style="verb">timeZone</spanx>
+                            property value is null or not set.
+                        </t>
+                    </list>
+                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
             </section>
-
 
             <section anchor="translate-locations" title="Locations">
                 <t>
