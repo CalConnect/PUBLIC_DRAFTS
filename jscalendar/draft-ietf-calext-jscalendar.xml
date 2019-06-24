@@ -2637,6 +2637,11 @@
                 in Section 12 of<xref target="RFC8259"/>. A native parser with full awareness of the JSON format should
                 be preferred.
             </t>
+            <t>
+                Several JSCalendar properties contain URIs as values, and processing these
+                properties requires extra care. Section 7 of <xref target="RFC3986"/>
+                discusses security risk related to URIs.
+            </t>
         </section>
 
         <section anchor="iana-considerations" title="IANA Considerations">
