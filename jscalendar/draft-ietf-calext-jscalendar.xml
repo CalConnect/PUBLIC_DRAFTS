@@ -83,7 +83,7 @@
                     </t>
                     <t>
                         Most of the initial set of attributes should be taken from the iCalendar data format
-                        (<xref target="RFC5545"/> and <xref target="RFC7986"/>, also see <xref target="relation-to-icalendar"/>), but
+                        <xref target="RFC5545"/> and <xref target="RFC7986"/> and extensions, but
                         the specification should add new attributes or value types, or not support existing
                         ones, where appropriate. Conversion between the data formats need not fully preserve
                         semantic meaning.
@@ -165,7 +165,7 @@
                     MIME type: <spanx style="verb">application/jscalendar+json;type=jstask</spanx>
                 </t>
                 <t>
-                    A JSTask represents an action-item, assignment, to-do or work item .
+                    A JSTask represents an action-item, assignment, to-do or work item.
                 </t>
                 <t>
                     The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.
@@ -294,7 +294,7 @@
                     </t>
                     <t>
                         A SignedDuration object is represented
-                        as a duration, optionally preceeded by a sign character. It
+                        as a duration, optionally preceded by a sign character. It
                         typically is used to express the offset of a point in time
                         relative to an associated time.
                         It is specified by the following ABNF:
@@ -819,9 +819,8 @@
                                         object
                                     </t>
                                     <t>
-                                        <spanx style="verb">thumbnail</spanx>: a smaller variant of <spanx style="verb">
-                                        fullsize
-                                    </spanx> to be used when space for the image is constrained
+                                        <spanx style="verb">thumbnail</spanx>: a smaller variant of
+                                        <spanx style="verb">fullsize</spanx> to be used when space for the image is constrained
                                     </t>
                                 </list>
                             </t>
@@ -1185,7 +1184,7 @@
 
                                 If a skip property is defined and is not "omit", there may be
                                 candidates that do not correspond to valid dates (e.g. 31st
-                                Februrary in the gregorian calendar). In this case, the properties
+                                February in the gregorian calendar). In this case, the properties
                                 MUST be considered in the order above and:
 
                                 <list style="numbers">
@@ -1205,7 +1204,7 @@
                                     <t>
                                         If any valid date produced after applying the skip is already a
                                         candidate, eliminate the duplicate. (For example after adjusting,
-                                        30th Februrary and 31st February would both become the same
+                                        30th February and 31st February would both become the same
                                         "real" date, so one is eliminated as a duplicate.)</t>
                                 </list>
                             </t>
@@ -2680,7 +2679,7 @@
                     <t hangText="Applications that use this media type:">
                         Applications that currently make use of the text/calendar and
                         application/calendar+json media types can use this as an alternative.
-                        Similarily, applications that use the application/json media type
+                        Similarly, applications that use the application/json media type
                         to transfer calendaring data can use this to further specify the
                         content.
                     </t>
