@@ -244,7 +244,8 @@
                         <xref target="RFC3339"/>
                         <spanx style="verb">date-time</spanx>
                         format, with the further restrictions that any letters
-                        MUST be in upper-case, the time component MUST be included and the time MUST be in UTC.
+                        MUST be in upper-case, the time component MUST be included and the time offset
+                        MUST be the character <spanx style="verb">Z</spanx>.
                         Fractional second values MUST NOT be included unless non-zero and MUST NOT have
                         trailing zeros, to ensure there is only a single representation for each date-time.
                         <vspace blankLines="1"/>
