@@ -1328,8 +1328,7 @@
                         due date.
                     </t>
                     <t>
-                        A pointer in the PatchObject MUST NOT start with one of the following prefixes; any patch with
-                        such a key MUST be ignored:
+                        A pointer in the PatchObject MUST be ignored if it starts with one of the following prefixes:
                         <list style="symbols">
                             <t>
                                 @type
