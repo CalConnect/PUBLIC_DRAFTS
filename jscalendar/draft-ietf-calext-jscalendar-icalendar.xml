@@ -332,6 +332,11 @@
                     TRANSP property.
                 </c>
 
+                <c>invitedBy</c>
+                <c>
+                    Implementation-specific.
+                </c>
+
                 <c>keywords</c>
                 <c>
                     CATEGORIES property, as specified in <xref target="RFC7986"/>.
