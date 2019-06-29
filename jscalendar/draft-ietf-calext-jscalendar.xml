@@ -238,7 +238,7 @@
                     In addition to the standard JSON data types, the following data types are used in this
                     specification:
                 </t>
-                <section anchor="utcdate-type" title="UTCDate">
+                <section anchor="utcdate-type" title="UTCDateTime">
                     <t>
                         This is a string in
                         <xref target="RFC3339"/>
@@ -258,13 +258,13 @@
                         In common notation, it should be of the form <spanx style="verb">YYYY-MM-DDTHH:MM:SSZ</spanx>.
                     </t>
                 </section>
-                <section anchor="localdate-type" title="LocalDate">
+                <section anchor="localdate-type" title="LocalDateTime">
                     <t>
                         This is a date-time string <spanx style="emph">with no time zone/offset information</spanx>.
-                        It is otherwise in the same format as UTCDate, including fractional seconds.
+                        It is otherwise in the same format as UTCDateTime, including fractional seconds.
                         For example <spanx style="verb">2006-01-02T15:04:05</spanx> and
                         <spanx style="verb">2006-01-02T15:04:05.003</spanx> are both valid.
-                        The time zone to associate the LocalDate with comes from an
+                        The time zone to associate the LocalDateTime with comes from an
                         associated property, or if no time zone is associated it defines
                         <spanx style="emph">floating time</spanx>. Floating date-times are not tied to any specific
                         time zone. Instead, they occur in every time zone at the same wall-clock
@@ -557,7 +557,7 @@
 
                 <section anchor="created" title="created">
                     <t>
-                        Type: UTCDate (optional).
+                        Type: UTCDateTime (optional).
                     </t>
                     <t>
                         The date and time this object was initially created.
@@ -566,7 +566,7 @@
 
                 <section anchor="updated" title="updated">
                     <t>
-                        Type: UTCDate (mandatory).
+                        Type: UTCDateTime (mandatory).
                     </t>
                     <t>
                         The date and time the data in this object was last modified.
@@ -1040,7 +1040,7 @@
 
                             </t>
                             <t>
-                                until: LocalDate (optional).
+                                until: LocalDateTime (optional).
                                 The UNTIL part from iCalendar. This MUST NOT be included if a
                                 <spanx style="verb">count</spanx> property is specified. Note:
                                 if not specified otherwise for a specific JSCalendar object,
@@ -1303,7 +1303,7 @@
 
                 <section anchor="recurrenceOverrides" title="recurrenceOverrides">
                     <t>
-                        Type: LocalDate[PatchObject] (optional).
+                        Type: LocalDateTime[PatchObject] (optional).
                     </t>
                     <t>
                         A map of the recurrence-ids (the date-time of the start of the occurrence) to
@@ -1322,9 +1322,9 @@
                     </t>
                     <t>
                         By default, an occurrence inherits all properties from the main object except the start (or due)
-                        date-time, which is shifted to the new start time of the LocalDate key. However, individual
+                        date-time, which is shifted to the new start time of the LocalDateTime key. However, individual
                         properties of the occurrence can be modified by a patch, or multiple patches. It is valid to patch
-                        the start property value, and this patch takes precedence over the LocalDate key. Both the LocalDate
+                        the start property value, and this patch takes precedence over the LocalDateTime key. Both the LocalDateTime
                         key as well as the patched start date-time may occur before the original JSCalendar object's start or
                         due date.
                     </t>
@@ -1705,7 +1705,7 @@
 
                             </t>
                             <t>
-                                scheduleUpdated: UTCDate (optional).
+                                scheduleUpdated: UTCDateTime (optional).
                                 The <spanx style="verb">updated</spanx> property of the last iMIP response from the
                                 participant.
                                 <vspace blankLines="1"/>
@@ -1819,7 +1819,7 @@
                                 but MUST preserve them.
                             </t>
                             <t>
-                                acknowledged: UTCDate (optional).
+                                acknowledged: UTCDateTime (optional).
                                 <vspace blankLines="1"/>
                                 When the user has permanently dismissed the alert the client MUST set this to
                                 the current time in UTC. Other clients which sync this property can then
@@ -1831,7 +1831,7 @@
                                 in the <spanx style="verb">recurrenceOverrides</spanx> property.
                             </t>
                             <t>
-                                snoozed: UTCDate (optional).
+                                snoozed: UTCDateTime (optional).
                                 <vspace blankLines="1"/>
                                 If the user temporarily dismisses the alert, this is the UTC date-time after
                                 which it should trigger again.
@@ -1945,7 +1945,7 @@
                                 The TZID property from iCalendar.
                             </t>
                             <t>
-                                lastModified: UTCDate (optional).
+                                lastModified: UTCDateTime (optional).
                                 The LAST-MODIFIED property from iCalendar.
                             </t>
                             <t>
@@ -1953,7 +1953,7 @@
                                 The TZURL property from iCalendar.
                             </t>
                             <t>
-                                validUntil: UTCDate (optional).
+                                validUntil: UTCDateTime (optional).
                                 The TZUNTIL property from iCalendar specified
                                 in <xref target="RFC7808"/>.
                             </t>
@@ -1986,7 +1986,7 @@
                         It has the following properties:
                         <list style="symbols">
                             <t>
-                                start: LocalDate (mandatory).
+                                start: LocalDateTime (mandatory).
                                 The DTSTART property from iCalendar.
                             </t>
                             <t>
@@ -2007,7 +2007,7 @@
                                 as a local time in the UTC time zone.
                             </t>
                             <t>
-                                recurrenceDates: LocalDate[Boolean] (optional).
+                                recurrenceDates: LocalDateTime[Boolean] (optional).
                                 Maps the RDATE properties from iCalendar to a
                                 JSON set. The set is represented as an
                                 object, with the keys being the recurrence dates.
@@ -2047,7 +2047,7 @@
 
                 <section anchor="start" title="start">
                     <t>
-                        Type: LocalDate (mandatory).
+                        Type: LocalDateTime (mandatory).
                     </t>
                     <t>
                         The date/time the event would start in the event's time zone.
@@ -2115,7 +2115,7 @@
 
                 <section anchor="due-task" title="due">
                     <t>
-                        Type: LocalDate (optional).
+                        Type: LocalDateTime (optional).
                     </t>
                     <t>
                         The date/time the task is due in the task's time zone.
@@ -2123,7 +2123,7 @@
                 </section>
                 <section anchor="start-task" title="start">
                     <t>
-                        Type: LocalDate (optional).
+                        Type: LocalDateTime (optional).
                     </t>
                     <t>
                         The date/time the task should start in the task's time zone.
@@ -2150,7 +2150,7 @@
                 </section>
                 <section anchor="statusUpdatedAt" title="statusUpdatedAt">
                     <t>
-                        Type: UTCDate (optional).
+                        Type: UTCDateTime (optional).
                     </t>
                     <t>Specifies the date/time the task status properties was last updated.
                     </t>
@@ -2199,7 +2199,7 @@
                                 </list>
                             </t>
                             <t>
-                                timestamp: UTCDate (mandatory).
+                                timestamp: UTCDateTime (mandatory).
                                 Describes the last time when the participant progress got updated.
                             </t>
                         </list>

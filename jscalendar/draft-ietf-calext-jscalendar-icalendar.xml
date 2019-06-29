@@ -402,11 +402,11 @@
                     RRULE property. For all-day calendar objects,
                     map the <spanx style="verg">until</spanx> property value to an iCalendar
                     DATE (effectively removing the time component). To convert a DATE-typed UNTIL
-                    from iCalendar, set the time components of the LocalDate value to
+                    from iCalendar, set the time components of the LocalDateTime value to
                     <spanx style="verb">23:59:59</spanx>. If the iCalendar UNTIL value is a
                     UTC date time, convert it to the local time in the JSCalendar calendar
                     object time zone. To convert to iCalendar where the DTSTART or DUE property
-                    is of type DATE, omit the time component of the LocalDate value.
+                    is of type DATE, omit the time component of the LocalDateTime value.
                 </c>
 
                 <c>relatedTo</c>
@@ -486,7 +486,7 @@
                     the latter may occur in three forms (with local time, with UTC time,
                     with local time and time zone reference). In contrast, JSCalendar does
                     not define a distinct type for dates, and date times are defined with the
-                    LocalDate type only.
+                    LocalDateTime type only.
                     <vspace blankLines="1"/>
                     A JSCalendar time maps to the iCalendar DATE type if all of the following
                     criteria apply:
