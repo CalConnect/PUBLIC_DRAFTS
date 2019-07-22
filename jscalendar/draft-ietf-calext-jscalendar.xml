@@ -205,32 +205,20 @@
                 specified in the property definition.
             </t>
             <section anchor="type-signatures" title="Type signatures">
-                <t>
-                    Types signatures are given for all JSON objects in this document. The following conventions are
-                    used:
+                <t>Type signatures are given for all JSON values in this document. The following conventions are used:
                 </t>
                 <t>
-                    <list style="symbols">
-                        <t>
-                            <spanx style="verb">Boolean|String</spanx>:
-                            The value is either a JSON <spanx style="verb">Boolean</spanx> value, or a JSON
-                            <spanx style="verb">String</spanx> value.
-                        </t>
-                        <t>
-                            <spanx style="verb">Foo</spanx>:
-                            Any name that is not a native JSON type means an object for which the properties (and
-                            their types) are defined elsewhere within this document.
-                        </t>
-                        <t>
-                            <spanx style="verb">Foo[]</spanx>:
-                            An array of objects of type <spanx style="verb">Foo</spanx>.
-                        </t>
-                        <t>
-                            <spanx style="verb">String[Foo]</spanx>:
-                            A JSON <spanx style="verb">Object</spanx> being used as a map (associative array), where
-                            all the values are of type <spanx style="verb">Foo</spanx>.
-                        </t>
-                    </list>
+                <list style="symbols">
+                <t><spanx style="verb">*</spanx> - The type is undefined (the value could be any type, although permitted values may be constrained by the context of this value).</t>
+                <t><spanx style="verb">String</spanx> - The JSON string type.</t>
+                <t><spanx style="verb">Number</spanx> - The JSON number type.</t>
+                <t><spanx style="verb">Boolean</spanx> - The JSON boolean type.</t>
+                <t><spanx style="verb">A[B]</spanx> - A JSON object where the keys are all of type <spanx style="verb">A</spanx>, and the values are all of type <spanx style="verb">B</spanx>.</t>
+                <t><spanx style="verb">A[]</spanx> - An array of values of type <spanx style="verb">A</spanx>.</t>
+                <t><spanx style="verb">A|B</spanx> - The value is either of type <spanx style="verb">A</spanx> or of type <spanx style="verb">B</spanx>.</t>
+                </list>
+                </t>
+                <t>Other types may also be given, with their representation defined elsewhere in this document.
                 </t>
             </section>
             <section anchor="data-types" title="Data Types">
@@ -238,6 +226,17 @@
                     In addition to the standard JSON data types, the following data types are used in this
                     specification:
                 </t>
+                <section anchor="int-and-unsignedint" title="Int and UnsignedInt">
+            <t>Where <spanx style="verb">Int</spanx> is given as a data type, it means an
+            integer in the range -2^53+1 &lt;= value &lt;= 2^53-1, the safe range for
+            integers stored in a floating-point double, represented as a JSON <spanx
+            style="verb">Number</spanx>.
+            </t>
+            <t>Where <spanx style="verb">UnsignedInt</spanx> is given as a data type, it
+            means an <spanx style="verb">Int</spanx> where the value MUST be in the range
+            0 &lt;= value &lt;= 2^53-1.
+            </t>
+            </section>
                 <section anchor="utcdate-type" title="UTCDateTime">
                     <t>
                         This is a string in
@@ -273,8 +272,7 @@
                 </section>
                 <section anchor="duration-type" title="Duration">
                     <t>
-                        A Duration object is represented by a
-                        subset of ISO8601 duration format, as specified by the following
+                        Where Duration is given as a type, it means a length of time represented by a subset of ISO8601 duration format, as specified by the following
                         ABNF:
                     </t>
                     <figure>
@@ -293,11 +291,12 @@
                     <t>
                         In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.
                     </t>
+                </section>
+                <section anchor="signed-duration-type" title="SignedDuration">
                     <t>
-                        A SignedDuration object is represented
-                        as a duration, optionally preceded by a sign character. It
-                        typically is used to express the offset of a point in time
-                        relative to an associated time.
+                        A SignedDuration represents a length of time that may be positive or negative and is typically used to express the offset of a point in time
+                        relative to an associated time. It is represented
+                        as a Duration, optionally preceded by a sign character.
                         It is specified by the following ABNF:
                     </t>
                     <figure>
@@ -312,10 +311,27 @@
                         after the associated time.
                     </t>
                 </section>
+                <section anchor="the-id-data-type" title="Id">
+                <t>Where <spanx style="verb">Id</spanx> is given as a data type, it means a
+                <spanx style="verb">String</spanx> of at least 1 and a maximum of 255 octets
+                in size, and it MUST only contain characters from the &quot;URL and Filename
+                Safe&quot; base64 alphabet, as defined in Section 5 of <xref
+                target="RFC4648"/>, excluding the pad character (<spanx
+                style="verb">=</spanx>). This means the allowed characters are the ASCII
+                alphanumeric characters (<spanx style="verb">A-Za-z0-9</spanx>), hyphen
+                (<spanx style="verb">-</spanx>), and underscore (<spanx
+                style="verb">_</spanx>).
+                </t>
+                <t>Unless otherwise specified, Ids must be unique only within the object where they are being used, e.g., two JSEvent objects MAY use the same ids in their respective
+                          <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties; this does not imply any semantic connection between the two.
+                          <vspace blankLines="1"/>
+                          Nevertheless, a UUID typically is a good choice.
+                </t>
+                </section>
                 <section anchor="patchobject-type" title="PatchObject">
                     <t>
                         A PatchObject is of type <spanx style="verb">
-                        String[*|null]</spanx>, and represents an unordered set of patches on a JSON object.
+                        String[*]</spanx>, and represents an unordered set of patches on a JSON object.
                         The keys are a path in a subset of
                         <xref target="RFC6901"/>
                         JSON pointer format, with an implicit leading <spanx style="verb">/</spanx> (i.e. prefix each
@@ -349,32 +365,13 @@
                                 present in the parent, this a no-op.
                             </t>
                             <t>
-                                Anything else: The value to replace the inherited property on the patch object with (if
-                                present) or add to the property (if not present).
+                                Anything else: The value to set for this property (this may be a replacement or addition to the object being patched).
                             </t>
                         </list>
                     </t>
                     <t>
                         Implementations MUST reject a PatchObject if any of its patches are invalid.
                     </t>
-                  </section>
-                  <section anchor="identifiers" title="Identifiers">
-                      <t>
-                          If not stated otherwise in the respective property definition, properties and object
-                          keys that define identifiers MUST
-                          be string values, MUST be at least 1 character and maximum 256 characters in size,
-                          and MUST only contain characters from the
-                          “URL and Filename safe” Base 64 Alphabet, as defined in section 5 of
-                          <xref target="RFC4648"/>. This is the ASCII alphanumeric
-                          characters (A-Za-z0-9), hyphen (-), and underscore (_). Note that <xref target="RFC7493"/>
-                          requires string values be encoded in UTF-8, so the maximum size of an
-                          identifier according to this definition is 256 octets.
-                          <vspace blankLines="1"/>. Identifiers in object maps need not be universally unique,
-                          e.g. two calendar objects MAY use the same identifiers in their respective
-                          <spanx style="verb">links</spanx> properties.
-                          <vspace blankLines="1"/>
-                          Nevertheless, a UUID typically is a good choice.
-                      </t>
                   </section>
                   <section anchor="timezones" title="Time Zones">
                       <t>
@@ -575,7 +572,7 @@
 
                 <section anchor="sequence" title="sequence">
                     <t>
-                        Type: Number (optional, default: <spanx style="verb">0</spanx>).
+                        Type: UnsignedInt (optional, default: 0).
                     </t>
                     <t>
                         Initially zero, this MUST be a non-negative integer that is monotonically
@@ -650,10 +647,10 @@
 
                 <section anchor="locations" title="locations">
                     <t>
-                        Type: String[Location] (optional).
+                        Type: Id[Location] (optional).
                     </t>
                     <t>
-                        A map of location identifiers to Location objects, representing locations associated with the object.
+                        A map of location ids to Location objects, representing locations associated with the object.
                     </t>
                     <t>
                         A Location object has the following properties. It must define
@@ -696,9 +693,9 @@
                                 An <xref target="RFC5870"/> <spanx style="verb">geo:</spanx> URI for the location.
                             </t>
                             <t>
-                                linkIds: String[Boolean] (optional).
+                                linkIds: Id[Boolean] (optional).
                                 A set of link ids for links to alternate representations of this location.
-                                Each key in the set MUST be the identifier of a Link object defined in the <spanx style="verb">links</spanx> property of this calendar object.
+                                Each key in the set MUST be the id of a Link object defined in the <spanx style="verb">links</spanx> property of this calendar object.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
 
@@ -711,10 +708,10 @@
 
                 <section anchor="virtualLocations" title="virtualLocations">
                     <t>
-                        Type: String[VirtualLocation] (optional).
+                        Type: Id[VirtualLocation] (optional).
                     </t>
                     <t>
-                        A map of identifiers to VirtualLocation objects, representing virtual locations, such as
+                        A map of ids to VirtualLocation objects, representing virtual locations, such as
                         video conferences or chat rooms, associated with the object.
                     </t>
                     <t>
@@ -745,10 +742,10 @@
 
                 <section anchor="links" title="links">
                     <t>
-                        Type: String[Link] (optional).
+                        Type: Id[Link] (optional).
                     </t>
                     <t>
-                        A map of link identifiers to Link objects, representing external resources associated with the object.
+                        A map of link ids to Link objects, representing external resources associated with the object.
                     </t>
 
                     <t>
@@ -768,11 +765,9 @@
                                 cid: String (optional).
                                 This MUST be a valid <spanx style="verb">content-id</spanx>
                                 value according to the definition of section 2 in <xref target="RFC2392"/>.
-                                The identifier MUST be unique within
+                                The value MUST be unique within
                                 this JSCalendar object Link objects but has no meaning beyond that. Specifically,
-                                it MAY be different from the link
-                                identifier in the enclosing <spanx style="verb">links</spanx>
-                                property.
+                                it MAY be different from the link id for this Link object.
                             </t>
                             <t>
                                 type: String (optional).
@@ -780,7 +775,7 @@
 
                             </t>
                             <t>
-                                size: Number (optional).
+                                size: UnsignedInt (optional).
                                 The size, in bytes, of the resource when fully decoded (i.e. the number of bytes in the
                                 file the user would download), if known.
                             </t>
@@ -939,7 +934,7 @@
 
                             </t>
                             <t>
-                                interval: Number (optional, default: <spanx style="verb">1</spanx>).
+                                interval: UnsignedInt (optional, default: 1).
                                 The INTERVAL part from iCalendar. If included, it MUST be an integer <spanx style="verb">x >=
                                 1</spanx>.
 
@@ -975,9 +970,8 @@
                                         "mo"|"tu"|"we"|"th"|"fr"|"sa"|"su"</spanx>.
                                     </t>
                                     <t>
-                                        nthOfPeriod: Number (optional).
-                                        The ordinal part of the BYDAY value in iCalendar
-                                        (e.g. <spanx style="verb">"+1"</spanx> or <spanx style="verb">"-3"</spanx>).
+                                        nthOfPeriod: Int (optional).
+                                        The ordinal part of the BYDAY value in iCalendar (e.g. 1 or -3).
                                         If present, rather than representing every occurrence of the weekday defined
                                         in the <spanx style="verb">day</spanx> property,
                                         it represents only a specific instance within the recurrence period.
@@ -989,7 +983,7 @@
 
                             </t>
                             <t>
-                                byMonthDay: Number[] (optional).
+                                byMonthDay: Int[] (optional).
                                 The BYMONTHDAY part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
@@ -1005,36 +999,36 @@
 
                             </t>
                             <t>
-                                byYearDay: Number[] (optional).
+                                byYearDay: Int[] (optional).
                                 The BYYEARDAY part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                byWeekNo: Number[] (optional).
+                                byWeekNo: Int[] (optional).
                                 The BYWEEKNO part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                byHour: Number[] (optional).
+                                byHour: UnsignedInt[] (optional).
                                 The BYHOUR part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                byMinute: Number[] (optional).
+                                byMinute: UnsignedInt[] (optional).
                                 The BYMINUTE part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                bySecond: Number[] (optional).
+                                bySecond: UnsignedInt[] (optional).
                                 The BYSECOND part from iCalendar. The array MUST have at least one entry if included.
 
                             </t>
                             <t>
-                                bySetPosition: Number[] (optional).
+                                bySetPosition: Int[] (optional).
                                 The BYSETPOS part from iCalendar. The array MUST have at least one entry if included.
                             </t>
                             <t>
-                                count: Number (optional).
+                                count: UnsignedInt (optional).
                                 The COUNT part from iCalendar. This MUST NOT be included if an
                                 <spanx style="verb">until</spanx> property is specified.
 
@@ -1378,7 +1372,7 @@
 
                 <section anchor="priority" title="priority">
                     <t>
-                        Type: Number (optional, default: <spanx style="verb">0</spanx>).
+                        Type: UnsignedInt (optional, default: 0).
                     </t>
                     <t>Specifies a priority for the calendar object. This may be used as part of scheduling systems to help
                         resolve conflicts for a time period.
@@ -1541,10 +1535,10 @@
 
                 <section anchor="participants" title="participants">
                     <t>
-                        Type: String[Participant] (optional).
+                        Type: Id[Participant] (optional).
                     </t>
                     <t>
-                        A map of participant identifiers to participants, describing their participation in the calendar object.
+                        A map of participant ids to participants, describing their participation in the calendar object.
                     </t>
                     <t>
                         If this property is set, then the <spanx style="verb">replyTo</spanx>
@@ -1696,7 +1690,7 @@
                                 If true, the organizer is expecting the participant to notify them of their status.
                             </t>
                             <t>
-                                scheduleSequence: Number (optional, default: <spanx style="verb">0</spanx>).
+                                scheduleSequence: UnsignedInt (optional, default: 0).
                                 The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
                                 <vspace blankLines="1"/>
                                 This can be used to determine whether the participant has sent a new RSVP following
@@ -1721,14 +1715,14 @@
                                 delegatedTo: String[Boolean] (optional).
                                 A set of participant ids that this participant has delegated their
                                 participation to.
-                                Each key in the set MUST be the identifier of a participant.
+                                Each key in the set MUST be the id of a participant.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
                                 delegatedFrom: String[Boolean] (optional).
                                 A set of participant ids that this participant is acting as a delegate for.
-                                Each key in the set MUST be the identifier of a participant.
+                                Each key in the set MUST be the id of a participant.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
@@ -1736,14 +1730,14 @@
                                 memberOf: String[Boolean] (optional).
                                 A set of group participants that were invited to this calendar object, which caused this
                                 participant to be invited due to their membership of the group(s).
-                                Each key in the set MUST be the identifier of a participant.
+                                Each key in the set MUST be the id of a participant.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
                             </t>
                             <t>
                                 linkIds: String[Boolean] (optional).
                                 A set of links to more information about this participant, for example in vCard format.
-                                The keys in the set MUST be the identifier of a Link object in the
+                                The keys in the set MUST be the id of a Link object in the
                                 calendar object's <spanx style="verb">links</spanx> property.
                                 The value for each key in the set MUST be <spanx style="verb">true</spanx>.
                                 This MUST be omitted if none (rather than an empty set).
@@ -1773,10 +1767,10 @@
 
                 <section anchor="alerts" title="alerts">
                     <t>
-                        Type: String[Alert] (optional).
+                        Type: Id[Alert] (optional).
                     </t>
                     <t>
-                        A map of alert identifiers to Alert objects, representing alerts/reminders to display or send the user
+                        A map of alert ids to Alert objects, representing alerts/reminders to display or send the user
                         for this calendar object.
                     </t>
                     <t>
