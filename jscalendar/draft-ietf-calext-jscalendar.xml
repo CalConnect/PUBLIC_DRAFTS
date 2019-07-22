@@ -345,7 +345,7 @@
                         The value associated with each pointer is either:
                         <list style="symbols">
                             <t>
-                                <spanx style="verb">null</spanx>: Remove the property from the patched object. If not
+                                null: Remove the property from the patched object. If not
                                 present in the parent, this a no-op.
                             </t>
                             <t>
@@ -904,7 +904,7 @@
                         A JSTask recurs by applying the recurrence rule to the start date-time, if defined, otherwise
                         it recurs by the due date-time, if defined. If the task neither defines a start
                         or due date-time, its <spanx style="verb">recurrenceRule</spanx> property value
-                        MUST be <spanx style="verb">null</spanx>.
+                        MUST be null.
                     </t>
                     <t>
                         A Recurrence object has the following properties:
@@ -2056,11 +2056,11 @@
 
                 <section anchor="timeZone" title="timeZone">
                     <t>
-                        Type: String|null (optional, default: <spanx style="verb">null</spanx>).
+                        Type: String|null (optional, default: null).
                     </t>
                     <t>
-                        Identifies the time zone the event is scheduled in, or <spanx style="verb">null</spanx> for
-                        floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
+                        Identifies the time zone the event is scheduled in, or null for
+                        floating time. If omitted, this MUST be presumed to be null
                         (i.e. floating time).
                         Also see <xref target="timezones"/>.
                     </t>
@@ -2131,11 +2131,11 @@
                 </section>
                 <section anchor="timeZone-task" title="timeZone">
                     <t>
-                        Type: String|null (optional, default: <spanx style="verb">null</spanx>).
+                        Type: String|null (optional, default: null).
                     </t>
                     <t>
-                        Identifies the time zone the task is scheduled in, or <spanx style="verb">null</spanx> for
-                        floating time. If omitted, this MUST be presumed to be <spanx style="verb">null</spanx>
+                        Identifies the time zone the task is scheduled in, or null for
+                        floating time. If omitted, this MUST be presumed to be null
                         (i.e. floating time).
                         Also see <xref target="timezones"/>.
                     </t>
