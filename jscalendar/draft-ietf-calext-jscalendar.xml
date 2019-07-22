@@ -134,7 +134,7 @@
           <t>Where Duration is given as a type, it means a length of time represented by a subset of ISO8601 duration format, as specified by the following ABNF:</t>
 
           <figure>
-            <artwork><![CDATA[dur-secfrac = "." 1*DIGIT
+            <artwork><![CDATA[    dur-secfrac = "." 1*DIGIT
     dur-second  = 1*DIGIT [dur-secfrac] "S"
     dur-minute  = 1*DIGIT "M" [dur-second]
     dur-hour    = 1*DIGIT "H" [dur-minute]
@@ -152,7 +152,7 @@
           <t>A SignedDuration represents a length of time that may be positive or negative and is typically used to express the offset of a point in time relative to an associated time. It is represented as a Duration, optionally preceded by a sign character. It is specified by the following ABNF:</t>
 
           <figure>
-            <artwork><![CDATA[signed-duration = (["+"] / "-") duration]]></artwork>
+            <artwork><![CDATA[    signed-duration = (["+"] / "-") duration]]></artwork>
           </figure>
 
           <t>A negative sign indicates a point in time at or before the associated time, a positive or no sign a time at or after the associated time.</t>
@@ -255,7 +255,7 @@
 
       <section anchor="metadata-properties" title="Metadata properties">
         <section anchor="type" title="@type">
-          <t>Type: String (mandatory).</t>
+          <t>Type: <spanx style="verb">String</spanx> (mandatory).</t>
           <t>Specifies the type which this object represents. This MUST be one of the following values, registered in a future RFC, or a vendor-specific value:
             <list style="symbols">
               <t><spanx style="verb">jsevent</spanx>: a JSCalendar event (<xref target="jsevent" />).</t>
@@ -266,13 +266,13 @@
         </section>
 
         <section anchor="uid" title="uid">
-          <t>Type: String (mandatory).</t>
+          <t>Type: <spanx style="verb">String</spanx> (mandatory).</t>
           <t>A globally unique identifier, used to associate the object as the same across different systems, calendars and views. The value of this property MUST be unique across all JSCalendar objects, even if they are of different type. <xref target="RFC4122" /> describes a range of established algorithms to generate universally unique identifiers (UUID), and the random or pseudo-random version is recommended.</t>
 
           <t>For compatibility with <xref target="RFC5545" /> UIDs, implementations MUST be able to receive and persist values of at least 255 octets for this property, but they MUST NOT truncate values in the middle of a UTF-8 multi-octet sequence.</t>
         </section>
         <section anchor="relatedTo" title="relatedTo">
-          <t>Type: String[Relation] (optional).</t>
+          <t>Type: <spanx style="verb">String[Relation]</spanx> (optional).</t>
 
           <t>Relates the object to other JSCalendar objects. This is represented as a map of the UIDs of the related objects to information about the relation.</t>
 
@@ -305,7 +305,7 @@
         </section>
 
         <section anchor="prodId" title="prodId">
-          <t>Type: String (optional).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The identifier for the product that created the JSCalendar object.</t>
 
@@ -315,27 +315,27 @@
         </section>
 
         <section anchor="created" title="created">
-          <t>Type: UTCDateTime (optional).</t>
+          <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
 
           <t>The date and time this object was initially created.</t>
         </section>
 
         <section anchor="updated" title="updated">
-          <t>Type: UTCDateTime (mandatory).</t>
+          <t>Type: <spanx style="verb">UTCDateTime</spanx> (mandatory).</t>
 
           <t>The date and time the data in this object was last modified.</t>
         </section>
 
         <section anchor="sequence" title="sequence">
-          <t>Type: UnsignedInt (optional, default: 0).</t>
+          <t>Type: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0).</t>
 
-          <t>Initially zero, this MUST be incremented monotonically every time a change is made to the object, except if the change only modifies properties on an existing participant object (see <xref target="participants" />).</t>
+          <t>Initially zero, this MUST be incremented monotonically every time a change is made to the object, except if the change only modifies the <spanx style="verb">participants</spanx> property (see <xref target="participants" />).</t>
 
           <t>This is used as part of iTIP <xref target="RFC5546" /> to know which version of the object a scheduling message relates to.</t>
         </section>
 
         <section anchor="method" title="method">
-          <t>Type: String (optional).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The iTIP <xref target="RFC5546" /> method, in lowercase. This MUST only be present if the JSCalendar object represents an iTIP scheduling message.</t>
         </section>
@@ -343,25 +343,25 @@
 
       <section anchor="whatwhere-properties" title="What and where properties">
         <section anchor="title-prop" title="title">
-          <t>Type: String (optional, default: empty String).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional, default: empty String).</t>
 
           <t>A short summary of the object.</t>
         </section>
 
         <section anchor="description" title="description">
-          <t>Type: String (optional, default: empty String).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional, default: empty String).</t>
 
           <t>A longer-form text description of the object. The content is formatted according to the <spanx style="verb">descriptionContentType</spanx> property.</t>
         </section>
 
         <section anchor="descriptionContentType" title="descriptionContentType">
-          <t>Type: String (optional, default: <spanx style="verb">text/plain</spanx>).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">text/plain</spanx>).</t>
 
           <t>Describes the media type <xref target="RFC6838" /> of the contents of the <spanx style="verb">description</spanx> property. Media types MUST be sub-types of type <spanx style="verb">text</spanx>, and SHOULD be <spanx style="verb">text/plain</spanx> or <spanx style="verb">text/html</spanx> <xref target="MIME" />. They MAY define parameters and the <spanx style="verb">charset</spanx> parameter value MUST be <spanx style="verb">utf-8</spanx>, if specified. Descriptions of type <spanx style="verb">text/html</spanx> MAY contain <spanx style="verb">cid</spanx> URLs <xref target="RFC2392" /> to reference links in the calendar object by use of the <spanx style="verb">cid</spanx> property of the Link object.</t>
         </section>
 
         <section anchor="showWithoutTime" title="showWithoutTime">
-          <t>Type: Boolean (optional, default: false).</t>
+          <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
           <t>Indicates the time is not important to display to the user when rendering this calendar object, for example an event that conceptually occurs all day or across multiple days, such as "New Year's Day" or "Italy Vacation". While the time component is important for free-busy calculations and checking for scheduling clashes, calendars may choose to omit displaying it and/or display the object separately to other objects to enhance the user's view of their schedule.</t>
 
@@ -369,7 +369,7 @@
         </section>
 
         <section anchor="locations" title="locations">
-          <t>Type: Id[Location] (optional).</t>
+          <t>Type: <spanx style="verb">Id[Location]</spanx> (optional).</t>
 
           <t>A map of location ids to Location objects, representing locations associated with the object.</t>
 
@@ -411,7 +411,7 @@
         </section>
 
         <section anchor="virtualLocations" title="virtualLocations">
-          <t>Type: Id[VirtualLocation] (optional).</t>
+          <t>Type: <spanx style="verb">Id[VirtualLocation]</spanx> (optional).</t>
 
           <t>A map of ids to VirtualLocation objects, representing virtual locations, such as video conferences or chat rooms, associated with the object.</t>
 
@@ -434,7 +434,7 @@
         </section>
 
         <section anchor="links" title="links">
-          <t>Type: Id[Link] (optional).</t>
+          <t>Type: <spanx style="verb">Id[Link]</spanx> (optional).</t>
 
           <t>A map of link ids to Link objects, representing external resources associated with the object.</t>
 
@@ -490,19 +490,19 @@
         </section>
 
         <section anchor="locale" title="locale">
-          <t>Type: String (optional).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The language tag as defined in <xref target="RFC5646" /> that best describes the locale used for the text in the calendar object, if known.</t>
         </section>
 
         <section anchor="keywords" title="keywords">
-          <t>Type: String[Boolean] (optional).</t>
+          <t>Type: <spanx style="verb">String[Boolean]</spanx> (optional).</t>
 
           <t>A set of keywords or tags that relate to the object. The set is represented as a map, with the keys being the keywords. The value for each key in the map MUST be true.</t>
         </section>
 
         <section anchor="categories" title="categories">
-          <t>Type: String[Boolean] (optional).</t>
+          <t>Type: <spanx style="verb">String[Boolean]</spanx> (optional).</t>
 
           <t>A set of categories that relate to the calendar object. The set is represented as a map, with the keys being the categories specified as URIs. The value for each key in the map MUST be true.</t>
 
@@ -510,7 +510,7 @@
         </section>
 
         <section anchor="color" title="color">
-          <t>Type: String (optional).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>A color clients MAY use when displaying this calendar object. The value is a case-insensitive color name taken from the CSS3 set of names, defined in Section 4.3 of <eref target="https://www.w3.org/TR/2011/REC-css3-color-20110607/#svg-color">W3C.REC-css3-color-20110607</eref> or a CSS3 RGB color hex value.</t>
         </section>
@@ -518,7 +518,7 @@
 
       <section anchor="recurrence-props" title="Recurrence properties">
         <section anchor="recurrenceRule" title="recurrenceRule">
-          <t>Type: Recurrence (optional).</t>
+          <t>Type: <spanx style="verb">Recurrence</spanx> (optional).</t>
 
           <t>Defines a recurrence rule (repeating pattern) for recurring calendar objects.</t>
 
@@ -764,7 +764,7 @@
         </section>
 
         <section anchor="recurrenceOverrides" title="recurrenceOverrides">
-          <t>Type: LocalDateTime[PatchObject] (optional).</t>
+          <t>Type: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional).</t>
 
           <t>A map of the recurrence-ids (the date-time of the start of the occurrence) to an object of patches to apply to the generated occurrence object.</t>
 
@@ -789,7 +789,7 @@
         </section>
 
         <section anchor="excluded" title="excluded">
-          <t>Type: Boolean (optional, default: false).</t>
+          <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
           <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (also see <xref target="recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property or its default value false indicates that this instance MUST be added to the occurrence expansion.</t>
         </section>
@@ -797,14 +797,14 @@
 
       <section anchor="sharing-scheduling-properties" title="Sharing and scheduling properties">
         <section anchor="priority" title="priority">
-          <t>Type: UnsignedInt (optional, default: 0).</t>
+          <t>Type: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0).</t>
 
           <t>Specifies a priority for the calendar object. This may be used as part of scheduling systems to help resolve conflicts for a time period.</t>
           <t>The priority is specified as an integer in the range 0 to 9. A value of 0 specifies an undefined priority. A value of 1 is the highest priority. A value of 2 is the second highest priority. Subsequent numbers specify a decreasing ordinal priority. A value of 9 is the lowest priority. Other integer values are reserved for future use.</t>
         </section>
 
         <section anchor="freeBusyStatus" title="freeBusyStatus">
-          <t>Type: String (optional, default: <spanx style="verb">busy</spanx>).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">busy</spanx>).</t>
           <t>Specifies how this property should be treated when calculating free-busy state. The value MUST be one of:
 
           <list style="symbols">
@@ -815,7 +815,7 @@
         </section>
 
         <section anchor="privacy" title="privacy">
-          <t>Type: String (optional, default: <spanx style="verb">public</spanx>).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">public</spanx>).</t>
 
           <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared, or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property are up to the implementations.</t>
 
@@ -851,7 +851,7 @@
         </section>
 
         <section anchor="replyTo" title="replyTo">
-          <t>Type: String[String] (optional).</t>
+          <t>Type: <spanx style="verb">String[String]</spanx> (optional).</t>
 
           <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to use that method. Future methods may be defined in future specifications; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than an empty object). If this property is set, the <spanx style="verb">participants</spanx> property of this calendar object MUST contain at least one participant.</t>
 
@@ -867,7 +867,7 @@
         </section>
 
         <section anchor="participants" title="participants">
-          <t>Type: Id[Participant] (optional).</t>
+          <t>Type: <spanx style="verb">Id[Participant]</spanx> (optional).</t>
 
           <t>A map of participant ids to participants, describing their participation in the calendar object.</t>
 
@@ -1005,13 +1005,13 @@
 
       <section anchor="alerts-properties" title="Alerts properties">
         <section anchor="useDefaultAlerts" title="useDefaultAlerts">
-          <t>Type: Boolean (optional, default: false).</t>
+          <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
           <t>If true, use the user's default alerts and ignore the value of the <spanx style="verb">alerts</spanx> property. Fetching user defaults is dependent on the API from which this JSCalendar object is being fetched, and is not defined in this specification. If an implementation cannot determine the user's default alerts, or none are set, it MUST process the alerts property as if useDefaultAlerts is set to false.</t>
         </section>
 
         <section anchor="alerts" title="alerts">
-          <t>Type: Id[Alert] (optional).</t>
+          <t>Type: <spanx style="verb">Id[Alert]</spanx> (optional).</t>
 
           <t>A map of alert ids to Alert objects, representing alerts/reminders to display or send the user for this calendar object.</t>
 
@@ -1071,7 +1071,7 @@
 
       <section anchor="localized-props" title="Multilingual properties">
         <section anchor="localizations" title="localizations">
-          <t>Type: String[PatchObject] (optional).</t>
+          <t>Type: <spanx style="verb">String[PatchObject]</spanx> (optional).</t>
 
           <t>A map of <xref target="RFC5646" /> language tags to patch objects, which localize the calendar object into the locale of the respective language tag.</t>
 
@@ -1102,7 +1102,7 @@
 
       <section anchor="timezone-props" title="Time zone properties">
         <section anchor="timezones-prop" title="timeZones">
-          <t>Type: String[TimeZone] (optional).</t>
+          <t>Type: <spanx style="verb">String[TimeZone]</spanx> (optional).</t>
 
           <t>Maps identifiers of custom time zones to their time zone definition. The following restrictions apply for each key in the map:
 
@@ -1186,19 +1186,19 @@
         <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a JSEvent has the following properties:</t>
 
         <section anchor="start" title="start">
-          <t>Type: LocalDateTime (mandatory).</t>
+          <t>Type: <spanx style="verb">LocalDateTime</spanx> (mandatory).</t>
 
           <t>The date/time the event would start in the event's time zone.</t>
         </section>
 
         <section anchor="timeZone" title="timeZone">
-          <t>Type: String|null (optional, default: null).</t>
+          <t>Type: <spanx style="verb">String|null</spanx> (optional, default: null).</t>
 
           <t>Identifies the time zone the event is scheduled in, or null for floating time. If omitted, this MUST be presumed to be null (i.e. floating time). Also see <xref target="timezones" />.</t>
         </section>
 
         <section anchor="duration" title="duration">
-          <t>Type: Duration (optional, default: <spanx style="verb">PT0S</spanx>).</t>
+          <t>Type: <spanx style="verb">Duration</spanx> (optional, default: <spanx style="verb">PT0S</spanx>).</t>
 
           <t>The zero or positive duration of the event in the event's start time zone. The same rules as for the iCalendar DURATION value type (<xref target="RFC5545" />) apply: The duration of a week or a day in hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time. Leap seconds MUST NOT be considered when computing an exact duration. When computing an exact duration, the greatest order time components MUST be added first, that is, the number of days MUST be added first, followed by the number of hours, number of minutes, and number of seconds. Fractional seconds MUST be added last.</t>
 
@@ -1206,7 +1206,7 @@
         </section>
 
         <section anchor="sharing-scheduling-status-jsevent" title="status">
-          <t>Type: String (optional, default: <spanx style="verb">confirmed</spanx>).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">confirmed</spanx>).</t>
 
           <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of:
 
@@ -1222,31 +1222,31 @@
         <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a JSTask has the following properties:</t>
 
         <section anchor="due-task" title="due">
-          <t>Type: LocalDateTime (optional).</t>
+          <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
 
           <t>The date/time the task is due in the task's time zone.</t>
         </section>
 
         <section anchor="start-task" title="start">
-          <t>Type: LocalDateTime (optional).</t>
+          <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
 
           <t>The date/time the task should start in the task's time zone.</t>
         </section>
 
         <section anchor="timeZone-task" title="timeZone">
-          <t>Type: String|null (optional, default: null).</t>
+          <t>Type: <spanx style="verb">String|null</spanx> (optional, default: null).</t>
 
           <t>Identifies the time zone the task is scheduled in, or null for floating time. If omitted, this MUST be presumed to be null (i.e. floating time). Also see <xref target="timezones" />.</t>
         </section>
 
         <section anchor="estimatedDuration" title="estimatedDuration">
-          <t>Type: Duration (optional).</t>
+          <t>Type: <spanx style="verb">Duration</spanx> (optional).</t>
 
           <t>Specifies the estimated positive duration of time the task takes to complete.</t>
         </section>
 
         <section anchor="statusUpdatedAt" title="statusUpdatedAt">
-          <t>Type: UTCDateTime (optional).</t>
+          <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
 
           <t>Specifies the date/time the task status properties was last updated.</t>
 
@@ -1282,7 +1282,7 @@
           </list></t>
         </section>
         <section anchor="status-jstask" title="status">
-          <t>Type: String (optional).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>Defines the overall status of this task. If omitted, the default status (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
 
@@ -1324,13 +1324,13 @@
         as well as the following JSGroup-specific properties:</t>
 
         <section title="entries">
-          <t>Type: String[JSTask|JSEvent] (mandatory).</t>
+          <t>Type: <spanx style="verb">String[JSTask|JSEvent]</spanx> (mandatory).</t>
 
           <t>A collection of group members. This is represented as a map of the <spanx style="verb">uid</spanx> property value to the JSCalendar object member having that uid. Implementations MUST ignore entries of unknown type.</t>
         </section>
 
         <section title="source">
-          <t>Type: String (optional).</t>
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The source from which updated versions of this group may be retrieved from. The value MUST be a URI.</t>
         </section>
