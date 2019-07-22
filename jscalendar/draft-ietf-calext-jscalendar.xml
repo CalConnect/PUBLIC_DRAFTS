@@ -13,7 +13,7 @@
     <front>
         <title abbrev="JSCalendar">JSCalendar: A JSON representation of calendar data</title>
         <author initials="N.M." surname="Jenkins" fullname="Neil Jenkins">
-            <organization>FastMail</organization>
+            <organization>Fastmail</organization>
             <address>
                 <postal>
                     <street>PO Box 234</street>
@@ -29,7 +29,7 @@
             </address>
         </author>
         <author initials="R." surname="Stepanek" fullname="Robert Stepanek">
-            <organization>FastMail</organization>
+            <organization>Fastmail</organization>
             <address>
                 <postal>
                     <street>PO Box 234</street>
