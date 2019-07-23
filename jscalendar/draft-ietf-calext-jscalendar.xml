@@ -62,7 +62,7 @@
       <t>The key design considerations for this data model are as follows:
         <list style="symbols">
           <t>The attributes of the calendar entry represented must be described as a simple key-value pair. Simple events are simple to represent, complex events can be modelled accurately.</t>
-          <t>Wherever possible there should be only one way to express the desired semantics, reducing complexity.</t>
+          <t>Wherever possible, there should be only one way to express the desired semantics, reducing complexity.</t>
           <t>The data model should avoid ambiguities and make it difficult to make mistakes during implementation.</t>
           <t>The data model should be compatible with the iCalendar data format <xref target="RFC5545" /> <xref target="RFC7986" /> and extensions, but the specification should add new attributes where the iCalendar format currently lacks expressivity, and drop widely unused, obsolete or redundant properties. This means translation with no loss of semantics should be easy with most common iCalendar files but is not guaranteed with the full specification.</t>
           <t>Extensions, such as new properties and components, MUST NOT lead to requiring an update to this document.</t>
@@ -78,7 +78,7 @@
 
         <t>In recent years, many new products and services have appeared that wish to use a JSON representation of calendar data within their API. The JSON format for iCalendar data, <xref target="RFC7265">jCal</xref>, is a direct mapping between iCalendar and JSON. In its effort to represent full iCalendar semantics, it inherits all the same pitfalls and uses a complicated JSON structure unlike most common JSON data representations.</t>
 
-        <t>As a consequence, since the standardization of jCal, the majority of implementations and service providers either kept using iCalendar, or came up with their own proprietary JSON representation, which are incompatible with each other and often suffer from common pitfalls, such as storing event start times in UTC, which become incorrect if the timezone's rules change in the future. JSCalendar is intended to meet this demand for JSON formatted calendar data, and to provide a standard elegant representation as an alternative to new proprietary formats.</t>
+        <t>As a consequence, since the standardization of jCal, the majority of implementations and service providers either kept using iCalendar, or came up with their own proprietary JSON representations, which are incompatible with each other and often suffer from common pitfalls, such as storing event start times in UTC (which become incorrect if the timezone's rules change in the future). JSCalendar is intended to meet this demand for JSON-formatted calendar data, and to provide a standard, elegant representation as an alternative to new proprietary formats.</t>
       </section>
 
       <section anchor="notational-conventions" title="Notational Conventions">
@@ -111,9 +111,11 @@
       <section anchor="data-types" title="Data Types">
         <t>In addition to the standard JSON data types, the following data types are used in this specification:</t>
 
-        <section anchor="int-and-unsignedint" title="Int and UnsignedInt">
+        <section anchor="int" title="Int">
           <t>Where <spanx style="verb">Int</spanx> is given as a data type, it means an integer in the range -2^53+1 &lt;= value &lt;= 2^53-1, the safe range for integers stored in a floating-point double, represented as a JSON <spanx style="verb">Number</spanx>.</t>
+        </section>
 
+        <section anchor="unsignedint" title="UnsignedInt">
           <t>Where <spanx style="verb">UnsignedInt</spanx> is given as a data type, it means an <spanx style="verb">Int</spanx> where the value MUST be in the range 0 &lt;= value &lt;= 2^53-1.</t>
         </section>
 
@@ -246,6 +248,8 @@
         <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. <spanx style="verb">example.com/customprop</spanx>.</t>
 
         <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/customrel</spanx>, unless otherwise noted.</t>
+
+        <t>Vendors are strongly encouraged to standardize any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
       </section>
     </section>
 
@@ -300,7 +304,7 @@
 
           <t>Note, the Relation object only has one property; it is specified as an object with a single property rather than mapping directly from the UID to relation types to allow for extension in the future.</t>
 
-          <t>If an object is split to make a "this and future" change to a recurrence, the original object MUST be truncated to end at the previous occurrence before this split, and a new object created to represent all the objects after the split. A <spanx style="verb">next</spanx> relation MUST be set on the original object's relatedTo property for the UID of the new object. A <spanx style="verb">first</spanx> relation for the UID of the first object in the series MUST be set on the new object. Clients can then follow these UIDs to get the complete set of objects if the user wishes to modify them all at once.</t>
+          <t>If an object is split to make a "this and future" change to a recurrence, the original object MUST be truncated to end at the previous occurrence before this split, and a new object created to represent all the occurrences after the split. A <spanx style="verb">next</spanx> relation MUST be set on the original object's relatedTo property for the UID of the new object. A <spanx style="verb">first</spanx> relation for the UID of the first object in the series MUST be set on the new object. Clients can then follow these UIDs to get the complete set of objects if the user wishes to modify them all at once.</t>
         </section>
 
         <section anchor="prodId" title="prodId">
@@ -308,9 +312,9 @@
 
           <t>The identifier for the product that created the JSCalendar object.</t>
 
-          <t>The vendor of the implementation SHOULD ensure that this is a globally unique identifier, using some technique such as an FPI value, as defined in [ISO.9070.1991]. It MUST only use characters of an iCalendar TEXT data value (see Section 3.3.11 in <xref target="RFC5545" />).</t>
+          <t>The vendor of the implementation SHOULD ensure that this is a globally unique identifier, using some technique such as an FPI value, as defined in [ISO.9070.1991]. It MUST only use characters of an iCalendar TEXT data value (see Section 3.3.11 of <xref target="RFC5545" />).</t>
 
-          <t>This property SHOULD NOT be used to alter the interpretation of an JSCalendar object beyond the semantics specified in this document. For example, it is not to be used to further the understanding of non-standard properties.</t>
+          <t>This property SHOULD NOT be used to alter the interpretation of a JSCalendar object beyond the semantics specified in this document. For example, it is not to be used to further the understanding of non-standard properties.</t>
         </section>
 
         <section anchor="created" title="created">
@@ -328,7 +332,7 @@
         <section anchor="sequence" title="sequence">
           <t>Type: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0).</t>
 
-          <t>Initially zero, this MUST be incremented monotonically every time a change is made to the object, except if the change only modifies the <spanx style="verb">participants</spanx> property (see <xref target="participants" />).</t>
+          <t>Initially zero, this MUST be incremented by one every time a change is made to the object, except if the change only modifies the <spanx style="verb">participants</spanx> property (see <xref target="participants" />).</t>
 
           <t>This is used as part of iTIP <xref target="RFC5546" /> to know which version of the object a scheduling message relates to.</t>
         </section>
@@ -372,7 +376,7 @@
 
           <t>A map of location ids to Location objects, representing locations associated with the object.</t>
 
-          <t>A Location object has the following properties. It MUST have at least one other property than the <spanx style="verb">relativeTo</spanx> property.</t>
+          <t>A Location object has the following properties. It MUST have at least one property other than the <spanx style="verb">relativeTo</spanx> property.</t>
 
           <t><list style="symbols">
             <t>name: <spanx style="verb">String</spanx> (optional)
@@ -395,7 +399,7 @@
 
             <t>timeZone: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            A time zone for this location. Also see <xref target="timezones" />.</t>
+            A time zone for this location. See also <xref target="timezones" />.</t>
 
             <t>coordinates: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -556,11 +560,11 @@
 
             <t>interval: <spanx style="verb">UnsignedInt</spanx> (optional, default: 1)
             <vspace blankLines="1" />
-            The interval of iteration periods at which the recurrence repeats. If included, it MUST be an integer <spanx style="verb">x &gt;= 1</spanx>.
+            The interval of iteration periods at which the recurrence repeats. If included, it MUST be an integer &gt;= 1.
             <vspace blankLines="1" />
             This is the INTERVAL part from iCalendar.</t>
 
-            <t>rscale: <spanx style="verb">String</spanx> (optional, default: "gregorian").
+            <t>rscale: <spanx style="verb">String</spanx> (optional, default: "gregorian")
             <vspace blankLines="1" />
             The calendar system in which this recurrence rule operates, in lowercase. This MUST be either a CLDR-registered calendar system name, or a non-standard, experimental calendar system name prefixed with the characters "x-".
             <vspace blankLines="1" />
@@ -599,7 +603,7 @@
             Days of the week on which to repeat. An <spanx style="strong">NDay</spanx> object has the following properties:
 
             <list style="symbols">
-              <t>day: <spanx style="verb">String</spanx>
+              <t>day: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
               A day of the week on which to repeat; the allowed values are the same as for the <spanx style="verb">firstDayOfWeek</spanx> Recurrence property.
               <vspace blankLines="1" />
@@ -739,31 +743,31 @@
             When determining the set of occurrence dates for an event or task, the following extra rules must be applied:
 
             <list style="numbers">
-              <t>The start date-time is always the first occurrence in the expansion (and is counted if the recurrence is limited by a "count" property), even if it would normally not match the rule.</t>
+              <t>The initial date-time to which the rule is applied (the <spanx style="verb">start</spanx> date-time for events; the <spanx style="verb">start</spanx> or <spanx style="verb">due</spanx> date-time for tasks) is always the first occurrence in the expansion (and is counted if the recurrence is limited by a "count" property), even if it would normally not match the rule.</t>
 
-              <t>The first set of candidates to consider is that which would contain the start date-time. This means the first set may include candidates before the start; such candidates are eliminated from the results in step (4) as outlined before.</t>
+              <t>The first set of candidates to consider is that which would contain the initial date-time. This means the first set may include candidates before the initial date-time; such candidates are eliminated from the results in step (4) as outlined before.</t>
 
               <t>The following properties MUST be implicitly added to the rule under the given conditions:
 
               <list style="symbols">
-                <t>If frequency is not <spanx style="verb">secondly</spanx> and no bySecond property: Add a bySecond property with the sole value being the seconds value of the start date-time.</t>
+                <t>If frequency is not <spanx style="verb">secondly</spanx> and no bySecond property: Add a bySecond property with the sole value being the seconds value of the initial date-time.</t>
 
-                <t>If frequency is not <spanx style="verb">secondly</spanx> or <spanx style="verb">minutely</spanx>, and no byMinute property: Add a byMinute property with the sole value being the minutes value of the start date-time.</t>
+                <t>If frequency is not <spanx style="verb">secondly</spanx> or <spanx style="verb">minutely</spanx>, and no byMinute property: Add a byMinute property with the sole value being the minutes value of the initial date-time.</t>
 
-                <t>If frequency is not <spanx style="verb">secondly</spanx>, <spanx style="verb">minutely</spanx> or <spanx style="verb">hourly</spanx> and no byHour property: Add a byHour property with the sole value being the hours value of the start date-time.</t>
+                <t>If frequency is not <spanx style="verb">secondly</spanx>, <spanx style="verb">minutely</spanx> or <spanx style="verb">hourly</spanx> and no byHour property: Add a byHour property with the sole value being the hours value of the initial date-time.</t>
 
-                <t>If frequency is <spanx style="verb">weekly</spanx> and no byDay property: Add a byDay property with the sole value being the day-of-the-week of the start date-time.</t>
+                <t>If frequency is <spanx style="verb">weekly</spanx> and no byDay property: Add a byDay property with the sole value being the day-of-the-week of the initial date-time.</t>
 
-                <t>If frequency is <spanx style="verb">monthly</spanx> and no byDay property and no byMonthDay property: Add a byMonthDay property with the sole value being the day-of-the-month of the start date-time.</t>
+                <t>If frequency is <spanx style="verb">monthly</spanx> and no byDay property and no byMonthDay property: Add a byMonthDay property with the sole value being the day-of-the-month of the initial date-time.</t>
 
                 <t>If frequency is <spanx style="verb">yearly</spanx> and no byYearDay property:
 
                 <list style="symbols">
-                  <t>If there are no byMonth or byWeekNo properties, and either there is a byMonthDay property or there is no byDay property: Add a byMonth property with the sole value being the month of the start date-time.</t>
+                  <t>If there are no byMonth or byWeekNo properties, and either there is a byMonthDay property or there is no byDay property: Add a byMonth property with the sole value being the month of the initial date-time.</t>
 
-                  <t>If there is no byMonthDay, byWeekNo or byDay properties: Add a byMonthDay property with the sole value being the day-of-the-month of the start date-time.</t>
+                  <t>If there is no byMonthDay, byWeekNo or byDay properties: Add a byMonthDay property with the sole value being the day-of-the-month of the initial date-time.</t>
 
-                  <t>If there is a byWeekNo property and no byMonthDay or byDay properties: Add a byDay property with the sole value being the day-of-the-week of the start date-time.</t>
+                  <t>If there is a byWeekNo property and no byMonthDay or byDay properties: Add a byDay property with the sole value being the day-of-the-week of the initial date-time.</t>
                 </list></t>
               </list></t>
             </list></t>
@@ -773,13 +777,13 @@
         <section anchor="recurrenceOverrides" title="recurrenceOverrides">
           <t>Type: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional).</t>
 
-          <t>A map of the recurrence ids (the date-time of the start of the occurrence) to an object of patches to apply to the generated occurrence object.</t>
+          <t>A map of the recurrence ids (the date-time produced by the recurrence rule) to an object of patches to apply to the generated occurrence object.</t>
 
-          <t>If the recurrence id does not match an expanded start date from a recurrence rule, it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often be empty in this case.</t>
+          <t>If the recurrence id does not match a date-time from the recurrence rule (or no rule is specified), it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often be empty in this case.</t>
 
           <t>If the patch object defines the <spanx style="verb">excluded</spanx> property value to be true, then the recurring calendar object does not occur at the recurrence id date-time (like an EXDATE from iCalendar). Such a patch object MUST NOT patch any other property.</t>
 
-          <t>By default, an occurrence inherits all properties from the main object except the start (or due) date-time, which is shifted to the new start time of the LocalDateTime key. However, individual properties of the occurrence can be modified by a patch, or multiple patches. It is valid to patch the start property value, and this patch takes precedence over the LocalDateTime key. Both the LocalDateTime key as well as the patched start date-time may occur before the original JSCalendar object's start or due date.</t>
+          <t>By default, an occurrence inherits all properties from the main object except the start (or due) date-time, which is shifted to match the recurrence id LocalDateTime. However, individual properties of the occurrence can be modified by a patch, or multiple patches. It is valid to patch the <spanx style="verb">start</spanx> property value, and this patch takes precedence over the value generated from the recurrence id. Both the recurrence id as well as the patched <spanx style="verb">start</spanx> date-time may occur before the original JSCalendar object's <spanx style="verb">start</spanx> or <spanx style="verb">due</spanx> date.</t>
 
           <t>A pointer in the PatchObject MUST be ignored if it starts with one of the following prefixes:
 
@@ -799,13 +803,13 @@
         <section anchor="excluded" title="excluded">
           <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
-          <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (also see <xref target="recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property or its default value false indicates that this instance MUST be added to the occurrence expansion.</t>
+          <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property or its default value false indicates that this instance MUST be included in the occurrence expansion.</t>
         </section>
       </section>
 
       <section anchor="sharing-scheduling-properties" title="Sharing and Scheduling Properties">
         <section anchor="priority" title="priority">
-          <t>Type: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0).</t>
+          <t>Type: <spanx style="verb">Int</spanx> (optional, default: 0).</t>
 
           <t>Specifies a priority for the calendar object. This may be used as part of scheduling systems to help resolve conflicts for a time period.</t>
           <t>The priority is specified as an integer in the range 0 to 9. A value of 0 specifies an undefined priority. A value of 1 is the highest priority. A value of 2 is the second highest priority. Subsequent numbers specify a decreasing ordinal priority. A value of 9 is the lowest priority. Other integer values are reserved for future use.</t>
@@ -825,7 +829,7 @@
         <section anchor="privacy" title="privacy">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">public</spanx>).</t>
 
-          <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared, or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property are up to the implementations.</t>
+          <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared, or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property are up to the API via which this object is accessed.</t>
 
           <t>This property MUST NOT affect the information sent to scheduled participants; it is only interpreted when the object is shared as part of a shared calendar.</t>
 
@@ -844,7 +848,7 @@
               <t>estimatedDuration</t>
               <t>freeBusyStatus</t>
               <t>privacy</t>
-              <t>recurrenceOverrides. Only patches whose keys are prefixed with one of the above properties are allowed to be shared.</t>
+              <t>recurrenceOverrides. Only patches which apply to another permissible property are allowed to be shared.</t>
               <t>sequence</t>
               <t>showWithoutTime</t>
               <t>start</t>
@@ -1025,7 +1029,7 @@
         <section anchor="alerts" title="alerts">
           <t>Type: <spanx style="verb">Id[Alert]</spanx> (optional).</t>
 
-          <t>A map of alert ids to Alert objects, representing alerts/reminders to display or send the user for this calendar object.</t>
+          <t>A map of alert ids to Alert objects, representing alerts/reminders to display or send to the user for this calendar object.</t>
 
           <t>An Alert Object has the following properties:
 
@@ -1042,11 +1046,11 @@
 
               <t>offset: <spanx style="verb">SignedDuration</spanx> (mandatory).
               <vspace blankLines="1" />
-              Defines to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property. If the calendar object does not define a time zone, the user's default time zone SHOULD be used when determining the offset, if known. Otherwise, the time zone to use is implementation specific.</t>
+              Defines the offset at which to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property of the alert. If the calendar object does not define a time zone, the user's default time zone SHOULD be used when determining the offset, if known. Otherwise, the time zone to use is implementation specific.</t>
 
               <t>relativeTo: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">start</spanx>)
               <vspace blankLines="1" />
-              Specifies the time property which the alert offset is relative to. The value MUST be one of:
+              Specifies the time property that the alert offset is relative to. The value MUST be one of:
 
               <list style="symbols">
                 <t><spanx style="verb">start</spanx>: triggers the alert relative to the start of the calendar object</t>
@@ -1065,15 +1069,15 @@
               Defines a specific UTC date-time when the alert is triggered.</t>
             </list>
 
-            An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains a <spanx style="strong">type</spanx> property whose value is not <spanx style="verb">offset</spanx>, plus zero or more other properties.  This is for compatibility with client extensions and future RFCs.  Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
+            An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains a <spanx style="strong">type</spanx> property whose value is not recognized (i.e., not <spanx style="verb">offset</spanx> or <spanx style="verb">absolute</spanx>), plus zero or more other properties. This is for compatibility with client extensions and future RFCs. Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
 
             <t>acknowledged: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
-            This records when an alert was last acknowledged. When the user has dismissed the alert the client SHOULD set this to the current date-time in UTC. Other clients that sync this property SHOULD automatically dismiss or suppress duplicate alerts (alerts with the same alert id that triggered on or before this date-time).
+            This records when an alert was last acknowledged. This is set when the user has dismissed the alert; other clients that sync this property SHOULD automatically dismiss or suppress duplicate alerts (alerts with the same alert id that triggered on or before this date-time).
             <vspace blankLines="1" />
             For a recurring calendar object, the <spanx style="verb">acknowledged</spanx> property of the parent object MUST be updated, unless the alert is already overridden in the <spanx style="verb">recurrenceOverrides</spanx> property.
             <vspace blankLines="1" />
-            Certain kinds of alert action may not provide feedback as to when the user sees them, for example email based alerts. For those kinds of alerts, this property SHOULD be set immediately when the alarm is triggered and the action successfully carried out.</t>
+            Certain kinds of alert action may not provide feedback as to when the user sees them, for example email based alerts. For those kinds of alerts, this property SHOULD be set immediately when the alert is triggered and the action successfully carried out.</t>
 
             <t>action: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">display</spanx>)
             <vspace blankLines="1" />
@@ -1104,7 +1108,7 @@
             <t>name</t>
           </list>
 
-          For example, a patch to `recurrenceOverrides/2018-01-05T14:00:00/locations/abcd1234/title` is permissible, but a patch to `uid` is not.</t>
+          For example, a patch to <spanx style="verb">recurrenceOverrides/2018-01-05T14:00:00/locations/abcd1234/title</spanx> is permissible, but a patch to <spanx style="verb">uid</spanx> is not.</t>
 
           <t>Note that this specification does not define how to maintain validity of localized content. For example, a client application changing a JSCalendar object's title property might also need to update any localizations of this property. Client implementations SHOULD provide the means to manage localizations, but how to achieve this is specific to the application's workflow and requirements.</t>
         </section>
@@ -1114,7 +1118,7 @@
         <section anchor="timeZone" title="timeZone">
           <t>Type: <spanx style="verb">String|null</spanx> (optional, default: null).</t>
 
-          <t>Identifies the time zone the event is scheduled in, or null for floating time. This is either a name from the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
+          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
         </section>
 
         <section anchor="timezones-prop" title="timeZones">
@@ -1132,7 +1136,7 @@
 
           An identifier need only be unique to this JSCalendar object.</t>
 
-          <t>A TimeZone object maps a VTIMEZONE component from iCalendar <xref target="RFC5545" />. A valid time zone MUST define at least one transition rule in the <spanx style="verb">standard</spanx> or <spanx style="verb">daylight</spanx> property. Its properties are:
+          <t>A TimeZone object maps a VTIMEZONE component from iCalendar <xref target="RFC5545" /> and the semantics are as defined there. A valid time zone MUST define at least one transition rule in the <spanx style="verb">standard</spanx> or <spanx style="verb">daylight</spanx> property. Its properties are:
 
           <list style="symbols">
             <t>tzId: <spanx style="verb">String</spanx> (mandatory).
@@ -1254,9 +1258,9 @@
         <section anchor="statusUpdatedAt" title="statusUpdatedAt">
           <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
 
-          <t>Specifies the date/time the task status properties were last updated.</t>
+          <t>Specifies the date/time the <spanx style="verb">status</spanx> property of either the task overall (<xref target="status-jstask" />) or a specific participant (<xref target="progress-participant-task" />) was last updated.</t>
 
-          <t>If the task is recurring and has future instances, a client may want to keep track of the last status update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the statusUpdatedAt property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance status update time and a future recurring instance. Also see <xref target="relatedTo" /> on splitting.</t>
+          <t>If the task is recurring and has future instances, a client may want to keep track of the last status update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the statusUpdatedAt property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance status update time and a future recurring instance. See also <xref target="relatedTo" /> on splitting.</t>
         </section>
 
         <section anchor="progress-participant-task" title="progress">
@@ -1314,7 +1318,7 @@
       </section>
 
       <section anchor="jsgroup-props" title="JSGroup Properties">
-        <t>JSGroup supports the following <xref target="jscalendar-props">JSCalendar properties</xref>:
+        <t>JSGroup supports the following common <xref target="jscalendar-props">JSCalendar properties</xref>:
         <list style="symbols">
           <t>@type</t>
           <t>uid</t>
@@ -1322,12 +1326,13 @@
           <t>updated</t>
           <t>categories</t>
           <t>keywords</t>
-          <t>name</t>
+          <t>title</t>
           <t>description</t>
           <t>color</t>
           <t>links</t>
         </list>
-        as well as the following JSGroup-specific properties:</t>
+
+        In addition, the following JSGroup-specific properties are supported:</t>
 
         <section title="entries">
           <t>Type: <spanx style="verb">String[JSTask|JSEvent]</spanx> (mandatory).</t>
@@ -1343,11 +1348,11 @@
       </section>
     </section>
 
-    <section anchor="examples" title="JSCalendar Object Examples">
+    <section anchor="examples" title="Examples">
       <t>The following examples illustrate several aspects of the JSCalendar data model and format. The examples may omit mandatory or additional properties, which is indicated by a placeholder property with key <spanx style="verb">...</spanx>. While most of the examples use calendar event objects, they are also illustrative for tasks.</t>
       <!-- EXAMPLES START -->
       <section anchor="example-simple-event" title="Simple Event">
-        <t>This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends after 1 hour.</t>
+        <t>This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends at 2pm.</t>
         <figure>
           <artwork><![CDATA[{
   "@type": "jsevent",
@@ -1378,7 +1383,7 @@
   "@type": "jsgroup",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
   "updated": "2018-01-15T18:00:00Z",
-  "name": "A simple group",
+  "title": "A simple group",
   "entries": [
     {
       "@type": "jsevent",
@@ -1505,7 +1510,7 @@
       </section>
 
       <section anchor="example-recurring-overrides" title="Recurring Event with Overrides">
-        <t>This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2 no course is held. On January 5 at 2pm is an optional introduction course, that occurs before the first regular lecture.</t>
+        <t>This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018 (inclusive). Each lecture lasts for one hour and thirty minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2 no course is held. On January 5 at 2pm is an optional introduction course, that occurs before the first regular lecture.</t>
         <figure>
           <artwork><![CDATA[{
   "...": "",
@@ -1516,7 +1521,7 @@
   "locations": {
     "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
       "title": "Math lab room 1",
-      "description": "Math Lab I, Department of Mathematics"
+      "description": "Math Lab I, Department of Mathematics\n1 University Drive"
     }
   },
   "recurrenceRule": {
@@ -1528,7 +1533,7 @@
       "title": "Introduction to Calculus I (optional)"
     },
     "2018-04-02T09:00:00": {
-      "excluded": "true"
+      "excluded": true
     },
     "2018-06-25T09:00:00": {
       "title": "Calculus I Exam",
@@ -1547,7 +1552,7 @@
       </section>
 
       <section anchor="example-recurring-participants" title="Recurring Event with Participants">
-        <t>This example illustrates scheduled events. A team meeting occurs every week since January 8, 2018 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 8, 2018 he is unavailable and declined participation for this occurrence.</t>
+        <t>This example illustrates scheduled events. A team meeting occurs every week since January 8, 2018 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 8, 2018 he is unavailable and declined participation for this occurrence, leaving a short explanation for the organizer.</t>
         <figure>
           <artwork><![CDATA[{
   "...": "",
@@ -1572,7 +1577,7 @@
       "name": "Tom Tool",
       "email": "tom@foobar.example.com",
       "sendTo": {
-        "imip": "mailto:6489-4f14-a57f-c1@calendar.example.com"
+        "imip": "mailto:41f3-8b10-516a4d0f42bc@calendar.example.com"
       },
       "participationStatus": "accepted",
       "roles": {
@@ -1597,7 +1602,9 @@
   "recurrenceOverrides": {
    "2018-03-08T09:00:00": {
   "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationStatus":
-                                                           "declined"
+                                                           "declined",
+  "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationComment":
+                      "Sorry, kid's recital this week, can't make it."
     }
   }
 }]]></artwork>
