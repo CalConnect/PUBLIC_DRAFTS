@@ -1032,7 +1032,7 @@
           <list style="symbols">
             <t>trigger: <spanx style="verb">OffsetTrigger|AbsoluteTrigger|UnknownTrigger</spanx>
             <vspace blankLines="1" />
-            Defines when to trigger the alert.
+            Defines when to trigger the alert. New types may be defined in future RFCs.
             <vspace blankLines="1" />
             An <spanx style="strong">OffsetTrigger</spanx> object has the following properties:
             <list style="symbols">
