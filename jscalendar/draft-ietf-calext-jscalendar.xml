@@ -1611,11 +1611,27 @@
     </section>
 
     <section anchor="security-considerations" title="Security Considerations">
-      <t>The use of JSON as a format does have its own inherent security risks as discussed in Section 12 of <xref target="RFC8259" />. Even though JSON is considered a safe subset of JavaScript, it should be kept in mind that a flaw in the parser processing JSON could still impose a threat, which doesn't arise with conventional iCalendar data.</t>
+      <t>Calendaring and scheduling information is very privacy-sensitive. The transmission of such information must be careful to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle attacks. This document just defines the data format; such considerations are primarily the concern of the API or method of storage and transmission of such files.</t>
 
-      <t>With this in mind, a parser for JSON data aware of the security implications should be used for the format described in this document. For example, the use of JavaScript's <spanx style="verb">eval()</spanx> function is considered an unacceptable security risk, as described in Section 12 of <xref target="RFC8259" />. A native parser with full awareness of the JSON format should be preferred.</t>
+      <section anchor="sec-recurrences" title="Expanding Recurrences">
+        <t>A recurrence rule may produce infinite occurrences of an event. Implementations MUST handle expansions carefully to prevent accidental or deliberate resource exhaustion.</t>
+        <t>Conversely, a recurrence rule may be specified that does not expand to anything. It is not always possible to tell this through static analysis of the rule, so implementations MUST be careful to avoid getting stuck in an infinite loop, or otherwise exhausting resources, searching for the next occurrence.</t>
+      </section>
 
-      <t>Several JSCalendar properties contain URIs as values, and processing these properties requires extra care. Section 7 of <xref target="RFC3986" /> discusses security risk related to URIs.</t>
+      <section anchor="json-parsing" title="JSON Parsing">
+        <t>The Security Considerations of <xref target="RFC8259"/> apply to the use of JSON as the data interchange format.
+        </t>
+
+        <t>As for any serialization format, parsers need to thoroughly check the syntax of the supplied data. JSON uses opening and closing tags for several types and structures, and it is possible that the end of the supplied data will be reached when scanning for a matching closing tag; this is an error condition, and implementations need to stop scanning at the end of the supplied data.</t>
+
+        <t>JSON also uses a string encoding with some escape sequences to encode special characters within a string. Care is needed when processing these escape sequences to ensure that they are fully formed before the special processing is triggered, with special care taken when the escape sequences appear adjacent to other (non-escaped) special characters or adjacent to the end of data (as in the previous paragraph).</t>
+
+        <t>If parsing JSON into a non-textual structured data format, implementations may need to allocate storage to hold JSON string elements.  Since JSON does not use explicit string lengths, the risk of denial of service due to resource exhaustion is small, but implementations may still wish to place limits on the size of allocations they are willing to make in any given context, to avoid untrusted data causing excessive memory allocation.</t>
+      </section>
+
+      <section anchor="uri-values" title="URI Values">
+        <t>Several JSCalendar properties contain URIs as values, and processing these properties requires extra care. Section 7 of <xref target="RFC3986" /> discusses security risk related to URIs.</t>
+      </section>
     </section>
 
     <section anchor="iana-considerations" title="IANA Considerations">
