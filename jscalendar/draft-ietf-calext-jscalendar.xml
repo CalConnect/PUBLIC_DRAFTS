@@ -959,6 +959,10 @@
               <t><spanx style="verb">tentative</spanx>: The invited participant may participate.</t>
             </list></t>
 
+            <t>participationComment: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            A note from the participant to explain their participation status.</t>
+
             <t>attendance: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">required</spanx>)
             <vspace blankLines="1" />
             The required attendance of this participant.
