@@ -1058,9 +1058,11 @@
 
             <t>acknowledged: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
-            When the user has permanently dismissed the alert the client MUST set this to the current time in UTC. Other clients which sync this property can then automatically dismiss or suppress duplicate alerts (alerts with the same alert id that triggered on or before this date-time).
+            This records when an alert was last acknowledged. When the user has dismissed the alert the client SHOULD set this to the current date-time in UTC. Other clients that sync this property SHOULD automatically dismiss or suppress duplicate alerts (alerts with the same alert id that triggered on or before this date-time).
             <vspace blankLines="1" />
             For a recurring calendar object, the <spanx style="verb">acknowledged</spanx> property of the parent object MUST be updated, unless the alert is already overridden in the <spanx style="verb">recurrenceOverrides</spanx> property.</t>
+            <vspace blankLines="1" />
+            Certain kinds of alert action may not provide feedback as to when the user sees them, for example email based alerts. For those kinds of alerts, this property SHOULD be set immediately when the alarm is triggered and the action successfully carried out.
 
             <t>snoozed: <spanx style="verb">UTCDateTime</spanx> (optional).
             <vspace blankLines="1" />
