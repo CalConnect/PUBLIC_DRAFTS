@@ -1030,7 +1030,7 @@
           <t>An Alert Object has the following properties:
 
           <list style="symbols">
-            <t>trigger: <spanx style="verb">OffsetTrigger|UnknownTrigger</spanx>
+            <t>trigger: <spanx style="verb">OffsetTrigger|AbsoluteTrigger|UnknownTrigger</spanx>
             <vspace blankLines="1" />
             Defines when to trigger the alert.
             <vspace blankLines="1" />
@@ -1052,6 +1052,17 @@
                 <t><spanx style="verb">start</spanx>: triggers the alert relative to the start of the calendar object</t>
                 <t><spanx style="verb">end</spanx>: triggers the alert relative to the end/due time of the calendar object</t>
               </list></t>
+            </list>
+
+            An <spanx style="strong">AbsoluteTrigger</spanx> object has the following properties:
+            <list style="symbols">
+              <t>type: <spanx style="verb">String</spanx> (mandatory)
+              <vspace blankLines="1" />
+              The value of this property MUST be <spanx style="verb">absolute</spanx>.</t>
+
+              <t>when: <spanx style="verb">UTCDateTime</spanx> (mandatory).
+              <vspace blankLines="1" />
+              Defines a specific UTC date-time when the alert is triggered.</t>
             </list>
 
             An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains a <spanx style="strong">type</spanx> property whose value is not <spanx style="verb">offset</spanx>, plus zero or more other properties.  This is for compatibility with client extensions and future RFCs.  Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
