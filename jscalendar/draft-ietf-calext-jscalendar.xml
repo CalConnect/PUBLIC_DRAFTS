@@ -517,18 +517,26 @@
       </section>
 
       <section anchor="recurrence-props" title="Recurrence properties">
+        <t>Some events and tasks occur at regular, or indeed irregular, intervals. Rather than having to copy the data for every occurrence, you can instead have a master event with a recurrence rule generating the occurrences, and/or overrides that add extra dates or exceptions to the rule.</t>
+
+        <section anchor="recurrenceId" title="recurrenceId">
+          <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
+
+          <t>If present, this JSCalendar object represents one occurrence of a recurring JSCalendar object. If present the <spanx style="verb">recurrenceRule</spanx> and <spanx style="verb">recurrenceOverrides</spanx> properties MUST NOT be present.</t>
+
+          <t>The value is a date-time either produced by the <spanx style="verb">recurrenceRule</spanx> of the master event, or added as a key to the <spanx style="verb">recurrenceOverrides</spanx> property of the master event.</t>
+        </section>
+
         <section anchor="recurrenceRule" title="recurrenceRule">
           <t>Type: <spanx style="verb">Recurrence</spanx> (optional).</t>
 
           <t>Defines a recurrence rule (repeating pattern) for recurring calendar objects.</t>
 
-          <t>A Recurrence object is a JSON object mapping of a RECUR value type in iCalendar <xref target="RFC5545" /> <xref target="RFC7529" /> and has the same semantics.</t>
-
           <t>A JSEvent recurs by applying the recurrence rule to the <spanx style="verb">start</spanx> date-time.</t>
 
           <t>A JSTask recurs by applying the recurrence rule to the <spanx style="verb">start</spanx> date-time, if defined, otherwise it recurs by the <spanx style="verb">due</spanx> date-time, if defined. If the task defines neither a <spanx style="verb">start</spanx> nor <spanx style="verb">due</spanx> date-time, its <spanx style="verb">recurrenceRule</spanx> property value MUST be null.</t>
 
-          <t>A Recurrence object has the following properties:
+          <t>A Recurrence object is a JSON object mapping of a RECUR value type in iCalendar <xref target="RFC5545" /> <xref target="RFC7529" /> and has the same semantics. It has the following properties:
 
           <list style="symbols">
             <t>frequency: <spanx style="verb">String</spanx> (mandatory)
@@ -743,7 +751,7 @@
 
                 <t>If frequency is not <spanx style="verb">secondly</spanx> or <spanx style="verb">minutely</spanx>, and no byMinute property: Add a byMinute property with the sole value being the minutes value of the start date-time.</t>
 
-                <t>If frequencyis not <spanx style="verb">secondly</spanx>, <spanx style="verb">minutely</spanx> or <spanx style="verb">hourly</spanx> and no byHour property: Add a byHour property with the sole value being the hours value of the start date-time.</t>
+                <t>If frequency is not <spanx style="verb">secondly</spanx>, <spanx style="verb">minutely</spanx> or <spanx style="verb">hourly</spanx> and no byHour property: Add a byHour property with the sole value being the hours value of the start date-time.</t>
 
                 <t>If frequency is <spanx style="verb">weekly</spanx> and no byDay property: Add a byDay property with the sole value being the day-of-the-week of the start date-time.</t>
 
