@@ -1075,10 +1075,6 @@
             <vspace blankLines="1" />
             Certain kinds of alert action may not provide feedback as to when the user sees them, for example email based alerts. For those kinds of alerts, this property SHOULD be set immediately when the alarm is triggered and the action successfully carried out.
 
-            <t>snoozed: <spanx style="verb">UTCDateTime</spanx> (optional).
-            <vspace blankLines="1" />
-            If the user temporarily dismisses the alert, this is the UTC date-time after which it should trigger again. Setting this property on an instance of a recurring calendar object MUST update the alarm on the top-level object, unless the respective instance already is defined in <spanx style="verb">recurrenceOverrides</spanx>. It MUST NOT generate an override for the sole use of snoozing an alarm.</t>
-
             <t>action: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">display</spanx>)
             <vspace blankLines="1" />
             Describes how to alert the user.
