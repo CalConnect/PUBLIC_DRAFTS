@@ -52,7 +52,7 @@
     <keyword>date</keyword>
     <keyword>time</keyword>
     <abstract>
-      <t>This specification defines a data model and JSON representation of calendar data that can be used for storage and data exchange in a calendaring and scheduling environment. It aims to be an alternative to the widely deployed iCalendar data format and to be unambiguous, extendable and simple to process. In contrast to the JSON-based jCal format, it is not a direct mapping from iCalendar and expands semantics where appropriate.</t>
+      <t>This specification defines a data model and JSON representation of calendar data that can be used for storage and data exchange in a calendaring and scheduling environment. It aims to be an alternative, and over time successor to, the widely deployed iCalendar data format and to be unambiguous, extendable and simple to process. In contrast to the JSON-based jCal format, it is not a direct mapping from iCalendar and expands semantics where appropriate.</t>
     </abstract>
   </front>
   <middle>
@@ -61,25 +61,24 @@
 
       <t>The key design considerations for this data model are as follows:
         <list style="symbols">
-          <t>The attributes of the calendar entry represented must be described as a simple key-value pair, reducing complexity of its representation.</t>
-          <t>The data model should avoid all ambiguities and make it difficult to make mistakes during implementation.</t>
-          <t>Most of the initial set of attributes should be taken from the iCalendar data format <xref target="RFC5545" /> and <xref target="RFC7986" /> and extensions, but the specification should add new attributes or value types, or not support existing ones, where appropriate. Conversion between the data formats need not fully preserve semantic meaning.</t>
+          <t>The attributes of the calendar entry represented must be described as a simple key-value pair. Simple events are simple to represent, complex events can be modelled accurately.</t>
+          <t>Wherever possible there should be only one way to express the desired semantics, reducing complexity.</t>
+          <t>The data model should avoid ambiguities and make it difficult to make mistakes during implementation.</t>
+          <t>The data model should be compatible with the iCalendar data format <xref target="RFC5545" /> <xref target="RFC7986" /> and extensions, but the specification should add new attributes where the iCalendar format currently lacks expressivity, and drop widely unused, obsolete or redundant properties. This means translation with no loss of semantics should be easy with most common iCalendar files but is not guaranteed with the full specification.</t>
           <t>Extensions, such as new properties and components, MUST NOT lead to requiring an update to this document.</t>
         </list>
       </t>
 
-      <t>The representation of this data model is defined in the I-JSON format <xref target="RFC7493" />, which is a strict subset of the JavaScript Object Notation (JSON) Data Interchange Format <xref target="RFC8259" />. Using JSON is mostly a pragmatic choice: its widespread use makes JSCalendar easier to adopt, and the ready availability of production-ready JSON implementations eliminates a whole category of parser-related interoperability issues.</t>
+      <t>The representation of this data model is defined in the I-JSON format <xref target="RFC7493" />, which is a strict subset of the JavaScript Object Notation (JSON) Data Interchange Format <xref target="RFC8259" />. Using JSON is mostly a pragmatic choice: its widespread use makes JSCalendar easier to adopt, and the ready availability of production-ready JSON implementations eliminates a whole category of parser-related interoperability issues, which iCalendar has often suffered from.</t>
 
-      <section anchor="relation-to-icalendar" title="Relation to the iCalendar format">
+      <section anchor="relation-to-icalendar" title="Motivation and relation to iCalendar and jCal">
         <t>The iCalendar data format <xref target="RFC5545" />, a widely deployed interchange format for calendaring and scheduling data, has served calendaring vendors for a long while, but contains some ambiguities and pitfalls that can not be overcome without backward-incompatible changes.</t>
 
-        <t>For example, iCalendar defines various formats for local times, UTC time and dates, which confuses new users. Other sources for errors are the requirement for custom time zone definitions within a single calendar component, as well as the iCalendar format itself; the latter causing interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle differences between iCalendar parsers. Lastly, up until recently the iCalendar format did not have a way to express a concise difference between two calendar components, which results in verbose exchanges during scheduling.</t>
-      </section>
+        <t>For example, iCalendar defines various formats for local times, UTC time and dates, which confuses new users and often leads to implementation errors. Other sources for errors are the requirement for custom time zone definitions within a single calendar component, as well as the iCalendar format itself; the latter causing interoperability issues due to misuse of CR LF terminated strings, line continuations and subtle differences between iCalendar parsers. The definition of recurrence rules is ambiguous and has resulted in differing understandings even between experienced calendar developers.</t>
 
-      <section anchor="relation-to-jcal" title="Relation to the jCal format">
-        <t>The JSON format for iCalendar data, <xref target="RFC7265">jCal</xref>, is a direct mapping between iCalendar and JSON. It does not attempt to extend or update iCalendar semantics, and consequently does not address the issues outlined in <xref target="relation-to-icalendar" />.</t>
+        <t>In recent years, many new products and services have appeared that wish to use a JSON representation of calendar data within their API. The JSON format for iCalendar data, <xref target="RFC7265">jCal</xref>, is a direct mapping between iCalendar and JSON. In its effort to represent full iCalendar semantics, it inherits all the same pitfalls and uses a complicated JSON structure unlike most common JSON data representations.
 
-        <t>Since the standardization of jCal, the majority of implementations and service providers either kept using iCalendar, or came up with their own proprietary JSON representation, which often are incompatible with each other. JSCalendar is intended to meet this demand for JSON formatted calendar data, and to provide a standard representation as an alternative to new proprietary formats.</t>
+        <t>As a consequence, since the standardization of jCal, the majority of implementations and service providers either kept using iCalendar, or came up with their own proprietary JSON representation, which are incompatible with each other and often suffer from common pitfalls, such as storing event start times in UTC, which become incorrect if the timezone's rules change in the future. JSCalendar is intended to meet this demand for JSON formatted calendar data, and to provide a standard elegant representation as an alternative to new proprietary formats.</t>
       </section>
 
       <section anchor="notational-conventions" title="Notational Conventions">
