@@ -190,7 +190,25 @@
           <t>By default, time zones in JSCalendar are identified by their name in the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref>, and the zone rules of the respective zone record apply.</t>
 
           <t>Implementations MAY embed the definition of custom time zones in the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones-prop" />).</t>
-        </section>
+         </section>
+         <section anchor="relation" title="Relation">
+             <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, the other object is the linked object. The Relation object has the following property:</t>
+             <t><list style="symbols">
+                     <t>relation: <spanx style="verb">String[Boolean]</spanx> (optional, default: empty Object)
+                         <vspace blankLines="1" />
+                         Describes how the linked object is related to the linking object. The relation is defined as a set of relation types. If empty, the relationship between the two objects is unspecified.
+                         <vspace blankLines="1" />
+                         Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or defined in a future specification or vendor-specific value:
+                         <list style="symbols">
+                             <t><spanx style="verb">first</spanx>: The linked object is the first in a series the linking object is part of.</t>
+                             <t><spanx style="verb">next</spanx>: The linked object is the next in a series the linking object is part of.</t>
+                             <t><spanx style="verb">child</spanx>: The linked object is a subpart of the linking object.</t>
+                             <t><spanx style="verb">parent</spanx>: The linking object is part of the overall linked object.</t>
+                         </list>
+                         The value for each key in the set MUST be true.</t>
+             </list></t>
+             <t>Note, the Relation object only has one property; it is specified as an object with a single property to allow for extension in the future.</t>
+         </section>
       </section>
     </section>
 
@@ -278,31 +296,6 @@
           <t>Type: <spanx style="verb">String[Relation]</spanx> (optional).</t>
 
           <t>Relates the object to other JSCalendar objects. This is represented as a map of the UIDs of the related objects to information about the relation.</t>
-
-          <t>A Relation object has the following property:</t>
-
-          <t><list style="symbols">
-            <t>relation: <spanx style="verb">String[Boolean]</spanx> (optional)
-
-            <vspace blankLines="1" />
-
-            Describes how the linked object is related to this object as a set of relation types. If specified, the set MUST NOT be empty. If ommitted, the relationship between the two objects is unspecified.
-
-            <vspace blankLines="1" />
-
-            Keys in the set MUST be one of the following values, defined in a future specification or a vendor-specific value:
-
-            <list style="symbols">
-              <t><spanx style="verb">first</spanx>: The linked object is the first in the series this object is part of.</t>
-              <t><spanx style="verb">next</spanx>: The linked object is the next in the series this object is part of.</t>
-              <t><spanx style="verb">child</spanx>: The linked object is a subpart of this object.</t>
-              <t><spanx style="verb">parent</spanx>: This object is part of the overall linked object.</t>
-            </list>
-
-            The value for each key in the set MUST be true.</t>
-          </list></t>
-
-          <t>Note, the Relation object only has one property; it is specified as an object with a single property rather than mapping directly from the UID to relation types to allow for extension in the future.</t>
 
           <t>If an object is split to make a "this and future" change to a recurrence, the original object MUST be truncated to end at the previous occurrence before this split, and a new object created to represent all the occurrences after the split. A <spanx style="verb">next</spanx> relation MUST be set on the original object's relatedTo property for the UID of the new object. A <spanx style="verb">first</spanx> relation for the UID of the first object in the series MUST be set on the new object. Clients can then follow these UIDs to get the complete set of objects if the user wishes to modify them all at once.</t>
         </section>
@@ -1078,6 +1071,10 @@
             For a recurring calendar object, the <spanx style="verb">acknowledged</spanx> property of the parent object MUST be updated, unless the alert is already overridden in the <spanx style="verb">recurrenceOverrides</spanx> property.
             <vspace blankLines="1" />
             Certain kinds of alert action may not provide feedback as to when the user sees them, for example email based alerts. For those kinds of alerts, this property SHOULD be set immediately when the alert is triggered and the action successfully carried out.</t>
+
+            <t>relatedTo: <spanx style="verb">String[Relation]</spanx> (optional)
+            <vspace blankLines="1" />
+            Relates this alert to other alerts in the same JSCalendar object. If the user wishes to snooze an alert, the application SHOULD create an alert to trigger after snoozing. All snooze alerts SHOULD set a relation to the identifier of the original alert. The Relation object SHOULD set the <spanx style="verb">parent</spanx> relation type, but MAY be empty.</t>
 
             <t>action: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">display</spanx>)
             <vspace blankLines="1" />
