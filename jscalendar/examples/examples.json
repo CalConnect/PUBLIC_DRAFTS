@@ -88,10 +88,12 @@
     "duration": "PT10H30M",
     "locations": {
       "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "@type": "Location",
         "rel": "start",
         "name": "Frankfurt Airport (FRA)"
       },
       "c2c7ac67-dc13-411e-a7d4-0780fb61fb08": {
+        "@type": "Location",
         "rel": "end",
         "name": "Narita International Airport (NRT)",
         "timeZone": "Asia/Tokyo"
@@ -109,6 +111,7 @@
     "start": "2018-01-01T07:00:00",
     "duration": "PT30M",
     "recurrenceRule": {
+      "@type": "Recurrence",
       "frequency": "daily"
     }
   }
@@ -127,6 +130,7 @@
     "duration": "PT3H",
     "locations": {
       "c0503d30-8c50-4372-87b5-7657e8e0fedd" : {
+        "@type": "Location",
         "name": "The Music Bowl",
         "description": "Music Bowl, Central Park, New York",
         "coordinates": "geo:40.7829,73.9654"
@@ -134,6 +138,7 @@
     },
     "virtualLocations": {
       "6f3696c6-1e07-47d0-9ce1-f50014b0041a" : {
+        "@type": "VirtualLocation",
         "name": "Free live Stream from Music Bowl",
         "uri": "https://stream.example.com/the_band_2018"
       }
@@ -159,11 +164,13 @@
     "duration": "PT1H30M",
     "locations": {
       "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "@type": "Location",
         "title": "Math lab room 1",
         "description": "Math Lab I, Department of Mathematics"
       }
     },
     "recurrenceRule": {
+      "@type": "Recurrence",
       "frequency": "weekly",
       "until": "2018-06-25T09:00:00"
     },
@@ -180,6 +187,7 @@
         "duration": "PT2H",
         "locations": {
           "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+            "@type": "Location",
             "title": "Big Auditorium",
             "description": "Big Auditorium, Other Road"
           }
@@ -200,18 +208,21 @@
     "duration": "PT1H",
     "virtualLocations": {
       "2a358cee-6489-4f14-a57f-c104db4dc2f1" : {
+        "@type": "VirtualLocation",
         "name": "ChatMe meeting room",
         "uri": "https://chatme.example.com?id=1234567"
       }
     },
     "recurrenceRule": {
+      "@type": "Recurrence",
       "frequency": "weekly"
     },
     "replyTo": {
       "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
     },
     "participants": {
-      "dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ": {
+      "dG9tQGZvb2Jhci5xlLmNvbQ": {
+        "@type": "Participant",
         "name": "Tom Tool",
         "email": "tom@foobar.example.com",
         "sendTo": {
@@ -220,7 +231,8 @@
         "participationStatus": "accepted",
         "roles": { "attendee": true }
       },
-      "em9lQGZvb2Jhci5leGFtcGxlLmNvbQ": {
+      "em9lQGZvb2GFtcGxlLmNvbQ": {
+        "@type": "Participant",
         "name": "Zoe Zelda",
         "email": "zoe@foobar.example.com",
         "sendTo": {
@@ -233,7 +245,7 @@
     },
     "recurrenceOverrides": {
       "2018-03-08T09:00:00": {
-        "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationStatus": "declined"
+        "participants/dG9tQGZvb2Jhci5xlLmNvbQ/participationStatus": "declined"
       }
     }
   }

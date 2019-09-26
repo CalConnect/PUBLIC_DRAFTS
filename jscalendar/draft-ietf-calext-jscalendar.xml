@@ -194,6 +194,10 @@
          <section anchor="relation" title="Relation">
              <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, the other object is the linked object. The Relation object has the following property:</t>
              <t><list style="symbols">
+                     <t>@type: <spanx style="verb">String</spanx> (mandatory)
+                         <vspace blankLines="1" />
+                         Specifies the type of this object. This MUST be <spanx style="verb">Relation</spanx>.
+                     </t>
                      <t>relation: <spanx style="verb">String[Boolean]</spanx> (optional, default: empty Object)
                          <vspace blankLines="1" />
                          Describes how the linked object is related to the linking object. The relation is defined as a set of relation types. If empty, the relationship between the two objects is unspecified.
@@ -207,7 +211,7 @@
                          </list>
                          The value for each key in the set MUST be true.</t>
              </list></t>
-             <t>Note, the Relation object only has one property; it is specified as an object with a single property to allow for extension in the future.</t>
+             <t>Note, the Relation object only has one property (except @type); it is specified as an object with a single property to allow for extension in the future.</t>
          </section>
       </section>
     </section>
@@ -372,6 +376,10 @@
           <t>A Location object has the following properties. It MUST have at least one property other than the <spanx style="verb">relativeTo</spanx> property.</t>
 
           <t><list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">Location</spanx>.
+            </t>
             <t>name: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The human-readable name of the location.</t>
@@ -413,6 +421,9 @@
 
           <t>A VirtualLocation object has the following properties.</t>
           <t><list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">VirtualLocation</spanx>.</t>
             <t>name: <spanx style="verb">String</spanx> (optional, default: empty String)
             <vspace blankLines="1" />
             The human-readable name of the virtual location.</t>
@@ -437,6 +448,9 @@
           <t>A Link object has the following properties:</t>
 
           <t><list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">Link</spanx>.</t>
             <t>href: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
             A URI from which the resource may be fetched.
@@ -534,7 +548,10 @@
 
           <t>A Recurrence object is a JSON object mapping of a RECUR value type in iCalendar <xref target="RFC5545" /> <xref target="RFC7529" /> and has the same semantics. It has the following properties:
 
-          <list style="symbols">
+              <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">Recurrence</spanx>.</t>
             <t>frequency: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
             The time span covered by each iteration of this recurrence rule (see <xref target="recurrence-semantics" /> for full semantics). This MUST be one of the following values:
@@ -881,6 +898,9 @@
           <t>A Participant object has the following properties:
 
           <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">Participant</spanx>.</t>
             <t>name: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The display name of the participant (e.g. "Joe Bloggs").</t>
@@ -1027,16 +1047,20 @@
           <t>An Alert Object has the following properties:
 
           <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">Alert</spanx>.
+            </t>
             <t>trigger: <spanx style="verb">OffsetTrigger|AbsoluteTrigger|UnknownTrigger</spanx>
             <vspace blankLines="1" />
             Defines when to trigger the alert. New types may be defined in future RFCs.
             <vspace blankLines="1" />
             An <spanx style="strong">OffsetTrigger</spanx> object has the following properties:
             <list style="symbols">
-              <t>type: <spanx style="verb">String</spanx> (mandatory)
+              <t>@type: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
-              The value of this property MUST be <spanx style="verb">offset</spanx>.</t>
-
+              Specifies the type of this object. This MUST be <spanx style="verb">OffsetTrigger</spanx>.
+              </t>
               <t>offset: <spanx style="verb">SignedDuration</spanx> (mandatory).
               <vspace blankLines="1" />
               Defines the offset at which to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property of the alert. If the calendar object does not define a time zone, the user's default time zone SHOULD be used when determining the offset, if known. Otherwise, the time zone to use is implementation specific.</t>
@@ -1053,16 +1077,16 @@
 
             An <spanx style="strong">AbsoluteTrigger</spanx> object has the following properties:
             <list style="symbols">
-              <t>type: <spanx style="verb">String</spanx> (mandatory)
+              <t>@type: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
-              The value of this property MUST be <spanx style="verb">absolute</spanx>.</t>
-
+              Specifies the type of this object. This MUST be <spanx style="verb">AbsoluteTrigger</spanx>.
+              </t>
               <t>when: <spanx style="verb">UTCDateTime</spanx> (mandatory).
               <vspace blankLines="1" />
               Defines a specific UTC date-time when the alert is triggered.</t>
             </list>
 
-            An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains a <spanx style="strong">type</spanx> property whose value is not recognized (i.e., not <spanx style="verb">offset</spanx> or <spanx style="verb">absolute</spanx>), plus zero or more other properties. This is for compatibility with client extensions and future RFCs. Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
+            An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains a <spanx style="strong">@type</spanx> property whose value is not recognized (i.e., not <spanx style="verb">OffsetTrigger</spanx> or <spanx style="verb">AbsoluteTrigger</spanx>), plus zero or more other properties. This is for compatibility with client extensions and future RFCs. Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
 
             <t>acknowledged: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
@@ -1136,6 +1160,10 @@
           <t>A TimeZone object maps a VTIMEZONE component from iCalendar <xref target="RFC5545" /> and the semantics are as defined there. A valid time zone MUST define at least one transition rule in the <spanx style="verb">standard</spanx> or <spanx style="verb">daylight</spanx> property. Its properties are:
 
           <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">TimeZone</spanx>.
+            </t>
             <t>tzId: <spanx style="verb">String</spanx> (mandatory).
             <vspace blankLines="1" />
             The TZID property from iCalendar.</t>
@@ -1168,6 +1196,10 @@
           <t>A TimeZoneRule object maps a STANDARD or DAYLIGHT sub-component from iCalendar, with the restriction that at most one recurrence rule is allowed per rule. It has the following properties:
 
           <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">TimeZoneRule</spanx>.
+            </t>
             <t>start: <spanx style="verb">LocalDateTime</spanx> (mandatory)
             <vspace blankLines="1" />
             The DTSTART property from iCalendar.</t>
@@ -1273,6 +1305,10 @@
           <vspace blankLines="1" />
 
           <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">ParticipantProgress</spanx>.
+            </t>
             <t>status: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
             Describes the completion status of the participant's progress.
@@ -1348,39 +1384,50 @@
     <section anchor="examples" title="Examples">
       <t>The following examples illustrate several aspects of the JSCalendar data model and format. The examples may omit mandatory or additional properties, which is indicated by a placeholder property with key <spanx style="verb">...</spanx>. While most of the examples use calendar event objects, they are also illustrative for tasks.</t>
       <!-- EXAMPLES START -->
-      <section anchor="example-simple-event" title="Simple Event">
-        <t>This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends at 2pm.</t>
-        <figure>
-          <artwork><![CDATA[{
+<section anchor="example-simple-event" title="Simple event">
+    <t>
+    This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends after 1 hour.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "@type": "jsevent",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
-  "updated": "2018-01-01T12:00:00Z",
+  "updated": "2018-01-15T18:00:00Z",
   "title": "Some event",
   "start": "2018-01-15T13:00:00",
   "timeZone": "America/New_York",
   "duration": "PT1H"
-}]]></artwork>
-        </figure>
-      </section>
-      <section anchor="example-simple-task" title="Simple Task">
-        <t>This example illustrates a simple task for a plain to-do item.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-simple-task" title="Simple task">
+    <t>
+    This example illustrates a simple task for a plain to-do item.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "@type": "jstask",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
-  "updated": "2018-01-19T18:00:00Z",
+  "updated": "2018-01-15T18:00:00Z",
   "title": "Do something"
-}]]></artwork>
-        </figure>
-      </section>
-      <section anchor="example-simple-group" title="Simple Group">
-        <t>This example illustrates a simple calendar object group that contains an event and a task.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-simple-group" title="Simple group">
+    <t>
+    This example illustrates a simple calendar object group that contains an event and a task.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "@type": "jsgroup",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
   "updated": "2018-01-15T18:00:00Z",
-  "title": "A simple group",
+  "name": "A simple group",
   "entries": [
     {
       "@type": "jsevent",
@@ -1398,43 +1445,52 @@
       "title": "Do something"
     }
   ]
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-all-day-event" title="All-day Event">
-        <t>This example illustrates an event for an international holiday. It specifies an all-day event on April 1 that occurs every year since the year 1900.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-all-day-event" title="All-day event">
+    <t>
+    This example illustrates an event for an international holiday. It specifies an all-day event on April 1 that occurs every year since the year 1900.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "April Fool's Day",
-  "showWithoutTime": true,
+  "isAllDay": true,
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
   "recurrenceRule": {
     "frequency": "yearly"
   }
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-due-task" title="Task with a Due Date">
-        <t>This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm Vienna local time on January 19, 2018. The calendar user expects to need 1 hour for shopping.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-due-task" title="Task with a due date">
+    <t>
+    This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm Vienna local time on January 19, 2018. The calendar user expects to need 1 hour for shopping.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "Buy groceries",
   "due": "2018-01-19T18:00:00",
   "timeZone": "Europe/Vienna",
   "estimatedDuration": "PT1H"
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-zoned-event-endtz" title="Event with End Time Zone">
-        <t>This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-zoned-event-endtz" title="Event with end time-zone">
+    <t>
+    This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "Flight XY51 to Tokyo",
   "start": "2018-04-01T09:00:00",
@@ -1442,38 +1498,47 @@
   "duration": "PT10H30M",
   "locations": {
     "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+      "@type": "Location",
       "rel": "start",
       "name": "Frankfurt Airport (FRA)"
     },
     "c2c7ac67-dc13-411e-a7d4-0780fb61fb08": {
+      "@type": "Location",
       "rel": "end",
       "name": "Narita International Airport (NRT)",
       "timeZone": "Asia/Tokyo"
     }
   }
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-floating-event" title="Floating-time Event (with Recurrence)">
-        <t>This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-floating-event" title="Floating-time event (with recurrence)">
+    <t>
+    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "Yoga",
   "start": "2018-01-01T07:00:00",
   "duration": "PT30M",
   "recurrenceRule": {
+    "@type": "Recurrence",
     "frequency": "daily"
   }
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-multi-location-event" title="Event with Multiple Locations and Localization">
-        <t>This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-multi-location-event" title="Event with multiple locations and localization">
+    <t>
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "Live from Music Bowl: The Band",
   "description": "Go see the biggest music event ever!",
@@ -1483,6 +1548,7 @@
   "duration": "PT3H",
   "locations": {
     "c0503d30-8c50-4372-87b5-7657e8e0fedd": {
+      "@type": "Location",
       "name": "The Music Bowl",
       "description": "Music Bowl, Central Park, New York",
       "coordinates": "geo:40.7829,73.9654"
@@ -1490,6 +1556,7 @@
   },
   "virtualLocations": {
     "6f3696c6-1e07-47d0-9ce1-f50014b0041a": {
+      "@type": "VirtualLocation",
       "name": "Free live Stream from Music Bowl",
       "uri": "https://stream.example.com/the_band_2018"
     }
@@ -1502,14 +1569,17 @@
                               "Gratis Live-Stream aus der Music Bowl"
     }
   }
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-recurring-overrides" title="Recurring Event with Overrides">
-        <t>This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018 (inclusive). Each lecture lasts for one hour and thirty minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2 no course is held. On January 5 at 2pm is an optional introduction course, that occurs before the first regular lecture.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-recurring-overrides" title="Recurring event with overrides">
+    <t>
+    This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2 no course is held. On January 5 at 2pm is an optional introduction course, that occurs before the first regular lecture.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "Calculus I",
   "start": "2018-01-08T09:00:00",
@@ -1517,11 +1587,13 @@
   "duration": "PT1H30M",
   "locations": {
     "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+      "@type": "Location",
       "title": "Math lab room 1",
-      "description": "Math Lab I, Department of Mathematics\n1 University Drive"
+      "description": "Math Lab I, Department of Mathematics"
     }
   },
   "recurrenceRule": {
+    "@type": "Recurrence",
     "frequency": "weekly",
     "until": "2018-06-25T09:00:00"
   },
@@ -1530,7 +1602,7 @@
       "title": "Introduction to Calculus I (optional)"
     },
     "2018-04-02T09:00:00": {
-      "excluded": true
+      "excluded": "true"
     },
     "2018-06-25T09:00:00": {
       "title": "Calculus I Exam",
@@ -1538,20 +1610,24 @@
       "duration": "PT2H",
       "locations": {
         "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+          "@type": "Location",
           "title": "Big Auditorium",
           "description": "Big Auditorium, Other Road"
         }
       }
     }
   }
-}]]></artwork>
-        </figure>
-      </section>
-
-      <section anchor="example-recurring-participants" title="Recurring Event with Participants">
-        <t>This example illustrates scheduled events. A team meeting occurs every week since January 8, 2018 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 8, 2018 he is unavailable and declined participation for this occurrence, leaving a short explanation for the organizer.</t>
-        <figure>
-          <artwork><![CDATA[{
+}
+          ]]></artwork>
+    </figure>
+</section>
+<section anchor="example-recurring-participants" title="Recurring event with participants">
+    <t>
+    This example illustrates scheduled events. A team meeting occurs every week since January 8, 2018 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 8, 2018 he is unavailable and declined participation for this occurrence.
+    </t>
+    <figure>
+          <artwork><![CDATA[
+{
   "...": "",
   "title": "FooBar team meeting",
   "start": "2018-01-08T09:00:00",
@@ -1559,29 +1635,33 @@
   "duration": "PT1H",
   "virtualLocations": {
     "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+      "@type": "VirtualLocation",
       "name": "ChatMe meeting room",
       "uri": "https://chatme.example.com?id=1234567"
     }
   },
   "recurrenceRule": {
+    "@type": "Recurrence",
     "frequency": "weekly"
   },
   "replyTo": {
     "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
   },
   "participants": {
-    "dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ": {
+    "dG9tQGZvb2Jhci5xlLmNvbQ": {
+      "@type": "Participant",
       "name": "Tom Tool",
       "email": "tom@foobar.example.com",
       "sendTo": {
-        "imip": "mailto:41f3-8b10-516a4d0f42bc@calendar.example.com"
+        "imip": "mailto:6489-4f14-a57f-c1@calendar.example.com"
       },
       "participationStatus": "accepted",
       "roles": {
         "attendee": true
       }
     },
-    "em9lQGZvb2Jhci5leGFtcGxlLmNvbQ": {
+    "em9lQGZvb2GFtcGxlLmNvbQ": {
+      "@type": "Participant",
       "name": "Zoe Zelda",
       "email": "zoe@foobar.example.com",
       "sendTo": {
@@ -1597,16 +1677,15 @@
     "...": ""
   },
   "recurrenceOverrides": {
-   "2018-03-08T09:00:00": {
-  "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationStatus":
-                                                           "declined",
-  "participants/dG9tQGZvb2Jhci5leGFtcGxlLmNvbQ/participationComment":
-                      "Sorry, kid's recital this week, can't make it."
+    "2018-03-08T09:00:00": {
+      "participants/dG9tQGZvb2Jhci5xlLmNvbQ/participationStatus":
+                                                          "declined"
     }
   }
-}]]></artwork>
-        </figure>
-      </section>
+}
+          ]]></artwork>
+    </figure>
+</section>
       <!-- EXAMPLES END -->
     </section>
 
