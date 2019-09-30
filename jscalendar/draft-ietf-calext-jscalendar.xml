@@ -111,15 +111,15 @@
       <section anchor="data-types" title="Data Types">
         <t>In addition to the standard JSON data types, the following data types are used in this specification:</t>
 
-        <section anchor="int" title="Int">
+        <section anchor="type-Int" title="Int">
           <t>Where <spanx style="verb">Int</spanx> is given as a data type, it means an integer in the range -2^53+1 &lt;= value &lt;= 2^53-1, the safe range for integers stored in a floating-point double, represented as a JSON <spanx style="verb">Number</spanx>.</t>
         </section>
 
-        <section anchor="unsignedint" title="UnsignedInt">
+        <section anchor="type-UnsignedInt" title="UnsignedInt">
           <t>Where <spanx style="verb">UnsignedInt</spanx> is given as a data type, it means an <spanx style="verb">Int</spanx> where the value MUST be in the range 0 &lt;= value &lt;= 2^53-1.</t>
         </section>
 
-        <section anchor="utcdate-type" title="UTCDateTime">
+        <section anchor="type-UTCDateTime" title="UTCDateTime">
           <t>This is a string in <xref target="RFC3339" /> <spanx style="verb">date-time</spanx> format, with the further restrictions that any letters MUST be in uppercase, the time component MUST be included and the time offset MUST be the character <spanx style="verb">Z</spanx>. Fractional second values MUST NOT be included unless non-zero and MUST NOT have trailing zeros, to ensure there is only a single representation for each date-time. </t>
 
           <t>For example <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is OK, but <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and MUST be encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>.</t>
@@ -127,11 +127,11 @@
           <t>In common notation, it should be of the form <spanx style="verb">YYYY-MM-DDTHH:MM:SSZ</spanx>.</t>
         </section>
 
-        <section anchor="localdate-type" title="LocalDateTime">
+        <section anchor="type-LocalDateTime" title="LocalDateTime">
           <t>This is a date-time string with no time zone/offset information. It is otherwise in the same format as UTCDateTime, including fractional seconds. For example <spanx style="verb">2006-01-02T15:04:05</spanx> and <spanx style="verb">2006-01-02T15:04:05.003</spanx> are both valid. The time zone to associate the LocalDateTime with comes from an associated property, or if no time zone is associated it defines <spanx style="strong">floating time</spanx>. Floating date-times are not tied to any specific time zone. Instead, they occur in every time zone at the same wall-clock time (as opposed to the same instant point in time).</t>
         </section>
 
-        <section anchor="duration-type" title="Duration">
+        <section anchor="type-Duration" title="Duration">
           <t>Where Duration is given as a type, it means a length of time represented by a subset of ISO8601 duration format, as specified by the following ABNF:</t>
 
           <figure>
@@ -149,7 +149,7 @@
           <t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.</t>
         </section>
 
-        <section anchor="signed-duration-type" title="SignedDuration">
+        <section anchor="type-SignedDuration" title="SignedDuration">
           <t>A SignedDuration represents a length of time that may be positive or negative and is typically used to express the offset of a point in time relative to an associated time. It is represented as a Duration, optionally preceded by a sign character. It is specified by the following ABNF:</t>
 
           <figure>
@@ -159,13 +159,13 @@
           <t>A negative sign indicates a point in time at or before the associated time, a positive or no sign a time at or after the associated time.</t>
         </section>
 
-        <section anchor="the-id-data-type" title="Id">
+        <section anchor="type-Id" title="Id">
           <t>Where <spanx style="verb">Id</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> of at least 1 and a maximum of 255 octets in size, and it MUST only contain characters from the "URL and Filename Safe" base64 alphabet, as defined in Section 5 of <xref target="RFC4648" />, excluding the pad character (<spanx style="verb">=</spanx>). This means the allowed characters are the ASCII alphanumeric characters (<spanx style="verb">A-Za-z0-9</spanx>), hyphen (<spanx style="verb">-</spanx>), and underscore (<spanx style="verb">_</spanx>).</t>
 
           <t>Unless otherwise specified, Ids are arbitrary and only have meaning within the object where they are being used. Ids need not be unique between different objects. For example, two JSEvent objects MAY use the same ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. This does not imply any semantic connection between the two. <vspace blankLines="1" /> Nevertheless, a UUID is typically a good choice.</t>
         </section>
 
-        <section anchor="patchobject-type" title="PatchObject">
+        <section anchor="type-PatchObject" title="PatchObject">
           <t>A PatchObject is of type <spanx style="verb">String[*]</spanx>, and represents an unordered set of patches on a JSON object. The keys are a path in a subset of <xref target="RFC6901" /> JSON pointer format, with an implicit leading <spanx style="verb">/</spanx> (i.e. prefix each key with <spanx style="verb">/</spanx> before applying the JSON pointer evaluation algorithm).</t>
 
           <t>A patch within a PatchObject is only valid if all of the following conditions apply:</t>
@@ -189,9 +189,9 @@
         <section anchor="timezones" title="Time Zones">
           <t>By default, time zones in JSCalendar are identified by their name in the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref>, and the zone rules of the respective zone record apply.</t>
 
-          <t>Implementations MAY embed the definition of custom time zones in the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones-prop" />).</t>
+          <t>Implementations MAY embed the definition of custom time zones in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
          </section>
-         <section anchor="relation" title="Relation">
+         <section anchor="type-Relation" title="Relation">
              <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, the other object is the linked object. The Relation object has the following property:</t>
              <t><list style="symbols">
                      <t>@type: <spanx style="verb">String</spanx> (mandatory)
@@ -224,7 +224,7 @@
 
         <t>A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment, reminder or anniversary. Multiple participants may partake in the event at multiple locations.</t>
 
-        <t>The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.</t>
       </section>
 
       <section anchor="jstask" title="JSTask">
@@ -232,7 +232,7 @@
 
         <t>A JSTask represents an action-item, assignment, to-do or work item.</t>
 
-        <t>The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.</t>
 
         <t>A JSTask may start and be due at certain points in time, may take some estimated time to complete and may recur; none of which is required. This notably differs from <xref target="jsevent">JSEvent</xref> which is required to start at a certain point in time and typically takes some non-zero duration to complete.</t>
       </section>
@@ -242,7 +242,7 @@
 
         <t>A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and/or <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic (e.g. by keywords) or calendar membership.</t>
 
-        <t>The <xref target="type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.</t>
       </section>
     </section>
 
@@ -279,7 +279,7 @@
       <t>This section describes the properties that are common to the various JSCalendar object types. Specific JSCalendar object types may only support a subset of these properties. The object type definitions in <xref target="jscalendar-object-props" /> describe the set of supported properties per type.</t>
 
       <section anchor="metadata-properties" title="Metadata Properties">
-        <section anchor="type" title="@type">
+        <section anchor="prop-type" title="@type">
           <t>Type: <spanx style="verb">String</spanx> (mandatory).</t>
           <t>Specifies the type which this object represents. This MUST be one of the following values, registered in a future RFC, or a vendor-specific value:
             <list style="symbols">
@@ -290,13 +290,13 @@
           </t>
         </section>
 
-        <section anchor="uid" title="uid">
+        <section anchor="prop-uid" title="uid">
           <t>Type: <spanx style="verb">String</spanx> (mandatory).</t>
           <t>A globally unique identifier, used to associate the object as the same across different systems, calendars and views. The value of this property MUST be unique across all JSCalendar objects, even if they are of different type. <xref target="RFC4122" /> describes a range of established algorithms to generate universally unique identifiers (UUID), and the random or pseudo-random version is recommended.</t>
 
           <t>For compatibility with <xref target="RFC5545" /> UIDs, implementations MUST be able to receive and persist values of at least 255 octets for this property, but they MUST NOT truncate values in the middle of a UTF-8 multi-octet sequence.</t>
         </section>
-        <section anchor="relatedTo" title="relatedTo">
+        <section anchor="prop-relatedTo" title="relatedTo">
           <t>Type: <spanx style="verb">String[Relation]</spanx> (optional).</t>
 
           <t>Relates the object to other JSCalendar objects. This is represented as a map of the UIDs of the related objects to information about the relation.</t>
@@ -304,7 +304,7 @@
           <t>If an object is split to make a "this and future" change to a recurrence, the original object MUST be truncated to end at the previous occurrence before this split, and a new object created to represent all the occurrences after the split. A <spanx style="verb">next</spanx> relation MUST be set on the original object's relatedTo property for the UID of the new object. A <spanx style="verb">first</spanx> relation for the UID of the first object in the series MUST be set on the new object. Clients can then follow these UIDs to get the complete set of objects if the user wishes to modify them all at once.</t>
         </section>
 
-        <section anchor="prodId" title="prodId">
+        <section anchor="prop-prodId" title="prodId">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The identifier for the product that created the JSCalendar object.</t>
@@ -314,27 +314,27 @@
           <t>This property SHOULD NOT be used to alter the interpretation of a JSCalendar object beyond the semantics specified in this document. For example, it is not to be used to further the understanding of non-standard properties.</t>
         </section>
 
-        <section anchor="created" title="created">
+        <section anchor="prop-created" title="created">
           <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
 
           <t>The date and time this object was initially created.</t>
         </section>
 
-        <section anchor="updated" title="updated">
+        <section anchor="prop-updated" title="updated">
           <t>Type: <spanx style="verb">UTCDateTime</spanx> (mandatory).</t>
 
           <t>The date and time the data in this object was last modified.</t>
         </section>
 
-        <section anchor="sequence" title="sequence">
+        <section anchor="prop-sequence" title="sequence">
           <t>Type: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0).</t>
 
-          <t>Initially zero, this MUST be incremented by one every time a change is made to the object, except if the change only modifies the <spanx style="verb">participants</spanx> property (see <xref target="participants" />).</t>
+          <t>Initially zero, this MUST be incremented by one every time a change is made to the object, except if the change only modifies the <spanx style="verb">participants</spanx> property (see <xref target="prop-participants" />).</t>
 
           <t>This is used as part of iTIP <xref target="RFC5546" /> to know which version of the object a scheduling message relates to.</t>
         </section>
 
-        <section anchor="method" title="method">
+        <section anchor="prop-method" title="method">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The iTIP <xref target="RFC5546" /> method, in lowercase. This MUST only be present if the JSCalendar object represents an iTIP scheduling message.</t>
@@ -342,25 +342,25 @@
       </section>
 
       <section anchor="whatwhere-properties" title="What and Where Properties">
-        <section anchor="title-prop" title="title">
+        <section anchor="prop-title" title="title">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: empty String).</t>
 
           <t>A short summary of the object.</t>
         </section>
 
-        <section anchor="description" title="description">
+        <section anchor="prop-description" title="description">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: empty String).</t>
 
           <t>A longer-form text description of the object. The content is formatted according to the <spanx style="verb">descriptionContentType</spanx> property.</t>
         </section>
 
-        <section anchor="descriptionContentType" title="descriptionContentType">
+        <section anchor="prop-descriptionContentType" title="descriptionContentType">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">text/plain</spanx>).</t>
 
           <t>Describes the media type <xref target="RFC6838" /> of the contents of the <spanx style="verb">description</spanx> property. Media types MUST be sub-types of type <spanx style="verb">text</spanx>, and SHOULD be <spanx style="verb">text/plain</spanx> or <spanx style="verb">text/html</spanx> <xref target="MIME" />. They MAY define parameters and the <spanx style="verb">charset</spanx> parameter value MUST be <spanx style="verb">utf-8</spanx>, if specified. Descriptions of type <spanx style="verb">text/html</spanx> MAY contain <spanx style="verb">cid</spanx> URLs <xref target="RFC2392" /> to reference links in the calendar object by use of the <spanx style="verb">cid</spanx> property of the Link object.</t>
         </section>
 
-        <section anchor="showWithoutTime" title="showWithoutTime">
+        <section anchor="prop-showWithoutTime" title="showWithoutTime">
           <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
           <t>Indicates the time is not important to display to the user when rendering this calendar object, for example an event that conceptually occurs all day or across multiple days, such as "New Year's Day" or "Italy Vacation". While the time component is important for free-busy calculations and checking for scheduling clashes, calendars may choose to omit displaying it and/or display the object separately to other objects to enhance the user's view of their schedule.</t>
@@ -368,7 +368,7 @@
           <t>Such events are also commonly known as "all-day" events.</t>
         </section>
 
-        <section anchor="locations" title="locations">
+        <section anchor="prop-locations" title="locations">
           <t>Type: <spanx style="verb">Id[Location]</spanx> (optional).</t>
 
           <t>A map of location ids to Location objects, representing locations associated with the object.</t>
@@ -414,7 +414,7 @@
           </list></t>
         </section>
 
-        <section anchor="virtualLocations" title="virtualLocations">
+        <section anchor="prop-virtualLocations" title="virtualLocations">
           <t>Type: <spanx style="verb">Id[VirtualLocation]</spanx> (optional).</t>
 
           <t>A map of ids to VirtualLocation objects, representing virtual locations, such as video conferences or chat rooms, associated with the object.</t>
@@ -440,7 +440,7 @@
           </list></t>
         </section>
 
-        <section anchor="links" title="links">
+        <section anchor="prop-links" title="links">
           <t>Type: <spanx style="verb">Id[Link]</spanx> (optional).</t>
 
           <t>A map of link ids to Link objects, representing external resources associated with the object.</t>
@@ -499,19 +499,19 @@
           </list></t>
         </section>
 
-        <section anchor="locale" title="locale">
+        <section anchor="prop-locale" title="locale">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The language tag as defined in <xref target="RFC5646" /> that best describes the locale used for the text in the calendar object, if known.</t>
         </section>
 
-        <section anchor="keywords" title="keywords">
+        <section anchor="prop-keywords" title="keywords">
           <t>Type: <spanx style="verb">String[Boolean]</spanx> (optional).</t>
 
           <t>A set of keywords or tags that relate to the object. The set is represented as a map, with the keys being the keywords. The value for each key in the map MUST be true.</t>
         </section>
 
-        <section anchor="categories" title="categories">
+        <section anchor="prop-categories" title="categories">
           <t>Type: <spanx style="verb">String[Boolean]</spanx> (optional).</t>
 
           <t>A set of categories that relate to the calendar object. The set is represented as a map, with the keys being the categories specified as URIs. The value for each key in the map MUST be true.</t>
@@ -519,7 +519,7 @@
           <t>In contrast to keywords, categories typically are structured. For example, a vendor owning the domain <spanx style="verb">example.com</spanx> might define the categories <spanx style="verb">http://example.com/categories/sports/american-football"</spanx> and <spanx style="verb">http://example.com/categories/music/r-b</spanx>.</t>
         </section>
 
-        <section anchor="color" title="color">
+        <section anchor="prop-color" title="color">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>A color clients MAY use when displaying this calendar object. The value is a case-insensitive color name taken from the CSS3 set of names, defined in Section 4.3 of <eref target="https://www.w3.org/TR/2011/REC-css3-color-20110607/#svg-color">W3C.REC-css3-color-20110607</eref> or a CSS3 RGB color hex value.</t>
@@ -529,7 +529,7 @@
       <section anchor="recurrence-props" title="Recurrence Properties">
         <t>Some events and tasks occur at regular, or indeed irregular, intervals. Rather than having to copy the data for every occurrence, you can instead have a master event with a recurrence rule generating the occurrences, and/or overrides that add extra dates or exceptions to the rule.</t>
 
-        <section anchor="recurrenceId" title="recurrenceId">
+        <section anchor="prop-recurrenceId" title="recurrenceId">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
 
           <t>If present, this JSCalendar object represents one occurrence of a recurring JSCalendar object. If present the <spanx style="verb">recurrenceRule</spanx> and <spanx style="verb">recurrenceOverrides</spanx> properties MUST NOT be present.</t>
@@ -537,7 +537,7 @@
           <t>The value is a date-time either produced by the <spanx style="verb">recurrenceRule</spanx> of the master event, or added as a key to the <spanx style="verb">recurrenceOverrides</spanx> property of the master event.</t>
         </section>
 
-        <section anchor="recurrenceRule" title="recurrenceRule">
+        <section anchor="prop-recurrenceRule" title="recurrenceRule">
           <t>Type: <spanx style="verb">Recurrence</spanx> (optional).</t>
 
           <t>Defines a recurrence rule (repeating pattern) for recurring calendar objects.</t>
@@ -784,7 +784,7 @@
           </section>
         </section>
 
-        <section anchor="recurrenceOverrides" title="recurrenceOverrides">
+        <section anchor="prop-recurrenceOverrides" title="recurrenceOverrides">
           <t>Type: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional).</t>
 
           <t>A map of the recurrence ids (the date-time produced by the recurrence rule) to an object of patches to apply to the generated occurrence object.</t>
@@ -810,22 +810,22 @@
           </list></t>
         </section>
 
-        <section anchor="excluded" title="excluded">
+        <section anchor="prop-excluded" title="excluded">
           <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
-          <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property or its default value false indicates that this instance MUST be included in the occurrence expansion.</t>
+          <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property or its default value false indicates that this instance MUST be included in the occurrence expansion.</t>
         </section>
       </section>
 
       <section anchor="sharing-scheduling-properties" title="Sharing and Scheduling Properties">
-        <section anchor="priority" title="priority">
+        <section anchor="prop-priority" title="priority">
           <t>Type: <spanx style="verb">Int</spanx> (optional, default: 0).</t>
 
           <t>Specifies a priority for the calendar object. This may be used as part of scheduling systems to help resolve conflicts for a time period.</t>
           <t>The priority is specified as an integer in the range 0 to 9. A value of 0 specifies an undefined priority. A value of 1 is the highest priority. A value of 2 is the second highest priority. Subsequent numbers specify a decreasing ordinal priority. A value of 9 is the lowest priority. Other integer values are reserved for future use.</t>
         </section>
 
-        <section anchor="freeBusyStatus" title="freeBusyStatus">
+        <section anchor="prop-freeBusyStatus" title="freeBusyStatus">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">busy</spanx>).</t>
           <t>Specifies how this property should be treated when calculating free-busy state. The value MUST be one of:
 
@@ -836,7 +836,7 @@
           </list></t>
         </section>
 
-        <section anchor="privacy" title="privacy">
+        <section anchor="prop-privacy" title="privacy">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">public</spanx>).</t>
 
           <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared, or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property are up to the API via which this object is accessed.</t>
@@ -872,7 +872,7 @@
           </list></t>
         </section>
 
-        <section anchor="replyTo" title="replyTo">
+        <section anchor="prop-replyTo" title="replyTo">
           <t>Type: <spanx style="verb">String[String]</spanx> (optional).</t>
 
           <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to use that method. Future methods may be defined in future specifications; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than an empty object). If this property is set, the <spanx style="verb">participants</spanx> property of this calendar object MUST contain at least one participant.</t>
@@ -888,7 +888,7 @@
             </list></t>
         </section>
 
-        <section anchor="participants" title="participants">
+        <section anchor="prop-participants" title="participants">
           <t>Type: <spanx style="verb">Id[Participant]</spanx> (optional).</t>
 
           <t>A map of participant ids to participants, describing their participation in the calendar object.</t>
@@ -1039,7 +1039,7 @@
           <t>If true, use the user's default alerts and ignore the value of the <spanx style="verb">alerts</spanx> property. Fetching user defaults is dependent on the API from which this JSCalendar object is being fetched, and is not defined in this specification. If an implementation cannot determine the user's default alerts, or none are set, it MUST process the alerts property as if <spanx style="verb">useDefaultAlerts</spanx> is set to false.</t>
         </section>
 
-        <section anchor="alerts" title="alerts">
+        <section anchor="prop-alerts" title="alerts">
           <t>Type: <spanx style="verb">Id[Alert]</spanx> (optional).</t>
 
           <t>A map of alert ids to Alert objects, representing alerts/reminders to display or send to the user for this calendar object.</t>
@@ -1116,12 +1116,12 @@
       </section>
 
       <section anchor="localized-props" title="Multilingual Properties">
-        <section anchor="localizations" title="localizations">
+        <section anchor="prop-localizations" title="localizations">
           <t>Type: <spanx style="verb">String[PatchObject]</spanx> (optional).</t>
 
           <t>A map of <xref target="RFC5646" /> language tags to patch objects, which localize the calendar object into the locale of the respective language tag.</t>
 
-          <t>See the description of <xref target="patchobject-type">PatchObject</xref> for the structure of the PatchObject. The patches are applied to the top-level calendar object. In addition, the <spanx style="verb">locale</spanx> property of the patched object is set to the language tag. All pointers for patches MUST end with one of the following suffixes; any patch that does not follow this MUST be ignored unless otherwise specified in a future RFC:
+          <t>See the description of <xref target="type-PatchObject">PatchObject</xref> for the structure of the PatchObject. The patches are applied to the top-level calendar object. In addition, the <spanx style="verb">locale</spanx> property of the patched object is set to the language tag. All pointers for patches MUST end with one of the following suffixes; any patch that does not follow this MUST be ignored unless otherwise specified in a future RFC:
 
           <list style="symbols">
             <t>title</t>
@@ -1136,13 +1136,13 @@
       </section>
 
       <section anchor="timezone-props" title="Time Zone Properties">
-        <section anchor="timeZone" title="timeZone">
+        <section anchor="prop-timeZone" title="timeZone">
           <t>Type: <spanx style="verb">String|null</spanx> (optional, default: null).</t>
 
           <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
         </section>
 
-        <section anchor="timezones-prop" title="timeZones">
+        <section anchor="prop-timeZones" title="timeZones">
           <t>Type: <spanx style="verb">String[TimeZone]</spanx> (optional).</t>
 
           <t>Maps identifiers of custom time zones to their time zone definition. The following restrictions apply for each key in the map:
@@ -1214,7 +1214,7 @@
 
             <t>recurrenceRule: <spanx style="verb">RecurrenceRule</spanx> (optional)
             <vspace blankLines="1" />
-            The RRULE property mapped as specified in <xref target="recurrenceRule" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
+            The RRULE property mapped as specified in <xref target="prop-recurrenceRule" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
 
             <t>recurrenceDates: <spanx style="verb">LocalDateTime[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
@@ -1234,23 +1234,23 @@
       <section anchor="jsevent-props" title="JSEvent Properties">
         <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a JSEvent has the following properties:</t>
 
-        <section anchor="start" title="start">
+        <section anchor="prop-start-jsevent" title="start">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (mandatory).</t>
 
-          <t>The date/time the event starts in the event's time zone (as specified in the <spanx style="verb">timeZone</spanx> property, see <xref target="timeZone" />).</t>
+          <t>The date/time the event starts in the event's time zone (as specified in the <spanx style="verb">timeZone</spanx> property, see <xref target="prop-timeZone" />).</t>
         </section>
 
-        <section anchor="duration" title="duration">
+        <section anchor="prop-duration" title="duration">
           <t>Type: <spanx style="verb">Duration</spanx> (optional, default: <spanx style="verb">PT0S</spanx>).</t>
 
           <t>The zero or positive duration of the event in the event's start time zone.</t>
 
           <t>Note that a duration specified using weeks or days does not always correspond to an exact multiple of 24 hours. The number of hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time. Leap seconds MUST NOT be considered when computing an exact duration. When computing an exact duration, the greatest order time components MUST be added first, that is, the number of days MUST be added first, followed by the number of hours, number of minutes, and number of seconds. Fractional seconds MUST be added last. These semantics match the iCalendar DURATION value type (<xref target="RFC5545" />, Section 3.3.6).</t>
 
-          <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="locations" />).</t>
+          <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="prop-locations" />).</t>
         </section>
 
-        <section anchor="sharing-scheduling-status-jsevent" title="status">
+        <section anchor="prop-status-jsevent" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">confirmed</spanx>).</t>
 
           <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of:
@@ -1266,34 +1266,34 @@
       <section anchor="jstask-props" title="JSTask Properties">
         <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a JSTask has the following properties:</t>
 
-        <section anchor="due-task" title="due">
+        <section anchor="prop-due" title="due">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
 
           <t>The date/time the task is due in the task's time zone.</t>
         </section>
 
-        <section anchor="start-task" title="start">
+        <section anchor="prop-start-jstask" title="start">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
 
           <t>The date/time the task should start in the task's time zone.</t>
         </section>
 
-        <section anchor="estimatedDuration" title="estimatedDuration">
+        <section anchor="prop-estimatedDuration" title="estimatedDuration">
           <t>Type: <spanx style="verb">Duration</spanx> (optional).</t>
 
           <t>Specifies the estimated positive duration of time the task takes to complete.</t>
         </section>
 
-        <section anchor="statusUpdatedAt" title="statusUpdatedAt">
+        <section anchor="prop-statusUpdatedAt" title="statusUpdatedAt">
           <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
 
-          <t>Specifies the date/time the <spanx style="verb">status</spanx> property of either the task overall (<xref target="status-jstask" />) or a specific participant (<xref target="progress-participant-task" />) was last updated.</t>
+          <t>Specifies the date/time the <spanx style="verb">status</spanx> property of either the task overall (<xref target="prop-status-jstask" />) or a specific participant (<xref target="prop-progress" />) was last updated.</t>
 
-          <t>If the task is recurring and has future instances, a client may want to keep track of the last status update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the statusUpdatedAt property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance status update time and a future recurring instance. See also <xref target="relatedTo" /> on splitting.</t>
+          <t>If the task is recurring and has future instances, a client may want to keep track of the last status update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the statusUpdatedAt property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance status update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
         </section>
 
-        <section anchor="progress-participant-task" title="progress">
-          <t>In addition to the common properties of a Participant object (<xref target="participants" />), a Participant within a JSTask supports the following property:
+        <section anchor="prop-progress" title="progress">
+          <t>In addition to the common properties of a Participant object (<xref target="prop-participants" />), a Participant within a JSTask supports the following property:
 
           <list style="symbols">
             <t>progress: ParticipantProgress (optional). The progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any other value but <spanx style="verb">accepted</spanx>.</t>
@@ -1324,7 +1324,8 @@
             Represents the last time the participant progress was updated.</t>
           </list></t>
         </section>
-        <section anchor="status-jstask" title="status">
+
+        <section anchor="prop-status-jstask" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>Defines the overall status of this task. If omitted, the default status (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
@@ -1354,26 +1355,28 @@
         <t>JSGroup supports the following common <xref target="jscalendar-props">JSCalendar properties</xref>:
         <list style="symbols">
           <t>@type</t>
-          <t>uid</t>
-          <t>created</t>
-          <t>updated</t>
           <t>categories</t>
-          <t>keywords</t>
-          <t>title</t>
-          <t>description</t>
           <t>color</t>
+          <t>created</t>
+          <t>description</t>
+          <t>descriptionContentType</t>
+          <t>keywords</t>
           <t>links</t>
+          <t>prodId</t>
+          <t>title</t>
+          <t>updated</t>
+          <t>uid</t>
         </list>
 
         In addition, the following JSGroup-specific properties are supported:</t>
 
-        <section title="entries">
+        <section anchor="prop-entries" title="entries">
           <t>Type: <spanx style="verb">String[JSTask|JSEvent]</spanx> (mandatory).</t>
 
           <t>A collection of group members. This is represented as a map of the <spanx style="verb">uid</spanx> property value to the JSCalendar object member having that uid. Implementations MUST ignore entries of unknown type.</t>
         </section>
 
-        <section title="source">
+        <section anchor="prop-source" title="source">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
           <t>The source from which updated versions of this group may be retrieved from. The value MUST be a URI.</t>
@@ -1714,50 +1717,561 @@
     </section>
 
     <section anchor="iana-considerations" title="IANA Considerations">
-      <t>This document defines a MIME media type for use with JSCalendar data formatted in JSON.</t>
+        <section anchor="iana-mime-type" title="Media Type Registration">
+            <t>This document defines a MIME media type for use with JSCalendar data formatted in JSON.</t>
 
-      <t><list style="hanging">
-        <t hangText="Type name:">application</t>
+            <t><list style="hanging">
+                    <t hangText="Type name:">application</t>
+                    <t hangText="Subtype name:">jscalendar+json</t>
+                    <t hangText="Required parameters:">type
+                        <vspace blankLines="1" />
+                        The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part, with the value being one of <spanx style="verb">jsevent</spanx>, <spanx style="verb">jstask</spanx>, or <spanx style="verb">jsgroup</spanx>. The parameter MUST NOT occur more than once. It MUST match the value of the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body.</t>
+                    <t hangText="Optional parameters:">none</t>
+                    <t hangText="Encoding considerations:">
+                        Same as encoding considerations of application/json as specified in <xref target="RFC8259">RFC8529, Section 11</xref>.</t>
+                    <t hangText="Security considerations:"> See <xref target="security-considerations" /> of this document.</t>
+                    <t hangText="Interoperability considerations:">This media type provides an alternative to iCalendar, jCal and proprietary JSON-based calendaring data formats.</t>
+                    <t hangText="Published specification:">This specification.</t>
+                    <t hangText="Applications that use this media type:">Applications that currently make use of the text/calendar and application/calendar+json media types can use this as an alternative. Similarly, applications that use the application/json media type to transfer calendaring data can use this to further specify the content.</t>
+                    <t hangText="Fragment identifier considerations:">N/A</t>
+                    <t hangText="Additional information:">
+                        <list style="hanging">
+                            <t hangText="Magic number(s):">N/A</t>
+                            <t hangText="File extensions(s):">N/A</t>
+                            <t hangText="Macintosh file type code(s):">N/A</t>
+                        </list>
+                    </t>
+                    <t hangText="Person &amp; email address to contact for further information:">calext@ietf.org</t>
+                    <t hangText="Intended usage:">COMMON</t>
+                    <t hangText="Restrictions on usage:">N/A</t>
+                    <t hangText="Author:">See the "Author's Address" section of this document.</t>
+                    <t hangText="Change controller:">IETF</t>
+            </list></t>
+        </section>
+        <section anchor="iana-registry" title="IANA Registry">
+            <section anchor="iana-property-registry-template" title="Registry Template for Properties">
+                <t>
+                    A JSCalendar property is registered by completing the following template.
+                    <list style="symbols">
+                        <t>Property Name: The name of the property. The property name MUST NOT already be
+                            registered for any of the objects listed in Context. Objects not listed in Context
+                            MAY already have registered a different property with the same name.</t>
+                        <t>Property Context: A comma-separated list of JSCalendar objects this property is allowed on.</t>
+                        <t>Property Type: The type of this property, using type signatures as
+                            specified in <xref target="type-signatures"/>.  The property type MUST be registed in the Type Registry.</t>
+                        <t>RFC Reference: The RFC and section where the property is specified.</t>
+                    </list>
+                </t>
+            </section>
+            <section anchor="iana-type-registry-template" title="Registry Template for Types">
+                <t>
+                    A JSCalendar type is registered by completing the following template.
+                    <list style="symbols">
+                        <t>Type name: The name of the type.</t>
+                        <t>RFC Reference: The RFC and section where the type is specified.</t>
+                    </list>
+                </t>
+            </section>
+            <section anchor="iana-enum-registry-template" title="Registry Template for Enums">
+                <t>
+                    A JSCalendar enum type is registered as a sub-registry. Each value of the enum is registered by completing the following template:
+                    <list style="symbols">
+                        <t>Enum Value: The verbatim value of the enum</t>
+                        <t>RFC Reference: The RFC and section where the enum value is specified.</t>
+                    </list>
+                </t>
+            </section>
+            <section anchor="iana-property-registry" title="Property Registry">
+                <t>
+                    The following table lists the initial entries of the JSCalendar Property registry.
+                </t>
+                <texttable anchor="table-iana-property-registry">
+                    <ttcol align='left'>Property Name</ttcol>
+                    <ttcol align='left'>Property Type</ttcol>
+                    <ttcol align='left'>Property Context</ttcol>
+                    <ttcol align='left'>RFC Reference</ttcol>
 
-        <t hangText="Subtype name:">jscalendar+json</t>
+                    <c>@type</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask, JSGroup, Alert, Link, Location, Participant, ParticipantProgress, Recurrence, Relation, TimeZone, VirtualLocation</c>
+                    <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
-        <t hangText="Required parameters:">type
-          <vspace blankLines="1" />
-          The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part, with the value being one of <spanx style="verb">jsevent</spanx>, <spanx style="verb">jstask</spanx>, or <spanx style="verb">jsgroup</spanx>. The parameter MUST NOT occur more than once. It MUST match the value of the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body.</t>
+                    <c>alerts</c>
+                    <c>Id[Alert]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-alerts"/></c>
 
-        <t hangText="Optional parameters:">none</t>
+                    <c>categories</c>
+                    <c>String[Boolean]</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-categories"/></c>
 
-        <t hangText="Encoding considerations:">
-        Same as encoding considerations of application/json as specified in <xref target="RFC8259">RFC8529, Section 11</xref>.</t>
+                    <c>color</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-color"/></c>
 
-        <t hangText="Security considerations:"> See <xref target="security-considerations" /> of this document.</t>
+                    <c>created</c>
+                    <c>UTCDateTime</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-created"/></c>
 
-        <t hangText="Interoperability considerations:">This media type provides an alternative to iCalendar, jCal and proprietary JSON-based calendaring data formats.</t>
+                    <c>description</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-description"/></c>
 
-        <t hangText="Published specification:">This specification.</t>
+                    <c>descriptionContentType</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-descriptionContentType"/></c>
 
-        <t hangText="Applications that use this media type:">Applications that currently make use of the text/calendar and application/calendar+json media types can use this as an alternative. Similarly, applications that use the application/json media type to transfer calendaring data can use this to further specify the content.</t>
+                    <c>due</c>
+                    <c>LocalDateTime</c>
+                    <c>JSTask</c>
+                    <c><xref target="prop-due"/></c>
 
-        <t hangText="Fragment identifier considerations:">N/A</t>
+                    <c>duration</c>
+                    <c>Duration</c>
+                    <c>JSEvent</c>
+                    <c><xref target="prop-duration"/></c>
 
-        <t hangText="Additional information:">
-          <list style="hanging">
-            <t hangText="Magic number(s):">N/A</t>
-            <t hangText="File extensions(s):">N/A</t>
-            <t hangText="Macintosh file type code(s):">N/A</t>
-          </list>
-        </t>
+                    <c>entries</c>
+                    <c>String[JSTask|JSEvent]</c>
+                    <c>JSGroup</c>
+                    <c><xref target="prop-entries"/></c>
 
-        <t hangText="Person &amp; email address to contact for further information:">calext@ietf.org</t>
+                    <c>estimatedDuration</c>
+                    <c>Duration</c>
+                    <c>JSTask</c>
+                    <c><xref target="prop-estimatedDuration"/></c>
 
-        <t hangText="Intended usage:">COMMON</t>
+                    <c>excluded</c>
+                    <c>Boolean</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-excluded"/></c>
 
-        <t hangText="Restrictions on usage:">N/A</t>
+                    <c>freeBusyStatus</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-freeBusyStatus"/></c>
 
-        <t hangText="Author:">See the "Author's Address" section of this document.</t>
+                    <c>keywords</c>
+                    <c>String[Boolean]</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-keywords"/></c>
 
-        <t hangText="Change controller:">IETF</t>
-      </list></t>
+                    <c>localizations</c>
+                    <c>String[PatchObject]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-localizations"/></c>
+
+                    <c>locations</c>
+                    <c>Id[Location]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-locations"/></c>
+
+                    <c>method</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-method"/></c>
+
+                    <c>participants</c>
+                    <c>Id[Participant]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-participants"/></c>
+
+                    <c>priority</c>
+                    <c>Int</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-priority"/></c>
+
+                    <c>privacy</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-privacy"/></c>
+
+                    <c>prodId</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-prodId"/></c>
+
+                    <c>recurrenceId</c>
+                    <c>LocalDateTime</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-recurrenceId"/></c>
+
+                    <c>recurrenceOverrides</c>
+                    <c>LocalDateTime[PatchObject]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-recurrenceOverrides"/></c>
+
+                    <c>recurrenceRule</c>
+                    <c>Recurrence</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-recurrenceRule"/></c>
+
+                    <c>relatedTo</c>
+                    <c>String[Relation]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-relatedTo"/></c>
+
+                    <c>replyTo</c>
+                    <c>String[String]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-replyTo"/></c>
+
+                    <c>sequence</c>
+                    <c>UnsignedInt</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-sequence"/></c>
+
+                    <c>showWithoutTime</c>
+                    <c>Boolean</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-showWithoutTime"/></c>
+
+                    <c>start</c>
+                    <c>LocalDateTime</c>
+                    <c>JSEvent</c>
+                    <c><xref target="prop-start-jsevent"/></c>
+
+                    <c>start</c>
+                    <c>LocalDateTime</c>
+                    <c>JSTask</c>
+                    <c><xref target="prop-start-jstask"/></c>
+
+                    <c>statusUpdatedAt</c>
+                    <c>UTCDateTime</c>
+                    <c>JSTask</c>
+                    <c><xref target="prop-statusUpdatedAt"/></c>
+
+                    <c>source</c>
+                    <c>String</c>
+                    <c>JSGroup</c>
+                    <c><xref target="prop-source"/></c>
+
+                    <c>status</c>
+                    <c>String</c>
+                    <c>JSEvent</c>
+                    <c><xref target="prop-status-jsevent"/></c>
+
+                    <c>status</c>
+                    <c>String</c>
+                    <c>JSTask</c>
+                    <c><xref target="prop-status-jstask"/></c>
+
+                    <c>timeZone</c>
+                    <c>String|null</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-timeZone"/></c>
+
+                    <c>timeZones</c>
+                    <c>String[TimeZone]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-timeZones"/></c>
+
+                    <c>title</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-title"/></c>
+
+                    <c>uid</c>
+                    <c>String</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-uid"/></c>
+
+                    <c>updated</c>
+                    <c>UTCDateTime</c>
+                    <c>JSEvent, JSTask, JSGroup</c>
+                    <c><xref target="prop-updated"/></c>
+
+                    <c>useDefaultAlerts</c>
+                    <c>Boolean</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="useDefaultAlerts"/></c>
+
+                    <c>virtualLocations</c>
+                    <c>Id[VirtualLocation]</c>
+                    <c>JSEvent, JSTask</c>
+                    <c><xref target="prop-virtualLocations"/></c>
+                </texttable>
+            </section>
+            <section anchor="iana-type-registry" title="Type Registry">
+                <t>
+                    The following table lists the initial entries of the JSCalendar Type registry.
+                </t>
+                <texttable anchor="table-iana-type-registry">
+                    <ttcol align='left'>Type Name</ttcol>
+                    <ttcol align='left'>RFC Reference</ttcol>
+
+                    <c>Alert</c>
+                    <c><xref target="prop-alerts"/></c>
+
+                    <c>Duration</c>
+                    <c><xref target="type-Duration"/></c>
+
+                    <c>Id</c>
+                    <c><xref target="type-Id"/></c>
+
+                    <c>Int</c>
+                    <c><xref target="type-Int"/></c>
+
+                    <c>LocalDateTime</c>
+                    <c><xref target="type-LocalDateTime"/></c>
+
+                    <c>Link</c>
+                    <c><xref target="prop-links"/></c>
+
+                    <c>Location</c>
+                    <c><xref target="prop-locations"/></c>
+
+                    <c>Participant</c>
+                    <c><xref target="prop-participants"/></c>
+
+                    <c>ParticipantProgress</c>
+                    <c><xref target="prop-progress"/></c>
+
+                    <c>PatchObject</c>
+                    <c><xref target="type-PatchObject"/></c>
+
+                    <c>Recurrence</c>
+                    <c><xref target="prop-recurrenceRule"/></c>
+
+                    <c>Relation</c>
+                    <c><xref target="prop-relatedTo"/></c>
+
+                    <c>SignedDuration</c>
+                    <c><xref target="type-SignedDuration"/></c>
+
+                    <c>TimeZone</c>
+                    <c><xref target="prop-timeZones"/></c>
+
+                    <c>UnsignedInt</c>
+                    <c><xref target="type-UnsignedInt"/></c>
+
+                    <c>UTCDateTime</c>
+                    <c><xref target="type-UTCDateTime"/></c>
+
+                    <c>VirtualLocation</c>
+                    <c><xref target="prop-virtualLocations"/></c>
+                </texttable>
+            </section>
+            <section anchor="iana-enum-registry" title="Enum Registry">
+                <t>
+                    The following sections list the initial JSCalendar Enum sub-registries and their entries.
+                </t>
+
+                <section anchor="iana-enum-registry-alert-action" title="Alert action enum">
+                    <texttable anchor="table-iana-enum-alert-action">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>display</c>
+                        <c><xref target="prop-alerts"/></c>
+                        <c>email</c>
+                        <c><xref target="prop-alerts"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the action property of the Alert object type (<xref target="prop-alerts"/>).
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-display" title="Link Display enum">
+                    <texttable anchor="table-iana-enum-link-display">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>badge</c>
+                        <c><xref target="prop-links"/></c>
+                        <c>graphic</c>
+                        <c><xref target="prop-links"/></c>
+                        <c>fullsize</c>
+                        <c><xref target="prop-links"/></c>
+                        <c>thumbnail</c>
+                        <c><xref target="prop-links"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the display property (<xref target="prop-links"/>) of the Link object type.
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-freeBusyStatus" title="Free-busy Status enum">
+                    <texttable anchor="table-iana-enum-freeBusyStatus">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>free</c>
+                        <c><xref target="prop-freeBusyStatus"/></c>
+                        <c>busy</c>
+                        <c><xref target="prop-freeBusyStatus"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the freeBusyStatus property (<xref target="prop-freeBusyStatus"/>) of the JSEvent and JSTask object types.
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-jsevent-staus" title="JSEvent status enum">
+                    <texttable anchor="table-iana-enum-status-jsevent">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>confirmed</c>
+                        <c><xref target="prop-status-jsevent"/></c>
+                        <c>cancelled</c>
+                        <c><xref target="prop-status-jsevent"/></c>
+                        <c>tentative</c>
+                        <c><xref target="prop-status-jsevent"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the status property of the JSEvent object type (<xref target="prop-status-jsevent"/>).
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-jstask-staus" title="JSTask status enum">
+                    <texttable anchor="table-iana-enum-status-jstask">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>completed</c>
+                        <c><xref target="prop-status-jstask"/></c>
+                        <c>failed</c>
+                        <c><xref target="prop-status-jstask"/></c>
+                        <c>in-process</c>
+                        <c><xref target="prop-status-jstask"/></c>
+                        <c>cancelled</c>
+                        <c><xref target="prop-status-jstask"/></c>
+                        <c>pending</c>
+                        <c><xref target="prop-status-jstask"/></c>
+                        <c>failed</c>
+                        <c><xref target="prop-status-jstask"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the status property of the JSTask object type (<xref target="prop-status-jstask"/>).
+                    </t>
+                </section>
+
+
+                <section anchor="iana-enum-registry-participant-attendance" title="Participant Attendance enum">
+                    <texttable anchor="table-iana-enum-participant-attendance">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>none</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>optional</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>required</c>
+                        <c><xref target="prop-participants"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the attendance property of the Participant object type (<xref target="prop-participants"/>).
+                    </t>
+                </section>
+
+
+                <section anchor="iana-enum-registry-participant-kind" title="Participant Kind enum">
+                    <texttable anchor="table-iana-enum-participant-kind">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>individual</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>group</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>resource</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>location</c>
+                        <c><xref target="prop-participants"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the kind property of the Participant object type (<xref target="prop-participants"/>).
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-participantProgress-status" title="Participant Progress Status enum">
+                    <texttable anchor="table-iana-enum-participantProgress-status">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>completed</c>
+                        <c><xref target="prop-progress"/></c>
+                        <c>in-process</c>
+                        <c><xref target="prop-progress"/></c>
+                        <c>failed</c>
+                        <c><xref target="prop-progress"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the status property of the ParticipantProgress object type (<xref target="prop-progress"/>).
+                    </t>
+                </section>
+
+
+                <section anchor="iana-enum-registry-participant-role" title="Participant Role enum">
+                    <texttable anchor="table-iana-enum-participant-role">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>owner</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>attendee</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>chair</c>
+                        <c><xref target="prop-participants"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the roles property of the Participant object type (<xref target="prop-participants"/>).
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-participationStatus" title="Participation Status enum">
+                    <texttable anchor="table-iana-enum-participationStatus">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>needs-action</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>accepted</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>declined</c>
+                        <c><xref target="prop-participants"/></c>
+                        <c>tenative</c>
+                        <c><xref target="prop-participants"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the participationStatus property of the Participant object type (<xref target="prop-participants"/>).
+                    </t>
+                </section>
+
+
+
+                <section anchor="iana-enum-registry-privacy" title="Privacy enum">
+                    <texttable anchor="table-iana-enum-privacy">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>public</c>
+                        <c><xref target="prop-privacy"/></c>
+                        <c>private</c>
+                        <c><xref target="prop-privacy"/></c>
+                        <c>secret</c>
+                        <c><xref target="prop-privacy"/></c>
+                    </texttable>
+                    <t>
+                        Note: this enum is currently used by the privacy property (<xref target="prop-privacy"/>) of the JSEvent and JSTask object types.
+                    </t>
+                </section>
+
+                <section anchor="iana-enum-registry-relation" title="Relation enum">
+                    <texttable anchor="table-iana-enum-relation">
+                        <ttcol align='left'>Enum Value</ttcol>
+                        <ttcol align='left'>RFC Reference</ttcol>
+                        <c>first</c>
+                        <c><xref target="type-Relation"/></c>
+                        <c>next</c>
+                        <c><xref target="type-Relation"/></c>
+                        <c>child</c>
+                        <c><xref target="type-Relation"/></c>
+                        <c>parent</c>
+                        <c><xref target="type-Relation"/></c>
+                    </texttable>
+
+                    <t>
+                        Note: this enum is currently used by the relatedTo (<xref target="prop-relatedTo"/>) and alerts (<xref target="prop-alerts"/>) properties of the JSEvent and JSTask object types.
+                    </t>
+                </section>
+
+            </section>
+        </section>
     </section>
 
     <section anchor="acknowledgments" title="Acknowledgments">
