@@ -202,7 +202,7 @@
                          <vspace blankLines="1" />
                          Describes how the linked object is related to the linking object. The relation is defined as a set of relation types. If empty, the relationship between the two objects is unspecified.
                          <vspace blankLines="1" />
-                         Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or defined in a future specification or vendor-specific value:
+                         Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or an IANA-registered value, or a vendor-specific value:
                          <list style="symbols">
                              <t><spanx style="verb">first</spanx>: The linked object is the first in a series the linking object is part of.</t>
                              <t><spanx style="verb">next</spanx>: The linked object is the next in a series the linking object is part of.</t>
@@ -266,12 +266,12 @@
         Considering this, the definition of equivalence and normalization is left to client and server implementations and to be negotiated by a calendar exchange protocol or defined by another RFC.</t>
       </section>
 
-      <section anchor="custom-properties" title="Custom Property Extensions and Values">
+      <section anchor="custom-properties" title="Vendor-specific Property Extensions and Values">
         <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. <spanx style="verb">example.com/customprop</spanx>.</t>
 
-        <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/customrel</spanx>, unless otherwise noted.</t>
+        <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/customrel</spanx>.</t>
 
-        <t>Vendors are strongly encouraged to standardize any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
+        <t>Vendors are strongly encouraged to register any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
       </section>
     </section>
 
@@ -281,7 +281,7 @@
       <section anchor="metadata-properties" title="Metadata Properties">
         <section anchor="prop-type" title="@type">
           <t>Type: <spanx style="verb">String</spanx> (mandatory).</t>
-          <t>Specifies the type which this object represents. This MUST be one of the following values, registered in a future RFC, or a vendor-specific value:
+          <t>Specifies the type which this object represents. This MUST be one of the following values, an IANA-registered value, or a vendor-specific value:
             <list style="symbols">
               <t><spanx style="verb">jsevent</spanx>: a JSCalendar event (<xref target="jsevent" />).</t>
               <t><spanx style="verb">jstask</spanx>: a JSCalendar task (<xref target="jstask" />).</t>
@@ -392,7 +392,7 @@
             <vspace blankLines="1" />
             The relation type of this location to the JSCalendar object.
             <vspace blankLines="1" />
-            This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
+            This MUST be either one of the following values, an IANA-registered value, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
             <list style="symbols">
               <t><spanx style="verb">start</spanx>: The JSCalendar object starts at this location.</t>
               <t><spanx style="verb">end</spanx>: The JSCalendar object ends at this location.</t>
@@ -481,7 +481,7 @@
 
             <t>display: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value:
+            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be either one of the following values, an IANA-registered value, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">badge</spanx>: an image inline with the title of the object.</t>
@@ -827,7 +827,7 @@
 
         <section anchor="prop-freeBusyStatus" title="freeBusyStatus">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">busy</spanx>).</t>
-          <t>Specifies how this property should be treated when calculating free-busy state. The value MUST be one of:
+          <t>Specifies how this property should be treated when calculating free-busy state. This MUST be one of the following values, an IANA-registered value, or a vendor-specific value:
 
           <list style="symbols">
             <t><spanx style="verb">free</spanx>: The object should be ignored when calculating whether the user is busy.</t>
@@ -843,7 +843,7 @@
 
           <t>This property MUST NOT affect the information sent to scheduled participants; it is only interpreted when the object is shared as part of a shared calendar.</t>
 
-          <t>The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/topsecret</spanx>. Any value the client or server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">private</spanx>.
+          <t>The value MUST be either one of the following values, an IANA-registered value, or a vendor-specific value. Any value the client or server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">private</spanx>.
 
           <list style="symbols">
             <t><spanx style="verb">public</spanx>: The full details of the object are visible to those whom the object's calendar is shared with.</t>
@@ -875,7 +875,7 @@
         <section anchor="prop-replyTo" title="replyTo">
           <t>Type: <spanx style="verb">String[String]</spanx> (optional).</t>
 
-          <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to use that method. Future methods may be defined in future specifications; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than an empty object). If this property is set, the <spanx style="verb">participants</spanx> property of this calendar object MUST contain at least one participant.</t>
+          <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to use that method. Future methods may be defined in future specifications and registered with IANA; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than an empty object). If this property is set, the <spanx style="verb">participants</spanx> property of this calendar object MUST contain at least one participant.</t>
 
           <t>The following methods are defined:
 
@@ -913,7 +913,7 @@
             <vspace blankLines="1" />
             Represents methods by which the participant may receive the invitation and updates to the calendar object.
             <vspace blankLines="1" />
-            The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to use that method. Future methods may be defined in future specifications; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than an empty object).
+            The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI to use that method. Future methods may be defined in future specifications and registered with IANA; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than an empty object).
             <vspace blankLines="1" />
             The following methods are defined:
             <list style="symbols">
@@ -926,7 +926,7 @@
             <vspace blankLines="1" />
             What kind of entity this participant is, if known.
             <vspace blankLines="1" />
-            This MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
+            This MUST be either one of the following values, an IANA-registered value, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
 
             <list style="symbols">
               <t><spanx style="verb">individual</spanx>: a single person</t>
@@ -942,7 +942,7 @@
             <vspace blankLines="1" />
             A set of roles that this participant fulfills.
             <vspace blankLines="1" />
-            At least one role MUST be specified for the participant. The keys in the set MUST be either one of the following values, registered in a future RFC, or a vendor-specific value:
+            At least one role MUST be specified for the participant. The keys in the set MUST be either one of the following values, an IANA-registered value, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">owner</spanx>: The participant is an owner of the object. This signifies they have permission to make changes to it that affect the other participants. Non-owner participants may only change properties that just affect themself (for example setting their own alerts).</t>
@@ -963,7 +963,7 @@
             <vspace blankLines="1" />
             The participation status, if any, of this participant.
             <vspace blankLines="1" />
-            The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value:
+            The value MUST be either one of the following values, an IANA-registered value, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">needs-action</spanx>: No status yet set by the participant.</t>
@@ -983,7 +983,7 @@
             <vspace blankLines="1" />
             The required attendance of this participant.
             <vspace blankLines="1" />
-            The value MUST be either one of the following values, registered in a future RFC, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as <spanx style="verb">required</spanx>.
+            The value MUST be either one of the following values, an IANA-registered value, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as <spanx style="verb">required</spanx>.
 
             <list style="symbols">
               <t><spanx style="verb">none</spanx>: Indicates a participant who is copied for information purposes only.</t>
@@ -1104,7 +1104,7 @@
             <vspace blankLines="1" />
             Describes how to alert the user.
             <vspace blankLines="1" />
-            The value MUST  be at most one of the following values, registered in a future RFC, or a vendor-specific value:
+            The value MUST  be at most one of the following values, an IANA-registered value, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">display</spanx>: The alert should be displayed as appropriate for the current device and user context.</t>
@@ -1253,7 +1253,7 @@
         <section anchor="prop-status-jsevent" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">confirmed</spanx>).</t>
 
-          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of:
+          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of the following values, an IANA-registered value, or a vendor-specific value:
 
           <list style="symbols">
             <t><spanx style="verb">confirmed</spanx>: Indicates the event is definitely happening.</t>
@@ -1313,7 +1313,7 @@
             <vspace blankLines="1" />
             Describes the completion status of the participant's progress.
             <vspace blankLines="1" />
-            The value MUST be at most one of the following values, registered in a future RFC, or a vendor-specific value:
+            The value MUST be at most one of the following values, an IANA-registered value, or a vendor-specific value:
             <list style="symbols">
               <t><spanx style="verb">completed</spanx>: The participant completed this task.</t>
               <t><spanx style="verb">in-process</spanx>:  The participant has started this task.</t>
@@ -1338,7 +1338,7 @@
             <t><spanx style="verb">needs-action</spanx>: If none of the other criteria match.</t>
           </list></t>
 
-          <t>If set, it MUST be one of:
+          <t>If set, it MUST be one of the following values, an IANA-registered value, or a vendor-specific value:
 
           <list style="symbols">
             <t><spanx style="verb">needs-action</spanx>: Indicates the task needs action.</t>
