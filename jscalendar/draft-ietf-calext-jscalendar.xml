@@ -1717,563 +1717,627 @@
       </section>
     </section>
 
-    <section anchor="iana-considerations" title="IANA Considerations">
-        <section anchor="iana-mime-type" title="Media Type Registration">
-            <t>This document defines a MIME media type for use with JSCalendar data formatted in JSON.</t>
-
-            <t><list style="hanging">
-                    <t hangText="Type name:">application</t>
-                    <t hangText="Subtype name:">jscalendar+json</t>
-                    <t hangText="Required parameters:">type
-                        <vspace blankLines="1" />
-                        The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part, with the value being one of <spanx style="verb">jsevent</spanx>, <spanx style="verb">jstask</spanx>, or <spanx style="verb">jsgroup</spanx>. The parameter MUST NOT occur more than once. It MUST match the value of the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body.</t>
-                    <t hangText="Optional parameters:">none</t>
-                    <t hangText="Encoding considerations:">
-                        Same as encoding considerations of application/json as specified in <xref target="RFC8259">RFC8529, Section 11</xref>.</t>
-                    <t hangText="Security considerations:"> See <xref target="security-considerations" /> of this document.</t>
-                    <t hangText="Interoperability considerations:">This media type provides an alternative to iCalendar, jCal and proprietary JSON-based calendaring data formats.</t>
-                    <t hangText="Published specification:">This specification.</t>
-                    <t hangText="Applications that use this media type:">Applications that currently make use of the text/calendar and application/calendar+json media types can use this as an alternative. Similarly, applications that use the application/json media type to transfer calendaring data can use this to further specify the content.</t>
-                    <t hangText="Fragment identifier considerations:">N/A</t>
-                    <t hangText="Additional information:">
-                        <list style="hanging">
-                            <t hangText="Magic number(s):">N/A</t>
-                            <t hangText="File extensions(s):">N/A</t>
-                            <t hangText="Macintosh file type code(s):">N/A</t>
-                        </list>
-                    </t>
-                    <t hangText="Person &amp; email address to contact for further information:">calext@ietf.org</t>
-                    <t hangText="Intended usage:">COMMON</t>
-                    <t hangText="Restrictions on usage:">N/A</t>
-                    <t hangText="Author:">See the "Author's Address" section of this document.</t>
-                    <t hangText="Change controller:">IETF</t>
-            </list></t>
-        </section>
-        <section anchor="iana-registry" title="IANA Registry">
-            <section anchor="iana-property-registry-template" title="Registry Template for Properties">
-                <t>
-                    A JSCalendar property is registered by completing the following template.
-                    <list style="symbols">
-                        <t>Property Name: The name of the property. The property name MUST NOT already be
-                            registered for any of the objects listed in Context. Objects not listed in Context
-                            MAY already have registered a different property with the same name.</t>
-                        <t>Property Context: A comma-separated list of JSCalendar objects this property is allowed on.</t>
-                        <t>Property Type: The type of this property, using type signatures as
-                            specified in <xref target="type-signatures"/>.  The property type MUST be registed in the Type Registry.</t>
-                        <t>RFC Reference: The RFC and section where the property is specified.</t>
-                    </list>
-                </t>
-            </section>
-            <section anchor="iana-type-registry-template" title="Registry Template for Types">
-                <t>
-                    A JSCalendar type is registered by completing the following template.
-                    <list style="symbols">
-                        <t>Type name: The name of the type.</t>
-                        <t>RFC Reference: The RFC and section where the type is specified.</t>
-                    </list>
-                </t>
-            </section>
-            <section anchor="iana-enum-registry-template" title="Registry Template for Enums">
-                <t>
-                    A JSCalendar enum type is registered as a sub-registry. Each value of the enum is registered by completing the following template:
-                    <list style="symbols">
-                        <t>Enum Value: The verbatim value of the enum</t>
-                        <t>RFC Reference: The RFC and section where the enum value is specified.</t>
-                    </list>
-                </t>
-            </section>
-            <section anchor="iana-property-registry" title="Property Registry">
-                <t>
-                    The following table lists the initial entries of the JSCalendar Property registry.
-                </t>
-                <texttable anchor="table-iana-property-registry">
-                    <ttcol align='left'>Property Name</ttcol>
-                    <ttcol align='left'>Property Type</ttcol>
-                    <ttcol align='left'>Property Context</ttcol>
-                    <ttcol align='left'>RFC Reference</ttcol>
-
-                    <c>@type</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask, JSGroup, Alert, Link, Location, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
-                    <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
-
-                    <c>alerts</c>
-                    <c>Id[Alert]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-alerts"/></c>
-
-                    <c>categories</c>
-                    <c>String[Boolean]</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-categories"/></c>
-
-                    <c>color</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-color"/></c>
-
-                    <c>created</c>
-                    <c>UTCDateTime</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-created"/></c>
-
-                    <c>description</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-description"/></c>
-
-                    <c>descriptionContentType</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-descriptionContentType"/></c>
-
-                    <c>due</c>
-                    <c>LocalDateTime</c>
-                    <c>JSTask</c>
-                    <c><xref target="prop-due"/></c>
-
-                    <c>duration</c>
-                    <c>Duration</c>
-                    <c>JSEvent</c>
-                    <c><xref target="prop-duration"/></c>
-
-                    <c>entries</c>
-                    <c>String[JSTask|JSEvent]</c>
-                    <c>JSGroup</c>
-                    <c><xref target="prop-entries"/></c>
-
-                    <c>estimatedDuration</c>
-                    <c>Duration</c>
-                    <c>JSTask</c>
-                    <c><xref target="prop-estimatedDuration"/></c>
-
-                    <c>excluded</c>
-                    <c>Boolean</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-excluded"/></c>
-
-                    <c>freeBusyStatus</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-freeBusyStatus"/></c>
-
-                    <c>keywords</c>
-                    <c>String[Boolean]</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-keywords"/></c>
-
-                    <c>localizations</c>
-                    <c>String[PatchObject]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-localizations"/></c>
-
-                    <c>locations</c>
-                    <c>Id[Location]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-locations"/></c>
-
-                    <c>method</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-method"/></c>
-
-                    <c>participants</c>
-                    <c>Id[Participant]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-participants"/></c>
-
-                    <c>priority</c>
-                    <c>Int</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-priority"/></c>
-
-                    <c>privacy</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-privacy"/></c>
-
-                    <c>prodId</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-prodId"/></c>
-
-                    <c>recurrenceId</c>
-                    <c>LocalDateTime</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-recurrenceId"/></c>
-
-                    <c>recurrenceOverrides</c>
-                    <c>LocalDateTime[PatchObject]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-recurrenceOverrides"/></c>
-
-                    <c>recurrenceRule</c>
-                    <c>RecurrenceRule</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-recurrenceRule"/></c>
-
-                    <c>relatedTo</c>
-                    <c>String[Relation]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-relatedTo"/></c>
-
-                    <c>replyTo</c>
-                    <c>String[String]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-replyTo"/></c>
-
-                    <c>sequence</c>
-                    <c>UnsignedInt</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-sequence"/></c>
-
-                    <c>showWithoutTime</c>
-                    <c>Boolean</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-showWithoutTime"/></c>
-
-                    <c>start</c>
-                    <c>LocalDateTime</c>
-                    <c>JSEvent</c>
-                    <c><xref target="prop-start-jsevent"/></c>
-
-                    <c>start</c>
-                    <c>LocalDateTime</c>
-                    <c>JSTask</c>
-                    <c><xref target="prop-start-jstask"/></c>
-
-                    <c>statusUpdatedAt</c>
-                    <c>UTCDateTime</c>
-                    <c>JSTask</c>
-                    <c><xref target="prop-statusUpdatedAt"/></c>
-
-                    <c>source</c>
-                    <c>String</c>
-                    <c>JSGroup</c>
-                    <c><xref target="prop-source"/></c>
-
-                    <c>status</c>
-                    <c>String</c>
-                    <c>JSEvent</c>
-                    <c><xref target="prop-status-jsevent"/></c>
-
-                    <c>status</c>
-                    <c>String</c>
-                    <c>JSTask</c>
-                    <c><xref target="prop-status-jstask"/></c>
-
-                    <c>timeZone</c>
-                    <c>String|null</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-timeZone"/></c>
-
-                    <c>timeZones</c>
-                    <c>String[TimeZone]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-timeZones"/></c>
-
-                    <c>title</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-title"/></c>
-
-                    <c>uid</c>
-                    <c>String</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-uid"/></c>
-
-                    <c>updated</c>
-                    <c>UTCDateTime</c>
-                    <c>JSEvent, JSTask, JSGroup</c>
-                    <c><xref target="prop-updated"/></c>
-
-                    <c>useDefaultAlerts</c>
-                    <c>Boolean</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="useDefaultAlerts"/></c>
-
-                    <c>virtualLocations</c>
-                    <c>Id[VirtualLocation]</c>
-                    <c>JSEvent, JSTask</c>
-                    <c><xref target="prop-virtualLocations"/></c>
-                </texttable>
-            </section>
-            <section anchor="iana-type-registry" title="Type Registry">
-                <t>
-                    The following table lists the initial entries of the JSCalendar Type registry.
-                </t>
-                <texttable anchor="table-iana-type-registry">
-                    <ttcol align='left'>Type Name</ttcol>
-                    <ttcol align='left'>RFC Reference</ttcol>
-
-                    <c>Alert</c>
-                    <c><xref target="prop-alerts"/></c>
-
-                    <c>Duration</c>
-                    <c><xref target="type-Duration"/></c>
-
-                    <c>Id</c>
-                    <c><xref target="type-Id"/></c>
-
-                    <c>Int</c>
-                    <c><xref target="type-Int"/></c>
-
-                    <c>LocalDateTime</c>
-                    <c><xref target="type-LocalDateTime"/></c>
-
-                    <c>Link</c>
-                    <c><xref target="prop-links"/></c>
-
-                    <c>Location</c>
-                    <c><xref target="prop-locations"/></c>
-
-                    <c>Participant</c>
-                    <c><xref target="prop-participants"/></c>
-
-                    <c>ParticipantProgress</c>
-                    <c><xref target="prop-progress"/></c>
-
-                    <c>PatchObject</c>
-                    <c><xref target="type-PatchObject"/></c>
-
-                    <c>RecurrenceRule</c>
-                    <c><xref target="prop-recurrenceRule"/></c>
-
-                    <c>Relation</c>
-                    <c><xref target="prop-relatedTo"/></c>
-
-                    <c>SignedDuration</c>
-                    <c><xref target="type-SignedDuration"/></c>
-
-                    <c>TimeZone</c>
-                    <c><xref target="prop-timeZones"/></c>
-
-                    <c>UnsignedInt</c>
-                    <c><xref target="type-UnsignedInt"/></c>
-
-                    <c>UTCDateTime</c>
-                    <c><xref target="type-UTCDateTime"/></c>
-
-                    <c>VirtualLocation</c>
-                    <c><xref target="prop-virtualLocations"/></c>
-                </texttable>
-            </section>
-            <section anchor="iana-enum-registry" title="Enum Registry">
-                <t>
-                    The following sections list the initial JSCalendar Enum sub-registries and their entries.
-                </t>
-
-                <section anchor="iana-enum-registry-alert-action" title="Alert action enum">
-                    <texttable anchor="table-iana-enum-alert-action">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>display</c>
-                        <c><xref target="prop-alerts"/></c>
-                        <c>email</c>
-                        <c><xref target="prop-alerts"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the action property of the Alert object type (<xref target="prop-alerts"/>).
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-display" title="Link Display enum">
-                    <texttable anchor="table-iana-enum-link-display">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>badge</c>
-                        <c><xref target="prop-links"/></c>
-                        <c>graphic</c>
-                        <c><xref target="prop-links"/></c>
-                        <c>fullsize</c>
-                        <c><xref target="prop-links"/></c>
-                        <c>thumbnail</c>
-                        <c><xref target="prop-links"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the display property (<xref target="prop-links"/>) of the Link object type.
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-freeBusyStatus" title="Free-busy Status enum">
-                    <texttable anchor="table-iana-enum-freeBusyStatus">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>free</c>
-                        <c><xref target="prop-freeBusyStatus"/></c>
-                        <c>busy</c>
-                        <c><xref target="prop-freeBusyStatus"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the freeBusyStatus property (<xref target="prop-freeBusyStatus"/>) of the JSEvent and JSTask object types.
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-jsevent-staus" title="JSEvent status enum">
-                    <texttable anchor="table-iana-enum-status-jsevent">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>confirmed</c>
-                        <c><xref target="prop-status-jsevent"/></c>
-                        <c>cancelled</c>
-                        <c><xref target="prop-status-jsevent"/></c>
-                        <c>tentative</c>
-                        <c><xref target="prop-status-jsevent"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the status property of the JSEvent object type (<xref target="prop-status-jsevent"/>).
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-jstask-staus" title="JSTask status enum">
-                    <texttable anchor="table-iana-enum-status-jstask">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>completed</c>
-                        <c><xref target="prop-status-jstask"/></c>
-                        <c>failed</c>
-                        <c><xref target="prop-status-jstask"/></c>
-                        <c>in-process</c>
-                        <c><xref target="prop-status-jstask"/></c>
-                        <c>cancelled</c>
-                        <c><xref target="prop-status-jstask"/></c>
-                        <c>pending</c>
-                        <c><xref target="prop-status-jstask"/></c>
-                        <c>failed</c>
-                        <c><xref target="prop-status-jstask"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the status property of the JSTask object type (<xref target="prop-status-jstask"/>).
-                    </t>
-                </section>
-
-
-                <section anchor="iana-enum-registry-participant-attendance" title="Participant Attendance enum">
-                    <texttable anchor="table-iana-enum-participant-attendance">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>none</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>optional</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>required</c>
-                        <c><xref target="prop-participants"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the attendance property of the Participant object type (<xref target="prop-participants"/>).
-                    </t>
-                </section>
-
-
-                <section anchor="iana-enum-registry-participant-kind" title="Participant Kind enum">
-                    <texttable anchor="table-iana-enum-participant-kind">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>individual</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>group</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>resource</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>location</c>
-                        <c><xref target="prop-participants"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the kind property of the Participant object type (<xref target="prop-participants"/>).
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-participantProgress-status" title="Participant Progress Status enum">
-                    <texttable anchor="table-iana-enum-participantProgress-status">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>completed</c>
-                        <c><xref target="prop-progress"/></c>
-                        <c>in-process</c>
-                        <c><xref target="prop-progress"/></c>
-                        <c>failed</c>
-                        <c><xref target="prop-progress"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the status property of the ParticipantProgress object type (<xref target="prop-progress"/>).
-                    </t>
-                </section>
-
-
-                <section anchor="iana-enum-registry-participant-role" title="Participant Role enum">
-                    <texttable anchor="table-iana-enum-participant-role">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>owner</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>attendee</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>chair</c>
-                        <c><xref target="prop-participants"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the roles property of the Participant object type (<xref target="prop-participants"/>).
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-participationStatus" title="Participation Status enum">
-                    <texttable anchor="table-iana-enum-participationStatus">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>needs-action</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>accepted</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>declined</c>
-                        <c><xref target="prop-participants"/></c>
-                        <c>tenative</c>
-                        <c><xref target="prop-participants"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the participationStatus property of the Participant object type (<xref target="prop-participants"/>).
-                    </t>
-                </section>
-
-
-
-                <section anchor="iana-enum-registry-privacy" title="Privacy enum">
-                    <texttable anchor="table-iana-enum-privacy">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>public</c>
-                        <c><xref target="prop-privacy"/></c>
-                        <c>private</c>
-                        <c><xref target="prop-privacy"/></c>
-                        <c>secret</c>
-                        <c><xref target="prop-privacy"/></c>
-                    </texttable>
-                    <t>
-                        Note: this enum is currently used by the privacy property (<xref target="prop-privacy"/>) of the JSEvent and JSTask object types.
-                    </t>
-                </section>
-
-                <section anchor="iana-enum-registry-relation" title="Relation enum">
-                    <texttable anchor="table-iana-enum-relation">
-                        <ttcol align='left'>Enum Value</ttcol>
-                        <ttcol align='left'>RFC Reference</ttcol>
-                        <c>first</c>
-                        <c><xref target="type-Relation"/></c>
-                        <c>next</c>
-                        <c><xref target="type-Relation"/></c>
-                        <c>child</c>
-                        <c><xref target="type-Relation"/></c>
-                        <c>parent</c>
-                        <c><xref target="type-Relation"/></c>
-                    </texttable>
-
-                    <t>
-                        Note: this enum is currently used by the relatedTo (<xref target="prop-relatedTo"/>) and alerts (<xref target="prop-alerts"/>) properties of the JSEvent and JSTask object types.
-                    </t>
-                </section>
-
-            </section>
-        </section>
+<section anchor="iana-considerations" title="IANA Considerations">
+<section anchor="iana-mime-type" title="Media Type Registration">
+
+  <t>This document defines a MIME media type for use with JSCalendar data formatted in JSON.</t>
+
+  <t><list style="hanging">
+    <t hangText="Type name:">application</t>
+    <t hangText="Subtype name:">jscalendar+json</t>
+    <t hangText="Required parameters:">type
+        <vspace blankLines="1" />
+        The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part, with the value being one of <spanx style="verb">jsevent</spanx>, <spanx style="verb">jstask</spanx>, or <spanx style="verb">jsgroup</spanx>. The parameter MUST NOT occur more than once. It MUST match the value of the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body.</t>
+    <t hangText="Optional parameters:">none</t>
+    <t hangText="Encoding considerations:">
+        Same as encoding considerations of application/json as specified in <xref target="RFC8259">RFC8529, Section 11</xref>.</t>
+    <t hangText="Security considerations:"> See <xref target="security-considerations" /> of this document.</t>
+    <t hangText="Interoperability considerations:">This media type provides an alternative to iCalendar, jCal and proprietary JSON-based calendaring data formats.</t>
+    <t hangText="Published specification:">This specification.</t>
+    <t hangText="Applications that use this media type:">Applications that currently make use of the text/calendar and application/calendar+json media types can use this as an alternative. Similarly, applications that use the application/json media type to transfer calendaring data can use this to further specify the content.</t>
+    <t hangText="Fragment identifier considerations:">N/A</t>
+    <t hangText="Additional information:">
+        <list style="hanging">
+            <t hangText="Magic number(s):">N/A</t>
+            <t hangText="File extensions(s):">N/A</t>
+            <t hangText="Macintosh file type code(s):">N/A</t>
+        </list>
+    </t>
+    <t hangText="Person &amp; email address to contact for further information:">calext@ietf.org</t>
+    <t hangText="Intended usage:">COMMON</t>
+    <t hangText="Restrictions on usage:">N/A</t>
+    <t hangText="Author:">See the "Author's Address" section of this document.</t>
+    <t hangText="Change controller:">IETF</t>
+  </list></t>
+</section>
+
+<section anchor="iana-property-registry" title='Creation of "JSCalendar Properties" Registry'>
+  <t>IANA will create the "JSCalendar Properties" registry to allow interoperability of extensions to JSCalendar objects.</t>
+
+  <t>This registry follows the expert review process unless the &quot;intended use&quot; field is <spanx style="verb">common</spanx>, in which case registration follows the specification required process. Preliminary community review for this registry is optional but strongly encouraged.</t>
+
+  <t>A registration can have an intended use of <spanx style="verb">common</spanx>, <spanx style="verb">reserved</spanx>, or <spanx style="verb">obsolete</spanx>. IANA will list common-use registrations prominently and separately from those with other intended use values.</t>
+
+  <t>A <spanx style="verb">reserved</spanx> registration reserves a property name without assigning semantics to avoid name collisions with future extensions or protocol use.</t>
+
+  <t>An <spanx style="verb">obsolete</spanx> registration denotes a property that is no longer expected to be added by up-to-date systems. A new property has probably been defined covering the obsolete property's semantics.</t>
+
+  <t>The JSCalendar property registration procedure is not a formal standards process but rather an administrative procedure intended to allow community comment and sanity checking without excessive time delay.</t>
+
+  <section anchor="iana-property-registry-preliminary-community-review" title="Preliminary Community Review">
+    <t>Notice of a potential new registration SHOULD be sent to the Calext mailing list &lt;calsify@ietf.org&gt; for review. This mailing list is appropriate to solicit community feedback on a proposed new property.</t>
+
+    <t>Properties registrations must be marked with their intended use: "common", "reserved" or "obsolete".</t>
+
+    <t>The intent of the public posting to this list is to solicit comments and feedback on the choice of the property name, the unambiguity of the specification document, and a review of any interoperability or security considerations. The submitter may submit a revised registration proposal or abandon the registration completely at any time.</t>
+  </section>
+
+  <section anchor="iana-property-registry-submit-request-to-iana" title="Submit Request to IANA">
+    <t>Registration requests can be sent to &lt;iana@iana.org&gt;.</t>
+  </section>
+
+  <section anchor="iana-property-registry-designated-expert-review" title="Designated Expert Review">
+    <t>The primary concern of the designated expert (DE) is preventing name collisions and encouraging the submitter to document security and privacy considerations; a published specification is not required. For a common-use registration, the DE is expected to confirm that suitable documentation, as described in Section 4.6 of <xref target="RFC8126"/>, is available. The DE should also verify that the property name does not conflict with work that is active or already published within the IETF.</t>
+
+    <t>Before a period of 30 days has passed, the DE will either approve or deny the registration request and publish a notice of the decision to the Calext WG mailing list or its successor, as well as inform IANA. A denial notice must be justified by an explanation, and, in the cases where it is possible, concrete suggestions on how the request can be modified so as to become acceptable should be provided.</t>
+
+    <t>If the DE does not respond within 30 days, the registrant may request the IESG take action to process the request in a timely manner.</t>
+  </section>
+
+  <section anchor="iana-property-registry-change-procedures" title="Change Procedures">
+    <t>Once a JSCalendar property has been published by the IANA, the change controller may request a change to its definition. The same procedure that would be appropriate for the original registration request is used to process a change request.</t>
+
+    <t>JSCalendar property registrations may not be deleted; properties that are no longer believed appropriate for use can be declared obsolete by a change to their &quot;intended use&quot; field; such properties will be clearly marked in the lists published by the IANA.</t>
+
+    <t>Significant changes to a JSCalendar property's definition should be requested only when there are serious omissions or errors in the published specification, as such changes may cause interoperability issues. When review is required, a change request may be denied if it renders entities that were valid under the previous definition invalid under the new definition.</t>
+
+    <t>The owner of a JSCalendar property may pass responsibility to another person or agency by informing the IANA; this can be done without discussion or review.</t>
+
+    <t>The IESG may reassign responsibility for a JSCalendar property. The most common case of this will be to enable changes to be made to a registration where the author of the registration has died, moved out of contact, or is otherwise unable to make changes that are important to the community.</t>
+  </section>
+
+  <section anchor="iana-property-registry-template" title="JMAP Properties Registry Template">
+    <t><list style="symbols">
+      <t>Property Name: The name of the property. The property name MUST NOT already be registered for any of the objects listed in Context. Objects not listed in Context MAY already have registered a different property with the same name.</t>
+      <t>Property Type: The type of this property, using type signatures as specified in <xref target="type-signatures"/>. The property type MUST be registed in the Type Registry.</t>
+      <t>Property Context: A comma-separated list of JSCalendar object types this property is allowed on.</t>
+      <t>RFC Reference: The RFC and section where the property is specified (omitted for "reserved" property names).</t>
+      <t>Intended Use: Common, reserved, or obsolete.</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
+  </list></t>
+  </section>
+
+  <section anchor="iana-property-registry-contents" title="Initial Contents for the JSCalendar Properties Registry">
+    <t>The following table lists the initial entries of the JSCalendar Properties registry. All properties are for common-use. All RFC section references are for this document. The change controller for all these properties is "IETF".</t>
+
+    <texttable anchor="table-iana-property-registry">
+      <ttcol align='left'>Property Name</ttcol>
+      <ttcol align='left'>Property Type</ttcol>
+      <ttcol align='left'>Property Context</ttcol>
+      <ttcol align='left'>RFC Reference</ttcol>
+
+      <c>@type</c>
+      <c>String</c>
+      <c>JSEvent, JSTask, JSGroup, Alert, Link, Location, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+
+      <c>alerts</c>
+      <c>Id[Alert]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-alerts"/></c>
+
+      <c>categories</c>
+      <c>String[Boolean]</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-categories"/></c>
+
+      <c>color</c>
+      <c>String</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-color"/></c>
+
+      <c>created</c>
+      <c>UTCDateTime</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-created"/></c>
+
+      <c>description</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-description"/></c>
+
+      <c>descriptionContentType</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-descriptionContentType"/></c>
+
+      <c>due</c>
+      <c>LocalDateTime</c>
+      <c>JSTask</c>
+      <c><xref target="prop-due"/></c>
+
+      <c>duration</c>
+      <c>Duration</c>
+      <c>JSEvent</c>
+      <c><xref target="prop-duration"/></c>
+
+      <c>entries</c>
+      <c>String[JSTask|JSEvent]</c>
+      <c>JSGroup</c>
+      <c><xref target="prop-entries"/></c>
+
+      <c>estimatedDuration</c>
+      <c>Duration</c>
+      <c>JSTask</c>
+      <c><xref target="prop-estimatedDuration"/></c>
+
+      <c>excluded</c>
+      <c>Boolean</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-excluded"/></c>
+
+      <c>freeBusyStatus</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-freeBusyStatus"/></c>
+
+      <c>keywords</c>
+      <c>String[Boolean]</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-keywords"/></c>
+
+      <c>localizations</c>
+      <c>String[PatchObject]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-localizations"/></c>
+
+      <c>locations</c>
+      <c>Id[Location]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-locations"/></c>
+
+      <c>method</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-method"/></c>
+
+      <c>participants</c>
+      <c>Id[Participant]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>priority</c>
+      <c>Int</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-priority"/></c>
+
+      <c>privacy</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-privacy"/></c>
+
+      <c>prodId</c>
+      <c>String</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-prodId"/></c>
+
+      <c>recurrenceId</c>
+      <c>LocalDateTime</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-recurrenceId"/></c>
+
+      <c>recurrenceOverrides</c>
+      <c>LocalDateTime[PatchObject]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-recurrenceOverrides"/></c>
+
+      <c>recurrenceRule</c>
+      <c>RecurrenceRule</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>relatedTo</c>
+      <c>String[Relation]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-relatedTo"/></c>
+
+      <c>replyTo</c>
+      <c>String[String]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-replyTo"/></c>
+
+      <c>sequence</c>
+      <c>UnsignedInt</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-sequence"/></c>
+
+      <c>showWithoutTime</c>
+      <c>Boolean</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-showWithoutTime"/></c>
+
+      <c>start</c>
+      <c>LocalDateTime</c>
+      <c>JSEvent</c>
+      <c><xref target="prop-start-jsevent"/></c>
+
+      <c>start</c>
+      <c>LocalDateTime</c>
+      <c>JSTask</c>
+      <c><xref target="prop-start-jstask"/></c>
+
+      <c>statusUpdatedAt</c>
+      <c>UTCDateTime</c>
+      <c>JSTask</c>
+      <c><xref target="prop-statusUpdatedAt"/></c>
+
+      <c>source</c>
+      <c>String</c>
+      <c>JSGroup</c>
+      <c><xref target="prop-source"/></c>
+
+      <c>status</c>
+      <c>String</c>
+      <c>JSEvent</c>
+      <c><xref target="prop-status-jsevent"/></c>
+
+      <c>status</c>
+      <c>String</c>
+      <c>JSTask</c>
+      <c><xref target="prop-status-jstask"/></c>
+
+      <c>timeZone</c>
+      <c>String|null</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-timeZone"/></c>
+
+      <c>timeZones</c>
+      <c>String[TimeZone]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-timeZones"/></c>
+
+      <c>title</c>
+      <c>String</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-title"/></c>
+
+      <c>uid</c>
+      <c>String</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-uid"/></c>
+
+      <c>updated</c>
+      <c>UTCDateTime</c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-updated"/></c>
+
+      <c>useDefaultAlerts</c>
+      <c>Boolean</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="useDefaultAlerts"/></c>
+
+      <c>virtualLocations</c>
+      <c>Id[VirtualLocation]</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-virtualLocations"/></c>
+    </texttable>
+  </section>
+</section>
+
+<section anchor="iana-type-registry" title='Creation of "JSCalendar Types" Registry'>
+  <t>IANA will create the "JSCalendar Types" registry to avoid name collisions and provide a complete reference for all data types used for JSCalendar property values. The registration process is the same as for the JSCalendar Properties registry, as defined in <xref target="iana-property-registry"/>.</t>
+
+  <section anchor="iana-type-registry-template" title="JMAP Types Registry Template">
+    <t><list style="symbols">
+      <t>Type Name: The name of the type.</t>
+      <t>RFC Reference: The RFC and section where the Type is specified (omitted for "reserved" type names).</t>
+      <t>Intended Use: Common, reserved, or obsolete.</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
+  </list></t>
+  </section>
+
+  <section anchor="iana-type-registry-contents" title="Initial Contents for the JSCalendar Properties Registry">
+    <t>The following table lists the initial entries of the JSCalendar Types registry. All properties are for common-use. All RFC section references are for this document. The change controller for all these properties is "IETF".</t>
+
+    <texttable anchor="table-iana-type-registry">
+      <ttcol align='left'>Type Name</ttcol>
+      <ttcol align='left'>RFC Reference</ttcol>
+
+      <c>Alert</c>
+      <c><xref target="prop-alerts"/></c>
+
+      <c>Duration</c>
+      <c><xref target="type-Duration"/></c>
+
+      <c>Id</c>
+      <c><xref target="type-Id"/></c>
+
+      <c>Int</c>
+      <c><xref target="type-Int"/></c>
+
+      <c>LocalDateTime</c>
+      <c><xref target="type-LocalDateTime"/></c>
+
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
+
+      <c>Location</c>
+      <c><xref target="prop-locations"/></c>
+
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>ParticipantProgress</c>
+      <c><xref target="prop-progress"/></c>
+
+      <c>PatchObject</c>
+      <c><xref target="type-PatchObject"/></c>
+
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>Relation</c>
+      <c><xref target="prop-relatedTo"/></c>
+
+      <c>SignedDuration</c>
+      <c><xref target="type-SignedDuration"/></c>
+
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
+
+      <c>UnsignedInt</c>
+      <c><xref target="type-UnsignedInt"/></c>
+
+      <c>UTCDateTime</c>
+      <c><xref target="type-UTCDateTime"/></c>
+
+      <c>VirtualLocation</c>
+      <c><xref target="prop-virtualLocations"/></c>
+    </texttable>
+  </section>
+</section>
+
+<section anchor="iana-enum-registry" title='Creation of "JSCalendar Enum Values" Registry'>
+  <t>IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process is the same as for the JSCalendar Properties registry, but is only subject to expert review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
+
+  <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Subregistry Creation Template">
+    <t>This template is for adding a new subregistry to the JMAP Enum registry.</t>
+
+    <t><list style="symbols">
+      <t>Property Name: The name(s) of the property or properties where these values may be used. This MUST be registered in the JSCalendar Properties registry.</t>
+      <t>Property Context: The allowed object types where the property or properties may appear, as registered in the JSCalendar Properties registry. This disambiguates where there may be two distinct properties with the same name in different contexts.</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
+      <t>Values: The list of defined values for this enum, using the template as defined in <xref target="iana-enum-registry-value-template"/>.</t>
+    </list></t>
+  </section>
+
+  <section anchor="iana-enum-registry-value-template" title="JMAP Enum Subregistry Creation Template">
+    <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry.</t>
+
+    <t><list style="symbols">
+      <t>Enum Value: The verbatim value of the enum.</t>
+      <t>Description: A brief description or RFC and section reference for the semantics of this value.</t>
+    </list></t>
+  </section>
+
+  <section anchor="iana-enum-registry-contents" title="Initial Contents for the JSCalendar Enum Registry">
+
+    <section anchor="iana-enum-registry-alert-action" title="Alert Action Enum">
+      <t>Property Name: action</t>
+      <t>Property Context: Alert</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-alert-action">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>display</c>
+        <c><xref target="prop-alerts"/></c>
+        <c>email</c>
+        <c><xref target="prop-alerts"/></c>
+      </texttable>
     </section>
+
+    <section anchor="iana-enum-registry-display" title="Link Display Enum">
+      <t>Property Name: display</t>
+      <t>Property Context: Link</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-link-display">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>badge</c>
+        <c><xref target="prop-links"/></c>
+        <c>graphic</c>
+        <c><xref target="prop-links"/></c>
+        <c>fullsize</c>
+        <c><xref target="prop-links"/></c>
+        <c>thumbnail</c>
+        <c><xref target="prop-links"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-freeBusyStatus" title="Free-busy Status enum">
+      <t>Property Name: freeBusyStatus</t>
+      <t>Property Context: JSEvent, JSTask</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-freeBusyStatus">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>free</c>
+        <c><xref target="prop-freeBusyStatus"/></c>
+        <c>busy</c>
+        <c><xref target="prop-freeBusyStatus"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-jsevent-staus" title="JSEvent status enum">
+      <t>Property Name: status</t>
+      <t>Property Context: JSEvent</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-status-jsevent">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>confirmed</c>
+        <c><xref target="prop-status-jsevent"/></c>
+        <c>cancelled</c>
+        <c><xref target="prop-status-jsevent"/></c>
+        <c>tentative</c>
+        <c><xref target="prop-status-jsevent"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-jstask-staus" title="JSTask status enum">
+      <t>Property Name: status</t>
+      <t>Property Context: JSTask</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-status-jstask">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>completed</c>
+        <c><xref target="prop-status-jstask"/></c>
+        <c>failed</c>
+        <c><xref target="prop-status-jstask"/></c>
+        <c>in-process</c>
+        <c><xref target="prop-status-jstask"/></c>
+        <c>cancelled</c>
+        <c><xref target="prop-status-jstask"/></c>
+        <c>pending</c>
+        <c><xref target="prop-status-jstask"/></c>
+        <c>failed</c>
+        <c><xref target="prop-status-jstask"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-participant-attendance" title="Participant Attendance enum">
+      <t>Property Name: attendance</t>
+      <t>Property Context: Participant</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-participant-attendance">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>none</c>
+        <c><xref target="prop-participants"/></c>
+        <c>optional</c>
+        <c><xref target="prop-participants"/></c>
+        <c>required</c>
+        <c><xref target="prop-participants"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-participant-kind" title="Participant Kind enum">
+      <t>Property Name: kind</t>
+      <t>Property Context: Participant</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-participant-kind">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>individual</c>
+        <c><xref target="prop-participants"/></c>
+        <c>group</c>
+        <c><xref target="prop-participants"/></c>
+        <c>resource</c>
+        <c><xref target="prop-participants"/></c>
+        <c>location</c>
+        <c><xref target="prop-participants"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-participantProgress-status" title="Participant Progress Status enum">
+      <t>Property Name: progress</t>
+      <t>Property Context: ParticipantProgress</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-participantProgress-status">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>completed</c>
+        <c><xref target="prop-progress"/></c>
+        <c>in-process</c>
+        <c><xref target="prop-progress"/></c>
+        <c>failed</c>
+        <c><xref target="prop-progress"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-participant-role" title="Participant Role enum">
+      <t>Property Name: roles</t>
+      <t>Property Context: Participant</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-participant-role">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>owner</c>
+        <c><xref target="prop-participants"/></c>
+        <c>attendee</c>
+        <c><xref target="prop-participants"/></c>
+        <c>chair</c>
+        <c><xref target="prop-participants"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-participationStatus" title="Participation Status enum">
+      <t>Property Name: participationStatus</t>
+      <t>Property Context: Participant</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-participationStatus">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>needs-action</c>
+        <c><xref target="prop-participants"/></c>
+        <c>accepted</c>
+        <c><xref target="prop-participants"/></c>
+        <c>declined</c>
+        <c><xref target="prop-participants"/></c>
+        <c>tenative</c>
+        <c><xref target="prop-participants"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-privacy" title="Privacy enum">
+      <t>Property Name: private</t>
+      <t>Property Context: JSEvent, JSTask</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-privacy">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>public</c>
+        <c><xref target="prop-privacy"/></c>
+        <c>private</c>
+        <c><xref target="prop-privacy"/></c>
+        <c>secret</c>
+        <c><xref target="prop-privacy"/></c>
+      </texttable>
+    </section>
+
+    <section anchor="iana-enum-registry-relation" title="Relation enum">
+      <t>Property Name: relatedTo, alerts</t>
+      <t>Property Context: JSEvent, JSTask</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-relation">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>first</c>
+        <c><xref target="type-Relation"/></c>
+        <c>next</c>
+        <c><xref target="type-Relation"/></c>
+        <c>child</c>
+        <c><xref target="type-Relation"/></c>
+        <c>parent</c>
+        <c><xref target="type-Relation"/></c>
+      </texttable>
+    </section>
+  </section>
+</section>
+</section>
 
     <section anchor="acknowledgments" title="Acknowledgments">
       <t>The authors would like to thank the members of CalConnect for their valuable contributions. This specification originated from the work of the API technical committee of CalConnect, the Calendaring and Scheduling Consortium.</t>
@@ -2300,6 +2364,7 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
     </references>
