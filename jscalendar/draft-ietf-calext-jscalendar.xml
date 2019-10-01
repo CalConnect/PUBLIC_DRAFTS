@@ -538,7 +538,7 @@
         </section>
 
         <section anchor="prop-recurrenceRule" title="recurrenceRule">
-          <t>Type: <spanx style="verb">Recurrence</spanx> (optional).</t>
+          <t>Type: <spanx style="verb">RecurrenceRule</spanx> (optional).</t>
 
           <t>Defines a recurrence rule (repeating pattern) for recurring calendar objects.</t>
 
@@ -546,12 +546,12 @@
 
           <t>A JSTask recurs by applying the recurrence rule to the <spanx style="verb">start</spanx> date-time, if defined, otherwise it recurs by the <spanx style="verb">due</spanx> date-time, if defined. If the task defines neither a <spanx style="verb">start</spanx> nor <spanx style="verb">due</spanx> date-time, its <spanx style="verb">recurrenceRule</spanx> property value MUST be null.</t>
 
-          <t>A Recurrence object is a JSON object mapping of a RECUR value type in iCalendar <xref target="RFC5545" /> <xref target="RFC7529" /> and has the same semantics. It has the following properties:
+          <t>A RecurrenceRule object is a JSON object mapping of a RECUR value type in iCalendar <xref target="RFC5545" /> <xref target="RFC7529" /> and has the same semantics. It has the following properties:
 
               <list style="symbols">
             <t>@type: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
-            Specifies the type of this object. This MUST be <spanx style="verb">Recurrence</spanx>.</t>
+            Specifies the type of this object. This MUST be <spanx style="verb">RecurrenceRule</spanx>.</t>
             <t>frequency: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
             The time span covered by each iteration of this recurrence rule (see <xref target="recurrence-semantics" /> for full semantics). This MUST be one of the following values:
@@ -615,7 +615,7 @@
             <list style="symbols">
               <t>day: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
-              A day of the week on which to repeat; the allowed values are the same as for the <spanx style="verb">firstDayOfWeek</spanx> Recurrence property.
+              A day of the week on which to repeat; the allowed values are the same as for the <spanx style="verb">firstDayOfWeek</spanx> RecurrenceRule property.
               <vspace blankLines="1" />
               This is the day-of-the-week of the BYDAY part in iCalendar, converted to lowercase.</t>
               <t>nthOfPeriod: <spanx style="verb">Int</spanx> (optional)
@@ -1465,6 +1465,7 @@
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
   "recurrenceRule": {
+    "@type": "RecurrenceRule",
     "frequency": "yearly"
   }
 }
@@ -1528,7 +1529,7 @@
   "start": "2018-01-01T07:00:00",
   "duration": "PT30M",
   "recurrenceRule": {
-    "@type": "Recurrence",
+    "@type": "RecurrenceRule",
     "frequency": "daily"
   }
 }
@@ -1596,7 +1597,7 @@
     }
   },
   "recurrenceRule": {
-    "@type": "Recurrence",
+    "@type": "RecurrenceRule",
     "frequency": "weekly",
     "until": "2018-06-25T09:00:00"
   },
@@ -1644,7 +1645,7 @@
     }
   },
   "recurrenceRule": {
-    "@type": "Recurrence",
+    "@type": "RecurrenceRule",
     "frequency": "weekly"
   },
   "replyTo": {
@@ -1793,7 +1794,7 @@
 
                     <c>@type</c>
                     <c>String</c>
-                    <c>JSEvent, JSTask, JSGroup, Alert, Link, Location, Participant, ParticipantProgress, Recurrence, Relation, TimeZone, VirtualLocation</c>
+                    <c>JSEvent, JSTask, JSGroup, Alert, Link, Location, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
                     <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
                     <c>alerts</c>
@@ -1907,7 +1908,7 @@
                     <c><xref target="prop-recurrenceOverrides"/></c>
 
                     <c>recurrenceRule</c>
-                    <c>Recurrence</c>
+                    <c>RecurrenceRule</c>
                     <c>JSEvent, JSTask</c>
                     <c><xref target="prop-recurrenceRule"/></c>
 
@@ -2035,7 +2036,7 @@
                     <c>PatchObject</c>
                     <c><xref target="type-PatchObject"/></c>
 
-                    <c>Recurrence</c>
+                    <c>RecurrenceRule</c>
                     <c><xref target="prop-recurrenceRule"/></c>
 
                     <c>Relation</c>
