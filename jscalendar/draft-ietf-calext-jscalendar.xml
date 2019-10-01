@@ -1461,7 +1461,7 @@
 {
   "...": "",
   "title": "April Fool's Day",
-  "isAllDay": true,
+  "showWithoutTime": true,
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
   "recurrenceRule": {
