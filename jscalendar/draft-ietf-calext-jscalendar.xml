@@ -2094,6 +2094,9 @@
       <c>TimeZone</c>
       <c><xref target="prop-timeZones"/></c>
 
+      <c>TimeZoneRule</c>
+      <c><xref target="prop-timeZones"/></c>
+
       <c>UnsignedInt</c>
       <c><xref target="type-UnsignedInt"/></c>
 
