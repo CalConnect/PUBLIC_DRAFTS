@@ -2030,7 +2030,7 @@
   <section anchor="iana-type-registry-template" title="JMAP Types Registry Template">
     <t><list style="symbols">
       <t>Type Name: The name of the type.</t>
-      <t>RFC Reference: The RFC and section where the Type is specified (omitted for "reserved" type names).</t>
+      <t>RFC Reference: The RFC and section where the Type is specified (may be omitted for "reserved" type names).</t>
       <t>Intended Use: Common, reserved, or obsolete.</t>
       <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
   </list></t>
