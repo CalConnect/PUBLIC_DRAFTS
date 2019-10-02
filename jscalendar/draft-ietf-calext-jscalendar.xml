@@ -269,7 +269,7 @@
       <section anchor="custom-properties" title="Vendor-specific Property Extensions and Values">
         <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. <spanx style="verb">example.com/customprop</spanx>.</t>
 
-        <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/customrel</spanx>.</t>
+        <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor-specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/customrel</spanx>.</t>
 
         <t>Vendors are strongly encouraged to register any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
       </section>
@@ -1752,11 +1752,11 @@
 </section>
 
 <section anchor="iana-property-registry" title='Creation of "JSCalendar Properties" Registry'>
-  <t>IANA will create the "JSCalendar Properties" registry to allow interoperability of extensions to JSCalendar objects.</t>
+  <t>The IANA will create the "JSCalendar Properties" registry to allow interoperability of extensions to JSCalendar objects.</t>
 
   <t>This registry follows the expert review process unless the &quot;intended use&quot; field is <spanx style="verb">common</spanx>, in which case registration follows the specification required process. Preliminary community review for this registry is optional but strongly encouraged.</t>
 
-  <t>A registration can have an intended use of <spanx style="verb">common</spanx>, <spanx style="verb">reserved</spanx>, or <spanx style="verb">obsolete</spanx>. IANA will list common-use registrations prominently and separately from those with other intended use values.</t>
+  <t>A registration can have an intended use of <spanx style="verb">common</spanx>, <spanx style="verb">reserved</spanx>, or <spanx style="verb">obsolete</spanx>. The IANA will list common-use registrations prominently and separately from those with other intended use values.</t>
 
   <t>A <spanx style="verb">reserved</spanx> registration reserves a property name without assigning semantics to avoid name collisions with future extensions or protocol use.</t>
 
@@ -2180,7 +2180,7 @@
 </section>
 
 <section anchor="iana-type-registry" title='Creation of "JSCalendar Types" Registry'>
-  <t>IANA will create the "JSCalendar Types" registry to avoid name collisions and provide a complete reference for all data types used for JSCalendar property values. The registration process is the same as for the JSCalendar Properties registry, as defined in <xref target="iana-property-registry"/>.</t>
+  <t>The IANA will create the "JSCalendar Types" registry to avoid name collisions and provide a complete reference for all data types used for JSCalendar property values. The registration process is the same as for the JSCalendar Properties registry, as defined in <xref target="iana-property-registry"/>.</t>
 
   <section anchor="iana-type-registry-template" title="JMAP Types Registry Template">
     <t><list style="symbols">
@@ -2265,7 +2265,7 @@
 </section>
 
 <section anchor="iana-enum-registry" title='Creation of "JSCalendar Enum Values" Registry'>
-  <t>IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for creating a new subregistry is the same as for the JSCalendar Properties registry. The registration process for a new enum value is the same but is only subject to expert review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
+  <t>The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for creating a new subregistry is the same as for the JSCalendar Properties registry. The registration process for a new enum value is the same but is only subject to expert review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
 
   <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Subregistry Creation Template">
     <t>This template is for adding a new subregistry to the JMAP Enum registry.</t>
