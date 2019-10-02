@@ -2059,7 +2059,7 @@
       <c>relativeTo</c>
       <c>String</c>
       <c>OffsetTrigger, Location</c>
-      <c><xref target="prop-alerts"/>, <xref target="prop-links"/></c>
+      <c><xref target="prop-alerts"/>, <xref target="prop-locations"/></c>
 
       <c>replyTo</c>
       <c>String[String]</c>
@@ -2486,7 +2486,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: private</t>
+    <t>Property Name: privacy</t>
     <t>Property Context: JSEvent, JSTask</t>
     <t>Change Controller: IETF</t>
 
@@ -2503,8 +2503,8 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: relatedTo, alerts</t>
-    <t>Property Context: JSEvent, JSTask</t>
+    <t>Property Name: relation</t>
+    <t>Property Context: Relation</t>
     <t>Change Controller: IETF</t>
 
     <texttable anchor="table-iana-enum-relation">
