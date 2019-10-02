@@ -1818,38 +1818,83 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, Alert, Link, Location, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
+      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
       <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+
+      <c>acknowledged</c>
+      <c>UTCDateTime</c>
+      <c>Alert</c>
+      <c><xref target="prop-alerts"/></c>
+
+      <c>action</c>
+      <c>String</c>
+      <c>Alert</c>
+      <c><xref target="prop-alerts"/></c>
 
       <c>alerts</c>
       <c>Id[Alert]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-alerts"/></c>
 
+      <c>attendance</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
       <c>categories</c>
       <c>String[Boolean]</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-categories"/></c>
+
+      <c>cid</c>
+      <c>String</c>
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
 
       <c>color</c>
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-color"/></c>
 
+      <c>contentType</c>
+      <c>String</c>
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
+
+      <c>coordinates</c>
+      <c>String</c>
+      <c>Location</c>
+      <c><xref target="prop-locations"/></c>
+
       <c>created</c>
       <c>UTCDateTime</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-created"/></c>
 
+      <c>delegatedFrom</c>
+      <c>String[Boolean]</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>delegatedTo</c>
+      <c>String[Boolean]</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
       <c>description</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-description"/></c>
+      <c>JSEvent, JSTask, Location, VirtualLocation</c>
+      <c><xref target="prop-description"/>, <xref target="prop-locations"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>descriptionContentType</c>
       <c>String</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-descriptionContentType"/></c>
+
+      <c>display</c>
+      <c>String</c>
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
 
       <c>due</c>
       <c>LocalDateTime</c>
@@ -1860,6 +1905,11 @@
       <c>Duration</c>
       <c>JSEvent</c>
       <c><xref target="prop-duration"/></c>
+
+      <c>email</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
 
       <c>entries</c>
       <c>String[JSTask|JSEvent]</c>
@@ -1876,34 +1926,89 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-excluded"/></c>
 
+      <c>expectReply</c>
+      <c>Boolean</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
       <c>freeBusyStatus</c>
       <c>String</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-freeBusyStatus"/></c>
+
+      <c>href</c>
+      <c>String</c>
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
+
+      <c>invitedBy</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
 
       <c>keywords</c>
       <c>String[Boolean]</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-keywords"/></c>
 
+      <c>kind</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>linkIds</c>
+      <c>Id[Boolean]</c>
+      <c>Location, Participant</c>
+      <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
+
       <c>localizations</c>
       <c>String[PatchObject]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-localizations"/></c>
+
+      <c>locationId</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
 
       <c>locations</c>
       <c>Id[Location]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-locations"/></c>
 
+      <c>memberOf</c>
+      <c>String[Boolean]</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
       <c>method</c>
       <c>String</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-method"/></c>
 
+      <c>name</c>
+      <c>String</c>
+      <c>Location, Participant</c>
+      <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
+
+      <c>offset</c>
+      <c>SignedDuration</c>
+      <c>OffsetTrigger</c>
+      <c><xref target="prop-alerts"/></c>
+
       <c>participants</c>
       <c>Id[Participant]</c>
       <c>JSEvent, JSTask</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>participationComment</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>participationStatus</c>
+      <c>String</c>
+      <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
       <c>priority</c>
@@ -1936,15 +2041,50 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-recurrenceRule"/></c>
 
+      <c>rel</c>
+      <c>String</c>
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
+
       <c>relatedTo</c>
       <c>String[Relation]</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-relatedTo"/></c>
+      <c>JSEvent, JSTask, Alert</c>
+      <c><xref target="prop-relatedTo"/>, <xref target="prop-alerts"/></c>
+
+      <c>relation</c>
+      <c>String[Boolean]</c>
+      <c>Relation</c>
+      <c><xref target="type-Relation"/></c>
+
+      <c>relativeTo</c>
+      <c>String</c>
+      <c>OffsetTrigger, Location</c>
+      <c><xref target="prop-alerts"/>, <xref target="prop-links"/></c>
 
       <c>replyTo</c>
       <c>String[String]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-replyTo"/></c>
+
+      <c>roles</c>
+      <c>String[Boolean]</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>scheduleSequence</c>
+      <c>UnsignedInt</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>scheduleUpdated</c>
+      <c>UTCDateTime</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>sendTo</c>
+      <c>String[String]</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
 
       <c>sequence</c>
       <c>UnsignedInt</c>
@@ -1956,15 +2096,20 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-showWithoutTime"/></c>
 
-      <c>start</c>
-      <c>LocalDateTime</c>
-      <c>JSEvent</c>
-      <c><xref target="prop-start-jsevent"/></c>
+      <c>size</c>
+      <c>UnsignedInt</c>
+      <c>Link</c>
+      <c><xref target="prop-links"/></c>
 
       <c>start</c>
       <c>LocalDateTime</c>
-      <c>JSTask</c>
-      <c><xref target="prop-start-jstask"/></c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-start-jsevent"/>, <xref target="prop-start-jstask"/></c>
+
+      <c>status</c>
+      <c>String</c>
+      <c>ParticipantProgress</c>
+      <c><xref target="prop-progress"/></c>
 
       <c>statusUpdatedAt</c>
       <c>UTCDateTime</c>
@@ -1978,18 +2123,18 @@
 
       <c>status</c>
       <c>String</c>
-      <c>JSEvent</c>
-      <c><xref target="prop-status-jsevent"/></c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/></c>
 
-      <c>status</c>
-      <c>String</c>
-      <c>JSTask</c>
-      <c><xref target="prop-status-jstask"/></c>
+      <c>timestamp</c>
+      <c>UTCDateTime</c>
+      <c>ParticipantProgress</c>
+      <c><xref target="prop-progress"/></c>
 
       <c>timeZone</c>
       <c>String|null</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-timeZone"/></c>
+      <c>JSEvent, JSTask, Location</c>
+      <c><xref target="prop-timeZone"/>, <xref target="prop-locations"/></c>
 
       <c>timeZones</c>
       <c>String[TimeZone]</c>
@@ -1998,8 +2143,13 @@
 
       <c>title</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>JSEvent, JSTask, JSGroup, Link</c>
       <c><xref target="prop-title"/></c>
+
+      <c>trigger</c>
+      <c>OffsetTrigger|AbsoluteTrigger|UnknownTrigger</c>
+      <c>Alert</c>
+      <c><xref target="prop-alerts"/></c>
 
       <c>uid</c>
       <c>String</c>
@@ -2020,6 +2170,11 @@
       <c>Id[VirtualLocation]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-virtualLocations"/></c>
+
+      <c>when</c>
+      <c>UTCDateTime</c>
+      <c>AbsoluteTrigger</c>
+      <c><xref target="prop-alerts"/></c>
     </texttable>
   </section>
 </section>
