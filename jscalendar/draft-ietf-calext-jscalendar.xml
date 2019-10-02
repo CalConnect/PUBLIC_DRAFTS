@@ -2046,6 +2046,9 @@
       <c>Alert</c>
       <c><xref target="prop-alerts"/></c>
 
+      <c>Boolean</c>
+      <c><xref target="type-signatures"/></c>
+
       <c>Duration</c>
       <c><xref target="type-Duration"/></c>
 
@@ -2064,6 +2067,9 @@
       <c>Location</c>
       <c><xref target="prop-locations"/></c>
 
+      <c>Number</c>
+      <c><xref target="type-signatures"/></c>
+
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
@@ -2081,6 +2087,9 @@
 
       <c>SignedDuration</c>
       <c><xref target="type-SignedDuration"/></c>
+
+      <c>String</c>
+      <c><xref target="type-signatures"/></c>
 
       <c>TimeZone</c>
       <c><xref target="prop-timeZones"/></c>
