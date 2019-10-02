@@ -2308,6 +2308,23 @@
 
     <t>------------------------------------------------------------</t>
 
+    <t>Property Name: attendance</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participant-attendance">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>none</c>
+      <c><xref target="prop-participants"/></c>
+      <c>optional</c>
+      <c><xref target="prop-participants"/></c>
+      <c>required</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
     <t>Property Name: display</t>
     <t>Property Context: Link</t>
     <t>Change Controller: IETF</t>
@@ -2342,78 +2359,6 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: status</t>
-    <t>Property Context: JSEvent</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-status-jsevent">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>confirmed</c>
-      <c><xref target="prop-status-jsevent"/></c>
-      <c>cancelled</c>
-      <c><xref target="prop-status-jsevent"/></c>
-      <c>tentative</c>
-      <c><xref target="prop-status-jsevent"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: status</t>
-    <t>Property Context: JSTask</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-status-jstask">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>completed</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>failed</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>in-process</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>cancelled</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>pending</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>failed</c>
-      <c><xref target="prop-status-jstask"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: relativeTo</t>
-    <t>Property Context: OffsetTrigger, Location</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>start</c>
-      <c><xref target="prop-alerts"/></c>
-      <c>end</c>
-      <c><xref target="prop-alerts"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: attendance</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-participant-attendance">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>none</c>
-      <c><xref target="prop-participants"/></c>
-      <c>optional</c>
-      <c><xref target="prop-participants"/></c>
-      <c>required</c>
-      <c><xref target="prop-participants"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
     <t>Property Name: kind</t>
     <t>Property Context: Participant</t>
     <t>Change Controller: IETF</t>
@@ -2428,40 +2373,6 @@
       <c>resource</c>
       <c><xref target="prop-participants"/></c>
       <c>location</c>
-      <c><xref target="prop-participants"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: progress</t>
-    <t>Property Context: ParticipantProgress</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-participantProgress-status">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>completed</c>
-      <c><xref target="prop-progress"/></c>
-      <c>in-process</c>
-      <c><xref target="prop-progress"/></c>
-      <c>failed</c>
-      <c><xref target="prop-progress"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: roles</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-participant-role">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>owner</c>
-      <c><xref target="prop-participants"/></c>
-      <c>attendee</c>
-      <c><xref target="prop-participants"/></c>
-      <c>chair</c>
       <c><xref target="prop-participants"/></c>
     </texttable>
 
@@ -2503,6 +2414,23 @@
 
     <t>------------------------------------------------------------</t>
 
+    <t>Property Name: progress</t>
+    <t>Property Context: ParticipantProgress</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participantProgress-status">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>completed</c>
+      <c><xref target="prop-progress"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-progress"/></c>
+      <c>failed</c>
+      <c><xref target="prop-progress"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
     <t>Property Name: relation</t>
     <t>Property Context: Relation</t>
     <t>Change Controller: IETF</t>
@@ -2518,6 +2446,78 @@
       <c><xref target="type-Relation"/></c>
       <c>parent</c>
       <c><xref target="type-Relation"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: relativeTo</t>
+    <t>Property Context: OffsetTrigger, Location</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>start</c>
+      <c><xref target="prop-alerts"/></c>
+      <c>end</c>
+      <c><xref target="prop-alerts"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: roles</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participant-role">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>owner</c>
+      <c><xref target="prop-participants"/></c>
+      <c>attendee</c>
+      <c><xref target="prop-participants"/></c>
+      <c>chair</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: status</t>
+    <t>Property Context: JSEvent</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-status-jsevent">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>confirmed</c>
+      <c><xref target="prop-status-jsevent"/></c>
+      <c>cancelled</c>
+      <c><xref target="prop-status-jsevent"/></c>
+      <c>tentative</c>
+      <c><xref target="prop-status-jsevent"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: status</t>
+    <t>Property Context: JSTask</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-status-jstask">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>completed</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>failed</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>cancelled</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>pending</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>failed</c>
+      <c><xref target="prop-status-jstask"/></c>
     </texttable>
 
   </section>
