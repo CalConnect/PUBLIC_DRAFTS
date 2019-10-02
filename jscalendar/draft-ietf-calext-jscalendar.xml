@@ -2291,234 +2291,235 @@
 
     <t>All RFC section references are for this document.</t>
 
-    <section anchor="iana-enum-registry-alert-action" title="Alert Action Enum">
-      <t>Property Name: action</t>
-      <t>Property Context: Alert</t>
-      <t>Change Controller: IETF</t>
+    <t>------------------------------------------------------------</t>
 
-      <texttable anchor="table-iana-enum-alert-action">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>display</c>
-        <c><xref target="prop-alerts"/></c>
-        <c>email</c>
-        <c><xref target="prop-alerts"/></c>
-      </texttable>
-    </section>
+    <t>Property Name: action</t>
+    <t>Property Context: Alert</t>
+    <t>Change Controller: IETF</t>
 
-    <section anchor="iana-enum-registry-display" title="Link Display Enum">
-      <t>Property Name: display</t>
-      <t>Property Context: Link</t>
-      <t>Change Controller: IETF</t>
+    <texttable anchor="table-iana-enum-alert-action">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>display</c>
+      <c><xref target="prop-alerts"/></c>
+      <c>email</c>
+      <c><xref target="prop-alerts"/></c>
+    </texttable>
 
-      <texttable anchor="table-iana-enum-link-display">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>badge</c>
-        <c><xref target="prop-links"/></c>
-        <c>graphic</c>
-        <c><xref target="prop-links"/></c>
-        <c>fullsize</c>
-        <c><xref target="prop-links"/></c>
-        <c>thumbnail</c>
-        <c><xref target="prop-links"/></c>
-      </texttable>
-    </section>
+    <t>------------------------------------------------------------</t>
 
-    <section anchor="iana-enum-registry-freeBusyStatus" title="Free-busy Status enum">
-      <t>Property Name: freeBusyStatus</t>
-      <t>Property Context: JSEvent, JSTask</t>
-      <t>Change Controller: IETF</t>
+    <t>Property Name: display</t>
+    <t>Property Context: Link</t>
+    <t>Change Controller: IETF</t>
 
-      <texttable anchor="table-iana-enum-freeBusyStatus">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>free</c>
-        <c><xref target="prop-freeBusyStatus"/></c>
-        <c>busy</c>
-        <c><xref target="prop-freeBusyStatus"/></c>
-      </texttable>
-    </section>
+    <texttable anchor="table-iana-enum-link-display">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>badge</c>
+      <c><xref target="prop-links"/></c>
+      <c>graphic</c>
+      <c><xref target="prop-links"/></c>
+      <c>fullsize</c>
+      <c><xref target="prop-links"/></c>
+      <c>thumbnail</c>
+      <c><xref target="prop-links"/></c>
+    </texttable>
 
-    <section anchor="iana-enum-registry-jsevent-staus" title="JSEvent status enum">
-      <t>Property Name: status</t>
-      <t>Property Context: JSEvent</t>
-      <t>Change Controller: IETF</t>
+    <t>------------------------------------------------------------</t>
 
-      <texttable anchor="table-iana-enum-status-jsevent">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>confirmed</c>
-        <c><xref target="prop-status-jsevent"/></c>
-        <c>cancelled</c>
-        <c><xref target="prop-status-jsevent"/></c>
-        <c>tentative</c>
-        <c><xref target="prop-status-jsevent"/></c>
-      </texttable>
-    </section>
+    <t>Property Name: freeBusyStatus</t>
+    <t>Property Context: JSEvent, JSTask</t>
+    <t>Change Controller: IETF</t>
 
-    <section anchor="iana-enum-registry-jstask-staus" title="JSTask status enum">
-      <t>Property Name: status</t>
-      <t>Property Context: JSTask</t>
-      <t>Change Controller: IETF</t>
+    <texttable anchor="table-iana-enum-freeBusyStatus">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>free</c>
+      <c><xref target="prop-freeBusyStatus"/></c>
+      <c>busy</c>
+      <c><xref target="prop-freeBusyStatus"/></c>
+    </texttable>
 
-      <texttable anchor="table-iana-enum-status-jstask">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>completed</c>
-        <c><xref target="prop-status-jstask"/></c>
-        <c>failed</c>
-        <c><xref target="prop-status-jstask"/></c>
-        <c>in-process</c>
-        <c><xref target="prop-status-jstask"/></c>
-        <c>cancelled</c>
-        <c><xref target="prop-status-jstask"/></c>
-        <c>pending</c>
-        <c><xref target="prop-status-jstask"/></c>
-        <c>failed</c>
-        <c><xref target="prop-status-jstask"/></c>
-      </texttable>
-    </section>
+    <t>------------------------------------------------------------</t>
 
-    <section anchor="iana-enum-registry-offsetTrigger-relativeTo" title="Relative To enum">
-      <t>Property Name: relativeTo</t>
-      <t>Property Context: OffsetTrigger, Location</t>
-      <t>Change Controller: IETF</t>
+    <t>Property Name: status</t>
+    <t>Property Context: JSEvent</t>
+    <t>Change Controller: IETF</t>
 
-      <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>start</c>
-        <c><xref target="prop-alerts"/></c>
-        <c>end</c>
-        <c><xref target="prop-alerts"/></c>
-      </texttable>
-    </section>
+    <texttable anchor="table-iana-enum-status-jsevent">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>confirmed</c>
+      <c><xref target="prop-status-jsevent"/></c>
+      <c>cancelled</c>
+      <c><xref target="prop-status-jsevent"/></c>
+      <c>tentative</c>
+      <c><xref target="prop-status-jsevent"/></c>
+    </texttable>
 
-    <section anchor="iana-enum-registry-participant-attendance" title="Participant Attendance enum">
-      <t>Property Name: attendance</t>
-      <t>Property Context: Participant</t>
-      <t>Change Controller: IETF</t>
+    <t>------------------------------------------------------------</t>
 
-      <texttable anchor="table-iana-enum-participant-attendance">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>none</c>
-        <c><xref target="prop-participants"/></c>
-        <c>optional</c>
-        <c><xref target="prop-participants"/></c>
-        <c>required</c>
-        <c><xref target="prop-participants"/></c>
-      </texttable>
-    </section>
+    <t>Property Name: status</t>
+    <t>Property Context: JSTask</t>
+    <t>Change Controller: IETF</t>
 
-    <section anchor="iana-enum-registry-participant-kind" title="Participant Kind enum">
-      <t>Property Name: kind</t>
-      <t>Property Context: Participant</t>
-      <t>Change Controller: IETF</t>
+    <texttable anchor="table-iana-enum-status-jstask">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>completed</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>failed</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>cancelled</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>pending</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>failed</c>
+      <c><xref target="prop-status-jstask"/></c>
+    </texttable>
 
-      <texttable anchor="table-iana-enum-participant-kind">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>individual</c>
-        <c><xref target="prop-participants"/></c>
-        <c>group</c>
-        <c><xref target="prop-participants"/></c>
-        <c>resource</c>
-        <c><xref target="prop-participants"/></c>
-        <c>location</c>
-        <c><xref target="prop-participants"/></c>
-      </texttable>
-    </section>
+    <t>------------------------------------------------------------</t>
 
-    <section anchor="iana-enum-registry-participantProgress-status" title="Participant Progress Status enum">
-      <t>Property Name: progress</t>
-      <t>Property Context: ParticipantProgress</t>
-      <t>Change Controller: IETF</t>
+    <t>Property Name: relativeTo</t>
+    <t>Property Context: OffsetTrigger, Location</t>
+    <t>Change Controller: IETF</t>
 
-      <texttable anchor="table-iana-enum-participantProgress-status">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>completed</c>
-        <c><xref target="prop-progress"/></c>
-        <c>in-process</c>
-        <c><xref target="prop-progress"/></c>
-        <c>failed</c>
-        <c><xref target="prop-progress"/></c>
-      </texttable>
-    </section>
+    <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>start</c>
+      <c><xref target="prop-alerts"/></c>
+      <c>end</c>
+      <c><xref target="prop-alerts"/></c>
+    </texttable>
 
-    <section anchor="iana-enum-registry-participant-role" title="Participant Role enum">
-      <t>Property Name: roles</t>
-      <t>Property Context: Participant</t>
-      <t>Change Controller: IETF</t>
+    <t>------------------------------------------------------------</t>
 
-      <texttable anchor="table-iana-enum-participant-role">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>owner</c>
-        <c><xref target="prop-participants"/></c>
-        <c>attendee</c>
-        <c><xref target="prop-participants"/></c>
-        <c>chair</c>
-        <c><xref target="prop-participants"/></c>
-      </texttable>
-    </section>
+    <t>Property Name: attendance</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
 
-    <section anchor="iana-enum-registry-participationStatus" title="Participation Status enum">
-      <t>Property Name: participationStatus</t>
-      <t>Property Context: Participant</t>
-      <t>Change Controller: IETF</t>
+    <texttable anchor="table-iana-enum-participant-attendance">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>none</c>
+      <c><xref target="prop-participants"/></c>
+      <c>optional</c>
+      <c><xref target="prop-participants"/></c>
+      <c>required</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
 
-      <texttable anchor="table-iana-enum-participationStatus">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>needs-action</c>
-        <c><xref target="prop-participants"/></c>
-        <c>accepted</c>
-        <c><xref target="prop-participants"/></c>
-        <c>declined</c>
-        <c><xref target="prop-participants"/></c>
-        <c>tenative</c>
-        <c><xref target="prop-participants"/></c>
-      </texttable>
-    </section>
+    <t>------------------------------------------------------------</t>
 
-    <section anchor="iana-enum-registry-privacy" title="Privacy enum">
-      <t>Property Name: private</t>
-      <t>Property Context: JSEvent, JSTask</t>
-      <t>Change Controller: IETF</t>
+    <t>Property Name: kind</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
 
-      <texttable anchor="table-iana-enum-privacy">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>public</c>
-        <c><xref target="prop-privacy"/></c>
-        <c>private</c>
-        <c><xref target="prop-privacy"/></c>
-        <c>secret</c>
-        <c><xref target="prop-privacy"/></c>
-      </texttable>
-    </section>
+    <texttable anchor="table-iana-enum-participant-kind">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>individual</c>
+      <c><xref target="prop-participants"/></c>
+      <c>group</c>
+      <c><xref target="prop-participants"/></c>
+      <c>resource</c>
+      <c><xref target="prop-participants"/></c>
+      <c>location</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
 
-    <section anchor="iana-enum-registry-relation" title="Relation enum">
-      <t>Property Name: relatedTo, alerts</t>
-      <t>Property Context: JSEvent, JSTask</t>
-      <t>Change Controller: IETF</t>
+    <t>------------------------------------------------------------</t>
 
-      <texttable anchor="table-iana-enum-relation">
-        <ttcol align='left'>Enum Value</ttcol>
-        <ttcol align='left'>Description</ttcol>
-        <c>first</c>
-        <c><xref target="type-Relation"/></c>
-        <c>next</c>
-        <c><xref target="type-Relation"/></c>
-        <c>child</c>
-        <c><xref target="type-Relation"/></c>
-        <c>parent</c>
-        <c><xref target="type-Relation"/></c>
-      </texttable>
-    </section>
+    <t>Property Name: progress</t>
+    <t>Property Context: ParticipantProgress</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participantProgress-status">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>completed</c>
+      <c><xref target="prop-progress"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-progress"/></c>
+      <c>failed</c>
+      <c><xref target="prop-progress"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: roles</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participant-role">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>owner</c>
+      <c><xref target="prop-participants"/></c>
+      <c>attendee</c>
+      <c><xref target="prop-participants"/></c>
+      <c>chair</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: participationStatus</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participationStatus">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>needs-action</c>
+      <c><xref target="prop-participants"/></c>
+      <c>accepted</c>
+      <c><xref target="prop-participants"/></c>
+      <c>declined</c>
+      <c><xref target="prop-participants"/></c>
+      <c>tenative</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: private</t>
+    <t>Property Context: JSEvent, JSTask</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-privacy">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>public</c>
+      <c><xref target="prop-privacy"/></c>
+      <c>private</c>
+      <c><xref target="prop-privacy"/></c>
+      <c>secret</c>
+      <c><xref target="prop-privacy"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: relatedTo, alerts</t>
+    <t>Property Context: JSEvent, JSTask</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-relation">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>first</c>
+      <c><xref target="type-Relation"/></c>
+      <c>next</c>
+      <c><xref target="type-Relation"/></c>
+      <c>child</c>
+      <c><xref target="type-Relation"/></c>
+      <c>parent</c>
+      <c><xref target="type-Relation"/></c>
+    </texttable>
+
   </section>
 </section>
 </section>
