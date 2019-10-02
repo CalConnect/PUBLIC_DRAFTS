@@ -2077,7 +2077,7 @@
       <c><xref target="prop-recurrenceRule"/></c>
 
       <c>Relation</c>
-      <c><xref target="prop-relatedTo"/></c>
+      <c><xref target="type-Relation"/></c>
 
       <c>SignedDuration</c>
       <c><xref target="type-SignedDuration"/></c>
