@@ -2378,9 +2378,9 @@
       </texttable>
     </section>
 
-    <section anchor="iana-enum-registry-offsetTrigger-relativeTo" title="OffsetTrigger Relative To enum">
+    <section anchor="iana-enum-registry-offsetTrigger-relativeTo" title="Relative To enum">
       <t>Property Name: relativeTo</t>
-      <t>Property Context: OffsetTrigger</t>
+      <t>Property Context: OffsetTrigger, Location</t>
       <t>Change Controller: IETF</t>
 
       <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
