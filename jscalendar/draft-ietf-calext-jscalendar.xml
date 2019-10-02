@@ -2220,6 +2220,21 @@
       </texttable>
     </section>
 
+    <section anchor="iana-enum-registry-offsetTrigger-relativeTo" title="OffsetTrigger Relative To enum">
+      <t>Property Name: relativeTo</t>
+      <t>Property Context: OffsetTrigger</t>
+      <t>Change Controller: IETF</t>
+
+      <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
+        <ttcol align='left'>Enum Value</ttcol>
+        <ttcol align='left'>Description</ttcol>
+        <c>start</c>
+        <c><xref target="prop-alerts"/></c>
+        <c>end</c>
+        <c><xref target="prop-alerts"/></c>
+      </texttable>
+    </section>
+
     <section anchor="iana-enum-registry-participant-attendance" title="Participant Attendance enum">
       <t>Property Name: attendance</t>
       <t>Property Context: Participant</t>
