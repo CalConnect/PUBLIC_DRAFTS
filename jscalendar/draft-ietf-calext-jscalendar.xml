@@ -2265,7 +2265,7 @@
 </section>
 
 <section anchor="iana-enum-registry" title='Creation of "JSCalendar Enum Values" Registry'>
-  <t>IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process is the same as for the JSCalendar Properties registry, but is only subject to expert review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
+  <t>IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for creating a new subregistry is the same as for the JSCalendar Properties registry. The registration process for a new enum value is the same but is only subject to expert review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
 
   <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Subregistry Creation Template">
     <t>This template is for adding a new subregistry to the JMAP Enum registry.</t>
@@ -2274,12 +2274,12 @@
       <t>Property Name: The name(s) of the property or properties where these values may be used. This MUST be registered in the JSCalendar Properties registry.</t>
       <t>Property Context: The allowed object types where the property or properties may appear, as registered in the JSCalendar Properties registry. This disambiguates where there may be two distinct properties with the same name in different contexts.</t>
       <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
-      <t>Values: The list of defined values for this enum, using the template as defined in <xref target="iana-enum-registry-value-template"/>.</t>
+      <t>Values: The list of defined values for this enum, using the template defined in <xref target="iana-enum-registry-value-template"/>.</t>
     </list></t>
   </section>
 
   <section anchor="iana-enum-registry-value-template" title="JMAP Enum Subregistry Creation Template">
-    <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry.</t>
+    <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry. When registering a new value for an existing enum, the property name and context MUST be submitted with the registration to identify the appropriate subregistry.</t>
 
     <t><list style="symbols">
       <t>Enum Value: The verbatim value of the enum.</t>
@@ -2288,6 +2288,8 @@
   </section>
 
   <section anchor="iana-enum-registry-contents" title="Initial Contents for the JSCalendar Enum Registry">
+
+    <t>All RFC section references are for this document.</t>
 
     <section anchor="iana-enum-registry-alert-action" title="Alert Action Enum">
       <t>Property Name: action</t>
