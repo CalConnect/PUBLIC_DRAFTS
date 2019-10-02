@@ -461,7 +461,7 @@
             <vspace blankLines="1" />
             This MUST be a valid <spanx style="verb">content-id</spanx> value according to the definition of Section 2 in <xref target="RFC2392" />. The value MUST be unique within this Link object but has no meaning beyond that. It MAY be different from the link id for this Link object.</t>
 
-            <t>type: <spanx style="verb">String</spanx> (optional)
+            <t>contentType: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The <xref target="RFC6838">content-type</xref> of the resource, if known.</t>
 
