@@ -1932,6 +1932,25 @@ END:VEVENT
       <t>To be deleted on publication</t>
 
       <t>
+        calext-v16 2019-10-09  MD
+        <list style='symbols'>
+          <t>
+            Make LOCTYPE multi-valued.
+          </t>
+          <t>
+            Add all ATTENDEE scheduling parameters to CALENDAR-ADDRESS.
+          </t>
+        </list>
+      </t>
+      <t>
+        calext-v15 2019-10-08  MD
+        <list style='symbols'>
+          <t>
+            Address various DICUSS points.
+          </t>
+        </list>
+      </t>
+      <t>
         calext-v14 2019-06-11  MD
         <list style='symbols'>
           <t>
