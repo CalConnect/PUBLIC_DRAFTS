@@ -2,16 +2,20 @@
 
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
   <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+  <!ENTITY RFC2426 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2426.xml">
   <!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
   <!ENTITY RFC4589 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4589.xml">
   <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
   <!ENTITY RFC5546 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml">
   <!ENTITY RFC7986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7986.xml">
   <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
-  ]>
+  <!ENTITY RFC8259 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8259.xml">
+  <!ENTITY W3C.REC-html51-20171003 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.REC-html51-20171003.xml">
+  <!ENTITY W3C.REC-xml-20081126 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.REC-xml-20081126.xml">
+]>
 
 <rfc category="std" updates="5545"
-     docName="draft-ietf-calext-eventpub-extensions-11" ipr="trust200902">
+     docName="draft-ietf-calext-eventpub-extensions-16" ipr="trust200902">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
   <?rfc strict="yes" ?>
   <?rfc toc="yes"?>
@@ -40,7 +44,7 @@
       </address>
     </author>
 
-    <date day='25' month='February' year='2019' />
+    <date day='9' month='October' year='2019' />
 
     <area>Applications</area>
 
@@ -85,67 +89,9 @@
         information that can provide additional information about an iCalendar
         component. The intent is to allow interchange of such information between
         applications or systems (e.g., between clients, between client and  server,
-        and between servers). Formats such as VCARD are likely to be
+        and between servers). Formats such as vCard <xref target='RFC2426'/> are likely to be
         most useful to the receivers of such events as they may be used
         in other applications - such as address books.
-      </t>
-
-      <t>
-        This specification defines a new PARTICIPANT component.
-        Many people or groups may participate in an event. This
-        component provides detailed information. Such participants may
-        act as attendees to the event (or derived events) or may just
-        provide a reference - perhaps for mailing lists.
-      </t>
-
-      <t>
-        Additionally this specification defines a new use for the
-        RELATED parameter to allow locations to be defined as the
-        start and/or end location of a component.
-      </t>
-
-      <t>The following properties are defined in this
-         specification
-        <list style='hanging'>
-          <t hangText="STYLED-DESCRIPTION:">
-            Supports rich-text descriptions, for example HTML.
-            Event publishers typically wish to provide more and better
-            formatted information about the event.
-          </t>
-          <t hangText="STRUCTURED-LOCATION:">
-            There may be a number of locations associated with an event.
-            This provides detailed information about the location.
-          </t>
-          <t hangText="STRUCTURED-RESOURCE:">
-            Events need resources such as rooms, projectors, conferencing 
-            capabilities.
-          </t>
-          <t hangText="STRUCTURED-DATA:">
-            The existing
-            properties in iCalendar cover key elements of events and tasks
-            such as start time, end time, location, summary, etc. However,
-            different types of events often have other specific "fields"
-            that it is useful to include in the calendar data. For example,
-            an event representing an airline flight could include the airline,
-            flight number, departure and arrival airport codes, check-in
-            and gate-closing times etc. As another example, a sporting event
-            might contain information about the type of sport, the home and
-            away teams, the league the teams are in, information about
-            nearby parking, etc.
-          </t>
-          <t hangText="PARTICIPANT-TYPE:">
-            Used in the PARTICIPANT component to define the type.
-          </t>
-          <t hangText="CALENDAR-ADDRESS:">
-            Used in the PARTICIPANT component to provide the calendar
-            address of the participant.
-          </t>
-        </list>
-      </t>
-
-      <t>
-        In addition the SOURCE property defined in <xref target='RFC7986'/> is
-        redefined to allow VALUE=TEXT and broaden its usage.
       </t>
 
       <section anchor="conventions" title='Conventions Used in This Document'>
@@ -158,6 +104,25 @@
           appear in all capitals, as shown here.
         </t>
       </section>
+
+      <section anchor="terms" title='Terms Used in This Document'>
+        <t>
+          <list style='hanging'>
+            <t hangText="Event:">
+              When the word 'event' is used (perhaps with a capitalised 'E'
+              we are referring to gatherings, formal or informal. For example
+              a sports event, a party or a concert.
+            </t>
+            <t hangText="Social Calendaring:">
+              Historically, calendar data and scheduling has been heavily
+              biased towards meetings in a corporate environment. Some of
+              the features defined in this document are to support a more
+              informal, i.e. social, model. For example, we may want to
+              record who is participating in a public event.
+            </t>
+          </list>
+        </t>
+      </section>
     </section>
 
     <section title="Components and properties">
@@ -165,13 +130,14 @@
         Previous extensions to the calendaring standards have been largely
         restricted to the addition of properties or parameters. This is
         partly because iCalendar libraries had trouble handling components
-        nested deeper than those defined in <xref target='RFC5545'/>
+        nested deeper than those defined in <xref target='RFC5545'/>.
       </t>
       
       <t>
-        In a break with this 'tradition' this specification introduces one
-        of these extensions as a component rather than a property. This 
-        is a better match for the way XML and JSON handles such structures
+        In a break with this 'tradition' this specification defines
+        PARTICIPANT as a component rather than a property. This
+        is a better match for the way <xref target='W3C.REC-xml-20081126'/>
+        and JSON <xref target='RFC8259'/> handle such structures
         and allows richer definitions.  
       </t>
 
@@ -179,6 +145,14 @@
         It also allows for the addition of extra properties inside the
         component and resolves some of the problems of trying to add 
         detailed information as a parameter.
+      </t>
+
+      <t>
+        Many people or groups may participate in an event. The
+        PARTICIPANT component provides such detailed information.
+        Participants may
+        act as attendees to the event (or derived events) or may just
+        provide a reference - perhaps for mailing lists.
       </t>
     </section>
 
@@ -202,9 +176,9 @@
       </t>
 
       <t>
-        Using STRUCTURED-LOCATION, information about a number of interesting
+        Using STRUCTURED-LOCATION, rich information about multiple
         locations can be communicated, for example, address, region,
-        country, postal code as well as other informations such as the
+        country, postal code as well as other information such as the
         parking, restaurants and
         the venue. Servers and clients can retrieve the objects when
         storing the event and use them to index by geographic location.
@@ -232,7 +206,7 @@
         The PARTICIPANT component can also be used to provide useful
         extra data about an attendee. For example a LOCATION property
         inside the PARTICIPANT gives the actual location of a remote
-        attendee.
+        attendee. (But see the note about privacy.)
       </t>
 
       <section title="Use Cases">
@@ -260,9 +234,10 @@
 
           <t>
             An event can also be created for publication which will have a PARTICIPANT
-            component for the pianist providing  a reference to vcard information about the performer.
+            component for the pianist providing  a reference to vCard
+            <xref target='RFC2426'/> information about the performer.
             This event would also hold information about parking, local subway stations
-            and the venue itself. In addition, there will be sponsorship information
+            and the venue itself. In addition, there may be sponsorship information
             for sponsors of the event and perhaps paid sponsorship properties
             essentially advertising local establishments.
           </t>
@@ -277,7 +252,7 @@
           </t>
 
           <t>
-            The embedded location information can guide the traveller at the airport
+            The embedded location information can guide the traveler at the airport
             or to their final destination. The contact information can provide
             detailed information about the booking agent, the airlines, car hire
             companies and the hotel.
@@ -291,8 +266,8 @@
             </t>
 
             <t>
-              A meeting may have 10 attendees non of which are co-located.
-              The current ATTENDEE property dos not allow for the additon
+              A meeting may have 10 attendees none of which are co-located.
+              The current ATTENDEE property does not allow for the addition
               of such meta-data. The PARTICIPANT property allows attendees to
               specify their location.
             </t>
@@ -348,8 +323,23 @@ jourprop =/ *(
              styleddescription / sdataprop
              ;
              )
+
+freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
+            fbprop *participantc
+            "END" ":" "VFREEBUSY" CRLF
+
+fbprop     =/ *(
+             ;
+             ; The following are OPTIONAL,
+             ; and MAY occur more than once.
+             ;
+             styleddescription
+             ;
+             )
+
 ]]></artwork>
-      </figure></t>
+        </figure>
+      </t>
     </section>
 
     <section anchor="new_property_parameters"
@@ -368,7 +358,7 @@ jourprop =/ *(
             </t>
 
             <t hangText="Purpose:">
-              To specify the type of location.
+              To specify the type(s) of a location.
             </t>
 
             <t hangText="Format Definition:">
@@ -378,7 +368,8 @@ jourprop =/ *(
                 </preamble>
 
                 <artwork type="abnf">
-  loctypeparam   = "LOCTYPE" "=" param-value
+  loctypeparam   = "LOCTYPE" "=" quoted-string
+                                 *("," quoted-string)
                 </artwork>
               </figure>
             </t>
@@ -391,9 +382,14 @@ jourprop =/ *(
             </t>
 
             <t>
+              Multiple values may be used if the location has multiple
+              purposes, for example a hotel and a restaurant.
+            </t>
+
+            <t>
               Values for this parameter are taken from the values defined in
-              <xref target='RFC4589'/>. New location types SHOULD be
-              registered in the manner laid down in that specification.
+              <xref target='RFC4589'/> section 3. New location types SHOULD be
+              registered in the manner laid down in section 5 of that specification.
             </t>
           </list>
         </t>
@@ -424,7 +420,6 @@ jourprop =/ *(
                   / "PROJECTOR"
                   / "REMOTE-CONFERENCE-AUDIO"
                   / "REMOTE-CONFERENCE-VIDEO"
-                  / x-name          ; Experimental status
                   / iana-token)     ; Other IANA-registered
                                     ; values
 
@@ -490,7 +485,7 @@ jourprop =/ *(
               The ORDER parameter is OPTIONAL and is used to indicate the
               relative ordering of the corresponding instance of a property.
               Its value MUST be an integer greater than or equal to 1 that
-              quantifies the order with 1 being the first in the ordering.
+              specifies the order with 1 being the first in the ordering.
             </t>
 
             <t>
@@ -509,13 +504,19 @@ jourprop =/ *(
             <t>
               Note that the value of this parameter is to be interpreted only in
               relation to values assigned to other corresponding instances of
-              the same property in the same entity. A given value, or the
-              absence of a value, MUST NOT be interpreted on its own.
+              the same property in the same entity.
             </t>
 
             <t>
-              This parameter MAY be applied to any property that allows multiple
-              instances.
+              This parameter MUST NOT be applied to a property that does not
+              allow multiple instances.
+            </t>
+
+            <t hangText="Example uses:">
+              The ORDER may be applied to the PARTICIPANT-TYPE property
+              to indicate the relative importance of the participant, for
+              example as a sponsor or a performer.  For example, ORDER=1 could
+              define the principal performer or soloist.
             </t>
           </list>
         </t>
@@ -561,7 +562,37 @@ jourprop =/ *(
                 <artwork><![CDATA[
   STRUCTURED-DATA;FMTTYPE=application/ld+json;
    SCHEMA="https://schema.org/FlightReservation";
-   ENCODING=BASE64;VALUE=BINARY:Zm9vYmFy
+   ENCODING=BASE64;VALUE=BINARY:ICAgIDxzY3JpcHQgdHlwZT0iYXBwb
+    GljYXRpb24vbGQranNvbiI+CiAgICB7CiAgICAgICJAY29
+    udGV4dCI6ICJodHRwOi8vc2NoZW1hLm9yZyIsCiAgICAgICJAdHlwZSI
+    6ICJGbGlnaHRSZXNlcnZhdGlvbiIsCiAgICAgICJyZXNlcnZhdGlvbkl
+    kIjogIlJYSjM0UCIsCiAgICAgICJyZXNlcnZhdGlvblN0YXR1cyI6ICJ
+    odHRwOi8vc2NoZW1hLm9yZy9SZXNlcnZhdGlvbkNvbmZpcm1lZCIsCiA
+    gICAgICJwYXNzZW5nZXJQcmlvcml0eVN0YXR1cyI6ICJGYXN0IFRyYWN
+    rIiwKICAgICAgInBhc3NlbmdlclNlcXVlbmNlTnVtYmVyIjogIkFCQzE
+    yMyIsCiAgICAgICJzZWN1cml0eVNjcmVlbmluZyI6ICJUU0EgUHJlQ2h
+    lY2siLAogICAgICAidW5kZXJOYW1lIjogewogICAgICAgICJAdHlwZSI
+    6ICJQZXJzb24iLAogICAgICAgICJuYW1lIjogIkV2YSBHcmVlbiIKICA
+    gICAgfSwKICAgICAgInJlc2VydmF0aW9uRm9yIjogewogICAgICAgICJ
+    AdHlwZSI6ICJGbGlnaHQiLAogICAgICAgICJmbGlnaHROdW1iZXIiOiA
+    iVUExMTAiLAogICAgICAgICJwcm92aWRlciI6IHsKICAgICAgICAgICJ
+    AdHlwZSI6ICJBaXJsaW5lIiwKICAgICAgICAgICJuYW1lIjogIkNvbnR
+    pbmVudGFsIiwKICAgICAgICAgICJpYXRhQ29kZSI6ICJDTyIsCiAgICA
+    gICAgICAiYm9hcmRpbmdQb2xpY3kiOiAiaHR0cDovL3NjaGVtYS5vcmc
+    vWm9uZUJvYXJkaW5nUG9saWN5IgogICAgICAgIH0sCiAgICAgICAgInN
+    lbGxlciI6IHsKICAgICAgICAgICJAdHlwZSI6ICJBaXJsaW5lIiwKICA
+    gICAgICAgICJuYW1lIjogIlVuaXRlZCIsCiAgICAgICAgICAiaWF0YUN
+    vZGUiOiAiVUEiCiAgICAgICAgfSwKICAgICAgICAiZGVwYXJ0dXJlQWl
+    ycG9ydCI6IHsKICAgICAgICAgICJAdHlwZSI6ICJBaXJwb3J0IiwKICA
+    gICAgICAgICJuYW1lIjogIlNhbiBGcmFuY2lzY28gQWlycG9ydCIsCiA
+    gICAgICAgICAiaWF0YUNvZGUiOiAiU0ZPIgogICAgICAgIH0sCiAgICA
+    gICAgImRlcGFydHVyZVRpbWUiOiAiMjAxNy0wMy0wNFQyMDoxNTowMC0
+    wODowMCIsCiAgICAgICAgImFycml2YWxBaXJwb3J0IjogewogICAgICA
+    gICAgIkB0eXBlIjogIkFpcnBvcnQiLAogICAgICAgICAgIm5hbWUiOiA
+    iSm9obiBGLiBLZW5uZWR5IEludGVybmF0aW9uYWwgQWlycG9ydCIsCiA
+    gICAgICAgICAiaWF0YUNvZGUiOiAiSkZLIgogICAgICAgIH0sCiAgICA
+    gICAgImFycml2YWxUaW1lIjogIjIwMTctMDMtMDVUMDY6MzA6MDAtMDU
+    6MDAiCiAgICAgIH0KICAgIH0KICAgIDwvc2NyaXB0Pg==
 ]]></artwork>
               </figure>
             </t>
@@ -596,7 +627,7 @@ jourprop =/ *(
             </t>
 
             <t hangText="Description:">
-              This property parameter can be specified on any property
+              This property parameter MAY be specified on any property
               when the value is derived from some other property or
               properties. When present with a value of TRUE clients MUST NOT update
               the property.
@@ -612,7 +643,7 @@ jourprop =/ *(
             <t hangText="Example:">
               <figure>
                 <artwork><![CDATA[
-  STRUCTURED-DESCRIPTION;FMTTYPE=text/html;
+  STYLED-DESCRIPTION;FMTTYPE=text/html;
    DERIVED=TRUE:<html>...
 ]]></artwork>
               </figure>
@@ -620,122 +651,6 @@ jourprop =/ *(
           </list>
         </t>
       </section>
-    </section>
-
-    <section anchor="redefined_property_source"
-             title="Redefined Property SOURCE">
-      <t>
-        The SOURCE property defined in <xref target='RFC7986'/> is
-        redefined to allow VALUE=TEXT and broaden its usage to any
-        component.
-      </t>
-
-      <t>
-        <list style='hanging'>
-          <t hangText="Property name:">
-            SOURCE
-          </t>
-
-          <t hangText="Purpose:">
-            This property provides a reference to information
-            about a component such as a participant possibly as a
-            vcard or optionally a plain text typed value.
-          </t>
-
-          <t hangText="Value type:">
-            The default value type for this property is URI.  The
-            value type can also be set to TEXT to indicate plain text
-            content.
-          </t>
-
-          <t hangText="Property Parameters:">
-            Non-standard or format type parameters
-            can be specified on this property.
-          </t>
-
-          <t hangText="Conformance:">
-            This property MAY be appear in any iCalendar component.
-          </t>
-
-          <t hangText="Description:">
-            This property provides information about the component in
-            which it appears.
-          </t>
-
-          <t>
-            In a resource or participant it may provide a reference to
-            a vcard giving directory information.
-          </t>
-
-          <t>
-            In a VCALENDAR component this property identifies a
-            location where a client can
-            retrieve updated data for the calendar.  Clients SHOULD honor any
-            specified "REFRESH-INTERVAL" value when periodically retrieving
-            data.  Note that this property differs from the "URL" property in
-            that "URL" is meant to provide an alternative representation of
-            the calendar data rather than the original location of the data.
-          </t>
-
-          <t>
-            In a calendar entity component such as an event the SOURCE
-            property may provide a reference to the original source of
-            the event. This may be used by aggregators to provide a link
-            back.
-          </t>
-
-          <t hangText="Format Definition:">
-            <figure>
-              <preamble>
-                This property is defined by the following notation:
-              </preamble>
-
-              <artwork>
-    source     = "SOURCE" sourceparam
-                (
-                  (
-                    ";" "VALUE" "=" "URI"
-                    ":" uri
-                  )  /
-                  (
-                    ";" "VALUE" "=" "TEXT"
-                    ":" text
-                  )
-                )
-                CRLF
-
-    sourceparam      = *(
-                ;
-                ; the following are OPTIONAL
-                ; but MUST NOT occur more than once
-                ;
-                (";" fmttypeparam) /
-                ;
-                ; the following is OPTIONAL
-                ; and MAY occur more than once
-                ;
-                (";" other-param)
-                ;
-                )
-              </artwork>
-            </figure>
-          </t>
-
-          <t hangText="Example:">
-            <figure>
-              <preamble>
-                The following is an example referring to a
-                VCARD.
-              </preamble>
-
-              <artwork>
-    SOURCE;FMTTYPE=text/vcard;VALUE=URL:
-     http://dir.example.com/vcard/contacts/contact1.vcf
-              </artwork>
-            </figure>
-          </t>
-        </list>
-      </t>
     </section>
 
     <section anchor="new_properties"
@@ -762,7 +677,7 @@ jourprop =/ *(
             </t>
 
             <t hangText="Conformance:">
-              This property MUST be specified within a PARTICIPANT component.
+              This property MUST be specified once within a PARTICIPANT component.
             </t>
 
             <t hangText="Description:">
@@ -775,11 +690,12 @@ jourprop =/ *(
             <t hangText="Format Definition:">
               <figure>
                 <preamble>
-                  This parameter is defined by the following notation:
+                  This property is defined by the following notation:
                 </preamble>
 
                 <artwork type="abnf">
-   participanttype   = "PARTICIPANT-TYPE" "=" partvalue CRLF
+   participanttype   = "PARTICIPANT-TYPE" partvalueparam ":"
+                       partvalue CRLF
 
    partvalue    = ("ACTIVE"
                   / "INACTIVE"
@@ -791,9 +707,15 @@ jourprop =/ *(
                   / "PLANNER-CONTACT"
                   / "PERFORMER"
                   / "SPEAKER"
-                  / x-name          ; Experimental status
                   / iana-token)     ; Other IANA-registered
                                     ; values
+
+   partvalueparam   = *(
+                  ; the following is OPTIONAL
+                  ; and MAY occur more than once
+                  ;
+                  (";" other-param)
+                  )
 
                 </artwork>
               </figure>
@@ -882,12 +804,15 @@ jourprop =/ *(
             </t>
 
             <t hangText="Property Parameters:">
-              IANA or non-standard property parameters can be
+              IANA, non-standard, language, calendar user
+              type, group or list membership, participation role, participation
+              status, RSVP expectation, delegatee, delegator, sent by, common
+              name, or directory entry reference property parameters can be
               specified on this property.
             </t>
 
             <t hangText="Conformance:">
-              This property MAY be specified within a PARTICIPANT component.
+              This property MAY be specified once within a PARTICIPANT component.
             </t>
 
             <t hangText="Description:">
@@ -896,14 +821,39 @@ jourprop =/ *(
               value then the participant is schedulable.
             </t>
 
+            <t>
+              If there is a related ATTENDEE proeprty then all
+              parameters must be applied in that property.
+            </t>
+
             <t hangText="Format Definition:">
               <figure>
                 <preamble>
-                  This parameter is defined by the following notation:
+                  This property is defined by the following notation:
                 </preamble>
 
                 <artwork type="abnf">
-   calendaraddress   = "CALENDAR-ADDRESS" "=" cal-address
+   calendaraddress   = "CALENDAR-ADDRESS" caladdressparam ":"
+                  cal-address CRLF
+
+    caladdressparam   = *(
+                  ;
+                  ; The following are OPTIONAL,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  (";" cutypeparam) / (";" memberparam) /
+                  (";" roleparam) / (";" partstatparam) /
+                  (";" rsvpparam) / (";" deltoparam) /
+                  (";" delfromparam) / (";" sentbyparam) /
+                  (";" cnparam) / (";" dirparam) /
+                  (";" languageparam) /
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                  )
                 </artwork>
               </figure>
             </t>
@@ -939,7 +889,7 @@ jourprop =/ *(
 
             <t hangText="Conformance:">
               The property can be specified multiple times in the "VEVENT", "VTODO",
-              "VJOURNAL", "PARTICIPANT", or "VALARM" calendar components.
+              "VJOURNAL", "VFREEBUSY", "PARTICIPANT", or "VALARM" calendar components.
             </t>
 
             <t>
@@ -955,6 +905,12 @@ jourprop =/ *(
             </t>
 
             <t hangText="Description:">
+              This property supports rich-text descriptions, for example HTML.
+              Event publishers typically wish to provide more and better
+              formatted information about the event.
+            </t>
+
+            <t>
               This property is used in the "VEVENT" and "VTODO" to
               capture lengthy textual descriptions associated with the activity.
               This property is used in the "VJOURNAL" calendar component to
@@ -986,7 +942,8 @@ jourprop =/ *(
               resource via inspection of its content if and only if the media
               type of the resource is not given by the "FMTTYPE" parameter.  If
               the media type remains unknown, calendar applications SHOULD treat
-              it as type "text/html".
+              it as type "text/html" and process the content as defined in
+              <xref target='W3C.REC-html51-20171003'/>
             </t>
 
             <t>
@@ -1003,19 +960,13 @@ jourprop =/ *(
 
                 <artwork>
   styleddescription = "STYLED-DESCRIPTION" styleddescparam ":"
-                    (
-                      (
-                        ";" "VALUE" "=" "URI"
-                        ":" uri
-                      )  /
-                      (
-                        ";" "VALUE" "=" "TEXT"
-                        ":" text
-                      )
-                    )
-                    CRLF
+                  styleddescval CRLF
 
   styleddescparam   = *(
+                  ; The following is REQUIRED,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  (";" "VALUE" "=" ("URI" / "TEXT")) /
                   ;
                   ; The following are OPTIONAL,
                   ; but MUST NOT occur more than once.
@@ -1028,6 +979,9 @@ jourprop =/ *(
                   ;
                   (";" other-param)
                   )
+
+  styleddescval   = ( uri / text )
+  ;Value MUST match value type
 
                 </artwork>
               </figure>
@@ -1078,13 +1032,18 @@ jourprop =/ *(
             </t>
 
             <t hangText="Description:">
+              There may be a number of locations associated with an event.
+              This provides detailed information about these locations.
+            </t>
+
+            <t>
               When used in a component the value of this property provides
               information about the event venue or of related services such as
               parking, dining, stations etc..
             </t>
 
             <t>
-              When a LABEL parameter is supplied the language of the label must
+              When a LABEL parameter is supplied the language of the label SHOULD
               match that of the content and of the LANGUAGE parameter if present.
             </t>
 
@@ -1127,20 +1086,14 @@ jourprop =/ *(
                 </preamble>
 
                 <artwork>
-  strucloc        = "STRUCTURED-LOCATION" struclocparam
-                    (
-                      (
-                        ";" "VALUE" "=" "URI"
-                        ":" uri
-                      )  /
-                      (
-                        ";" "VALUE" "=" "TEXT"
-                        ":" text
-                      )
-                    )
-                    CRLF
+  strucloc        = "STRUCTURED-LOCATION" struclocparam ":"
+                    struclocval CRLF
 
   struclocparam   = *(
+                  ; The following is REQUIRED,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  (";" "VALUE" "=" ("URI" / "TEXT")) /
                   ;
                   ; the following are OPTIONAL
                   ; but MUST NOT occur more than once
@@ -1156,6 +1109,9 @@ jourprop =/ *(
                   ;
                   (";" other-param)
                   )
+
+  struclocval   = ( uri / text )
+  ;Value MUST match value type
 
                 </artwork>
               </figure>
@@ -1206,19 +1162,20 @@ jourprop =/ *(
             </t>
 
             <t hangText="Conformance:">
-              This property MAY be specified zero or more times in any iCalendar
-              component.
+              The property can be specified multiple times in the
+              "VEVENT" or "VTODO" calendar components.
             </t>
 
             <t hangText="Description:">
               When used in a component the value of this property provides
-              information about resources used for the event.
+              information about resources used for the event such as
+              rooms, projectors, conferencing capabilities.
             </t>
 
             <t>
               Such resources may be a room or a projector. This RESTYPE
               value registry provides a place in which resource types
-              may be registered for use by scheduling sevices.
+              may be registered for use by scheduling services.
             </t>
 
             <t>
@@ -1233,20 +1190,14 @@ jourprop =/ *(
                 </preamble>
 
                 <artwork>
-  strucres       = "STRUCTURED-RESOURCE" strucresparam /
-                  (
-                    (
-                      ";" "VALUE" "=" "URI"
-                      ":" uri
-                    )  /
-                    (
-                      ";" "VALUE" "=" "TEXT"
-                      ":" text
-                    )
-                  )
-                    CRLF
+  strucres       = "STRUCTURED-RESOURCE" strucresparam ":"
+                    strucresval CRLF
 
   strucresparam  = *(
+                  ; The following is REQUIRED,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  (";" "VALUE" "=" ("URI" / "TEXT")) /
                   ;
                   ; the following are OPTIONAL
                   ; but MUST NOT occur more than once
@@ -1261,6 +1212,9 @@ jourprop =/ *(
                   ;
                   (";" other-param)
                   )
+
+  strucewaval   = ( uri / text )
+  ;Value MUST match value type
 
                 </artwork>
               </figure>
@@ -1282,7 +1236,7 @@ jourprop =/ *(
           </list>
         </t>
       </section>
-      
+
       <section title="Structured-Data" anchor="structured-data">
         <t>
           <list style="hanging">
@@ -1313,7 +1267,21 @@ jourprop =/ *(
             </t>
             
             <t hangText="Description:">
-              This property is used to specify ancillary data in some 
+              The existing
+              properties in iCalendar cover key elements of events and tasks
+              such as start time, end time, location, summary, etc. However,
+              different types of events often have other specific "fields"
+              that it is useful to include in the calendar data. For example,
+              an event representing an airline flight could include the airline,
+              flight number, departure and arrival airport codes, check-in
+              and gate-closing times etc. As another example, a sporting event
+              might contain information about the type of sport, the home and
+              away teams, the league the teams are in, information about
+              nearby parking, etc.
+            </t>
+
+            <t>
+              This property is used to specify ancillary data in some
               structured format either directly (inline) as a "TEXT" or 
               "BINARY" value, or as a link via a "URI" value.
             </t>
@@ -1347,10 +1315,12 @@ jourprop =/ *(
               Thus the existing "ATTACH" property is not sufficient to cover
               the specific needs of inclusion of schema data. Extending the
               "ATTACH" property to support a new value type would likely cause
-              interoperability problems. Thus a new property to support
+              interoperability problems. Additionally some implementations
+              manage attachments by stripping them out and replacing with a
+              link to the resource. Thus a new property to support
               inclusion of schema data is warranted.
             </t>
-            
+
             <t hangText="Format Definition:">
               <figure>
                 <preamble>
@@ -1374,7 +1344,7 @@ jourprop =/ *(
   sdataparam  = *(
                    ;
                    ; The following is OPTIONAL for a URI value,
-                   ; RECOMMENDED for a TEXT or BINARY value,
+                   ; REQUIRED for a TEXT or BINARY value,
                    ; and MUST NOT occur more than once.
                    ;
                    (";" fmttypeparam) /
@@ -1421,16 +1391,17 @@ jourprop =/ *(
             </t>
 
             <t hangText="Purpose:">
-              This component provides information
-              about a participant in an event or optionally a plain text typed value.
+              This component provides information about a participant
+              in an event or task.
             </t>
 
             <t hangText="Conformance:">
-              This component MAY be appear in any iCalendar component.
+              This component can be specified multiple times in a
+              "VEVENT", "VTODO", "VJOURNAL", or "VFREEBUSY" calendar component.
             </t>
 
             <t hangText="Description:">
-              This component provides information about an participant
+              This component provides information about a participant
               in an event, task or poll. A participant may be an attendee
               in a scheduling sense and the ATTENDEE property may be
               specified in addition.
@@ -1440,8 +1411,8 @@ jourprop =/ *(
             </t>
             
             <t>
-              The SOURCE property if present may refer to an
-              external definition of the participant - such as a vcard.
+              STRUCTURED-DATA properties if present may refer to
+              external definitions of the participant - such as a vCard.
             </t>
             
             <t>
@@ -1455,13 +1426,13 @@ jourprop =/ *(
             <t hangText="Format Definition:">
               <figure>
                 <preamble>
-                  This property is defined by the following notation:
+                  This component is defined by the following notation:
                 </preamble>
 
                 <artwork>
 
     participantc  = "BEGIN" ":" "PARTICIPANT" CRLF
-                  partprop *alarmc
+                  partprop
                   "END" ":" "PARTICIPANT" CRLF
 
     partprop      = *(
@@ -1469,13 +1440,13 @@ jourprop =/ *(
                   ; The following are REQUIRED,
                   ; but MUST NOT occur more than once.
                   ;
-                  dtstamp  / participanttype /
+                  dtstamp  / participanttype / uid /
                   ;
                   ; The following are OPTIONAL,
                   ; but MUST NOT occur more than once.
                   ;
-                  created / description / last-mod / priority / seq /
-                  source / status / calendaraddress / summary / url /
+                  created / description / geo / last-mod / priority / seq /
+                  status / calendaraddress / summary / url /
                   ;
                   ; The following are OPTIONAL,
                   ; and MAY occur more than once.
@@ -1483,7 +1454,7 @@ jourprop =/ *(
                   attach / categories / comment /
                   contact / location / rstatus / related /
                   resources / strucloc / strucres / styleddescription /
-                  x-prop / iana-prop
+                  sdataprop / iana-prop
                   ;
                   )
 
@@ -1496,18 +1467,26 @@ jourprop =/ *(
               PARTICIPANT components with the same value for the TYPE parameter.
             </t>
 
+            <t hangText="Privacy Issues:">
+              When a LOCATION is supplied it provides information about
+              the location of a participant at a given time or times.
+              This may represent an unacceptable privacy risk for some
+              participants. User agents MUST NOT include this information
+              without the participant's express permission..
+            </t>
+
             <t hangText="Example:">
               <figure>
                 <preamble>
                   The following is an example of this component. It 
-                  contains a SOURCE property which points to a
-                  VCARD providing information about the event participant.
+                  contains a STRUCTURED-DATA property which points to a
+                  vCard providing information about the event participant.
                 </preamble>
 
                 <artwork>
                   BEGIN:PARTICIPANT
-                  PARTICIPANT-TYPE:PRINCIPAL_PERFORMER
-                  SOURCE:http://dir.example.com/vcard/aviolinist.vcf
+                  PARTICIPANT-TYPE:PERFORMER
+                  STRUCTURED-DATA;VALUE=URI:http://dir.example.com/vcard/aviolinist.vcf
                   END:PARTICIPANT
                 </artwork>
               </figure>
@@ -1521,9 +1500,9 @@ jourprop =/ *(
 
                 <artwork>
                   BEGIN: PARTICIPANT
-                  SOURCE;FMTTYPE=text/vcard;
+                  STRUCTURED-DATA;VALUE=URI;
                    http://dir.example.com/vcard/contacts/contact1.vcf
-                  PARTICIPANT-TYPE:PRIMARY-CONTACT
+                  PARTICIPANT-TYPE:CONTACT
                   DESCRIPTION:A contact:
                   END:PARTICIPANT
                 </artwork>
@@ -1541,6 +1520,18 @@ jourprop =/ *(
           and <xref target="RFC5546" />. The PARTICIPANT component may
           also represent someone or something that is NOT to receive
           scheduling messages.
+        </t>
+
+        <t>
+          For backwards compatibility wuth existing clients and servers
+          when used to schedule events and tasks
+          the ATTENDEE property MUST be used to specify the sheduling
+          parameters as defined for that property.
+        </t>
+
+        <t>
+          For other, future uses the CALENDAR-ADDRESS property MUST be used
+          to specify those parameters.
         </t>
 
         <t>
@@ -1606,11 +1597,11 @@ IMAGE;VALUE=URI;DISPLAY=BADGE;FMTTYPE=image/png:h
  ttp://example.com/images/concert.png
 BEGIN:PARTICIPANT
 PARTICIPANT-TYPE:SPONSOR
-SOURCE:http://example.com/sponsor.vcf
+STRUCTURED-DATA;VALUE=URI:http://example.com/sponsor.vcf
 END:PARTICIPANT
 BEGIN:PARTICIPANT
 PARTICIPANT-TYPE:PERFORMER:
-SOURCE:http://www.example.com/people/johndoe.vcf
+STRUCTURED-DATA;VALUE=URI:http://www.example.com/people/johndoe.vcf
 END:PARTICIPANT
 END:VEVENT
 
@@ -1632,14 +1623,14 @@ DTSTAMP:20101116T145739Z
 DTSTART;TZID=America/New_York:20170315T150000Z
 DTEND;TZID=America/New_York:20170315T163000Z
 LAST-MODIFIED:20170216T145739Z
-SUMMARY:Conference plaaning
+SUMMARY:Conference planning
 UID:123456
 ORGANIZER:mailto:a@example.com
 ATTENDEE;PARTSTAT=ACCEPTED;CN=A:mailto:a@example.com
 ATTENDEE;RSVP=TRUE;CN=B:mailto:b@example.com
 BEGIN:PARTICIPANT
 PARTICIPANT-TYPE:ACTIVE:
-SOURCE:http://www.example.com/people/b.vcf
+STRUCTURED-DATA;VALUE=URI:http://www.example.com/people/b.vcf
 LOCATION:At home
 END:PARTICIPANT
 END:VEVENT
@@ -1655,10 +1646,28 @@ END:VEVENT
        entailed in using the URIs provided as values. See [RFC3986] for
        a discussion of the security considerations relating to URIs.
       </t>
+
       <t>
-        Security considerations relating to the "ATTACH" property, as 
-        described in <xref target="RFC5545" />, are applicable to the 
-        "STRUCTURED-DATA" property.
+        For the "STRUCTURED-DATA" property, servers need to be aware
+        that a client could attack underlying storage by sending extremely large
+        values and could attack processing time by uploading a recurring
+        event with a large number of overrides and then repeatedly adding,
+        updating, and deleting structured data.
+      </t>
+
+      <t>
+        Malicious content could be introduced into the calendar server by way
+        of the "STRUCTURED-DATA" property, and propagated to many end users via
+        scheduling.  Servers SHOULD check this property for malicious
+        or inappropriate content.  Upon detecting such content, servers
+        SHOULD remove the property,
+      </t>
+
+      <t>
+        When processing HTML content applications need to be aware of the
+        many security and privacy issues as described in the IANA considerations
+        section of
+        <xref target='W3C.REC-html51-20171003'/>
       </t>
     </section>
 
@@ -1667,18 +1676,17 @@ END:VEVENT
         Properties with a "URI" value type can expose their users to 
         privacy leaks as any network access of the URI data can be 
         tracked. Clients SHOULD NOT automatically download data 
-        referenced by the URI without explicit instruction from users. 
-        This specification does not introduce any additional privacy 
-        concerns beyond those described in <xref target="RFC5545" />.
+        referenced by the URI without explicit instruction from users.
+      </t>
+
+      <t>
+        The addition of location information to the new participant
+        component provides information about the location of participants
+        at a given time.
       </t>
     </section>
 
     <section anchor="iana_considerations" title='IANA Considerations'>
-      <t>
-        This section defines updates to the tables defined in
-        <xref target='RFC5545'/> and new tables.
-      </t>
-
       <section anchor="additional-icalendar-registrations"
                title="Additional iCalendar Registrations">
         <section anchor="property_registrations"
@@ -1699,10 +1707,6 @@ END:VEVENT
             <c>PARTICIPANT-TYPE</c>
             <c>Current</c>
             <c>RFCXXXX, <xref target="participant-type"/></c>
-
-            <c>SOURCE</c>
-            <c>Current</c>
-            <c>RFCXXXX, <xref target="redefined_property_source"/></c>
 
             <c>STRUCTURED-DATA</c>
             <c>Current</c>
@@ -1773,7 +1777,7 @@ END:VEVENT
                title="New Registration Tables">
         <t>
           This section defines new registration tables for PARTICIPANT-TYPE
-          and RESTYPE values. These tables may be updated using the same
+          and RESTYPE values. These tables are updated using the same
           approaches laid down in Section 8.2.1 of <xref target="RFC5545" />
         </t>
 
@@ -1872,7 +1876,7 @@ END:VEVENT
         individuals for contributing their ideas and support:
       </t>
       <t>
-        Cyrus Daboo, John Haug, Dan Mendell, Ken Murchison, Scott Otis,
+        Cyrus Daboo, John Haug, Dan Mendell, Ken Murchison, Scott Otis.
       </t>
     </section>
   </middle>
@@ -1895,12 +1899,16 @@ END:VEVENT
 
     <references title="Normative References">
       &RFC2119;
+      &RFC2426;
       &RFC3986;
       &RFC4589;
       &RFC5545;
       &RFC5546;
       &RFC7986;
       &RFC8174;
+      &RFC8259;
+      &W3C.REC-html51-20171003;
+      &W3C.REC-xml-20081126;
     </references>
 
     <references title="Informative References">
@@ -1921,6 +1929,45 @@ END:VEVENT
     </section>
 
     <section title="Change log">
+      <t>To be deleted on publication</t>
+
+      <t>
+        calext-v14 2019-06-11  MD
+        <list style='symbols'>
+          <t>
+            Definition of event and social calendaring.
+          </t>
+          <t>
+            Remove redefinition of SOURCE - use STRUCTURED-DATA.
+          </t>
+        </list>
+      </t>
+      <t>
+        calext-v13 2019-05-26  MD
+        <list style='symbols'>
+          <t>
+            Respond to various issues.
+          </t>
+        </list>
+      </t>
+      <t>
+        calext-v12 2019-02-28  MD
+        <list style='symbols'>
+          <t>
+            Fix styled-description example. Respond to various AD issues.
+            Some typos.
+          </t>
+        </list>
+      </t>
+      <t>
+        calext-v11 2019-02-27  MD
+        <list style='symbols'>
+          <t>
+            Add DERIVED parameter for styled-description, RELATED parameter
+            for structured-location
+          </t>
+        </list>
+      </t>
       <t>
         calext-v09 2018-08-30  MD
         <list style='symbols'>
@@ -1958,7 +2005,7 @@ END:VEVENT
             separate section.
           </t>
           <t>
-            Fix PARTTYPE/PARTICPANT-TYPE inconsistency
+            Fix PARTTYPE/PARTICIPANT-TYPE inconsistency
           </t>
         </list>
       </t>
