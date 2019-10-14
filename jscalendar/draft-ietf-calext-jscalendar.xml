@@ -945,12 +945,14 @@
             At least one role MUST be specified for the participant. The keys in the set MUST be either one of the following values, an IANA-registered value, or a vendor-specific value:
 
             <list style="symbols">
-              <t><spanx style="verb">owner</spanx>: The participant is an owner of the object. This signifies they have permission to make changes to it that affect the other participants. Non-owner participants may only change properties that just affect themself (for example setting their own alerts).</t>
-              <t><spanx style="verb">attendee</spanx>: The participant is an attendee of the calendar object.</t>
-              <t><spanx style="verb">chair</spanx>: The participant is in charge of the calendar object when it occurs.</t>
+              <t><spanx style="verb">owner</spanx>: The participant is an owner of the object. This signifies they have permission to make changes to it that affect the other participants. Non-owner participants may only change properties that just affect themself (for example setting their own alerts or changing their rsvp status).</t>
+              <t><spanx style="verb">attendee</spanx>: The participant is expected to attend.</t>
+              <t><spanx style="verb">optional</spanx>: The participant is invited but not required.</t>
+              <t><spanx style="verb">informational</spanx>: The participant is copied for informational reasons, and is not expected to attend.</t>
+              <t><spanx style="verb">chair</spanx>: The participant is in charge of the event/task when it occurs.</t>
             </list>
 
-            The value for each key in the set MUST be true. Roles that are unknown to the implementation MUST be preserved.</t>
+            The value for each key in the set MUST be true. It is expected that no more than one of the roles "attendee", "optional", or "informational" be present; if more than one are given, "optional" takes precedence over "informational", and "attendee" takes precedence over both. Roles that are unknown to the implementation MUST be preserved.</t>
 
             <t>locationId: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -978,20 +980,6 @@
             <t>participationComment: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             A note from the participant to explain their participation status.</t>
-
-            <t>attendance: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">required</spanx>)
-            <vspace blankLines="1" />
-            The required attendance of this participant.
-            <vspace blankLines="1" />
-            The value MUST be either one of the following values, an IANA-registered value, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as <spanx style="verb">required</spanx>.
-
-            <list style="symbols">
-              <t><spanx style="verb">none</spanx>: Indicates a participant who is copied for information purposes only.</t>
-
-              <t><spanx style="verb">optional</spanx>: Indicates a participant whose attendance is optional.</t>
-
-              <t><spanx style="verb">required</spanx>: Indicates a participant whose attendance is required.</t>
-            </list></t>
 
             <t>expectReply: <spanx style="verb">Boolean</spanx> (optional, default: false)
             <vspace blankLines="1" />
@@ -1836,11 +1824,6 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-alerts"/></c>
 
-      <c>attendance</c>
-      <c>String</c>
-      <c>Participant</c>
-      <c><xref target="prop-participants"/></c>
-
       <c>categories</c>
       <c>String[Boolean]</c>
       <c>JSEvent, JSTask, JSGroup</c>
@@ -2308,23 +2291,6 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: attendance</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-participant-attendance">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>none</c>
-      <c><xref target="prop-participants"/></c>
-      <c>optional</c>
-      <c><xref target="prop-participants"/></c>
-      <c>required</c>
-      <c><xref target="prop-participants"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
     <t>Property Name: display</t>
     <t>Property Context: Link</t>
     <t>Change Controller: IETF</t>
@@ -2475,6 +2441,10 @@
       <c>owner</c>
       <c><xref target="prop-participants"/></c>
       <c>attendee</c>
+      <c><xref target="prop-participants"/></c>
+      <c>optional</c>
+      <c><xref target="prop-participants"/></c>
+      <c>informational</c>
       <c><xref target="prop-participants"/></c>
       <c>chair</c>
       <c><xref target="prop-participants"/></c>
