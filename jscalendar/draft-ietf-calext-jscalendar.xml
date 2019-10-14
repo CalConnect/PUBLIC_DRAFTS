@@ -901,6 +901,7 @@
             <t>@type: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
             Specifies the type of this object. This MUST be <spanx style="verb">Participant</spanx>.</t>
+
             <t>name: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The display name of the participant (e.g. "Joe Bloggs").</t>
@@ -960,6 +961,10 @@
             <vspace blankLines="1" />
             If the value does not correspond to any location id in the
             <spanx style="verb">locations</spanx> property of the JSCalendar object, this MUST be treated the same as if the participant's locationId were omitted.</t>
+
+            <t>language: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            The language tag as defined in <xref target="RFC5646" /> that best describes the participant's preferred language, if known.</t>
 
             <t>participationStatus: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">needs-action</spanx>)
             <vspace blankLines="1" />
@@ -1935,6 +1940,11 @@
       <c><xref target="prop-keywords"/></c>
 
       <c>kind</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>language</c>
       <c>String</c>
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
