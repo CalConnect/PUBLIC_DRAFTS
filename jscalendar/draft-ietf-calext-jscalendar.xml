@@ -995,6 +995,20 @@
             <vspace blankLines="1" />
             If true, the organizer is expecting the participant to notify them of their participation status.</t>
 
+            <t>scheduleAgent: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">server</spanx>)
+            <vspace blankLines="1" />
+            Who is responsible for sending scheduling messages with this calendar object to the participant.
+            <vspace blankLines="1" />
+            The value MUST be either one of the following values, an IANA-registered value, or a vendor-specific value:
+
+            <list style="symbols">
+              <t><spanx style="verb">server</spanx>: The calendar server will send the scheduling messages.</t>
+
+              <t><spanx style="verb">accepted</spanx>: The calendar client will send the scheduling messages.</t>
+
+              <t><spanx style="verb">none</spanx>: No scheduling messages are to be sent to this participant.</t>
+            </list></t>
+
             <t>scheduleSequence: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0)
             <vspace blankLines="1" />
             The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
@@ -2074,6 +2088,11 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
+      <c>scheduleAgent</c>
+      <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
       <c>scheduleSequence</c>
       <c>UnsignedInt</c>
       <c>Participant</c>
@@ -2467,6 +2486,23 @@
       <c>informational</c>
       <c><xref target="prop-participants"/></c>
       <c>chair</c>
+      <c><xref target="prop-participants"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: scheduleAgent</t>
+    <t>Property Context: Participant</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participant-scheduleagent">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>server</c>
+      <c><xref target="prop-participants"/></c>
+      <c>client</c>
+      <c><xref target="prop-participants"/></c>
+      <c>none</c>
       <c><xref target="prop-participants"/></c>
     </texttable>
 
