@@ -915,7 +915,7 @@
             <vspace blankLines="1" />
             The email address for the participant.</t>
 
-            <t>sendTo: <spanx style="verb">String[String]</spanx> (mandatory)
+            <t>sendTo: <spanx style="verb">String[String]</spanx> (optional)
             <vspace blankLines="1" />
             Represents methods by which the participant may receive the invitation and updates to the calendar object.
             <vspace blankLines="1" />
