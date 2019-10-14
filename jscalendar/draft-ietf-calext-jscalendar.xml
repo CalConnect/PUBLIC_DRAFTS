@@ -1039,7 +1039,7 @@
             <vspace blankLines="1" />
             Specifies the type of this object. This MUST be <spanx style="verb">Alert</spanx>.
             </t>
-            <t>trigger: <spanx style="verb">OffsetTrigger|AbsoluteTrigger|UnknownTrigger</spanx>
+            <t>trigger: <spanx style="verb">OffsetTrigger|AbsoluteTrigger|UnknownTrigger</spanx> (mandatory)
             <vspace blankLines="1" />
             Defines when to trigger the alert. New types may be defined in future RFCs.
             <vspace blankLines="1" />
