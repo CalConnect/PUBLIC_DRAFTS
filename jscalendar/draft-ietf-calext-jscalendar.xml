@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-18">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-20">
   <?rfc toc="yes"?>
   <?rfc symrefs="yes"?>
   <?rfc sortrefs="yes"?>
@@ -42,7 +42,7 @@
         <uri>https://www.fastmail.com</uri>
       </address>
     </author>
-    <date year="2019" month="July" day="23" />
+    <date year="2019" month="October" day="15" />
     <area>Applications</area>
     <workgroup>Calendaring extensions</workgroup>
     <keyword>JSON</keyword>
@@ -2561,6 +2561,7 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4122.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4589.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
