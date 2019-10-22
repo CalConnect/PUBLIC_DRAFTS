@@ -1004,7 +1004,7 @@
             <list style="symbols">
               <t><spanx style="verb">server</spanx>: The calendar server will send the scheduling messages.</t>
 
-              <t><spanx style="verb">accepted</spanx>: The calendar client will send the scheduling messages.</t>
+              <t><spanx style="verb">client</spanx>: The calendar client will send the scheduling messages.</t>
 
               <t><spanx style="verb">none</spanx>: No scheduling messages are to be sent to this participant.</t>
             </list></t>
