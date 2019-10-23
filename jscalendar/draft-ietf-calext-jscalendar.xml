@@ -687,7 +687,7 @@
           </list></t>
 
           <section anchor="recurrence-semantics" title="Interpreting recurrence rules">
-            <t>A recurrence rule specifies a set of date-times for recurring calendar objects. A recurrence rule has the following semantics. Note, wherever "year", "month" or "day of month" is used, this is within the calendar system given by the "rscale" property, which defaults to gregorian if omitted.
+            <t>A recurrence rule specifies a set of date-times for recurring calendar objects. A recurrence rule has the following semantics. Note, wherever "year", "month" or "day of month" is used, this is within the calendar system given by the "rscale" property, which defaults to "gregorian" if omitted.
 
             <list style="numbers">
               <t>A set of candidates is generated. This is every second within a period defined by the frequency property value:
@@ -738,7 +738,7 @@
                 <t>bySecond: the date-time has the given second value.</t>
               </list>
 
-              If a skip property is defined and is not "omit", there may be candidates that do not correspond to valid dates (e.g. 31st February in the gregorian calendar). In this case, the properties MUST be considered in the order above and:
+              If a skip property is defined and is not "omit", there may be candidates that do not correspond to valid dates (e.g. 31st February in the Gregorian calendar). In this case, the properties MUST be considered in the order above and:
 
               <list style="numbers">
                 <t>After applying the byMonth filter, if the candidate's month is invalid for the given year increment it (if skip is "forward") or decrement it (if skip is "backward") until a valid month is found, incrementing/decrementing the year as well if you pass through the  beginning/end of the year. This only applies to calendar systems with leap months.</t>
