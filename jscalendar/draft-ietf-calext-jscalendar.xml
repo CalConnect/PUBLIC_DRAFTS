@@ -632,7 +632,7 @@
 
             <t>byMonthDay: <spanx style="verb">Int[]</spanx> (optional)
             <vspace blankLines="1" />
-            Days of the month on which to repeat. Valid values are 1 to 31 or -31 to -1. Negative values offset from the end of the month. The array MUST have at least one entry if included.
+            Days of the month on which to repeat. Valid values are between 1 and the maximum number of days any month may have in the calendar given by the "rscale" property, and the negative values of these numbers. For example, in the Gregorian calendar valid values are 1 to 31 and -31 to -1. Negative values offset from the end of the month. The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYMONTHDAY part in iCalendar.</t>
 
@@ -644,13 +644,13 @@
 
             <t>byYearDay: <spanx style="verb">Int[]</spanx> (optional)
             <vspace blankLines="1" />
-            The days of the year on which to repeat. Valid values are 1 to 366 or -366 to -1. Negative values offset from the end of the year. The array MUST have at least one entry if included.
+            The days of the year on which to repeat. Valid values are between 1 and the maximum number of days any year may have in the calendar given by the "rscale" property, and the negative values of these numbers. For example, in the Gregorian calendar valid values are 1 to 366 and -366 to -1. Negative values offset from the end of the year. The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYYEARDAY part from iCalendar.</t>
 
             <t>byWeekNo: <spanx style="verb">Int[]</spanx> (optional)
             <vspace blankLines="1" />
-            Weeks of the year in which to repeat. Valid values are 1 to 53 or -53 to -1. The array MUST have at least one entry if included.
+            Weeks of the year in which to repeat. Valid values are between 1 and the maximum number of weeks any year may have in the calendar given by the "rscale" property, and the negative values of these numbers. For example, in the Gregorian calendar valid values are 1 to 53 and -53 to -1. The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYWEEKNO part from iCalendar.</t>
 
