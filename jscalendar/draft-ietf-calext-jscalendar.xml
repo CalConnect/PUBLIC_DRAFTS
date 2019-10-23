@@ -805,6 +805,7 @@
           <list style="symbols">
             <t>@type</t>
             <t>method</t>
+            <t>privacy</t>
             <t>prodId</t>
             <t>recurrenceId</t>
             <t>recurrenceOverrides</t>
