@@ -307,7 +307,7 @@
         <section anchor="prop-prodId" title="prodId">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>The identifier for the product that created the JSCalendar object.</t>
+          <t>The identifier for the product that last updated the JSCalendar object. This should be set whenever the data in the object is modified (i.e., whenever the "updated" property is set).</t>
 
           <t>The vendor of the implementation SHOULD ensure that this is a globally unique identifier, using some technique such as an FPI value, as defined in [ISO.9070.1991]. It MUST only use characters of an iCalendar TEXT data value (see Section 3.3.11 of <xref target="RFC5545" />).</t>
 
