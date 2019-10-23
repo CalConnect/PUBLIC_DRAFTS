@@ -986,6 +986,8 @@
               <t><spanx style="verb">declined</spanx>: The invited participant will not participate.</t>
 
               <t><spanx style="verb">tentative</spanx>: The invited participant may participate.</t>
+
+              <t><spanx style="verb">delegated</spanx>: The invited participant has delegated their attendance to another participant, as specified in the delegatedTo property.</t>
             </list></t>
 
             <t>participationComment: <spanx style="verb">String</spanx> (optional)
@@ -2398,6 +2400,8 @@
       <c>declined</c>
       <c><xref target="prop-participants"/></c>
       <c>tenative</c>
+      <c><xref target="prop-participants"/></c>
+      <c>delegated</c>
       <c><xref target="prop-participants"/></c>
     </texttable>
 
