@@ -587,7 +587,7 @@
 
             <t>skip: <spanx style="verb">String</spanx> (optional, default: "omit")
             <vspace blankLines="1" />
-            The behaviour to use when the expansion of the recurrence produces invalid dates. This MUST be one of the following values:
+            The behaviour to use when the expansion of the recurrence produces invalid dates. This property only has an effect if the frequency is "yearly" or "monthly". It MUST be one of the following values:
 
             <list style="symbols">
               <t><spanx style="verb">omit</spanx></t>
