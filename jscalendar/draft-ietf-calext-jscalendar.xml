@@ -2216,7 +2216,7 @@
   </list></t>
   </section>
 
-  <section anchor="iana-type-registry-contents" title="Initial Contents for the JSCalendar Properties Registry">
+  <section anchor="iana-type-registry-contents" title="Initial Contents for the JSCalendar Types Registry">
     <t>The following table lists the initial entries of the JSCalendar Types registry. All properties are for common-use. All RFC section references are for this document. The change controller for all these properties is "IETF".</t>
 
     <texttable anchor="table-iana-type-registry">
