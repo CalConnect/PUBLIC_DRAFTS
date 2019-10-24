@@ -2126,10 +2126,20 @@
       <c>Link</c>
       <c><xref target="prop-links"/></c>
 
+      <c>source</c>
+      <c>String</c>
+      <c>JSGroup</c>
+      <c><xref target="prop-source"/></c>
+
       <c>start</c>
       <c>LocalDateTime</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-start-jsevent"/>, <xref target="prop-start-jstask"/></c>
+
+      <c>status</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/></c>
 
       <c>status</c>
       <c>String</c>
@@ -2140,16 +2150,6 @@
       <c>UTCDateTime</c>
       <c>JSTask</c>
       <c><xref target="prop-statusUpdatedAt"/></c>
-
-      <c>source</c>
-      <c>String</c>
-      <c>JSGroup</c>
-      <c><xref target="prop-source"/></c>
-
-      <c>status</c>
-      <c>String</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/></c>
 
       <c>timestamp</c>
       <c>UTCDateTime</c>
