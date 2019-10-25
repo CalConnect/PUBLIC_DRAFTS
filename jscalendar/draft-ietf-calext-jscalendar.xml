@@ -2046,6 +2046,11 @@
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-prodId"/></c>
 
+      <c>progress</c>
+      <c>ParticipantProgress</c>
+      <c>Participant</c>
+      <c><xref target="prop-progress"/></c>
+
       <c>recurrenceId</c>
       <c>LocalDateTime</c>
       <c>JSEvent, JSTask</c>
@@ -2138,13 +2143,8 @@
 
       <c>status</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/></c>
-
-      <c>status</c>
-      <c>String</c>
-      <c>ParticipantProgress</c>
-      <c><xref target="prop-progress"/></c>
+      <c>JSEvent, JSTask, ParticipantProgress</c>
+      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/>, <xref target="prop-progress"/></c>
 
       <c>statusUpdatedAt</c>
       <c>UTCDateTime</c>
@@ -2424,23 +2424,6 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: progress</t>
-    <t>Property Context: ParticipantProgress</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-participantProgress-status">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>completed</c>
-      <c><xref target="prop-progress"/></c>
-      <c>in-process</c>
-      <c><xref target="prop-progress"/></c>
-      <c>failed</c>
-      <c><xref target="prop-progress"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
     <t>Property Name: relation</t>
     <t>Property Context: Relation</t>
     <t>Change Controller: IETF</t>
@@ -2549,6 +2532,23 @@
       <c><xref target="prop-status-jstask"/></c>
       <c>failed</c>
       <c><xref target="prop-status-jstask"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: status</t>
+    <t>Property Context: ParticipantProgress</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-participantProgress-status">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>completed</c>
+      <c><xref target="prop-progress"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-progress"/></c>
+      <c>failed</c>
+      <c><xref target="prop-progress"/></c>
     </texttable>
 
   </section>
