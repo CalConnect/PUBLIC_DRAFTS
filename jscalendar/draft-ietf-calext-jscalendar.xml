@@ -1311,7 +1311,7 @@
           <t>In addition to the common properties of a Participant object (<xref target="prop-participants" />), a Participant within a JSTask supports the following property:
 
           <list style="symbols">
-            <t>progress: ParticipantProgress (optional). The progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any other value but <spanx style="verb">accepted</spanx>.</t>
+            <t>progress: ParticipantProgress (optional). The progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>.</t>
           </list>
 
           <vspace blankLines="1" />
