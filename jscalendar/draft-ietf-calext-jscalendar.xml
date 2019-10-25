@@ -1446,8 +1446,8 @@
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
   "updated": "2018-01-15T18:00:00Z",
   "name": "A simple group",
-  "entries": [
-    {
+  "entries": {
+    "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
       "@type": "jsevent",
       "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
       "updated": "2018-01-15T18:00:00Z",
@@ -1456,13 +1456,13 @@
       "timeZone": "America/New_York",
       "duration": "PT1H"
     },
-    {
+    "2a358cee-6489-4f14-a57f-c104db4dc2f2": {
       "@type": "jstask",
       "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
       "updated": "2018-01-15T18:00:00Z",
       "title": "Do something"
     }
-  ]
+  }
 }
           ]]></artwork>
     </figure>
