@@ -388,7 +388,7 @@
             <vspace blankLines="1" />
             Human-readable, plain-text instructions for accessing this location. This may be an address, set of directions, door access code, etc.</t>
 
-            <t>categories: <spanx style="verb">String[Boolean]</spanx> (optional)
+            <t>locationTypes: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
             A set of one or more location types that describe this location. All types MUST be from the Location Types Registry as defined in <xref target="RFC4589" />. The set is represented as a map, with the keys being the location types. The value for each key in the map MUST be true.
             </t>
@@ -1856,11 +1856,6 @@
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-categories"/></c>
 
-      <c>categories</c>
-      <c>String[Boolean]</c>
-      <c>Location</c>
-      <c><xref target="prop-locations"/></c>
-
       <c>cid</c>
       <c>String</c>
       <c>Link</c>
@@ -1994,6 +1989,11 @@
       <c>locations</c>
       <c>Id[Location]</c>
       <c>JSEvent, JSTask</c>
+      <c><xref target="prop-locations"/></c>
+
+      <c>locationTypes</c>
+      <c>String[Boolean]</c>
+      <c>Location</c>
       <c><xref target="prop-locations"/></c>
 
       <c>memberOf</c>
