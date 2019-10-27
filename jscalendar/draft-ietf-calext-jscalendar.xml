@@ -1852,6 +1852,51 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-alerts"/></c>
 
+      <c>byDay</c>
+      <c>NDay[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>byHour</c>
+      <c>UnsignedInt[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>byMinute</c>
+      <c>UnsignedInt[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>byMonth</c>
+      <c>String[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>byMonthDay</c>
+      <c>Int[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>bySecond</c>
+      <c>UnsignedInt[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>bySetPosition</c>
+      <c>Int[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>byWeekNo</c>
+      <c>Int[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
+      <c>byYearDay</c>
+      <c>Int[]</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
       <c>categories</c>
       <c>String[Boolean]</c>
       <c>JSEvent, JSTask, JSGroup</c>
@@ -1876,6 +1921,11 @@
       <c>String</c>
       <c>Location</c>
       <c><xref target="prop-locations"/></c>
+
+      <c>count</c>
+      <c>UnsignedInt</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
 
       <c>created</c>
       <c>UTCDateTime</c>
@@ -1942,15 +1992,30 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
+      <c>firstDayOfWeek</c>
+      <c>String</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
       <c>freeBusyStatus</c>
       <c>String</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-freeBusyStatus"/></c>
 
+      <c>frequency</c>
+      <c>String</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
       <c>href</c>
       <c>String</c>
       <c>Link</c>
       <c><xref target="prop-links"/></c>
+
+      <c>interval</c>
+      <c>UnsignedInt</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
 
       <c>invitedBy</c>
       <c>String</c>
@@ -2107,6 +2172,11 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
+      <c>rscale</c>
+      <c>String</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
+
       <c>scheduleAgent</c>
       <c>String</c>
       <c>Participant</c>
@@ -2141,6 +2211,11 @@
       <c>UnsignedInt</c>
       <c>Link</c>
       <c><xref target="prop-links"/></c>
+
+      <c>skip</c>
+      <c>String</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
 
       <c>source</c>
       <c>String</c>
@@ -2186,6 +2261,11 @@
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-uid"/></c>
+
+      <c>until</c>
+      <c>LocalDateTime</c>
+      <c>RecurrenceRule</c>
+      <c><xref target="prop-recurrenceRule"/></c>
 
       <c>updated</c>
       <c>UTCDateTime</c>
