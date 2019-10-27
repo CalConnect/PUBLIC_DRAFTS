@@ -1334,7 +1334,7 @@
               <t><spanx style="verb">in-process</spanx>:  The participant has started this task.</t>
               <t><spanx style="verb">failed</spanx>: The participant failed to complete this task.</t>
             </list></t>
-            <t>timestamp: <spanx style="verb">UTCDateTime</spanx> (mandatory)
+            <t>updated: <spanx style="verb">UTCDateTime</spanx> (mandatory)
             <vspace blankLines="1" />
             Represents the last time the participant progress was updated.</t>
           </list></t>
@@ -2151,11 +2151,6 @@
       <c>JSTask</c>
       <c><xref target="prop-statusUpdatedAt"/></c>
 
-      <c>timestamp</c>
-      <c>UTCDateTime</c>
-      <c>ParticipantProgress</c>
-      <c><xref target="prop-progress"/></c>
-
       <c>timeZone</c>
       <c>String|null</c>
       <c>JSEvent, JSTask, Location</c>
@@ -2183,8 +2178,8 @@
 
       <c>updated</c>
       <c>UTCDateTime</c>
-      <c>JSEvent, JSTask, JSGroup</c>
-      <c><xref target="prop-updated"/></c>
+      <c>JSEvent, JSTask, JSGroup, ParticipantProgress</c>
+      <c><xref target="prop-updated"/>, <xref target="prop-progress"/></c>
 
       <c>useDefaultAlerts</c>
       <c>Boolean</c>
