@@ -1977,6 +1977,16 @@
       <c>Location, Participant</c>
       <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
 
+      <c>links</c>
+      <c>Id[Link]</c>
+      <c>JSGroup, JSEvent, JSTask</c>
+      <c><xref target="prop-links"/></c>
+
+      <c>locale</c>
+      <c>String</c>
+      <c>JSGroup, JSEvent, JSTask</c>
+      <c><xref target="prop-links"/></c>
+
       <c>localizations</c>
       <c>String[PatchObject]</c>
       <c>JSEvent, JSTask</c>
@@ -2009,8 +2019,8 @@
 
       <c>name</c>
       <c>String</c>
-      <c>Location, Participant</c>
-      <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
+      <c>Location, VirtualLocation, Participant</c>
+      <c><xref target="prop-locations"/>, <xref target="prop-virtualLocations"/>, <xref target="prop-participants"/></c>
 
       <c>offset</c>
       <c>SignedDuration</c>
@@ -2181,6 +2191,11 @@
       <c>UTCDateTime</c>
       <c>JSEvent, JSTask, JSGroup, ParticipantProgress</c>
       <c><xref target="prop-updated"/>, <xref target="prop-progress"/></c>
+
+      <c>uri</c>
+      <c>String</c>
+      <c>VirtualLocation</c>
+      <c><xref target="prop-virtualLocations"/></c>
 
       <c>useDefaultAlerts</c>
       <c>Boolean</c>
