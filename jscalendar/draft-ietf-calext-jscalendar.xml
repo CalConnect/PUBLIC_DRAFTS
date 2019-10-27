@@ -1377,6 +1377,7 @@
           <t>descriptionContentType</t>
           <t>keywords</t>
           <t>links</t>
+          <t>locale</t>
           <t>prodId</t>
           <t>title</t>
           <t>updated</t>
