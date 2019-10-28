@@ -1043,6 +1043,10 @@
             <t>linkIds: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
             A set of links to more information about this participant, for example in vCard format. The keys in the set MUST be the id of a Link object in the calendar object's <spanx style="verb">links</spanx> property. The value for each key in the set MUST be true. This MUST be omitted if none (rather than an empty set).</t>
+
+            <t>progress: <spanx style="verb">String</spanx> (optional). This is only allowed if the Participant is part of a JSTask. It represents the progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
+
+            <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional). Specifies the date-time the progress property was last set on this participant. This is only allowed if the Participant is part of a JSTask.</t>
           </list></t>
         </section>
       </section>
@@ -1299,57 +1303,16 @@
           <t>Specifies the estimated positive duration of time the task takes to complete.</t>
         </section>
 
-        <section anchor="prop-statusUpdatedAt" title="statusUpdatedAt">
-          <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
-
-          <t>Specifies the date/time the <spanx style="verb">status</spanx> property of either the task overall (<xref target="prop-status-jstask" />) or a specific participant (<xref target="prop-progress" />) was last updated.</t>
-
-          <t>If the task is recurring and has future instances, a client may want to keep track of the last status update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the statusUpdatedAt property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance status update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
-        </section>
-
         <section anchor="prop-progress" title="progress">
-          <t>In addition to the common properties of a Participant object (<xref target="prop-participants" />), a Participant within a JSTask supports the following property:
-
-          <list style="symbols">
-            <t>progress: ParticipantProgress (optional). The progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>.</t>
-          </list>
-
-          <vspace blankLines="1" />
-
-          A ParticipantProgress object has the following properties:
-          <vspace blankLines="1" />
-
-          <list style="symbols">
-            <t>@type: <spanx style="verb">String</spanx> (mandatory)
-            <vspace blankLines="1" />
-            Specifies the type of this object. This MUST be <spanx style="verb">ParticipantProgress</spanx>.
-            </t>
-            <t>status: <spanx style="verb">String</spanx> (mandatory)
-            <vspace blankLines="1" />
-            Describes the completion status of the participant's progress.
-            <vspace blankLines="1" />
-            The value MUST be at most one of the following values, an IANA-registered value, or a vendor-specific value:
-            <list style="symbols">
-              <t><spanx style="verb">completed</spanx>: The participant completed this task.</t>
-              <t><spanx style="verb">in-process</spanx>:  The participant has started this task.</t>
-              <t><spanx style="verb">failed</spanx>: The participant failed to complete this task.</t>
-            </list></t>
-            <t>updated: <spanx style="verb">UTCDateTime</spanx> (mandatory)
-            <vspace blankLines="1" />
-            Represents the last time the participant progress was updated.</t>
-          </list></t>
-        </section>
-
-        <section anchor="prop-status-jstask" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>Defines the overall status of this task. If omitted, the default status (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
+          <t>Defines the progress of this task. If omitted, the default progress (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
 
           <list style="symbols">
-            <t><spanx style="verb">completed</spanx>: if the <spanx style="verb">status</spanx> property value of all participant progresses is
+            <t><spanx style="verb">completed</spanx>: if the <spanx style="verb">progress</spanx> property value of all participants is
               <spanx style="verb">completed</spanx>.</t>
-            <t><spanx style="verb">failed</spanx>: if at least one <spanx style="verb">status</spanx> property value of the participant progresses is <spanx style="verb">failed</spanx>.</t>
-            <t><spanx style="verb">in-process</spanx>: if at least one <spanx style="verb">status</spanx> property value of the participant progresses is <spanx style="verb">in-process</spanx>.</t>
+            <t><spanx style="verb">failed</spanx>: if at least one <spanx style="verb">progress</spanx> property value of a participant is <spanx style="verb">failed</spanx>.</t>
+            <t><spanx style="verb">in-process</spanx>: if at least one <spanx style="verb">progress</spanx> property value of a participant is <spanx style="verb">in-process</spanx>.</t>
             <t><spanx style="verb">needs-action</spanx>: If none of the other criteria match.</t>
           </list></t>
 
@@ -1357,12 +1320,19 @@
 
           <list style="symbols">
             <t><spanx style="verb">needs-action</spanx>: Indicates the task needs action.</t>
-            <t><spanx style="verb">completed</spanx>: Indicates the task is completed.</t>
             <t><spanx style="verb">in-process</spanx>: Indicates the task is in process.</t>
-            <t><spanx style="verb">cancelled</spanx>: Indicates the task is cancelled.</t>
-            <t><spanx style="verb">pending</spanx>: Indicates the task has been created and accepted for processing, but not yet started.</t>
+            <t><spanx style="verb">completed</spanx>: Indicates the task is completed.</t>
             <t><spanx style="verb">failed</spanx>: Indicates the task failed.</t>
+            <t><spanx style="verb">cancelled</spanx>: Indicates the task was cancelled.</t>
           </list></t>
+        </section>
+
+        <section anchor="prop-progressUpdated" title="progressUpdated">
+          <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
+
+          <t>Specifies the date/time the <spanx style="verb">progress</spanx> property of either the task overall (<xref target="prop-progress" />) or a specific participant (<xref target="prop-participants" />) was last updated.</t>
+
+          <t>If the task is recurring and has future instances, a client may want to keep track of the last progress update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the progressUpdated property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance progress update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
         </section>
       </section>
 
@@ -1834,8 +1804,8 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
-      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
       <c>UTCDateTime</c>
@@ -2123,9 +2093,14 @@
       <c><xref target="prop-prodId"/></c>
 
       <c>progress</c>
-      <c>ParticipantProgress</c>
-      <c>Participant</c>
+      <c>String</c>
+      <c>JSTask, Participant</c>
       <c><xref target="prop-progress"/></c>
+
+      <c>progressUpdated</c>
+      <c>UTCDateTime</c>
+      <c>JSTask, Participant</c>
+      <c><xref target="prop-progressUpdated"/></c>
 
       <c>recurrenceId</c>
       <c>LocalDateTime</c>
@@ -2229,13 +2204,8 @@
 
       <c>status</c>
       <c>String</c>
-      <c>JSEvent, JSTask, ParticipantProgress</c>
-      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/>, <xref target="prop-progress"/></c>
-
-      <c>statusUpdatedAt</c>
-      <c>UTCDateTime</c>
-      <c>JSTask</c>
-      <c><xref target="prop-statusUpdatedAt"/></c>
+      <c>JSEvent</c>
+      <c><xref target="prop-status-jsevent"/></c>
 
       <c>timeZone</c>
       <c>String|null</c>
@@ -2269,8 +2239,8 @@
 
       <c>updated</c>
       <c>UTCDateTime</c>
-      <c>JSEvent, JSTask, JSGroup, ParticipantProgress</c>
-      <c><xref target="prop-updated"/>, <xref target="prop-progress"/></c>
+      <c>JSEvent, JSTask, JSGroup</c>
+      <c><xref target="prop-updated"/></c>
 
       <c>uri</c>
       <c>String</c>
@@ -2343,9 +2313,6 @@
 
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
-
-      <c>ParticipantProgress</c>
-      <c><xref target="prop-progress"/></c>
 
       <c>PatchObject</c>
       <c><xref target="type-PatchObject"/></c>
@@ -2515,6 +2482,27 @@
 
     <t>------------------------------------------------------------</t>
 
+    <t>Property Name: progress</t>
+    <t>Property Context: JSTask, Participant</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-status-jstask">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>needs-action</c>
+      <c><xref target="prop-progress"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-progress"/></c>
+      <c>completed</c>
+      <c><xref target="prop-progress"/></c>
+      <c>failed</c>
+      <c><xref target="prop-progress"/></c>
+      <c>cancelled</c>
+      <c><xref target="prop-progress"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
     <t>Property Name: relation</t>
     <t>Property Context: Relation</t>
     <t>Change Controller: IETF</t>
@@ -2600,46 +2588,6 @@
       <c><xref target="prop-status-jsevent"/></c>
       <c>tentative</c>
       <c><xref target="prop-status-jsevent"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: status</t>
-    <t>Property Context: JSTask</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-status-jstask">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>completed</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>failed</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>in-process</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>cancelled</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>pending</c>
-      <c><xref target="prop-status-jstask"/></c>
-      <c>failed</c>
-      <c><xref target="prop-status-jstask"/></c>
-    </texttable>
-
-    <t>------------------------------------------------------------</t>
-
-    <t>Property Name: status</t>
-    <t>Property Context: ParticipantProgress</t>
-    <t>Change Controller: IETF</t>
-
-    <texttable anchor="table-iana-enum-participantProgress-status">
-      <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
-      <c>completed</c>
-      <c><xref target="prop-progress"/></c>
-      <c>in-process</c>
-      <c><xref target="prop-progress"/></c>
-      <c>failed</c>
-      <c><xref target="prop-progress"/></c>
     </texttable>
 
   </section>
