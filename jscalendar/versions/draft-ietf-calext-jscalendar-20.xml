@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-21">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-20">
   <?rfc toc="yes"?>
   <?rfc symrefs="yes"?>
   <?rfc sortrefs="yes"?>
@@ -42,7 +42,7 @@
         <uri>https://www.fastmail.com</uri>
       </address>
     </author>
-    <date year="2019" month="October" day="28" />
+    <date year="2019" month="October" day="15" />
     <area>Applications</area>
     <workgroup>Calendaring extensions</workgroup>
     <keyword>JSON</keyword>
@@ -307,7 +307,7 @@
         <section anchor="prop-prodId" title="prodId">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>The identifier for the product that last updated the JSCalendar object. This should be set whenever the data in the object is modified (i.e., whenever the "updated" property is set).</t>
+          <t>The identifier for the product that created the JSCalendar object.</t>
 
           <t>The vendor of the implementation SHOULD ensure that this is a globally unique identifier, using some technique such as an FPI value, as defined in [ISO.9070.1991]. It MUST only use characters of an iCalendar TEXT data value (see Section 3.3.11 of <xref target="RFC5545" />).</t>
 
@@ -388,7 +388,7 @@
             <vspace blankLines="1" />
             Human-readable, plain-text instructions for accessing this location. This may be an address, set of directions, door access code, etc.</t>
 
-            <t>locationTypes: <spanx style="verb">String[Boolean]</spanx> (optional)
+            <t>categories: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
             A set of one or more location types that describe this location. All types MUST be from the Location Types Registry as defined in <xref target="RFC4589" />. The set is represented as a map, with the keys being the location types. The value for each key in the map MUST be true.
             </t>
@@ -587,7 +587,7 @@
 
             <t>skip: <spanx style="verb">String</spanx> (optional, default: "omit")
             <vspace blankLines="1" />
-            The behaviour to use when the expansion of the recurrence produces invalid dates. This property only has an effect if the frequency is "yearly" or "monthly". It MUST be one of the following values:
+            The behaviour to use when the expansion of the recurrence produces invalid dates. This MUST be one of the following values:
 
             <list style="symbols">
               <t><spanx style="verb">omit</spanx></t>
@@ -632,7 +632,7 @@
 
             <t>byMonthDay: <spanx style="verb">Int[]</spanx> (optional)
             <vspace blankLines="1" />
-            Days of the month on which to repeat. Valid values are between 1 and the maximum number of days any month may have in the calendar given by the "rscale" property, and the negative values of these numbers. For example, in the Gregorian calendar valid values are 1 to 31 and -31 to -1. Negative values offset from the end of the month. The array MUST have at least one entry if included.
+            Days of the month on which to repeat. Valid values are 1 to 31 or -31 to -1. Negative values offset from the end of the month. The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYMONTHDAY part in iCalendar.</t>
 
@@ -644,13 +644,13 @@
 
             <t>byYearDay: <spanx style="verb">Int[]</spanx> (optional)
             <vspace blankLines="1" />
-            The days of the year on which to repeat. Valid values are between 1 and the maximum number of days any year may have in the calendar given by the "rscale" property, and the negative values of these numbers. For example, in the Gregorian calendar valid values are 1 to 366 and -366 to -1. Negative values offset from the end of the year. The array MUST have at least one entry if included.
+            The days of the year on which to repeat. Valid values are 1 to 366 or -366 to -1. Negative values offset from the end of the year. The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYYEARDAY part from iCalendar.</t>
 
             <t>byWeekNo: <spanx style="verb">Int[]</spanx> (optional)
             <vspace blankLines="1" />
-            Weeks of the year in which to repeat. Valid values are between 1 and the maximum number of weeks any year may have in the calendar given by the "rscale" property, and the negative values of these numbers. For example, in the Gregorian calendar valid values are 1 to 53 and -53 to -1. The array MUST have at least one entry if included.
+            Weeks of the year in which to repeat. Valid values are 1 to 53 or -53 to -1. The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYWEEKNO part from iCalendar.</t>
 
@@ -687,7 +687,7 @@
           </list></t>
 
           <section anchor="recurrence-semantics" title="Interpreting recurrence rules">
-            <t>A recurrence rule specifies a set of date-times for recurring calendar objects. A recurrence rule has the following semantics. Note, wherever "year", "month" or "day of month" is used, this is within the calendar system given by the "rscale" property, which defaults to "gregorian" if omitted.
+            <t>A recurrence rule specifies a set of date-times for recurring calendar objects. A recurrence rule has the following semantics. Note, wherever "year", "month" or "day of month" is used, this is within the calendar system given by the "rscale" property, which defaults to gregorian if omitted.
 
             <list style="numbers">
               <t>A set of candidates is generated. This is every second within a period defined by the frequency property value:
@@ -738,7 +738,7 @@
                 <t>bySecond: the date-time has the given second value.</t>
               </list>
 
-              If a skip property is defined and is not "omit", there may be candidates that do not correspond to valid dates (e.g. 31st February in the Gregorian calendar). In this case, the properties MUST be considered in the order above and:
+              If a skip property is defined and is not "omit", there may be candidates that do not correspond to valid dates (e.g. 31st February in the gregorian calendar). In this case, the properties MUST be considered in the order above and:
 
               <list style="numbers">
                 <t>After applying the byMonth filter, if the candidate's month is invalid for the given year increment it (if skip is "forward") or decrement it (if skip is "backward") until a valid month is found, incrementing/decrementing the year as well if you pass through the  beginning/end of the year. This only applies to calendar systems with leap months.</t>
@@ -805,7 +805,6 @@
           <list style="symbols">
             <t>@type</t>
             <t>method</t>
-            <t>privacy</t>
             <t>prodId</t>
             <t>recurrenceId</t>
             <t>recurrenceOverrides</t>
@@ -986,8 +985,6 @@
               <t><spanx style="verb">declined</spanx>: The invited participant will not participate.</t>
 
               <t><spanx style="verb">tentative</spanx>: The invited participant may participate.</t>
-
-              <t><spanx style="verb">delegated</spanx>: The invited participant has delegated their attendance to another participant, as specified in the delegatedTo property.</t>
             </list></t>
 
             <t>participationComment: <spanx style="verb">String</spanx> (optional)
@@ -1007,7 +1004,7 @@
             <list style="symbols">
               <t><spanx style="verb">server</spanx>: The calendar server will send the scheduling messages.</t>
 
-              <t><spanx style="verb">client</spanx>: The calendar client will send the scheduling messages.</t>
+              <t><spanx style="verb">accepted</spanx>: The calendar client will send the scheduling messages.</t>
 
               <t><spanx style="verb">none</spanx>: No scheduling messages are to be sent to this participant.</t>
             </list></t>
@@ -1043,10 +1040,6 @@
             <t>linkIds: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
             A set of links to more information about this participant, for example in vCard format. The keys in the set MUST be the id of a Link object in the calendar object's <spanx style="verb">links</spanx> property. The value for each key in the set MUST be true. This MUST be omitted if none (rather than an empty set).</t>
-
-            <t>progress: <spanx style="verb">String</spanx> (optional). This is only allowed if the Participant is part of a JSTask. It represents the progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
-
-            <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional). Specifies the date-time the progress property was last set on this participant. This is only allowed if the Participant is part of a JSTask.</t>
           </list></t>
         </section>
       </section>
@@ -1303,16 +1296,57 @@
           <t>Specifies the estimated positive duration of time the task takes to complete.</t>
         </section>
 
-        <section anchor="prop-progress" title="progress">
-          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
+        <section anchor="prop-statusUpdatedAt" title="statusUpdatedAt">
+          <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
 
-          <t>Defines the progress of this task. If omitted, the default progress (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
+          <t>Specifies the date/time the <spanx style="verb">status</spanx> property of either the task overall (<xref target="prop-status-jstask" />) or a specific participant (<xref target="prop-progress" />) was last updated.</t>
+
+          <t>If the task is recurring and has future instances, a client may want to keep track of the last status update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the statusUpdatedAt property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance status update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
+        </section>
+
+        <section anchor="prop-progress" title="progress">
+          <t>In addition to the common properties of a Participant object (<xref target="prop-participants" />), a Participant within a JSTask supports the following property:
 
           <list style="symbols">
-            <t><spanx style="verb">completed</spanx>: if the <spanx style="verb">progress</spanx> property value of all participants is
+            <t>progress: ParticipantProgress (optional). The progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any other value but <spanx style="verb">accepted</spanx>.</t>
+          </list>
+
+          <vspace blankLines="1" />
+
+          A ParticipantProgress object has the following properties:
+          <vspace blankLines="1" />
+
+          <list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">ParticipantProgress</spanx>.
+            </t>
+            <t>status: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Describes the completion status of the participant's progress.
+            <vspace blankLines="1" />
+            The value MUST be at most one of the following values, an IANA-registered value, or a vendor-specific value:
+            <list style="symbols">
+              <t><spanx style="verb">completed</spanx>: The participant completed this task.</t>
+              <t><spanx style="verb">in-process</spanx>:  The participant has started this task.</t>
+              <t><spanx style="verb">failed</spanx>: The participant failed to complete this task.</t>
+            </list></t>
+            <t>timestamp: <spanx style="verb">UTCDateTime</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Represents the last time the participant progress was updated.</t>
+          </list></t>
+        </section>
+
+        <section anchor="prop-status-jstask" title="status">
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
+
+          <t>Defines the overall status of this task. If omitted, the default status (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
+
+          <list style="symbols">
+            <t><spanx style="verb">completed</spanx>: if the <spanx style="verb">status</spanx> property value of all participant progresses is
               <spanx style="verb">completed</spanx>.</t>
-            <t><spanx style="verb">failed</spanx>: if at least one <spanx style="verb">progress</spanx> property value of a participant is <spanx style="verb">failed</spanx>.</t>
-            <t><spanx style="verb">in-process</spanx>: if at least one <spanx style="verb">progress</spanx> property value of a participant is <spanx style="verb">in-process</spanx>.</t>
+            <t><spanx style="verb">failed</spanx>: if at least one <spanx style="verb">status</spanx> property value of the participant progresses is <spanx style="verb">failed</spanx>.</t>
+            <t><spanx style="verb">in-process</spanx>: if at least one <spanx style="verb">status</spanx> property value of the participant progresses is <spanx style="verb">in-process</spanx>.</t>
             <t><spanx style="verb">needs-action</spanx>: If none of the other criteria match.</t>
           </list></t>
 
@@ -1320,19 +1354,12 @@
 
           <list style="symbols">
             <t><spanx style="verb">needs-action</spanx>: Indicates the task needs action.</t>
-            <t><spanx style="verb">in-process</spanx>: Indicates the task is in process.</t>
             <t><spanx style="verb">completed</spanx>: Indicates the task is completed.</t>
+            <t><spanx style="verb">in-process</spanx>: Indicates the task is in process.</t>
+            <t><spanx style="verb">cancelled</spanx>: Indicates the task is cancelled.</t>
+            <t><spanx style="verb">pending</spanx>: Indicates the task has been created and accepted for processing, but not yet started.</t>
             <t><spanx style="verb">failed</spanx>: Indicates the task failed.</t>
-            <t><spanx style="verb">cancelled</spanx>: Indicates the task was cancelled.</t>
           </list></t>
-        </section>
-
-        <section anchor="prop-progressUpdated" title="progressUpdated">
-          <t>Type: <spanx style="verb">UTCDateTime</spanx> (optional).</t>
-
-          <t>Specifies the date/time the <spanx style="verb">progress</spanx> property of either the task overall (<xref target="prop-progress" />) or a specific participant (<xref target="prop-participants" />) was last updated.</t>
-
-          <t>If the task is recurring and has future instances, a client may want to keep track of the last progress update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the progressUpdated property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance progress update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
         </section>
       </section>
 
@@ -1347,7 +1374,6 @@
           <t>descriptionContentType</t>
           <t>keywords</t>
           <t>links</t>
-          <t>locale</t>
           <t>prodId</t>
           <t>title</t>
           <t>updated</t>
@@ -1417,8 +1443,8 @@
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
   "updated": "2018-01-15T18:00:00Z",
   "name": "A simple group",
-  "entries": {
-    "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+  "entries": [
+    {
       "@type": "jsevent",
       "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
       "updated": "2018-01-15T18:00:00Z",
@@ -1427,13 +1453,13 @@
       "timeZone": "America/New_York",
       "duration": "PT1H"
     },
-    "2a358cee-6489-4f14-a57f-c104db4dc2f2": {
+    {
       "@type": "jstask",
       "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
       "updated": "2018-01-15T18:00:00Z",
       "title": "Do something"
     }
-  }
+  ]
 }
           ]]></artwork>
     </figure>
@@ -1804,8 +1830,8 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
-      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, ParticipantProgress, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-progress"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
       <c>UTCDateTime</c>
@@ -1822,55 +1848,15 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-alerts"/></c>
 
-      <c>byDay</c>
-      <c>NDay[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>byHour</c>
-      <c>UnsignedInt[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>byMinute</c>
-      <c>UnsignedInt[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>byMonth</c>
-      <c>String[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>byMonthDay</c>
-      <c>Int[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>bySecond</c>
-      <c>UnsignedInt[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>bySetPosition</c>
-      <c>Int[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>byWeekNo</c>
-      <c>Int[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>byYearDay</c>
-      <c>Int[]</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
       <c>categories</c>
       <c>String[Boolean]</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-categories"/></c>
+
+      <c>categories</c>
+      <c>String[Boolean]</c>
+      <c>Location</c>
+      <c><xref target="prop-locations"/></c>
 
       <c>cid</c>
       <c>String</c>
@@ -1891,11 +1877,6 @@
       <c>String</c>
       <c>Location</c>
       <c><xref target="prop-locations"/></c>
-
-      <c>count</c>
-      <c>UnsignedInt</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
 
       <c>created</c>
       <c>UTCDateTime</c>
@@ -1962,30 +1943,15 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
-      <c>firstDayOfWeek</c>
-      <c>String</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
       <c>freeBusyStatus</c>
       <c>String</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-freeBusyStatus"/></c>
 
-      <c>frequency</c>
-      <c>String</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
       <c>href</c>
       <c>String</c>
       <c>Link</c>
       <c><xref target="prop-links"/></c>
-
-      <c>interval</c>
-      <c>UnsignedInt</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
 
       <c>invitedBy</c>
       <c>String</c>
@@ -2012,16 +1978,6 @@
       <c>Location, Participant</c>
       <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
 
-      <c>links</c>
-      <c>Id[Link]</c>
-      <c>JSGroup, JSEvent, JSTask</c>
-      <c><xref target="prop-links"/></c>
-
-      <c>locale</c>
-      <c>String</c>
-      <c>JSGroup, JSEvent, JSTask</c>
-      <c><xref target="prop-links"/></c>
-
       <c>localizations</c>
       <c>String[PatchObject]</c>
       <c>JSEvent, JSTask</c>
@@ -2037,11 +1993,6 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-locations"/></c>
 
-      <c>locationTypes</c>
-      <c>String[Boolean]</c>
-      <c>Location</c>
-      <c><xref target="prop-locations"/></c>
-
       <c>memberOf</c>
       <c>String[Boolean]</c>
       <c>Participant</c>
@@ -2054,8 +2005,8 @@
 
       <c>name</c>
       <c>String</c>
-      <c>Location, VirtualLocation, Participant</c>
-      <c><xref target="prop-locations"/>, <xref target="prop-virtualLocations"/>, <xref target="prop-participants"/></c>
+      <c>Location, Participant</c>
+      <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
 
       <c>offset</c>
       <c>SignedDuration</c>
@@ -2091,16 +2042,6 @@
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-prodId"/></c>
-
-      <c>progress</c>
-      <c>String</c>
-      <c>JSTask, Participant</c>
-      <c><xref target="prop-progress"/></c>
-
-      <c>progressUpdated</c>
-      <c>UTCDateTime</c>
-      <c>JSTask, Participant</c>
-      <c><xref target="prop-progressUpdated"/></c>
 
       <c>recurrenceId</c>
       <c>LocalDateTime</c>
@@ -2147,11 +2088,6 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
-      <c>rscale</c>
-      <c>String</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
       <c>scheduleAgent</c>
       <c>String</c>
       <c>Participant</c>
@@ -2187,16 +2123,6 @@
       <c>Link</c>
       <c><xref target="prop-links"/></c>
 
-      <c>skip</c>
-      <c>String</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
-      <c>source</c>
-      <c>String</c>
-      <c>JSGroup</c>
-      <c><xref target="prop-source"/></c>
-
       <c>start</c>
       <c>LocalDateTime</c>
       <c>JSEvent, JSTask</c>
@@ -2204,8 +2130,28 @@
 
       <c>status</c>
       <c>String</c>
-      <c>JSEvent</c>
-      <c><xref target="prop-status-jsevent"/></c>
+      <c>ParticipantProgress</c>
+      <c><xref target="prop-progress"/></c>
+
+      <c>statusUpdatedAt</c>
+      <c>UTCDateTime</c>
+      <c>JSTask</c>
+      <c><xref target="prop-statusUpdatedAt"/></c>
+
+      <c>source</c>
+      <c>String</c>
+      <c>JSGroup</c>
+      <c><xref target="prop-source"/></c>
+
+      <c>status</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-status-jsevent"/>, <xref target="prop-status-jstask"/></c>
+
+      <c>timestamp</c>
+      <c>UTCDateTime</c>
+      <c>ParticipantProgress</c>
+      <c><xref target="prop-progress"/></c>
 
       <c>timeZone</c>
       <c>String|null</c>
@@ -2232,20 +2178,10 @@
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-uid"/></c>
 
-      <c>until</c>
-      <c>LocalDateTime</c>
-      <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
-
       <c>updated</c>
       <c>UTCDateTime</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-updated"/></c>
-
-      <c>uri</c>
-      <c>String</c>
-      <c>VirtualLocation</c>
-      <c><xref target="prop-virtualLocations"/></c>
 
       <c>useDefaultAlerts</c>
       <c>Boolean</c>
@@ -2277,7 +2213,7 @@
   </list></t>
   </section>
 
-  <section anchor="iana-type-registry-contents" title="Initial Contents for the JSCalendar Types Registry">
+  <section anchor="iana-type-registry-contents" title="Initial Contents for the JSCalendar Properties Registry">
     <t>The following table lists the initial entries of the JSCalendar Types registry. All properties are for common-use. All RFC section references are for this document. The change controller for all these properties is "IETF".</t>
 
     <texttable anchor="table-iana-type-registry">
@@ -2313,6 +2249,9 @@
 
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
+
+      <c>ParticipantProgress</c>
+      <c><xref target="prop-progress"/></c>
 
       <c>PatchObject</c>
       <c><xref target="type-PatchObject"/></c>
@@ -2459,8 +2398,6 @@
       <c><xref target="prop-participants"/></c>
       <c>tenative</c>
       <c><xref target="prop-participants"/></c>
-      <c>delegated</c>
-      <c><xref target="prop-participants"/></c>
     </texttable>
 
     <t>------------------------------------------------------------</t>
@@ -2483,21 +2420,17 @@
     <t>------------------------------------------------------------</t>
 
     <t>Property Name: progress</t>
-    <t>Property Context: JSTask, Participant</t>
+    <t>Property Context: ParticipantProgress</t>
     <t>Change Controller: IETF</t>
 
-    <texttable anchor="table-iana-enum-status-jstask">
+    <texttable anchor="table-iana-enum-participantProgress-status">
       <ttcol align='left'>Enum Value</ttcol>
       <ttcol align='left'>Description</ttcol>
-      <c>needs-action</c>
+      <c>completed</c>
       <c><xref target="prop-progress"/></c>
       <c>in-process</c>
       <c><xref target="prop-progress"/></c>
-      <c>completed</c>
-      <c><xref target="prop-progress"/></c>
       <c>failed</c>
-      <c><xref target="prop-progress"/></c>
-      <c>cancelled</c>
       <c><xref target="prop-progress"/></c>
     </texttable>
 
@@ -2588,6 +2521,29 @@
       <c><xref target="prop-status-jsevent"/></c>
       <c>tentative</c>
       <c><xref target="prop-status-jsevent"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: status</t>
+    <t>Property Context: JSTask</t>
+    <t>Change Controller: IETF</t>
+
+    <texttable anchor="table-iana-enum-status-jstask">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Description</ttcol>
+      <c>completed</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>failed</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>in-process</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>cancelled</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>pending</c>
+      <c><xref target="prop-status-jstask"/></c>
+      <c>failed</c>
+      <c><xref target="prop-status-jstask"/></c>
     </texttable>
 
   </section>
