@@ -20,7 +20,7 @@
 <?rfc subcompact="no" ?>
 <rfc category="std"
      updates='5545' 
-     docName="draft-douglass-icalendar-series-00" ipr="trust200902">
+     docName="draft-ietf-calext-icalendar-series-00" ipr="trust200902">
 
   <front>
     <title abbrev="iCalendar Series">Support for Series in iCalendar</title>
@@ -42,7 +42,7 @@
       </address>
     </author>
 
-    <date month='February' year='2017' />
+    <date month='October' year='2019' />
 
     <area>Applications</area>
 
