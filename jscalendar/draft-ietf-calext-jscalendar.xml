@@ -187,7 +187,7 @@
         </section>
 
         <section anchor="timezones" title="Time Zones">
-          <t>By default, time zones in JSCalendar are identified by their name in the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref>, and the zone rules of the respective zone record apply.</t>
+          <t>By default, time zones in JSCalendar are identified by their name in the IANA Time Zone Database <xref target="TZDB" />, and the zone rules of the respective zone record apply.</t>
 
           <t>Implementations MAY embed the definition of custom time zones in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
          </section>
@@ -476,7 +476,7 @@
 
             <t>rel: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            Identifies the relation of the linked resource to the object. If set, the value MUST be a registered relation type (see <xref target="RFC8288" /> and <eref target="https://www.iana.org/assignments/link-relations/link-relations.xhtml">IANA Link Relations</eref>).
+            Identifies the relation of the linked resource to the object. If set, the value MUST be a relation type from the IANA registry <xref target="LINKRELS" />, as established in <xref target="RFC8288" />.
             <vspace blankLines="1" />
             Links with a rel of <spanx style="verb">enclosure</spanx> SHOULD be considered by the client as attachments for download.
             <vspace blankLines="1" />
@@ -527,7 +527,7 @@
         <section anchor="prop-color" title="color">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>A color clients MAY use when displaying this calendar object. The value is a case-insensitive color name taken from the CSS3 set of names, defined in Section 4.3 of <eref target="https://www.w3.org/TR/2011/REC-css3-color-20110607/#svg-color">W3C.REC-css3-color-20110607</eref> or a CSS3 RGB color hex value.</t>
+          <t>A color clients MAY use when displaying this calendar object. The value is a case-insensitive color name taken from the set of names defined in Section 4.3 of CSS Color Module Level 3 <xref target="COLORS">, or an RGB value in hexadecimal notation, as defined in Section 4.2.1 of CSS Color Module Level 3.</t>
         </section>
       </section>
 
@@ -1158,7 +1158,7 @@
         <section anchor="prop-timeZone" title="timeZone">
           <t>Type: <spanx style="verb">String|null</spanx> (optional, default: null).</t>
 
-          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the <eref target="https://www.iana.org/time-zones">IANA Time Zone Database</eref> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
+          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
         </section>
 
         <section anchor="prop-timeZones" title="timeZones">
@@ -2623,6 +2623,27 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8288.xml"?>
+      <reference anchor="TZDB" target="https://www.iana.org/time-zones">
+        <front>
+          <title>IANA Time Zone Database</title>
+          <author />
+          <date />
+        </front>
+      </reference>
+      <reference anchor="LINKRELS" target="https://www.iana.org/assignments/link-relations/link-relations.xhtml">
+        <front>
+          <title>IANA Link Relation Types</title>
+          <author />
+          <date />
+        </front>
+      </reference>
+      <reference anchor="COLORS" target="https://www.w3.org/TR/css-color-3/">
+        <front>
+          <title>CSS Color Module</title>
+          <author />
+          <date />
+        </front>
+      </reference>
     </references>
     <references title="Informative References">
       <reference anchor="MIME" target="https://www.iana.org/assignments/media-types/media-types.xhtml">
