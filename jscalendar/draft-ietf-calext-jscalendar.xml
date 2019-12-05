@@ -1148,7 +1148,9 @@
             <t>name</t>
           </list>
 
-          For example, a patch to <spanx style="verb">recurrenceOverrides/2018-01-05T14:00:00/locations/abcd1234/title</spanx> is permissible, but a patch to <spanx style="verb">uid</spanx> is not.</t>
+          A patch MUST NOT have the prefix <spanx style="verb">recurrenceOverrides</spanx>; any localization of the override MUST be a patch to the localizations property inside the override instead.
+
+          For example, a patch to <spanx style="verb">locations/abcd1234/title</spanx> is permissible, but a patch to <spanx style="verb">uid</spanx> or <spanx style="verb">recurrenceOverrides/2018-01-05T14:00:00/title</spanx> is not.</t>
 
           <t>Note that this specification does not define how to maintain validity of localized content. For example, a client application changing a JSCalendar object's title property might also need to update any localizations of this property. Client implementations SHOULD provide the means to manage localizations, but how to achieve this is specific to the application's workflow and requirements.</t>
         </section>
