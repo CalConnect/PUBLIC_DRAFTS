@@ -2354,15 +2354,19 @@
     <t>This template is for adding a new subregistry to the JMAP Enum registry.</t>
 
     <t><list style="symbols">
-      <t>Property Name: The name(s) of the property or properties where these values may be used. This MUST be registered in the JSCalendar Properties registry.</t>
-      <t>Property Context: The allowed object types where the property or properties may appear, as registered in the JSCalendar Properties registry. This disambiguates where there may be two distinct properties with the same name in different contexts.</t>
+      <t>Registry Name: This MUST be of the form "Enum Values for {property-name} (Context: {context})" where:
+      <vspace blankLines="1" />
+      {property-name} is the name(s) of the property or properties where these values may be used. This MUST be registered in the JSCalendar Properties registry.
+      <vspace blankLines="1" />
+      {context} is the list of allowed object types where the property or properties may appear, as registered in the JSCalendar Properties registry. This disambiguates where there may be two distinct properties with the same name in different contexts.</t>
       <t>Change Controller: (<spanx style="verb">IETF</spanx> for IETF-stream RFCs).</t>
-      <t>Initial Contents: The list of defined values for this enum, using the template defined in <xref target="iana-enum-registry-value-template"/>.</t>
+      <t>Experts: The initial list of experts for Expert Review of updates to the subregistry.</t>
+      <t>Initial Contents: The initial list of defined values for this enum, using the template defined in <xref target="iana-enum-registry-value-template"/>.</t>
     </list></t>
   </section>
 
   <section anchor="iana-enum-registry-value-template" title="JMAP Enum Subregistry Template">
-    <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry. When registering a new value for an existing enum, the property name and context MUST be submitted with the registration to identify the appropriate subregistry.</t>
+    <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry.</t>
 
     <t><list style="symbols">
       <t>Enum Value: The verbatim value of the enum.</t>
@@ -2372,13 +2376,11 @@
 
   <section anchor="iana-enum-registry-contents" title="Initial Contents for the JSCalendar Enum Registry">
 
-    <t>All RFC section references are for this document.</t>
+    <t>For each subregistry created in this section, all RFC section references are for this document, the change controller is IETF and the experts are Neil Jenkins and Robert Stepanek.</t>
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: action</t>
-    <t>Property Context: Alert</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for action (Context: Alert)</t>
 
     <texttable anchor="table-iana-enum-alert-action">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2391,9 +2393,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: display</t>
-    <t>Property Context: Link</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for display (Context: Link)</t>
 
     <texttable anchor="table-iana-enum-link-display">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2410,9 +2410,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: freeBusyStatus</t>
-    <t>Property Context: JSEvent, JSTask</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for freeBusyStatus (Context: JSEvent, JSTask)</t>
 
     <texttable anchor="table-iana-enum-freeBusyStatus">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2425,9 +2423,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: kind</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for kind (Context: Participant)</t>
 
     <texttable anchor="table-iana-enum-participant-kind">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2444,9 +2440,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: participationStatus</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for participationStatus (Context: Participant)</t>
 
     <texttable anchor="table-iana-enum-participationStatus">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2465,9 +2459,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: privacy</t>
-    <t>Property Context: JSEvent, JSTask</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for privacy (Context: JSEvent, JSTask)</t>
 
     <texttable anchor="table-iana-enum-privacy">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2482,9 +2474,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: progress</t>
-    <t>Property Context: JSTask, Participant</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for progress (Context: JSTask, Participant)</t>
 
     <texttable anchor="table-iana-enum-status-jstask">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2503,9 +2493,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: relation</t>
-    <t>Property Context: Relation</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for relation (Context: Relation)</t>
 
     <texttable anchor="table-iana-enum-relation">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2522,9 +2510,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: relativeTo</t>
-    <t>Property Context: OffsetTrigger, Location</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for relativeTo (Context: OffsetTrigger, Location)</t>
 
     <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2537,9 +2523,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: roles</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for roles (Context: Participant)</t>
 
     <texttable anchor="table-iana-enum-participant-role">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2558,9 +2542,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: scheduleAgent</t>
-    <t>Property Context: Participant</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for scheduleAgent (Context: Participant)</t>
 
     <texttable anchor="table-iana-enum-participant-scheduleagent">
       <ttcol align='left'>Enum Value</ttcol>
@@ -2575,9 +2557,7 @@
 
     <t>------------------------------------------------------------</t>
 
-    <t>Property Name: status</t>
-    <t>Property Context: JSEvent</t>
-    <t>Change Controller: IETF</t>
+    <t>Enum Values for status (Context: JSEvent)</t>
 
     <texttable anchor="table-iana-enum-status-jsevent">
       <ttcol align='left'>Enum Value</ttcol>
