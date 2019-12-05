@@ -527,7 +527,7 @@
         <section anchor="prop-color" title="color">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>A color clients MAY use when displaying this calendar object. The value is a case-insensitive color name taken from the set of names defined in Section 4.3 of CSS Color Module Level 3 <xref target="COLORS">, or an RGB value in hexadecimal notation, as defined in Section 4.2.1 of CSS Color Module Level 3.</t>
+          <t>A color clients MAY use when displaying this calendar object. The value is a case-insensitive color name taken from the set of names defined in Section 4.3 of CSS Color Module Level 3 <xref target="COLORS" />, or an RGB value in hexadecimal notation, as defined in Section 4.2.1 of CSS Color Module Level 3.</t>
         </section>
       </section>
 
