@@ -1740,7 +1740,7 @@
 <section anchor="iana-property-registry" title='Creation of "JSCalendar Properties" Registry'>
   <t>The IANA will create the "JSCalendar Properties" registry to allow interoperability of extensions to JSCalendar objects.</t>
 
-  <t>This registry follows the expert review process unless the &quot;intended use&quot; field is <spanx style="verb">common</spanx>, in which case registration follows the specification required process. Preliminary community review for this registry is optional but strongly encouraged.</t>
+  <t>This registry follows the Expert Review process (<xref target="RFC8126"/>, Section 4.5) unless the &quot;intended use&quot; field is <spanx style="verb">common</spanx>, in which case registration follows the Specification Required process (<xref target="RFC8126"/>, Section 4.6). Preliminary community review for this registry is optional but strongly encouraged.</t>
 
   <t>A registration can have an intended use of <spanx style="verb">common</spanx>, <spanx style="verb">reserved</spanx>, or <spanx style="verb">obsolete</spanx>. The IANA will list common-use registrations prominently and separately from those with other intended use values.</t>
 
@@ -1787,9 +1787,9 @@
       <t>Property Name: The name of the property. The property name MUST NOT already be registered for any of the objects listed in Context. Objects not listed in Context MAY already have registered a different property with the same name.</t>
       <t>Property Type: The type of this property, using type signatures as specified in <xref target="type-signatures"/>. The property type MUST be registed in the Type Registry.</t>
       <t>Property Context: A comma-separated list of JSCalendar object types this property is allowed on.</t>
-      <t>RFC Reference: The RFC and section where the property is specified (omitted for "reserved" property names).</t>
+      <t>Reference or Description: A brief description or RFC number and section reference where the property is specified (omitted for "reserved" property names).</t>
       <t>Intended Use: Common, reserved, or obsolete.</t>
-      <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for IETF-stream RFCs).</t>
   </list></t>
   </section>
 
@@ -1800,7 +1800,7 @@
       <ttcol align='left'>Property Name</ttcol>
       <ttcol align='left'>Property Type</ttcol>
       <ttcol align='left'>Property Context</ttcol>
-      <ttcol align='left'>RFC Reference</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
 
       <c>@type</c>
       <c>String</c>
@@ -2271,9 +2271,9 @@
   <section anchor="iana-type-registry-template" title="JMAP Types Registry Template">
     <t><list style="symbols">
       <t>Type Name: The name of the type.</t>
-      <t>RFC Reference: The RFC and section where the Type is specified (may be omitted for "reserved" type names).</t>
+      <t>Reference or Description: A brief description or RFC number and section reference where the Type is specified (may be omitted for "reserved" type names).</t>
       <t>Intended Use: Common, reserved, or obsolete.</t>
-      <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for IETF-stream RFCs).</t>
   </list></t>
   </section>
 
@@ -2282,7 +2282,7 @@
 
     <texttable anchor="table-iana-type-registry">
       <ttcol align='left'>Type Name</ttcol>
-      <ttcol align='left'>RFC Reference</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
 
       <c>Alert</c>
       <c><xref target="prop-alerts"/></c>
@@ -2348,7 +2348,7 @@
 </section>
 
 <section anchor="iana-enum-registry" title='Creation of "JSCalendar Enum Values" Registry'>
-  <t>The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for creating a new subregistry is the same as for the JSCalendar Properties registry. The registration process for a new enum value is the same but is only subject to expert review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
+  <t>The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for creating a new subregistry is the same as for the JSCalendar Properties registry. The registration process for a new enum value is the same but is only subject to Expert Review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
 
   <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Subregistry Creation Template">
     <t>This template is for adding a new subregistry to the JMAP Enum registry.</t>
@@ -2356,17 +2356,17 @@
     <t><list style="symbols">
       <t>Property Name: The name(s) of the property or properties where these values may be used. This MUST be registered in the JSCalendar Properties registry.</t>
       <t>Property Context: The allowed object types where the property or properties may appear, as registered in the JSCalendar Properties registry. This disambiguates where there may be two distinct properties with the same name in different contexts.</t>
-      <t>Change Controller: (<spanx style="verb">IETF</spanx> for Standards Track / BCP RFCs).</t>
-      <t>Values: The list of defined values for this enum, using the template defined in <xref target="iana-enum-registry-value-template"/>.</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for IETF-stream RFCs).</t>
+      <t>Initial Contents: The list of defined values for this enum, using the template defined in <xref target="iana-enum-registry-value-template"/>.</t>
     </list></t>
   </section>
 
-  <section anchor="iana-enum-registry-value-template" title="JMAP Enum Subregistry Creation Template">
+  <section anchor="iana-enum-registry-value-template" title="JMAP Enum Subregistry Template">
     <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry. When registering a new value for an existing enum, the property name and context MUST be submitted with the registration to identify the appropriate subregistry.</t>
 
     <t><list style="symbols">
       <t>Enum Value: The verbatim value of the enum.</t>
-      <t>Description: A brief description or RFC and section reference for the semantics of this value.</t>
+      <t>Reference or Description: A brief description or RFC number and section reference for the semantics of this value.</t>
     </list></t>
   </section>
 
@@ -2382,7 +2382,7 @@
 
     <texttable anchor="table-iana-enum-alert-action">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>display</c>
       <c><xref target="prop-alerts"/></c>
       <c>email</c>
@@ -2397,7 +2397,7 @@
 
     <texttable anchor="table-iana-enum-link-display">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>badge</c>
       <c><xref target="prop-links"/></c>
       <c>graphic</c>
@@ -2416,7 +2416,7 @@
 
     <texttable anchor="table-iana-enum-freeBusyStatus">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>free</c>
       <c><xref target="prop-freeBusyStatus"/></c>
       <c>busy</c>
@@ -2431,7 +2431,7 @@
 
     <texttable anchor="table-iana-enum-participant-kind">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>individual</c>
       <c><xref target="prop-participants"/></c>
       <c>group</c>
@@ -2450,7 +2450,7 @@
 
     <texttable anchor="table-iana-enum-participationStatus">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>needs-action</c>
       <c><xref target="prop-participants"/></c>
       <c>accepted</c>
@@ -2471,7 +2471,7 @@
 
     <texttable anchor="table-iana-enum-privacy">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>public</c>
       <c><xref target="prop-privacy"/></c>
       <c>private</c>
@@ -2488,7 +2488,7 @@
 
     <texttable anchor="table-iana-enum-status-jstask">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>needs-action</c>
       <c><xref target="prop-progress"/></c>
       <c>in-process</c>
@@ -2509,7 +2509,7 @@
 
     <texttable anchor="table-iana-enum-relation">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>first</c>
       <c><xref target="type-Relation"/></c>
       <c>next</c>
@@ -2528,7 +2528,7 @@
 
     <texttable anchor="table-iana-enum-offsetTrigger-relativeTo">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>start</c>
       <c><xref target="prop-alerts"/></c>
       <c>end</c>
@@ -2543,7 +2543,7 @@
 
     <texttable anchor="table-iana-enum-participant-role">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>owner</c>
       <c><xref target="prop-participants"/></c>
       <c>attendee</c>
@@ -2564,7 +2564,7 @@
 
     <texttable anchor="table-iana-enum-participant-scheduleagent">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>server</c>
       <c><xref target="prop-participants"/></c>
       <c>client</c>
@@ -2581,7 +2581,7 @@
 
     <texttable anchor="table-iana-enum-status-jsevent">
       <ttcol align='left'>Enum Value</ttcol>
-      <ttcol align='left'>Description</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
       <c>confirmed</c>
       <c><xref target="prop-status-jsevent"/></c>
       <c>cancelled</c>
