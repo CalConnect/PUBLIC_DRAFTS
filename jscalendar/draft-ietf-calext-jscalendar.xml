@@ -537,19 +537,21 @@
         <section anchor="prop-recurrenceId" title="recurrenceId">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
 
-          <t>If present, this JSCalendar object represents one occurrence of a recurring JSCalendar object. If present the <spanx style="verb">recurrenceRule</spanx> and <spanx style="verb">recurrenceOverrides</spanx> properties MUST NOT be present.</t>
+          <t>If present, this JSCalendar object represents one occurrence of a recurring JSCalendar object. If present the <spanx style="verb">recurrenceRules</spanx> and <spanx style="verb">recurrenceOverrides</spanx> properties MUST NOT be present.</t>
 
-          <t>The value is a date-time either produced by the <spanx style="verb">recurrenceRule</spanx> of the master event, or added as a key to the <spanx style="verb">recurrenceOverrides</spanx> property of the master event.</t>
+          <t>The value is a date-time either produced by the <spanx style="verb">recurrenceRules</spanx> of the master event, or added as a key to the <spanx style="verb">recurrenceOverrides</spanx> property of the master event.</t>
         </section>
 
-        <section anchor="prop-recurrenceRule" title="recurrenceRule">
-          <t>Type: <spanx style="verb">RecurrenceRule</spanx> (optional).</t>
+        <section anchor="prop-recurrenceRules" title="recurrenceRules">
+          <t>Type: <spanx style="verb">RecurrenceRule[]</spanx> (optional).</t>
 
-          <t>Defines a recurrence rule (repeating pattern) for recurring calendar objects.</t>
+          <t>Defines a set of recurrence rules (repeating patterns) for recurring calendar objects.</t>
 
-          <t>A JSEvent recurs by applying the recurrence rule to the <spanx style="verb">start</spanx> date-time.</t>
+          <t>A JSEvent recurs by applying the recurrence rules to the <spanx style="verb">start</spanx> date-time.</t>
 
-          <t>A JSTask recurs by applying the recurrence rule to the <spanx style="verb">start</spanx> date-time, if defined, otherwise it recurs by the <spanx style="verb">due</spanx> date-time, if defined. If the task defines neither a <spanx style="verb">start</spanx> nor <spanx style="verb">due</spanx> date-time, its <spanx style="verb">recurrenceRule</spanx> property value MUST be null.</t>
+          <t>A JSTask recurs by applying the recurrence rules to the <spanx style="verb">start</spanx> date-time, if defined, otherwise it recurs by the <spanx style="verb">due</spanx> date-time, if defined. If the task defines neither a <spanx style="verb">start</spanx> nor <spanx style="verb">due</spanx> date-time, its <spanx style="verb">recurrenceRules</spanx> property value MUST be null.</t>
+
+          <t>If multiple recurrence rules are given, each rule is to be applied and then the union of the results used, ignoring any duplicates.</t>
 
           <t>A RecurrenceRule object is a JSON object mapping of a RECUR value type in iCalendar <xref target="RFC5545" /> <xref target="RFC7529" /> and has the same semantics. It has the following properties:
 
@@ -809,7 +811,7 @@
             <t>prodId</t>
             <t>recurrenceId</t>
             <t>recurrenceOverrides</t>
-            <t>recurrenceRule</t>
+            <t>recurrenceRules</t>
             <t>relatedTo</t>
             <t>replyTo</t>
             <t>uid</t>
@@ -1235,7 +1237,7 @@
 
             <t>recurrenceRule: <spanx style="verb">RecurrenceRule</spanx> (optional)
             <vspace blankLines="1" />
-            The RRULE property mapped as specified in <xref target="prop-recurrenceRule" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
+            The RRULE property mapped as specified in <xref target="prop-recurrenceRules" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
 
             <t>recurrenceDates: <spanx style="verb">LocalDateTime[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
@@ -1452,10 +1454,10 @@
   "showWithoutTime": true,
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
-  "recurrenceRule": {
+  "recurrenceRules": [{
     "@type": "RecurrenceRule",
     "frequency": "yearly"
-  }
+  }]
 }
           ]]></artwork>
     </figure>
@@ -1516,10 +1518,10 @@
   "title": "Yoga",
   "start": "2018-01-01T07:00:00",
   "duration": "PT30M",
-  "recurrenceRule": {
+  "recurrenceRules": [{
     "@type": "RecurrenceRule",
     "frequency": "daily"
-  }
+  }]
 }
           ]]></artwork>
     </figure>
@@ -1584,11 +1586,11 @@
       "description": "Math Lab I, Department of Mathematics"
     }
   },
-  "recurrenceRule": {
+  "recurrenceRules": [{
     "@type": "RecurrenceRule",
     "frequency": "weekly",
     "until": "2018-06-25T09:00:00"
-  },
+  }],
   "recurrenceOverrides": {
     "2018-01-05T14:00:00": {
       "title": "Introduction to Calculus I (optional)"
@@ -1632,10 +1634,10 @@
       "uri": "https://chatme.example.com?id=1234567"
     }
   },
-  "recurrenceRule": {
+  "recurrenceRules": [{
     "@type": "RecurrenceRule",
     "frequency": "weekly"
-  },
+  }],
   "replyTo": {
     "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
   },
@@ -1807,7 +1809,7 @@
       <c>@type</c>
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
-      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRule"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
       <c>UTCDateTime</c>
@@ -1827,47 +1829,47 @@
       <c>byDay</c>
       <c>NDay[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>byHour</c>
       <c>UnsignedInt[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>byMinute</c>
       <c>UnsignedInt[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>byMonth</c>
       <c>String[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>byMonthDay</c>
       <c>Int[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>bySecond</c>
       <c>UnsignedInt[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>bySetPosition</c>
       <c>Int[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>byWeekNo</c>
       <c>Int[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>byYearDay</c>
       <c>Int[]</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>categories</c>
       <c>String[Boolean]</c>
@@ -1897,7 +1899,7 @@
       <c>count</c>
       <c>UnsignedInt</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>created</c>
       <c>UTCDateTime</c>
@@ -1967,7 +1969,7 @@
       <c>firstDayOfWeek</c>
       <c>String</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>freeBusyStatus</c>
       <c>String</c>
@@ -1977,7 +1979,7 @@
       <c>frequency</c>
       <c>String</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>href</c>
       <c>String</c>
@@ -1987,7 +1989,7 @@
       <c>interval</c>
       <c>UnsignedInt</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>invitedBy</c>
       <c>String</c>
@@ -2114,10 +2116,10 @@
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-recurrenceOverrides"/></c>
 
-      <c>recurrenceRule</c>
-      <c>RecurrenceRule</c>
+      <c>recurrenceRules</c>
+      <c>RecurrenceRule[]</c>
       <c>JSEvent, JSTask</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>rel</c>
       <c>String</c>
@@ -2152,7 +2154,7 @@
       <c>rscale</c>
       <c>String</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>scheduleAgent</c>
       <c>String</c>
@@ -2192,7 +2194,7 @@
       <c>skip</c>
       <c>String</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>source</c>
       <c>String</c>
@@ -2237,7 +2239,7 @@
       <c>until</c>
       <c>LocalDateTime</c>
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>updated</c>
       <c>UTCDateTime</c>
@@ -2320,7 +2322,7 @@
       <c><xref target="type-PatchObject"/></c>
 
       <c>RecurrenceRule</c>
-      <c><xref target="prop-recurrenceRule"/></c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>Relation</c>
       <c><xref target="type-Relation"/></c>
