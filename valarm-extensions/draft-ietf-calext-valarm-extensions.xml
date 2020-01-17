@@ -38,7 +38,7 @@
 <?rfc tocdepth="2"?>
 <?rfc strict="yes"?>
 <rfc category="std" updates='5545'
-     ipr='trust200902' docName='draft-ietf-calext-valarm-extensions-00'>
+     ipr='trust200902' docName='draft-ietf-calext-valarm-extensions-01'>
   <front>
     <title abbrev="VALARM Extensions">VALARM Extensions for iCalendar</title>
     <author initials="C." surname="Daboo" fullname="Cyrus Daboo">
@@ -254,7 +254,7 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
-<!--
+
     <section title="Alarm Related To">
       <t>It is often convenient to relate one or more "VALARM"
       components to other "VALARM" components (e.g., see <xref
@@ -284,7 +284,7 @@ alarmprop  /= *(
 ]]></artwork>
       </figure></t>
     </section>
-
+<!--
     <section title="Alarm URI Action" anchor='URI-ACTION'>
       <t>Currently "VALARM" components have actions for audio, display
       and email. New types of actions are of interest, e.g., SMS,
@@ -573,8 +573,8 @@ ACKNOWLEDGED:20090604T084500Z
       at the user's chosen "snooze" interval after the original alarm
       triggered. Clients SHOULD use an absolute "TRIGGER" property
       with a "DATE-TIME" value specified in UTC.</t>
-<!--
-      Clients SHOULD add a
+
+      <t>Clients SHOULD add a
       "RELATED-TO" property to the new "VALARM" component with a value
       set to the "UID" property value of the "VALARM" component being
       snoozed. If the "VALARM" component being snoozed does not
@@ -582,7 +582,7 @@ ACKNOWLEDGED:20090604T084500Z
       "RELATED-TO" property added to the new "VALARM" component SHOULD
       include a "RELTYPE" property parameter with a value set to
       "SNOOZE".</t>
--->
+
       <t>When the "snooze" alarm is triggered and dismissed the client
       SHOULD remove the corresponding "VALARM" component, or set the
       "ACKNOWLEDGED" property (see <xref
@@ -590,7 +590,7 @@ ACKNOWLEDGED:20090604T084500Z
       is itself "snoozed", the client SHOULD remove the original
       "snooze" alarm and create a new one, with the appropriate
       trigger time and relationship set.</t>
-<!--
+
       <section title="Relationship Type Property Parameter" anchor="SNOOZE-PARAM">
         <t>
             This specification adds the "SNOOZE" relationship type for
@@ -600,7 +600,7 @@ ACKNOWLEDGED:20090604T084500Z
             the "snooze" was generated for.
         </t>
         </section>
--->
+
     </section>
 
     <section title="Alarm Proximity Trigger">
@@ -942,12 +942,30 @@ defaultalarmparam = *(
       <t>VALARMs, if not monitored properly, can be used to "spam"
       users and/or leak personal information.  For instance, an
       unwanted audio or display alert could be considered spam.  Or an
-      email alert could be used to leak a user's location to a third
+      email alert could be used to leak a user&apos;s location to a third
       party or to send unsolicited email to multiple users.
       Therefore, CalDAV clients and servers that accept iCalendar data
       from a third party (e.g. via <xref target="RFC5546">iTIP</xref>,
       a subscription feed, or a shared calendar) SHOULD remove all
       VALARMs from the data prior to storing in their calendar system.</t>
+    </section>
+
+    <section title='Privacy Considerations'>
+      <t>Proximity VALARMs, if not used carefully, can leak a
+      user&apos;s past, present, or future location.  For instance,
+      storing an iCalendar resource containing proxmity VALARMs to a
+      shared calendar on CalDAV server can expose to anyone that has
+      access to that calendar the user&apos;s intent to leave
+      from or arrive at a particular location at some future time.
+      Furthermore, if a CalDAV client updates the shared iCalendar
+      resource with an ACKNOWLEDGED property when the alarm is
+      triggered, will leak the exact date and time that the user left
+      from or arrived at the location.
+      
+      Therefore, CalDAV clients that implement proximity alarms
+      SHOULD give users the option of storing and/or acknowledging the
+      alarms on the local device only and not storing the alarm and/or
+      acknowledgment on a remote server.</t>
     </section>
 
     <section title='IANA Considerations'>
@@ -1006,7 +1024,7 @@ defaultalarmparam = *(
           <c>RFCXXXX, <xref target="NONE-ACTION" /></c>
         </texttable>
       </section>
-
+-->
       <section title='Relationship Types Registry'>
         <t>This document defines the following new iCalendar
         relationship type to be added to the registry defined in
@@ -1020,7 +1038,7 @@ defaultalarmparam = *(
           <c>RFCXXXX, <xref target="SNOOZE-PARAM" /></c>
         </texttable>
         </section>
--->
+
       <section title="Proximity Value Registry">
           <t>This document creates a new iCalendar registry for values
           of the "PROXIMITY" property:</t>
@@ -1086,6 +1104,12 @@ defaultalarmparam = *(
 
     <section title="Change History (To be removed by RFC Editor before
                     publication)"> 
+      <t>Changes in ietf-01: 
+      <list style='numbers'>
+        <t>Reintroduced the RELATED-TO property for VALARMs
+        and the SNOOZE value for the RELTYPE property parameter.</t>
+        <t>Add Privacy Considerations section.</t>
+      </list></t>
       <t>Changes in ietf-00: 
       <list style='numbers'>
         <t>Submitted as CALEXT draft.</t>
