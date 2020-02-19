@@ -220,7 +220,7 @@
       <t>This section describes the calendar object types specified by JSCalendar.</t>
 
       <section anchor="jsevent" title="JSEvent">
-        <t>MIME type: <spanx style="verb">application/jscalendar+json;type=jsevent</spanx></t>
+        <t>Media type: <spanx style="verb">application/jscalendar+json;type=jsevent</spanx></t>
 
         <t>A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment, reminder or anniversary. Multiple participants may partake in the event at multiple locations.</t>
 
@@ -228,7 +228,7 @@
       </section>
 
       <section anchor="jstask" title="JSTask">
-        <t>MIME type: <spanx style="verb">application/jscalendar+json;type=jstask</spanx></t>
+        <t>Media type: <spanx style="verb">application/jscalendar+json;type=jstask</spanx></t>
 
         <t>A JSTask represents an action-item, assignment, to-do or work item.</t>
 
@@ -238,7 +238,7 @@
       </section>
 
       <section anchor="jsgroup" title="JSGroup">
-        <t>MIME type: <spanx style="verb">application/jscalendar+json;type=jsgroup</spanx></t>
+        <t>Media type: <spanx style="verb">application/jscalendar+json;type=jsgroup</spanx></t>
 
         <t>A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and/or <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic (e.g. by keywords) or calendar membership.</t>
 
@@ -260,7 +260,7 @@
 
         <list style="symbols">
           <t>Custom JSCalendar properties may contain arbitrary JSON values, including arrays. However, equivalence of arrays might or might not depend on the order of elements, depending on the respective property definition.</t>
-          <t>Several JSCalendar property values are defined as URIs and MIME types, but normalization of these types is inherently protocol and scheme-specific, depending on the use-case of the equivalence definition (see Section 6 of <xref target="RFC3986" />).</t>
+          <t>Several JSCalendar property values are defined as URIs and media types, but normalization of these types is inherently protocol and scheme-specific, depending on the use-case of the equivalence definition (see Section 6 of <xref target="RFC3986" />).</t>
         </list>
 
         Considering this, the definition of equivalence and normalization is left to client and server implementations and to be negotiated by a calendar exchange protocol or defined by another RFC.</t>
@@ -1710,7 +1710,7 @@
 <section anchor="iana-considerations" title="IANA Considerations">
 <section anchor="iana-mime-type" title="Media Type Registration">
 
-  <t>This document defines a MIME media type for use with JSCalendar data formatted in JSON.</t>
+  <t>This document defines a media type for use with JSCalendar data formatted in JSON.</t>
 
   <t><list style="hanging">
     <t hangText="Type name:">application</t>
