@@ -166,14 +166,14 @@
         </section>
 
         <section anchor="type-PatchObject" title="PatchObject">
-          <t>A PatchObject is of type <spanx style="verb">String[*]</spanx>, and represents an unordered set of patches on a JSON object. The keys are a path in a subset of <xref target="RFC6901" /> JSON pointer format, with an implicit leading <spanx style="verb">/</spanx> (i.e. prefix each key with <spanx style="verb">/</spanx> before applying the JSON pointer evaluation algorithm).</t>
+          <t>A PatchObject is of type <spanx style="verb">String[*]</spanx>, and represents an unordered set of patches on a JSON object. The keys are a path in a subset of <xref target="RFC6901" /> JSON pointer format, with an implicit leading <spanx style="verb">/</spanx> (i.e., prefix each key with <spanx style="verb">/</spanx> before applying the JSON pointer evaluation algorithm).</t>
 
           <t>A patch within a PatchObject is only valid if all of the following conditions apply:</t>
 
           <t><list style="numbers">
-            <t>The pointer MUST NOT reference inside an array (i.e. it MUST NOT insert/delete from an array; the array MUST be replaced in its entirety instead).</t>
-            <t>When evaluating a path, all parts prior to the last (i.e. the value after the final slash) MUST exist.</t>
-            <t>There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the pointer of the other, e.g. <spanx style="verb">alerts/foo/offset</spanx> and <spanx style="verb">alerts</spanx>.</t>
+            <t>The pointer MUST NOT reference inside an array (i.e., it MUST NOT insert/delete from an array; the array MUST be replaced in its entirety instead).</t>
+            <t>When evaluating a path, all parts prior to the last (i.e., the value after the final slash) MUST exist.</t>
+            <t>There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the pointer of the other, e.g., <spanx style="verb">alerts/foo/offset</spanx> and <spanx style="verb">alerts</spanx>.</t>
           </list></t>
 
           <t>The value associated with each pointer is either:
@@ -240,7 +240,7 @@
       <section anchor="jsgroup" title="JSGroup">
         <t>Media type: <spanx style="verb">application/jscalendar+json;type=jsgroup</spanx></t>
 
-        <t>A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and/or <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic (e.g. by keywords) or calendar membership.</t>
+        <t>A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and/or <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic (e.g., by keywords) or calendar membership.</t>
 
         <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.</t>
       </section>
@@ -267,9 +267,9 @@
       </section>
 
       <section anchor="custom-properties" title="Vendor-specific Property Extensions and Values">
-        <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g. <spanx style="verb">example.com/customprop</spanx>.</t>
+        <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g., <spanx style="verb">example.com/customprop</spanx>.</t>
 
-        <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor-specific values MUST be prefixed with a domain name controlled by the vendor, e.g. <spanx style="verb">example.com/customrel</spanx>.</t>
+        <t>Some JSCalendar properties allow vendor-specific value extensions. If so, vendor-specific values MUST be prefixed with a domain name controlled by the vendor, e.g., <spanx style="verb">example.com/customrel</spanx>.</t>
 
         <t>Vendors are strongly encouraged to register any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
       </section>
@@ -472,7 +472,7 @@
 
             <t>size: <spanx style="verb">UnsignedInt</spanx> (optional)
             <vspace blankLines="1" />
-            The size, in octets, of the resource when fully decoded (i.e. the number of octets in the file the user would download), if known.</t>
+            The size, in octets, of the resource when fully decoded (i.e., the number of octets in the file the user would download), if known.</t>
 
             <t>rel: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -629,7 +629,7 @@
               <vspace blankLines="1" />
               If present, rather than representing every occurrence of the weekday defined in the <spanx style="verb">day</spanx> property, it represents only a specific instance within the recurrence period. The value can be positive or negative, but MUST NOT be zero. A negative integer means nth-last of period.
               <vspace blankLines="1" />
-              This is the ordinal part of the BYDAY value in iCalendar (e.g. 1 or -3).</t>
+              This is the ordinal part of the BYDAY value in iCalendar (e.g., 1 or -3).</t>
             </list></t>
 
             <t>byMonthDay: <spanx style="verb">Int[]</spanx> (optional)
@@ -640,7 +640,7 @@
 
             <t>byMonth: <spanx style="verb">String[]</spanx> (optional)
             <vspace blankLines="1" />
-            The months in which to repeat. Each entry is a string representation of a number, starting from "1" for the first month in the calendar (e.g. "1" means January with the Gregorian calendar), with an optional "L" suffix (see <xref target="RFC7529" />) for leap months (this MUST be uppercase, e.g. "3L"). The array MUST have at least one entry if included.
+            The months in which to repeat. Each entry is a string representation of a number, starting from "1" for the first month in the calendar (e.g., "1" means January with the Gregorian calendar), with an optional "L" suffix (see <xref target="RFC7529" />) for leap months (this MUST be uppercase, e.g., "3L"). The array MUST have at least one entry if included.
             <vspace blankLines="1" />
             This is the BYMONTH part from iCalendar.</t>
 
@@ -740,7 +740,7 @@
                 <t>bySecond: the date-time has the given second value.</t>
               </list>
 
-              If a skip property is defined and is not "omit", there may be candidates that do not correspond to valid dates (e.g. 31st February in the Gregorian calendar). In this case, the properties MUST be considered in the order above and:
+              If a skip property is defined and is not "omit", there may be candidates that do not correspond to valid dates (e.g., 31st February in the Gregorian calendar). In this case, the properties MUST be considered in the order above and:
 
               <list style="numbers">
                 <t>After applying the byMonth filter, if the candidate's month is invalid for the given year increment it (if skip is "forward") or decrement it (if skip is "backward") until a valid month is found, incrementing/decrementing the year as well if you pass through the  beginning/end of the year. This only applies to calendar systems with leap months.</t>
@@ -912,7 +912,7 @@
 
             <t>name: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            The display name of the participant (e.g. "Joe Bloggs").</t>
+            The display name of the participant (e.g., "Joe Bloggs").</t>
 
             <t>email: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -942,9 +942,9 @@
 
               <t><spanx style="verb">group</spanx>: a collection of people invited as a whole</t>
 
-              <t><spanx style="verb">resource</spanx>: a non-human resource, e.g. a projector</t>
+              <t><spanx style="verb">resource</spanx>: a non-human resource, e.g., a projector</t>
 
-              <t><spanx style="verb">location</spanx>: a physical location involved in the calendar object that needs to be scheduled, e.g. a conference room.</t>
+              <t><spanx style="verb">location</spanx>: a physical location involved in the calendar object that needs to be scheduled, e.g., a conference room.</t>
             </list></t>
 
             <t>roles: <spanx style="verb">String[Boolean]</spanx> (mandatory)
@@ -1175,7 +1175,7 @@
 
             <t>It MUST be a valid <spanx style="verb">paramtext</spanx> value as specified in Section 3.1. of <xref target="RFC5545" />.</t>
 
-            <t>At least one other property in the same JSCalendar object MUST reference a time zone using this identifier (i.e. orphaned time zones are not allowed).</t>
+            <t>At least one other property in the same JSCalendar object MUST reference a time zone using this identifier (i.e., orphaned time zones are not allowed).</t>
           </list>
 
           An identifier need only be unique to this JSCalendar object.</t>
@@ -1270,7 +1270,7 @@
 
           <t>Note that a duration specified using weeks or days does not always correspond to an exact multiple of 24 hours. The number of hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time. Leap seconds MUST NOT be considered when computing an exact duration. When computing an exact duration, the greatest order time components MUST be added first, that is, the number of days MUST be added first, followed by the number of hours, number of minutes, and number of seconds. Fractional seconds MUST be added last. These semantics match the iCalendar DURATION value type (<xref target="RFC5545" />, Section 3.3.6).</t>
 
-          <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g. a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="prop-locations" />).</t>
+          <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g., a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="prop-locations" />).</t>
         </section>
 
         <section anchor="prop-status-jsevent" title="status">
