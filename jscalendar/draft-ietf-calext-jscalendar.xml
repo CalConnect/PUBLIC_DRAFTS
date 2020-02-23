@@ -895,7 +895,7 @@
 
             <t><spanx style="verb">web</spanx>: Opening this URI in a web browser will provide the user with a page where they can submit a reply to the organizer.</t>
 
-            <t><spanx style="verb">other</spanx>: The organizer is identified by this URI the method for submitting the response is undefined.</t>
+            <t><spanx style="verb">other</spanx>: The organizer is identified by this URI but the method for submitting the response is undefined.</t>
             </list></t>
         </section>
 
