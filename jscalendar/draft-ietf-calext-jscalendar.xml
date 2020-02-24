@@ -2351,10 +2351,10 @@
 </section>
 
 <section anchor="iana-enum-registry" title='Creation of "JSCalendar Enum Values" Registry'>
-  <t>The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for creating a new subregistry is the same as for the JSCalendar Properties registry. The registration process for a new enum value is the same but is only subject to Expert Review; a specification is not required for a new allowed value in an existing enum property where a simple description will suffice.</t>
+  <t>The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for a new enum value or adding a new enumerable property is the same as for the JSCalendar Properties registry, as defined in <xref target="iana-property-registry"/>.</t>
 
-  <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Subregistry Creation Template">
-    <t>This template is for adding a new subregistry to the JMAP Enum registry.</t>
+  <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Property Template">
+    <t>This template is for adding a subregistry for a new enumerable property to the JMAP Enum registry.</t>
 
     <t><list style="symbols">
       <t>Registry Name: This MUST be of the form "Enum Values for {property-name} (Context: {context})" where:
@@ -2362,13 +2362,12 @@
       {property-name} is the name(s) of the property or properties where these values may be used. This MUST be registered in the JSCalendar Properties registry.
       <vspace blankLines="1" />
       {context} is the list of allowed object types where the property or properties may appear, as registered in the JSCalendar Properties registry. This disambiguates where there may be two distinct properties with the same name in different contexts.</t>
-      <t>Change Controller: (<spanx style="verb">IETF</spanx> for IETF-stream RFCs).</t>
-      <t>Experts: The initial list of experts for Expert Review of updates to the subregistry.</t>
+      <t>Change Controller: (<spanx style="verb">IETF</spanx> for properties defined in IETF-stream RFCs).</t>
       <t>Initial Contents: The initial list of defined values for this enum, using the template defined in <xref target="iana-enum-registry-value-template"/>.</t>
     </list></t>
   </section>
 
-  <section anchor="iana-enum-registry-value-template" title="JMAP Enum Subregistry Template">
+  <section anchor="iana-enum-registry-value-template" title="JMAP Enum Value Template">
     <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry.</t>
 
     <t><list style="symbols">
@@ -2379,7 +2378,7 @@
 
   <section anchor="iana-enum-registry-contents" title="Initial Contents for the JSCalendar Enum Registry">
 
-    <t>For each subregistry created in this section, all RFC section references are for this document, the change controller is IETF and the experts are Neil Jenkins and Robert Stepanek.</t>
+    <t>For each subregistry created in this section, all RFC section references are for this document and the change controller is IETF.</t>
 
     <t>------------------------------------------------------------</t>
 
