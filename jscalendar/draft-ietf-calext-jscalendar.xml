@@ -1747,7 +1747,7 @@
 <section anchor="iana-property-registry" title='Creation of "JSCalendar Properties" Registry'>
   <t>The IANA will create the "JSCalendar Properties" registry to allow interoperability of extensions to JSCalendar objects.</t>
 
-  <t>This registry follows the Expert Review process (<xref target="RFC8126"/>, Section 4.5) unless the &quot;intended use&quot; field is <spanx style="verb">common</spanx>, in which case registration follows the Specification Required process (<xref target="RFC8126"/>, Section 4.6). Preliminary community review for this registry is optional but strongly encouraged.</t>
+  <t>This registry follows the Expert Review process (<xref target="RFC8126"/>, Section 4.5). If the &quot;intended use&quot; field is <spanx style="verb">common</spanx>, sufficient documentation is required to enable interoperability. Preliminary community review for this registry is optional but strongly encouraged.</t>
 
   <t>A registration can have an intended use of <spanx style="verb">common</spanx>, <spanx style="verb">reserved</spanx>, or <spanx style="verb">obsolete</spanx>. The IANA will list common-use registrations prominently and separately from those with other intended use values.</t>
 
