@@ -137,7 +137,7 @@
         </section>
 
         <section anchor="type-Duration" title="Duration">
-          <t>Where Duration is given as a type, it means a length of time represented by a subset of ISO8601 duration format, as specified by the following ABNF:</t>
+          <t>Where Duration is given as a type, it means a length of time represented by a subset of ISO8601 duration format, as specified by the following ABNF <xref target="RFC5234" />:</t>
 
           <figure>
             <artwork><![CDATA[    dur-secfrac = "." 1*DIGIT
@@ -2588,6 +2588,7 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4589.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"?>
