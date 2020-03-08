@@ -57,7 +57,7 @@
   </front>
   <middle>
     <section anchor="introduction" title="Introduction">
-      <t>This document defines a data model for calendar event and task objects, or groups of such objects, in electronic calendar applications and systems. It aims to be unambiguous, extendable and simple to process.</t>
+      <t>This document defines a data model for calendar event and task objects, or groups of such objects, in electronic calendar applications and systems. The format aims to be unambiguous, extendable and simple to process.</t>
 
       <t>The key design considerations for this data model are as follows:
         <list style="symbols">
@@ -65,7 +65,7 @@
           <t>Wherever possible, there should be only one way to express the desired semantics, reducing complexity.</t>
           <t>The data model should avoid ambiguities, which often lead to interoperability issues between implementations.</t>
           <t>The data model should be compatible with the iCalendar data format <xref target="RFC5545" /> <xref target="RFC7986" /> and extensions, but the specification should add new attributes where the iCalendar format currently lacks expressivity, and drop seldom-used, obsolete, or redundant properties. This means translation with no loss of semantics should be easy with most common iCalendar files.</t>
-          <t>Extensions, such as new properties and components, generally do not require updates to this document.</t>
+          <t>Extensions, such as new properties and components, should not require updates to this document.</t>
         </list>
       </t>
 
@@ -83,7 +83,7 @@
           </list>
         </t>
 
-        <t>In recent years, many new products and services have appeared that wish to use a JSON representation of calendar data within their APIs. The JSON format for iCalendar data, <xref target="RFC7265">jCal</xref>, is a direct mapping between iCalendar and JSON. In its effort to represent full iCalendar semantics, it inherits all the same pitfalls and uses a complicated JSON structure unlike most common JSON data representations.</t>
+        <t>In recent years, many new products and services have appeared that wish to use a JSON representation of calendar data within their APIs. The JSON format for iCalendar data, <xref target="RFC7265">jCal</xref>, is a direct mapping between iCalendar and JSON. In its effort to represent full iCalendar semantics, it inherits all the same pitfalls and uses a complicated JSON structure.</t>
 
         <t>As a consequence, since the standardization of jCal, the majority of implementations and service providers either kept using iCalendar, or came up with their own proprietary JSON representations, which are incompatible with each other and often suffer from common pitfalls, such as storing event start times in UTC (which become incorrect if the timezone's rules change in the future). JSCalendar meets the demand for JSON-formatted calendar data that is free of such known problems and provides a standard representation as an alternative to the proprietary formats.</t>
       </section>
@@ -129,11 +129,11 @@
         <section anchor="type-UTCDateTime" title="UTCDateTime">
           <t>This is a string in <xref target="RFC3339" /> <spanx style="verb">date-time</spanx> format, with the further restrictions that any letters MUST be in uppercase, the time component MUST be included and the time offset MUST be the character <spanx style="verb">Z</spanx>. Fractional second values MUST NOT be included unless non-zero and MUST NOT have trailing zeros, to ensure there is only a single representation for each date-time. </t>
 
-          <t>For example <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is OK, but <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and MUST be encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>.</t>
+          <t>For example <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is OK, but <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and is correctly encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>.</t>
         </section>
 
         <section anchor="type-LocalDateTime" title="LocalDateTime">
-          <t>This is a date-time string with no time zone/offset information. It is otherwise in the same format as UTCDateTime, including fractional seconds. For example <spanx style="verb">2006-01-02T15:04:05</spanx> and <spanx style="verb">2006-01-02T15:04:05.003</spanx> are both valid. The time zone to associate the LocalDateTime with comes from an associated property, or if no time zone is associated it defines <spanx style="strong">floating time</spanx>. Floating date-times are not tied to any specific time zone. Instead, they occur in each time zone at the given wall-clock time (as opposed to the same instant point in time).</t>
+          <t>This is a date-time string with no time zone/offset information. It is otherwise in the same format as UTCDateTime, including fractional seconds. For example <spanx style="verb">2006-01-02T15:04:05</spanx> and <spanx style="verb">2006-01-02T15:04:05.003</spanx> are both valid. The time zone to associate the LocalDateTime with comes from an associated property, or if no time zone is associated it defines <spanx style="verb">floating time</spanx>. Floating date-times are not tied to any specific time zone. Instead, they occur in each time zone at the given wall-clock time (as opposed to the same instant point in time).</t>
         </section>
 
         <section anchor="type-Duration" title="Duration">
@@ -393,7 +393,7 @@
 
             <t>locationTypes: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of one or more location types that describe this location. All types MUST be from the Location Types Registry as defined in <xref target="RFC4589" />. The set is represented as a map, with the keys being the location types. The value for each key in the map MUST be true.
+            A set of one or more location types that describe this location. All types MUST be from the Location Types Registry <xref target="LOCATIONTYPES" /> as defined in <xref target="RFC4589" />. The set is represented as a map, with the keys being the location types. The value for each key in the map MUST be true.
             </t>
 
             <t>relativeTo: <spanx style="verb">String</spanx> (optional)
@@ -475,7 +475,7 @@
 
             <t>size: <spanx style="verb">UnsignedInt</spanx> (optional)
             <vspace blankLines="1" />
-            The size, in octets, of the resource when fully decoded (i.e., the number of octets in the file the user would download), if known.</t>
+            The size, in octets, of the resource when fully decoded (i.e., the number of octets in the file the user would download), if known. Note that this is an informational estimate, and implementations must be prepared to handle the actual size being quite different when the resource is fetched.</t>
 
             <t>rel: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -524,7 +524,7 @@
 
           <t>A set of categories that relate to the calendar object. The set is represented as a map, with the keys being the categories specified as URIs. The value for each key in the map MUST be true.</t>
 
-          <t>In contrast to keywords, categories typically are structured. For example, a vendor owning the domain <spanx style="verb">example.com</spanx> might define the categories <spanx style="verb">http://example.com/categories/sports/american-football"</spanx> and <spanx style="verb">http://example.com/categories/music/r-b</spanx>.</t>
+          <t>In contrast to keywords, categories typically are structured. For example, a vendor owning the domain <spanx style="verb">example.com</spanx> might define the categories <spanx style="verb">http://example.com/categories/sports/american-football</spanx> and <spanx style="verb">http://example.com/categories/music/r-b</spanx>.</t>
         </section>
 
         <section anchor="prop-color" title="color">
@@ -620,7 +620,7 @@
 
             <t>byDay: <spanx style="verb">NDay[]</spanx> (optional)
             <vspace blankLines="1" />
-            Days of the week on which to repeat. An <spanx style="strong">NDay</spanx> object has the following properties:
+            Days of the week on which to repeat. An <spanx style="verb">NDay</spanx> object has the following properties:
 
             <list style="symbols">
               <t>day: <spanx style="verb">String</spanx> (mandatory)
@@ -1025,9 +1025,9 @@
 
             <t>scheduleUpdated: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
-            The <spanx style="verb">updated</spanx> property of the last iTIP response from the participant.
+            The timestamp for the most recent response from this participant.
             <vspace blankLines="1" />
-            This can be compared to the <spanx style="verb">updated</spanx> property timestamp in future iTIP responses to determine if the response is older or newer than the current data.</t>
+            This is the <spanx style="verb">updated</spanx> property of the last response when using iTIP. It can be compared to the <spanx style="verb">updated</spanx> property in future responses to detect and discard older responses delivered out of order.</t>
 
             <t>invitedBy: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -1079,7 +1079,7 @@
             <vspace blankLines="1" />
             Defines when to trigger the alert. New types may be defined in future documents.
             <vspace blankLines="1" />
-            An <spanx style="strong">OffsetTrigger</spanx> object has the following properties:
+            An <spanx style="verb">OffsetTrigger</spanx> object has the following properties:
             <list style="symbols">
               <t>@type: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
@@ -1099,7 +1099,7 @@
               </list></t>
             </list>
 
-            An <spanx style="strong">AbsoluteTrigger</spanx> object has the following properties:
+            An <spanx style="verb">AbsoluteTrigger</spanx> object has the following properties:
             <list style="symbols">
               <t>@type: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
@@ -1110,7 +1110,7 @@
               Defines a specific UTC date-time when the alert is triggered.</t>
             </list>
 
-            An <spanx style="strong">UnknownTrigger</spanx> object is an object that contains a <spanx style="strong">@type</spanx> property whose value is not recognized (i.e., not <spanx style="verb">OffsetTrigger</spanx> or <spanx style="verb">AbsoluteTrigger</spanx>), plus zero or more other properties. This is for compatibility with client extensions and future specifications. Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
+            An <spanx style="verb">UnknownTrigger</spanx> object is an object that contains a <spanx style="verb">@type</spanx> property whose value is not recognized (i.e., not <spanx style="verb">OffsetTrigger</spanx> or <spanx style="verb">AbsoluteTrigger</spanx>), plus zero or more other properties. This is for compatibility with client extensions and future specifications. Implementations SHOULD NOT trigger for trigger types they do not understand, but MUST preserve them.</t>
 
             <t>acknowledged: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
@@ -2631,6 +2631,13 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
+      <reference anchor="LOCATIONTYPES" target="https://www.iana.org/assignments/location-type-registry/location-type-registry.xhtml">
+        <front>
+          <title>IANA Location Types Registry</title>
+          <author />
+          <date />
+        </front>
+      </reference>
       <reference anchor="LINKRELS" target="https://www.iana.org/assignments/link-relations/link-relations.xhtml">
         <front>
           <title>IANA Link Relation Types</title>
