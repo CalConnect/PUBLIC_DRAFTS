@@ -180,6 +180,7 @@
             <t>The pointer MUST NOT insert/delete from an array; the array MUST be replaced in its entirety instead.</t>
             <t>When evaluating a path, all parts prior to the last (i.e., the value after the final slash) MUST exist.</t>
             <t>There MUST NOT be two patches in the PatchObject where the pointer of one is a prefix of the pointer of the other, e.g., <spanx style="verb">alerts/foo/offset</spanx> and <spanx style="verb">alerts</spanx>.</t>
+            <t>The value for the patch MUST be valid for the property being set (of the correct type and obeying any other applicable restrictions), or if null the property MUST be optional.</t>
           </list></t>
 
           <t>The value associated with each pointer is either:
