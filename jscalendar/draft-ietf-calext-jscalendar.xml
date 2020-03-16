@@ -1688,7 +1688,11 @@
     </section>
 
     <section anchor="security-considerations" title="Security Considerations">
-      <t>Calendaring and scheduling information is very privacy-sensitive. The transmission of such information must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle attacks. This document just defines the data format; such considerations are primarily the concern of the API or method of storage and transmission of such files.</t>
+      <t>Calendaring and scheduling information is very privacy-sensitive. Its transmission must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle attacks.</t>
+
+      <t>The data being stored and transmitted may be used in systems with real world consequences. For example, a home automation system may turn an alarm on and off. Or a coworking space may charge money to the organiser of an event that books one of their meeting rooms. Such systems must be careful to authenticate all data they receive to prevent them from being subverted.</t>
+
+      <t>This document just defines the data format; such considerations are primarily the concern of the API or method of storage and transmission of such files.</t>
 
       <section anchor="sec-recurrences" title="Expanding Recurrences">
         <t>A recurrence rule may produce infinite occurrences of an event. Implementations MUST handle expansions carefully to prevent accidental or deliberate resource exhaustion.</t>
@@ -1709,6 +1713,19 @@
       <section anchor="uri-values" title="URI Values">
         <t>Several JSCalendar properties contain URIs as values, and processing these properties requires extra care. Section 7 of <xref target="RFC3986" /> discusses security risk related to URIs.</t>
         <t>A maliciously constructed JSCalendar object may contain a very large number of URIs. In the case of published calendars with a large number of subscribers, such objects could be widely distributed. Implementations should be careful to limit the automatic fetching of linked resources to reduce the risk of this being an amplification vector for a denial-of-service attack.</t>
+      </section>
+
+      <section anchor="spam" title="Spam">
+        <t>Calendar systems may receive JSCalendar files from untrusted sources, in particular as attachments to emails. This can be a vector for an attacker to inject spam into a user's calendar. This may confuse, annoy, and mislead users, or overwhelm their calendar with bogus events, preventing them from seeing legitimate ones.</t>
+        <t>Heuristic, statistical or machine-learning-based filters can be effective in filtering out spam. Authentication mechanisms such as DKIM <xref target="RFC6376" /> can help establish the source of messages and associate the data with existing relationships (such as an address book contact). Misclassifications are always possible however, and providing a feedback mechanism for users to quickly correct this is advised.</t>
+      </section>
+
+      <section anchor="duplication" title="Duplication">
+        <t>It is important for calendar systems to maintain the UID of an event when updating it to avoid unexpected duplication of events. When the UID changes, consumers of the data may not remove the previous version of the event if it has a different UID. This can lead to a confusing situation for the user, with many variations of the event and no indication of which one is correct. Care must be taken by consumers of the data to remove old events where possible to avoid an accidental denial-of-service attack due to the volume of data.</t>
+      </section>
+
+      <section anchor="timezonesec" title="Time Zones">
+        <t>Events recur in a particular time zone. When this differs from the user's current time zone, it may unexpectedly cause an occurrence to shift in time for that user due to a daylight savings change in the event's time zone. A maliciously crafted event could attempt to confuse users with such an event to ensure a meeting is missed.</t>
       </section>
     </section>
 
@@ -2629,6 +2646,7 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6376.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
