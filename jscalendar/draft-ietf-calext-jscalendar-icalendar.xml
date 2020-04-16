@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="info" docName="draft-ietf-calext-jscalendar-icalendar-01">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-icalendar-02">
     <?rfc toc="yes"?>
     <?rfc symrefs="yes"?>
     <?rfc sortrefs="yes"?>
@@ -43,7 +43,21 @@
                 <uri>https://www.fastmail.com</uri>
             </address>
         </author>
-        <date year="2019" month="June" day="29"/>
+        <author initials="M." surname="Douglass" fullname="Michael Douglass">
+            <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+            <address>
+                <postal>
+                    <street>226 3rd Street</street>
+                    <city>Troy</city>
+                    <region>NY</region>
+                    <code>12180</code>
+                    <country>United States of America</country>
+                </postal>
+                <email>mdouglass@sphericalcowgroup.com</email>
+                <uri>http://sphericalcowgroup.com</uri>
+            </address>
+        </author>
+        <date year="2020" month="April" day="8"/>
         <area>Applications</area>
         <workgroup>Calendaring extensions</workgroup>
         <keyword>JSON</keyword>
@@ -54,7 +68,7 @@
         <keyword>time</keyword>
         <abstract>
             <t>
-                This document provides an informational guideline for converting
+                This document provides the required methods for converting
                 JSCalendar from and to iCalendar.
             </t>
         </abstract>
@@ -75,13 +89,13 @@
                     likely to interoperate with services and clients that just support iCalendar.
                     Similarly, existing calendaring data is stored in iCalendar format
                     in databases and other calendar stores, and providers and users might
-                    want to represent this data also in JSCalendar. Lastly, some implementations
-                    might want to preserve custom iCalendar properties, that have no
+                    want to represent this data also in JSCalendar. Lastly, there is a
+                    requirement to preserve custom iCalendar properties that have no
                     equivalent in JSCalendar when converting between these formats.
                 </t>
                 <t>
-                    To facilitate these use cases, this document provides an
-                    informational guide how to convert JSCalendar data from and to
+                    To support these use cases, this document provides the
+                    required approach when converting JSCalendar data from and to
                     iCalendar.
                 </t>
             </section>
@@ -93,16 +107,17 @@
                     <list style="symbols">
                         <t>
                             JSCalendar contains a richer data model to express calendar
-                            information such as event locations and participants;
+                            information such as event locations and participants.
                             while future iCalendar extensions
                             may allow a direct mapping, for now there may be no representation
-                            directly in iCalendar of some properties and these have been marked
-                            as implementation specific for mapping.
+                            directly in iCalendar of some properties. These values
+                            may have to be extracted from a full copy of the iCalendar
+                            format provided as a property in the JSCalendar data.
                         </t>
                         <t>
                             iCalendar may contain arbitrary, non-standardised data with custom
-                            properties/attributes. Translating these into JSCalendar is implementation
-                            specific.
+                            properties/attributes. These will be translated using the same approach
+                            as jCal.
                         </t>
                         <t>
                             iCalendar has some obsolete features that have been removed from JSCalendar
@@ -116,10 +131,10 @@
                             however this is not interoperable.
                         </t>
                     </list>
-                    Accordingly, this document does not standardize a canonical translation
-                    between iCalendar and JSCalendar, and implementations MUST NOT make
-                    any assumptions how iCalendar data is represented in JSCalendar
-                    by other systems.
+                    Accordingly, this document defines a canonical translation
+                    between iCalendar and JSCalendar, and implementations MUST follow
+                    the approaches specified here when iCalendar data is represented in JSCalendar
+                    and vice-versa.
                 </t>
             </section>
 
@@ -133,7 +148,8 @@
 
         </section>
 
-        <section anchor="new-icalendar-parameters" title="New iCalendar parameters">
+        <section anchor="new-icalendar-parameters"
+                 title="New iCalendar parameters">
             <section anchor="subsecond-parameter" title="SUBSECOND parameter">
                 <t>
                     <list style='hanging'>
@@ -175,6 +191,881 @@
                         </t>
                         <t hangText="Example:">
                             DTSTART;SUBSECOND=0.03:20190605T133015
+                        </t>
+                    </list>
+                </t>
+            </section>
+        </section>
+
+        <section anchor="icalendar-preprocessing"
+                 title="iCalendar pre-processing">
+            <t>
+                iCalendar uses a line-folding mechanism to limit lines of data to a
+                maximum line length (typically 75 octets) to ensure the maximum
+                likelihood of preserving data integrity as it is transported via
+                various means (e.g., email) -- see Section 3.1 of <xref target="RFC5545"/>.
+            </t>
+            <t>
+                iCalendar data uses an "escape" character sequence for text values
+                and property parameter values.  See Sections 3.1 and 3.3 of <xref target="RFC5545"/>
+                as well as [RFC6868].
+            </t>
+            <t>
+                There is a subtle difference in the number representations between
+                JSON and iCalendar.  While in iCalendar, a number may have leading
+                zeros, as well as a leading plus sign; this is not the case in JSON.
+                Numbers should be represented in whatever way needed for the
+                underlying format.
+            </t>
+            <t>
+                When converting from iCalendar to JSCalendar: First, iCalendar lines MUST
+                be unfolded.  Afterwards, any iCalendar escaping MUST be unescaped.
+                Finally, JSON escaping, as described in Section 7 of <xref target="RFC7159"/>, MUST
+                be applied.  The reverse order applies when converting from JSCalendar to
+                iCalendar, which is further described in Section ?.
+            </t>
+            <t>
+                iCalendar uses a base64 encoding for binary data.  However, it does
+                not restrict the encoding from being applied to non-binary value
+                types.  So, the following rules are applied when processing a
+                property with the "ENCODING" property parameter set to "BASE64":
+                <list style="symbols">
+                    <t>
+                        If the property value type is "BINARY", the base64 encoding MUST
+                        be preserved.
+                    </t>
+                    <t>
+                        If the value type is not "BINARY", the "ENCODING" property
+                        parameter MUST be removed, and the value MUST be base64 decoded.
+                    </t>
+                </list>
+                When base64 encoding is used, it MUST conform to Section 4 of
+                [RFC4648], which is the base64 method used in [RFC5545].
+            </t>
+            <t>
+                One key difference in the formatting of values used in iCalendar and
+                JSCalendar is that in JSCalendar, the specification uses date/time values aligned
+                with the extended format of [ISO.8601.2004], which is more commonly
+                used in Internet applications that make use of the JSON format.  The
+                sections of this document describing the various date and time
+                formats contain more information on the use of the complete
+                representation, reduced accuracy, or truncated representation.
+            </t>
+        </section>
+
+        <section anchor="translate-icalendar-components"
+                 title="Translating iCalendar components to JSCalendar">
+            <t>
+                This section is an alphabetic list of all
+                <xref target="RFC5545"/> components and
+                how they are mapped to JSCalendar.
+            </t>
+
+            <t>
+                At present VFREEBUSY and VJOURNAL are not mapped in
+                jscalendar.
+            </t>
+
+            <section anchor="translate-ical-comp-valarm" title="VALARM">
+                <t>
+                    A <xref target="RFC5545"/> VALARM component is mapped
+                    to a member of a JSCalendar "alerts" object with a
+                    type of "Alert" and an arbitrary id.
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VEVENT
+  ...
+  BEGIN: VALARM
+  ...
+  END: VALARM
+  BEGIN: VALARM
+  ...
+  END: VALARM
+  END: VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "alerts": {
+      "6ICJGbGlnaHRSZXNlcnZhdGlvb": {
+        "@type": "Alert",
+        ...
+      },
+      "kIjogIlJYSjM0UCIsCiAgICAgI": {
+        "@type": "Alert",
+        ...
+      }
+    }
+  }
+]]></artwork>
+                    </figure>
+                </t>
+
+                <t>
+                    The <xref target="RFC5545"/> VALARM has a number of
+                    problems which are not carried over into JSCalendar.
+                    Clients tend to choose how, and in some cases when
+                    to notify the user.
+                </t>
+
+                <t>
+                    For example, if the user has a smart-watch they may
+                    get tapped on the wrist. The method of notification
+                    may depend on which device is being used and the
+                    context, are they in a meeting or driving.
+                </t>
+
+                <t>
+                    Also, many clients are taking into consideration the
+                    travel time and notifying the user earlier if it
+                    seems necessary.
+                </t>
+
+                <t>
+                    Specifying that a client should send emails to all
+                    attendees is both annoying and dangerous. Attendees
+                    have their own preferences for how and when they
+                    should be notified.
+                </t>
+
+                <t>
+                    Accordingly, the specification only allows for "display"
+                    and "email" actions and - other than specifying
+                    when - does not allow much else. Clients and/or
+                    servers will generally use the associated event or
+                    task title as identification. User preferences
+                    generally indicate what actions they prefer.
+                </t>
+
+                <t>
+                    A <xref target="RFC5545"/> ACTION property
+                    can take the defined values
+                    "AUDIO" / "DISPLAY" / "EMAIL" whereas the
+                    JSCalendar "action" property only supports
+                    "display" and "email".
+                </t>
+
+                <t>
+                    An "AUDIO" alarm SHOULD be mapped to a "display"
+                    alert. Any attachment MUST be ignored.
+                </t>
+
+                <t>
+                    The <xref target="RFC5545"/> example VALARMs will
+                    be mapped as follows, assuming they are all in the
+                    same event:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+  BEGIN:VALARM
+  TRIGGER;VALUE=DATE-TIME:19970317T133000Z
+  REPEAT:4
+  DURATION:PT15M
+  ACTION:AUDIO
+  ATTACH;FMTTYPE=audio/basic:ftp://example.com/pub/
+  sounds/bell-01.aud
+  END:VALARM
+  BEGIN:VALARM
+  TRIGGER:-PT30M
+  REPEAT:2
+  DURATION:PT15M
+  ACTION:DISPLAY
+  DESCRIPTION:Breakfast meeting with executive\n
+   team at 8:30 AM EST.
+  END:VALARM
+  BEGIN:VALARM
+  TRIGGER;RELATED=END:-P2D
+  ACTION:EMAIL
+  ATTENDEE:mailto:john_doe@example.com
+  SUMMARY:*** REMINDER: SEND AGENDA FOR WEEKLY STAFF MEETING ***
+  DESCRIPTION:A draft agenda needs to be sent out to the attendees
+  to the weekly managers meeting (MGR-LIST). Attached is a
+  pointer the document template for the agenda file.
+  ATTACH;FMTTYPE=application/msword:http://example.com/
+  templates/agenda.doc
+  END:VALARM
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "alerts": {
+      "6ICJGbGlnaHRSZXNlcnZhdGlvb": {
+        "@type": "Alert",
+        "action": "display",
+        "trigger": {
+          "@type": "AbsoluteTrigger",
+          "when": "19970317T133000Z"
+        }
+      },
+      "kIjogIlJYSjM0UCIsCiAgICAgI": {
+        "@type": "Alert",
+        "action": "display",
+        "trigger": {
+          "@type": "OffsetTrigger",
+          "offset": "-PT30M"
+        }
+      }
+      "odHRwOi8vc2NoZW1hLm9yZy9SZ": {
+        "@type": "Alert",
+        "action": "email",
+        "trigger": {
+          "@type": "OffsetTrigger",
+          "offset": "-P2D",
+          "relativeTo": "end"
+        }
+      }
+    }
+  }
+]]></artwork>
+                    </figure>
+                </t>
+
+                <t>
+                    Note that the ATTACH, ATTENDEE, DESCRIPTION, DURATION, REPEAT and
+                    SUMMARY properties have been dropped.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-comp-vcalendar" title="VCALENDAR">
+                <t>
+                    A <xref target="RFC5545"/> VCALENDAR component may be mapped
+                    to a JSCalendar object with a type of "jsgroup".
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  ...
+  END: VCALENDAR
+
+  maps to
+
+  {
+    "@type": "jsgroup",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    Note that a single JSEvent or JSTask MAY be converted
+                    without a surrounding JSGroup if the VCALENDAR
+                    component only contains PRODID and CALSCALE properties.
+                    In this case the prddid can go in the JSEvent or JSTask.
+                    The CALSCALE property is dropped - there is no equivalence
+                    in JSCalendar.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-comp-vevent" title="VEVENT">
+                <t>
+                    A <xref target="RFC5545"/> VEVENT component is mapped
+                    to a JSCalendar object with a type of "jsevent".
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VEVENT
+  ...
+  END: VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-comp-vtimezone"
+                     title="VTIMEZONE, STANDARD, DAYLIGHT">
+                <t>
+                    A <xref target="RFC5545"/> VTIMEZONE component is mapped
+                    to a member of a JSCalendar "timezones" object with a
+                    type of "TimeZone" and an id which follows the
+                    restrictions specified.
+                </t>
+                <t>
+                    The STANDARD and DAYLIGHT components map to
+                    JSCalendar TimeZoneRule objects as members of the
+                </t>
+                <t>
+                    Note that
+                    <list style="symbols">
+                        <t> There is no current approach for defining
+                            standalone sets of timezones.
+                        </t>
+                        <t>
+                            Timezones defined in the IANA timezone database
+                            SHOULD NOT be redefined in the object.
+                            Only custom timezones will be defined.
+                        </t>
+                    </list>
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VTIMEZONE
+  TZID: Example/Somewhere
+  ...
+  END: VTIMEZONE
+  BEGIN: VTIMEZONE
+  TZID: Example/Somewhere-else
+  ...
+  END: VTIMEZONE
+  BEGIN: VEVENT
+  ...
+  END: VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "timezones": {
+      "/Example/Somewhere: {
+        "@type": "TimeZone",
+        ...
+      },
+      "/Example/Somewhere-else": {
+        "@type": "TimeZone",
+        ...
+      }
+    }
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-comp-vtodo" title="VTODO">
+                <t>
+                    A <xref target="RFC5545"/> VTODO component is mapped
+                    to a JSCalendar object with a type of "jstask".
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VTODO
+  ...
+  END: VTODO
+
+  maps to
+
+  {
+    "@type": "jstask",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+        </section>
+
+        <section anchor="translate-icalendar-properties"
+                 title="Translating iCalendar properties to JSCalendar">
+            <t>
+                This section is an alphabetic list of all
+                <xref target="RFC5545"/> properties and
+                how they are mappped to JSCalendar.
+            </t>
+
+            <section anchor="translate-ical-attendee" title="ATTENDEE">
+                <t>
+                    A <xref target="RFC5545"/> ATTENDEE maps to the
+                    JSCalendar "participant" property.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-calscale" title="CALSCALE">
+                <t>
+                    A <xref target="RFC5545"/> CALSCALE has no equivalence
+                    in JSCalendar. It is ignored.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-comment" title="COMMENT">
+                <t>
+                    TBD.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-completed" title="COMPLETED">
+                <t>
+                    Set the JSCalendar "progress" property to "completed"
+                    and the "progressUpdated" property to the reformatted
+                    date/time.
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  COMPLETED: "20101010T101010Z"
+  ...
+
+  maps to
+
+  ...
+  "progressUpdated": "2010-10-10T10:10:10Z",
+  "progress": "completed",
+  ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-contact" title="CONTACT">
+                <t>
+                    The CONTACT property is mapped on to a participant
+                    object with a "participantTypes" property of
+                    "contact" and an "order" property of 1 (one). This
+                    defines the participant as a primary contact.
+                </t>
+                <t>
+                    Mapping parameters:
+                    <list style="hanging">
+                        <t hangText="ALTREP">
+                            Use the participant "uri" property.
+                        </t>
+                        <t hangText="LANG">
+                            No mapping.
+                        </t>
+                    </list>
+                </t>
+                <t>
+                    Example:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+
+  CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
+   c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
+   +1-919-555-1234
+   ...
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "participants": {
+        "rIiwKICAgICAgInBhc3NlbmdlclN": {
+          "@type": "participant",
+          "participantTypes": {
+            "contact": true
+          },
+          "order": 0,
+          // Note that comments and string concatenation are not
+          // allowed per the JSON specification and is used here
+          // to avoid long lines.
+          "uri": "ldap://example.com:6666/o=ABC%20Industries," +
+                  "c=US???(cn=Jim%20Dolittle)",
+        }
+      },
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-created" title="CREATED">
+                <t>
+                    The CREATED property is mapped on to a "created"
+                    property with a json formatted form of the date.
+                    Example:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+  CREATED:19960329T133000Z
+  ...
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "created": "1996-03-29T13:30"00Z",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-description" title="DESCRIPTION">
+                <t>
+                    Copy the value, preprocessed according to
+                    <xref target="icalendar-preprocessing" /> into the
+                    "description" property.
+                </t>
+                <t>
+                    Mapping parameters:
+                    <list style="hanging">
+                        <t hangText="ALTREP">
+                            No mapping.
+                        </t>
+                        <t hangText="LANG">
+                            Use the "locale" property.
+                        </t>
+                    </list>
+                </t>
+                <t>
+                    Example:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+  DESCRIPTION:We are having a meeting all this week at 12 pm fo
+   r one hour\, with an additional meeting on the first day 2 h
+   ours long.\nPlease bring your own lunch for the 12 pm meetin
+   gs.
+  ...
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "description": // Note: comments and string concatenation are not
+            // allowed per the JSON specification and is used here
+            // to avoid long lines.
+        "We are having a meeting all this week at 12 pm for one " +
+        "hour, with an additional meeting on the first day 2 " +
+        "hours long.\nPlease bring your own lunch for the 12 pm " +
+        "meetings.",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-prodid" title="PRODID">
+                <t>
+                    For a vcalendar JSGroup object with multiple JSEvent
+                    and/or JSTask object the <xref target="RFC5545"/> VCALENDAR PRODID is
+                    mapped to a JSCalendar "prodid" property in the group.
+                </t>
+                <t>
+                    When mapping to a single JSEvent and/or JSTask object
+                    the <xref target="RFC5545"/> VCALENDAR PRODID is
+                    mapped to a JSCalendar "prodid" property in the group
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  BEGIN:VEVENT
+  ...
+  END:VEVENT
+  END: VCALENDAR
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+        </section>
+
+        <section anchor="translate-jscalendar-components"
+                 title="Translating JSCalendar properties to iCalendar components">
+            <t>
+                This section is an alphabetic list of all JSCalendar
+                property types that map on to <xref target="RFC5545"/> components.
+            </t>
+
+            <section anchor="translate-jscal-jsevent" title="jsevent">
+                <t>
+                    A JSCalendar object with a type of "jsevent" is mapped on to a
+                    <xref target="RFC5545"/> VEVENT component.
+                </t>
+                <t>
+                    If it is a single VEVENT then a
+                    <xref target="RFC5545"/> VCALENDAR component must
+                    surround it and the JSCalendar "prodid" property
+                    will be converted to a <xref target="RFC5545"/> PRODID.
+                    <figure>
+                        <artwork><![CDATA[
+  {
+    "@type": "jsevent",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+  }
+
+  maps to
+
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  BEGIN:VEVENT
+  ...
+  END:VEVENT
+  END: VCALENDAR
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    When converting multiple JSEvent or JSTask objects
+                    the surrounding <xref target="RFC5545"/> VCALENDAR
+                    object must have a <xref target="RFC5545"/> PRODID
+                    set from either the JSGroup "prodid" or generated.
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-jsgroup" title="jsgroup">
+                <t>
+                    A JSCalendar object with a type of "jsgroup" is mapped on to a
+                    <xref target="RFC5545"/> VCALENDAR component.
+                    <figure>
+                        <artwork><![CDATA[
+  {
+    "@type": "jsgroup",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+    {
+      "@type": "jsevent",
+      ...
+    }
+    {
+      "@type": "jsevent",
+      ...
+    }
+  }
+
+  maps to
+
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  BEGIN:VEVENT
+  ...
+  END:VEVENT
+  BEGIN:VEVENT
+  ...
+  END:VEVENT
+  END: VCALENDAR
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-jstask" title="jstask">
+                <t>
+                    A JSCalendar object with a type of "jstask" is mapped on to a
+                    <xref target="RFC5545"/> VTODO component.
+                </t>
+                <t>
+                    If it is a single VTODO then a
+                    <xref target="RFC5545"/> VCALENDAR component must
+                    surround it and the JSCalendar "prodid" property
+                    will be converted to a <xref target="RFC5545"/> PRODID.
+                    <figure>
+                        <artwork><![CDATA[
+  {
+    "@type": "jstask",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+  }
+
+  maps to
+
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  BEGIN:VTODO
+  ...
+  END:VTODO
+  END: VCALENDAR
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    When converting multiple JSEvent or JSTask objects
+                    the surrounding <xref target="RFC5545"/> VCALENDAR
+                    object must have a <xref target="RFC5545"/> PRODID
+                    set from either the JSGroup "prodid" or generated.
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-timezones-comp"
+                     title="timezones">
+                <t>
+                    The JSCalendar TimeZone objects within a "timezones"
+                    property are mapped on to
+                    <xref target="RFC5545"/> VTIMEZONE components within
+                    the surrounding VCALENDAR component. Each mapped
+                    TimeZone MUST only appear once.
+                    <figure>
+                        <artwork><![CDATA[
+  {
+    "@type": "jsevent",
+    ...
+    "timezones": {
+      "/Example/Somewhere: {
+        "@type": "TimeZone",
+        ...
+      },
+      "/Example/Somewhere-else": {
+        "@type": "TimeZone",
+        ...
+      }
+    }
+  }
+
+  maps to
+
+  BEGIN: VTIMEZONE
+  TZID: Example/Somewhere
+  ...
+  END: VTIMEZONE
+  BEGIN: VTIMEZONE
+  TZID: Example/Somewhere-else
+  ...
+  END: VTIMEZONE
+  BEGIN: VEVENT
+  ...
+  END: VEVENT
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    When converting multiple JSEvent or JSTask objects
+                    the surrounding <xref target="RFC5545"/> VCALENDAR
+                    object must have a <xref target="RFC5545"/> PRODID
+                    set from either the JSGroup "prodid" or generated.
+                </t>
+            </section>
+        </section>
+
+        <section anchor="Some-notes" title="Some notes">
+            <t>
+                The sections following this one are all the original ones
+                from draft 1 writen by Robert - there for reference.
+            </t>
+
+            <section anchor="notes-alerts" title="Alerts">
+                <t>
+                    I've got text which explains some of the justification
+                    for the changes. Because it's not trivial to map I think
+                    people need to understand the reasoning.
+                </t>
+            </section>
+
+            <section anchor="notes-preserving" title="Preserving icalendar">
+                <t>
+                    I don't think we need to preserve th entire iCalendar
+                    object to make this round trippable. That also means
+                    somebody needs to parse it and extract what they need.
+                </t>
+
+                <t>
+                    Rather - where it matters we could use the JCal approach.
+                    For example - preserve VALARM
+                </t>
+            </section>
+
+            <section anchor="jscalendar-changes" title="JSCalendar changes">
+                <t>
+                    Here I'll note what I think needs changing in the
+                    jscalendar spec.
+                </t>
+
+                <t>
+                    <list style="hanging">
+                        <t hangText="alert - absolute time">
+                            I don't think we should promote UTC. A
+                            change in rules could result in alarms
+                            all going off at the wrong time. I think
+                            we should allow for local time and a timezone.
+                        </t>
+                        <t hangText="comments - COMMENT">
+                            comments is only specified for timezone rules. It needs to be valid for all or some indication of how to handle them needs to be provided.
+                        </t>
+                        <t>
+                        There is an issue in 5545 with COMMENT in scheduling e.g. is a comment meant only for the organizer? That could be tightened up.
+                        </t>
+
+                        <t hangText="CONTACT">
+                            There's no mapping suggested. CONTACT is vital for event publication. I'd suggest following the approach in eventpub - add a participantType property to participant
+                        </t>
+                        <t>
+                            I thought this could probably be handled just by changing the wording for participant as I suggested and extending the roles values. However I think that's conceptually more complicated,
+                            <figure>
+                                <artwork><![CDATA[
+              "participantTypes": {"attendee": true}
+              "roles": {"optional": true}
+
+              is easier to understand than
+
+              "participantTypes": {"optional": true}
+
+              implying this is an optional attendee.
+
+              Changing role "attendee" to "required" or "expected"
+              might make sense
+]]></artwork>
+                            </figure>
+                        </t>
+
+                        <t hangText="participant">
+                            Bring into line with eventpub extensions so
+                            we can do a consistent mapping between them.
+                            Add the following:
+                            <list style="hanging">
+                                <t hangText="order">
+                                    Positive number.
+                                </t>
+                                <t hangText="participantTypes">
+                                    As defined.
+                                </t>
+                                <t hangText="structuredData">
+                                    with "encoding" and "value" properties.
+                                    We need to have a place to put the value
+                                    which may be a phone number. As a fallback
+                                    converting to JSCalendar may involve
+                                    encoding the value as a data uri.
+                                </t>
+                                <t hangText="uri">
+                                    To match ALTREP.
+                                </t>
+                            </list>
+                        </t>
+
+                        <t>
+                            Note that eventpub extensions needs an
+                            update: PARTICIPANT-TYPE needs to be allowed
+                            more than once and ATTENDEE should be added
+                            as a value.
+                        </t>
+
+                        <t hangText="privacy">
+                            Still think we should change "secret" to
+                            "confidential".
+                        </t>
+                        <t hangText="section 3.1 - etags text">
+                            Needs correcting.
+                        </t>
+                        <t hangText="timezones">
+                            I'm completely fine with the default being by reference. It may be good to strengthen the language in  section 1.4.9. A concern is we're not allowing standalone timezone defs. I see 2 uses for that:
+
+                            <list style="numbers">
+                                <t>
+                                    A group containing a lot of events that all use the same custom timezone - having to repeat that per event is bulky. (probably not a major case but...). I guess the first event could be considered the definition but that's messy.
+                                </t>
+                                <t>
+                                    More important - how do we deliver jscalendar format timezones from tzdist?
+                                </t>
+                            </list>
+                            Could we simply allow a timezones property as another alternative in JSGroup?
                         </t>
                     </list>
                 </t>
@@ -737,6 +1628,7 @@
         <references title="Normative References">
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
         </references>
