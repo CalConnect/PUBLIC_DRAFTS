@@ -1711,7 +1711,7 @@
       </section>
 
       <section anchor="uri-values" title="URI Values">
-        <t>Several JSCalendar properties contain URIs as values, and processing these properties requires extra care. Section 7 of <xref target="RFC3986" /> discusses security risk related to URIs.</t>
+        <t>Several JSCalendar properties contain URIs as values, and processing these properties requires extra care. Section 7 of <xref target="RFC3986" /> discusses security risks related to URIs.</t>
         <t>A maliciously constructed JSCalendar object may contain a very large number of URIs. In the case of published calendars with a large number of subscribers, such objects could be widely distributed. Implementations should be careful to limit the automatic fetching of linked resources to reduce the risk of this being an amplification vector for a denial-of-service attack.</t>
       </section>
 
