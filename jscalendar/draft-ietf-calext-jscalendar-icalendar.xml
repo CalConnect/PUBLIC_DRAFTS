@@ -150,16 +150,16 @@
 
         <section anchor="new-icalendar-parameters"
                  title="New iCalendar parameters">
-            <section anchor="subsecond-parameter" title="SUBSECOND parameter">
+            <section anchor="fractional-parameter" title="FRACTIONAL parameter">
                 <t>
                     <list style='hanging'>
                         <t hangText="Parameter name:">
-                            SUBSECOND
+                            FRACTIONAL
                         </t>
                         <t hangText="Purpose:">
-                            This parameter is used to define fractional seconds for
+                            This parameter is used to contain a value with fractional seconds for
                             time values and durations.
-                            SUBSECOND MUST NOT be used in date-time calculations or comparisons in 
+                            FRACTIONAL MUST NOT be used in date-time calculations or comparisons in 
                             iCalendar.
                             It is meant to preserve time precision on time
                             values and duration with sub-second precision, without
@@ -168,15 +168,25 @@
                         <t hangText="Description:">
                             This parameter MAY be specified on properties of type DATE-TIME
                             or DURATION.
-                            The integral part of the float value MUST be zero. The value
+                            It MUST be a valid iCalendar DATE-TIME or DURATION value with
+                            the addition of
+                            fractional seconds. The value
                             MUST NOT be negative.
                             iCalendar implementations SHOULD ignore this parameter in date
                             time arithmetic.
-                            Implementations MUST ignore presence of the SUBSECOND parameter
+                            Implementations MUST ignore presence of the FRACTIONAL parameter
                             on RECURRENCE-ID properties when determining recurrence overrides.
-                            If present on a RECURRENCE-ID property, its value MUST match
-                            the SUBSECOND parameter value on the DATE-TIME
-                            property that defines the reference point for the recurring instances.
+                        </t>
+                        <t>
+                            Initially the value of the associated property will match
+                            the FRACTIONAL parameter value ignoring the fractional part.
+                            If the value of the property is changed then the FRACTIONAL
+                            part is no longer valid.
+                        </t>
+                        <t>
+                            Applications receiving a property with a FRACTIONAL parameter
+                            MUST ensure its value is consistent with the value of the
+                            property.
                         </t>
                         <t hangText="Format Definition:">
                             <figure>
@@ -185,12 +195,16 @@
                                 </preamble>
 
                                 <artwork type="abnf">
-                                    subsecond-param = float
+    fractional-param = DATE-TIME or DURATION
                                 </artwork>
                             </figure>
                         </t>
                         <t hangText="Example:">
-                            DTSTART;SUBSECOND=0.03:20190605T133015
+                            <figure>
+                                <artwork><![CDATA[
+    DTSTART;FRACTIONAL=20190605T133015.03:20190605T133015
+]]></artwork>
+                            </figure>
                         </t>
                     </list>
                 </t>
@@ -573,6 +587,41 @@
                 how they are mappped to JSCalendar.
             </t>
 
+            <section anchor="translate-ical-attach" title="ATTACH">
+                <t>
+                    A <xref target="RFC5545"/> ATTACH allows for two types
+                    of attachment:
+                    <list style="symbols">
+                        <t>A uri value</t>
+                        <t>A binary value</t>
+                    </list>
+                    Both map to a JSCalendar "link" object with a "rel" of "enclosure"
+                    and the "href" set to the value of the property.
+                </t>
+
+                <t>
+                    For a binary value use a base64 data uri.
+                </t>
+
+                <t>
+                    Example: ATTACH with uri:
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  ATTACH: "20101010T101010Z"
+  ...
+
+  maps to
+
+  ...
+  "progressUpdated": "2010-10-10T10:10:10Z",
+  "progress": "completed",
+  ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
             <section anchor="translate-ical-attendee" title="ATTENDEE">
                 <t>
                     A <xref target="RFC5545"/> ATTENDEE maps to the
@@ -584,6 +633,32 @@
                 <t>
                     A <xref target="RFC5545"/> CALSCALE has no equivalence
                     in JSCalendar. It is ignored.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-categories"
+                     title="CATEGORIES">
+                <t>
+                    These map on to the JSCalendar "keywords" property
+                    with each category being the key to an entry.
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  CATEGORIES:APPOINTMENT,EDUCATION
+  CATEGORIES:MEETING
+  ...
+
+  maps to
+
+  ...
+  "keywords": {
+       "APPOINTMENT": true,
+       "EDUCATION": true,
+       "MEETING": true
+     },
+  ...
+]]></artwork>
+                    </figure>
                 </t>
             </section>
 
@@ -747,6 +822,183 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-times"
+                     title="DTEND, DTSTART, DUE, DURATION">
+                <t>
+                    If the DTSTART is a DATE only property then add
+                    the JSCalendar showWithoutTime property with the value set
+                    to "true". The JSCalendar "start" property is set
+                    with zero time values.
+                </t>
+
+                <t>
+                    If the DTSTART has a TZID parameter then set the
+                    JSCalendar "timeZone" property to the value of TZID.
+                </t>
+
+                <t>
+                    If the DTSTART has a UTC value then set the
+                    JSCalendar "timeZone" property to the value "Etc/UTC".
+                    The JSCalendar "start" property is set
+                    without any UTC indicator.
+                </t>
+
+                <t>
+                    JSCalendar has no equivalent to DTEND. If the component
+                    has a DTEND then calculate a value for
+                    "DURATION" from that
+                    property and DTSTART and proceed as below.
+                </t>
+
+                <t>
+                    If the DTEND has a TZID parameter with a value that
+                    differs from the DTSTART TZID parameter then a
+                    "location" object should be created with a "relativeTo"
+                    property set to "end" and a "timezone" property set
+                    to the value of the "TZID" parameter.
+                </t>
+
+                <t>
+                    Note that a task is not required to have a DTSTART
+                    so the JSCalendar "timezone" property needs to be set
+                    from the DUE property.
+                </t>
+
+                <t>
+                    Convert a DURATION property to the JSCalendar duration.
+                </t>
+
+                <t>
+                    Example - DTSTART and DTEND in same timezone:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+  DTSTART;TZID=America/New_York:20170315T150000
+  DTEND;TZID=America/New_York:20170315T160000
+
+  ...
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "start": "2017-03-15T15:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT1H"
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    Example - DTSTART and DTEND in different timezone:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+  DTSTART;TZID=America/New_York:20170315T150000
+  DTEND;TZID=America/LosAngeles:20170315T190000
+
+  ...
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "start": "2017-03-15T15:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT7H"
+    ...
+    "locations": {
+       "lbGxlciI6IHsKICAgI": {
+                     "@type": "location",
+                     "relatedTo": "end",
+                     "timeZone": "America/Los_Angeles"
+                   }
+                 }
+  }
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    Example - 3 day event:
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VEVENT
+  ...
+  DTSTART;VALUE=DATE:20210315
+  DTEND;VALUE=DATE:20210318
+
+  ...
+  END:VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+    "start": "2017-03-15T00:00:00",
+    "duration": "P3D",
+    "showWithoutTime": true,
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-dtstamp-lastmod"
+                     title="DTSTAMP and LAST-MODIFIED">
+                <t>
+                    The mapping depends on whether or not the component is a
+                    scheduling entity.
+                <list style='hanging'>
+                    <t hangText="Not a scheduling entity:">
+                        The <xref target="RFC5545"/> DTSTAMP and LAST-MODIFIED
+                        properties have essentially the same meaning. If both are
+                        present use the value of the latest for the "updated"
+                        property. Otherwise set from whichever is present.
+                    </t>
+
+                    <t hangText="Is a scheduling entity:">
+                        DTSTAMP should be used to set the "ScheduleUpdated"
+                        property in the "participant" object for the attendee.
+                    </t>
+
+                    <t>
+                        If present LAST-MODIFIED should be used to set the
+                        "updated" property - otherwise set it from the DTSTAMP.
+                    </t>
+                </list>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-dtstart" title="DTSTART">
+                <t>
+
+                </t>
+            </section>
+
+            <section anchor="translate-ical-percent-complete"
+                     title="PERCENT-COMPLETE">
+                <t>
+                    No mapping
+                </t>
+            </section>
+
+            <section anchor="translate-ical-prority"
+                     title="PRIORITY">
+                <t>
+                    Simply copy value into the JSCalendar "priority"
+                    property.
+                </t>
+            </section>
+
             <section anchor="translate-ical-prodid" title="PRODID">
                 <t>
                     For a vcalendar JSGroup object with multiple JSEvent
@@ -775,6 +1027,118 @@
   }
 ]]></artwork>
                     </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-related-to"
+                     title="RELATED-TO">
+                <t>
+                    This is mapped to the JSCalendar "relatedTo" property
+                    which is a map of relations with the target UID as the
+                    keys. The iCalendar relation is by default a PARENT
+                    relationship. There is no default for JSCalendar
+                    so the relationship must be explicitly specified.
+                </t>
+                <t>
+                    Also note that the iCalendar relationship types are
+                    not identical. CHILD and PARENT map to JSCalendar
+                    "child" and "parent" but the best match for iCalendar
+                    SIBLING is "next"
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  RELATED-TO:jsmith.part7.19960817T083000.xyzMail@example.com
+  RELATED-TO;RELTYPE=SIBLING:
+   19960401-080045-4000F192713-0052@example.com
+  ...
+
+  maps to
+
+  "relatedTo" : {
+    "jsmith.part7.19960817T083000.xyzMail@example.com" : {
+      "@type" : "Relation",
+      "relation" : {
+        "parent" : true
+      }
+    },
+    "19960401-080045-4000F192713-0052@example.com" : {
+      "@type" : "Relation",
+      "relation" : {
+        "next" : true
+      }
+    },
+  },
+  {
+    "@type": "jsevent",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-resources"
+                     title="RESOURCES">
+                <t>
+                    No mapping
+                </t>
+            </section>
+
+            <section anchor="translate-sequence"
+                     title="SEQUENCE">
+                <t>
+                    Copy the value into the JSCalendar "sequence"
+                    property.
+                </t>
+            </section>
+
+            <section anchor="translate-status"
+                     title="STATUS">
+                <t>
+                    For a VEVENT copy the lower-cased value into the
+                    JSCalendar "status" property.
+                </t>
+                <t>
+                    For a VTODO copy the lower-cased value into the
+                    JSCalendar "progress" property.
+                </t>
+            </section>
+
+            <section anchor="translate-summary"
+                     title="SUMMARY">
+                <t>
+                    Copy the value into the
+                    JSCalendar "title" property.
+                </t>
+            </section>
+
+            <section anchor="translate-transp"
+                     title="TRANSP">
+                <t>
+                    If the value of the TRANSP property (ignoring case)
+                    is "opaque" set the JSCalendar "freeBusyStatus" property
+                    to the value "busy".
+                </t>
+
+                <t>
+                    Otherwise set the JSCalendar "freeBusyStatus" property
+                    to the value "free".
+                </t>
+            </section>
+
+            <section anchor="translate-uid"
+                     title="UID">
+                <t>
+                    Copy the value into the
+                    JSCalendar "uid" property.
+                </t>
+            </section>
+
+            <section anchor="translate-url"
+                     title="URL">
+                <t>
+                    TBD.
                 </t>
             </section>
         </section>
@@ -924,11 +1288,11 @@
   maps to
 
   BEGIN: VTIMEZONE
-  TZID: Example/Somewhere
+  TZID: /Example/Somewhere
   ...
   END: VTIMEZONE
   BEGIN: VTIMEZONE
-  TZID: Example/Somewhere-else
+  TZID: /Example/Somewhere-else
   ...
   END: VTIMEZONE
   BEGIN: VEVENT
@@ -949,7 +1313,7 @@
         <section anchor="Some-notes" title="Some notes">
             <t>
                 The sections following this one are all the original ones
-                from draft 1 writen by Robert - there for reference.
+                from draft 1 writen by Robert/Neil - there for reference.
             </t>
 
             <section anchor="notes-alerts" title="Alerts">
@@ -962,7 +1326,7 @@
 
             <section anchor="notes-preserving" title="Preserving icalendar">
                 <t>
-                    I don't think we need to preserve th entire iCalendar
+                    I don't think we need to preserve the entire iCalendar
                     object to make this round trippable. That also means
                     somebody needs to parse it and extract what they need.
                 </t>
@@ -982,11 +1346,44 @@
                 <t>
                     <list style="hanging">
                         <t hangText="alert - absolute time">
+                            The text for links says
+                            <figure>
+                                <artwork><![CDATA[
+   Links with a rel of "enclosure" SHOULD be considered by the client
+   as attachments for download.
+]]></artwork>
+                            </figure>
+                        </t>
+                        <t>
+                            This doesn't seem adequate. We need to know
+                            exactly where attachments are going. I think
+                            this needs to be MUST.
+                        </t>
+                        <t hangText="alert - absolute time">
                             I don't think we should promote UTC. A
                             change in rules could result in alarms
                             all going off at the wrong time. I think
                             we should allow for local time and a timezone.
                         </t>
+                        <t hangText="attach - ATTACH">
+                            Change spec to require (one of?) href OR cid.
+                        </t>
+                        <t>
+                            A thought on the use of links for all sorts of
+                            linked objects - an override with say a
+                            different attachment requires we repeat all
+                            the links in the override - if we had a
+                            separate "attachments" property (with
+                            link object members) we'd only need to
+                            repeat the attachments.
+                        </t>
+                        <t>
+                            It's also easier to handle when they are split
+                            out. Similarly for images.
+                            Actually - it's pretty complex when handling
+                            overrides.
+                        </t>
+
                         <t hangText="comments - COMMENT">
                             comments is only specified for timezone rules. It needs to be valid for all or some indication of how to handle them needs to be provided.
                         </t>
@@ -1014,6 +1411,10 @@
               might make sense
 ]]></artwork>
                             </figure>
+                        </t>
+
+                        <t hangText="GEO">
+                            Probably need a well defined location type to bury this in.
                         </t>
 
                         <t hangText="participant">
@@ -1047,13 +1448,32 @@
                             as a value.
                         </t>
 
+                        <t hangText="PERCENT-COMPLETE">
+                            Add this?
+                        </t>
+
+                        <t hangText="PRORITY">
+                            Not scheduling or sharing specific. Text for UIs?
+                        </t>
+
                         <t hangText="privacy">
                             Still think we should change "secret" to
                             "confidential".
                         </t>
+
+                        <t hangText="relation">
+                            No mapping for "first". Define this in
+                            relations draft? Is "next" == SIBLING?
+                        </t>
+
+                        <t hangText="RESOURCES">
+                            No obvious mapping?
+                        </t>
+
                         <t hangText="section 3.1 - etags text">
                             Needs correcting.
                         </t>
+
                         <t hangText="timezones">
                             I'm completely fine with the default being by reference. It may be good to strengthen the language in  section 1.4.9. A concern is we're not allowing standalone timezone defs. I see 2 uses for that:
 
@@ -1066,6 +1486,14 @@
                                 </t>
                             </list>
                             Could we simply allow a timezones property as another alternative in JSGroup?
+                        </t>
+
+                        <t hangText="relation type">
+                            Include the values from the relations draft spec.
+                        </t>
+
+                        <t hangText="URL">
+                            presumably a link but need a way to identify it?
                         </t>
                     </list>
                 </t>
@@ -1162,7 +1590,8 @@
                 It lists all common JSCalendar object properties in alphabetical order.
             </t>
 
-            <texttable anchor="translate-commonprops-table" title="Translation between JSCalendar and iCalendar">
+            <texttable anchor="translate-commonprops-table"
+                       title="Translation between JSCalendar and iCalendar">
 
                 <ttcol align='left'>Property</ttcol>
                 <ttcol align='left'>iCalendar counterpart</ttcol>
