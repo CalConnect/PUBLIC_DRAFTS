@@ -1365,9 +1365,9 @@
         In addition, the following JSGroup-specific properties are supported:</t>
 
         <section anchor="prop-entries" title="entries">
-          <t>Type: <spanx style="verb">String[JSTask|JSEvent]</spanx> (mandatory).</t>
+          <t>Type: <spanx style="verb">(JSTask|JSEvent)[]</spanx> (mandatory).</t>
 
-          <t>A collection of group members. This is represented as a map of the <spanx style="verb">uid</spanx> property value to the JSCalendar object member having that uid. Implementations MUST ignore entries of unknown type.</t>
+          <t>A collection of group members. Implementations MUST ignore entries of unknown type.</t>
         </section>
 
         <section anchor="prop-source" title="source">
@@ -1425,23 +1425,21 @@
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
   "updated": "2018-01-15T18:00:00Z",
   "name": "A simple group",
-  "entries": {
-    "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
-      "@type": "jsevent",
-      "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
-      "updated": "2018-01-15T18:00:00Z",
-      "title": "Some event",
-      "start": "2018-01-15T13:00:00",
-      "timeZone": "America/New_York",
-      "duration": "PT1H"
-    },
-    "2a358cee-6489-4f14-a57f-c104db4dc2f2": {
-      "@type": "jstask",
-      "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
-      "updated": "2018-01-15T18:00:00Z",
-      "title": "Do something"
-    }
-  }
+  "entries": [{
+    "@type": "jsevent",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
+    "updated": "2018-01-15T18:00:00Z",
+    "title": "Some event",
+    "start": "2018-01-15T13:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT1H"
+  },
+  "2a358cee-6489-4f14-a57f-c104db4dc2f2": {
+    "@type": "jstask",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
+    "updated": "2018-01-15T18:00:00Z",
+    "title": "Do something"
+  }]
 }
           ]]></artwork>
     </figure>
@@ -1965,7 +1963,7 @@
       <c><xref target="prop-participants"/></c>
 
       <c>entries</c>
-      <c>String[JSTask|JSEvent]</c>
+      <c>(JSTask|JSEvent)[]</c>
       <c>JSGroup</c>
       <c><xref target="prop-entries"/></c>
 
