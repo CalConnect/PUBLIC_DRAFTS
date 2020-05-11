@@ -922,6 +922,10 @@
             <vspace blankLines="1" />
             The email address for the participant.</t>
 
+            <t>description: <spanx style="verb">String</spanx> (optional).
+            <vspace blankLines="1" />
+            A plain text description of this participant. For example, this may include more information about their role in the event or how best to contact them.</t>
+
             <t>sendTo: <spanx style="verb">String[String]</spanx> (optional)
             <vspace blankLines="1" />
             Represents methods by which the participant may receive the invitation and updates to the calendar object.
@@ -963,6 +967,7 @@
               <t><spanx style="verb">optional</spanx>: The participant is invited but not required.</t>
               <t><spanx style="verb">informational</spanx>: The participant is copied for informational reasons, and is not expected to attend.</t>
               <t><spanx style="verb">chair</spanx>: The participant is in charge of the event/task when it occurs.</t>
+              <t><spanx style="verb">contact</spanx>: The participant is someone that may be contacted for information about the event.</t>
             </list>
 
             The value for each key in the set MUST be true. It is expected that no more than one of the roles "attendee", "optional", or "informational" be present; if more than one are given, "optional" takes precedence over "informational", and "attendee" takes precedence over both. Roles that are unknown to the implementation MUST be preserved.</t>
@@ -1934,8 +1939,8 @@
 
       <c>description</c>
       <c>String</c>
-      <c>JSEvent, JSTask, Location, VirtualLocation</c>
-      <c><xref target="prop-description"/>, <xref target="prop-locations"/>, <xref target="prop-virtualLocations"/></c>
+      <c>JSEvent, JSTask, Location, Participant, VirtualLocation</c>
+      <c><xref target="prop-description"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>descriptionContentType</c>
       <c>String</c>
@@ -2556,6 +2561,8 @@
       <c>informational</c>
       <c><xref target="prop-participants"/></c>
       <c>chair</c>
+      <c><xref target="prop-participants"/></c>
+      <c>contact</c>
       <c><xref target="prop-participants"/></c>
     </texttable>
 
