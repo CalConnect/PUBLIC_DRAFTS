@@ -256,7 +256,7 @@
       <t>The object has a collection of properties, as specified in the following sections. Properties are specified as being either mandatory or optional. Optional properties may have a default value, if explicitly specified in the property definition.</t>
 
       <section anchor="normalization" title="Normalization and Equivalence">
-        <t>JSCalendar aims to provide unambiguous definitions for value types and properties, but does not define a general normalization or equivalence method for JSCalendar objects and types. This is because the notion of equivalence might range from byte-level equivalence to semantic equivalence, depending on the respective use case (for example, the CalDAV protocol <xref target="RFC4791" /> requires octet equivalence of the encoded calendar object to determine ETag equivalence).
+        <t>JSCalendar aims to provide unambiguous definitions for value types and properties, but does not define a general normalization or equivalence method for JSCalendar objects and types. This is because the notion of equivalence might range from byte-level equivalence to semantic equivalence, depending on the respective use case.
 
         <vspace blankLines="1" />
 
@@ -2649,7 +2649,6 @@
     <references title="Informative References">
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4122.xml"?>
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4791.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6376.xml"?>
