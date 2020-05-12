@@ -1137,14 +1137,14 @@
                             converted to lowercase.
                         </t>
                         <t hangText="BYDAY">
-                            If present this may consist of two parts:
+                            If present each element becomes an entry in the
+                            jsCalendar "byDay" propety. This is an array
+                            of NDay objects which may have 2 properties:
                             <list style="hanging">
-                                <t hangText="Weekday part">
+                                <t hangText="day">
                                     The two character weekday abbreviation.
-                                    If present copy into the jscalendar
-                                    "byDay" property.
                                 </t>
-                                <t hangText="Instance part">
+                                <t hangText="nthOfPeriod">
                                     If the weekday abbreviation is preceded
                                     by a signed integer value set the
                                     jscalendar "nthOfPeriod" property.
@@ -1162,8 +1162,10 @@
   "recurrenceRules" : [{
       "@type" : "RecurrenceRule",
       ...
-      "byday": "mo",
-      "nthOfPeriod": -1
+      "byday": [{
+          "day": "mo",
+          "nthOfPeriod": -1
+        }]
       ...
     }],
     ...
@@ -1252,7 +1254,27 @@
       "@type" : "RecurrenceRule",
       "frequency": "yearly",
       "byMonth": ["1"],
-      "byDay": ["su", "mo", "tu", "we", "th", "fr", "sa"],
+      "byDay": [{
+            "day": "su"
+          },
+          }
+            "day": "mo"
+          },
+          }
+            "day": "tu"
+          },
+          }
+            "day": "we"
+          },
+          }
+            "day": "th"
+          },
+          }
+            "day": "fr"
+          },
+          }
+            "day": "sa"
+          }],
       "until": "2022-05-12T10:00:00"
     }],
     ...
@@ -1270,8 +1292,10 @@
   "recurrenceRules" : [{
       "@type" : "RecurrenceRule",
       "frequency": "monthly",
-      "byDay": ["mo"],
-      "nthOfPeriod": -2
+      "byDay": [{
+          "day": "mo",
+          "nthOfPeriod": -2
+        }],
       "count": 6
     }],
     ...
