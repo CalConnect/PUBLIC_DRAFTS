@@ -952,6 +952,17 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-exdate"
+                     title="EXDATE">
+                <t>
+                    Create a patch object with the recurrence id set
+                    from the EXDATE value. Add a single JSCalendar
+                    "excluded" property with the value set to true.
+                    There MUST NOT be any other properties set - other
+                    than "@type".
+                </t>
+            </section>
+
             <section anchor="translate-ical-dtstamp-lastmod"
                      title="DTSTAMP and LAST-MODIFIED">
                 <t>
@@ -975,12 +986,6 @@
                         "updated" property - otherwise set it from the DTSTAMP.
                     </t>
                 </list>
-                </t>
-            </section>
-
-            <section anchor="translate-ical-dtstart" title="DTSTART">
-                <t>
-
                 </t>
             </section>
 
@@ -1082,6 +1087,15 @@
                      title="RESOURCES">
                 <t>
                     No mapping
+                </t>
+            </section>
+
+            <section anchor="translate-ical-rdate"
+                     title="RDATE">
+                <t>
+                    Create a patch object with the recurrence id set
+                    from the RDATE value. If the instance has overrides
+                    the differences will also be set in the object.
                 </t>
             </section>
 
