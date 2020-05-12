@@ -1085,7 +1085,202 @@
                 </t>
             </section>
 
-            <section anchor="translate-sequence"
+            <section anchor="translate-ical-rrule"
+                     title="RRULE">
+                <t>
+                    Each RRULE is converted to an object in the
+                    JSCalendar "recurrenceRules" property. Each entry
+                    has the type "RecurrenceRule".
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  RRULE:...
+  ...
+
+  maps to
+
+  ...
+  "recurrenceRules" : [{
+      "@type" : "RecurrenceRule",
+      ...
+    }],
+    ...
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    The recurrence rule object has one property for each
+                    element of the recurrence rule. The iCalendar rule has
+                    to be parsed out and the individual jscalendar
+                    property values set. Most take the same type but
+                    there are exceptions.
+
+                    <list style="hanging">
+                        <t hangText="FREQ (mandatory)">
+                            Copy into the jscalendar "frequency" property
+                            converted to lowercase.
+                        </t>
+                        <t hangText="INTERVAL">
+                            If present and not 1 copy into the
+                            jscalendar "interval" property.
+                        </t>
+                        <t hangText="RSCALE">
+                            If present copy into the jscalendar "rscale" property
+                            converted to lowercase.
+                        </t>
+                        <t hangText="SKIP">
+                            If present copy into the jscalendar "skip" property
+                            converted to lowercase.
+                        </t>
+                        <t hangText="WKST">
+                            If present copy into the jscalendar "firstDayOfWeek" property
+                            converted to lowercase.
+                        </t>
+                        <t hangText="BYDAY">
+                            If present this may consist of two parts:
+                            <list style="hanging">
+                                <t hangText="Weekday part">
+                                    The two character weekday abbreviation.
+                                    If present copy into the jscalendar
+                                    "byDay" property.
+                                </t>
+                                <t hangText="Instance part">
+                                    If the weekday abbreviation is preceded
+                                    by a signed integer value set the
+                                    jscalendar "nthOfPeriod" property.
+                                </t>
+                            </list>
+                            <figure>
+                                <artwork><![CDATA[
+  ...
+  RRULE:...,BYDAY=-1MO
+  ...
+
+  maps to
+
+  ...
+  "recurrenceRules" : [{
+      "@type" : "RecurrenceRule",
+      ...
+      "byday": "mo",
+      "nthOfPeriod": -1
+      ...
+    }],
+    ...
+]]></artwork>
+                            </figure>
+                        </t>
+                        <t hangText="BYMONTHDAY">
+                            If present each element will be an element
+                            in the jscalendar "byMonthDay" property.
+                        </t>
+                        <t hangText="BYMONTH">
+                            If present each element will be an element
+                            in the jscalendar "byMonth" property.
+                        </t>
+                        <t>
+                            Note that the iCalendar values are numeric
+                            but the JSCalendar values are strings. This is
+                            because of the possible "L" suffix for leap months.
+                        </t>
+                        <t hangText="BYYEARDAY">
+                            If present each element will be an element
+                            in the jscalendar "byYearDay" property.
+                        </t>
+                        <t hangText="BYWEEKNO">
+                            If present each element will be an element
+                            in the jscalendar "byWeekNo" property.
+                        </t>
+                        <t hangText="BYHOUR">
+                            If present each element will be an element
+                            in the jscalendar "byHour" property.
+                        </t>
+                        <t hangText="BYMINUTE">
+                            If present each element will be an element
+                            in the jscalendar "byMinute" property.
+                        </t>
+                        <t hangText="BYSECOND">
+                            If present each element will be an element
+                            in the jscalendar "bySecond" property.
+                        </t>
+                        <t hangText="BYSETPOS">
+                            If present each element will be an element
+                            in the jscalendar "bySetPosition" property.
+                        </t>
+                        <t hangText="COUNT">
+                            If present set
+                            in the jscalendar "count" property.
+                        </t>
+                        <t hangText="UNTIL">
+                            If present set the jscalendar "until" property
+                            with the appropriately reformatted value.
+                            If the is no time part append a 0 time and
+                            reformat as a jscalendar local date/time.
+                        </t>
+                    </list>
+                </t>
+                <t>
+                    Some examples:
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  RRULE:FREQ=DAILY;COUNT=10
+  ...
+
+  maps to
+
+  ...
+  "recurrenceRules" : [{
+      "@type" : "RecurrenceRule",
+      "frequency": "daily",
+      "count": 10
+    }],
+    ...
+]]></artwork>
+                    </figure>
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  RRULE:FREQ=YEARLY;UNTIL=20220512T140000Z;
+   BYMONTH=1;BYDAY=SU,MO,TU,WE,TH,FR,SA
+  ...
+
+  maps to
+
+  ...
+  "recurrenceRules" : [{
+      "@type" : "RecurrenceRule",
+      "frequency": "yearly",
+      "byMonth": ["1"],
+      "byDay": ["su", "mo", "tu", "we", "th", "fr", "sa"],
+      "until": "2022-05-12T10:00:00"
+    }],
+    ...
+]]></artwork>
+                    </figure>
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  RRULE:FREQ=MONTHLY;COUNT=6;BYDAY=-2MO
+  ...
+
+  maps to
+
+  ...
+  "recurrenceRules" : [{
+      "@type" : "RecurrenceRule",
+      "frequency": "monthly",
+      "byDay": ["mo"],
+      "nthOfPeriod": -2
+      "count": 6
+    }],
+    ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-sequence"
                      title="SEQUENCE">
                 <t>
                     Copy the value into the JSCalendar "sequence"
@@ -1093,7 +1288,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-status"
+            <section anchor="translate-ical-status"
                      title="STATUS">
                 <t>
                     For a VEVENT copy the lower-cased value into the
@@ -1105,7 +1300,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-summary"
+            <section anchor="translate-ical-summary"
                      title="SUMMARY">
                 <t>
                     Copy the value into the
@@ -1113,7 +1308,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-transp"
+            <section anchor="translate-ical-transp"
                      title="TRANSP">
                 <t>
                     If the value of the TRANSP property (ignoring case)
@@ -1127,7 +1322,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-uid"
+            <section anchor="translate-ical-uid"
                      title="UID">
                 <t>
                     Copy the value into the
