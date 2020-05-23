@@ -1055,9 +1055,11 @@
             <vspace blankLines="1" />
             A set of links to more information about this participant, for example in vCard format. The keys in the set MUST be the id of a Link object in the calendar object's <spanx style="verb">links</spanx> property. The value for each key in the set MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
 
-            <t>progress: <spanx style="verb">String</spanx> (optional). This is only allowed if the Participant is part of a JSTask. It represents the progress of the participant for this task, if known. This property MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
+             <t>progress: <spanx style="verb">String</spanx> (optional; only allowed for participants of a JSTask). Represents the progress of the participant for this task. It MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
 
-            <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional). Specifies the date-time the progress property was last set on this participant. This is only allowed if the Participant is part of a JSTask.</t>
+            <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional; only allowed for participants of a JSTask). Specifies the date-time the progress property was last set on this participant. See <xref target="prop-progressUpdated" /> for allowed values and semantics.</t>
+
+            <t>percentComplete: <spanx style="verb">Number</spanx> (optional; only allowed for participants of a JSTask). Represents the percent completion of the participant for this task. The property value MUST be a positive integer between 0 and 100.</t>
           </list></t>
         </section>
       </section>
