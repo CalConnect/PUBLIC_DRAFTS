@@ -595,8 +595,15 @@
                         <t>A uri value</t>
                         <t>A binary value</t>
                     </list>
-                    Both map to a JSCalendar "link" object with a "rel" of "enclosure"
+                    Both map to a JSCalendar "link" object with a
+                    "rel" of "enclosure"
                     and the "href" set to the value of the property.
+                </t>
+
+                <t>
+                    If the FMTTYPE parameter is set then add a
+                    JSCalendar "contentType" property to the link
+                    object.
                 </t>
 
                 <t>
@@ -604,22 +611,127 @@
                 </t>
 
                 <t>
-                    Example: ATTACH with uri:
+                    Example: Recurring event with overrides:
                     <figure>
                         <artwork><![CDATA[
-  ...
-  ATTACH: "20101010T101010Z"
-  ...
+  BEGIN:VCALENDAR
+  CALSCALE:GREGORIAN
+  PRODID:-//example.org//EN
+  VERSION:2.0
+  BEGIN:VEVENT
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20200522T120000
+  DURATION:PT1H
+  RRULE:FREQ=DAILY;COUNT=8
+  SUMMARY:recurring daily 8 times
+  UID:6252D6C40A8308BFE25BBDErecur-1
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc1.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
+  END:VEVENT
+  BEGIN:VEVENT
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20200523T120000
+  DURATION:PT1H
+  RECURRENCE-ID;TZID=America/New_York:20200523T120000
+  SUMMARY:recurring daily 8 times
+  UID:6252D6C40A8308BFE25BBDErecur-1
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc4.txt
+  END:VEVENT
+  BEGIN:VEVENT
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20200524T120000
+  DURATION:PT1H
+  RECURRENCE-ID;TZID=America/New_York:20200524T120000
+  SUMMARY:recurring daily 8 times
+  UID:6252D6C40A8308BFE25BBDErecur-1
+  END:VEVENT
+  END:VCALENDAR
 
   maps to
 
-  ...
-  "progressUpdated": "2010-10-10T10:10:10Z",
-  "progress": "completed",
-  ...
+  {
+    "prodId": "//example.org//EN",
+    "entries": [
+      {
+        "links": {
+          "d4a618d4-929c-4c81-ae5b-322afe407a00": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc1.txt"
+          },
+          "6c54e72e-3413-487c-ae14-fb318a90db43": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc2.txt"
+          },
+          "44087e9a-132c-4a5d-b25d-4ce580edb004": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc3.txt"
+          }
+        },
+        "created ": "2020-05-23T17:04:50Z",
+        "start": "2020-05-22T12:00:00",
+        "timeZone": "America/New_York",
+        "duration": "PT1H",
+        "title": "recurring daily 8 times",
+        "uid": "6252D6C40A8308BFE25BBDErecur-1",
+        "recurrenceRules": [
+          {
+            "@type": "RecurrenceRule",
+            "frequency": "daily",
+            "count": 8
+          }
+        ],
+        "recurrenceOverrides": {
+          "2020-05-23T12:00:00": {
+            "recurrenceId": "2020-05-23T12:00:00",
+            "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
+            "links/fb75b76a-a159-4a86-bd3d-7ace6b39c6c3": {
+              "@type": "Link",
+              "rel": "enclosure",
+              "contentType": "text/plain",
+              "href": "http://example.org/doc4.txt"
+            }
+          },
+          "2020-05-24T12:00:00": {
+            "recurrenceId": "2020-05-24T12:00:00",
+            "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
+            "links/6c54e72e-3413-487c-ae14-fb318a90db43": null,
+            "links/44087e9a-132c-4a5d-b25d-4ce580edb004": null
+          }
+        }
+      }
+    ]
+  }
 ]]></artwork>
                     </figure>
+                    Note: the second example is rendered withg line
+                    breaks to fit on the page. Line breaks are not valid
+                    in the data url.
                 </t>
+
+                <section anchor="translate-ical-attach-override"
+                         title="ATTACH overrides in recurring events">
+                    <t>
+                        A JSCalendar override is represented as a set
+                        of changes to the master. The following is an
+                        example of an event with an attachment removed
+                        in an override.
+                        <figure>
+                            <artwork><![CDATA[
+  ...
+  BEGIN:VEVENT
+]]></artwork>
+                        </figure>
+                    </t>
+                </section>
             </section>
 
             <section anchor="translate-ical-attendee" title="ATTENDEE">
@@ -1579,6 +1691,12 @@
                 <t>
                     <list style="hanging">
                         <t hangText="alert - absolute time">
+                            I don't think we should promote UTC. A
+                            change in rules could result in alarms
+                            all going off at the wrong time. I think
+                            we should allow for local time and a timezone.
+                        </t>
+                        <t hangText="attach - ATTACH">
                             The text for links says
                             <figure>
                                 <artwork><![CDATA[
@@ -1586,35 +1704,9 @@
    as attachments for download.
 ]]></artwork>
                             </figure>
-                        </t>
-                        <t>
                             This doesn't seem adequate. We need to know
                             exactly where attachments are going. I think
                             this needs to be MUST.
-                        </t>
-                        <t hangText="alert - absolute time">
-                            I don't think we should promote UTC. A
-                            change in rules could result in alarms
-                            all going off at the wrong time. I think
-                            we should allow for local time and a timezone.
-                        </t>
-                        <t hangText="attach - ATTACH">
-                            Change spec to require (one of?) href OR cid.
-                        </t>
-                        <t>
-                            A thought on the use of links for all sorts of
-                            linked objects - an override with say a
-                            different attachment requires we repeat all
-                            the links in the override - if we had a
-                            separate "attachments" property (with
-                            link object members) we'd only need to
-                            repeat the attachments.
-                        </t>
-                        <t>
-                            It's also easier to handle when they are split
-                            out. Similarly for images.
-                            Actually - it's pretty complex when handling
-                            overrides.
                         </t>
 
                         <t hangText="comments - COMMENT">
