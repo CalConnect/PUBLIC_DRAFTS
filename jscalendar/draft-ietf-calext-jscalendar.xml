@@ -1810,7 +1810,7 @@
     <t>The owner of a JSCalendar property may pass responsibility to another person or agency by informing the IANA; this can be done without discussion or review.</t>
   </section>
 
-  <section anchor="iana-property-registry-template" title="JMAP Properties Registry Template">
+  <section anchor="iana-property-registry-template" title="JSCalendar Properties Registry Template">
     <t><list style="symbols">
       <t>Property Name: The name of the property. The property name MUST NOT already be registered for any of the object types listed in the "Property Context" field of this registration. Other object types MAY already have registered a different property with the same name.</t>
       <t>Property Type: The type of this property, using type signatures as specified in <xref target="type-signatures"/>. The property type MUST be registed in the Type Registry.</t>
@@ -2296,7 +2296,7 @@
 <section anchor="iana-type-registry" title='Creation of "JSCalendar Types" Registry'>
   <t>The IANA will create the "JSCalendar Types" registry to avoid name collisions and provide a complete reference for all data types used for JSCalendar property values. The registration process is the same as for the JSCalendar Properties registry, as defined in <xref target="iana-property-registry"/>.</t>
 
-  <section anchor="iana-type-registry-template" title="JMAP Types Registry Template">
+  <section anchor="iana-type-registry-template" title="JSCalendar Types Registry Template">
     <t><list style="symbols">
       <t>Type Name: The name of the type.</t>
       <t>Reference or Description: A brief description or RFC number and section reference where the Type is specified (may be omitted for "reserved" type names).</t>
@@ -2378,8 +2378,8 @@
 <section anchor="iana-enum-registry" title='Creation of "JSCalendar Enum Values" Registry'>
   <t>The IANA will create the "JSCalendar Enum Values" registry to allow interoperable extension of semantics for properties with enumerable values. Each such property will have a subregistry of allowed values. The registration process for a new enum value or adding a new enumerable property is the same as for the JSCalendar Properties registry, as defined in <xref target="iana-property-registry"/>.</t>
 
-  <section anchor="iana-enum-registry-registry-template" title="JMAP Enum Property Template">
-    <t>This template is for adding a subregistry for a new enumerable property to the JMAP Enum registry.</t>
+  <section anchor="iana-enum-registry-registry-template" title="JSCalendar Enum Property Template">
+    <t>This template is for adding a subregistry for a new enumerable property to the JSCalendar Enum registry.</t>
 
     <t><list style="symbols">
       <t>Registry Name: This MUST be of the form "Enum Values for {property-name} (Context: {context})" where:
@@ -2392,8 +2392,8 @@
     </list></t>
   </section>
 
-  <section anchor="iana-enum-registry-value-template" title="JMAP Enum Value Template">
-    <t>This template is for adding a new enum value to a subregistry in the JMAP Enum registry.</t>
+  <section anchor="iana-enum-registry-value-template" title="JSCalendar Enum Value Template">
+    <t>This template is for adding a new enum value to a subregistry in the JSCalendar Enum registry.</t>
 
     <t><list style="symbols">
       <t>Enum Value: The verbatim value of the enum.</t>
