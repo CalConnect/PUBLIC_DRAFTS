@@ -887,7 +887,7 @@
         <section anchor="prop-replyTo" title="replyTo">
           <t>Type: <spanx style="verb">String[String]</spanx> (optional).</t>
 
-          <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the key. Future methods may be defined in future specifications and registered with IANA; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than being specified as an empty object). If this property is set, the <spanx style="verb">participants</spanx> property of this calendar object MUST contain at least one participant.</t>
+          <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the key. Future methods may be defined in future specifications and registered with IANA; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than being specified as an empty object).</t>
 
           <t>The following methods are defined:
 
@@ -905,7 +905,7 @@
 
           <t>A map of participant ids to participants, describing their participation in the calendar object.</t>
 
-          <t>If this property is set, then the <spanx style="verb">replyTo</spanx> property of this calendar object MUST define at least one reply method.</t>
+          <t>If this property is set and any participant has a sendTo property, then the <spanx style="verb">replyTo</spanx> property of this calendar object MUST define at least one reply method.</t>
 
           <t>A Participant object has the following properties:
 
