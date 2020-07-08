@@ -737,7 +737,191 @@
             <section anchor="translate-ical-attendee" title="ATTENDEE">
                 <t>
                     A <xref target="RFC5545"/> ATTENDEE maps to the
-                    JSCalendar "participant" property.
+                    JSCalendar "participant" property with a
+                    JSCalendar "role" of "attendee". The value for role
+                    should always be set.
+                </t>
+
+                <t>
+                    In the simplest case a JSCalendar "participant" property
+                    will be created and added to the JSCalendar "participants"
+                    property.
+                </t>
+
+                <t>
+                    The value of the ATTENDEE property is used to add an
+                    "imip" method to the
+                    JSCalendar "sendTo" property.
+                    The value of the entry will be the ATTENDEE property
+                    value.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  ATTENDEE:mailto:user01@example.org
+  ...
+
+  maps to
+
+  {
+  ...
+      "participants": {
+        "be450b70-9bf7-4f6e-8f65-971ede566ce3": {
+          "@type": "Participant",
+          "sendTo": {
+            "imip": "user01@example.org"
+          },
+  ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+
+                <t>
+                    The attendee parameters are mapped to
+                    JSCalendar "participant" properties as follows:
+                    <list style="hanging">
+                        <t hangText="CN:">
+                            The value of the CN parameter is used to set the
+                            JSCalendar "name" property.
+                        </t>
+                        <t hangText="CUTYPE:">
+                            This maps on to the
+                            JSCalendar "kind" property as follows:
+                        </t>
+                        <t>
+                            <list style="hanging">
+                                <t hangText="INDIVIDUAL">"individual"</t>
+                                <t hangText="GROUP">"group"</t>
+                                <t hangText="RESOURCE">"resource"</t>
+                                <t hangText="ROOM">"location"</t>
+                                <t hangText="UNKNOWN">No value</t>
+                            </list>
+                            Any other value should be converted to
+                            lower case and assigned to the
+                            JSCalendar "kind" property.
+                        </t>
+                        <t hangText="DELEGATED-FROM:">
+                            Split the value at any commas and add each
+                            resulting element to the
+                            JSCalendar "delegatedFrom" property
+                        </t>
+                        <t hangText="DELEGATED-TO:">
+                            Split the value at any commas and add each
+                            resulting element to the
+                            JSCalendar "delegatedFrom" property
+                        </t>
+                        <t hangText="DIR:">
+                            If non-null look in the
+                            JSCalendar "links" property
+                            for a
+                            JSCalendar "link" property
+                            with an href with the same value as the
+                            DIR parameter. You may need to search the
+                            current override and the master.
+                        </t>
+                        <t>
+                            If none is found create a new one with the
+                            JSCalendar "href" property
+                            set to the value of the DIR parameter and the
+                            JSCalendar "rel" property
+                            set to "alternate"
+                        </t>
+                        <t>
+                            Add the id of the located or created link
+                            to the
+                            JSCalendar "linkIds" property
+                            of the participant.
+                        </t>
+                        <t hangText="LANG:">
+                            set the
+                            JSCalendar "language" property
+                            to the value of the LANG parameter.
+                        </t>
+                        <t hangText="MEMBER:">
+                            If this is set there should be a corresponding
+                            ATTENDEE object with a value equal to the value
+                            of the member parameter. If not it is
+                            appropriate to skip this parameter.
+                        </t>
+                        <t>
+                            If there is a corresponding ATTENDEE then
+                            there should be a corresponding
+                            JSCalendar "participant" property. This
+                            suggests that CUTYPE=GROUP ATTENDEE
+                            properties should be processed ahead of the
+                            others.
+                        </t>
+                        <t>
+                            Locate the
+                            JSCalendar "participant" property
+                            for the group. This may be in the current
+                            override or in the master. Add the id to the
+                            current participants
+                            JSCalendar "memberOf" property.
+                        </t>
+                        <t hangText="PARTSTAT:">
+                            If the PARTSTAT parameter is set and is not
+                            "NEEDS-ACTION" then set the
+                            JSCalendar "participationStatus" property
+                            to the lower-cased value of the PARTSTAT.
+                        </t>
+                        <t hangText="ROLE:">
+                            This is mapped to the
+                            JSCalendar "roles" property
+                            which will always contain at least "attendee".
+                            Roles will map as follows:
+                        </t>
+                        <t>
+                            <list style="hanging">
+                                <t hangText="CHAIR">"attendee" and "chair"</t>
+                                <t hangText="REQ-PARTICIPANT">"attendee"</t>
+                                <t hangText="OPT-PARTICIPANT">"attendee" and "optional"</t>
+                                <t hangText="NON-PARTICIPANT">"informational"</t>
+                            </list>
+                            Any other value should be converted to
+                            lower case and added to the
+                            JSCalendar "roles" property.
+                        </t>
+                        <t hangText="RSVP:">
+                            If the value of the RSVP parameter is TRUE
+                            set the
+                            JSCalendar "expectReply" property
+                            to "true" otherwise omit it.
+                        </t>
+                        <t hangText="SCHEDULE-AGENT:">
+                            If the value of the
+                            <xref target="RFC6638"/> SCHEDULE-AGENT parameter
+                            is "SERVER" (ignoring case)
+                            then skip it.
+                        </t>
+                        <t>
+                            If it
+                            is "CLIENT" (ignoring case)
+                            then set the
+                            JSCalendar "scheduleAgent" property
+                            to the value "client".
+                        </t>
+                        <t hangText="SCHEDULE-FORCE-SEND:">
+                            Set the
+                            JSCalendar "scheduleForceSend" property
+                            to the lower-cased value of the
+                            <xref target="RFC6638"/> SCHEDULE-FORCE-SEND parameter.
+                        </t>
+                        <t hangText="SCHEDULE-STATUS:">
+                            Set the
+                            JSCalendar "scheduleStatus" property
+                            to the value of the
+                            <xref target="RFC6638"/> SCHEDULE-STATUS parameter.
+                        </t>
+                        <t hangText="SENT-BY:">
+                            The value of the SENT-BY parameter is used
+                            to set the
+                            JSCalendar "invitedBy" property.
+                        </t>
+                    </list>
                 </t>
             </section>
 
@@ -2382,6 +2566,7 @@
         <references title="Normative References">
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
