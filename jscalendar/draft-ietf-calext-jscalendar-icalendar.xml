@@ -989,7 +989,7 @@
             <section anchor="translate-ical-contact" title="CONTACT">
                 <t>
                     The CONTACT property is mapped on to a participant
-                    object with a "participantTypes" property of
+                    object with a "roles" property of
                     "contact" and an "order" property of 1 (one). This
                     defines the participant as a primary contact.
                 </t>
@@ -997,49 +997,20 @@
                     Mapping parameters:
                     <list style="hanging">
                         <t hangText="ALTREP">
-                            Use the participant "uri" property.
+                            Use the same process as for the ATTENDEE
+                            DIR parameter: create a link property with
+                            the "rel" property set to "alternate" and the
+                            "href" property set to the value of the
+                            ALTREP parameter. The add the id of the link
+                            to teh participants "linkIds" property.
                         </t>
                         <t hangText="LANG">
-                            No mapping.
+                            Set the participants "language" property.
                         </t>
                     </list>
                 </t>
                 <t>
-                    Example:
-                    <figure>
-                        <artwork><![CDATA[
-  BEGIN:VEVENT
-  ...
-
-  CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
-   c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
-   +1-919-555-1234
-   ...
-  END:VEVENT
-
-  maps to
-
-  {
-    "@type": "jsevent",
-    ...
-    "participants": {
-        "rIiwKICAgICAgInBhc3NlbmdlclN": {
-          "@type": "participant",
-          "participantTypes": {
-            "contact": true
-          },
-          "order": 0,
-          // Note that comments and string concatenation are not
-          // allowed per the JSON specification and is used here
-          // to avoid long lines.
-          "uri": "ldap://example.com:6666/o=ABC%20Industries," +
-                  "c=US???(cn=Jim%20Dolittle)",
-        }
-      },
-    ...
-  }
-]]></artwork>
-                    </figure>
+                    For an example see <xref target="example-simple-contact" />
                 </t>
             </section>
 
@@ -1668,6 +1639,254 @@
                      title="URL">
                 <t>
                     TBD.
+                </t>
+            </section>
+        </section>
+
+        <section anchor="translate-icalendar"
+                 title="Translating iCalendar: Further examples">
+            <t>
+                This section provides more complete examples of translating
+                from <xref target="RFC5545"/> to JSCalendar.
+            </t>
+
+            <t>
+                As usual note that json string values may be split
+                because of line width limits. This is not legal json.
+            </t>
+
+            <section anchor="example-simple-contact"
+                     title="Simple event with CONTACT">
+                <t>
+                    This example shows the conversion of a simple
+                    event with a single CONTACT property in JSCalendar.
+                    <figure>
+                        <artwork><![CDATA[
+    BEGIN:VCALENDAR
+    CALSCALE:GREGORIAN
+    PRODID:-//Example//EN
+    VERSION:2.0
+    BEGIN:VEVENT
+    DTSTAMP:20200522T142047Z
+    DTSTART;TZID=America/New_York:20200622T120000
+    DURATION:PT1H
+    SUMMARY:event with contact
+    UID:6252D6C40A8308BFE25BBEFcontact-1
+    CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
+     c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
+     +1-919-555-1234
+    END:VEVENT
+    END:VCALENDAR
+
+    translates to
+
+    {
+      "@type": "jsgroup",
+      "prodId": "//Example.org//Example V3.13.2//EN",
+      "entries": [
+        {
+          "@type": "jsevent",
+          "participants": {
+            "40288108-733187c1-0173-3188007b-00000001": {
+              "@type": "Participant",
+              "roles": {
+                "contact": true
+              },
+              "description": "Jim Dolittle, ABC Industries,\
+                             +1-919-555-1234",
+              "linkIds": {
+                "2e1025a2-1f1a-44f3-a867-75e19ce38b46": true
+              }
+            }
+          },
+          "links": {
+            "2e1025a2-1f1a-44f3-a867-75e19ce38b46": {
+              "@type": "Link",
+              "href": "ldap://example.com:6666/o=ABC%20Industries,\
+                             c=US???(cn=Jim%20Dolittle)",
+              "rel": "alternate"
+            }
+          },
+          "created ": "2020-07-09T03:04:23Z",
+          "start": "2020-06-22T12:00:00",
+          "timeZone": "America/New_York",
+          "duration": "PT1H",
+          "title": "event with contact",
+          "uid": "6252D6C40A8308BFE25BBEFcontact-1"
+        }
+      ]
+    }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="example-recur-overrides1"
+                     title="Recurring event. Attendees only in overrides">
+                <t>
+                    In this more complex example there is no ORGANIZER or ATTENDEEs
+                    in the master event. There are overrides which
+                    invite one or more attendees.
+                </t>
+
+                <t>
+                    For one overrride the ORGANIZER is also an ATTENDEE.
+                    In the other that is not the case. This is reflected
+                    in the "roles" property for the organizer.
+                </t>
+
+                <t>
+                    Note that each override has its own "participants"
+                    property and the first has a links property to handle
+                    the DIR parameter on one attendee.
+                    <figure>
+                        <artwork><![CDATA[
+    BEGIN:VCALENDAR
+    PRODID://Example.org//Example V3.13.2//EN
+    VERSION:2.0
+    BEGIN:VEVENT
+    CREATED:20200704T035515Z
+    DURATION:PT1H
+    DTSTAMP:20200704T035706Z
+    DTSTART;TZID=America/New_York:20200522T120000
+    LAST-MODIFIED:20200704T035706Z
+    SUMMARY:recurring daily 8 times
+    UID:6252D6C40A8308BFE25BBEFrecur1-1
+    RRULE:FREQ=DAILY;COUNT=8
+    END:VEVENT
+    BEGIN:VEVENT
+    RECURRENCE-ID;TZID=America/New_York:20200523T120000
+    ATTENDEE:mailto:douglm@example.org
+    ATTENDEE;RSVP=TRUE;SCHEDULE-STATUS=1.2;DIR="http://example.org/
+     vcards/vbede.vcf":mailto:vbede@example.org
+    CREATED:20200704T035515Z
+    DURATION:PT1H
+    DTSTAMP:20200704T035706Z
+    DTSTART;TZID=America/New_York:20200523T120000
+    LAST-MODIFIED:20200704T035706Z
+    ORGANIZER:mailto:douglm@example.org
+    SUMMARY:recurring daily 8 times
+    UID:6252D6C40A8308BFE25BBEFrecur1-1
+    END:VEVENT
+    BEGIN:VEVENT
+    RECURRENCE-ID;TZID=America/New_York:20200524T120000
+    ATTENDEE;RSVP=TRUE;SCHEDULE-STATUS=1.2:mailto:user01@example.org
+    ATTENDEE;RSVP=TRUE;SCHEDULE-STATUS=1.2:mailto:vbede@example.org
+    CREATED:20200704T035515Z
+    DURATION:PT1H
+    DTSTAMP:20200704T035706Z
+    DTSTART;TZID=America/New_York:20200524T120000
+    LAST-MODIFIED:20200704T035706Z
+    ORGANIZER:mailto:douglm@example.org
+    SUMMARY:recurring daily 8 times
+    UID:6252D6C40A8308BFE25BBEFrecur1-1
+    END:VEVENT
+    END:VCALENDAR
+
+    translates to
+
+    {
+      "@type": "jsgroup",
+      "prodId": "//Example.org//Example V3.13.2//EN",
+      "entries": [
+        {
+          "@type": "jsevent",
+          "created ": "2020-07-04T03:57:06Z",
+          "start": "2020-05-22T12:00:00",
+          "timeZone": "America/New_York",
+          "duration": "PT1H",
+          "title": "recurring daily 8 times",
+          "uid": "6252D6C40A8308BFE25BBEFrecur1-1",
+          "recurrenceRules": [
+            {
+              "@type": "RecurrenceRule",
+              "frequency": "daily",
+              "count": 8
+            }
+          ],
+          "recurrenceOverrides": {
+            "2020-05-23T12:00:00": {
+              "participants": {
+                "be450b70-9bf7-4f6e-8f65-971ede566ce3": {
+                  "@type": "Participant",
+                  "sendTo": {
+                    "imip": "mailto:douglm@example.org"
+                  },
+                  "roles": {
+                    "attendee": true,
+                    "owner": true
+                  }
+                },
+                "a539dfe3-4463-4f28-b9de-17d3a0e99faf": {
+                  "@type": "Participant",
+                  "sendTo": {
+                    "imip": "mailto:vbede@example.org"
+                  },
+                  "expectReply": true,
+                  "linkIds": {
+                    "0234793d-201c-4e64-8081-209878c63c41": true
+                  },
+                  "roles": {
+                    "attendee": true
+                  },
+                  "scheduleStatus": "1.2"
+                }
+              },
+              "links": {
+                "0234793d-201c-4e64-8081-209878c63c41": {
+                  "@type": "Link",
+                  "href": "http://example.org/vcards/vbede.vcf",
+                  "rel": "alternate"
+                }
+              },
+              "replyTo": {
+                "imip": "mailto:douglm@example.org"
+              }
+            },
+            "2020-05-24T12:00:00": {
+              "participants": {
+                "daeae4cf-6f6a-4ce3-9f4d-6bd884650d3d": {
+                  "@type": "Participant",
+                  "sendTo": {
+                    "imip": "mailto:user01@example.org"
+                  },
+                  "expectReply": true,
+                  "roles": {
+                    "attendee": true
+                  },
+                  "scheduleStatus": "1.2"
+                },
+                "a6de6de3-271f-4679-9241-1b3bca6b602d": {
+                  "@type": "Participant",
+                  "sendTo": {
+                    "imip": "mailto:vbede@example.org"
+                  },
+                  "expectReply": true,
+                  "roles": {
+                    "attendee": true
+                  },
+                  "scheduleStatus": "1.2"
+                },
+                "aaa8483b-b18b-4dbd-b218-77d8db027d35": {
+                  "@type": "Participant",
+                  "sendTo": {
+                    "imip": "mailto:douglm@example.org"
+                  },
+                  "roles": {
+                    "owner": true
+                  }
+                }
+              },
+              "replyTo": {
+                "imip": "mailto:douglm@example.org"
+              }
+            }
+          }
+        }
+      ]
+    }
+]]></artwork>
+                    </figure>
                 </t>
             </section>
         </section>
