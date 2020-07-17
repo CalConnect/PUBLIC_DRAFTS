@@ -1085,7 +1085,7 @@
 
             <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional; only allowed for participants of a JSTask). Specifies the date-time the progress property was last set on this participant. See <xref target="prop-progressUpdated" /> for allowed values and semantics.</t>
 
-            <t>percentComplete: <spanx style="verb">Number</spanx> (optional; only allowed for participants of a JSTask). Represents the percent completion of the participant for this task. The property value MUST be a positive integer between 0 and 100.</t>
+            <t>percentComplete: <spanx style="verb">UnsignedInt</spanx> (optional; only allowed for participants of a JSTask). Represents the percent completion of the participant for this task. The property value MUST be a positive integer between 0 and 100.</t>
           </list></t>
         </section>
       </section>
@@ -1342,6 +1342,12 @@
           <t>Type: <spanx style="verb">Duration</spanx> (optional).</t>
 
           <t>Specifies the estimated positive duration of time the task takes to complete.</t>
+        </section>
+
+        <section anchor="prop-percentComplete" title="percentComplete">
+          <t>Type: <spanx style="verb">UnsignedInt</spanx> (optional).</t>
+
+          <t>Represents the percent completion of the task overall. The property value MUST be a positive integer between 0 and 100.</t>
         </section>
 
         <section anchor="prop-progress" title="progress">
@@ -2135,6 +2141,11 @@
       <c>String</c>
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
+
+      <c>percentComplete</c>
+      <c>UnsignedInt</c>
+      <c>JSTask, Participant</c>
+      <c><xref target="prop-percentComplete"/></c>
 
       <c>priority</c>
       <c>Int</c>
