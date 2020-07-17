@@ -1023,6 +1023,10 @@
               <t><spanx style="verb">none</spanx>: No scheduling messages are to be sent to this participant.</t>
             </list></t>
 
+            <t>scheduleForceSend: <spanx style="verb">Boolean</spanx> (optional, default: false)
+            <vspace blankLines="1" />
+            A client may set the property on a participant to true to request that the server send a scheduling message to the participant when it would not normally do so (e.g. if no significant change is made the object or the scheduleAgent is set to client). The property MUST NOT be stored in the JSCalendar object on the server or appear in a scheduling message.</t>
+
             <t>scheduleSequence: <spanx style="verb">UnsignedInt</spanx> (optional, default: 0)
             <vspace blankLines="1" />
             The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
@@ -2182,6 +2186,11 @@
 
       <c>scheduleAgent</c>
       <c>String</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>scheduleForceSend</c>
+      <c>Boolean</c>
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
