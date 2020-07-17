@@ -963,14 +963,14 @@
 
             <list style="symbols">
               <t><spanx style="verb">owner</spanx>: The participant is an owner of the object. This signifies they have permission to make changes to it that affect the other participants. Non-owner participants may only change properties that just affect themself (for example setting their own alerts or changing their rsvp status).</t>
-              <t><spanx style="verb">attendee</spanx>: The participant is expected to attend.</t>
-              <t><spanx style="verb">optional</spanx>: The participant is invited but not required.</t>
+              <t><spanx style="verb">attendee</spanx>: The participant is expected to be present at the event.</t>
+              <t><spanx style="verb">optional</spanx>: The participant's involvement with the event is optional. This is expected to be primarily combined with the "attendee" role.</t>
               <t><spanx style="verb">informational</spanx>: The participant is copied for informational reasons, and is not expected to attend.</t>
               <t><spanx style="verb">chair</spanx>: The participant is in charge of the event/task when it occurs.</t>
               <t><spanx style="verb">contact</spanx>: The participant is someone that may be contacted for information about the event.</t>
             </list>
 
-            The value for each key in the set MUST be true. It is expected that no more than one of the roles "attendee", "optional", or "informational" be present; if more than one are given, "optional" takes precedence over "informational", and "attendee" takes precedence over both. Roles that are unknown to the implementation MUST be preserved.</t>
+            The value for each key in the set MUST be true. It is expected that no more than one of the roles "attendee" and "informational" be present; if more than one are given, "attendee" takes precedence over "informational". Roles that are unknown to the implementation MUST be preserved.</t>
 
             <t>locationId: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
