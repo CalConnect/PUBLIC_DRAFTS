@@ -1033,6 +1033,14 @@
             <vspace blankLines="1" />
             This can be used to determine whether the participant has sent a new RSVP following significant changes to the calendar object, and to determine if future responses are responding to a current or older view of the data.</t>
 
+            <t>scheduleStatus: <spanx style="verb">String[]</spanx> (optional)
+            <vspace blankLines="1" />
+            A list of status codes, as defined in Section 3.8.8.3 of <xref target="RFC5545" />, returned from the processing of the most recent scheduling message sent to this participant.
+            <vspace blankLines="1" />
+            Servers MUST only add or change this property when they send a scheduling message to the participant. Clients SHOULD NOT change or remove this property if it was provided by the server. Clients MAY add, change, or remove the property for participants where the client is handling the scheduling.
+            <vspace blankLines="1" />
+            This property MUST NOT be included in scheduling messages.</t>
+
             <t>scheduleUpdated: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
             The timestamp for the most recent response from this participant.
@@ -2196,6 +2204,11 @@
 
       <c>scheduleSequence</c>
       <c>UnsignedInt</c>
+      <c>Participant</c>
+      <c><xref target="prop-participants"/></c>
+
+      <c>scheduleStatus</c>
+      <c>String[]</c>
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
