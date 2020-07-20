@@ -170,23 +170,29 @@
                             or DURATION.
                             It MUST be a valid iCalendar DATE-TIME or DURATION value with
                             the addition of
-                            fractional seconds. The value
-                            MUST NOT be negative.
+                            fractional seconds. The value MUST NOT be negative
+                            for durations but MAY be negative for alarm triggers.
                             iCalendar implementations SHOULD ignore this parameter in date
                             time arithmetic.
                             Implementations MUST ignore presence of the FRACTIONAL parameter
                             on RECURRENCE-ID properties when determining recurrence overrides.
                         </t>
                         <t>
-                            Initially the value of the associated property will match
-                            the FRACTIONAL parameter value ignoring the fractional part.
-                            If the value of the property is changed then the FRACTIONAL
-                            part is no longer valid.
-                        </t>
-                        <t>
                             Applications receiving a property with a FRACTIONAL parameter
                             MUST ensure its value is consistent with the value of the
-                            property.
+                            property. The property value must match:
+                            <vspace/>
+                            - a positive FRACTIONAL value rounded up to the next non-fractional second
+                            or
+                            <vspace/>
+                            - a negative FRACTIONAL value rounded down the next non-fractional second
+                        </t>
+                        <t>
+                            If the values do not match the the application
+                            MUST assume that the property value has been
+                            updated by an application that is unaware
+                            of the FRACTIONAL parameter. The parameter should be
+                            ignored in this case.
                         </t>
                         <t hangText="Format Definition:">
                             <figure>
@@ -328,7 +334,7 @@
                     For example, if the user has a smart-watch they may
                     get tapped on the wrist. The method of notification
                     may depend on which device is being used and the
-                    context, are they in a meeting or driving.
+                    context, for example, a meeting or driving.
                 </t>
 
                 <t>
@@ -354,7 +360,7 @@
                 </t>
 
                 <t>
-                    A <xref target="RFC5545"/> ACTION property
+                    An <xref target="RFC5545"/> ACTION property
                     can take the defined values
                     "AUDIO" / "DISPLAY" / "EMAIL" whereas the
                     JSCalendar "action" property only supports
@@ -611,127 +617,9 @@
                 </t>
 
                 <t>
-                    Example: Recurring event with overrides:
-                    <figure>
-                        <artwork><![CDATA[
-  BEGIN:VCALENDAR
-  CALSCALE:GREGORIAN
-  PRODID:-//example.org//EN
-  VERSION:2.0
-  BEGIN:VEVENT
-  DTSTAMP:20200522T142047Z
-  DTSTART;TZID=America/New_York:20200522T120000
-  DURATION:PT1H
-  RRULE:FREQ=DAILY;COUNT=8
-  SUMMARY:recurring daily 8 times
-  UID:6252D6C40A8308BFE25BBDErecur-1
-  ATTACH;FMTTYPE=text/plain:http://example.org/doc1.txt
-  ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
-  ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
-  END:VEVENT
-  BEGIN:VEVENT
-  DTSTAMP:20200522T142047Z
-  DTSTART;TZID=America/New_York:20200523T120000
-  DURATION:PT1H
-  RECURRENCE-ID;TZID=America/New_York:20200523T120000
-  SUMMARY:recurring daily 8 times
-  UID:6252D6C40A8308BFE25BBDErecur-1
-  ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
-  ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
-  ATTACH;FMTTYPE=text/plain:http://example.org/doc4.txt
-  END:VEVENT
-  BEGIN:VEVENT
-  DTSTAMP:20200522T142047Z
-  DTSTART;TZID=America/New_York:20200524T120000
-  DURATION:PT1H
-  RECURRENCE-ID;TZID=America/New_York:20200524T120000
-  SUMMARY:recurring daily 8 times
-  UID:6252D6C40A8308BFE25BBDErecur-1
-  END:VEVENT
-  END:VCALENDAR
-
-  maps to
-
-  {
-    "prodId": "//example.org//EN",
-    "entries": [
-      {
-        "links": {
-          "d4a618d4-929c-4c81-ae5b-322afe407a00": {
-            "@type": "Link",
-            "rel": "enclosure",
-            "contentType": "text/plain",
-            "href": "http://example.org/doc1.txt"
-          },
-          "6c54e72e-3413-487c-ae14-fb318a90db43": {
-            "@type": "Link",
-            "rel": "enclosure",
-            "contentType": "text/plain",
-            "href": "http://example.org/doc2.txt"
-          },
-          "44087e9a-132c-4a5d-b25d-4ce580edb004": {
-            "@type": "Link",
-            "rel": "enclosure",
-            "contentType": "text/plain",
-            "href": "http://example.org/doc3.txt"
-          }
-        },
-        "created ": "2020-05-23T17:04:50Z",
-        "start": "2020-05-22T12:00:00",
-        "timeZone": "America/New_York",
-        "duration": "PT1H",
-        "title": "recurring daily 8 times",
-        "uid": "6252D6C40A8308BFE25BBDErecur-1",
-        "recurrenceRules": [
-          {
-            "@type": "RecurrenceRule",
-            "frequency": "daily",
-            "count": 8
-          }
-        ],
-        "recurrenceOverrides": {
-          "2020-05-23T12:00:00": {
-            "recurrenceId": "2020-05-23T12:00:00",
-            "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
-            "links/fb75b76a-a159-4a86-bd3d-7ace6b39c6c3": {
-              "@type": "Link",
-              "rel": "enclosure",
-              "contentType": "text/plain",
-              "href": "http://example.org/doc4.txt"
-            }
-          },
-          "2020-05-24T12:00:00": {
-            "recurrenceId": "2020-05-24T12:00:00",
-            "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
-            "links/6c54e72e-3413-487c-ae14-fb318a90db43": null,
-            "links/44087e9a-132c-4a5d-b25d-4ce580edb004": null
-          }
-        }
-      }
-    ]
-  }
-]]></artwork>
-                    </figure>
-                    Note: the second example is rendered withg line
-                    breaks to fit on the page. Line breaks are not valid
-                    in the data url.
+                    For an example of a recurring event with ATTACH
+                    see <xref target="example-recurring-attach"/>
                 </t>
-
-                <section anchor="translate-ical-attach-override"
-                         title="ATTACH overrides in recurring events">
-                    <t>
-                        A JSCalendar override is represented as a set
-                        of changes to the master. The following is an
-                        example of an event with an attachment removed
-                        in an override.
-                        <figure>
-                            <artwork><![CDATA[
-  ...
-  BEGIN:VEVENT
-]]></artwork>
-                        </figure>
-                    </t>
-                </section>
             </section>
 
             <section anchor="translate-ical-attendee" title="ATTENDEE">
@@ -1259,7 +1147,126 @@
             <section anchor="translate-ical-percent-complete"
                      title="PERCENT-COMPLETE">
                 <t>
-                    No mapping
+                    For all methods other than REPLY (or no method), the
+                    PERCENT-COMPLETE applies to the VTODO as a whole.
+                    In this case it the value is used to set the
+                    JSCalendar "percentComplete" property in the task
+                    object.
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  METHOD:PUBLISH
+  BEGIN:VTODO
+  ...
+  PERCENT-COMPLETE:39
+  END:VTODO
+  END: VCALENDAR
+
+  maps to
+
+  {
+    "@type": "jstask",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+    "percentComplete": 39
+  }
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    PERCENT-COMPLETE in a REPLY is used to indicate the
+                    level of completeness of the ATTENDEE. There should
+                    only be a single ATTENDEE in the VTODO object.
+                </t>
+                <t>
+                    As ever recurrences complicate matters. For a
+                    non-recurring event or an override that contains
+                    the single participant, set the
+                    JSCalendar "percentComplete" property in the
+                    JSCalendar "participant" object representing the
+                    attendee.
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  METHOD:REPLY
+  BEGIN:VTODO
+  ...
+  ATTENDEE:mailto:douglm@example.org
+  PERCENT-COMPLETE:39
+  END:VTODO
+  END: VCALENDAR
+
+  maps to
+
+  {
+    "@type": "jstask",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+    "participants": {
+      "be450b70-9bf7-4f6e-8f65-971ede566ce3": {
+        "@type": "Participant",
+        "sendTo": {
+          "imip": "mailto:douglm@example.org"
+        },
+        "percentComplete": 39,
+        "roles": {
+          "attendee": true
+        }
+      },
+      ...
+  }
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    In the case of an override with the participant
+                    appearing in the master then add a patch to the
+                    override.
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VCALENDAR
+  PRODID:-//ABC Corporation//NONSGML My Product//EN
+  METHOD:REPLY
+  BEGIN:VTODO
+  ...
+  ATTENDEE:mailto:douglm@example.org
+  END:VTODO
+  BEGIN:VTODO
+  ...
+  RECURRENCE-ID:20200523T120000
+  ...
+  ATTENDEE:mailto:douglm@example.org
+  PERCENT-COMPLETE:39
+  END:VTODO
+  END: VCALENDAR
+
+  maps to
+
+  {
+    "@type": "jstask",
+    "prodid": "-//ABC Corporation//NONSGML My Product//EN",
+    ...
+    "participants": {
+      "be450b70-9bf7-4f6e-8f65-971ede566ce3": {
+        "@type": "Participant",
+        "sendTo": {
+          "imip": "mailto:douglm@example.org"
+        },
+        "roles": {
+          "attendee": true
+        }
+      },
+      "recurrenceOverrides": {
+        "2020-05-23T12:00:00": {
+          "participants/be4...6ce3/percentComplete": 39
+        },
+      ...
+    }
+  }
+]]></artwork>
+                    </figure>
                 </t>
             </section>
 
@@ -1353,7 +1360,31 @@
             <section anchor="translate-ical-resources"
                      title="RESOURCES">
                 <t>
-                    No mapping
+                    The RESOURCES property value is a comma-separated
+                    list of resources. First split this into the separate
+                    resource names and then each resource is mapped on a
+                    participant object with a "kind" property of
+                    "resource" and the "name" property set to the
+                    resource name.
+                </t>
+                <t>
+                    Mapping parameters:
+                    <list style="hanging">
+                        <t hangText="ALTREP">
+                            Use the same process as for the ATTENDEE
+                            DIR parameter: create a link property with
+                            the "rel" property set to "alternate" and the
+                            "href" property set to the value of the
+                            ALTREP parameter. The add the id of the link
+                            to teh participants "linkIds" property.
+                        </t>
+                        <t hangText="LANG">
+                            Set the participants "language" property.
+                        </t>
+                    </list>
+                </t>
+                <t>
+                    For an example see <xref target="example-simple-resource" />
                 </t>
             </section>
 
@@ -1655,6 +1686,115 @@
                 because of line width limits. This is not legal json.
             </t>
 
+            <section anchor="example-recurring-attach"
+                     title="Recurring event with ATTACH">
+                <t>
+                    This is an example of a recurring event with overrides.
+                    The first override removes an ATTACH property and
+                    adds an ATTACH property. The second override removes all
+                    ATTACH properties.
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN:VCALENDAR
+  CALSCALE:GREGORIAN
+  PRODID:-//example.org//EN
+  VERSION:2.0
+  BEGIN:VEVENT
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20200522T120000
+  DURATION:PT1H
+  RRULE:FREQ=DAILY;COUNT=8
+  SUMMARY:recurring daily 8 times
+  UID:6252D6C40A8308BFE25BBDErecur-1
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc1.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
+  END:VEVENT
+  BEGIN:VEVENT
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20200523T120000
+  DURATION:PT1H
+  RECURRENCE-ID;TZID=America/New_York:20200523T120000
+  SUMMARY:recurring daily 8 times
+  UID:6252D6C40A8308BFE25BBDErecur-1
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc2.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc3.txt
+  ATTACH;FMTTYPE=text/plain:http://example.org/doc4.txt
+  END:VEVENT
+  BEGIN:VEVENT
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20200524T120000
+  DURATION:PT1H
+  RECURRENCE-ID;TZID=America/New_York:20200524T120000
+  SUMMARY:recurring daily 8 times
+  UID:6252D6C40A8308BFE25BBDErecur-1
+  END:VEVENT
+  END:VCALENDAR
+
+  maps to
+
+  {
+    "prodId": "//example.org//EN",
+    "entries": [
+      {
+        "links": {
+          "d4a618d4-929c-4c81-ae5b-322afe407a00": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc1.txt"
+          },
+          "6c54e72e-3413-487c-ae14-fb318a90db43": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc2.txt"
+          },
+          "44087e9a-132c-4a5d-b25d-4ce580edb004": {
+            "@type": "Link",
+            "rel": "enclosure",
+            "contentType": "text/plain",
+            "href": "http://example.org/doc3.txt"
+          }
+        },
+        "created ": "2020-05-23T17:04:50Z",
+        "start": "2020-05-22T12:00:00",
+        "timeZone": "America/New_York",
+        "duration": "PT1H",
+        "title": "recurring daily 8 times",
+        "uid": "6252D6C40A8308BFE25BBDErecur-1",
+        "recurrenceRules": [
+          {
+            "@type": "RecurrenceRule",
+            "frequency": "daily",
+            "count": 8
+          }
+        ],
+        "recurrenceOverrides": {
+          "2020-05-23T12:00:00": {
+            "recurrenceId": "2020-05-23T12:00:00",
+            "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
+            "links/fb75b76a-a159-4a86-bd3d-7ace6b39c6c3": {
+              "@type": "Link",
+              "rel": "enclosure",
+              "contentType": "text/plain",
+              "href": "http://example.org/doc4.txt"
+            }
+          },
+          "2020-05-24T12:00:00": {
+            "recurrenceId": "2020-05-24T12:00:00",
+            "links/d4a618d4-929c-4c81-ae5b-322afe407a00": null,
+            "links/6c54e72e-3413-487c-ae14-fb318a90db43": null,
+            "links/44087e9a-132c-4a5d-b25d-4ce580edb004": null
+          }
+        }
+      }
+    ]
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
             <section anchor="example-simple-contact"
                      title="Simple event with CONTACT">
                 <t>
@@ -1718,6 +1858,13 @@
     }
 ]]></artwork>
                     </figure>
+                </t>
+            </section>
+
+            <section anchor="example-simple-resource"
+                     title="Simple event with RESOURCES">
+                <t>
+                    TBD
                 </t>
             </section>
 
