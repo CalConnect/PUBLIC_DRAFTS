@@ -188,7 +188,9 @@
               <t>null: Remove the property at the given path from the patched object. If the property is not present in the object, this a no-op.</t>
               <t>Anything else: Set the value for the property to this value (this may be a replacement or addition to the object being patched).</t>
             </list>
-          </t>
+        </t>
+
+          <t>A PatchObject does not define its own <spanx style="verb">@type</spanx> property. A <spanx style="verb">@type</spanx> property in a patch MUST be handled as any other patched property value.</t>
 
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
         </section>
@@ -255,6 +257,10 @@
 
       <t>The object has a collection of properties, as specified in the following sections. Properties are specified as being either mandatory or optional. Optional properties may have a default value, if explicitly specified in the property definition.</t>
 
+      <section anchor="objecttype" title="Object Type">
+          <t>JSCalendar objects MUST name their type in the <spanx style="verb">@type</spanx> property, if not explicitly specified otherwise for the respective object type. A notable exception to this rule is the <xref target="type-PatchObject">PatchObject</xref>.</t>
+      </section>
+
       <section anchor="normalization" title="Normalization and Equivalence">
         <t>JSCalendar aims to provide unambiguous definitions for value types and properties, but does not define a general normalization or equivalence method for JSCalendar objects and types. This is because the notion of equivalence might range from byte-level equivalence to semantic equivalence, depending on the respective use case.
 
@@ -270,8 +276,8 @@
         Considering this, the definition of equivalence and normalization is left to client and server implementations and to be negotiated by a calendar exchange protocol or defined elsewhere.</t>
       </section>
 
-      <section anchor="custom-properties" title="Vendor-specific Property Extensions and Values">
-        <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g., <spanx style="verb">example.com/customprop</spanx>.</t>
+      <section anchor="custom-properties" title="Vendor-specific Property Extensions, Values and Types">
+          <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g., <spanx style="verb">example.com/customprop</spanx>. If the value is a new JSCalendar object, it either MUST include a <spanx style="verb">@type</spanx> property or it MUST explicitly be specified to not require a type designator. The type name MUST be prefixed with a domain name controlled by the vendor.</t>
 
         <t>Some JSCalendar properties allow vendor-specific value extensions. Such vendor-specific values MUST be prefixed with a domain name controlled by the vendor, e.g., <spanx style="verb">example.com/customrel</spanx>.</t>
 
