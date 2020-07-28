@@ -1981,6 +1981,11 @@
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-created"/></c>
 
+      <c>day</c>
+      <c>String</c>
+      <c>NDay</c>
+      <c><xref target="prop-recurrenceRules"/></c>
+
       <c>daylight</c>
       <c>TimeZoneRule</c>
       <c>TimeZone</c>
@@ -2150,6 +2155,11 @@
       <c>String[Boolean]</c>
       <c>TimeZoneRule</c>
       <c><xref target="prop-timeZones"/></c>
+
+      <c>nthOfPeriod</c>
+      <c>Int</c>
+      <c>NDay</c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>offset</c>
       <c>SignedDuration</c>
@@ -2451,6 +2461,9 @@
 
       <c>Location</c>
       <c><xref target="prop-locations"/></c>
+
+      <c>NDay</c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>Number</c>
       <c><xref target="type-signatures"/></c>
