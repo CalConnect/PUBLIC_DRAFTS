@@ -1282,9 +1282,9 @@
             <vspace blankLines="1" />
             The RRULE property mapped as specified in <xref target="prop-recurrenceRules" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
 
-            <t>recurrenceDates: <spanx style="verb">LocalDateTime[Boolean]</spanx> (optional)
+            <t>recurrenceOverrides: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the RDATE properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the recurrence dates. The value for each key in the set MUST be true.</t>
+            Maps the RDATE properties from iCalendar. The set is represented as an object, with the keys being the recurrence dates. The patch object MUST be empty.</t>
 
             <t>names: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
