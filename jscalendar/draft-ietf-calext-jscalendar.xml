@@ -1870,8 +1870,8 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
-      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
       <c>UTCDateTime</c>
@@ -1887,6 +1887,11 @@
       <c>Id[Alert]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-alerts"/></c>
+
+      <c>aliases</c>
+      <c>String[Boolean]</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
 
       <c>byDay</c>
       <c>NDay[]</c>
@@ -1948,6 +1953,11 @@
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-color"/></c>
 
+      <c>comments</c>
+      <c>String[]</c>
+      <c>TimeZoneRule</c>
+      <c><xref target="prop-timeZones"/></c>
+
       <c>contentType</c>
       <c>String</c>
       <c>Link</c>
@@ -1967,6 +1977,11 @@
       <c>UTCDateTime</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-created"/></c>
+
+      <c>daylight</c>
+      <c>TimeZoneRule</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
 
       <c>delegatedFrom</c>
       <c>String[Boolean]</c>
@@ -2128,10 +2143,25 @@
       <c>Location, VirtualLocation, Participant</c>
       <c><xref target="prop-locations"/>, <xref target="prop-virtualLocations"/>, <xref target="prop-participants"/></c>
 
+      <c>names</c>
+      <c>String[Boolean]</c>
+      <c>TimeZoneRule</c>
+      <c><xref target="prop-timeZones"/></c>
+
       <c>offset</c>
       <c>SignedDuration</c>
       <c>OffsetTrigger</c>
       <c><xref target="prop-alerts"/></c>
+
+      <c>offsetFrom</c>
+      <c>UTCDateTime</c>
+      <c>TimeZoneRule</c>
+      <c><xref target="prop-timeZones"/></c>
+
+      <c>offsetTo</c>
+      <c>UTCDateTime</c>
+      <c>TimeZoneRule</c>
+      <c><xref target="prop-timeZones"/></c>
 
       <c>participants</c>
       <c>Id[Participant]</c>
@@ -2185,13 +2215,13 @@
 
       <c>recurrenceOverrides</c>
       <c>LocalDateTime[PatchObject]</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-recurrenceOverrides"/></c>
+      <c>JSEvent, JSTask, TimeZoneRule</c>
+      <c><xref target="prop-recurrenceOverrides"/>, <xref target="prop-timeZones"/></c>
 
       <c>recurrenceRules</c>
       <c>RecurrenceRule[]</c>
-      <c>JSEvent, JSTask</c>
-      <c><xref target="prop-recurrenceRules"/></c>
+      <c>JSEvent, JSTask, TimeZoneRule</c>
+      <c><xref target="prop-recurrenceRules"/>, <xref target="prop-timeZones"/></c>
 
       <c>rel</c>
       <c>String</c>
@@ -2227,6 +2257,16 @@
       <c>String</c>
       <c>RecurrenceRule</c>
       <c><xref target="prop-recurrenceRules"/></c>
+
+      <c>standard</c>
+      <c>TimeZoneRule</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
+
+      <c>start</c>
+      <c>LocalDateTime</c>
+      <c>TimeZoneRule</c>
+      <c><xref target="prop-timeZones"/></c>
 
       <c>scheduleAgent</c>
       <c>String</c>
@@ -2313,6 +2353,16 @@
       <c>Alert</c>
       <c><xref target="prop-alerts"/></c>
 
+      <c>tzId</c>
+      <c>String</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
+
+      <c>tzUrl</c>
+      <c>String</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
+
       <c>uid</c>
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup</c>
@@ -2337,6 +2387,11 @@
       <c>Boolean</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="useDefaultAlerts"/></c>
+
+      <c>validUntil</c>
+      <c>UTCDateTime</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
 
       <c>virtualLocations</c>
       <c>Id[VirtualLocation]</c>
