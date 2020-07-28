@@ -638,6 +638,9 @@
             Days of the week on which to repeat. An <spanx style="verb">NDay</spanx> object has the following properties:
 
             <list style="symbols">
+              <t>@type: <spanx style="verb">String</spanx> (mandatory)
+              <vspace blankLines="1" />
+              Specifies the type of this object. This MUST be <spanx style="verb">NDay</spanx>.</t>
               <t>day: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
               A day of the week on which to repeat; the allowed values are the same as for the <spanx style="verb">firstDayOfWeek</spanx> RecurrenceRule property.
@@ -1870,7 +1873,7 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
+      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
       <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
