@@ -1234,7 +1234,7 @@
             <vspace blankLines="1" />
             The TZID property from iCalendar.</t>
 
-            <t>lastModified: <spanx style="verb">UTCDateTime</spanx> (optional)
+            <t>updated: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
             The LAST-MODIFIED property from iCalendar.</t>
 
