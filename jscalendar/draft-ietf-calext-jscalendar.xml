@@ -1278,7 +1278,7 @@
             <vspace blankLines="1" />
             The TZOFFSETFROM property from iCalendar.</t>
 
-            <t>recurrenceRule: <spanx style="verb">RecurrenceRule</spanx> (optional)
+            <t>recurrenceRules: <spanx style="verb">RecurrenceRule[]</spanx> (optional)
             <vspace blankLines="1" />
             The RRULE property mapped as specified in <xref target="prop-recurrenceRules" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
 
