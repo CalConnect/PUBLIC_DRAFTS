@@ -44,7 +44,7 @@
             </address>
         </author>
         <author initials="M." surname="Douglass" fullname="Michael Douglass">
-            <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+            <organization abbrev="Bedework">Bedework</organization>
             <address>
                 <postal>
                     <street>226 3rd Street</street>
@@ -53,8 +53,8 @@
                     <code>12180</code>
                     <country>United States of America</country>
                 </postal>
-                <email>mdouglass@sphericalcowgroup.com</email>
-                <uri>http://sphericalcowgroup.com</uri>
+                <email>mdouglass@bedework.com</email>
+                <uri>http://bedework.com</uri>
             </address>
         </author>
         <date year="2020" month="April" day="8"/>
