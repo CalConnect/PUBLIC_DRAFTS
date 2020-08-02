@@ -1130,7 +1130,7 @@
               </t>
               <t>offset: <spanx style="verb">SignedDuration</spanx> (mandatory).
               <vspace blankLines="1" />
-              Defines the offset at which to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property of the alert. Negative durations signify alerts before the time property, positive durations signify alerts after. If the calendar object does not define a time zone, the user's default time zone SHOULD be used when determining the offset, if known. Otherwise, the time zone to use is implementation specific.</t>
+              Defines the offset at which to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property of the alert. Negative durations signify alerts before the time property, positive durations signify alerts after.</t>
 
               <t>relativeTo: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">start</spanx>)
               <vspace blankLines="1" />
