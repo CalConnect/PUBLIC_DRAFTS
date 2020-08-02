@@ -277,9 +277,9 @@
       </section>
 
       <section anchor="custom-properties" title="Vendor-specific Property Extensions, Values and Types">
-          <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g., <spanx style="verb">example.com/customprop</spanx>. If the value is a new JSCalendar object, it either MUST include a <spanx style="verb">@type</spanx> property or it MUST explicitly be specified to not require a type designator. The type name MUST be prefixed with a domain name controlled by the vendor.</t>
+        <t>Vendors MAY add additional properties to the calendar object to support their custom features. To avoid conflict, the names of these properties MUST be prefixed by a domain name controlled by the vendor followed by a colon, e.g., <spanx style="verb">example.com:customprop</spanx>. If the value is a new JSCalendar object, it either MUST include a <spanx style="verb">@type</spanx> property or it MUST explicitly be specified to not require a type designator. The type name MUST be prefixed with a domain name controlled by the vendor.</t>
 
-        <t>Some JSCalendar properties allow vendor-specific value extensions. Such vendor-specific values MUST be prefixed with a domain name controlled by the vendor, e.g., <spanx style="verb">example.com/customrel</spanx>.</t>
+        <t>Some JSCalendar properties allow vendor-specific value extensions. Such vendor-specific values MUST be prefixed by a domain name controlled by the vendor followed by a colon, e.g., <spanx style="verb">example.com:customrel</spanx>.</t>
 
         <t>Vendors are strongly encouraged to register any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
       </section>
