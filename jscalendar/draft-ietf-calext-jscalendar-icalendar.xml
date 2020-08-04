@@ -1390,7 +1390,17 @@
             <section anchor="translate-ical-rdate"
                      title="RDATE">
                 <t>
-                    Create a patch object with the recurrence id set
+                    If the RDATE has a RANGE=THISANDFUTURE parameter
+                    then the recurrence MUST be split at this RDATE.
+                </t>
+                <t>
+                    Truncate the original object before this RDATE,
+                    create a new master representing the object and
+                    link them by setting the
+                    jscalendar "relatedTo" property in both.
+                </t>
+                <t>
+                    Otherwise create a patch object with the recurrence id set
                     from the RDATE value. If the instance has overrides
                     the differences will also be set in the object.
                 </t>
