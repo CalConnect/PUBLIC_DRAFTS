@@ -188,9 +188,7 @@
               <t>null: Remove the property at the given path from the patched object. If the property is not present in the object, this a no-op.</t>
               <t>Anything else: Set the value for the property to this value (this may be a replacement or addition to the object being patched).</t>
             </list>
-        </t>
-
-          <t>A PatchObject does not define its own <spanx style="verb">@type</spanx> property. A <spanx style="verb">@type</spanx> property in a patch MUST be handled as any other patched property value.</t>
+          </t>
 
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
         </section>
@@ -257,10 +255,6 @@
 
       <t>The object has a collection of properties, as specified in the following sections. Properties are specified as being either mandatory or optional. Optional properties may have a default value, if explicitly specified in the property definition.</t>
 
-      <section anchor="objecttype" title="Object Type">
-          <t>JSCalendar objects MUST name their type in the <spanx style="verb">@type</spanx> property, if not explicitly specified otherwise for the respective object type. A notable exception to this rule is the <xref target="type-PatchObject">PatchObject</xref>.</t>
-      </section>
-
       <section anchor="normalization" title="Normalization and Equivalence">
         <t>JSCalendar aims to provide unambiguous definitions for value types and properties, but does not define a general normalization or equivalence method for JSCalendar objects and types. This is because the notion of equivalence might range from byte-level equivalence to semantic equivalence, depending on the respective use case.
 
@@ -276,10 +270,10 @@
         Considering this, the definition of equivalence and normalization is left to client and server implementations and to be negotiated by a calendar exchange protocol or defined elsewhere.</t>
       </section>
 
-      <section anchor="custom-properties" title="Vendor-specific Property Extensions, Values and Types">
-        <t>Vendors MAY add additional properties to the calendar object to support their custom features. To avoid conflict, the names of these properties MUST be prefixed by a domain name controlled by the vendor followed by a colon, e.g., <spanx style="verb">example.com:customprop</spanx>. If the value is a new JSCalendar object, it either MUST include a <spanx style="verb">@type</spanx> property or it MUST explicitly be specified to not require a type designator. The type name MUST be prefixed with a domain name controlled by the vendor.</t>
+      <section anchor="custom-properties" title="Vendor-specific Property Extensions and Values">
+        <t>Vendors MAY add additional properties to the calendar object to support their custom features. The names of these properties MUST be prefixed with a domain name controlled by the vendor to avoid conflict, e.g., <spanx style="verb">example.com/customprop</spanx>.</t>
 
-        <t>Some JSCalendar properties allow vendor-specific value extensions. Such vendor-specific values MUST be prefixed by a domain name controlled by the vendor followed by a colon, e.g., <spanx style="verb">example.com:customrel</spanx>.</t>
+        <t>Some JSCalendar properties allow vendor-specific value extensions. Such vendor-specific values MUST be prefixed with a domain name controlled by the vendor, e.g., <spanx style="verb">example.com/customrel</spanx>.</t>
 
         <t>Vendors are strongly encouraged to register any new property values or extensions that are useful to other systems as well, rather than use a vendor-specific prefix.</t>
       </section>
@@ -638,9 +632,6 @@
             Days of the week on which to repeat. An <spanx style="verb">NDay</spanx> object has the following properties:
 
             <list style="symbols">
-              <t>@type: <spanx style="verb">String</spanx> (mandatory)
-              <vspace blankLines="1" />
-              Specifies the type of this object. This MUST be <spanx style="verb">NDay</spanx>.</t>
               <t>day: <spanx style="verb">String</spanx> (mandatory)
               <vspace blankLines="1" />
               A day of the week on which to repeat; the allowed values are the same as for the <spanx style="verb">firstDayOfWeek</spanx> RecurrenceRule property.
@@ -1130,7 +1121,7 @@
               </t>
               <t>offset: <spanx style="verb">SignedDuration</spanx> (mandatory).
               <vspace blankLines="1" />
-              Defines the offset at which to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property of the alert. Negative durations signify alerts before the time property, positive durations signify alerts after.</t>
+              Defines the offset at which to trigger the alert relative to the time property defined in the <spanx style="verb">relativeTo</spanx> property of the alert. Negative durations signify alerts before the time property, positive durations signify alerts after. If the calendar object does not define a time zone, the user's default time zone SHOULD be used when determining the offset, if known. Otherwise, the time zone to use is implementation specific.</t>
 
               <t>relativeTo: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">start</spanx>)
               <vspace blankLines="1" />
@@ -1237,11 +1228,11 @@
             <vspace blankLines="1" />
             The TZID property from iCalendar.</t>
 
-            <t>updated: <spanx style="verb">UTCDateTime</spanx> (optional)
+            <t>lastModified: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
             The LAST-MODIFIED property from iCalendar.</t>
 
-            <t>tzUrl: <spanx style="verb">String</spanx> (optional)
+            <t>url: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The TZURL property from iCalendar.</t>
 
@@ -1281,13 +1272,13 @@
             <vspace blankLines="1" />
             The TZOFFSETFROM property from iCalendar.</t>
 
-            <t>recurrenceRules: <spanx style="verb">RecurrenceRule[]</spanx> (optional)
+            <t>recurrenceRule: <spanx style="verb">RecurrenceRule</spanx> (optional)
             <vspace blankLines="1" />
             The RRULE property mapped as specified in <xref target="prop-recurrenceRules" />. During recurrence rule evaluation, the <spanx style="verb">until</spanx> property value MUST be interpreted as a local time in the UTC time zone.</t>
 
-            <t>recurrenceOverrides: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional)
+            <t>recurrenceDates: <spanx style="verb">LocalDateTime[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the RDATE properties from iCalendar. The set is represented as an object, with the keys being the recurrence dates. The patch object MUST be empty.</t>
+            Maps the RDATE properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the recurrence dates. The value for each key in the set MUST be true.</t>
 
             <t>names: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
@@ -1873,8 +1864,8 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
-      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, VirtualLocation</c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
       <c>UTCDateTime</c>
@@ -1890,11 +1881,6 @@
       <c>Id[Alert]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-alerts"/></c>
-
-      <c>aliases</c>
-      <c>String[Boolean]</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
 
       <c>byDay</c>
       <c>NDay[]</c>
@@ -1956,11 +1942,6 @@
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-color"/></c>
 
-      <c>comments</c>
-      <c>String[]</c>
-      <c>TimeZoneRule</c>
-      <c><xref target="prop-timeZones"/></c>
-
       <c>contentType</c>
       <c>String</c>
       <c>Link</c>
@@ -1980,16 +1961,6 @@
       <c>UTCDateTime</c>
       <c>JSEvent, JSTask, JSGroup</c>
       <c><xref target="prop-created"/></c>
-
-      <c>day</c>
-      <c>String</c>
-      <c>NDay</c>
-      <c><xref target="prop-recurrenceRules"/></c>
-
-      <c>daylight</c>
-      <c>TimeZoneRule</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
 
       <c>delegatedFrom</c>
       <c>String[Boolean]</c>
@@ -2151,30 +2122,10 @@
       <c>Location, VirtualLocation, Participant</c>
       <c><xref target="prop-locations"/>, <xref target="prop-virtualLocations"/>, <xref target="prop-participants"/></c>
 
-      <c>names</c>
-      <c>String[Boolean]</c>
-      <c>TimeZoneRule</c>
-      <c><xref target="prop-timeZones"/></c>
-
-      <c>nthOfPeriod</c>
-      <c>Int</c>
-      <c>NDay</c>
-      <c><xref target="prop-recurrenceRules"/></c>
-
       <c>offset</c>
       <c>SignedDuration</c>
       <c>OffsetTrigger</c>
       <c><xref target="prop-alerts"/></c>
-
-      <c>offsetFrom</c>
-      <c>UTCDateTime</c>
-      <c>TimeZoneRule</c>
-      <c><xref target="prop-timeZones"/></c>
-
-      <c>offsetTo</c>
-      <c>UTCDateTime</c>
-      <c>TimeZoneRule</c>
-      <c><xref target="prop-timeZones"/></c>
 
       <c>participants</c>
       <c>Id[Participant]</c>
@@ -2228,13 +2179,13 @@
 
       <c>recurrenceOverrides</c>
       <c>LocalDateTime[PatchObject]</c>
-      <c>JSEvent, JSTask, TimeZoneRule</c>
-      <c><xref target="prop-recurrenceOverrides"/>, <xref target="prop-timeZones"/></c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-recurrenceOverrides"/></c>
 
       <c>recurrenceRules</c>
       <c>RecurrenceRule[]</c>
-      <c>JSEvent, JSTask, TimeZoneRule</c>
-      <c><xref target="prop-recurrenceRules"/>, <xref target="prop-timeZones"/></c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>rel</c>
       <c>String</c>
@@ -2270,16 +2221,6 @@
       <c>String</c>
       <c>RecurrenceRule</c>
       <c><xref target="prop-recurrenceRules"/></c>
-
-      <c>standard</c>
-      <c>TimeZoneRule</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
-
-      <c>start</c>
-      <c>LocalDateTime</c>
-      <c>TimeZoneRule</c>
-      <c><xref target="prop-timeZones"/></c>
 
       <c>scheduleAgent</c>
       <c>String</c>
@@ -2366,16 +2307,6 @@
       <c>Alert</c>
       <c><xref target="prop-alerts"/></c>
 
-      <c>tzId</c>
-      <c>String</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
-
-      <c>tzUrl</c>
-      <c>String</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
-
       <c>uid</c>
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup</c>
@@ -2400,11 +2331,6 @@
       <c>Boolean</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="useDefaultAlerts"/></c>
-
-      <c>validUntil</c>
-      <c>UTCDateTime</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
 
       <c>virtualLocations</c>
       <c>Id[VirtualLocation]</c>
@@ -2461,9 +2387,6 @@
 
       <c>Location</c>
       <c><xref target="prop-locations"/></c>
-
-      <c>NDay</c>
-      <c><xref target="prop-recurrenceRules"/></c>
 
       <c>Number</c>
       <c><xref target="type-signatures"/></c>
