@@ -147,8 +147,9 @@
     dur-time    = "T" (dur-hour / dur-minute / dur-second)
     dur-day     = 1*DIGIT "D"
     dur-week    = 1*DIGIT "W"
+    dur-cal     = (dur-week [dur-day] / dur-day)
 
-    duration    = "P" (dur-day [dur-time] / dur-time / dur-week)]]></artwork>
+    duration    = "P" (dur-cal [dur-time] / dur-cal / dur-time)]]></artwork>
           </figure>
 
           <t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.</t>
