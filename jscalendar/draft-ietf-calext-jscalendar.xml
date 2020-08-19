@@ -78,7 +78,7 @@
           <list style="symbols">
             <t>iCalendar defines various formats for local times, UTC time, and dates.</t>
             <t>iCalendar requires custom time zone definitions within a single calendar component.</t>
-            <t>iCalendar’s definition of recurrence rules is ambiguous and has resulted in differing understandings even between experienced calendar developers.</t>
+            <t>iCalendar's definition of recurrence rules is ambiguous and has resulted in differing understandings even between experienced calendar developers.</t>
             <t>The iCalendar format itself causes interoperability issues due to misuse of CRLF-terminated strings, line continuations, and subtle differences among iCalendar parsers.</t>
           </list>
         </t>
@@ -1529,9 +1529,9 @@
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-zoned-event-endtz" title="Event with end time-zone">
+<section anchor="example-zoned-event-endtz" title="Event with end time zone">
     <t>
-    This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.
+    This example illustrates the use of end time zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flight's destination is in the same time zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in Tokyo local time and highlight the time zone difference of the flight. The location names can serve as input for navigation systems.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -1560,7 +1560,7 @@
 </section>
 <section anchor="example-floating-event" title="Floating-time event (with recurrence)">
     <t>
-    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.
+    This example illustrates the use of floating time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the user is located on that date.
     </t>
     <figure>
           <artwork><![CDATA[
