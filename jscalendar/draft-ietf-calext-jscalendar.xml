@@ -134,6 +134,12 @@
 
         <section anchor="type-LocalDateTime" title="LocalDateTime">
           <t>This is a date-time string with no time zone/offset information. It is otherwise in the same format as UTCDateTime, including fractional seconds. For example <spanx style="verb">2006-01-02T15:04:05</spanx> and <spanx style="verb">2006-01-02T15:04:05.003</spanx> are both valid. The time zone to associate the LocalDateTime with comes from an associated property, or if no time zone is associated it defines <spanx style="verb">floating time</spanx>. Floating date-times are not tied to any specific time zone. Instead, they occur in each time zone at the given wall-clock time (as opposed to the same instant point in time).</t>
+
+          <t>A time zone may have a period of discontinuity, for example a change from standard time to daylight-savings time. When converting local date-times that fall in the discontinuity to UTC, the offset before the transition is used.</t>
+
+          <t>For example, in the America/Los_Angeles time zone, the date-time 2020-11-01T01:30:00 occurs twice: before the DST transition with a UTC offset of -07:00, and again after the transition with an offset of -08:00. When converting to UTC, we therefore use the offset before the transition (-07:00) and so it becomes 2020-11-01T08:30:00Z.</t>
+
+          <t>Similarly, in the Australia/Melbourne time zone, the date-time 2020-10-04T02:30:00 does not exist: the clocks are moved forward one hour for DST on that day at 02:00. However, such a value may appear during calculations (see duration semantics below), or due to a change in time zone rules (so it was valid when the event was first created). Again, it is interpreted as though the offset before the transition is in effect (+10:00), therefore when converted to UTC we get 2020-10-03T16:30:00Z.</t>
         </section>
 
         <section anchor="type-Duration" title="Duration">
@@ -153,6 +159,27 @@
           </figure>
 
           <t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.</t>
+
+          <t>A duration specifies an abstract number of weeks, days, hours, minutes, and/or seconds. A duration specified using weeks or days does not always correspond to an exact multiple of 24 hours. The number of hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time. Leap seconds MUST NOT be considered when adding or subtracting a duration to/from a LocalDateTime.</t>
+
+          <t>To add a duration to a LocalDateTime:
+          <list style="numbers">
+              <t>Add any week or day components of the duration to the date.</t>
+              <t>If a time zone applies to the LocalDateTime, convert it to a UTCDateTime following the semantics in <xref target="type-LocalDateTime" />.</t>
+              <t>Add any hour, minute or second components of the duration (in absolute time).</t>
+              <t>Convert the resulting UTCDateTime back to a LocalDateTime in the time zone that applies.</t>
+          </list></t>
+
+          <t>To subtract a duration from a LocalDateTime, the steps apply in reverse:
+          <list style="numbers">
+              <t>If a time zone applies to the LocalDateTime, convert it to UTC following the semantics in <xref target="type-LocalDateTime" />.</t>
+              <t>Subtract any hour, minute or second components of the duration (in absolute time).</t>
+              <t>Convert the resulting UTCDateTime back to LocalDateTime in the time zone that applies.</t>
+              <t>Subtract any week or day components of the duration from the date.</t>
+              <t>If the resulting time does not exist on the date due to a discontinuity in the time zone, use the semantics in <xref target="type-LocalDateTime" /> to convert to UTC and back to get a valid LocalDateTime.</t>
+          </list></t>
+
+          <t>These semantics match the iCalendar DURATION value type (<xref target="RFC5545" />, Section 3.3.6).</t>
         </section>
 
         <section anchor="type-SignedDuration" title="SignedDuration">
@@ -1314,8 +1341,6 @@
           <t>Type: <spanx style="verb">Duration</spanx> (optional, default: <spanx style="verb">PT0S</spanx>).</t>
 
           <t>The zero or positive duration of the event in the event's start time zone.</t>
-
-          <t>Note that a duration specified using weeks or days does not always correspond to an exact multiple of 24 hours. The number of hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time. Leap seconds MUST NOT be considered when computing an exact duration. When computing an exact duration, the greatest order time components MUST be added first, that is, the number of days MUST be added first, followed by the number of hours, number of minutes, and number of seconds. Fractional seconds MUST be added last. These semantics match the iCalendar DURATION value type (<xref target="RFC5545" />, Section 3.3.6).</t>
 
           <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g., a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="prop-locations" />).</t>
         </section>
