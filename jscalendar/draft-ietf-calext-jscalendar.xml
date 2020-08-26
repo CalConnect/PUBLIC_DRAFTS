@@ -1269,7 +1269,7 @@
             <vspace blankLines="1" />
             The LAST-MODIFIED property from iCalendar.</t>
 
-            <t>url: <spanx style="verb">String</spanx> (optional)
+            <t>tzUrl: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The TZURL property from iCalendar.</t>
 
