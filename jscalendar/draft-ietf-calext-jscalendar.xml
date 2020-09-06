@@ -1269,7 +1269,7 @@
             <vspace blankLines="1" />
             The LAST-MODIFIED property from iCalendar.</t>
 
-            <t>tzUrl: <spanx style="verb">String</spanx> (optional)
+            <t>url: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
             The TZURL property from iCalendar.</t>
 
@@ -2397,11 +2397,6 @@
       <c>TimeZone</c>
       <c><xref target="prop-timeZones"/></c>
 
-      <c>tzUrl</c>
-      <c>String</c>
-      <c>TimeZone</c>
-      <c><xref target="prop-timeZones"/></c>
-
       <c>uid</c>
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup</c>
@@ -2421,6 +2416,11 @@
       <c>String</c>
       <c>VirtualLocation</c>
       <c><xref target="prop-virtualLocations"/></c>
+
+      <c>url</c>
+      <c>String</c>
+      <c>TimeZone</c>
+      <c><xref target="prop-timeZones"/></c>
 
       <c>useDefaultAlerts</c>
       <c>Boolean</c>
