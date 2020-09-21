@@ -473,7 +473,7 @@
 
             <t>description: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            Human-readable plain-text instructions for accessing this location. This may be an address, set of directions, door access code, etc.</t>
+            Human-readable plain-text instructions for accessing this virtual location. This may be a conference access code, etc.</t>
 
             <t>uri: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
