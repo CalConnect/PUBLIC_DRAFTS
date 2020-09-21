@@ -1509,7 +1509,7 @@
     "timeZone": "America/New_York",
     "duration": "PT1H"
   },
-  "2a358cee-6489-4f14-a57f-c104db4dc2f2": {
+  {
     "@type": "jstask",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
     "updated": "2018-01-15T18:00:00Z",
