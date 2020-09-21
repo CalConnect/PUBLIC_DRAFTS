@@ -281,7 +281,7 @@
     </section>
 
     <section anchor="structure-of-jscalendar-objects" title="Structure of JSCalendar Objects">
-      <t>A JSCalendar object is a JSON object, which MUST be valid I-JSON (a stricter subset of JSON), as specified in <xref target="RFC8259" />. Property names and values are case-sensitive.</t>
+        <t>A JSCalendar object is a JSON object <xref target="RFC8259" />, which MUST be valid I-JSON (a stricter subset of JSON) <xref target="RFC7493" />. Property names and values are case-sensitive.</t>
 
       <t>The object has a collection of properties, as specified in the following sections. Properties are specified as being either mandatory or optional. Optional properties may have a default value, if explicitly specified in the property definition.</t>
 
