@@ -158,7 +158,7 @@
     duration    = "P" (dur-cal [dur-time] / dur-cal / dur-time)]]></artwork>
           </figure>
 
-          <t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero.</t>
+          <t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero. Fractional second values MUST NOT have trailing zeros, to ensure there is only a single representation for each duration.</t>
 
           <t>A duration specifies an abstract number of weeks, days, hours, minutes, and/or seconds. A duration specified using weeks or days does not always correspond to an exact multiple of 24 hours. The number of hours/minutes/seconds may vary if it overlaps a period of discontinuity in the event's time zone, for example a change from standard time to daylight-savings time. Leap seconds MUST NOT be considered when adding or subtracting a duration to/from a LocalDateTime.</t>
 
