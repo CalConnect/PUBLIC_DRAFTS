@@ -945,7 +945,7 @@
           <list style="symbols">
             <t><spanx style="verb">imip</spanx>: The organizer accepts an iMIP <xref target="RFC6047" /> response at this email address. The value MUST be a <spanx style="verb">mailto:</spanx> URI.</t>
 
-            <t><spanx style="verb">web</spanx>: Opening this URI in a web browser will provide the user with a page where they can submit a reply to the organizer.</t>
+            <t><spanx style="verb">web</spanx>: Opening this URI in a web browser will provide the user with a page where they can submit a reply to the organizer. The value MUST be a URL using the <spanx style="verb">http:</spanx> or <spanx style="verb">https:</spanx> scheme.</t>
 
             <t><spanx style="verb">other</spanx>: The organizer is identified by this URI but the method for submitting the response is undefined.</t>
             </list></t>
