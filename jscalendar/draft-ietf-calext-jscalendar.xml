@@ -477,7 +477,7 @@
 
             <t>uri: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
-            A URI that represents how to connect to this virtual location.
+            A URI <xref target="RFC3986" /> that represents how to connect to this virtual location.
             <vspace blankLines="1" />
             This may be a telephone number (represented using the <spanx style="verb">tel:</spanx> scheme, e.g., <spanx style="verb">tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or any custom URI.</t>
           </list></t>
@@ -496,7 +496,7 @@
             Specifies the type of this object. This MUST be <spanx style="verb">Link</spanx>.</t>
             <t>href: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
-            A URI from which the resource may be fetched.
+            A URI <xref target="RFC3986" /> from which the resource may be fetched.
             <vspace blankLines="1" />
             This MAY be a <spanx style="verb">data:</spanx> URL <xref target="RFC2397" />, but it is recommended that the file be hosted on a server to avoid embedding arbitrarily large data in JSCalendar object instances.</t>
 
@@ -2768,6 +2768,7 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2392.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4589.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"?>
