@@ -444,7 +444,7 @@
 
             <t>timeZone: <spanx style="verb">TimeZoneId</spanx> (optional)
             <vspace blankLines="1" />
-            A time zone for this location.
+            A time zone for this location.</t>
 
             <t>coordinates: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -1237,7 +1237,7 @@
         <section anchor="prop-timeZone" title="timeZone">
           <t>Type: <spanx style="verb">TimeZoneId|null</spanx> (optional, default: null).</t>
 
-          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezone" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
+          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (<xref target="prop-timeZones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
         </section>
 
         <section anchor="prop-timeZones" title="timeZones">
