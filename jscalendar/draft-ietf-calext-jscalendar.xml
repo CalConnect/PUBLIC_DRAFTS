@@ -118,6 +118,12 @@
       <section anchor="data-types" title="Data Types">
         <t>In addition to the standard JSON data types, the following data types are used in this specification:</t>
 
+        <section anchor="type-Id" title="Id">
+          <t>Where <spanx style="verb">Id</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> of at least 1 and a maximum of 255 octets in size, and it MUST only contain characters from the "URL and Filename Safe" base64url alphabet, as defined in Section 5 of <xref target="RFC4648" />, excluding the pad character (<spanx style="verb">=</spanx>). This means the allowed characters are the ASCII alphanumeric characters (<spanx style="verb">A-Za-z0-9</spanx>), hyphen (<spanx style="verb">-</spanx>), and underscore (<spanx style="verb">_</spanx>).</t>
+
+          <t>Unless otherwise specified, Ids are arbitrary and only have meaning within the object where they are being used. Ids need not be unique among different objects. For example, two JSEvent objects might use the same ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects. <vspace blankLines="1" /> Nevertheless, a UUID <xref target="RFC4122" /> is typically a good choice.</t>
+        </section>
+
         <section anchor="type-Int" title="Int">
           <t>Where <spanx style="verb">Int</spanx> is given as a data type, it means an integer in the range -2^53+1 &lt;= value &lt;= 2^53-1, the safe range for integers stored in a floating-point double, represented as a JSON <spanx style="verb">Number</spanx>.</t>
         </section>
@@ -192,11 +198,11 @@
           <t>A negative sign indicates a point in time at or before the associated time, a positive or no sign a time at or after the associated time.</t>
         </section>
 
-        <section anchor="type-Id" title="Id">
-          <t>Where <spanx style="verb">Id</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> of at least 1 and a maximum of 255 octets in size, and it MUST only contain characters from the "URL and Filename Safe" base64url alphabet, as defined in Section 5 of <xref target="RFC4648" />, excluding the pad character (<spanx style="verb">=</spanx>). This means the allowed characters are the ASCII alphanumeric characters (<spanx style="verb">A-Za-z0-9</spanx>), hyphen (<spanx style="verb">-</spanx>), and underscore (<spanx style="verb">_</spanx>).</t>
+        <section anchor="type-timeZoneId" title="TimeZoneId">
+          <t>Where <spanx style="verb">TimeZoneId</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> that is either a time zone name in the IANA Time Zone Database <xref target="TZDB" /> or a custom time zone identifier in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
 
-          <t>Unless otherwise specified, Ids are arbitrary and only have meaning within the object where they are being used. Ids need not be unique among different objects. For example, two JSEvent objects might use the same ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects. <vspace blankLines="1" /> Nevertheless, a UUID <xref target="RFC4122" /> is typically a good choice.</t>
-        </section>
+          <t>Where an IANA time zone is specified, the zone rules of the respective zone records apply. Custom time zones are interpreted as described in <xref target="prop-timeZones" />.</t>
+         </section>
 
         <section anchor="type-PatchObject" title="PatchObject">
           <t>A PatchObject is of type <spanx style="verb">String[*]</spanx>, and represents an unordered set of patches on a JSON object.
@@ -222,12 +228,6 @@
 
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
         </section>
-
-        <section anchor="type-timeZoneId" title="TimeZoneId">
-          <t>Where <spanx style="verb">TimeZoneId</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> that is either a time zone name in the IANA Time Zone Database <xref target="TZDB" /> or a custom time zone identifier in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
-
-          <t>Where an IANA time zone is specified, the zone rules of the respective zone records apply. Custom time zones are interpreted as described in <xref target="prop-timeZones" />.</t>
-         </section>
 
          <section anchor="type-Relation" title="Relation">
              <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, while the other object is the linked object. The Relation object has the following properties:</t>
