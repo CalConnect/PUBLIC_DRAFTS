@@ -223,11 +223,12 @@
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
         </section>
 
-        <section anchor="timezones" title="Time Zones">
-          <t>By default, time zones in JSCalendar are identified by their names in the IANA Time Zone Database <xref target="TZDB" />, and the zone rules of the respective zone records apply.</t>
+        <section anchor="type-timeZoneId" title="TimeZoneId">
+          <t>Where <spanx style="verb">TimeZoneId</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> that is either a time zone name in the IANA Time Zone Database <xref target="TZDB" /> or a custom time zone identifier in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
 
-          <t>Implementations MAY embed the definitions of custom time zones in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
+          <t>Where an IANA time zone is specified, the zone rules of the respective zone records apply. Custom time zones are interpreted as described in <xref target="prop-timeZones" />.</t>
          </section>
+
          <section anchor="type-Relation" title="Relation">
              <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, while the other object is the linked object. The Relation object has the following properties:</t>
              <t><list style="symbols">
@@ -441,9 +442,9 @@
               <t><spanx style="verb">end</spanx>: The event/task described by this JSCalendar object occurs at this location at the time the event/task ends.</t>
             </list></t>
 
-            <t>timeZone: <spanx style="verb">String</spanx> (optional)
+            <t>timeZone: <spanx style="verb">TimeZoneId</spanx> (optional)
             <vspace blankLines="1" />
-            A time zone for this location. See also <xref target="timezones" />.</t>
+            A time zone for this location.
 
             <t>coordinates: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -1234,13 +1235,13 @@
 
       <section anchor="timezone-props" title="Time Zone Properties">
         <section anchor="prop-timeZone" title="timeZone">
-          <t>Type: <spanx style="verb">String|null</spanx> (optional, default: null).</t>
+          <t>Type: <spanx style="verb">TimeZoneId|null</spanx> (optional, default: null).</t>
 
-          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
+          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (see <xref target="timezone" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
         </section>
 
         <section anchor="prop-timeZones" title="timeZones">
-          <t>Type: <spanx style="verb">String[TimeZone]</spanx> (optional).</t>
+          <t>Type: <spanx style="verb">TimeZoneId[TimeZone]</spanx> (optional).</t>
 
           <t>Maps identifiers of custom time zones to their time zone definitions. The following restrictions apply for each key in the map:
 
@@ -2373,12 +2374,12 @@
       <c><xref target="prop-status-jsevent"/></c>
 
       <c>timeZone</c>
-      <c>String|null</c>
+      <c>TimeZoneId|null</c>
       <c>JSEvent, JSTask, Location</c>
       <c><xref target="prop-timeZone"/>, <xref target="prop-locations"/></c>
 
       <c>timeZones</c>
-      <c>String[TimeZone]</c>
+      <c>TimeZoneId[TimeZone]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-timeZones"/></c>
 
@@ -2514,6 +2515,9 @@
 
       <c>TimeZone</c>
       <c><xref target="prop-timeZones"/></c>
+
+      <c>TimeZoneId</c>
+      <c><xref target="type-timeZoneId"/></c>
 
       <c>TimeZoneRule</c>
       <c><xref target="prop-timeZones"/></c>
