@@ -1569,7 +1569,7 @@
   "timeZone": "Europe/Berlin",
   "duration": "PT10H30M",
   "locations": {
-    "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+    "418d0b9b-b656-4b3c-909f-5b149ca779c9": {
       "@type": "Location",
       "rel": "start",
       "name": "Frankfurt Airport (FRA)"
@@ -1627,7 +1627,7 @@
     }
   },
   "virtualLocations": {
-    "6f3696c6-1e07-47d0-9ce1-f50014b0041a": {
+    "1": {
       "@type": "VirtualLocation",
       "name": "Free live Stream from Music Bowl",
       "uri": "https://stream.example.com/the_band_2020"
@@ -1658,7 +1658,7 @@
   "timeZone": "Europe/London",
   "duration": "PT1H30M",
   "locations": {
-    "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+    "0dfb8ace-aad1-4734-b3b4-a2fe3d6ae1c5": {
       "@type": "Location",
       "title": "Math lab room 1",
       "description": "Math Lab I, Department of Mathematics"
@@ -1681,7 +1681,7 @@
       "start": "2020-06-25T10:00:00",
       "duration": "PT2H",
       "locations": {
-        "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+        "84d639ca-37ac-4a86-81e5-9bbba8eb4053": {
           "@type": "Location",
           "title": "Big Auditorium",
           "description": "Big Auditorium, Other Road"
@@ -1706,7 +1706,7 @@
   "timeZone": "Africa/Johannesburg",
   "duration": "PT1H",
   "virtualLocations": {
-    "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
+    "3f41b47b-a5eb-494f-90eb-19d279486d84": {
       "@type": "VirtualLocation",
       "name": "ChatMe meeting room",
       "uri": "https://chatme.example.com?id=1234567"
