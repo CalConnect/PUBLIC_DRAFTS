@@ -1761,7 +1761,7 @@
     </section>
 
     <section anchor="security-considerations" title="Security Considerations">
-      <t>Calendaring and scheduling information is very privacy-sensitive. Its transmission must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and man-in-the-middle attacks.</t>
+      <t>Calendaring and scheduling information is very privacy-sensitive.  It can reveal the social network of a user; location information of this user and those in their social network; identity and credentials information; and the patterns of behavior of the user in both the physical and cyber realm. Additionally, calendar events and tasks can could influence the physical location of a user or their cyber behavior within a known time window.  It’s transmission and storage must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and on-path attacks.</t>
 
       <t>The data being stored and transmitted may be used in systems with real world consequences. For example, a home automation system may turn an alarm on and off. Or a coworking space may charge money to the organiser of an event that books one of their meeting rooms. Such systems must be careful to authenticate all data they receive to prevent them from being subverted.</t>
 
