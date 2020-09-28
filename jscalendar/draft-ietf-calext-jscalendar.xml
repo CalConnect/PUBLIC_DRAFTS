@@ -435,7 +435,7 @@
             <vspace blankLines="1" />
             Specifies the relation between this location and the time of the JSCalendar object. This is primarily to allow events representing travel to specify the location of departure (at the start of the event) and location of arrival (at the end); this is particularly important if these locations are in different time zones, as a client may wish to highlight this information for the user.
             <vspace blankLines="1" />
-            This MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
+            This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
             <list style="symbols">
               <t><spanx style="verb">start</spanx>: The event/task described by this JSCalendar object occurs at this location at the time the event/task starts.</t>
               <t><spanx style="verb">end</spanx>: The event/task described by this JSCalendar object occurs at this location at the time the event/task ends.</t>
@@ -524,7 +524,7 @@
 
             <t>display: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">badge</spanx>: an image meant to be displayed alongside the title of the object.</t>
@@ -890,7 +890,7 @@
 
         <section anchor="prop-freeBusyStatus" title="freeBusyStatus">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">busy</spanx>).</t>
-          <t>Specifies how this calendar object should be treated when calculating free-busy state. This MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+          <t>Specifies how this calendar object should be treated when calculating free-busy state. This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
           <list style="symbols">
             <t><spanx style="verb">free</spanx>: The object should be ignored when calculating whether the user is busy.</t>
@@ -906,7 +906,7 @@
 
           <t>This property MUST NOT affect the information sent to scheduled participants; it is only interpreted when the object is shared as part of a shared calendar.</t>
 
-          <t>The value MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value. Any value the client or server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">private</spanx>.
+          <t>The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value. Any value the client or server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">private</spanx>.
 
           <list style="symbols">
             <t><spanx style="verb">public</spanx>: The full details of the object are visible to those whom the object's calendar is shared with.</t>
@@ -994,7 +994,7 @@
             <vspace blankLines="1" />
             What kind of entity this participant is, if known.
             <vspace blankLines="1" />
-            This MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
+            This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
 
             <list style="symbols">
               <t><spanx style="verb">individual</spanx>: a single person</t>
@@ -1010,7 +1010,7 @@
             <vspace blankLines="1" />
             A set of roles that this participant fulfills.
             <vspace blankLines="1" />
-            At least one role MUST be specified for the participant. The keys in the set MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+            At least one role MUST be specified for the participant. The keys in the set MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">owner</spanx>: The participant is an owner of the object. This signifies they have permission to make changes to it that affect the other participants. Non-owner participants may only change properties that just affect themself (for example setting their own alerts or changing their rsvp status).</t>
@@ -1038,7 +1038,7 @@
             <vspace blankLines="1" />
             The participation status, if any, of this participant.
             <vspace blankLines="1" />
-            The value MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+            The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">needs-action</spanx>: No status yet set by the participant.</t>
@@ -1064,7 +1064,7 @@
             <vspace blankLines="1" />
             Who is responsible for sending scheduling messages with this calendar object to the participant.
             <vspace blankLines="1" />
-            The value MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+            The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
             <list style="symbols">
               <t><spanx style="verb">server</spanx>: The calendar server will send the scheduling messages.</t>
@@ -1348,7 +1348,7 @@
         <section anchor="prop-status-jsevent" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">confirmed</spanx>).</t>
 
-          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
           <list style="symbols">
             <t><spanx style="verb">confirmed</spanx>: Indicates the event is definitely happening.</t>
@@ -1398,7 +1398,7 @@
             <t><spanx style="verb">needs-action</spanx>: If none of the other criteria match.</t>
           </list></t>
 
-          <t>If set, it MUST be one of the following values, a value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
+          <t>If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Registry, or a vendor-specific value:
 
           <list style="symbols">
             <t><spanx style="verb">needs-action</spanx>: Indicates the task needs action.</t>
