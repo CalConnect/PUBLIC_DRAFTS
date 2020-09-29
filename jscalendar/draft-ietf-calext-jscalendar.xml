@@ -2145,7 +2145,7 @@
       <c>locale</c>
       <c>String</c>
       <c>JSGroup, JSEvent, JSTask</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="prop-locale"/></c>
 
       <c>localizations</c>
       <c>String[PatchObject]</c>
