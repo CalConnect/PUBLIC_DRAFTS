@@ -64,7 +64,7 @@
           <t>The attributes of the calendar entry represented must be described as simple key-value pairs. Simple events are simple to represent; complex events can be modelled accurately.</t>
           <t>Wherever possible, there should be only one way to express the desired semantics, reducing complexity.</t>
           <t>The data model should avoid ambiguities, which often lead to interoperability issues between implementations.</t>
-          <t>The data model should be compatible with the iCalendar data format <xref target="RFC5545" /> <xref target="RFC7986" /> and extensions, but the specification should add new attributes where the iCalendar format currently lacks expressivity, and drop seldom-used, obsolete, or redundant properties. This means translation with no loss of semantics should be easy with most common iCalendar files.</t>
+          <t>The data model should be generally compatible with the iCalendar data format <xref target="RFC5545" /> <xref target="RFC7986" /> and extensions, but the specification should add new attributes where the iCalendar format currently lacks expressivity, and drop seldom-used, obsolete, or redundant properties. This means translation with no loss of semantics should be easy with most common iCalendar files.</t>
           <t>Extensions, such as new properties and components, should not require updates to this document.</t>
         </list>
       </t>
@@ -121,7 +121,9 @@
         <section anchor="type-Id" title="Id">
           <t>Where <spanx style="verb">Id</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> of at least 1 and a maximum of 255 octets in size, and it MUST only contain characters from the "URL and Filename Safe" base64url alphabet, as defined in Section 5 of <xref target="RFC4648" />, excluding the pad character (<spanx style="verb">=</spanx>). This means the allowed characters are the ASCII alphanumeric characters (<spanx style="verb">A-Za-z0-9</spanx>), hyphen (<spanx style="verb">-</spanx>), and underscore (<spanx style="verb">_</spanx>).</t>
 
-          <t>Unless otherwise specified, Ids are arbitrary and only have meaning within the object where they are being used. Ids need not be unique among different objects. For example, two JSEvent objects might use the same ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects. <vspace blankLines="1" /> Nevertheless, a UUID <xref target="RFC4122" /> is typically a good choice.</t>
+          <t>In many places in JSCalendar a JSON map is used where the map keys are of type Id and the map values are all the same type of object. This construction represents an unordered set of objects, with the added advantage that each entry has a name (the corresponding map key). This allows for more concise patching of objects, and, when applicable, for the objects in question to be referenced from other objects within the JSCalendar object.</t>
+
+          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects. <vspace blankLines="1" /> Nevertheless, a UUID <xref target="RFC4122" /> is typically a good choice.</t>
         </section>
 
         <section anchor="type-Int" title="Int">
@@ -133,7 +135,7 @@
         </section>
 
         <section anchor="type-UTCDateTime" title="UTCDateTime">
-          <t>This is a string in <xref target="RFC3339" /> <spanx style="verb">date-time</spanx> format, with the further restrictions that any letters MUST be in uppercase, the time component MUST be included and the time offset MUST be the character <spanx style="verb">Z</spanx>. Fractional second values MUST NOT be included unless non-zero and MUST NOT have trailing zeros, to ensure there is only a single representation for each date-time. </t>
+          <t>This is a string in <xref target="RFC3339" /> <spanx style="verb">date-time</spanx> format, with the further restrictions that any letters MUST be in uppercase, and the time offset MUST be the character <spanx style="verb">Z</spanx>. Fractional second values MUST NOT be included unless non-zero and MUST NOT have trailing zeros, to ensure there is only a single representation for each date-time. </t>
 
           <t>For example <spanx style="verb">2010-10-10T10:10:10.003Z</spanx> is conformant, but <spanx style="verb">2010-10-10T10:10:10.000Z</spanx> is invalid and is correctly encoded as <spanx style="verb">2010-10-10T10:10:10Z</spanx>.</t>
         </section>
@@ -161,7 +163,7 @@
     dur-week    = 1*DIGIT "W"
     dur-cal     = (dur-week [dur-day] / dur-day)
 
-    duration    = "P" (dur-cal [dur-time] / dur-cal / dur-time)]]></artwork>
+    duration    = "P" (dur-cal [dur-time] / dur-time)]]></artwork>
           </figure>
 
           <t>In addition, the duration MUST NOT include fractional second values unless the fraction is non-zero. Fractional second values MUST NOT have trailing zeros, to ensure there is only a single representation for each duration.</t>
@@ -170,7 +172,7 @@
 
           <t>To add a duration to a LocalDateTime:
           <list style="numbers">
-              <t>Add any week or day components of the duration to the date.</t>
+              <t>Add any week or day components of the duration to the date. A week is always the same as 7 days.</t>
               <t>If a time zone applies to the LocalDateTime, convert it to a UTCDateTime following the semantics in <xref target="type-LocalDateTime" />.</t>
               <t>Add any hour, minute or second components of the duration (in absolute time).</t>
               <t>Convert the resulting UTCDateTime back to a LocalDateTime in the time zone that applies.</t>
@@ -240,14 +242,14 @@
                <vspace blankLines="1" />
                Describes how the linked object is related to the linking object. The relation is defined as a set of relation types. If empty, the relationship between the two objects is unspecified.
                <vspace blankLines="1" />
-               Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or a value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+               Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or a value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
                <list style="symbols">
                    <t><spanx style="verb">first</spanx>: The linked object is the first in a series the linking object is part of.</t>
                    <t><spanx style="verb">next</spanx>: The linked object is the next in a series the linking object is part of.</t>
                    <t><spanx style="verb">child</spanx>: The linked object is a subpart of the linking object.</t>
                    <t><spanx style="verb">parent</spanx>: The linking object is a subpart of the linked object.</t>
                </list>
-               The value for each key in the set MUST be true.</t>
+               The value for each key in the map MUST be true.</t>
             </list></t>
          </section>
       </section>
@@ -396,7 +398,7 @@
         <section anchor="prop-descriptionContentType" title="descriptionContentType">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">text/plain</spanx>).</t>
 
-          <t>Describes the media type <xref target="RFC6838" /> of the contents of the <spanx style="verb">description</spanx> property. Media types MUST be sub-types of type <spanx style="verb">text</spanx>, and SHOULD be <spanx style="verb">text/plain</spanx> or <spanx style="verb">text/html</spanx> <xref target="MIME" />. They MAY include parameters and the <spanx style="verb">charset</spanx> parameter value MUST be <spanx style="verb">utf-8</spanx>, if specified. Descriptions of type <spanx style="verb">text/html</spanx> MAY contain <spanx style="verb">cid</spanx> URLs <xref target="RFC2392" /> to reference links in the calendar object by use of the <spanx style="verb">cid</spanx> property of the Link object.</t>
+          <t>Describes the media type <xref target="RFC6838" /> of the contents of the <spanx style="verb">description</spanx> property. Media types MUST be sub-types of type <spanx style="verb">text</spanx>, and SHOULD be <spanx style="verb">text/plain</spanx> or <spanx style="verb">text/html</spanx> <xref target="MEDIATYPES" />. They MAY include parameters and the <spanx style="verb">charset</spanx> parameter value MUST be <spanx style="verb">utf-8</spanx>, if specified. Descriptions of type <spanx style="verb">text/html</spanx> MAY contain <spanx style="verb">cid</spanx> URLs <xref target="RFC2392" /> to reference links in the calendar object by use of the <spanx style="verb">cid</spanx> property of the Link object.</t>
         </section>
 
         <section anchor="prop-showWithoutTime" title="showWithoutTime">
@@ -436,7 +438,7 @@
             <vspace blankLines="1" />
             Specifies the relation between this location and the time of the JSCalendar object. This is primarily to allow events representing travel to specify the location of departure (at the start of the event) and location of arrival (at the end); this is particularly important if these locations are in different time zones, as a client may wish to highlight this information for the user.
             <vspace blankLines="1" />
-            This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
+            This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />). Any value the client or server doesn't understand should be treated the same as if this property is omitted.
             <list style="symbols">
               <t><spanx style="verb">start</spanx>: The event/task described by this JSCalendar object occurs at this location at the time the event/task starts.</t>
               <t><spanx style="verb">end</spanx>: The event/task described by this JSCalendar object occurs at this location at the time the event/task ends.</t>
@@ -452,7 +454,7 @@
 
             <t>linkIds: <spanx style="verb">Id[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of link ids for links to alternative representations of this location. Each key in the set MUST be the id of a Link object defined in the <spanx style="verb">links</spanx> property of this calendar object. The value for each key in the set MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).
+            A set of link ids for links to alternative representations of this location. Each key in the set MUST be the id of a Link object defined in the <spanx style="verb">links</spanx> property of this calendar object. The value for each key in the map MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).
             <vspace blankLines="1" />
             For example, an alternative representation could be in vCard format.</t>
           </list></t>
@@ -461,7 +463,7 @@
         <section anchor="prop-virtualLocations" title="virtualLocations">
           <t>Type: <spanx style="verb">Id[VirtualLocation]</spanx> (optional).</t>
 
-          <t>A map of ids to VirtualLocation objects, representing virtual locations, such as video conferences or chat rooms, associated with the object.</t>
+          <t>A map of virtual location ids to VirtualLocation objects, representing virtual locations, such as video conferences or chat rooms, associated with the object.</t>
 
           <t>A VirtualLocation object has the following properties.</t>
           <t><list style="symbols">
@@ -480,7 +482,7 @@
             <vspace blankLines="1" />
             A URI <xref target="RFC3986" /> that represents how to connect to this virtual location.
             <vspace blankLines="1" />
-            This may be a telephone number (represented using the <spanx style="verb">tel:</spanx> scheme, e.g., <spanx style="verb">tel:+1-555-555-555</spanx>) for a teleconference, a web address for online chat, or any custom URI.</t>
+            This may be a telephone number (represented using the <spanx style="verb">tel:</spanx> scheme, e.g., <spanx style="verb">tel:+1-555-555-5555</spanx>) for a teleconference, a web address for online chat, or any custom URI.</t>
           </list></t>
         </section>
 
@@ -525,7 +527,7 @@
 
             <t>display: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
-            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
             <list style="symbols">
               <t><spanx style="verb">badge</spanx>: an image meant to be displayed alongside the title of the object.</t>
@@ -630,7 +632,7 @@
 
             <t>rscale: <spanx style="verb">String</spanx> (optional, default: "gregorian")
             <vspace blankLines="1" />
-            The calendar system in which this recurrence rule operates, in lowercase. This MUST be either a CLDR-registered calendar system name <xref target="CLDR" />, or a vendor-specific value.
+            The calendar system in which this recurrence rule operates, in lowercase. This MUST be either a CLDR-registered calendar system name <xref target="CLDR" />, or a vendor-specific value (see <xref target="custom-properties" />).
             <vspace blankLines="1" />
             This is the RSCALE part from iCalendar <xref target="RFC7529">RSCALE</xref>, converted to lowercase.</t>
 
@@ -766,7 +768,7 @@
                 <t><spanx style="verb">secondly</spanx>: the second itself, only.</t>
               </list></t>
 
-              <t>Each date-time candidate is compared against all of the byX properties of the rule except bySetPosition. If any property in the rule does not match the date-time, it is eliminated. Each byX property is an array; the date-time matches the property if it matches any of the values in the array. The properties have the following semantics:
+              <t>Each date-time candidate is compared against all of the byX properties of the rule except bySetPosition. If any property in the rule does not match the date-time, the date-time is eliminated. Each byX property is an array; the date-time matches the property if it matches any of the values in the array. The properties have the following semantics:
 
               <list style="symbols">
                 <t>byMonth: the date-time is in the given month.</t>
@@ -854,7 +856,7 @@
 
           <t>If the recurrence id does not match a date-time from the recurrence rule (or no rule is specified), it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often be empty in this case.</t>
 
-          <t>If the patch object defines the <spanx style="verb">excluded</spanx> property value to be true, then the recurring calendar object does not occur at the recurrence id date-time (like an EXDATE from iCalendar). Such a patch object MUST NOT patch any other property.</t>
+          <t>If the patch object defines the <spanx style="verb">excluded</spanx> property of an occurrence to be true, this occurrence is omitted from the final set of recurrences for the calendar object (like an EXDATE from iCalendar). Such a patch object MUST NOT patch any other property.</t>
 
           <t>By default, an occurrence inherits all properties from the main object except the start (or due) date-time, which is shifted to match the recurrence id LocalDateTime. However, individual properties of the occurrence can be modified by a patch, or multiple patches. It is valid to patch the <spanx style="verb">start</spanx> property value, and this patch takes precedence over the value generated from the recurrence id. Both the recurrence id as well as the patched <spanx style="verb">start</spanx> date-time may occur before the original JSCalendar object's <spanx style="verb">start</spanx> or <spanx style="verb">due</spanx> date.</t>
 
@@ -862,6 +864,7 @@
 
           <list style="symbols">
             <t>@type</t>
+            <t>excludedRecurrenceRules</t>
             <t>method</t>
             <t>privacy</t>
             <t>prodId</t>
@@ -877,7 +880,7 @@
         <section anchor="prop-excluded" title="excluded">
           <t>Type: <spanx style="verb">Boolean</spanx> (optional, default: false).</t>
 
-          <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property or its default value false indicates that this instance MUST be included in the occurrence expansion.</t>
+          <t>Defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" />). If this property value is true, this calendar object instance MUST be removed from the occurrence expansion. The absence of this property, or the presence of its default value false, indicates that this instance MUST be included in the occurrence expansion.</t>
         </section>
       </section>
 
@@ -891,7 +894,7 @@
 
         <section anchor="prop-freeBusyStatus" title="freeBusyStatus">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">busy</spanx>).</t>
-          <t>Specifies how this calendar object should be treated when calculating free-busy state. This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+          <t>Specifies how this calendar object should be treated when calculating free-busy state. This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
           <list style="symbols">
             <t><spanx style="verb">free</spanx>: The object should be ignored when calculating whether the user is busy.</t>
@@ -905,9 +908,9 @@
 
           <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared, or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property are up to the API via which this object is accessed.</t>
 
-          <t>This property MUST NOT affect the information sent to scheduled participants; it is only interpreted when the object is shared as part of a shared calendar.</t>
+          <t>This property MUST NOT affect the information sent to scheduled participants; it is only interpreted by protocols that share the calendar objects belonging to one user with other users.</t>
 
-          <t>The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value. Any value the client or server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">private</spanx>.
+          <t>The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />). Any value the client or server doesn't understand should be preserved but treated as equivalent to <spanx style="verb">private</spanx>.
 
           <list style="symbols">
             <t><spanx style="verb">public</spanx>: The full details of the object are visible to those whom the object's calendar is shared with.</t>
@@ -939,14 +942,14 @@
         <section anchor="prop-replyTo" title="replyTo">
           <t>Type: <spanx style="verb">String[String]</spanx> (optional).</t>
 
-          <t>Represents methods by which participants may submit their RSVP response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the key. Future methods may be defined in future specifications and registered with IANA; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than being specified as an empty object).</t>
+          <t>Represents methods by which participants may submit their response to the organizer of the calendar object. The keys in the property value are the available methods and MUST only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the key. Future methods may be defined in future specifications and registered with IANA; a calendar client MUST ignore any method it does not understand, but MUST preserve the method key and URI. This property MUST be omitted if no method is defined (rather than being specified as an empty object).</t>
 
           <t>The following methods are defined:
 
           <list style="symbols">
             <t><spanx style="verb">imip</spanx>: The organizer accepts an iMIP <xref target="RFC6047" /> response at this email address. The value MUST be a <spanx style="verb">mailto:</spanx> URI.</t>
 
-            <t><spanx style="verb">web</spanx>: Opening this URI in a web browser will provide the user with a page where they can submit a reply to the organizer. The value MUST be a URL using the <spanx style="verb">http:</spanx> or <spanx style="verb">https:</spanx> scheme.</t>
+            <t><spanx style="verb">web</spanx>: Opening this URI in a web browser will provide the user with a page where they can submit a reply to the organizer. The value MUST be a URL using the <spanx style="verb">https:</spanx> scheme.</t>
 
             <t><spanx style="verb">other</spanx>: The organizer is identified by this URI but the method for submitting the response is undefined.</t>
             </list></t>
@@ -995,7 +998,7 @@
             <vspace blankLines="1" />
             What kind of entity this participant is, if known.
             <vspace blankLines="1" />
-            This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value. Any value the client or server doesn't understand should be treated the same as if this property is omitted.
+            This MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />). Any value the client or server doesn't understand should be treated the same as if this property is omitted.
 
             <list style="symbols">
               <t><spanx style="verb">individual</spanx>: a single person</t>
@@ -1011,7 +1014,7 @@
             <vspace blankLines="1" />
             A set of roles that this participant fulfills.
             <vspace blankLines="1" />
-            At least one role MUST be specified for the participant. The keys in the set MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+            At least one role MUST be specified for the participant. The keys in the set MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
             <list style="symbols">
               <t><spanx style="verb">owner</spanx>: The participant is an owner of the object. This signifies they have permission to make changes to it that affect the other participants. Non-owner participants may only change properties that just affect themselves (for example setting their own alerts or changing their rsvp status).</t>
@@ -1022,7 +1025,7 @@
               <t><spanx style="verb">contact</spanx>: The participant is someone that may be contacted for information about the event.</t>
             </list>
 
-            The value for each key in the set MUST be true. It is expected that no more than one of the roles "attendee" and "informational" be present; if more than one are given, "attendee" takes precedence over "informational". Roles that are unknown to the implementation MUST be preserved.</t>
+            The value for each key in the map MUST be true. It is expected that no more than one of the roles "attendee" and "informational" be present; if more than one are given, "attendee" takes precedence over "informational". Roles that are unknown to the implementation MUST be preserved.</t>
 
             <t>locationId: <spanx style="verb">String</spanx> (optional)
             <vspace blankLines="1" />
@@ -1039,7 +1042,7 @@
             <vspace blankLines="1" />
             The participation status, if any, of this participant.
             <vspace blankLines="1" />
-            The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+            The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
             <list style="symbols">
               <t><spanx style="verb">needs-action</spanx>: No status yet set by the participant.</t>
@@ -1065,7 +1068,7 @@
             <vspace blankLines="1" />
             Who is responsible for sending scheduling messages with this calendar object to the participant.
             <vspace blankLines="1" />
-            The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+            The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
             <list style="symbols">
               <t><spanx style="verb">server</spanx>: The calendar server will send the scheduling messages.</t>
@@ -1083,7 +1086,7 @@
             <vspace blankLines="1" />
             The sequence number of the last response from the participant. If defined, this MUST be a non-negative integer.
             <vspace blankLines="1" />
-            This can be used to determine whether the participant has sent a new RSVP following significant changes to the calendar object, and to determine if future responses are responding to a current or older view of the data.</t>
+            This can be used to determine whether the participant has sent a new response following significant changes to the calendar object, and to determine if future responses are responding to a current or older view of the data.</t>
 
             <t>scheduleStatus: <spanx style="verb">String[]</spanx> (optional)
             <vspace blankLines="1" />
@@ -1105,19 +1108,19 @@
 
             <t>delegatedTo: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of participant ids that this participant has delegated their participation to. Each key in the set MUST be the id of a participant. The value for each key in the set MUST be true. If there are no delegates, this MUST be omitted (rather than specified as an empty set).</t>
+            A set of participant ids that this participant has delegated their participation to. Each key in the set MUST be the id of a participant. The value for each key in the map MUST be true. If there are no delegates, this MUST be omitted (rather than specified as an empty set).</t>
 
             <t>delegatedFrom: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of participant ids that this participant is acting as a delegate for. Each key in the set MUST be the id of a participant. The value for each key in the set MUST be true. If there are no delegators, this MUST be omitted (rather than specified as an empty set).</t>
+            A set of participant ids that this participant is acting as a delegate for. Each key in the set MUST be the id of a participant. The value for each key in the map MUST be true. If there are no delegators, this MUST be omitted (rather than specified as an empty set).</t>
 
             <t>memberOf: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of group participants that were invited to this calendar object, which caused this participant to be invited due to their membership in the group(s). Each key in the set MUST be the id of a participant. The value for each key in the set MUST be true. If there are no groups, this MUST be omitted (rather than specified as an empty set).</t>
+            A set of group participants that were invited to this calendar object, which caused this participant to be invited due to their membership in the group(s). Each key in the set MUST be the id of a participant. The value for each key in the map MUST be true. If there are no groups, this MUST be omitted (rather than specified as an empty set).</t>
 
             <t>linkIds: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of links to more information about this participant, for example in vCard format. The keys in the set MUST be the id of a Link object in the calendar object's <spanx style="verb">links</spanx> property. The value for each key in the set MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
+            A set of links to more information about this participant, for example in vCard format. The keys in the set MUST be the id of a Link object in the calendar object's <spanx style="verb">links</spanx> property. The value for each key in the map MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
 
              <t>progress: <spanx style="verb">String</spanx> (optional; only allowed for participants of a JSTask). Represents the progress of the participant for this task. It MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
 
@@ -1188,7 +1191,7 @@
             <vspace blankLines="1" />
             This records when an alert was last acknowledged. This is set when the user has dismissed the alert; other clients that sync this property SHOULD automatically dismiss or suppress duplicate alerts (alerts with the same alert id that triggered on or before this date-time).
             <vspace blankLines="1" />
-            For a recurring calendar object, the <spanx style="verb">acknowledged</spanx> property of the parent object MUST be updated, unless the alert is already overridden in the <spanx style="verb">recurrenceOverrides</spanx> property.
+            For a recurring calendar object, setting the <spanx style="verb">acknowledged</spanx> property MUST NOT add a new override to the <spanx style="verb">recurrenceOverrides</spanx> property. If the alert is not already overridden, the acknowledged property MUST be set on the alert in the master event/task.
             <vspace blankLines="1" />
             Certain kinds of alert action may not provide feedback as to when the user sees them, for example email based alerts. For those kinds of alerts, this property MUST be set immediately when the alert is triggered and the action successfully carried out.</t>
 
@@ -1200,7 +1203,7 @@
             <vspace blankLines="1" />
             Describes how to alert the user.
             <vspace blankLines="1" />
-            The value MUST be at most one of the following values, a value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+            The value MUST be at most one of the following values, a value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
             <list style="symbols">
               <t><spanx style="verb">display</spanx>: The alert should be displayed as appropriate for the current device and user context.</t>
@@ -1280,7 +1283,7 @@
 
             <t>aliases: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the TZID-ALIAS-OF properties from iCalendar specified in <xref target="RFC7808" /> to a JSON set of aliases. The set is represented as an object, with the keys being the aliases. The value for each key in the set MUST be true.</t>
+            Maps the TZID-ALIAS-OF properties from iCalendar specified in <xref target="RFC7808" /> to a JSON set of aliases. The set is represented as an object, with the keys being the aliases. The value for each key in the map MUST be true.</t>
 
             <t>standard: <spanx style="verb">TimeZoneRule[]</spanx> (optional)
             <vspace blankLines="1" />
@@ -1316,11 +1319,11 @@
 
             <t>recurrenceOverrides: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the RDATE properties from iCalendar. The set is represented as an object, with the keys being the recurrence dates. The patch object MUST be empty.</t>
+            Maps the RDATE properties from iCalendar. The set is represented as an object, with the keys being the recurrence dates. The patch object MUST be the empty JSON object ({}).</t>
 
             <t>names: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the names. The value for each key in the set MUST be true.</t>
+            Maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the names. The value for each key in the map MUST be true.</t>
 
             <t>comments: <spanx style="verb">String[]</spanx> (optional). Maps the COMMENT properties from iCalendar. The order MUST be preserved during conversion.</t>
           </list></t>
@@ -1341,7 +1344,7 @@
         <section anchor="prop-duration" title="duration">
           <t>Type: <spanx style="verb">Duration</spanx> (optional, default: <spanx style="verb">PT0S</spanx>).</t>
 
-          <t>The zero or positive duration of the event in the event's start time zone.</t>
+          <t>The zero or positive duration of the event in the event's start time zone. The end time of an event can be found by adding the duration to the event's start time.</t>
 
           <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g., a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="prop-locations" />).</t>
         </section>
@@ -1349,7 +1352,7 @@
         <section anchor="prop-status-jsevent" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">confirmed</spanx>).</t>
 
-          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
           <list style="symbols">
             <t><spanx style="verb">confirmed</spanx>: Indicates the event is definitely happening.</t>
@@ -1399,7 +1402,7 @@
             <t><spanx style="verb">needs-action</spanx>: If none of the other criteria match.</t>
           </list></t>
 
-          <t>If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value:
+          <t>If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
           <list style="symbols">
             <t><spanx style="verb">needs-action</spanx>: Indicates the task needs action.</t>
@@ -1423,19 +1426,19 @@
         <t>JSGroup supports the following common <xref target="jscalendar-props">JSCalendar properties</xref>:
         <list style="symbols">
           <t>@type</t>
-          <t>categories</t>
-          <t>color</t>
+          <t>uid</t>
+          <t>prodId</t>
           <t>created</t>
+          <t>updated</t>
+          <t>title</t>
           <t>description</t>
           <t>descriptionContentType</t>
-          <t>keywords</t>
           <t>links</t>
           <t>locale</t>
-          <t>prodId</t>
+          <t>keywords</t>
+          <t>categories</t>
+          <t>color</t>
           <t>timeZones</t>
-          <t>title</t>
-          <t>updated</t>
-          <t>uid</t>
         </list>
 
         In addition, the following JSGroup-specific properties are supported:</t>
@@ -1465,8 +1468,8 @@
           <artwork><![CDATA[
 {
   "@type": "jsevent",
-  "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
-  "updated": "2020-01-15T18:00:00Z",
+  "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
+  "updated": "2020-01-02T18:23:04Z",
   "title": "Some event",
   "start": "2020-01-15T13:00:00",
   "timeZone": "America/New_York",
@@ -1484,7 +1487,7 @@
 {
   "@type": "jstask",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
-  "updated": "2020-01-15T18:00:00Z",
+  "updated": "2020-01-09T14:32:01Z",
   "title": "Do something"
 }
           ]]></artwork>
@@ -1498,13 +1501,13 @@
           <artwork><![CDATA[
 {
   "@type": "jsgroup",
-  "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
+  "uid": "bf0ac22b-4989-4caf-9ebd-54301b4ee51a",
   "updated": "2020-01-15T18:00:00Z",
   "name": "A simple group",
   "entries": [{
     "@type": "jsevent",
-    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
-    "updated": "2020-01-15T18:00:00Z",
+    "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
+    "updated": "2020-01-02T18:23:04Z",
     "title": "Some event",
     "start": "2020-01-15T13:00:00",
     "timeZone": "America/New_York",
@@ -1513,7 +1516,7 @@
   {
     "@type": "jstask",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
-    "updated": "2020-01-15T18:00:00Z",
+    "updated": "2020-01-09T14:32:01Z",
     "title": "Do something"
   }]
 }
@@ -1709,7 +1712,7 @@
     "3f41b47b-a5eb-494f-90eb-19d279486d84": {
       "@type": "VirtualLocation",
       "name": "ChatMe meeting room",
-      "uri": "https://chatme.example.com?id=1234567"
+      "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d396e"
     }
   },
   "recurrenceRules": [{
@@ -1717,7 +1720,7 @@
     "frequency": "weekly"
   }],
   "replyTo": {
-    "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
+    "imip": "mailto:f245f875-7f63-4a5e-a2c8@schedule.example.com"
   },
   "participants": {
     "dG9tQGZvb2Jhci5xlLmNvbQ": {
@@ -1725,7 +1728,7 @@
       "name": "Tom Tool",
       "email": "tom@foobar.example.com",
       "sendTo": {
-        "imip": "mailto:6489-4f14-a57f-c1@calendar.example.com"
+        "imip": "mailto:tom@calendar.example.com"
       },
       "participationStatus": "accepted",
       "roles": {
@@ -1745,8 +1748,7 @@
         "attendee": true,
         "chair": true
       }
-    },
-    "...": ""
+    }
   },
   "recurrenceOverrides": {
     "2020-03-04T09:00:00": {
@@ -1764,7 +1766,7 @@
     <section anchor="security-considerations" title="Security Considerations">
       <t>Calendaring and scheduling information is very privacy-sensitive.  It can reveal the social network of a user; location information of this user and those in their social network; identity and credentials information; and the patterns of behavior of the user in both the physical and cyber realm. Additionally, calendar events and tasks can could influence the physical location of a user or their cyber behavior within a known time window.  It’s transmission and storage must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and on-path attacks.</t>
 
-      <t>The data being stored and transmitted may be used in systems with real world consequences. For example, a home automation system may turn an alarm on and off. Or a coworking space may charge money to the organiser of an event that books one of their meeting rooms. Such systems must be careful to authenticate all data they receive to prevent them from being subverted.</t>
+      <t>The data being stored and transmitted may be used in systems with real world consequences. For example, a home automation system may turn an alarm on and off. Or a coworking space may charge money to the organiser of an event that books one of their meeting rooms. Such systems must be careful to authenticate all data they receive to prevent them from being subverted, and ensure the change comes from an authorized entity.</t>
 
       <t>This document just defines the data format; such considerations are primarily the concern of the API or method of storage and transmission of such files.</t>
 
@@ -1786,16 +1788,18 @@
 
       <section anchor="uri-values" title="URI Values">
         <t>Several JSCalendar properties contain URIs as values, and processing these properties requires extra care. Section 7 of <xref target="RFC3986" /> discusses security risks related to URIs.</t>
+        <t>Fetching remote resources carries inherent risks. Connections must only be allowed on well known ports, using allowed protocols (generally just HTTP/HTTPS on their default ports). The URL must be resolved externally and not allowed to access internal resources. Connecting to an external source reveals IP (and therefore generally location) information.</t>
         <t>A maliciously constructed JSCalendar object may contain a very large number of URIs. In the case of published calendars with a large number of subscribers, such objects could be widely distributed. Implementations should be careful to limit the automatic fetching of linked resources to reduce the risk of this being an amplification vector for a denial-of-service attack.</t>
       </section>
 
       <section anchor="spam" title="Spam">
         <t>Calendar systems may receive JSCalendar files from untrusted sources, in particular as attachments to emails. This can be a vector for an attacker to inject spam into a user's calendar. This may confuse, annoy, and mislead users, or overwhelm their calendar with bogus events, preventing them from seeing legitimate ones.</t>
-        <t>Heuristic, statistical or machine-learning-based filters can be effective in filtering out spam. Authentication mechanisms such as DKIM <xref target="RFC6376" /> can help establish the source of messages and associate the data with existing relationships (such as an address book contact). Misclassifications are always possible however, and providing a feedback mechanism for users to quickly correct this is advised.</t>
+        <t>Heuristic, statistical or machine-learning-based filters can be effective in filtering out spam. Authentication mechanisms such as DKIM <xref target="RFC6376" /> can help establish the source of messages and associate the data with existing relationships (such as an address book contact). Misclassifications are always possible, however, and providing a mechanism for users to quickly correct this is advised.</t>
+        <t>Confusable unicode characters may be used to trick a user into trusting a JSCalendar file that appears to come from a known contact but is actually from a similar-looking source controlled by an attacker.</t>
       </section>
 
       <section anchor="duplication" title="Duplication">
-        <t>It is important for calendar systems to maintain the UID of an event when updating it to avoid unexpected duplication of events. When the UID changes, consumers of the data may not remove the previous version of the event if it has a different UID. This can lead to a confusing situation for the user, with many variations of the event and no indication of which one is correct. Care must be taken by consumers of the data to remove old events where possible to avoid an accidental denial-of-service attack due to the volume of data.</t>
+        <t>It is important for calendar systems to maintain the UID of an event when updating it to avoid unexpected duplication of events. Consumers of the data may not remove the previous version of the event if it has a different UID. This can lead to a confusing situation for the user, with many variations of the event and no indication of which one is correct. Care must be taken by consumers of the data to remove old events where possible to avoid an accidental denial-of-service attack due to the volume of data.</t>
       </section>
 
       <section anchor="timezonesec" title="Time Zones">
@@ -1818,7 +1822,7 @@
     <t hangText="Encoding considerations:">
         Same as encoding considerations of application/json as specified in <xref target="RFC8259">RFC8529, Section 11</xref>.</t>
     <t hangText="Security considerations:"> See <xref target="security-considerations" /> of this document.</t>
-    <t hangText="Interoperability considerations:">This media type provides an alternative to iCalendar, jCal and proprietary JSON-based calendaring data formats.</t>
+    <t hangText="Interoperability considerations:">While JSCalendar is designed to avoid ambiguities as much as possible, when converting objects from other calendar formats to/from JSCalendar it is possible that differing representations for the same logical data might arise, or ambiguities in interpretation. The semantic equivalence of two JSCalendar objects may be determined differently by different applications, for example where URL values differ in case between the two objects.</t>
     <t hangText="Published specification:">This specification.</t>
     <t hangText="Applications that use this media type:">Applications that currently make use of the text/calendar and application/calendar+json media types can use this as an alternative. Similarly, applications that use the application/json media type to transfer calendaring data can use this to further specify the content.</t>
     <t hangText="Fragment identifier considerations:">N/A</t>
@@ -1848,7 +1852,7 @@
 
   <t>An <spanx style="verb">obsolete</spanx> registration denotes a property that is no longer expected to be added by up-to-date systems. A new property has probably been defined covering the obsolete property's semantics.</t>
 
-  <t>The JSCalendar property registration procedure is not a formal standards process but rather an administrative procedure intended to allow community comment and sanity checking without excessive time delay. It is designed to encourage vendors to document and register new properties they add for use cases not covered by the original standard, leading to increased interoperability.</t>
+  <t>The JSCalendar property registration procedure is not a formal standards process but rather an administrative procedure intended to allow community comment and sanity checking without excessive time delay. It is designed to encourage vendors to document and register new properties they add for use cases not covered by the original specification, leading to increased interoperability.</t>
 
   <section anchor="iana-property-registry-preliminary-community-review" title="Preliminary Community Review">
     <t>Notice of a potential new registration SHOULD be sent to the Calext mailing list &lt;calsify@ietf.org&gt; for review. This mailing list is appropriate to solicit community feedback on a proposed new property.</t>
@@ -1880,7 +1884,7 @@
 
   <section anchor="iana-property-registry-template" title="JSCalendar Properties Registry Template">
     <t><list style="symbols">
-      <t>Property Name: The name of the property. The property name MUST NOT already be registered for any of the object types listed in the "Property Context" field of this registration. Other object types MAY already have registered a different property with the same name.</t>
+      <t>Property Name: The name of the property. The property name MUST NOT already be registered for any of the object types listed in the "Property Context" field of this registration. Other object types MAY already have registered a different property with the same name, however the same name SHOULD only be used when the semantics are analogous.</t>
       <t>Property Type: The type of this property, using type signatures as specified in <xref target="type-signatures"/>. The property type MUST be registed in the Type Registry.</t>
       <t>Property Context: A comma-separated list of JSCalendar object types this property is allowed on.</t>
       <t>Reference or Description: A brief description or RFC number and section reference where the property is specified (omitted for "reserved" property names).</t>
@@ -2806,15 +2810,20 @@
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4122.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4589.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7493.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
+      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
@@ -2842,13 +2851,8 @@
       </reference>
     </references>
     <references title="Informative References">
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4122.xml"?>
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6376.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7529.xml"?>
-      <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7808.xml"?>
       <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
       <reference anchor="LOCATIONTYPES" target="https://www.iana.org/assignments/location-type-registry/location-type-registry.xhtml">
         <front>
@@ -2864,7 +2868,7 @@
           <date />
         </front>
       </reference>
-      <reference anchor="MIME" target="https://www.iana.org/assignments/media-types/media-types.xhtml">
+      <reference anchor="MEDIATYPES" target="https://www.iana.org/assignments/media-types/media-types.xhtml">
         <front>
           <title>IANA Media Types</title>
           <author />
