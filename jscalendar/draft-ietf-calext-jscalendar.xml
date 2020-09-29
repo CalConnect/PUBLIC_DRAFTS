@@ -231,27 +231,75 @@
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
         </section>
 
-         <section anchor="type-Relation" title="Relation">
-             <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, while the other object is the linked object. The Relation object has the following properties:</t>
-             <t><list style="symbols">
-               <t>@type: <spanx style="verb">String</spanx> (mandatory)
-                   <vspace blankLines="1" />
-                   Specifies the type of this object. This MUST be <spanx style="verb">Relation</spanx>.
-               </t>
-               <t>relation: <spanx style="verb">String[Boolean]</spanx> (optional, default: empty Object)
+        <section anchor="type-Relation" title="Relation">
+          <t>A Relation object defines the relation to other objects, using a possibly empty set of relation types. The object that defines this relation is the linking object, while the other object is the linked object. A Relation object has the following properties:</t>
+          <t><list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
                <vspace blankLines="1" />
-               Describes how the linked object is related to the linking object. The relation is defined as a set of relation types. If empty, the relationship between the two objects is unspecified.
-               <vspace blankLines="1" />
-               Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or a value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
-               <list style="symbols">
-                   <t><spanx style="verb">first</spanx>: The linked object is the first in a series the linking object is part of.</t>
-                   <t><spanx style="verb">next</spanx>: The linked object is the next in a series the linking object is part of.</t>
-                   <t><spanx style="verb">child</spanx>: The linked object is a subpart of the linking object.</t>
-                   <t><spanx style="verb">parent</spanx>: The linking object is a subpart of the linked object.</t>
-               </list>
-               The value for each key in the map MUST be true.</t>
+               Specifies the type of this object. This MUST be <spanx style="verb">Relation</spanx>.
+            </t>
+            <t>relation: <spanx style="verb">String[Boolean]</spanx> (optional, default: empty Object)
+            <vspace blankLines="1" />
+            Describes how the linked object is related to the linking object. The relation is defined as a set of relation types. If empty, the relationship between the two objects is unspecified.
+            <vspace blankLines="1" />
+            Keys in the set MUST be one of the following values, or specified in the property definition where the Relation object is used, or a value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
+            <list style="symbols">
+              <t><spanx style="verb">first</spanx>: The linked object is the first in a series the linking object is part of.</t>
+              <t><spanx style="verb">next</spanx>: The linked object is the next in a series the linking object is part of.</t>
+              <t><spanx style="verb">child</spanx>: The linked object is a subpart of the linking object.</t>
+              <t><spanx style="verb">parent</spanx>: The linking object is a subpart of the linked object.</t>
+            </list>
+          The value for each key in the map MUST be true.</t>
+          </list></t>
+        </section>
+        <section anchor="type-Link" title="Link">
+          <t>A Link object represents an external resource associated with the linking object. It has the following properties:</t>
+
+          <t><list style="symbols">
+            <t>@type: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            Specifies the type of this object. This MUST be <spanx style="verb">Link</spanx>.</t>
+            <t>href: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            A URI <xref target="RFC3986" /> from which the resource may be fetched.
+            <vspace blankLines="1" />
+            This MAY be a <spanx style="verb">data:</spanx> URL <xref target="RFC2397" />, but it is recommended that the file be hosted on a server to avoid embedding arbitrarily large data in JSCalendar object instances.</t>
+
+            <t>cid: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            This MUST be a valid <spanx style="verb">content-id</spanx> value according to the definition of Section 2 in <xref target="RFC2392" />. The value MUST be unique within this Link object but has no meaning beyond that. It MAY be different from the link id for this Link object.</t>
+
+            <t>contentType: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            The media type <xref target="RFC6838" /> of the resource, if known.</t>
+
+            <t>size: <spanx style="verb">UnsignedInt</spanx> (optional)
+            <vspace blankLines="1" />
+            The size, in octets, of the resource when fully decoded (i.e., the number of octets in the file the user would download), if known. Note that this is an informational estimate, and implementations must be prepared to handle the actual size being quite different when the resource is fetched.</t>
+
+            <t>rel: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            Identifies the relation of the linked resource to the object. If set, the value MUST be a relation type from the IANA registry <xref target="LINKRELS" />, as established in <xref target="RFC8288" />.</t>
+
+            <t>display: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
+
+            <list style="symbols">
+              <t><spanx style="verb">badge</spanx>: an image meant to be displayed alongside the title of the object.</t>
+
+              <t><spanx style="verb">graphic</spanx>: a full image replacement for the object itself.</t>
+
+              <t><spanx style="verb">fullsize</spanx>: an image that is used to enhance the object.</t>
+
+              <t><spanx style="verb">thumbnail</spanx>: a smaller variant of <spanx style="verb">fullsize</spanx> to be used when space for the image is constrained.</t>
             </list></t>
-         </section>
+
+            <t>title: <spanx style="verb">String</spanx> (optional)
+            <vspace blankLines="1" />
+            A human-readable plain-text description of the resource.</t>
+          </list></t>
+        </section>
       </section>
     </section>
 
@@ -452,11 +500,10 @@
             <vspace blankLines="1" />
             A <spanx style="verb">geo:</spanx> URI <xref target="RFC5870" /> for the location.</t>
 
-            <t>linkIds: <spanx style="verb">Id[Boolean]</spanx> (optional)
+            <t>links: <spanx style="verb">Id[Link]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of link ids for links to alternative representations of this location. Each key in the set MUST be the id of a Link object defined in the <spanx style="verb">links</spanx> property of this calendar object. The value for each key in the map MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).
-            <vspace blankLines="1" />
-            For example, an alternative representation could be in vCard format.</t>
+            A map of link ids to Link objects, representing external resources associated with this location, for example a vCard or image.
+            If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
           </list></t>
         </section>
 
@@ -491,58 +538,11 @@
 
           <t>A map of link ids to Link objects, representing external resources associated with the object.</t>
 
-          <t>A Link object has the following properties:</t>
-
-          <t><list style="symbols">
-            <t>@type: <spanx style="verb">String</spanx> (mandatory)
-            <vspace blankLines="1" />
-            Specifies the type of this object. This MUST be <spanx style="verb">Link</spanx>.</t>
-            <t>href: <spanx style="verb">String</spanx> (mandatory)
-            <vspace blankLines="1" />
-            A URI <xref target="RFC3986" /> from which the resource may be fetched.
-            <vspace blankLines="1" />
-            This MAY be a <spanx style="verb">data:</spanx> URL <xref target="RFC2397" />, but it is recommended that the file be hosted on a server to avoid embedding arbitrarily large data in JSCalendar object instances.</t>
-
-            <t>cid: <spanx style="verb">String</spanx> (optional)
-            <vspace blankLines="1" />
-            This MUST be a valid <spanx style="verb">content-id</spanx> value according to the definition of Section 2 in <xref target="RFC2392" />. The value MUST be unique within this Link object but has no meaning beyond that. It MAY be different from the link id for this Link object.</t>
-
-            <t>contentType: <spanx style="verb">String</spanx> (optional)
-            <vspace blankLines="1" />
-            The media type <xref target="RFC6838" /> of the resource, if known.</t>
-
-            <t>size: <spanx style="verb">UnsignedInt</spanx> (optional)
-            <vspace blankLines="1" />
-            The size, in octets, of the resource when fully decoded (i.e., the number of octets in the file the user would download), if known. Note that this is an informational estimate, and implementations must be prepared to handle the actual size being quite different when the resource is fetched.</t>
-
-            <t>rel: <spanx style="verb">String</spanx> (optional)
-            <vspace blankLines="1" />
-            Identifies the relation of the linked resource to the object. If set, the value MUST be a relation type from the IANA registry <xref target="LINKRELS" />, as established in <xref target="RFC8288" />.
-            <vspace blankLines="1" />
-            Links with a rel of <spanx style="verb">enclosure</spanx> MUST be considered by the client as attachments for download.
-            <vspace blankLines="1" />
-            Links with a rel of <spanx style="verb">describedby</spanx> MUST be considered by the client to be an alternative representation of the description.
-            <vspace blankLines="1" />
-            Links with a rel of <spanx style="verb">icon</spanx> MUST be considered by the client to be an image that it may use when presenting the calendar data to a user. The <spanx style="verb">display</spanx> property may be set to indicate the purpose of this image.</t>
-
-            <t>display: <spanx style="verb">String</spanx> (optional)
-            <vspace blankLines="1" />
-            Describes the intended purpose of a link to an image. If set, the <spanx style="verb">rel</spanx> property MUST be set to <spanx style="verb">icon</spanx>. The value MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
-
-            <list style="symbols">
-              <t><spanx style="verb">badge</spanx>: an image meant to be displayed alongside the title of the object.</t>
-
-              <t><spanx style="verb">graphic</spanx>: a full image replacement for the object itself.</t>
-
-              <t><spanx style="verb">fullsize</spanx>: an image that is used to enhance the object.</t>
-
-              <t><spanx style="verb">thumbnail</spanx>: a smaller variant of <spanx style="verb">fullsize</spanx> to be used when space for the image is constrained.</t>
-            </list></t>
-
-            <t>title: <spanx style="verb">String</spanx> (optional)
-            <vspace blankLines="1" />
-            A human-readable plain-text description of the resource.</t>
-          </list></t>
+          <t>Links with a rel of <spanx style="verb">enclosure</spanx> MUST be considered by the client as attachments for download.
+          <vspace blankLines="1" />
+          Links with a rel of <spanx style="verb">describedby</spanx> MUST be considered by the client to be an alternative representation of the description.
+          <vspace blankLines="1" />
+          Links with a rel of <spanx style="verb">icon</spanx> MUST be considered by the client to be an image that it may use when presenting the calendar data to a user. The <spanx style="verb">display</spanx> property may be set to indicate the purpose of this image.</t>
         </section>
 
         <section anchor="prop-locale" title="locale">
@@ -1118,9 +1118,10 @@
             <vspace blankLines="1" />
             A set of group participants that were invited to this calendar object, which caused this participant to be invited due to their membership in the group(s). Each key in the set MUST be the id of a participant. The value for each key in the map MUST be true. If there are no groups, this MUST be omitted (rather than specified as an empty set).</t>
 
-            <t>linkIds: <spanx style="verb">String[Boolean]</spanx> (optional)
+            <t>links: <spanx style="verb">Id[Link]</spanx> (optional)
             <vspace blankLines="1" />
-            A set of links to more information about this participant, for example in vCard format. The keys in the set MUST be the id of a Link object in the calendar object's <spanx style="verb">links</spanx> property. The value for each key in the map MUST be true. If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
+            A map of link ids to Link objects, representing external resources associated with this participant, for example a vCard or image.
+            If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
 
              <t>progress: <spanx style="verb">String</spanx> (optional; only allowed for participants of a JSTask). Represents the progress of the participant for this task. It MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
 
@@ -1905,7 +1906,7 @@
       <c>@type</c>
       <c>String</c>
       <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
-      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
+      <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="type-Link"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
       <c>UTCDateTime</c>
@@ -1980,7 +1981,7 @@
       <c>cid</c>
       <c>String</c>
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>color</c>
       <c>String</c>
@@ -1995,7 +1996,7 @@
       <c>contentType</c>
       <c>String</c>
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>coordinates</c>
       <c>String</c>
@@ -2045,7 +2046,7 @@
       <c>display</c>
       <c>String</c>
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>due</c>
       <c>LocalDateTime</c>
@@ -2105,7 +2106,7 @@
       <c>href</c>
       <c>String</c>
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>interval</c>
       <c>UnsignedInt</c>
@@ -2132,15 +2133,10 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
-      <c>linkIds</c>
-      <c>Id[Boolean]</c>
-      <c>Location, Participant</c>
-      <c><xref target="prop-locations"/>, <xref target="prop-participants"/></c>
-
       <c>links</c>
       <c>Id[Link]</c>
-      <c>JSGroup, JSEvent, JSTask</c>
-      <c><xref target="prop-links"/></c>
+      <c>JSGroup, JSEvent, JSTask, Location, Participant</c>
+      <c><xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/></c>
 
       <c>locale</c>
       <c>String</c>
@@ -2270,7 +2266,7 @@
       <c>rel</c>
       <c>String</c>
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>relatedTo</c>
       <c>String[Relation]</c>
@@ -2355,7 +2351,7 @@
       <c>size</c>
       <c>UnsignedInt</c>
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>skip</c>
       <c>String</c>
@@ -2488,7 +2484,7 @@
       <c><xref target="type-LocalDateTime"/></c>
 
       <c>Link</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
 
       <c>Location</c>
       <c><xref target="prop-locations"/></c>
@@ -2592,13 +2588,13 @@
       <ttcol align='left'>Enum Value</ttcol>
       <ttcol align='left'>Reference or Description</ttcol>
       <c>badge</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
       <c>graphic</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
       <c>fullsize</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
       <c>thumbnail</c>
-      <c><xref target="prop-links"/></c>
+      <c><xref target="type-Link"/></c>
     </texttable>
 
     <t>------------------------------------------------------------</t>
