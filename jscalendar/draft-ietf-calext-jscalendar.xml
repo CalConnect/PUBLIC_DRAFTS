@@ -1306,13 +1306,13 @@
             <vspace blankLines="1" />
             The DTSTART property from iCalendar.</t>
 
-            <t>offsetTo: <spanx style="verb">String</spanx> (mandatory)
-            <vspace blankLines="1" />
-            The TZOFFSETTO property from iCalendar.</t>
-
             <t>offsetFrom: <spanx style="verb">String</spanx> (mandatory)
             <vspace blankLines="1" />
             The TZOFFSETFROM property from iCalendar.</t>
+
+            <t>offsetTo: <spanx style="verb">String</spanx> (mandatory)
+            <vspace blankLines="1" />
+            The TZOFFSETTO property from iCalendar.</t>
 
             <t>recurrenceRules: <spanx style="verb">RecurrenceRule[]</spanx> (optional)
             <vspace blankLines="1" />
