@@ -1250,7 +1250,7 @@
           <t>Maps identifiers of custom time zones to their time zone definitions. The following restrictions apply for each key in the map:
 
           <list style="symbols">
-            <t>It MUST start with the <spanx style="verb">/</spanx> character (ASCII decimal 47; also see Sections 3.2.19 of <xref target="RFC5545" /> and 3.6. of <xref target="RFC7808" /> for discussion of the forward slash character in time zone identifiers).</t>
+            <t>To avoid conflict with names in the IANA Time Zone Database <xref target="TZDB" />, it MUST start with the <spanx style="verb">/</spanx> character.</t>
 
             <t>It MUST be a valid <spanx style="verb">paramtext</spanx> value as specified in Section 3.1. of <xref target="RFC5545" />.</t>
 
