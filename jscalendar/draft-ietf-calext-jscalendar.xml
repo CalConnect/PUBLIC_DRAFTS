@@ -213,16 +213,16 @@
           <t>A patch within a PatchObject is only valid if all of the following conditions apply:</t>
 
           <t><list style="numbers">
-            <t>The pointer MUST NOT insert/delete from an array; the array MUST be replaced in its entirety instead.</t>
-            <t>When evaluating a path, all parts prior to the last (i.e., the value after the final slash) MUST exist.</t>
-            <t>There MUST NOT be two patches in the PatchObject where the pointer of one is a prefix of the pointer of the other, e.g., <spanx style="verb">alerts/foo/offset</spanx> and <spanx style="verb">alerts</spanx>.</t>
+            <t>The pointer MUST NOT reference inside an array (i.e., you MUST NOT insert/delete from an array; the array MUST be replaced in its entirety instead).</t>
+            <t>All parts prior to the last (i.e., the value after the final slash) MUST already exist on the object being patched.</t>
+            <t>There MUST NOT be two patches in the PatchObject where the pointer of one is the prefix of the pointer of the other, e.g., <spanx style="verb">alerts/1/offset</spanx> and <spanx style="verb">alerts</spanx>.</t>
             <t>The value for the patch MUST be valid for the property being set (of the correct type and obeying any other applicable restrictions), or if null the property MUST be optional.</t>
           </list></t>
 
-          <t>The value associated with each pointer is either:
+          <t>The value associated with each pointer determines how to apply that patch:
             <list style="symbols">
-              <t>null: Remove the property at the given path from the patched object. If the property is not present in the object, this a no-op.</t>
-              <t>Anything else: Set the value for the property to this value (this may be a replacement or addition to the object being patched).</t>
+              <t>If null, remove the property from the patched object. If the key is not present in the parent, this a no-op.</t>
+              <t>Anything else: The value to set for this property (this may be a replacement or addition to the object being patched).</t>
             </list>
         </t>
 
