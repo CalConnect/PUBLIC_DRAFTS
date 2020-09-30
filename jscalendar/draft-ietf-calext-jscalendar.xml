@@ -1827,7 +1827,7 @@
     <t hangText="Interoperability considerations:">While JSCalendar is designed to avoid ambiguities as much as possible, when converting objects from other calendar formats to/from JSCalendar it is possible that differing representations for the same logical data might arise, or ambiguities in interpretation. The semantic equivalence of two JSCalendar objects may be determined differently by different applications, for example where URL values differ in case between the two objects.</t>
     <t hangText="Published specification:">This specification.</t>
     <t hangText="Applications that use this media type:">Applications that currently make use of the text/calendar and application/calendar+json media types can use this as an alternative. Similarly, applications that use the application/json media type to transfer calendaring data can use this to further specify the content.</t>
-    <t hangText="Fragment identifier considerations:">N/A</t>
+    <t hangText="Fragment identifier considerations:">A JSON Pointer fragment identifier may be used, as defined in <xref target="RFC6901" />, Section 6.</t>
     <t hangText="Additional information:">
         <list style="hanging">
             <t hangText="Magic number(s):">N/A</t>
