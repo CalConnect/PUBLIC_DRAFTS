@@ -226,7 +226,7 @@
             </list>
         </t>
 
-          <t>A PatchObject does not define its own <spanx style="verb">@type</spanx> property. A <spanx style="verb">@type</spanx> property in a patch MUST be handled as any other patched property value.</t>
+          <t>A PatchObject does not define its own <spanx style="verb">@type</spanx> property (see <xref target="prop-type" />). A <spanx style="verb">@type</spanx> property in a patch MUST be handled as any other patched property value.</t>
 
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
         </section>
@@ -1774,6 +1774,7 @@
       <section anchor="sec-recurrences" title="Expanding Recurrences">
         <t>A recurrence rule may produce infinite occurrences of an event. Implementations MUST handle expansions carefully to prevent accidental or deliberate resource exhaustion.</t>
         <t>Conversely, a recurrence rule may be specified that does not expand to anything. It is not always possible to tell this through static analysis of the rule, so implementations MUST be careful to avoid getting stuck in infinite loops, or otherwise exhausting resources while searching for the next occurrence.</t>
+        <t>Events recur in the event's time zone. If the user is in a different time zone, daylight saving transitions may cause an event that normally occurs at, for example, 9am to suddenly shift an hour earlier. This may be used in an attempt to cause a participant to miss an important meeting. User agents must be careful to translate date-times correctly between time zones and may wish to call out unexpected changes in the time of a recurring event.</t>
       </section>
 
       <section anchor="json-parsing" title="JSON Parsing">
