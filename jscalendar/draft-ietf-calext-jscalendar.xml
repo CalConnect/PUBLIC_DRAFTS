@@ -1324,7 +1324,7 @@
 
             <t>names: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the names. The value for each key in the map MUST be true.</t>
+            Maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the names (excluding any <spanx style="verb">tznparam</spanx> component from iCalendar). The value for each key in the map MUST be true.</t>
 
             <t>comments: <spanx style="verb">String[]</spanx> (optional). Maps the COMMENT properties from iCalendar. The order MUST be preserved during conversion.</t>
           </list></t>
