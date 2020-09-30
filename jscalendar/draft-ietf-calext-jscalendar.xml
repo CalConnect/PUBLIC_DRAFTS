@@ -398,7 +398,7 @@
 
           <t>The identifier for the product that last updated the JSCalendar object. This should be set whenever the data in the object is modified (i.e., whenever the "updated" property is set).</t>
 
-          <t>The vendor of the implementation MUST ensure that this is a globally unique identifier, using some technique such as an FPI value, as defined in [ISO.9070.1991]. It MUST only use characters of an iCalendar TEXT data value (see Section 3.3.11 of <xref target="RFC5545" />).</t>
+          <t>The vendor of the implementation MUST ensure that this is a globally unique identifier, using some technique such as an FPI value, as defined in [ISO.9070.1991].</t>
 
           <t>This property SHOULD NOT be used to alter the interpretation of a JSCalendar object beyond the semantics specified in this document. For example, it is not to be used to further the understanding of non-standard properties, a practice that is known to cause long-term interoperability problems.</t>
         </section>
