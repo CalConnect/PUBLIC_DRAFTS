@@ -201,7 +201,7 @@
         </section>
 
         <section anchor="type-timeZoneId" title="TimeZoneId">
-          <t>Where <spanx style="verb">TimeZoneId</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> that is either a time zone name in the IANA Time Zone Database <xref target="TZDB" /> or a custom time zone identifier in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
+          <t>Where <spanx style="verb">TimeZoneId</spanx> is given as a data type, it means a <spanx style="verb">String</spanx> that is either a time zone name in the IANA Time Zone Database <xref target="TZDB" /> or a custom time zone identifier defined in the <spanx style="verb">timeZones</spanx> property (see <xref target="prop-timeZones" />).</t>
 
           <t>Where an IANA time zone is specified, the zone rules of the respective zone records apply. Custom time zones are interpreted as described in <xref target="prop-timeZones" />.</t>
          </section>
@@ -1241,7 +1241,7 @@
         <section anchor="prop-timeZone" title="timeZone">
           <t>Type: <spanx style="verb">TimeZoneId|null</spanx> (optional, default: null).</t>
 
-          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the id of a custom time zone from the <spanx style="verb">timeZones</spanx> property (<xref target="prop-timeZones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
+          <t>Identifies the time zone the object is scheduled in, or null for floating time. This is either a name from the IANA Time Zone Database <xref target="TZDB" /> or the TimeZoneId of a custom time zone from the <spanx style="verb">timeZones</spanx> property (<xref target="prop-timeZones" />). If omitted, this MUST be presumed to be null (i.e., floating time).</t>
         </section>
 
         <section anchor="prop-timeZones" title="timeZones">
@@ -1324,7 +1324,7 @@
 
             <t>names: <spanx style="verb">String[Boolean]</spanx> (optional)
             <vspace blankLines="1" />
-            Maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the names (excluding any <spanx style="verb">tznparam</spanx> component from iCalendar). The value for each key in the map MUST be true.</t>
+            Maps the TZNAME properties from iCalendar to a JSON set. The set is represented as an object, with the keys being the names, excluding any <spanx style="verb">tznparam</spanx> component from iCalendar. The value for each key in the map MUST be true.</t>
 
             <t>comments: <spanx style="verb">String[]</spanx> (optional). Maps the COMMENT properties from iCalendar. The order MUST be preserved during conversion.</t>
           </list></t>
@@ -1641,8 +1641,7 @@
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "virtualLocations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name":
-                              "Gratis Live-Stream aus der Music Bowl"
+      "virtualLocations/1/name": "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
@@ -1765,7 +1764,7 @@
     </section>
 
     <section anchor="security-considerations" title="Security Considerations">
-      <t>Calendaring and scheduling information is very privacy-sensitive.  It can reveal the social network of a user; location information of this user and those in their social network; identity and credentials information; and the patterns of behavior of the user in both the physical and cyber realm. Additionally, calendar events and tasks can could influence the physical location of a user or their cyber behavior within a known time window.  It’s transmission and storage must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and on-path attacks.</t>
+      <t>Calendaring and scheduling information is very privacy-sensitive.  It can reveal the social network of a user; location information of this user and those in their social network; identity and credentials information; and the patterns of behavior of the user in both the physical and cyber realm. Additionally, calendar events and tasks can could influence the physical location of a user or their cyber behavior within a known time window.  Its transmission and storage must be done carefully to protect it from possible threats, such as eavesdropping, replay, message insertion, deletion, modification, and on-path attacks.</t>
 
       <t>The data being stored and transmitted may be used in systems with real world consequences. For example, a home automation system may turn an alarm on and off. Or a coworking space may charge money to the organiser of an event that books one of their meeting rooms. Such systems must be careful to authenticate all data they receive to prevent them from being subverted, and ensure the change comes from an authorized entity.</t>
 
