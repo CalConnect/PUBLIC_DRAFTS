@@ -224,11 +224,13 @@
               <t>If null, remove the property from the patched object. If the key is not present in the parent, this a no-op.</t>
               <t>Anything else: The value to set for this property (this may be a replacement or addition to the object being patched).</t>
             </list>
-        </t>
+          </t>
 
           <t>A PatchObject does not define its own <spanx style="verb">@type</spanx> property (see <xref target="prop-type" />). A <spanx style="verb">@type</spanx> property in a patch MUST be handled as any other patched property value.</t>
 
           <t>Implementations MUST reject in its entirety a PatchObject if any of its patches is invalid.  Implementations MUST NOT apply partial patches.</t>
+
+          <t>The PatchObject format is used to significantly reduce file size and duplicated content when specifying variations to a common object, such as with recurring events or when translating the data into multiple languages. It can also better preserve semantic intent if only the properties that should differ between the two objects are patched. For example, if one person is not going to a particular instance of a regularly scheduled event, in iCalendar you would have to duplicate the entire event in the override. In JSCalendar this is a small patch to show the difference. As only this property is patched, if the location of the event is changed, the occurrence will automatically still inherit this.</t>
         </section>
 
         <section anchor="type-Relation" title="Relation">
