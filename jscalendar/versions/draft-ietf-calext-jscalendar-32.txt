@@ -4323,7 +4323,7 @@ Internet-Draft                 JSCalendar                   October 2020
                 |              |                          |
                 | declined     | Section 4.4.5            |
                 |              |                          |
-                | tenative     | Section 4.4.5            |
+                | tentative     | Section 4.4.5            |
                 |              |                          |
                 | delegated    | Section 4.4.5            |
                 +--------------+--------------------------+
