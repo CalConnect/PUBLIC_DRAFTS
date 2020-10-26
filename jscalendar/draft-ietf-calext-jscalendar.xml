@@ -2021,7 +2021,7 @@
       <c><xref target="prop-recurrenceRules"/></c>
 
       <c>daylight</c>
-      <c>TimeZoneRule</c>
+      <c>TimeZoneRule[]</c>
       <c>TimeZone</c>
       <c><xref target="prop-timeZones"/></c>
 
@@ -2301,7 +2301,7 @@
       <c><xref target="prop-recurrenceRules"/></c>
 
       <c>standard</c>
-      <c>TimeZoneRule</c>
+      <c>TimeZoneRule[]</c>
       <c>TimeZone</c>
       <c><xref target="prop-timeZones"/></c>
 
