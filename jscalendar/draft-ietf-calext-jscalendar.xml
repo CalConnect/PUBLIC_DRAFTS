@@ -313,7 +313,7 @@
 
         <t>A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment, reminder or anniversary. It is required to start at a certain point in time and typically has a non-zero duration. Multiple participants may partake in the event at multiple locations.</t>
 
-        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jsevent</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">JSEvent</spanx>.</t>
       </section>
 
       <section anchor="jstask" title="JSTask">
@@ -321,7 +321,7 @@
 
         <t>A JSTask represents an action-item, assignment, to-do or work item. It may start and be due at certain points in time, may take some estimated time to complete, and may recur, none of which is required.</t>
 
-        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jstask</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">JSTask</spanx>.</t>
       </section>
 
       <section anchor="jsgroup" title="JSGroup">
@@ -329,7 +329,7 @@
 
         <t>A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and/or <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic (e.g., by keywords) or calendar membership.</t>
 
-        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">jsgroup</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">JSGroup</spanx>.</t>
       </section>
     </section>
 
@@ -372,13 +372,7 @@
       <section anchor="metadata-properties" title="Metadata Properties">
         <section anchor="prop-type" title="@type">
           <t>Type: <spanx style="verb">String</spanx> (mandatory).</t>
-          <t>Specifies the type which this object represents. This MUST be one of the following values:
-            <list style="symbols">
-              <t><spanx style="verb">jsevent</spanx>: a JSCalendar event (<xref target="jsevent" />).</t>
-              <t><spanx style="verb">jstask</spanx>: a JSCalendar task (<xref target="jstask" />).</t>
-              <t><spanx style="verb">jsgroup</spanx>: a JSCalendar group (<xref target="jsgroup" />).</t>
-            </list>
-          </t>
+          <t>Specifies the type this object represents. The allowed value differs by object type and is defined in sections <xref target="jsevent"/>, <xref target="jstask"/>, and <xref target="jsgroup"/></t>
         </section>
 
         <section anchor="prop-uid" title="uid">
@@ -1470,7 +1464,7 @@
     <figure>
           <artwork><![CDATA[
 {
-  "@type": "jsevent",
+  "@type": "JSEvent",
   "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
   "updated": "2020-01-02T18:23:04Z",
   "title": "Some event",
@@ -1488,7 +1482,7 @@
     <figure>
           <artwork><![CDATA[
 {
-  "@type": "jstask",
+  "@type": "JSTask",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
   "updated": "2020-01-09T14:32:01Z",
   "title": "Do something"
@@ -1503,12 +1497,12 @@
     <figure>
           <artwork><![CDATA[
 {
-  "@type": "jsgroup",
+  "@type": "JSGroup",
   "uid": "bf0ac22b-4989-4caf-9ebd-54301b4ee51a",
   "updated": "2020-01-15T18:00:00Z",
   "name": "A simple group",
   "entries": [{
-    "@type": "jsevent",
+    "@type": "JSEvent",
     "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
     "updated": "2020-01-02T18:23:04Z",
     "title": "Some event",
@@ -1517,7 +1511,7 @@
     "duration": "PT1H"
   },
   {
-    "@type": "jstask",
+    "@type": "JSTask",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
     "updated": "2020-01-09T14:32:01Z",
     "title": "Do something"
@@ -1820,7 +1814,13 @@
     <t hangText="Subtype name:">jscalendar+json</t>
     <t hangText="Required parameters:">type
         <vspace blankLines="1" />
-        The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part, with the value being one of <spanx style="verb">jsevent</spanx>, <spanx style="verb">jstask</spanx>, or <spanx style="verb">jsgroup</spanx>. The parameter MUST NOT occur more than once. It MUST match the value of the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body.</t>
+        The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part. The allowed parameter values correspond to the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body:
+            <list style="symbols">
+                <t><spanx style="verb">jsevent</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">JSEvent</spanx></t>
+                <t><spanx style="verb">jstask</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">JSTask</spanx></t>
+                <t><spanx style="verb">jsgroup</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">JSGroup</spanx></t>
+            </list>
+        No other parameter values are allowed. The parameter MUST NOT occur more than once.</t>
     <t hangText="Optional parameters:">none</t>
     <t hangText="Encoding considerations:">
         Same as encoding considerations of application/json as specified in <xref target="RFC8259">RFC8529, Section 11</xref>.</t>

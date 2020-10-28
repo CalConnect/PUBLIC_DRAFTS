@@ -4,7 +4,7 @@
   "d": "This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends after 1 hour.",
   "o":
   {
-    "@type": "jsevent",
+    "@type": "JSEvent",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
     "updated": "2018-01-15T18:00:00Z",
     "title": "Some event",
@@ -18,7 +18,7 @@
   "d": "This example illustrates a simple task for a plain to-do item.",
   "o":
   {
-    "@type": "jstask",
+    "@type": "JSTask",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
     "updated": "2018-01-15T18:00:00Z",
     "title": "Do something"
@@ -29,12 +29,12 @@
   "d": "This example illustrates a simple calendar object group that contains an event and a task.",
   "o":
   {
-    "@type": "jsgroup",
+    "@type": "JSGroup",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
     "updated": "2018-01-15T18:00:00Z",
     "name": "A simple group",
     "entries": [{
-    "@type": "jsevent",
+    "@type": "JSEvent",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
     "updated": "2018-01-15T18:00:00Z",
     "title": "Some event",
@@ -42,7 +42,7 @@
     "timeZone": "America/New_York",
     "duration": "PT1H"
     }, {
-    "@type": "jstask",
+    "@type": "JSTask",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
     "updated": "2018-01-15T18:00:00Z",
     "title": "Do something"
