@@ -41,7 +41,7 @@ GEM
       unicode (~> 0.4)
     mini_portile2 (2.3.0)
     namae (1.0.1)
-    nokogiri (1.8.2)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     optout (0.0.2)
     ruby-jing (0.0.1)
