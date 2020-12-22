@@ -3,7 +3,8 @@
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
 <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
-<!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
+<!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
+<!ENTITY RFC8288 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8288.xml">
 <!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
 <!ENTITY W3C.CR-skos-reference-20090317 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.CR-skos-reference-20090317.xml">
 <!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
@@ -20,7 +21,7 @@
 <?rfc subcompact="no" ?>
 <rfc category="std"
      updates='5545' 
-     docName="draft-ietf-calext-ical-relations-04" ipr="trust200902">
+     docName="draft-ietf-calext-ical-relations-05" ipr="trust200902">
 
   <front>
     <title abbrev="iCalendar Relationships">Support for iCalendar Relationships</title>
@@ -28,7 +29,7 @@
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
     <author initials="M." surname="Douglass" fullname="Michael Douglass">
-      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <organization abbrev="Bedework">Bedework</organization>
       <address>
         <postal>
           <street>226 3rd Street</street>
@@ -37,12 +38,12 @@
           <code>12180</code>
           <country>USA</country>
         </postal>
-        <email>mdouglass@sphericalcowgroup.com</email>
-        <uri>http://sphericalcowgroup.com</uri>
+        <email>mdouglass@bedework.com</email>
+        <uri>http://bedework.com</uri>
       </address>
     </author>
 
-    <date month='May' year='2018' />
+    <date month='July' year='2020' />
 
     <area>Applications</area>
 
@@ -66,20 +67,22 @@
     <section title="Introduction">
       <t>
         iCalendar entities often need to be related to each other or to
-        associated meta-data. These relationships can take the following
-        forms
+        associated meta-data. The specifications below support
+        relationships of the following forms:
         <list style='hanging'>
           <t hangText="Structured iCalendar:">
-            iCalendar entities are related to each other in some structured
+            iCalendar entities can be related to each other in some structured
             way, for example as parent, sibling, before, after.
           </t>
           <t hangText="Grouped iCalendar:">
-            iCalendar entities are related to each other as a group.
+            iCalendar entities can be related to each other as a group.
             CATEGORIES are often used for this purpose but are problematic
-            for application developers.
+            for application developers due to their lack of consistency
+            and use as a free-form tag.
           </t>
           <t hangText="Linked:">
-            Entities are linked to each other through typed references.
+            Entities can be linked to other entities such as vcards
+            through a URI and associated REL and FMTTYPE parameters.
           </t>
         </list>
       </t>
@@ -94,7 +97,7 @@
         <t>
           The RELTYPE parameter is extended to take new values
           defining temporal relationships, a GAP parameter is defined to provide
-          lead and lag values and RELATED-TO is extended to allow URI values.
+          lead and lag values, and RELATED-TO is extended to allow URI values.
           These changes allow the RELATED-TO property to define a richer set of
           relationships useful for project management.
         </t>
@@ -110,10 +113,10 @@
         <t>
           REFID is used to identify a key allowing the association of components
           that are related to the same object and retrieval of a component based on
-          this key. This may be, for example, to identify the tasks associated
-          with a given project without having to communicate the task structure
-          of the project, or, for example, in a package delivery system
-          all tasks associated to a specific package.
+          this key. Two examples of how this may be used are to identify the tasks
+          associated with a given project without having to communicate the
+          task structure of the project, and to group all tasks associated to
+          a specific package in a package delivery system.
         </t>
 
         <t>
@@ -127,9 +130,11 @@
       <section title="Concept relationships">
         <t>
           The name CONCEPT is used by the Simple Knowledge Organization
-          System defined in <xref target='W3C.CR-skos-reference-20090317'/>. This more accurately
-          defines what we mean by a category. It's not the words but the
-          meaning.
+          System defined in <xref target='W3C.CR-skos-reference-20090317'/>.
+          The term "concept" more accurately defines what we often
+          mean by a category. It's not the text string that is important
+          but the meaning attached to it. For example, the term
+          "football" can mean very different sports.
         </t>
 
         <t>
@@ -147,9 +152,9 @@
         </t>
 
         <t>
-          Rather than attempt to add semantics to the current property 
-          it seeems best to continue its usage as an informal tag and
-          establish a new property with more constraints.
+          Rather than attempt to add semantics to the CATEGORY property
+          it seems best to continue its usage as an informal tag and
+          establish a new CONCEPT property with more constraints.
         </t>
       </section>
 
@@ -165,7 +170,7 @@
           information that can provide additional information about an iCalendar
           component. This new LINK property is closely aligned to the LINK header
           defined in
-          <xref target='RFC5988'/>
+          <xref target='RFC8288'/>
         </t>
 
         <t>
@@ -177,7 +182,9 @@
         </t>
 
         <t>
-          It is often necessary to relate calendar components. The current
+          It is also often necessary to reference calendar components
+          in other collections. For example, a VEVENT might refer to
+          a VTODO from which it was derived. The current
           RELATED-TO property only allows for a UID which is inadequate for many
           purposes. Allowing other value types for that property may help
           but might raise a number of
@@ -222,13 +229,15 @@
         </t>
       </section>
 
-      <section anchor="conventions" 
+      <section anchor="conventions"
                title='Conventions Used in This Document'>
         <t>
           The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
           NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
-          "MAY", and "OPTIONAL" in this document are to be interpreted as
-          described in <xref target='RFC2119'/>.
+          "MAY" and "OPTIONAL" in this document are to be interpreted as
+          described in BCP 14 <xref target='RFC2119'/>
+          <xref target='RFC8174'/> when, and only when, they
+          appear in all capitals, as shown here.
         </t>
       </section>
     </section>
@@ -243,11 +252,11 @@
             The default type. This is a URI referring to the target.
           </t>
           <t hangText="UID:">
-            This allows for linking within a single collection and the value is
-            assumed to be another component within that collection.
+            This allows for linking within a single collection and the value
+            MUST be another component within that collection.
           </t>
           <t hangText="REFERENCE:">
-            An xpointer. In an XML environment it may be necessary to refer to
+            An XPointer. In an XML environment it may be necessary to refer to
             an external XML artifact. The XPointer is defined in
             <xref target='W3C.WD-xptr-xpointer-20021219'/> and allows
             addressing portions of XML documents.
@@ -259,23 +268,23 @@
     <section anchor="link_relation_types"
              title="Link Relation Types">
       <t>
-        <xref target='RFC5988'/> defines two forms of relation type, registered
-        and extension. Registered relation types are added to a registry defined
-        by <xref target='RFC5988'/> while extension relation types are specified
-        as unique unregistered URIs, (at least unregistered in the
-        <xref target='RFC5988'/> registry).
+        <xref target='RFC8288'/> defines two forms of relation type: registered and
+        extension.  Registered relation types are added to the Link
+        Relations registry as specified in Section 2.1.1 of <xref target='RFC8288'/>.
+        Extension relation types, defined in Section 2.1.2 of <xref target='RFC8288'/>,
+        are specified as unique URIs that are not registered in the registry.
       </t>
 
       <t>
         The relation types defined here will be registered with IANA in
-        accordance with the specifications in  <xref target='RFC5988'/>.
+        accordance with the specifications in  <xref target='RFC8288'/>.
       </t>
     </section>
 
     <section anchor="redefined_relation_type_value"
              title="Redefined Relation Type Value">
       <t>
-        Relationship parameter type values are defined in section 3.2.15. of
+        Relationship parameter type values are defined in Section 3.2.15 of
         <xref target='RFC5545'/>. This specification redefines that type to
         include the new temporal relationship values FINISHTOSTART, 
         FINISHTOFINISH,
@@ -307,8 +316,6 @@
                   / "STARTTOSTART" ;  Temporal relationship
                   / iana-token  ; Some other IANA-registered
                                 ; iCalendar relationship type
-                  / x-name)     ; A non-standard, experimental
-                                ; relationship type
               </artwork>
             </figure>
           </t>
@@ -320,8 +327,8 @@
             referenced by the property when the value is PARENT, CHILD or SIBLING.
             If this parameter is not specified on an
             allowable property, the default relationship type is PARENT.
-            Applications MUST treat x-name and iana-token values they don't
-            recognize the same way as they would the PARENT value.
+            Applications MUST treat unrecognized values the same way
+            as they would the PARENT value.
           </t>
 
           <t>
@@ -330,9 +337,10 @@
             FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
             This property will be present in the predecessor entity and
             will refer to the successor entity. The GAP parameter
+            (see <xref target="gap"/>)
             specifies the lead or lag time between the predecessor and
             the successor. In the description of each temporal relationship
-            below we refer to Task-A which contains and controls the relationship and
+            below we refer to Task-A, which contains and controls the relationship, and
             Task-B the target of the relationship.
           </t>
 
@@ -450,7 +458,7 @@
         <t>
           <list style='hanging'>
             <t hangText="Parameter name:">
-              REL
+              LINKREL
             </t>
 
             <t hangText="Purpose:">
@@ -464,7 +472,7 @@
                 </preamble>
 
                 <artwork type="abnf">
-  relparam     = "REL" "="
+  linkrelparam = "REL" "="
                  ("SOURCE"      ; Link to source of this component
                  / DQUOTE uri DQUOTE
                  / x-name        ; Experimental reference type
@@ -477,7 +485,7 @@
               This parameter MUST be specified on all LINK properties, and
               defines the type of reference.  This allows programs consuming this
               data to automatically scan for references they support.  In addition
-              to the values defined here any value defined in <xref target='RFC5988'/>
+              to the values defined here any value defined in <xref target='RFC8288'/>
               may be used. There is no default relation type.
             </t>
 
@@ -486,7 +494,7 @@
             </t>
 
             <t hangText="Registration:">
-              These relation types are registered in <xref target='RFC5988'/>
+              These relation types are registered in <xref target='RFC8288'/>
             </t>
           </list>
         </t>
@@ -500,8 +508,8 @@
             </t>
 
             <t hangText="Purpose:">
-              To specify the length of the gap, positive or negative between two
-              temporaly related components.
+              To specify the length of the gap, positive or negative,
+              between two temporaly related components.
             </t>
 
             <t hangText="Format Definition:">
@@ -555,7 +563,7 @@
           </t>
 
           <t hangText="REFERENCE">
-            VALUE=REFERENCE indicates that the associated value is an xpointer
+            VALUE=REFERENCE indicates that the associated value is an XPointer
             referencing an associated XML artifact.
           </t>
         </list>
@@ -619,7 +627,7 @@
             <t>
               Possible category resources are the various proprietary
               systems, for example Library of Congress, or an open
-              source derived from something like the dmoz.org data.
+              source of categorisation data.
             </t>
 
             <t hangText="Format Definition:">
@@ -632,14 +640,7 @@
   concept        =  "CONCEPT" conceptparam ":"
                         uri CRLF
 
-  conceptparam = *(
-                ;
-                ; The following is OPTIONAL,
-                ; and MAY occur more than once.
-                ;
-                (";" other-param)
-                ;
-                )
+  conceptparam = *(";" other-param)
 
                 </artwork>
               </figure>
@@ -653,9 +654,7 @@
                 </preamble>
 
                 <artwork>
-  SCONCEPT:http://example.com/event-types/sports
   CONCEPT:http://example.com/event-types/arts/music
-  CONCEPT:http://example.com/task-types/delivery
                 </artwork>
               </figure>
             </t>
@@ -681,7 +680,8 @@
 
             <t hangText="Property Parameters:">
               Non-standard, reference type or format type parameters can be
-              specified on this property.
+              specified on this property. The LABEL parameter
+              is defined in <xref target='RFC7986'/>
             </t>
 
             <t hangText="Conformance:">
@@ -701,42 +701,28 @@
                 </preamble>
 
                 <artwork>
-  link            = "LINK" linkparam  /
+  link            = "LINK" linkparam
                     (
                       ";" "VALUE" "=" "TEXT"
                       ":" text
-                    )
+                    ) /
                     (
                       ";" "VALUE" "=" "REFERENCE"
                       ":" text
-                    )
+                    ) /
                     (
                       ";" "VALUE" "=" "URI"
                       ":" uri
                     )
                     CRLF
 
+  linkparam       = ; the elements herein may appear in any order,
+                    ; and the order is not significant.
 
-  linkparam       = *(
-
-                  ; the following is MANDATORY
-                  ; and MAY occur more than once
-
-                  (";" relparam) /
-
-                  ; the following are MANDATORY
-                  ; but MUST NOT occur more than once
-
-                  (";" fmttypeparam) /
-                  (";" labelparam) /
-                  ; labelparam is defined in ...
-
-                  ; the following is OPTIONAL
-                  ; and MAY occur more than once
-
-                  (";" xparam)
-
-                  )
+                    1*(";" linkrelparam)
+                    (";" fmttypeparam)
+                    (";" labelparam)
+                    *(";" other-param)
 
                 </artwork>
               </figure>
@@ -750,7 +736,7 @@
                 </preamble>
 
                 <artwork>
-  LINK;REL=SOURCE;LABEL=The Egg:http://example.com/events
+  LINK;REL=SOURCE;LABEL=The Venue;VALUE=URI:http://example.com/events
                 </artwork>
               </figure>
             </t>
@@ -785,10 +771,12 @@
             </t>
 
             <t hangText="Description:">
-              The value of this property is a text identifier that allows
-              associated components to be located or retrieved as a whole.
-              For example all of the events
-              in a travel itinerary would have the same REFID value.
+              The value of this property is free-form text that
+              creates an identifier for associated components.  All components
+              that use the same REFID value are associated through that value
+              and can be located or retrieved as a group.  For example, all of
+              the events in a travel itinerary would have the same REFID value,
+              so as to be grouped together.
             </t>
 
             <t hangText="Format Definition:">
@@ -801,14 +789,7 @@
   refid      = "REFID" refidparam ":" text CRLF
 
 
-  refidparam      = *(
-
-                  ; the following is OPTIONAL
-                  ; and MAY occur more than once
-
-                  (";" xparam)
-
-                  )
+  refidparam      = *(";" other-param)
 
                 </artwork>
               </figure>
@@ -843,7 +824,7 @@
             <t hangText="Purpose:">
               This property is used to represent a relationship or
               reference between one calendar component and another. The definition
-              here extends the definition in Section 3.8.4.5. of
+              here extends the definition in Section 3.8.4.5 of
               <xref target='RFC5545'/> by allowing URI or UID values and a GAP parameter.
             </t>
 
@@ -917,27 +898,18 @@
                (
                  ";" "VALUE" "=" "UID"
                  ":" uid
-               )
+               ) /
                (
                  ";" "VALUE" "=" "URI"
                  ":" uri
                )
                CRLF
 
-  relparam   = *(
-              ;
-              ; The following are OPTIONAL,
-              ; but MUST NOT occur more than once.
-              ;
-              (";" reltypeparam) /
-              (";" gapparam) /
-              ;
-              ; The following is OPTIONAL,
-              ; and MAY occur more than once.
-              ;
-              (";" other-param)
-              ;
-              )
+  relparam   = ; the elements herein may appear in any order,
+               ; and the order is not significant.
+               [";" reltypeparam]
+               [";" gapparam]
+               *(";" other-param)
                 </artwork>
               </figure>
             </t>
@@ -1099,7 +1071,7 @@
         <t>
           The following link relation values have been added to
           the Reference Types Registry defined in Section 6.2.2 of
-          <xref target='RFC5988'/>
+          <xref target='RFC8288'/>
         </t>
 
         <texttable>
@@ -1149,7 +1121,8 @@
     <references title="Normative References">
       &RFC2119;
       &RFC5545;
-      &RFC5988;
+      &RFC8174;
+      &RFC8288;
       &RFC3986;
       &W3C.REC-xml-20060816;
       &W3C.WD-xptr-xpointer-20021219;
