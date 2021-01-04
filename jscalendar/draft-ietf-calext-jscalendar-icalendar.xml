@@ -150,21 +150,49 @@
 
         <section anchor="new-icalendar-parameters"
                  title="New iCalendar parameters">
-            <section anchor="subsecond-parameter" title="SUBSECOND parameter">
+            <section anchor="fractional-parameter" title="FRACTIONAL parameter">
                 <t>
                     <list style='hanging'>
                         <t hangText="Parameter name:">
-                            SUBSECOND
+                            FRACTIONAL
                         </t>
                         <t hangText="Purpose:">
-                            To specify fractional seconds for time values and durations.
+                            This parameter is used to contain a value with fractional seconds for
+                            time values and durations.
+                            FRACTIONAL MUST NOT be used in date-time calculations or comparisons in 
+                            iCalendar.
+                            It is meant to preserve time precision on time
+                            values and duration with sub-second precision, without
+                            increasing the time value range within iCalendar.
                         </t>
                         <t hangText="Description:">
-                            This parameter MAY be specified on properties of type DATE-TIME,
-                            DURATION and TIME.
-                            It MUST be a FLOAT value less than 1.0 and MUST NOT be negative.
-                            Implementations MUST ignore presence of the SUBSECOND parameter
+                            This parameter MAY be specified on properties of type DATE-TIME
+                            or DURATION.
+                            It MUST be a valid iCalendar DATE-TIME or DURATION value with
+                            the addition of
+                            fractional seconds. The value MUST NOT be negative
+                            for durations but MAY be negative for alarm triggers.
+                            iCalendar implementations SHOULD ignore this parameter in date
+                            time arithmetic.
+                            Implementations MUST ignore presence of the FRACTIONAL parameter
                             on RECURRENCE-ID properties when determining recurrence overrides.
+                        </t>
+                        <t>
+                            Applications receiving a property with a FRACTIONAL parameter
+                            MUST ensure its value is consistent with the value of the
+                            property. The property value must match:
+                            <vspace/>
+                            - a positive FRACTIONAL value rounded up to the next non-fractional second
+                            or
+                            <vspace/>
+                            - a negative FRACTIONAL value rounded down the next non-fractional second
+                        </t>
+                        <t>
+                            If the values do not match the the application
+                            MUST assume that the property value has been
+                            updated by an application that is unaware
+                            of the FRACTIONAL parameter. The parameter should be
+                            ignored in this case.
                         </t>
                         <t hangText="Format Definition:">
                             <figure>
@@ -173,14 +201,14 @@
                                 </preamble>
 
                                 <artwork type="abnf">
-    subsecond-param = "SUBSECOND" "=" float
+    fractional-param = DATE-TIME or DURATION
                                 </artwork>
                             </figure>
                         </t>
                         <t hangText="Example:">
                             <figure>
                                 <artwork><![CDATA[
-    DTSTART;SUBSECOND=0.0123:20111205T040506
+    DTSTART;FRACTIONAL=20190605T133015.03:20190605T133015
 ]]></artwork>
                             </figure>
                         </t>
