@@ -869,6 +869,7 @@
             <t>recurrenceRules</t>
             <t>relatedTo</t>
             <t>replyTo</t>
+            <t>timeZones</t>
             <t>uid</t>
           </list></t>
         </section>
