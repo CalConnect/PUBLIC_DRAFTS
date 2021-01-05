@@ -1254,7 +1254,9 @@
             <t>At least one other property in the same JSCalendar object MUST reference a time zone using this identifier (i.e., orphaned time zones are not allowed).</t>
           </list>
 
-          An identifier need only be unique to this JSCalendar object. A JSCalendar object may be part in a hierarchy of other JSCalendar objects (say, a JSEvent is an entry in a JSGroup). In this case, the set of time zones is the sum of the time zone definitions of this object and its parent objects. If multiple time zones with the same identifier exist, then the definition closest to the calendar object in relation to its parents MUST be used. (In context of JSEvent, a time zone definition in its timeZones property has precedence over a definition of the same id in the JSGroup). Time zone definitions in any children of the calendar object MUST be ignored. </t>
+        An identifier need only be unique to this JSCalendar object. It MAY differ from the
+        <spanx style="verb">tzId</spanx> property value of the TimeZone object it maps to.</t>
+          <t>A JSCalendar object may be part in a hierarchy of other JSCalendar objects (say, a JSEvent is an entry in a JSGroup). In this case, the set of time zones is the sum of the time zone definitions of this object and its parent objects. If multiple time zones with the same identifier exist, then the definition closest to the calendar object in relation to its parents MUST be used. (In context of JSEvent, a time zone definition in its timeZones property has precedence over a definition of the same id in the JSGroup). Time zone definitions in any children of the calendar object MUST be ignored.</t>
 
           <t>A TimeZone object maps a VTIMEZONE component from iCalendar <xref target="RFC5545" /> and the semantics are as defined there. A valid time zone MUST define at least one transition rule in the <spanx style="verb">standard</spanx> or <spanx style="verb">daylight</spanx> property. Its properties are:
 
@@ -1265,7 +1267,7 @@
             </t>
             <t>tzId: <spanx style="verb">String</spanx> (mandatory).
             <vspace blankLines="1" />
-            The TZID property from iCalendar.</t>
+            The TZID property from iCalendar. Note that this implies that the value MUST be a valid <spanx style="verb">paramtext</spanx> value as specified in Section 3.1. of <xref target="RFC5545" />.</t>
 
             <t>updated: <spanx style="verb">UTCDateTime</spanx> (optional)
             <vspace blankLines="1" />
