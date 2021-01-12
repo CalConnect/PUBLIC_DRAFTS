@@ -1537,9 +1537,12 @@
   "isAllDay": true,
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
-  "recurrenceRule": {
-    "frequency": "yearly"
-  }
+  "recurrenceRules": [
+    {
+      "@type": "RecurrenceRule",
+      "frequency": "yearly"
+    }
+  ]
 }
           ]]></artwork>
     </figure>
@@ -1600,10 +1603,12 @@
   "title": "Yoga",
   "start": "2018-01-01T07:00:00",
   "duration": "PT30M",
-  "recurrenceRule": {
-    "@type": "Recurrence",
-    "frequency": "daily"
-  }
+  "recurrenceRules": [
+    {
+      "@type": "RecurrenceRule",
+      "frequency": "daily"
+    }
+  ]
 }
           ]]></artwork>
     </figure>
@@ -1667,11 +1672,13 @@
       "description": "Math Lab I, Department of Mathematics"
     }
   },
-  "recurrenceRule": {
-    "@type": "Recurrence",
-    "frequency": "weekly",
-    "until": "2018-06-25T09:00:00"
-  },
+  "recurrenceRules": [
+    {
+      "@type": "RecurrenceRule",
+      "frequency": "weekly",
+      "until": "2018-06-25T09:00:00"
+    }
+  ],
   "recurrenceOverrides": {
     "2018-01-05T14:00:00": {
       "title": "Introduction to Calculus I (optional)"
@@ -1715,10 +1722,12 @@
       "uri": "https://chatme.example.com?id=1234567"
     }
   },
-  "recurrenceRule": {
-    "@type": "Recurrence",
-    "frequency": "weekly"
-  },
+  "recurrenceRules": [
+    {
+      "@type": "RecurrenceRule",
+      "frequency": "weekly"
+    }
+  ],
   "replyTo": {
     "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
   },
@@ -1760,7 +1769,6 @@
           ]]></artwork>
     </figure>
 </section>
-
       <!-- EXAMPLES END -->
     </section>
 

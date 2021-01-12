@@ -59,9 +59,10 @@
     "isAllDay": true,
     "start": "1900-04-01T00:00:00",
     "duration": "P1D",
-    "recurrenceRule": {
+    "recurrenceRules": [{
+      "@type": "RecurrenceRule",
       "frequency": "yearly"
-    }
+    }]
   }
 }, {
   "t": "Task with a due date",
@@ -110,10 +111,10 @@
     "title": "Yoga",
     "start": "2018-01-01T07:00:00",
     "duration": "PT30M",
-    "recurrenceRule": {
-      "@type": "Recurrence",
+    "recurrenceRules": [{
+      "@type": "RecurrenceRule",
       "frequency": "daily"
-    }
+    }]
   }
 }, {
   "t": "Event with multiple locations and localization",
@@ -169,11 +170,11 @@
         "description": "Math Lab I, Department of Mathematics"
       }
     },
-    "recurrenceRule": {
-      "@type": "Recurrence",
+    "recurrenceRules": [{
+      "@type": "RecurrenceRule",
       "frequency": "weekly",
       "until": "2018-06-25T09:00:00"
-    },
+    }],
     "recurrenceOverrides": {
       "2018-01-05T14:00:00": {
         "title": "Introduction to Calculus I (optional)"
@@ -213,10 +214,10 @@
         "uri": "https://chatme.example.com?id=1234567"
       }
     },
-    "recurrenceRule": {
-      "@type": "Recurrence",
+    "recurrenceRules": [{
+      "@type": "RecurrenceRule",
       "frequency": "weekly"
-    },
+    }],
     "replyTo": {
       "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
     },
