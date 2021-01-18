@@ -44,7 +44,7 @@
             </address>
         </author>
         <author initials="M." surname="Douglass" fullname="Michael Douglass">
-            <organization abbrev="Bedework">Bedework</organization>
+            <organization abbrev="Bedework">Bedework Commercial Services</organization>
             <address>
                 <postal>
                     <street>226 3rd Street</street>
@@ -135,6 +135,14 @@
                     between iCalendar and JSCalendar, and implementations MUST follow
                     the approaches specified here when iCalendar data is represented in JSCalendar
                     and vice-versa.
+                </t>
+
+                <t>
+                    This document uses the iCalendar extensions defined in
+                    <xref target="draft-ietf-calext-eventpub-extensions"/> and
+                    <xref target="draft-ietf-calext-ical-relations"/> therefore
+                    both of these specifications MUST be implemented to follow this
+                    specification.
                 </t>
             </section>
 
@@ -2963,7 +2971,15 @@
                     <date/>
                 </front>
             </reference>
-            <reference anchor="draft-ietf-calext-ical-relations"
+            <reference anchor="draft-ietf-calext-eventpub-extensions"
+                       target="https://tools.ietf.org/html/draft-ietf-calext-eventpub-extensions">
+                <front>
+                    <title>Event Publishing Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+              </reference>
+              <reference anchor="draft-ietf-calext-ical-relations"
                        target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
                 <front>
                     <title>Support for iCalendar Relationships</title>
