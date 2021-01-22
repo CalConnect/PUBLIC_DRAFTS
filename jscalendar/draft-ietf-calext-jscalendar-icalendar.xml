@@ -298,7 +298,7 @@
                 <t>
                     A <xref target="RFC5545"/> VALARM component is mapped
                     to a member of a JSCalendar "alerts" object with a
-                    type of "Alert" and an arbitrary id.
+                    type of "Alert" and a small id.
                     <figure>
                         <artwork><![CDATA[
   BEGIN: VEVENT
@@ -317,11 +317,11 @@
     "@type": "jsevent",
     ...
     "alerts": {
-      "6ICJGbGlnaHRSZXNlcnZhdGlvb": {
+      "1": {
         "@type": "Alert",
         ...
       },
-      "kIjogIlJYSjM0UCIsCiAgICAgI": {
+      "2": {
         "@type": "Alert",
         ...
       }
@@ -423,7 +423,7 @@
     "@type": "jsevent",
     ...
     "alerts": {
-      "6ICJGbGlnaHRSZXNlcnZhdGlvb": {
+      "1": {
         "@type": "Alert",
         "action": "display",
         "trigger": {
@@ -431,7 +431,7 @@
           "when": "19970317T133000Z"
         }
       },
-      "kIjogIlJYSjM0UCIsCiAgICAgI": {
+      "2": {
         "@type": "Alert",
         "action": "display",
         "trigger": {
@@ -439,7 +439,7 @@
           "offset": "-PT30M"
         }
       }
-      "odHRwOi8vc2NoZW1hLm9yZy9SZ": {
+      "3": {
         "@type": "Alert",
         "action": "email",
         "trigger": {
@@ -1077,12 +1077,12 @@
     "duration": "PT7H"
     ...
     "locations": {
-       "lbGxlciI6IHsKICAgI": {
-                     "@type": "location",
-                     "relatedTo": "end",
-                     "timeZone": "America/Los_Angeles"
-                   }
-                 }
+       "1": {
+              "@type": "location",
+              "relatedTo": "end",
+              "timeZone": "America/Los_Angeles"
+            }
+       }
   }
 ]]></artwork>
                     </figure>
@@ -1755,19 +1755,19 @@
     "entries": [
       {
         "links": {
-          "d4a618d4-929c-4c81-ae5b-322afe407a00": {
+          "1": {
             "@type": "Link",
             "rel": "enclosure",
             "contentType": "text/plain",
             "href": "http://example.org/doc1.txt"
           },
-          "6c54e72e-3413-487c-ae14-fb318a90db43": {
+          "2": {
             "@type": "Link",
             "rel": "enclosure",
             "contentType": "text/plain",
             "href": "http://example.org/doc2.txt"
           },
-          "44087e9a-132c-4a5d-b25d-4ce580edb004": {
+          "3": {
             "@type": "Link",
             "rel": "enclosure",
             "contentType": "text/plain",
@@ -1857,7 +1857,7 @@
             }
           },
           "links": {
-            "2e1025a2-1f1a-44f3-a867-75e19ce38b46": {
+            "1": {
               "@type": "Link",
               "href": "ldap://example.com:6666/o=ABC%20Industries,\
                              c=US???(cn=Jim%20Dolittle)",
@@ -1997,7 +1997,7 @@
                 }
               },
               "links": {
-                "0234793d-201c-4e64-8081-209878c63c41": {
+                "1": {
                   "@type": "Link",
                   "href": "http://example.org/vcards/vbede.vcf",
                   "rel": "alternate"
