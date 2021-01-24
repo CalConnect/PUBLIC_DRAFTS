@@ -528,6 +528,42 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-comp-vlocation"
+                     title="VLOCATION">
+                <t>
+                    A <xref target="draft-ietf-calext-eventpub-extensions"/>
+                    VLOCATION component is mapped
+                    to a JSCalendar object with a type of "Location". Any
+                    properties within the VLOCATION must be mapped as
+                    described below.
+                </t>
+                <t>
+                    <figure>
+                        <artwork><![CDATA[
+  BEGIN: VEVENT
+  ...
+  BEGIN: VLOCATION
+  ...
+  END: VLOCATION
+  END: VEVENT
+
+  maps to
+
+  {
+    "@type": "jsevent",
+    ...
+     "locations": {
+       "1": {
+         "@type": "Location",
+         ...
+       }
+     }
+  }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
             <section anchor="translate-ical-comp-vtimezone"
                      title="VTIMEZONE, STANDARD, DAYLIGHT">
                 <t>
@@ -1167,6 +1203,23 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-location"
+                     title="LOCATION">
+                <t>
+                    If any <xref target="draft-ietf-calext-eventpub-extensions"/>
+                    "VLOCATION" components are present, then the
+                    <xref target="RFC5545"/>"LOCATION" property should
+                    be ignored.
+                </t>
+
+                <t>
+                    To map the property create a "locations" property
+                    with a single "location" and set the "description"
+                    property to the value of the
+                    <xref target="RFC5545"/>"LOCATION" property.
+                </t>
+            </section>
+
             <section anchor="translate-ical-percent-complete"
                      title="PERCENT-COMPLETE">
                 <t>
@@ -1666,6 +1719,70 @@
                 <t>
                     For a VTODO copy the lower-cased value into the
                     JSCalendar "progress" property.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-structured-data"
+                     title="STRUCTURED-DATA">
+                <t>
+                    This property is mapped on to a JSCalendar "link"
+                    object with the value mapped on to the
+                    JSCalendar "href" property in a manner depending on
+                    the "STRUCTURED-DATA" "VALUE" parameter:
+                    <list style="hanging">
+                        <t hangText="VALUE=TEXT">
+                            Copy the value as a <xref target="RFC2397"/>
+                            data uri either as plain
+                            text or by encoding as a base64 value. If plain text
+                            the value may need escaping as per <xref target="RFC2397"/>.
+                        </t>
+                        <t hangText="VALUE=BINARY">
+                            Copy the value as a <xref target="RFC2397"/>
+                            data uri speifying base64 encoding.
+                        </t>
+                        <t hangText="VALUE=URI">
+                            Copy the value as-is into the href.
+                        </t>
+                    </list>
+                </t>
+                <t>
+                    The "STRUCTURED-DATA" "SCHEMA" parameter is mapped on
+                    to a JSCalendar "schema" property within the link object.
+                </t>
+                <t>
+                    The "STRUCTURED-DATA" "FMTTYPE" parameter is mapped on
+                    to a JSCalendar "contentType" property within the link object.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  STRUCTURED-DATA;FMTTYPE=application/ld+json;
+      SCHEMA="https://schema.org/SportsEvent";
+      VALUE=TEXT:{\n
+        "@context": "http://schema.org"\,\n
+        "@type": "SportsEvent"\,\n
+        "homeTeam": "Pittsburgh Pirates"\,\n
+        "awayTeam": "San Francisco Giants"\n
+      }\n
+  ...
+
+  maps to (with data truncated)
+
+  ...
+  "links": {
+    "1": {
+      "@type" : "Link",
+      "contentType": "application/ld+json",
+      "schema": "https://schema.org/SportsEvent",
+      "href": "data:base64;ewogICAgICAgICJAY29udGV4dCI6IC..."
+    }
+  }
+  ...
+]]></artwork>
+                    </figure>
+
                 </t>
             </section>
 
@@ -2964,6 +3081,7 @@
     <back>
         <references title="Normative References">
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"?>
