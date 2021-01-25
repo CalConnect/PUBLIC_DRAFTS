@@ -2192,7 +2192,7 @@
                  title="Translating JSCalendar properties to iCalendar components">
             <t>
                 This section is an alphabetic list of all JSCalendar
-                property types that map on to <xref target="RFC5545"/> components.
+                property types that map on to components.
             </t>
 
             <section anchor="translate-jscal-jsevent" title="jsevent">
@@ -2265,6 +2265,18 @@
   END: VCALENDAR
 ]]></artwork>
                     </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-locations" title="locations">
+                <t>
+                    JSCalendar locations should be mapped on to
+                    <xref target="draft-ietf-calext-eventpub-extensions"/>VLOCATION
+                    components. Additionally, for backwards compatibility,
+                    a location should be mapped on to a
+                    <xref target="RFC5545"/> LOCATION property. This property
+                    should be mapped from the only location or the one
+                    related to the start.
                 </t>
             </section>
 
@@ -2355,174 +2367,11 @@
             </section>
         </section>
 
-        <section anchor="Some-notes" title="Some notes">
+        <section anchor="Note" title="Note">
             <t>
                 The sections following this one are all the original ones
                 from draft 1 writen by Robert/Neil - there for reference.
             </t>
-
-            <section anchor="notes-alerts" title="Alerts">
-                <t>
-                    I've got text which explains some of the justification
-                    for the changes. Because it's not trivial to map I think
-                    people need to understand the reasoning.
-                </t>
-            </section>
-
-            <section anchor="notes-preserving" title="Preserving icalendar">
-                <t>
-                    I don't think we need to preserve the entire iCalendar
-                    object to make this round trippable. That also means
-                    somebody needs to parse it and extract what they need.
-                </t>
-
-                <t>
-                    Rather - where it matters we could use the JCal approach.
-                    For example - preserve VALARM
-                </t>
-            </section>
-
-            <section anchor="jscalendar-changes" title="JSCalendar changes">
-                <t>
-                    Here I'll note what I think needs changing in the
-                    jscalendar spec.
-                </t>
-
-                <t>
-                    <list style="hanging">
-                        <t hangText="alert - absolute time">
-                            I don't think we should promote UTC. A
-                            change in rules could result in alarms
-                            all going off at the wrong time. I think
-                            we should allow for local time and a timezone.
-                        </t>
-                        <t hangText="attach - ATTACH">
-                            The text for links says
-                            <figure>
-                                <artwork><![CDATA[
-   Links with a rel of "enclosure" SHOULD be considered by the client
-   as attachments for download.
-]]></artwork>
-                            </figure>
-                            This doesn't seem adequate. We need to know
-                            exactly where attachments are going. I think
-                            this needs to be MUST.
-                        </t>
-
-                        <t hangText="comments - COMMENT">
-                            comments is only specified for timezone rules. It needs to be valid for all or some indication of how to handle them needs to be provided.
-                        </t>
-                        <t>
-                        There is an issue in 5545 with COMMENT in scheduling e.g. is a comment meant only for the organizer? That could be tightened up.
-                        </t>
-
-                        <t hangText="CONTACT">
-                            There's no mapping suggested. CONTACT is vital for event publication. I'd suggest following the approach in eventpub - add a participantType property to participant
-                        </t>
-                        <t>
-                            I thought this could probably be handled just by changing the wording for participant as I suggested and extending the roles values. However I think that's conceptually more complicated,
-                            <figure>
-                                <artwork><![CDATA[
-              "participantTypes": {"attendee": true}
-              "roles": {"optional": true}
-
-              is easier to understand than
-
-              "participantTypes": {"optional": true}
-
-              implying this is an optional attendee.
-
-              Changing role "attendee" to "required" or "expected"
-              might make sense
-]]></artwork>
-                            </figure>
-                        </t>
-
-                        <t hangText="GEO">
-                            Probably need a well defined location type to bury this in.
-                        </t>
-
-                        <t hangText="participant">
-                            Bring into line with eventpub extensions so
-                            we can do a consistent mapping between them.
-                            Add the following:
-                            <list style="hanging">
-                                <t hangText="order">
-                                    Positive number.
-                                </t>
-                                <t hangText="participantTypes">
-                                    As defined.
-                                </t>
-                                <t hangText="structuredData">
-                                    with "encoding" and "value" properties.
-                                    We need to have a place to put the value
-                                    which may be a phone number. As a fallback
-                                    converting to JSCalendar may involve
-                                    encoding the value as a data uri.
-                                </t>
-                                <t hangText="uri">
-                                    To match ALTREP.
-                                </t>
-                            </list>
-                        </t>
-
-                        <t>
-                            Note that eventpub extensions needs an
-                            update: PARTICIPANT-TYPE needs to be allowed
-                            more than once and ATTENDEE should be added
-                            as a value.
-                        </t>
-
-                        <t hangText="PERCENT-COMPLETE">
-                            Add this?
-                        </t>
-
-                        <t hangText="PRORITY">
-                            Not scheduling or sharing specific. Text for UIs?
-                        </t>
-
-                        <t hangText="privacy">
-                            Still think we should change "secret" to
-                            "confidential".
-                        </t>
-
-                        <t hangText="relation">
-                            No mapping for "first". Define this in
-                            relations draft? Is "next" == SIBLING?
-                        </t>
-
-                        <t hangText="RESOURCES">
-                            No obvious mapping?
-                        </t>
-
-                        <t hangText="section 3.1 - etags text">
-                            Needs correcting.
-                        </t>
-
-                        <t hangText="timezones">
-                            I'm completely fine with the default being by reference. It may be good to strengthen the language in  section 1.4.9. A concern is we're not allowing standalone timezone defs. I see 2 uses for that:
-
-                            <list style="numbers">
-                                <t>
-                                    A group containing a lot of events that all use the same custom timezone - having to repeat that per event is bulky. (probably not a major case but...). I guess the first event could be considered the definition but that's messy.
-                                </t>
-                                <t>
-                                    More important - how do we deliver jscalendar format timezones from tzdist?
-                                </t>
-                            </list>
-                            Could we simply allow a timezones property as another alternative in JSGroup?
-                        </t>
-
-                        <t hangText="relation type">
-                            Include the values from the relations draft spec.
-                        </t>
-
-                        <t hangText="URL">
-                            presumably a link but need a way to identify it?
-                        </t>
-                    </list>
-                </t>
-            </section>
         </section>
 
         <section anchor="translate-jsevent" title="JSEvent">
