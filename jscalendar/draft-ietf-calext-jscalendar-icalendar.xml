@@ -77,6 +77,14 @@
     <middle>
         <section anchor="introduction" title="Introduction">
 
+            <section anchor="introductory-note" title="Note (to be deleted later)">
+                <t>
+                    This is still very much a work in progress. There
+                    are implementations of the mapping but there may
+                    be changes over the coming weeks.
+                </t>
+            </section>
+
             <section anchor="motivation" title="Motivation">
                 <t>
                     The JSCalendar <xref target="draft-ietf-calext-jscalendar"/> data format
