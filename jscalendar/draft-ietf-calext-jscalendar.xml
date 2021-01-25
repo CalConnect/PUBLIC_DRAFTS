@@ -123,7 +123,7 @@
 
           <t>In many places in JSCalendar a JSON map is used where the map keys are of type Id and the map values are all the same type of object. This construction represents an unordered set of objects, with the added advantage that each entry has a name (the corresponding map key). This allows for more concise patching of objects, and, when applicable, for the objects in question to be referenced from other objects within the JSCalendar object.</t>
 
-          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects. <vspace blankLines="1" /> Nevertheless, a UUID <xref target="RFC4122" /> is typically a good choice.</t>
+          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects.</t>
         </section>
 
         <section anchor="type-Int" title="Int">
@@ -1572,12 +1572,12 @@
   "timeZone": "Europe/Berlin",
   "duration": "PT10H30M",
   "locations": {
-    "418d0b9b-b656-4b3c-909f-5b149ca779c9": {
+    "1": {
       "@type": "Location",
       "rel": "start",
       "name": "Frankfurt Airport (FRA)"
     },
-    "c2c7ac67-dc13-411e-a7d4-0780fb61fb08": {
+    "2": {
       "@type": "Location",
       "rel": "end",
       "name": "Narita International Airport (NRT)",
@@ -1622,7 +1622,7 @@
   "timeZone": "America/New_York",
   "duration": "PT3H",
   "locations": {
-    "c0503d30-8c50-4372-87b5-7657e8e0fedd": {
+    "loc1": {
       "@type": "Location",
       "name": "The Music Bowl",
       "description": "Music Bowl, Central Park, New York",
@@ -1630,7 +1630,7 @@
     }
   },
   "virtualLocations": {
-    "1": {
+    "vloc1": {
       "@type": "VirtualLocation",
       "name": "Free live Stream from Music Bowl",
       "uri": "https://stream.example.com/the_band_2020"
@@ -1640,7 +1640,7 @@
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "virtualLocations/1/name": "Gratis Live-Stream aus der Music Bowl"
+      "virtualLocations/vloc1/name": "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
@@ -1660,7 +1660,7 @@
   "timeZone": "Europe/London",
   "duration": "PT1H30M",
   "locations": {
-    "0dfb8ace-aad1-4734-b3b4-a2fe3d6ae1c5": {
+    "mlab": {
       "@type": "Location",
       "title": "Math lab room 1",
       "description": "Math Lab I, Department of Mathematics"
@@ -1683,7 +1683,7 @@
       "start": "2020-06-25T10:00:00",
       "duration": "PT2H",
       "locations": {
-        "84d639ca-37ac-4a86-81e5-9bbba8eb4053": {
+        "auditorium": {
           "@type": "Location",
           "title": "Big Auditorium",
           "description": "Big Auditorium, Other Road"
@@ -1708,7 +1708,7 @@
   "timeZone": "Africa/Johannesburg",
   "duration": "PT1H",
   "virtualLocations": {
-    "3f41b47b-a5eb-494f-90eb-19d279486d84": {
+    "1": {
       "@type": "VirtualLocation",
       "name": "ChatMe meeting room",
       "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d396e"
