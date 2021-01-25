@@ -87,12 +87,12 @@
     "timeZone": "Europe/Berlin",
     "duration": "PT10H30M",
     "locations": {
-      "1": {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
         "@type": "Location",
         "rel": "start",
         "name": "Frankfurt Airport (FRA)"
       },
-      "2": {
+      "c2c7ac67-dc13-411e-a7d4-0780fb61fb08": {
         "@type": "Location",
         "rel": "end",
         "name": "Narita International Airport (NRT)",
@@ -129,7 +129,7 @@
     "timeZone": "America/New_York",
     "duration": "PT3H",
     "locations": {
-      "1" : {
+      "c0503d30-8c50-4372-87b5-7657e8e0fedd" : {
         "@type": "Location",
         "name": "The Music Bowl",
         "description": "Music Bowl, Central Park, New York",
@@ -137,7 +137,7 @@
       }
     },
     "virtualLocations": {
-      "1" : {
+      "6f3696c6-1e07-47d0-9ce1-f50014b0041a" : {
         "@type": "VirtualLocation",
         "name": "Free live Stream from Music Bowl",
         "uri": "https://stream.example.com/the_band_2018"
@@ -147,7 +147,7 @@
       "de": {
         "title": "Live von der Music Bowl: The Band!",
         "description": "Schau dir das größte Musikereignis an!",
-        "virtualLocations/1/name": "Gratis Live-Stream aus der Music Bowl"
+        "virtualLocations/6f3696c6-1e07-47d0-9ce1-f50014b0041a/name": "Gratis Live-Stream aus der Music Bowl"
       }
     }
   }
@@ -163,7 +163,7 @@
     "timeZone": "Europe/London",
     "duration": "PT1H30M",
     "locations": {
-      "1": {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
         "@type": "Location",
         "title": "Math lab room 1",
         "description": "Math Lab I, Department of Mathematics"
@@ -186,7 +186,7 @@
         "start": "2018-06-25T10:00:00",
         "duration": "PT2H",
         "locations": {
-          "2": {
+          "2a358cee-6489-4f14-a57f-c104db4dc2f1": {
             "@type": "Location",
             "title": "Big Auditorium",
             "description": "Big Auditorium, Other Road"
@@ -207,7 +207,7 @@
     "timeZone": "Africa/Johannesburg",
     "duration": "PT1H",
     "virtualLocations": {
-      "1" : {
+      "2a358cee-6489-4f14-a57f-c104db4dc2f1" : {
         "@type": "VirtualLocation",
         "name": "ChatMe meeting room",
         "uri": "https://chatme.example.com?id=1234567"
