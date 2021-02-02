@@ -1462,16 +1462,16 @@
       <!-- EXAMPLES START -->
 <section anchor="example-simple-event" title="Simple event">
     <t>
-    This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2018 at 1pm New York local time and ends after 1 hour.
+    This example illustrates a simple one-time event. It specifies a one-time event that begins on January 15, 2020 at 1pm New York local time and ends after 1 hour.
     </t>
     <figure>
           <artwork><![CDATA[
 {
   "@type": "JSEvent",
-  "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
-  "updated": "2018-01-15T18:00:00Z",
+  "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
+  "updated": "2020-01-02T18:23:04Z",
   "title": "Some event",
-  "start": "2018-01-15T13:00:00",
+  "start": "2020-01-15T13:00:00",
   "timeZone": "America/New_York",
   "duration": "PT1H"
 }
@@ -1487,7 +1487,7 @@
 {
   "@type": "JSTask",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
-  "updated": "2018-01-15T18:00:00Z",
+  "updated": "2020-01-09T14:32:01Z",
   "title": "Do something"
 }
           ]]></artwork>
@@ -1501,26 +1501,24 @@
           <artwork><![CDATA[
 {
   "@type": "JSGroup",
-  "uid": "2a358cee-6489-4f14-a57f-c104db4dc343",
-  "updated": "2018-01-15T18:00:00Z",
+  "uid": "bf0ac22b-4989-4caf-9ebd-54301b4ee51a",
+  "updated": "2020-01-15T18:00:00Z",
   "name": "A simple group",
-  "entries": [
-    {
-      "@type": "JSEvent",
-      "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f1",
-      "updated": "2018-01-15T18:00:00Z",
-      "title": "Some event",
-      "start": "2018-01-15T13:00:00",
-      "timeZone": "America/New_York",
-      "duration": "PT1H"
-    },
-    {
-      "@type": "JSTask",
-      "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
-      "updated": "2018-01-15T18:00:00Z",
-      "title": "Do something"
-    }
-  ]
+  "entries": [{
+    "@type": "JSEvent",
+    "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
+    "updated": "2020-01-02T18:23:04Z",
+    "title": "Some event",
+    "start": "2020-01-15T13:00:00",
+    "timeZone": "America/New_York",
+    "duration": "PT1H"
+  },
+  {
+    "@type": "JSTask",
+    "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
+    "updated": "2020-01-09T14:32:01Z",
+    "title": "Do something"
+  }]
 }
           ]]></artwork>
     </figure>
@@ -1534,45 +1532,43 @@
 {
   "...": "",
   "title": "April Fool's Day",
-  "isAllDay": true,
+  "showWithoutTime": true,
   "start": "1900-04-01T00:00:00",
   "duration": "P1D",
-  "recurrenceRules": [
-    {
-      "@type": "RecurrenceRule",
-      "frequency": "yearly"
-    }
-  ]
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "yearly"
+  }]
 }
           ]]></artwork>
     </figure>
 </section>
 <section anchor="example-due-task" title="Task with a due date">
     <t>
-    This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm Vienna local time on January 19, 2018. The calendar user expects to need 1 hour for shopping.
+    This example illustrates a task with a due date. It is a reminder to buy groceries before 6pm Vienna local time on January 19, 2020. The calendar user expects to need 1 hour for shopping.
     </t>
     <figure>
           <artwork><![CDATA[
 {
   "...": "",
   "title": "Buy groceries",
-  "due": "2018-01-19T18:00:00",
+  "due": "2020-01-19T18:00:00",
   "timeZone": "Europe/Vienna",
   "estimatedDuration": "PT1H"
 }
           ]]></artwork>
     </figure>
 </section>
-<section anchor="example-zoned-event-endtz" title="Event with end time-zone">
+<section anchor="example-zoned-event-endtz" title="Event with end time zone">
     <t>
-    This example illustrates the use of end time-zones by use of an international flight. The flight starts on April 1, 2018 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flights destination is in the same time-zone as Tokyo. Calendar clients could use the end time-zone to display the arrival time in Tokyo local time and highlight the time-zone difference of the flight. The location names can serve as input for navigation systems.
+    This example illustrates the use of end time zones by use of an international flight. The flight starts on April 1, 2020 at 9am in Berlin local time. The duration of the flight is scheduled at 10 hours 30 minutes. The time at the flight's destination is in the same time zone as Tokyo. Calendar clients could use the end time zone to display the arrival time in Tokyo local time and highlight the time zone difference of the flight. The location names can serve as input for navigation systems.
     </t>
     <figure>
           <artwork><![CDATA[
 {
   "...": "",
   "title": "Flight XY51 to Tokyo",
-  "start": "2018-04-01T09:00:00",
+  "start": "2020-04-01T09:00:00",
   "timeZone": "Europe/Berlin",
   "duration": "PT10H30M",
   "locations": {
@@ -1594,28 +1590,26 @@
 </section>
 <section anchor="example-floating-event" title="Floating-time event (with recurrence)">
     <t>
-    This example illustrates the use of floating-time. Since January 1, 2018, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time-zone the user is located on that date.
+    This example illustrates the use of floating time. Since January 1, 2020, a calendar user blocks 30 minutes every day to practice Yoga at 7am local time, in whatever time zone the user is located on that date.
     </t>
     <figure>
           <artwork><![CDATA[
 {
   "...": "",
   "title": "Yoga",
-  "start": "2018-01-01T07:00:00",
+  "start": "2020-01-01T07:00:00",
   "duration": "PT30M",
-  "recurrenceRules": [
-    {
-      "@type": "RecurrenceRule",
-      "frequency": "daily"
-    }
-  ]
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "daily"
+  }]
 }
           ]]></artwork>
     </figure>
 </section>
 <section anchor="example-multi-location-event" title="Event with multiple locations and localization">
     <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live convert on premises or online. The event title and descriptions are localized.
+    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live concert on premises or online. The event title and descriptions are localized.
     </t>
     <figure>
           <artwork><![CDATA[
@@ -1624,29 +1618,29 @@
   "title": "Live from Music Bowl: The Band",
   "description": "Go see the biggest music event ever!",
   "locale": "en",
-  "start": "2018-07-04T17:00:00",
+  "start": "2020-07-04T17:00:00",
   "timeZone": "America/New_York",
   "duration": "PT3H",
   "locations": {
-    "1": {
+    "loc1": {
       "@type": "Location",
       "name": "The Music Bowl",
       "description": "Music Bowl, Central Park, New York",
-      "coordinates": "geo:40.7829,73.9654"
+      "coordinates": "geo:40.7829,-73.9654"
     }
   },
   "virtualLocations": {
-    "1": {
+    "vloc1": {
       "@type": "VirtualLocation",
       "name": "Free live Stream from Music Bowl",
-      "uri": "https://stream.example.com/the_band_2018"
+      "uri": "https://stream.example.com/the_band_2020"
     }
   },
   "localizations": {
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "virtualLocations/1/name": "Gratis Live-Stream aus der Music Bowl"
+      "virtualLocations/vloc1/name": "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
@@ -1655,43 +1649,41 @@
 </section>
 <section anchor="example-recurring-overrides" title="Recurring event with overrides">
     <t>
-    This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2018 at 9am London time and occurs every week until June 25, 2018. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 2 no course is held. On January 5 at 2pm is an optional introduction course, that occurs before the first regular lecture.
+    This example illustrates the use of recurrence overrides. A math course at a University is held for the first time on January 8, 2020 at 9am London time and occurs every week until June 24, 2020. Each lecture lasts for one hour and 30 minutes and is located at the Mathematics department. This event has exceptional occurrences: at the last occurrence of the course is an exam, which lasts for 2 hours and starts at 10am. Also, the location of the exam differs from the usual location. On April 1 no course is held. On January 7 at 2pm is an optional introduction course, that occurs before the first regular lecture.
     </t>
     <figure>
           <artwork><![CDATA[
 {
   "...": "",
   "title": "Calculus I",
-  "start": "2018-01-08T09:00:00",
+  "start": "2020-01-08T09:00:00",
   "timeZone": "Europe/London",
   "duration": "PT1H30M",
   "locations": {
-    "1": {
+    "mlab": {
       "@type": "Location",
       "title": "Math lab room 1",
       "description": "Math Lab I, Department of Mathematics"
     }
   },
-  "recurrenceRules": [
-    {
-      "@type": "RecurrenceRule",
-      "frequency": "weekly",
-      "until": "2018-06-25T09:00:00"
-    }
-  ],
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "weekly",
+    "until": "2020-06-24T09:00:00"
+  }],
   "recurrenceOverrides": {
-    "2018-01-05T14:00:00": {
+    "2020-01-07T14:00:00": {
       "title": "Introduction to Calculus I (optional)"
     },
-    "2018-04-02T09:00:00": {
-      "excluded": "true"
+    "2020-04-01T09:00:00": {
+      "excluded": true
     },
-    "2018-06-25T09:00:00": {
+    "2020-06-25T09:00:00": {
       "title": "Calculus I Exam",
-      "start": "2018-06-25T10:00:00",
+      "start": "2020-06-25T10:00:00",
       "duration": "PT2H",
       "locations": {
-        "2": {
+        "auditorium": {
           "@type": "Location",
           "title": "Big Auditorium",
           "description": "Big Auditorium, Other Road"
@@ -1705,31 +1697,29 @@
 </section>
 <section anchor="example-recurring-participants" title="Recurring event with participants">
     <t>
-    This example illustrates scheduled events. A team meeting occurs every week since January 8, 2018 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 8, 2018 he is unavailable and declined participation for this occurrence.
+    This example illustrates scheduled events. A team meeting occurs every week since January 8, 2020 at 9am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but on March 4, 2020 he is unavailable and declined participation for this occurrence.
     </t>
     <figure>
           <artwork><![CDATA[
 {
   "...": "",
   "title": "FooBar team meeting",
-  "start": "2018-01-08T09:00:00",
+  "start": "2020-01-08T09:00:00",
   "timeZone": "Africa/Johannesburg",
   "duration": "PT1H",
   "virtualLocations": {
     "1": {
       "@type": "VirtualLocation",
       "name": "ChatMe meeting room",
-      "uri": "https://chatme.example.com?id=1234567"
+      "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d396e"
     }
   },
-  "recurrenceRules": [
-    {
-      "@type": "RecurrenceRule",
-      "frequency": "weekly"
-    }
-  ],
+  "recurrenceRules": [{
+    "@type": "RecurrenceRule",
+    "frequency": "weekly"
+  }],
   "replyTo": {
-    "imip": "mailto:6489-4f14-a57f-c1@schedule.example.com"
+    "imip": "mailto:f245f875-7f63-4a5e-a2c8@schedule.example.com"
   },
   "participants": {
     "dG9tQGZvb2Jhci5xlLmNvbQ": {
@@ -1737,7 +1727,7 @@
       "name": "Tom Tool",
       "email": "tom@foobar.example.com",
       "sendTo": {
-        "imip": "mailto:6489-4f14-a57f-c1@calendar.example.com"
+        "imip": "mailto:tom@calendar.example.com"
       },
       "participationStatus": "accepted",
       "roles": {
@@ -1757,12 +1747,12 @@
         "attendee": true,
         "chair": true
       }
-    },
-    "...": ""
+    }
   },
   "recurrenceOverrides": {
-    "2018-03-08T09:00:00": {
-      "participants/dG9tQGZvb2Jhci5xlLmNvbQ/participationStatus": "declined"
+    "2020-03-04T09:00:00": {
+      "participants/dG9tQGZvb2Jhci5xlLmNvbQ/participationStatus":
+                                                          "declined"
     }
   }
 }
