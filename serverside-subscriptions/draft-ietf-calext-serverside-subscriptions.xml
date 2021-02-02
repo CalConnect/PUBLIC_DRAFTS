@@ -23,7 +23,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 <rfc category="std" updates="2518"
-     docName="draft-ietf-calext-serverside-subscriptions-00" ipr="trust200902">
+     docName="draft-ietf-calext-serverside-subscriptions-01" ipr="trust200902">
   <front>
     <title abbrev="Serverside Subscriptions">Serverside Subscriptions</title>
 
@@ -44,7 +44,7 @@
       </address>
     </author>
 
-    <date month='July' year='2020' />
+    <date month='February' year='2021' />
 
     <area>Applications</area>
 
@@ -554,8 +554,8 @@
         ...
       </t>
       <t>
-        The authors would also like to thank the Calendaring and
-        Scheduling Consortium for advice with this specification.
+        The authors would also like to thank CalConnect, the Calendaring and
+        Scheduling Consortium, for advice with this specification.
       </t>
     </section>
   </middle>
