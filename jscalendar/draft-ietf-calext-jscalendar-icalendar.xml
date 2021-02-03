@@ -771,7 +771,7 @@
                         </t>
                         <t hangText="DIR:">
                             If non-null look in the
-                            JSCalendar "links" property
+                            participant "links" property
                             for a
                             JSCalendar "link" property
                             with an href with the same value as the
@@ -784,12 +784,6 @@
                             set to the value of the DIR parameter and the
                             JSCalendar "rel" property
                             set to "alternate"
-                        </t>
-                        <t>
-                            Add the id of the located or created link
-                            to the
-                            JSCalendar "linkIds" property
-                            of the participant.
                         </t>
                         <t hangText="LANG:">
                             set the
@@ -940,6 +934,36 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-concept" title="CONCEPT">
+                <t>
+                    This <xref target="draft-ietf-calext-ical-relations"/>
+                    property may appear multiple times in components.
+                </t>
+
+                <t>
+                    Each instance of the property is mapped on to a
+                    member of the
+                    JSCalendar "categories" property.
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  CONCEPT:http://example.com/event-types/arts/music
+  CONCEPT:http://example.com/performance-types/arts/live
+  ...
+
+  maps to
+
+  ...
+  "categories": {
+    "http://example.com/event-types/arts/music": true,
+    "http://example.com/performance-types/arts/live": true
+  }
+  ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
             <section anchor="translate-ical-contact" title="CONTACT">
                 <t>
                     The CONTACT property is mapped on to a participant
@@ -955,8 +979,8 @@
                             DIR parameter: create a link property with
                             the "rel" property set to "alternate" and the
                             "href" property set to the value of the
-                            ALTREP parameter. The add the id of the link
-                            to teh participants "linkIds" property.
+                            ALTREP parameter. Then add the link
+                            to the participants "links" property.
                         </t>
                         <t hangText="LANG">
                             Set the participants "language" property.
@@ -1459,8 +1483,8 @@
                             DIR parameter: create a link property with
                             the "rel" property set to "alternate" and the
                             "href" property set to the value of the
-                            ALTREP parameter. The add the id of the link
-                            to teh participants "linkIds" property.
+                            ALTREP parameter. Then add the link
+                            to the participants "links" property.
                         </t>
                         <t hangText="LANG">
                             Set the participants "language" property.
@@ -1992,17 +2016,14 @@
               },
               "description": "Jim Dolittle, ABC Industries,\
                              +1-919-555-1234",
-              "linkIds": {
-                "2e1025a2-1f1a-44f3-a867-75e19ce38b46": true
+              "links": {
+                "1": {
+                  "@type": "Link",
+                  "href": "ldap://example.com:6666/o=ABC%20Industries,\
+                                 c=US???(cn=Jim%20Dolittle)",
+                  "rel": "alternate"
+                }
               }
-            }
-          },
-          "links": {
-            "1": {
-              "@type": "Link",
-              "href": "ldap://example.com:6666/o=ABC%20Industries,\
-                             c=US???(cn=Jim%20Dolittle)",
-              "rel": "alternate"
             }
           },
           "created ": "2020-07-09T03:04:23Z",
@@ -2128,20 +2149,17 @@
                     "imip": "mailto:vbede@example.org"
                   },
                   "expectReply": true,
-                  "linkIds": {
-                    "0234793d-201c-4e64-8081-209878c63c41": true
+                  "links": {
+                    "1": {
+                      "@type": "Link",
+                      "href": "http://example.org/vcards/vbede.vcf",
+                      "rel": "alternate"
+                    }
                   },
                   "roles": {
                     "attendee": true
                   },
                   "scheduleStatus": "1.2"
-                }
-              },
-              "links": {
-                "1": {
-                  "@type": "Link",
-                  "href": "http://example.org/vcards/vbede.vcf",
-                  "rel": "alternate"
                 }
               },
               "replyTo": {
@@ -2752,11 +2770,6 @@
                       Implementation-specific.
                   </c>
 
-                  <c>linkIds</c>
-                  <c>
-                      Implementation-specific.
-                  </c>
-
                   <c>name</c>
                   <c>
                       LOCATION property value.
@@ -2847,11 +2860,6 @@
                     <c>kind</c>
                     <c>
                         CUTYPE parameter
-                    </c>
-
-                    <c>linkIds</c>
-                    <c>
-                        Implementation-specific.
                     </c>
 
                     <c>locationId</c>
