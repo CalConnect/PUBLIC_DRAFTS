@@ -2294,18 +2294,6 @@
                 </t>
             </section>
 
-            <section anchor="translate-jscal-locations" title="locations">
-                <t>
-                    JSCalendar locations should be mapped on to
-                    <xref target="draft-ietf-calext-eventpub-extensions"/>VLOCATION
-                    components. Additionally, for backwards compatibility,
-                    a location should be mapped on to a
-                    <xref target="RFC5545"/> LOCATION property. This property
-                    should be mapped from the only location or the one
-                    related to the start.
-                </t>
-            </section>
-
             <section anchor="translate-jscal-jstask" title="jstask">
                 <t>
                     A JSCalendar object with a type of "jstask" is mapped on to a
@@ -2390,6 +2378,73 @@
                     object must have a <xref target="RFC5545"/> PRODID
                     set from either the JSGroup "prodid" or generated.
                 </t>
+            </section>
+
+            <section anchor="translate-jscal-locations" title="locations">
+                <t>
+                    JSCalendar locations should be mapped on to
+                    <xref target="draft-ietf-calext-eventpub-extensions"/>VLOCATION
+                    components. Additionally, for backwards compatibility,
+                    a location should be mapped on to a
+                    <xref target="RFC5545"/> LOCATION property. This property
+                    should be mapped from the only location or the one
+                    related to the start.
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-participants"
+                     title="participants">
+                <t>
+                    JSCalendar participants will be mapped on to
+                    different iCalendar properties and components depending on
+                    their jsCalendar role values.
+                </t>
+                <t>
+                    A participant with a role containing "contact"
+                    MUST be mapped on to an iCalendar CONTACT property
+                    and SHOULD also be mapped on to a
+                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    component which provides a better mapping.
+                </t>
+                <t>
+                    A participant with a role containing "owner"
+                    MUST be mapped on to an iCalendar ORGANIZER property
+                    and SHOULD also be mapped on to a
+                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    component which provides a better mapping.
+                </t>
+                <t>
+                    A participant with a role containing any of "attendee",
+                    "optional" or "informational"
+                    MUST be mapped on to an iCalendar ATTENDEE property
+                    and SHOULD also be mapped on to a
+                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    component which provides a better mapping.
+                </t>
+
+                <t>
+                    A more complete mapping may be achieved by creating a
+                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    component.
+                </t>
+
+                <t>
+                    For all properties the participants jsCalendar "language"
+                    property, if present, is mapped on to the iCalendar
+                    "LANG" property parameter.
+                </t>
+
+                <t>
+                    For all properties if the participant contains a
+                    jsCalendar "link" with a "rel" of "alternate" then
+                    the value of the link is used for the iCalendar
+                    "ALTREP" property parameter.
+                </t>
+
+                <t>
+                    Where do we get the cua?
+                </t>
+
             </section>
         </section>
 
