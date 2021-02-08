@@ -914,7 +914,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-color" title="color">
+            <section anchor="translate-ical-color" title="COLOR">
                 <t>
                     Maps to the "color" property. Copy the verbatim value.
                 </t>
