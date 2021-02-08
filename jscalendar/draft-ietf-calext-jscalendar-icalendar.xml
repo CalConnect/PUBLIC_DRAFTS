@@ -986,6 +986,12 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-conference" title="TBD: CONFERENCE">
+                <t>
+                    To be defined.
+                </t>
+            </section>
+
             <section anchor="translate-ical-contact" title="CONTACT">
                 <t>
                     The CONTACT property is mapped on to a participant
@@ -1231,6 +1237,12 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-exrule" title="TBD: EXRULE">
+                <t>
+                    To be defined.
+                </t>
+            </section>
+
             <section anchor="translate-ical-dtstamp-lastmod"
                      title="DTSTAMP and LAST-MODIFIED">
                 <t>
@@ -1257,6 +1269,18 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-geo" title="TBD: GEO">
+                <t>
+                    To be defined.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-image" title="TBD: IMAGE">
+                <t>
+                    To be defined.
+                </t>
+            </section>
+
             <section anchor="translate-ical-location"
                      title="LOCATION">
                 <t>
@@ -1271,6 +1295,18 @@
                     with a single "location" and set the "description"
                     property to the value of the
                     <xref target="RFC5545"/>"LOCATION" property.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-method" title="TBD: METHOD">
+                <t>
+                    To be defined.
+                </t>
+            </section>
+
+            <section anchor="translate-ical-organizer" title="TBD: ORGANIZER">
+                <t>
+                    To be defined.
                 </t>
             </section>
 
@@ -1439,6 +1475,12 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-recurrence-id" title="TBD: RECURRENCE-ID">
+                <t>
+                    To be defined.
+                </t>
+            </section>
+
             <section anchor="translate-ical-related-to"
                      title="RELATED-TO">
                 <t>
@@ -1484,6 +1526,12 @@
   }
 ]]></artwork>
                     </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-request-status" title="TBD: REQUEST-STATUS">
+                <t>
+                    To be defined.
                 </t>
             </section>
 
