@@ -898,6 +898,19 @@
                 </t>
             </section>
 
+            <section anchor="translate-ical-class" title="CLASS">
+                <t>
+                    Maps to the "privacy" property. The iCalendar property
+                    value maps to the JSCalendar value as follows:
+                    <list style="hanging">
+                        <t hangText="CONFIDENTIAL">"secret"</t>
+                        <t hangText="PRIVATE">"private"</t>
+                        <t hangText="PUBLIC">"public"</t>
+                        <t hangText="iana-token and x-name">verbatim copy</t>
+                    </list>
+                </t>
+            </section>
+
             <section anchor="translate-ical-comment" title="COMMENT">
                 <t>
                     There is no direct mapping for this property which
