@@ -155,6 +155,9 @@
                             <xref format="title" target="RFC5546"/>
                         </t>
                         <t>
+                            <xref format="title" target="RFC7986"/>
+                        </t>
+                        <t>
                             <xref format="title" target="draft-ietf-calext-eventpub-extensions"/>
                         </t>
                         <t>
@@ -657,7 +660,7 @@
                  title="Translating iCalendar properties to JSCalendar">
             <t>
                 This section is an alphabetic list of all
-                <xref target="RFC5545"/> properties and
+                <xref target="RFC5545"/> and <xref target="RFC7986"/> properties and
                 how they are mappped to JSCalendar.
             </t>
 
@@ -908,6 +911,12 @@
                         <t hangText="PUBLIC">"public"</t>
                         <t hangText="iana-token and x-name">verbatim copy</t>
                     </list>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-color" title="color">
+                <t>
+                    Maps to the "color" property. Copy the verbatim value.
                 </t>
             </section>
 
