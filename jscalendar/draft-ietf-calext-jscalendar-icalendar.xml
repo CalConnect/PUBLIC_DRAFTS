@@ -988,7 +988,18 @@
 
             <section anchor="translate-ical-conference" title="TBD: CONFERENCE">
                 <t>
-                    To be defined.
+                    To be defined. Parameters:
+                    <list style="hanging">
+                        <t hangText="FEATURE:">
+                            TBD
+                        </t>
+                        <t hangText="LABEL:">
+                            TBD
+                        </t>
+                        <t hangText="LANGUAGE:">
+                            TBD
+                        </t>
+                    </list>
                 </t>
             </section>
 
@@ -1296,6 +1307,10 @@
                     property to the value of the
                     <xref target="RFC5545"/>"LOCATION" property.
                 </t>
+
+                <t>
+                    TBD: ALTREP parameter
+                </t>
             </section>
 
             <section anchor="translate-ical-method" title="TBD: METHOD">
@@ -1489,6 +1504,9 @@
                     keys. The iCalendar relation is by default a PARENT
                     relationship. There is no default for JSCalendar
                     so the relationship must be explicitly specified.
+                </t>
+                <t>
+                    TBD: RELTYPE
                 </t>
                 <t>
                     Also note that the iCalendar relationship types are
@@ -1893,6 +1911,12 @@
                 <t>
                     Copy the value into the
                     JSCalendar "title" property.
+                </t>
+                <t>
+                    TBD: ALTREP param
+                </t>
+                <t>
+                    TBD: LANGUAGE param
                 </t>
             </section>
 
