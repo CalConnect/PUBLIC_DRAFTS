@@ -1345,9 +1345,11 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-method" title="TBD: METHOD">
+            <section anchor="translate-ical-method" title="METHOD">
                 <t>
-                    To be defined.
+                    Maps to the "method" property of the JSCalendar object.
+                    The JSCalendar property value is the lowercase equivalent
+                    of the iCalendar property value.
                 </t>
             </section>
 
