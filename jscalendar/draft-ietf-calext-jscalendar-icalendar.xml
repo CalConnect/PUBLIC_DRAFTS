@@ -986,18 +986,22 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-conference" title="TBD: CONFERENCE">
+            <section anchor="translate-ical-conference" title="CONFERENCE">
                 <t>
-                    To be defined. Parameters:
+                    Maps to a "VirtualLocation" object. The property value maps
+                    to the "uri" property of the virtual location.
+                </t>
+                <t>
+                    Mapping parameters:
                     <list style="hanging">
                         <t hangText="FEATURE:">
-                            TBD
+                            TBD No mapping.
                         </t>
                         <t hangText="LABEL:">
-                            TBD
+                            Maps to the "name" property of the virtual location.
                         </t>
                         <t hangText="LANGUAGE:">
-                            TBD
+                            No mapping.
                         </t>
                     </list>
                 </t>
