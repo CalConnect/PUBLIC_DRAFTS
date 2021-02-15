@@ -1285,9 +1285,13 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-geo" title="TBD: GEO">
+            <section anchor="translate-ical-geo" title="GEO">
                 <t>
-                    To be defined.
+                    Maps to a Location object, with only the "coordinates"
+                    property set. Note that the JSCalendar coordinates
+                    property value MUST be a valid "geo" URI, so replace
+                    the ";" character in the iCalendar value with "," and
+                    prepend the resulting string with "geo:".
                 </t>
             </section>
 
