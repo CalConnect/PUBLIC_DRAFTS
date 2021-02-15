@@ -534,11 +534,11 @@
 
           <t>A map of link ids to Link objects, representing external resources associated with the object.</t>
 
-          <t>Links with a rel of <spanx style="verb">enclosure</spanx> MUST be considered by the client as attachments for download.
+          <t>Links with a rel of <spanx style="verb">enclosure</spanx> MUST be considered by the client to be attachments for download.
           <vspace blankLines="1" />
-          Links with a rel of <spanx style="verb">describedby</spanx> MUST be considered by the client to be an alternative representation of the description.
+          Links with a rel of <spanx style="verb">describedby</spanx> MUST be considered by the client to be alternative representations of the description.
           <vspace blankLines="1" />
-          Links with a rel of <spanx style="verb">icon</spanx> MUST be considered by the client to be an image that it may use when presenting the calendar data to a user. The <spanx style="verb">display</spanx> property may be set to indicate the purpose of this image.</t>
+          Links with a rel of <spanx style="verb">icon</spanx> MUST be considered by the client to be images that it may use when presenting the calendar data to a user. The <spanx style="verb">display</spanx> property may be set to indicate the purpose of the respective image.</t>
         </section>
 
         <section anchor="prop-locale" title="locale">
