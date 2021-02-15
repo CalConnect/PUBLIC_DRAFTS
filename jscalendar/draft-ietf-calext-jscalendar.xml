@@ -222,7 +222,7 @@
           <t>The value associated with each pointer determines how to apply that patch:
             <list style="symbols">
               <t>If null, remove the property from the patched object. If the key is not present in the parent, this a no-op.</t>
-              <t>Anything else: The value to set for this property (this may be a replacement or addition to the object being patched).</t>
+              <t>If non-null, set the value given as the value for this property (this may be a replacement or addition to the object being patched).</t>
             </list>
           </t>
 
