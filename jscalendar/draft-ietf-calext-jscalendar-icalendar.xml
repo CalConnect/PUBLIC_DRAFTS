@@ -1295,9 +1295,32 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-image" title="TBD: IMAGE">
+            <section anchor="translate-ical-image" title="IMAGE">
                 <t>
-                    To be defined.
+                    Maps to a Link object with the iCalendar property
+                    value mapped to the location "href" property, and
+                    the "rel" property set to "icon".
+                </t>
+                <t>
+                    For a binary value use a base64 data uri
+                    in the "href" property.
+                </t>
+                <t>
+                    Mapping parameters:
+                    <list style="hanging">
+                        <t hangText="ALTREP">
+                            No mapping.
+                        </t>
+                        <t hangText="FMTTYPE">
+                            Maps to the "contentType" property of the Link object.
+                        </t>
+                        <t hangText="DISPLAY">
+                            Maps to the "display" property of the Link object.
+                            The property values "BADGE", "GRAPHIC", "FULLSIZE"
+                            and "THUMBNAIL" map to their lower-case equivalent
+                            in JSCalendar.
+                        </t>
+                    </list>
                 </t>
             </section>
 
