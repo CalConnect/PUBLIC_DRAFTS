@@ -1353,9 +1353,26 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-organizer" title="TBD: ORGANIZER">
+            <section anchor="translate-ical-organizer" title="ORGANIZER">
                 <t>
-                    To be defined.
+                    Maps to the "replyTo" property of the JSCalendar object.
+                    An iCalendar property value in the "mailto:" URI scheme,
+                    maps to the "imip" method, any other value maps to
+                    the "other" method.
+                </t>
+                <t>
+                    If the iCalendar component also contains an ATTENDEE
+                    with the same calendar user address then map that
+                    ATTENDEE as defined in <xref target="translate-ical-attendee"/>
+                    and add the "owner" role to the Participant "roles" property.
+                    Otherwise, use the ORGANIZER property to map to a Participant
+                    object. The "roles" property of the Participant MUST only
+                    contain the "owner" role and the "expectReply" property value
+                    MUST be "false". Any iCalendar parameters map as defined
+                    for ATTENDEE.
+                </t>
+                <t>
+                    TBD: DIR parameter, SENT-BY parameter. Example.
                 </t>
             </section>
 
