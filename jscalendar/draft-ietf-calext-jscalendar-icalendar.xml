@@ -1564,7 +1564,8 @@
                     so the relationship must be explicitly specified.
                 </t>
                 <t>
-                    TBD: RELTYPE
+                    The RELTYPE parameter values map to their lowercase
+                    equivalents in the "relation" property.
                 </t>
                 <t>
                     Also note that the iCalendar relationship types are
