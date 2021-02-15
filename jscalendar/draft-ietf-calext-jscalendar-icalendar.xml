@@ -1341,7 +1341,14 @@
                 </t>
 
                 <t>
-                    TBD: ALTREP parameter
+                    Mapping parameters:
+                    <list style="hanging">
+                        <t hangText="ALTREP">
+                            Maps to a Link object in the Location "links"
+                            property, with the "href" property set to
+                            the parameter value.
+                        </t>
+                    </list>
                 </t>
             </section>
 
@@ -1372,7 +1379,7 @@
                     for ATTENDEE.
                 </t>
                 <t>
-                    TBD: DIR parameter, SENT-BY parameter. Example.
+                    TBD: SENT-BY parameter. Example.
                 </t>
             </section>
 
