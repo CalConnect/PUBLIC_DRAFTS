@@ -1252,9 +1252,10 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-exrule" title="TBD: EXRULE">
+            <section anchor="translate-ical-exrule" title="EXRULE">
                 <t>
-                    To be defined.
+                    Maps to the "excludedRecurrenceRules" property.
+                    Also see <xref target="translate-ical-rrule"/>.
                 </t>
             </section>
 
