@@ -2003,7 +2003,9 @@
             <section anchor="translate-url"
                      title="URL">
                 <t>
-                    TBD.
+                    Maps to a Link object in the JSCalendar object's "links"
+                    property, with the URL property value mapped to the Link
+                    "href" property.
                 </t>
             </section>
         </section>
