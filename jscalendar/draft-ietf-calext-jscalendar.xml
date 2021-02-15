@@ -93,7 +93,7 @@
 
         <t>The underlying format used for this specification is JSON. Consequently, the terms "object" and "array" as well as the four primitive types (strings, numbers, booleans, and null) are to be interpreted as described in Section 1 of <xref target="RFC8259" />.</t>
 
-        <t>Some examples in this document contain "partial" JSON documents used for illustrative purposes. In these examples, three periods "..." are used to indicate a portion of the document that has been removed for compactness.</t>
+        <t>Some examples in this document contain "partial" JSON documents used for illustrative purposes. In these examples, an ellipsis "..." is used to indicate a portion of the document that has been removed for compactness.</t>
       </section>
 
       <section anchor="type-signatures" title="Type Signatures">
