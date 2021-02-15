@@ -675,7 +675,7 @@
               This is the day-of-the-week of the BYDAY part in iCalendar, converted to lowercase.</t>
               <t>nthOfPeriod: <spanx style="verb">Int</spanx> (optional)
               <vspace blankLines="1" />
-              If present, rather than representing every occurrence of the weekday defined in the <spanx style="verb">day</spanx> property, it represents only a specific instance within the recurrence period. The value can be positive or negative, but MUST NOT be zero. A negative integer means nth-last of period.
+              If present, rather than representing every occurrence of the weekday defined in the <spanx style="verb">day</spanx> property, it represents only a specific instance within the recurrence period. The value can be positive or negative, but MUST NOT be zero. A negative integer means nth last of period, with -1 being the last day.
               <vspace blankLines="1" />
               This is the ordinal part of the BYDAY value in iCalendar (e.g., 1 or -3).</t>
             </list></t>
