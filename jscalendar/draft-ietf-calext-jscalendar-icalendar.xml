@@ -2308,6 +2308,84 @@
             </section>
         </section>
 
+        <section anchor="security-considerations" title="Security Considerations">
+            <t>
+                The same security considerations as for <xref target="draft-ietf-calext-jscalendar"/> apply.
+            </t>
+        </section>
+
+        <section anchor="iana-considerations" title="IANA Considerations">
+            <t>
+                None.
+            </t>
+        </section>
+
+        <section anchor="acknowledgments" title="Acknowledgments">
+            <t>
+                The authors would like to thank the members of CalConnect for their valuable contributions. This
+                specification originated from the work of the API technical committee of CalConnect, the Calendaring and
+                Scheduling Consortium.
+            </t>
+        </section>
+    </middle>
+
+    <back>
+        <references title="Normative References">
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
+            <reference anchor="draft-ietf-calext-eventpub-extensions"
+                       target="https://tools.ietf.org/html/draft-ietf-calext-eventpub-extensions">
+                <front>
+                    <title>Event Publishing Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+            <reference anchor="draft-ietf-calext-ical-relations"
+                       target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
+                <front>
+                    <title>Support for iCalendar Relationships</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+            <reference anchor="draft-ietf-calext-valarm-extensions"
+                       target="https://tools.ietf.org/html/draft-ietf-calext-valarm-extensions">
+                <front>
+                    <title>VALARM Extensions for iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+        </references>
+
+        <references title="Informative References">
+            <reference anchor="draft-ietf-calext-jscalendar"
+                target="https://tools.ietf.org/html/draft-ietf-calext-jscalendar">
+                <front>
+                    <title>Task Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+            <reference anchor="draft-apthorp-ical-tasks"
+                       target="https://tools.ietf.org/html/draft-apthorp-ical-tasks">
+                <front>
+                    <title>Task Extensions to iCalendar</title>
+                    <author/>
+                    <date/>
+                </front>
+            </reference>
+        </references>
+
+      <section title="Outdated document sections">
+
         <section anchor="translate-jscalendar-components"
                  title="Translating JSCalendar properties to iCalendar components">
             <t>
@@ -3070,81 +3148,6 @@
                 property formatted as jCal <xref target="RFC7265"/> data.
             </t>
         </section>
-
-        <section anchor="security-considerations" title="Security Considerations">
-            <t>
-                The same security considerations as for <xref target="draft-ietf-calext-jscalendar"/> apply.
-            </t>
-        </section>
-
-        <section anchor="iana-considerations" title="IANA Considerations">
-            <t>
-                None.
-            </t>
-        </section>
-
-        <section anchor="acknowledgments" title="Acknowledgments">
-            <t>
-                The authors would like to thank the members of CalConnect for their valuable contributions. This
-                specification originated from the work of the API technical committee of CalConnect, the Calendaring and
-                Scheduling Consortium.
-            </t>
-        </section>
-    </middle>
-
-    <back>
-        <references title="Normative References">
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
-            <reference anchor="draft-ietf-calext-eventpub-extensions"
-                       target="https://tools.ietf.org/html/draft-ietf-calext-eventpub-extensions">
-                <front>
-                    <title>Event Publishing Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-            <reference anchor="draft-ietf-calext-ical-relations"
-                       target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
-                <front>
-                    <title>Support for iCalendar Relationships</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-            <reference anchor="draft-ietf-calext-valarm-extensions"
-                       target="https://tools.ietf.org/html/draft-ietf-calext-valarm-extensions">
-                <front>
-                    <title>VALARM Extensions for iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-        </references>
-
-        <references title="Informative References">
-            <reference anchor="draft-ietf-calext-jscalendar"
-                target="https://tools.ietf.org/html/draft-ietf-calext-jscalendar">
-                <front>
-                    <title>Task Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-            <reference anchor="draft-apthorp-ical-tasks"
-                       target="https://tools.ietf.org/html/draft-apthorp-ical-tasks">
-                <front>
-                    <title>Task Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-        </references>
+    </section>
     </back>
 </rfc>
