@@ -848,7 +848,7 @@
         <section anchor="prop-recurrenceOverrides" title="recurrenceOverrides">
           <t>Type: <spanx style="verb">LocalDateTime[PatchObject]</spanx> (optional).</t>
 
-          <t>A map of the recurrence ids (the date-time produced by the recurrence rule) to an object of patches to apply to the generated occurrence object.</t>
+          <t>Maps recurrence ids (the date-time produced by the recurrence rule) to the overridden properties of the recurrence instance.</t>
 
           <t>If the recurrence id does not match a date-time from the recurrence rule (or no rule is specified), it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often be empty in this case.</t>
 
