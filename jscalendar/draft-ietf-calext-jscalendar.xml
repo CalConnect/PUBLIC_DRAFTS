@@ -1127,6 +1127,15 @@
             <t>percentComplete: <spanx style="verb">UnsignedInt</spanx> (optional; only allowed for participants of a JSTask). Represents the percent completion of the participant for this task. The property value MUST be a positive integer between 0 and 100.</t>
           </list></t>
         </section>
+
+        <section anchor="prop-requestStatus" title="requestStatus">
+          <t>Type: <spanx style="verb">String</spanx> (optional).</t>
+
+          <t>A status code, as defined in Section 3.8.8.3 of <xref target="RFC5545" />, returned from processing the most recent scheduling request for this JSCalendar object.</t>
+          <t>Servers MUST only add or change this property when they performed a scheduling action. Clients SHOULD NOT change or remove this property if it was provided by the server. Clients MAY add, change, or remove the property when the client is handling the scheduling.</t>
+          <t>This property MUST only be included in scheduling messages according to the rules as defined for the REQUEST-STATUS iCalendar property in <xref target="RFC5546" /> .</t>
+        </section>
+
       </section>
 
       <section anchor="alerts-properties" title="Alerts Properties">
@@ -2292,6 +2301,11 @@
       <c>String[String]</c>
       <c>JSEvent, JSTask</c>
       <c><xref target="prop-replyTo"/></c>
+
+      <c>requestStatus</c>
+      <c>String</c>
+      <c>JSEvent, JSTask</c>
+      <c><xref target="prop-requestStatus"/></c>
 
       <c>roles</c>
       <c>String[Boolean]</c>
