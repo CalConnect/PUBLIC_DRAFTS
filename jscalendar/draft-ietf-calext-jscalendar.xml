@@ -526,6 +526,36 @@
             A URI <xref target="RFC3986" /> that represents how to connect to this virtual location.
             <vspace blankLines="1" />
             This may be a telephone number (represented using the <spanx style="verb">tel:</spanx> scheme, e.g., <spanx style="verb">tel:+1-555-555-5555</spanx>) for a teleconference, a web address for online chat, or any custom URI.</t>
+
+            <t>features: <spanx style="verb">String[Boolean]</spanx> (optional)
+            <vspace blankLines="1" />
+            A set of features supported by this virtual location. The set is represented as a map, with the keys being the feature. The value for each key in the map MUST be true.
+            <vspace blankLines="1"/>
+            The feature MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />). Any value the client or server doesn't understand should be treated the same as if this feature is omitted.
+            <list style="symbols">
+                <t>
+                    <spanx style="verb">audio</spanx>: audio conferencing
+                </t>
+                <t>
+                    <spanx style="verb">chat</spanx>: chat or instant messaging
+                </t>
+                <t>
+                    <spanx style="verb">feed</spanx>: blog or atom feed
+                </t>
+                <t>
+                    <spanx style="verb">moderator</spanx>: provides moderator-specific features
+                </t>
+                <t>
+                    <spanx style="verb">phone</spanx>: phone conferencing
+                </t>
+                <t>
+                    <spanx style="verb">screen</spanx>: screen sharing
+                </t>
+                <t>
+                    <spanx style="verb">video</spanx>: video conferencing
+                </t>
+            </list>
+            </t>
           </list></t>
         </section>
 
@@ -2102,6 +2132,11 @@
       <c>Participant</c>
       <c><xref target="prop-participants"/></c>
 
+      <c>features</c>
+      <c>String[Boolean]</c>
+      <c>VirtualLocation</c>
+      <c><xref target="prop-virtualLocations"/></c>
+
       <c>firstDayOfWeek</c>
       <c>String</c>
       <c>RecurrenceRule</c>
@@ -2614,6 +2649,32 @@
       <c><xref target="type-Link"/></c>
       <c>thumbnail</c>
       <c><xref target="type-Link"/></c>
+    </texttable>
+
+    <t>------------------------------------------------------------</t>
+
+    <t>Property Name: features</t>
+    <t>Context: VirtualLocation</t>
+    <t>Change Controller: IETF</t>
+    <t>Initial Contents:</t>
+
+    <texttable anchor="table-iana-enum-virtualLocation-features">
+      <ttcol align='left'>Enum Value</ttcol>
+      <ttcol align='left'>Reference or Description</ttcol>
+      <c>audio</c>
+      <c><xref target="prop-virtualLocations"/></c>
+      <c>chat</c>
+      <c><xref target="prop-virtualLocations"/></c>
+      <c>feed</c>
+      <c><xref target="prop-virtualLocations"/></c>
+      <c>moderator</c>
+      <c><xref target="prop-virtualLocations"/></c>
+      <c>phone</c>
+      <c><xref target="prop-virtualLocations"/></c>
+      <c>screen</c>
+      <c><xref target="prop-virtualLocations"/></c>
+      <c>video</c>
+      <c><xref target="prop-virtualLocations"/></c>
     </texttable>
 
     <t>------------------------------------------------------------</t>
