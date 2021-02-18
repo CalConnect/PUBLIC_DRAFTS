@@ -1161,7 +1161,12 @@
         <section anchor="prop-requestStatus" title="requestStatus">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>A status code, as defined in Section 3.8.8.3 of <xref target="RFC5545" />, returned from processing the most recent scheduling request for this JSCalendar object.</t>
+          <t>A request status as returned from processing the most recent scheduling request for this JSCalendar object. The allowed values are defined by the ABNF definitions of <spanx style="verb">statcode</spanx>, <spanx style="verb">statdesc</spanx> and <spanx style="verb">extdata</spanx> in Section 3.8.8.3 of <xref target="RFC5545" /> and the following ABNF <xref target="RFC5234" />:</t>
+
+          <figure>
+            <artwork><![CDATA[    reqstatus = statcode ";" statdesc [";" extdata] ]]></artwork>
+          </figure>
+
           <t>Servers MUST only add or change this property when they performed a scheduling action. Clients SHOULD NOT change or remove this property if it was provided by the server. Clients MAY add, change, or remove the property when the client is handling the scheduling.</t>
           <t>This property MUST only be included in scheduling messages according to the rules as defined for the REQUEST-STATUS iCalendar property in <xref target="RFC5546" /> .</t>
         </section>
