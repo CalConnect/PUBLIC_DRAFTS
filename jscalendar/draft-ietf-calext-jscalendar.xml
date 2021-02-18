@@ -1117,7 +1117,7 @@
 
             <t>scheduleStatus: <spanx style="verb">String[]</spanx> (optional)
             <vspace blankLines="1" />
-            A list of status codes, as defined in Section 3.8.8.3 of <xref target="RFC5545" />, returned from the processing of the most recent scheduling message sent to this participant.
+            A list of status codes, returned from the processing of the most recent scheduling message sent to this participant. The status codes MUST be valid <spanx style="verb">statcode</spanx> values as defined in the ABNF in Section 3.8.8.3 of <xref target="RFC5545" />.
             <vspace blankLines="1" />
             Servers MUST only add or change this property when they send a scheduling message to the participant. Clients SHOULD NOT change or remove this property if it was provided by the server. Clients MAY add, change, or remove the property for participants where the client is handling the scheduling.
             <vspace blankLines="1" />
