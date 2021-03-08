@@ -123,7 +123,7 @@
 
           <t>In many places in JSCalendar a JSON map is used where the map keys are of type Id and the map values are all the same type of object. This construction represents an unordered set of objects, with the added advantage that each entry has a name (the corresponding map key). This allows for more concise patching of objects, and, when applicable, for the objects in question to be referenced from other objects within the JSCalendar object.</t>
 
-          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <spanx style="verb">links</spanx> properties. Or within the same JSEvent object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects.</t>
+          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two Event objects might use the same Ids in their respective <spanx style="verb">links</spanx> properties. Or within the same Event object the same Id could appear in the <spanx style="verb">participants</spanx> and <spanx style="verb">alerts</spanx> properties. These situations do not imply any semantic connections among the objects.</t>
         </section>
 
         <section anchor="type-Int" title="Int">
@@ -308,28 +308,28 @@
     <section anchor="jscalendar-objects" title="JSCalendar Objects">
       <t>This section describes the calendar object types specified by JSCalendar.</t>
 
-      <section anchor="jsevent" title="JSEvent">
+      <section anchor="jsevent" title="Event">
         <t>Media type: <spanx style="verb">application/jscalendar+json;type=jsevent</spanx></t>
 
-        <t>A JSEvent represents a scheduled amount of time on a calendar, typically a meeting, appointment, reminder or anniversary. It is required to start at a certain point in time and typically has a non-zero duration. Multiple participants may partake in the event at multiple locations.</t>
+        <t>A Event represents a scheduled amount of time on a calendar, typically a meeting, appointment, reminder or anniversary. It is required to start at a certain point in time and typically has a non-zero duration. Multiple participants may partake in the event at multiple locations.</t>
 
-        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">JSEvent</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">Event</spanx>.</t>
       </section>
 
-      <section anchor="jstask" title="JSTask">
+      <section anchor="jstask" title="Task">
         <t>Media type: <spanx style="verb">application/jscalendar+json;type=jstask</spanx></t>
 
-        <t>A JSTask represents an action-item, assignment, to-do or work item. It may start and be due at certain points in time, may take some estimated time to complete, and may recur, none of which is required.</t>
+        <t>A Task represents an action-item, assignment, to-do or work item. It may start and be due at certain points in time, may take some estimated time to complete, and may recur, none of which is required.</t>
 
-        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">JSTask</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">Task</spanx>.</t>
       </section>
 
-      <section anchor="jsgroup" title="JSGroup">
+      <section anchor="jsgroup" title="Group">
         <t>Media type: <spanx style="verb">application/jscalendar+json;type=jsgroup</spanx></t>
 
-        <t>A JSGroup is a collection of <xref target="jsevent">JSEvent</xref> and/or <xref target="jstask">JSTask</xref> objects. Typically, objects are grouped by topic (e.g., by keywords) or calendar membership.</t>
+        <t>A Group is a collection of <xref target="jsevent">Event</xref> and/or <xref target="jstask">Task</xref> objects. Typically, objects are grouped by topic (e.g., by keywords) or calendar membership.</t>
 
-        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">JSGroup</spanx>.</t>
+        <t>The <xref target="prop-type">@type</xref> property value MUST be <spanx style="verb">Group</spanx>.</t>
       </section>
     </section>
 
@@ -622,9 +622,9 @@
 
           <t>Defines a set of recurrence rules (repeating patterns) for recurring calendar objects.</t>
 
-          <t>A JSEvent recurs by applying the recurrence rules to the <spanx style="verb">start</spanx> date-time.</t>
+          <t>A Event recurs by applying the recurrence rules to the <spanx style="verb">start</spanx> date-time.</t>
 
-          <t>A JSTask recurs by applying the recurrence rules to the <spanx style="verb">start</spanx> date-time, if defined, otherwise it recurs by the <spanx style="verb">due</spanx> date-time, if defined. If the task defines neither a <spanx style="verb">start</spanx> nor <spanx style="verb">due</spanx> date-time, it MUST NOT define a <spanx style="verb">recurrenceRules</spanx> property.</t>
+          <t>A Task recurs by applying the recurrence rules to the <spanx style="verb">start</spanx> date-time, if defined, otherwise it recurs by the <spanx style="verb">due</spanx> date-time, if defined. If the task defines neither a <spanx style="verb">start</spanx> nor <spanx style="verb">due</spanx> date-time, it MUST NOT define a <spanx style="verb">recurrenceRules</spanx> property.</t>
 
           <t>If multiple recurrence rules are given, each rule is to be applied and then the union of the results used, ignoring any duplicates.</t>
 
@@ -1150,11 +1150,11 @@
             A map of link ids to Link objects, representing external resources associated with this participant, for example a vCard or image.
             If there are no links, this MUST be omitted (rather than specified as an empty set).</t>
 
-             <t>progress: <spanx style="verb">String</spanx> (optional; only allowed for participants of a JSTask). Represents the progress of the participant for this task. It MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
+             <t>progress: <spanx style="verb">String</spanx> (optional; only allowed for participants of a Task). Represents the progress of the participant for this task. It MUST NOT be set if the <spanx style="verb">participationStatus</spanx> of this participant is any value other than <spanx style="verb">accepted</spanx>. See <xref target="prop-progress" /> for allowed values and semantics.</t>
 
-            <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional; only allowed for participants of a JSTask). Specifies the date-time the progress property was last set on this participant. See <xref target="prop-progressUpdated" /> for allowed values and semantics.</t>
+            <t>progressUpdated: <spanx style="verb">UTCDateTime</spanx> (optional; only allowed for participants of a Task). Specifies the date-time the progress property was last set on this participant. See <xref target="prop-progressUpdated" /> for allowed values and semantics.</t>
 
-            <t>percentComplete: <spanx style="verb">UnsignedInt</spanx> (optional; only allowed for participants of a JSTask). Represents the percent completion of the participant for this task. The property value MUST be a positive integer between 0 and 100.</t>
+            <t>percentComplete: <spanx style="verb">UnsignedInt</spanx> (optional; only allowed for participants of a Task). Represents the percent completion of the participant for this task. The property value MUST be a positive integer between 0 and 100.</t>
           </list></t>
         </section>
 
@@ -1300,7 +1300,7 @@
 
         An identifier need only be unique to this JSCalendar object. It MAY differ from the
         <spanx style="verb">tzId</spanx> property value of the TimeZone object it maps to.</t>
-          <t>A JSCalendar object may be part in a hierarchy of other JSCalendar objects (say, a JSEvent is an entry in a JSGroup). In this case, the set of time zones is the sum of the time zone definitions of this object and its parent objects. If multiple time zones with the same identifier exist, then the definition closest to the calendar object in relation to its parents MUST be used. (In context of JSEvent, a time zone definition in its timeZones property has precedence over a definition of the same id in the JSGroup). Time zone definitions in any children of the calendar object MUST be ignored.</t>
+          <t>A JSCalendar object may be part in a hierarchy of other JSCalendar objects (say, a Event is an entry in a Group). In this case, the set of time zones is the sum of the time zone definitions of this object and its parent objects. If multiple time zones with the same identifier exist, then the definition closest to the calendar object in relation to its parents MUST be used. (In context of Event, a time zone definition in its timeZones property has precedence over a definition of the same id in the Group). Time zone definitions in any children of the calendar object MUST be ignored.</t>
 
           <t>A TimeZone object maps a VTIMEZONE component from iCalendar <xref target="RFC5545" /> and the semantics are as defined there. A valid time zone MUST define at least one transition rule in the <spanx style="verb">standard</spanx> or <spanx style="verb">daylight</spanx> property. Its properties are:
 
@@ -1376,8 +1376,8 @@
     </section>
 
     <section anchor="jscalendar-object-props" title="Type-specific JSCalendar Properties">
-      <section anchor="jsevent-props" title="JSEvent Properties">
-        <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a JSEvent has the following properties:</t>
+      <section anchor="jsevent-props" title="Event Properties">
+        <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a Event has the following properties:</t>
 
         <section anchor="prop-start-jsevent" title="start">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (mandatory).</t>
@@ -1390,13 +1390,13 @@
 
           <t>The zero or positive duration of the event in the event's start time zone. The end time of an event can be found by adding the duration to the event's start time.</t>
 
-          <t>A JSEvent MAY involve start and end locations that are in different time zones (e.g., a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the JSEvent's Location objects (see <xref target="prop-locations" />).</t>
+          <t>A Event MAY involve start and end locations that are in different time zones (e.g., a trans-continental flight). This can be expressed using the <spanx style="verb">relativeTo</spanx> and <spanx style="verb">timeZone</spanx> properties of the Event's Location objects (see <xref target="prop-locations" />).</t>
         </section>
 
         <section anchor="prop-status-jsevent" title="status">
           <t>Type: <spanx style="verb">String</spanx> (optional, default: <spanx style="verb">confirmed</spanx>).</t>
 
-          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a JSEvent. If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
+          <t>The scheduling status (<xref target="sharing-scheduling-properties" />) of a Event. If set, it MUST be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />):
 
           <list style="symbols">
             <t><spanx style="verb">confirmed</spanx>: Indicates the event is definitely happening.</t>
@@ -1406,8 +1406,8 @@
         </section>
       </section>
 
-      <section anchor="jstask-props" title="JSTask Properties">
-        <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a JSTask has the following properties:</t>
+      <section anchor="jstask-props" title="Task Properties">
+        <t>In addition to the common JSCalendar object <xref target="jscalendar-props">properties</xref> a Task has the following properties:</t>
 
         <section anchor="prop-due" title="due">
           <t>Type: <spanx style="verb">LocalDateTime</spanx> (optional).</t>
@@ -1436,7 +1436,7 @@
         <section anchor="prop-progress" title="progress">
           <t>Type: <spanx style="verb">String</spanx> (optional).</t>
 
-          <t>Defines the progress of this task. If omitted, the default progress (<xref target="sharing-scheduling-properties" />) of a JSTask is defined as follows (in order of evaluation):
+          <t>Defines the progress of this task. If omitted, the default progress (<xref target="sharing-scheduling-properties" />) of a Task is defined as follows (in order of evaluation):
 
           <list style="symbols">
             <t><spanx style="verb">completed</spanx>: if the <spanx style="verb">progress</spanx> property value of all participants is
@@ -1462,12 +1462,12 @@
 
           <t>Specifies the date/time the <spanx style="verb">progress</spanx> property of either the task overall (<xref target="prop-progress" />) or a specific participant (<xref target="prop-participants" />) was last updated.</t>
 
-          <t>If the task is recurring and has future instances, a client may want to keep track of the last progress update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the progressUpdated property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the JSTask into a current, single instance of JSTask with this instance progress update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
+          <t>If the task is recurring and has future instances, a client may want to keep track of the last progress update timestamp of a specific task recurrence, but leave other instances unchanged. One way to achieve this is by overriding the progressUpdated property in the task <spanx style="verb">recurrenceOverrides</spanx> property. However, this could produce a long list of timestamps for regularly recurring tasks. An alternative approach is to split the Task into a current, single instance of Task with this instance progress update time and a future recurring instance. See also <xref target="prop-relatedTo" /> on splitting.</t>
         </section>
       </section>
 
-      <section anchor="jsgroup-props" title="JSGroup Properties">
-        <t>JSGroup supports the following common <xref target="jscalendar-props">JSCalendar properties</xref>:
+      <section anchor="jsgroup-props" title="Group Properties">
+        <t>Group supports the following common <xref target="jscalendar-props">JSCalendar properties</xref>:
         <list style="symbols">
           <t>@type</t>
           <t>uid</t>
@@ -1485,10 +1485,10 @@
           <t>timeZones</t>
         </list>
 
-        In addition, the following JSGroup-specific properties are supported:</t>
+        In addition, the following Group-specific properties are supported:</t>
 
         <section anchor="prop-entries" title="entries">
-          <t>Type: <spanx style="verb">(JSTask|JSEvent)[]</spanx> (mandatory).</t>
+          <t>Type: <spanx style="verb">(Task|Event)[]</spanx> (mandatory).</t>
 
           <t>A collection of group members. Implementations MUST ignore entries of unknown type.</t>
         </section>
@@ -1511,7 +1511,7 @@
     <figure>
           <artwork><![CDATA[
 {
-  "@type": "JSEvent",
+  "@type": "Event",
   "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
   "updated": "2020-01-02T18:23:04Z",
   "title": "Some event",
@@ -1529,7 +1529,7 @@
     <figure>
           <artwork><![CDATA[
 {
-  "@type": "JSTask",
+  "@type": "Task",
   "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
   "updated": "2020-01-09T14:32:01Z",
   "title": "Do something"
@@ -1544,12 +1544,12 @@
     <figure>
           <artwork><![CDATA[
 {
-  "@type": "JSGroup",
+  "@type": "Group",
   "uid": "bf0ac22b-4989-4caf-9ebd-54301b4ee51a",
   "updated": "2020-01-15T18:00:00Z",
   "name": "A simple group",
   "entries": [{
-    "@type": "JSEvent",
+    "@type": "Event",
     "uid": "a8df6573-0474-496d-8496-033ad45d7fea",
     "updated": "2020-01-02T18:23:04Z",
     "title": "Some event",
@@ -1558,7 +1558,7 @@
     "duration": "PT1H"
   },
   {
-    "@type": "JSTask",
+    "@type": "Task",
     "uid": "2a358cee-6489-4f14-a57f-c104db4dc2f2",
     "updated": "2020-01-09T14:32:01Z",
     "title": "Do something"
@@ -1863,9 +1863,9 @@
         <vspace blankLines="1" />
         The <spanx style="verb">type</spanx> parameter conveys the type of the JSCalendar data in the body part. The allowed parameter values correspond to the <spanx style="verb">@type</spanx> property of the JSON-formatted JSCalendar object in the body:
             <list style="symbols">
-                <t><spanx style="verb">jsevent</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">JSEvent</spanx></t>
-                <t><spanx style="verb">jstask</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">JSTask</spanx></t>
-                <t><spanx style="verb">jsgroup</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">JSGroup</spanx></t>
+                <t><spanx style="verb">jsevent</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">Event</spanx></t>
+                <t><spanx style="verb">jstask</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">Task</spanx></t>
+                <t><spanx style="verb">jsgroup</spanx>: the <spanx style="verb">@type</spanx> property value MUST be <spanx style="verb">Group</spanx></t>
             </list>
         No other parameter values are allowed. The parameter MUST NOT occur more than once.</t>
     <t hangText="Optional parameters:">none</t>
@@ -1954,7 +1954,7 @@
 
       <c>@type</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
+      <c>Event, Task, Group, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</c>
       <c><xref target="prop-type"/>, <xref target="prop-alerts"/>, <xref target="type-Link"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-recurrenceRules"/>, <xref target="prop-relatedTo"/>, <xref target="prop-timeZones"/>, <xref target="prop-timeZones"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>acknowledged</c>
@@ -1969,7 +1969,7 @@
 
       <c>alerts</c>
       <c>Id[Alert]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-alerts"/></c>
 
       <c>aliases</c>
@@ -2024,7 +2024,7 @@
 
       <c>categories</c>
       <c>String[Boolean]</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-categories"/></c>
 
       <c>cid</c>
@@ -2034,7 +2034,7 @@
 
       <c>color</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-color"/></c>
 
       <c>comments</c>
@@ -2059,7 +2059,7 @@
 
       <c>created</c>
       <c>UTCDateTime</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-created"/></c>
 
       <c>day</c>
@@ -2084,12 +2084,12 @@
 
       <c>description</c>
       <c>String</c>
-      <c>JSEvent, JSTask, Location, Participant, VirtualLocation</c>
+      <c>Event, Task, Location, Participant, VirtualLocation</c>
       <c><xref target="prop-description"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/>, <xref target="prop-virtualLocations"/></c>
 
       <c>descriptionContentType</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-descriptionContentType"/></c>
 
       <c>display</c>
@@ -2099,12 +2099,12 @@
 
       <c>due</c>
       <c>LocalDateTime</c>
-      <c>JSTask</c>
+      <c>Task</c>
       <c><xref target="prop-due"/></c>
 
       <c>duration</c>
       <c>Duration</c>
-      <c>JSEvent</c>
+      <c>Event</c>
       <c><xref target="prop-duration"/></c>
 
       <c>email</c>
@@ -2113,23 +2113,23 @@
       <c><xref target="prop-participants"/></c>
 
       <c>entries</c>
-      <c>(JSTask|JSEvent)[]</c>
-      <c>JSGroup</c>
+      <c>(Task|Event)[]</c>
+      <c>Group</c>
       <c><xref target="prop-entries"/></c>
 
       <c>estimatedDuration</c>
       <c>Duration</c>
-      <c>JSTask</c>
+      <c>Task</c>
       <c><xref target="prop-estimatedDuration"/></c>
 
       <c>excluded</c>
       <c>Boolean</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-excluded"/></c>
 
       <c>excludedRecurrenceRules</c>
       <c>RecurrenceRule[]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-excludedRecurrenceRules"/></c>
 
       <c>expectReply</c>
@@ -2149,7 +2149,7 @@
 
       <c>freeBusyStatus</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-freeBusyStatus"/></c>
 
       <c>frequency</c>
@@ -2174,7 +2174,7 @@
 
       <c>keywords</c>
       <c>String[Boolean]</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-keywords"/></c>
 
       <c>kind</c>
@@ -2189,17 +2189,17 @@
 
       <c>links</c>
       <c>Id[Link]</c>
-      <c>JSGroup, JSEvent, JSTask, Location, Participant</c>
+      <c>Group, Event, Task, Location, Participant</c>
       <c><xref target="prop-links"/>, <xref target="prop-locations"/>, <xref target="prop-participants"/></c>
 
       <c>locale</c>
       <c>String</c>
-      <c>JSGroup, JSEvent, JSTask</c>
+      <c>Group, Event, Task</c>
       <c><xref target="prop-locale"/></c>
 
       <c>localizations</c>
       <c>String[PatchObject]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-localizations"/></c>
 
       <c>locationId</c>
@@ -2209,7 +2209,7 @@
 
       <c>locations</c>
       <c>Id[Location]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-locations"/></c>
 
       <c>locationTypes</c>
@@ -2224,7 +2224,7 @@
 
       <c>method</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-method"/></c>
 
       <c>name</c>
@@ -2259,7 +2259,7 @@
 
       <c>participants</c>
       <c>Id[Participant]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-participants"/></c>
 
       <c>participationComment</c>
@@ -2274,47 +2274,47 @@
 
       <c>percentComplete</c>
       <c>UnsignedInt</c>
-      <c>JSTask, Participant</c>
+      <c>Task, Participant</c>
       <c><xref target="prop-percentComplete"/></c>
 
       <c>priority</c>
       <c>Int</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-priority"/></c>
 
       <c>privacy</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-privacy"/></c>
 
       <c>prodId</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-prodId"/></c>
 
       <c>progress</c>
       <c>String</c>
-      <c>JSTask, Participant</c>
+      <c>Task, Participant</c>
       <c><xref target="prop-progress"/></c>
 
       <c>progressUpdated</c>
       <c>UTCDateTime</c>
-      <c>JSTask, Participant</c>
+      <c>Task, Participant</c>
       <c><xref target="prop-progressUpdated"/></c>
 
       <c>recurrenceId</c>
       <c>LocalDateTime</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-recurrenceId"/></c>
 
       <c>recurrenceOverrides</c>
       <c>LocalDateTime[PatchObject]</c>
-      <c>JSEvent, JSTask, TimeZoneRule</c>
+      <c>Event, Task, TimeZoneRule</c>
       <c><xref target="prop-recurrenceOverrides"/>, <xref target="prop-timeZones"/></c>
 
       <c>recurrenceRules</c>
       <c>RecurrenceRule[]</c>
-      <c>JSEvent, JSTask, TimeZoneRule</c>
+      <c>Event, Task, TimeZoneRule</c>
       <c><xref target="prop-recurrenceRules"/>, <xref target="prop-timeZones"/></c>
 
       <c>rel</c>
@@ -2324,7 +2324,7 @@
 
       <c>relatedTo</c>
       <c>String[Relation]</c>
-      <c>JSEvent, JSTask, Alert</c>
+      <c>Event, Task, Alert</c>
       <c><xref target="prop-relatedTo"/>, <xref target="prop-alerts"/></c>
 
       <c>relation</c>
@@ -2339,12 +2339,12 @@
 
       <c>replyTo</c>
       <c>String[String]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-replyTo"/></c>
 
       <c>requestStatus</c>
       <c>String</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-requestStatus"/></c>
 
       <c>roles</c>
@@ -2399,12 +2399,12 @@
 
       <c>sequence</c>
       <c>UnsignedInt</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-sequence"/></c>
 
       <c>showWithoutTime</c>
       <c>Boolean</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-showWithoutTime"/></c>
 
       <c>size</c>
@@ -2419,32 +2419,32 @@
 
       <c>source</c>
       <c>String</c>
-      <c>JSGroup</c>
+      <c>Group</c>
       <c><xref target="prop-source"/></c>
 
       <c>start</c>
       <c>LocalDateTime</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-start-jsevent"/>, <xref target="prop-start-jstask"/></c>
 
       <c>status</c>
       <c>String</c>
-      <c>JSEvent</c>
+      <c>Event</c>
       <c><xref target="prop-status-jsevent"/></c>
 
       <c>timeZone</c>
       <c>TimeZoneId|null</c>
-      <c>JSEvent, JSTask, Location</c>
+      <c>Event, Task, Location</c>
       <c><xref target="prop-timeZone"/>, <xref target="prop-locations"/></c>
 
       <c>timeZones</c>
       <c>TimeZoneId[TimeZone]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-timeZones"/></c>
 
       <c>title</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup, Link</c>
+      <c>Event, Task, Group, Link</c>
       <c><xref target="prop-title"/></c>
 
       <c>trigger</c>
@@ -2459,7 +2459,7 @@
 
       <c>uid</c>
       <c>String</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-uid"/></c>
 
       <c>until</c>
@@ -2469,7 +2469,7 @@
 
       <c>updated</c>
       <c>UTCDateTime</c>
-      <c>JSEvent, JSTask, JSGroup</c>
+      <c>Event, Task, Group</c>
       <c><xref target="prop-updated"/></c>
 
       <c>uri</c>
@@ -2484,7 +2484,7 @@
 
       <c>useDefaultAlerts</c>
       <c>Boolean</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="useDefaultAlerts"/></c>
 
       <c>validUntil</c>
@@ -2494,7 +2494,7 @@
 
       <c>virtualLocations</c>
       <c>Id[VirtualLocation]</c>
-      <c>JSEvent, JSTask</c>
+      <c>Event, Task</c>
       <c><xref target="prop-virtualLocations"/></c>
 
       <c>when</c>
@@ -2685,7 +2685,7 @@
     <t>------------------------------------------------------------</t>
 
     <t>Property Name: freeBusyStatus</t>
-    <t>Context: JSEvent, JSTask</t>
+    <t>Context: Event, Task</t>
     <t>Change Controller: IETF</t>
     <t>Initial Contents:</t>
 
@@ -2743,7 +2743,7 @@
     <t>------------------------------------------------------------</t>
 
     <t>Property Name: privacy</t>
-    <t>Context: JSEvent, JSTask</t>
+    <t>Context: Event, Task</t>
     <t>Change Controller: IETF</t>
     <t>Initial Contents:</t>
 
@@ -2761,7 +2761,7 @@
     <t>------------------------------------------------------------</t>
 
     <t>Property Name: progress</t>
-    <t>Context: JSTask, Participant</t>
+    <t>Context: Task, Participant</t>
     <t>Change Controller: IETF</t>
     <t>Initial Contents:</t>
 
@@ -2861,7 +2861,7 @@
     <t>------------------------------------------------------------</t>
 
     <t>Property Name: status</t>
-    <t>Context: JSEvent</t>
+    <t>Context: Event</t>
     <t>Change Controller: IETF</t>
     <t>Initial Contents:</t>
 
