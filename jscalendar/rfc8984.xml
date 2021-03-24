@@ -1087,7 +1087,7 @@ signed-duration = ["+" / "-"] duration
             <dt>name: <tt>String</tt> (optional)</dt>
               <dd>This is the display name of the participant (e.g., "Joe Bloggs").</dd>
               <dt>email: <tt>String</tt> (optional)</dt>
-              <dd>This is the email address for the participant.</dd>
+              <dd>This is the email address of the participant to contact the participant or, for example, match with an address book entry. If set, the value <bcp14>MUST</bcp14> be a <tt>mailto:</tt> URI. This property can be used in situations where the <tt>imip</tt> value of the <tt>sendTo</tt> property differs from the contact email address of the participant. This property <bcp14>MUST NOT</bcp14> be set if its value matches the value of the <tt>imip</tt> value in the <tt>sendTo</tt> property.</dd>
               <dt>description: <tt>String</tt> (optional)</dt>
               <dd>This is a plain-text description of this participant. For example, this may include more
 	       information about their role in the event or how best to contact them.</dd>
