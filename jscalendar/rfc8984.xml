@@ -151,7 +151,7 @@ In these examples, an ellipsis "..." is used to indicate a portion of the docume
           <name>Id</name>
           <t>Where <tt>Id</tt> is given as a data type, it means a <tt>String</tt> of at least 1 and a maximum of 255 octets in size, and it <bcp14>MUST</bcp14> only contain characters from the "URL and Filename Safe" base64url alphabet, as defined in <xref target="RFC4648" sectionFormat="of" section="5"/>, excluding the pad character (<tt>=</tt>). This means the allowed characters are the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>).</t>
           <t>In many places in JSCalendar, a JSON map is used where the map keys are of type Id and the map values are all the same type of object. This construction represents an unordered set of objects, with the added advantage that each entry has a name (the corresponding map key). This allows for more concise patching of objects, and, when applicable, for the objects in question to be referenced from other objects within the JSCalendar object.</t>
-          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <tt>links</tt> properties or, within the same JSEvent object, the same Id could appear in the <tt>participants</tt> and <tt>alerts</tt> properties. These situations do not imply any semantic connections among the objects. Nevertheless, a universally unique identifier (UUID) <xref target="RFC4122" format="default"/> is typically a good choice.</t>
+          <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <tt>links</tt> properties or, within the same JSEvent object, the same Id could appear in the <tt>participants</tt> and <tt>alerts</tt> properties. These situations do not imply any semantic connections among the objects.</t>
         </section>
         <section anchor="type-Int" numbered="true" toc="default">
 <!-- [rfced] FYI, we have used the <sup> element for superscript
@@ -1082,6 +1082,7 @@ occurrence object.
             <li>recurrenceRules</li>
             <li>relatedTo</li>
             <li>replyTo</li>
+            <li>timeZones</li>
             <li>uid</li>
           </ul>
         </section>
@@ -1493,13 +1494,9 @@ Original:
             <li>It <bcp14>MUST</bcp14> be a valid <tt>paramtext</tt> value, as specified in <xref target="RFC5545" sectionFormat="of" section="3.1"/>.</li>
             <li>At least one other property in the same JSCalendar object <bcp14>MUST</bcp14> reference a time zone using this identifier (i.e., orphaned time zones are not allowed).</li>
           </ul>
-          <t>An identifier need only be unique to this JSCalendar object. A JSCalendar object may be a part in a
-	  hierarchy of other JSCalendar objects (say, a JSEvent is an entry in a JSGroup). In this case, the
-	  set of time zones is the sum of the time zone definitions of this object and its parent objects. If
-	  multiple time zones with the same identifier exist, then the definition closest to the calendar
-	  object in relation to its parents <bcp14>MUST</bcp14> be used. (In context of JSEvent, a time zone
-	  definition in its timeZones property has precedence over a definition of the same id in the JSGroup.)
-	  Time zone definitions in any children of the calendar object <bcp14>MUST</bcp14> be ignored. </t>
+          <t>An identifier need only be unique to this JSCalendar object. It <bcp14>MAY</bcp14> differ from the
+        <tt>tzId</tt> property value of the TimeZone object it maps to.</t>
+        <t>A JSCalendar object may be part in a hierarchy of other JSCalendar objects (say, a JSEvent is an entry in a JSGroup). In this case, the set of time zones is the sum of the time zone definitions of this object and its parent objects. If multiple time zones with the same identifier exist, then the definition closest to the calendar object in relation to its parents <bcp14>MUST</bcp14> be used. (In context of JSEvent, a time zone definition in its timeZones property has precedence over a definition of the same id in the JSGroup). Time zone definitions in any children of the calendar object <bcp14>MUST</bcp14> be ignored.</t>
           <t>A TimeZone object maps a VTIMEZONE component from iCalendar, and the semantics are as defined in
 	   <xref target="RFC5545" format="default"/>. A valid time zone <bcp14>MUST</bcp14>
 	  define at least one transition rule in the <tt>standard</tt> or <tt>daylight</tt> property. Its
@@ -1508,7 +1505,7 @@ Original:
               <dt>@type: <tt>String</tt> (mandatory)</dt>
               <dd>This specifies the type of this object. This <bcp14>MUST</bcp14> be <tt>TimeZone</tt>.</dd>
               <dt>tzId: <tt>String</tt> (mandatory)</dt>
-              <dd>This is the TZID property from iCalendar.</dd>
+              <dd>This is the TZID property from iCalendar. Note that this implies that the value <bcp14>MUST</bcp14> be a valid <tt>paramtext</tt> value as specified in Section 3.1. of <xref target="RFC5545" format="default"/>.</dd>
               <dt>updated: <tt>UTCDateTime</tt> (optional)</dt>
               <dd>This is the LAST-MODIFIED property from iCalendar.</dd>
               <dt>url: <tt>String</tt> (optional)</dt>
@@ -1788,12 +1785,12 @@ Original:
   "timeZone": "Europe/Berlin",
   "duration": "PT10H30M",
   "locations": {
-    "418d0b9b-b656-4b3c-909f-5b149ca779c9": {
+    "1": {
       "@type": "Location",
       "rel": "start",
       "name": "Frankfurt Airport (FRA)"
     },
-    "c2c7ac67-dc13-411e-a7d4-0780fb61fb08": {
+    "2": {
       "@type": "Location",
       "rel": "end",
       "name": "Narita International Airport (NRT)",
@@ -1852,7 +1849,7 @@ Section 6.10
     }
   },
   "virtualLocations": {
-    "1": {
+    "vloc1": {
       "@type": "VirtualLocation",
       "name": "Free live Stream from Music Bowl",
       "uri": "https://stream.example.com/the_band_2020"
@@ -1862,7 +1859,8 @@ Section 6.10
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "virtualLocations/1/name": "Gratis Live-Stream aus der Music Bowl"
+      "virtualLocations/vloc1/name":
+        "Gratis Live-Stream aus der Music Bowl"
     }
   }
 }
@@ -1881,7 +1879,7 @@ Section 6.10
   "timeZone": "Europe/London",
   "duration": "PT1H30M",
   "locations": {
-    "0dfb8ace-aad1-4734-b3b4-a2fe3d6ae1c5": {
+    "mlab": {
       "@type": "Location",
       "title": "Math lab room 1",
       "description": "Math Lab I, Department of Mathematics"
@@ -1904,7 +1902,7 @@ Section 6.10
       "start": "2020-06-25T10:00:00",
       "duration": "PT2H",
       "locations": {
-        "84d639ca-37ac-4a86-81e5-9bbba8eb4053": {
+        "auditorium": {
           "@type": "Location",
           "title": "Big Auditorium",
           "description": "Big Auditorium, Other Road"
@@ -1928,10 +1926,10 @@ Section 6.10
   "timeZone": "Africa/Johannesburg",
   "duration": "PT1H",
   "virtualLocations": {
-    "3f41b47b-a5eb-494f-90eb-19d279486d84": {
+    "0": {
       "@type": "VirtualLocation",
       "name": "ChatMe meeting room",
-      "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d396e"
+      "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d"
     }
   },
   "recurrenceRules": [{
