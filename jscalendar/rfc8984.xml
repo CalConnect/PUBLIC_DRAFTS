@@ -1359,6 +1359,13 @@ occurrence object.
 	    <dd>This represents the percent completion of the participant for this task. The property value <bcp14>MUST</bcp14> be a positive integer between 0 and 100.</dd>
           </dl>
         </section>
+        <section anchor="prop-requestStatus" numbered="true" toc="default">
+          <name>requestStatus</name>
+          <t>Type: <tt>String</tt> (optional)</t>
+          <t>A status code, as defined in Section 3.8.8.3 of <xref target="RFC5545" />, returned from processing the most recent scheduling request for this JSCalendar object.</t>
+          <t>Servers <bcp14>MUST</bcp14> only add or change this property when they performe a scheduling action. Clients <bcp14>SHOULD NOT</bcp14> change or remove this property if it was provided by the server. Clients <bcp14>MAY</bcp14> add, change, or remove the property when the client is handling the scheduling.</t>
+          <t>This property <bcp14>MUST</bcp14> only be included in scheduling messages according to the rules defined for the REQUEST-STATUS iCalendar property in <xref target="RFC5546" format="default"/>.</t>
+        </section>
       </section>
       <section anchor="alerts-properties" numbered="true" toc="default">
         <name>Alerts Properties</name>
@@ -2750,6 +2757,13 @@ The property type MUST be registered in the "JSCalendar Types" registry.
                 <td align="left">JSEvent, JSTask</td>
                 <td align="left">
                   <xref target="prop-replyTo" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">requestStatus</td>
+                <td align="left">String</td>
+                <td align="left">JSEvent, JSTask</td>
+                <td align="left">
+                  <xref target="prop-requestStatus" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">roles</td>
