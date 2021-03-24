@@ -679,6 +679,11 @@ signed-duration = ["+" / "-"] duration
           <t>The value is a date-time either produced by the <tt>recurrenceRules</tt> of the master event or
 	  added as a key to the <tt>recurrenceOverrides</tt> property of the master event.</t>
         </section>
+        <section anchor="prop-recurrenceIdTimeZone" numbered="true" toc="default">
+          <name>recurrenceIdTimeZone</name>
+          <t>Type: <tt>TimeZoneId|null</tt> (optional, default: null)</t>
+          <t> Identifies the time zone of the main JSCalendar object, of which this JSCalendar object is a recurrence instance. This property <bcp14>MUST</bcp14> be set if the <tt>recurrenceId</tt> property is set. It <bcp14>MUST NOT</bcp14> be set if the <tt>recurrenceId</tt> property is not set.</t>
+        </section>
         <section anchor="prop-recurrenceRules" numbered="true" toc="default">
           <name>recurrenceRules</name>
           <t>Type: <tt>RecurrenceRule[]</tt> (optional)</t>
@@ -977,6 +982,7 @@ signed-duration = ["+" / "-"] duration
             <li>privacy</li>
             <li>prodId</li>
             <li>recurrenceId</li>
+            <li>recurrenceIdTimeZone</li>
             <li>recurrenceOverrides</li>
             <li>recurrenceRules</li>
             <li>relatedTo</li>
@@ -2560,6 +2566,13 @@ reqstatus = statcode ";" statdesc [";" extdata]
                 <td align="left">Event, Task</td>
                 <td align="left">
                   <xref target="prop-recurrenceId" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">recurrenceIdTimeZone</td>
+                <td align="left">TimeZoneId|null</td>
+                <td align="left">Event, Task</td>
+                <td align="left">
+                  <xref target="prop-recurrenceIdTimeZone" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">recurrenceOverrides</td>
