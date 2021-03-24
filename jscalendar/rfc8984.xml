@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902"     docName="draft-ietf-calext-jscalendar-32" number="8984" obsoletes="" updates="" 
-submissionType="IETF" category="std" consensus="true" xml:lang="en" tocInclude="true" 
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902"     docName="draft-ietf-calext-jscalendar-32" number="8984" obsoletes="" updates=""
+submissionType="IETF" category="std" consensus="true" xml:lang="en" tocInclude="true"
 symRefs="true" sortRefs="true" version="3">
 
   <!-- xml2rfc v2v3 conversion 3.5.0 -->
@@ -51,7 +51,7 @@ symRefs="true" sortRefs="true" version="3">
     <keyword>time</keyword>
 
 
- <!--[rfced] *ADs - Please review and approve the changes to the following sections submitted by authors during the EDIT process.  
+ <!--[rfced] *ADs - Please review and approve the changes to the following sections submitted by authors during the EDIT process.
 
 Sections 2.1-2.3
 Section 4.1.1
@@ -77,7 +77,7 @@ For your convenience, we have posted a diff between the originally submitted doc
         <li>Wherever possible, there should be only one way to express the desired semantics, reducing complexity.</li>
         <li>The data model should avoid ambiguities, which often lead to interoperability issues between implementations.</li>
 
-	
+
         <li>The data model should be generally compatible with the iCalendar data format <xref target="RFC5545" format="default"/> <xref target="RFC7986" format="default"/> and extensions, but the specification should add new attributes where the iCalendar format currently lacks expressivity, and drop seldom-used, obsolete, or redundant properties. This means translation with no loss of semantics should be easy with most common iCalendar files.</li>
         <li>Extensions, such as new properties and components, should not require updates to this document.</li>
       </ul>
@@ -102,7 +102,7 @@ For your convenience, we have posted a diff between the originally submitted doc
     The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>", "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL
     NOT</bcp14>", "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>",
     "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as
-    described in BCP&nbsp;14 <xref target="RFC2119"/> <xref target="RFC8174"/> 
+    described in BCP&nbsp;14 <xref target="RFC2119"/> <xref target="RFC8174"/>
     when, and only when, they appear in all capitals, as shown here.
         </t>
         <t>The underlying format used for this specification is JSON. Consequently, the terms "object" and "array" as well as the four primitive types (strings, numbers, booleans, and null) are to be interpreted as described in <xref target="RFC8259" sectionFormat="of" section="1" />.</t>
@@ -113,11 +113,11 @@ Original:
 In these examples, three periods "..."
 are used to indicate a portion of the document that has been removed
 for compactness.
-   
+
 Perhaps:
 In these examples, an ellipsis "..." is used to indicate a portion of the document that has been removed for compactness.
 -->
-	
+
         <t>Some examples in this document contain "partial" JSON documents used for illustrative purposes. In these examples, three periods "..." are used to indicate a portion of the document that has been removed for compactness.</t>
       </section>
       <section anchor="type-signatures" numbered="true" toc="default">
@@ -154,11 +154,11 @@ In these examples, an ellipsis "..." is used to indicate a portion of the docume
           <t>Unless otherwise specified for a particular property, there are no uniqueness constraints on an Id value (other than, of course, the requirement that you cannot have two values with the same key within a single JSON map). For example, two JSEvent objects might use the same Ids in their respective <tt>links</tt> properties or, within the same JSEvent object, the same Id could appear in the <tt>participants</tt> and <tt>alerts</tt> properties. These situations do not imply any semantic connections among the objects. Nevertheless, a universally unique identifier (UUID) <xref target="RFC4122" format="default"/> is typically a good choice.</t>
         </section>
         <section anchor="type-Int" numbered="true" toc="default">
-<!-- [rfced] FYI, we have used the <sup> element for superscript 
+<!-- [rfced] FYI, we have used the <sup> element for superscript
 in this document. You can see how it looks in Sections 1.4.2 and 1.4.3.
 
-Note: In the HTML and PDF, it appears as superscript. 
-In the text output, <sup> generates a^(b) instead of 
+Note: In the HTML and PDF, it appears as superscript.
+In the text output, <sup> generates a^(b) instead of
 a^^b which was used in the original document.
 -->
 
@@ -214,7 +214,7 @@ values for "type"
 contain an applicable type, then feel free to suggest a new one.
 Also, it is acceptable to leave the "type" attribute not set.  -->
 
-          <sourcecode name="" type="abnf"><![CDATA[    
+          <sourcecode name="" type="abnf"><![CDATA[
     dur-secfrac = "." 1*DIGIT
     dur-second  = 1*DIGIT [dur-secfrac] "S"
     dur-minute  = 1*DIGIT "M" [dur-second]
@@ -248,7 +248,7 @@ Also, it is acceptable to leave the "type" attribute not set.  -->
         <section anchor="type-SignedDuration" numbered="true" toc="default">
           <name>SignedDuration</name>
           <t>A SignedDuration represents a length of time that may be positive or negative and is typically used to express the offset of a point in time relative to an associated time. It is represented as a Duration, optionally preceded by a sign character. It is specified by the following ABNF:</t>
-          <sourcecode name="" type="abnf"><![CDATA[    
+          <sourcecode name="" type="abnf"><![CDATA[
 signed-duration = ["+" / "-"] duration
 ]]></sourcecode>
           <t>A negative sign indicates a point in time at or before the associated time; a positive or no sign
@@ -302,7 +302,7 @@ Perhaps:
       patched).
 
 -->
-	    
+
             <li>If null, remove the property from the patched object. If the key is not present in the parent,
 	    this a no-op.</li>
             <li>Anything else: The value to set for this property (this may be a replacement or addition to
@@ -649,7 +649,7 @@ Perhaps:
 2) If "Links" should remain the subject, in the second and third sentences, we would expect the "Links" (plural) to be considered to be "alternative representations" (plural) and "images" (plural).
 
 Please review and let us know if either of the following suggestions captures your intent.
-	     
+
 Original:
    Links with a rel of "enclosure" MUST be considered by the client as
    attachments for download.
@@ -659,7 +659,7 @@ Original:
 
    Links with a rel of "icon" MUST be considered by the client to be an
    image that it may use when presenting the calendar data to a user.
-   
+
 Perhaps A:
    Links with a rel of "enclosure" MUST be considered by the client to be
    attachments for download.
@@ -667,7 +667,7 @@ Perhaps A:
    Links with a rel of "describedby" MUST be considered by the client to
    be alternative representations of the description.
 
-   Links with a rel of "icon" MUST be considered by the client to be 
+   Links with a rel of "icon" MUST be considered by the client to be
    images that it may use when presenting the calendar data to a user.
 
 Perhaps B:
@@ -681,7 +681,7 @@ Perhaps B:
    image that it may use when presenting the calendar data to a user.
 
 -->
-	  
+
           <t>Links with a rel of <tt>enclosure</tt> <bcp14>MUST</bcp14> be considered by the client to be
 	  attachments for download.</t>
 	  <t>Links with a rel of <tt>describedby</tt> <bcp14>MUST</bcp14> be considered by the client to be an
@@ -836,7 +836,7 @@ Perhaps B:
 		  <tt>day</tt> property, it represents only a specific instance within the recurrence period.
 		  The value can be positive or negative but <bcp14>MUST NOT</bcp14> be zero. A negative
 		  integer means nth-last of period.</t>
-<!--[rfced] Should this text be updated for clarity?  
+<!--[rfced] Should this text be updated for clarity?
 
 Original:
 A negative integer means nth-last of period.
@@ -996,11 +996,11 @@ A negative integer means the nth to the last occurrence within that period.
 Original:
  Negative numbers are indexes from the end of the list, with -1
  being the last item.
- 
+
 Perhaps:
  Negative numbers are indexed from the end of the list, with -1
  being the last item.
- 
+
 -->
 	      Negative numbers are indexes from the end of the list, with -1 being the last item.</li>
               <li>Any date-times before the start date of the event are eliminated (see below for why this might be needed).</li>
@@ -1010,13 +1010,13 @@ Perhaps:
             <t>When determining the set of occurrence dates for an event or task, the following extra rules
 	    must be applied:</t>
             <ol spacing="normal" type="1">
-	      <li>The initial date-time to which the rule is applied (the <tt>start</tt> date-time for events 
+	      <li>The initial date-time to which the rule is applied (the <tt>start</tt> date-time for events
 	      or the <tt>start</tt> or <tt>due</tt> date-time for tasks) is always the first occurrence in the
 	      expansion (and is counted if the recurrence is limited by a "count" property), even if it would
 	      normally not match the rule.</li>
               <li>The first set of candidates to consider is that which would contain the initial date-time.
 
-	      
+
 	      This means the first set may include candidates before the initial date-time; such candidates are
 	      eliminated from the results in step 4 of the list above.</li>
               <li><t>The following properties <bcp14>MUST</bcp14> be implicitly added to the rule under the
@@ -1064,7 +1064,7 @@ occurrence object.
 
 
 -->
-	  
+
           <t>This is a map of the recurrence ids (the date-time produced by the recurrence rule) to an object of patches to apply to the generated occurrence object.</t>
           <t>If the recurrence id does not match a date-time from the recurrence rule (or no rule is specified), it is to be treated as an additional occurrence (like an RDATE from iCalendar). The patch object may often be empty in this case.</t>
           <t>If the patch object defines the <tt>excluded</tt> property of an occurrence to be true, this occurrence is omitted from the final set of recurrences for the calendar object (like an EXDATE from iCalendar). Such a patch object <bcp14>MUST NOT</bcp14> patch any other property.</t>
@@ -1159,7 +1159,7 @@ occurrence object.
             be a <tt>mailto:</tt> URI.</dd>
             <dt><tt>web</tt>:</dt>
 	    <dd> Opening this URI in a web browser will provide the user with a page where they can submit a
-	    reply to the organizer. The value <bcp14>MUST</bcp14> be a URL using the <tt>https:</tt>         
+	    reply to the organizer. The value <bcp14>MUST</bcp14> be a URL using the <tt>https:</tt>
             scheme.</dd>
             <dt><tt>other</tt>:</dt>
 	    <dd> The organizer is identified by this URI, but the method for submitting the response is
@@ -1316,7 +1316,7 @@ occurrence object.
 	      it was provided by the server. Clients <bcp14>MAY</bcp14> add, change, or remove the property for
 	      participants where the client is handling the scheduling.</t>
               <t>This property <bcp14>MUST NOT</bcp14> be included in scheduling messages.</t>
-            </dd>            
+            </dd>
               <dt>scheduleUpdated: <tt>UTCDateTime</tt> (optional)</dt>
               <dd><t>This is the timestamp for the most recent response from this participant.</t>
               <t>This is the <tt>updated</tt> property of the last response when using iTIP. It can be compared
@@ -1432,9 +1432,9 @@ occurrence object.
 	      the IANA &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref
 	      target="custom-properties" format="default"/>):</t>
               <dl spacing="normal">
-                <dt><tt>display</tt>:</dt> 
+                <dt><tt>display</tt>:</dt>
 		<dd>The alert should be displayed as appropriate for the current device and user context.</dd>
-                <dt><tt>email</tt>:</dt> 
+                <dt><tt>email</tt>:</dt>
 		<dd>The alert should trigger an email sent out to the user, notifying them of the alert. This
 		action is typically only appropriate for server implementations.</dd>
               </dl></dd>
@@ -1454,7 +1454,7 @@ Original:
    the calendar object into the locale of the respective
    language tag.
 -->
-	  
+
           <t>This is a map of language tags <xref target="BCP47" format="default"/> to patch objects, which
 	  localize the calendar object into the locale of the respective language tag.</t>
           <t>See the description of <xref target="type-PatchObject" format="default">PatchObject</xref> for the structure of the PatchObject. The patches are applied to the top-level calendar object. In addition, the <tt>locale</tt> property of the patched object is set to the language tag. All pointers for patches <bcp14>MUST</bcp14> end with one of the following suffixes; any patch that does not follow this <bcp14>MUST</bcp14> be ignored unless otherwise specified in a future RFC:
@@ -1528,7 +1528,7 @@ Original:
 	      during conversion.</dd>
           </dl>
 
-	  
+
           <t>A TimeZoneRule object maps a STANDARD or DAYLIGHT sub-component from iCalendar, with the
 	  restriction that, at most, one recurrence rule is allowed per rule. It has the following
 	  properties:</t>
@@ -1826,7 +1826,7 @@ Original:
         <t>
     This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live concert on premises or online. The event title and descriptions are localized.
         </t>
-<!-- [rfced] FYI, the following lines are longer than the 69-character limit. Please let us know how they can be adjusted. 
+<!-- [rfced] FYI, the following lines are longer than the 69-character limit. Please let us know how they can be adjusted.
 
 Section 6.8
    "virtualLocations/1/name": "Gratis Live-Stream aus der Music Bowl"
@@ -2005,9 +2005,9 @@ Section 6.10
         <t>Fetching remote resources carries inherent risks. Connections must only be allowed on well-known ports, using allowed protocols (generally, just HTTP/HTTPS on their default ports). The URL must be resolved externally and not allowed to access internal resources.
 
 <!--[rfced] The following use of "generally" may be easy to misunderstand. Is the intended meaning the general location (as in not an exact location) or is the intended meaning the location information in general?
-	    
+
 Original:
-Connecting to an external source reveals IP (and therefore generally 
+Connecting to an external source reveals IP (and therefore generally
 location) information.
 
 
@@ -2046,11 +2046,11 @@ location) information.
           <dd><t>type</t>
 
 <!--[rfced] Note that we will communicate the changes to Section 8.1 to IANA upon completion of AUTH48 and prior to publication so that https://www.iana.org/assignments/media-types/application/jscalendar+json can be updated to match.-->
-	  
-	  
+
+
             <t>The <tt>type</tt> parameter conveys the type of the JSCalendar data in the body part. The
-	    allowed parameter values correspond to the <tt>@type</tt> property of the JSON-formatted 
-	    JSCalendar object in the body:</t> 
+	    allowed parameter values correspond to the <tt>@type</tt> property of the JSON-formatted
+	    JSCalendar object in the body:</t>
             <dl newline="false" spacing="normal">
               <dt><tt>jsevent</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be
@@ -2217,7 +2217,7 @@ The property type MUST be registered in the "JSCalendar Types" registry.
                 <td align="left">JSEvent, JSTask, JSGroup, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</td>
 
 <!--[rfced] The IANA registry lists Section 4.7.2 twice in the Reference for the @type Property in the "JSCalendar Properties" registry while this document lists Sections 4.7.1 and 4.7.2. Please let us know which is correct.-->
-		    
+
                 <td align="left">
                   <xref target="prop-type" format="default"/>, <xref target="prop-alerts" format="default"/>, <xref target="type-Link" format="default"/>, <xref target="prop-locations" format="default"/>, <xref target="prop-participants" format="default"/>, <xref target="prop-recurrenceRules" format="default"/>, <xref target="prop-relatedTo" format="default"/>, <xref target="prop-timeZone" format="default"/>, <xref target="prop-timeZones" format="default"/>, <xref target="prop-virtualLocations" format="default"/></td>
               </tr>
@@ -3129,7 +3129,7 @@ Original:
 Perhaps:
 8.4.2.  Template for Subregistries to the "JSCalendar Enum Values" Registry
 -->
-	  
+
           <name>JSCalendar Enum Property Registry Template</name>
           <t>This template is for adding a subregistry for a new enumerable property to the &quot;JSCalendar Enum&quot; registry.</t>
           <dl newline="false">
@@ -3600,8 +3600,8 @@ Perhaps:
 <!--[rfced] FYI - In response to Neil Jenkins's email from December 6: See Section 3.8 of https://www.rfc-editor.org/materials/FAQ-xml2rfcv3.html regarding how to reference a BCP instead of an RFC.
 
 -->
-	
-<referencegroup anchor="BCP47" target="https://www.rfc-editor.org/info/bcp47">	
+
+<referencegroup anchor="BCP47" target="https://www.rfc-editor.org/info/bcp47">
   <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"/>
   </referencegroup>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"/>
@@ -3644,14 +3644,14 @@ Perhaps:
 <author initials='L' surname='Baron' fullname='L. David Baron'>
     <organization />
 </author>
-            <date month="June" year="2018"/> 
+            <date month="June" year="2018"/>
           </front>
 	  <refcontent>W3C Recommendation</refcontent>
         </reference>
       </references>
       <references>
         <name>Informative References</name>
-	
+
    <reference anchor="ISO.9070.1991" target="https://www.iso.org/standard/16645.html">
      <front>
        <title>Information technology -- SGML support facilities -- Registration
@@ -3659,13 +3659,13 @@ Perhaps:
        <author>
          <organization>ISO/IEC</organization>
        </author>
-      
+
        <date month="April" year="1991"/>
      </front>
      <seriesInfo name="ISO/IEC" value="9070:1991"/>
      <seriesInfo name="Edition" value="2"/>
    </reference>
-	
+
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6376.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"/>
@@ -3734,7 +3734,7 @@ d) FYI - We see that the media type registration with IANA uses double quotes to
 
 Please note that updating the XML file itself with any related changes is an option for you if you find it preferrable to explaining the updates in Old/New format for this issue.
 -->
-      
+
     </section>
   </back>
 </rfc>
