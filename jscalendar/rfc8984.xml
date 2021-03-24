@@ -1087,7 +1087,7 @@ signed-duration = ["+" / "-"] duration
             <dt>name: <tt>String</tt> (optional)</dt>
               <dd>This is the display name of the participant (e.g., "Joe Bloggs").</dd>
               <dt>email: <tt>String</tt> (optional)</dt>
-              <dd>This is the email address of the participant to contact the participant or, for example, match with an address book entry. If set, the value <bcp14>MUST</bcp14> be a <tt>mailto:</tt> URI. This property can be used in situations where the <tt>imip</tt> value of the <tt>sendTo</tt> property differs from the contact email address of the participant. This property <bcp14>MUST NOT</bcp14> be set if its value matches the value of the <tt>imip</tt> value in the <tt>sendTo</tt> property.</dd>
+              <dd>This is the email address of the participant to contact the participant or, for example, match with an address book entry. If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</dd>
               <dt>description: <tt>String</tt> (optional)</dt>
               <dd>This is a plain-text description of this participant. For example, this may include more
 	       information about their role in the event or how best to contact them.</dd>
@@ -3513,6 +3513,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4589.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5322.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"/>
 
