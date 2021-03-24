@@ -1380,7 +1380,10 @@ occurrence object.
         <section anchor="prop-requestStatus" numbered="true" toc="default">
           <name>requestStatus</name>
           <t>Type: <tt>String</tt> (optional)</t>
-          <t>A status code, as defined in Section 3.8.8.3 of <xref target="RFC5545" />, returned from processing the most recent scheduling request for this JSCalendar object.</t>
+          <t>A request status as returned from processing the most recent scheduling request for this JSCalendar object. The allowed values are defined by the ABNF definitions of <tt>statcode</tt>, <tt>statdesc</tt> and <tt>extdata</tt> in <xref target="RFC5545" sectionFormat="of" section="3.8.8.3"/> and the following ABNF <xref target="RFC5234" />:</t>
+          <sourcecode name="" type="abnf"><![CDATA[
+reqstatus = statcode ";" statdesc [";" extdata]
+]]></sourcecode>
           <t>Servers <bcp14>MUST</bcp14> only add or change this property when they performe a scheduling action. Clients <bcp14>SHOULD NOT</bcp14> change or remove this property if it was provided by the server. Clients <bcp14>MAY</bcp14> add, change, or remove the property when the client is handling the scheduling.</t>
           <t>This property <bcp14>MUST</bcp14> only be included in scheduling messages according to the rules defined for the REQUEST-STATUS iCalendar property in <xref target="RFC5546" format="default"/>.</t>
         </section>
