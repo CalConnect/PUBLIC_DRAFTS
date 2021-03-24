@@ -489,7 +489,8 @@ Perhaps:
         <section anchor="prop-uid" numbered="true" toc="default">
           <name>uid</name>
           <t>Type: <tt>String</tt> (mandatory)</t>
-          <t>This is a globally unique identifier used to associate the object as the same across different systems, calendars, and views. The value of this property <bcp14>MUST</bcp14> be unique across all JSCalendar objects, even if they are of different type. <xref target="RFC4122" format="default"/> describes a range of established algorithms to generate universally unique identifiers (UUIDs). UUID version 4, described in <xref target="RFC4122" sectionFormat="of" section="4.4"/>, is <bcp14>RECOMMENDED</bcp14>.</t>
+          <t>This is a globally unique identifier used to associate objects representing the same event, task, group or other object across different systems, calendars, and views. For recurring events and tasks the UID is associated with the master object and so is the same for all occurrences; the combination of the UID with a <tt>recurrenceId</tt> identifies a particular instance.</t>
+          <t>The generator of the identifier <bcp14>MUST</bcp14> guarantee that the identifier is unique. <xref target="RFC4122" format="default"/> describes a range of established algorithms to generate universally unique identifiers (UUIDs). UUID version 4, described in <xref target="RFC4122" sectionFormat="of" section="4.4"/>, is <bcp14>RECOMMENDED</bcp14>.</t>
           <t>For compatibility with  UIDs <xref target="RFC5545" format="default"/>, implementations <bcp14>MUST</bcp14> be able to receive and persist values of at least 255 octets for this property, but they <bcp14>MUST NOT</bcp14> truncate values in the middle of a UTF-8 multi-octet sequence.</t>
         </section>
         <section anchor="prop-relatedTo" numbered="true" toc="default">
