@@ -1329,9 +1329,7 @@ occurrence object.
 	      significant changes to the calendar object and to determine if future responses are responding
 	      to a current or older view of the data.</t></dd>
               <dt>scheduleStatus: <tt>String[]</tt> (optional)</dt>
-              <dd><t>This is a list of status codes, as defined in <xref target="RFC5545" sectionFormat="of"
-	      section="3.8.8.3"/>, returned from the processing of the most recent scheduling message sent to
-	      this participant.</t>
+              <dd><t>This is a list of status codes, returned from the processing of the most recent scheduling message sent to this participant. The status codes MUST be valid <tt>statcode</tt> values as defined in the ABNF in <xref target="RFC5545" sectionFormat="of" section="3.8.8.3"/>.</t>
               <t>Servers <bcp14>MUST</bcp14> only add or change this property when they send a scheduling
 	      message to the participant. Clients <bcp14>SHOULD NOT</bcp14> change or remove this property if
 	      it was provided by the server. Clients <bcp14>MAY</bcp14> add, change, or remove the property for
