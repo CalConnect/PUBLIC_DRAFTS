@@ -636,6 +636,25 @@ Perhaps:
               <t>This may be a telephone number (represented using the <tt>tel:</tt> scheme, e.g.,
 	      <tt>tel:+1-555-555-5555</tt>) for a teleconference, a web address for online chat, or any custom
 	      URI.</t></dd>
+              <dt>features: <tt>String[Boolean]</tt> (optional)</dt>
+              <dd><t>A set of features supported by this virtual location. The set is represented as a map, with the keys being the feature. The value for each key in the map <bcp14>MUST</bcp14> be true.</t>
+              <t>The feature <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA JSCalendar Enum Values registry, or a vendor-specific value (see <xref target="custom-properties" />). Any value the client or server doesn't understand should be treated the same as if this feature is omitted.</t>
+              <dl>
+                <dt>audio</dt>
+                  <dd>Audio conferencing.</dd>
+                <dt>chat</dt>
+                  <dd>Chat or instant messaging.</dd>
+                <dt>feed</dt>
+                  <dd>Blog or atom feed</dd>
+                <dt>moderator</dt>
+                  <dd>Provides moderator-specific features.</dd>
+                <dt>phone</dt>
+                  <dd>Phone conferencing.</dd>
+                <dt>screen</dt>
+                  <dd>Screen sharing.</dd>
+                <dt>video</dt>
+                  <dd>Video conferencing.</dd>
+            </dl></dd>
           </dl>
         </section>
         <section anchor="prop-links" numbered="true" toc="default">
@@ -2480,6 +2499,13 @@ The property type MUST be registered in the "JSCalendar Types" registry.
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
+                <td align="left">features</td>
+                <td align="left">String[Boolean]</td>
+                <td align="left">VirtualLocation</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
                 <td align="left">firstDayOfWeek</td>
                 <td align="left">String</td>
                 <td align="left">RecurrenceRule</td>
@@ -3230,6 +3256,58 @@ Perhaps:
                 <td align="left">thumbnail</td>
                 <td align="left">
                   <xref target="type-Link" format="default"/></td>
+              </tr>
+            </tbody>
+          </table></dd>
+</dl>
+<dl spacing="compact" newline="false" indent="20">
+          <dt>Property Name:</dt><dd>features</dd>
+          <dt>Context:</dt><dd>VirtualLocation</dd>
+          <dt>Change Controller:</dt><dd>IETF</dd>
+          <dt>Initial Contents:</dt><dd>
+          <table anchor="tab-iana-enum-virtualLocation-features" align="left">
+      <name>JSCalendar Enum Values for features (Context: VirtualLocation)</name>
+            <thead>
+              <tr>
+                <th align="left">Enum Value</th>
+                <th align="left">Reference or Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td align="left">audio</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">chat</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">feed</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">moderator</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">phone</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">screen</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">video</td>
+                <td align="left">
+                  <xref target="prop-virtualLocations" format="default"/></td>
               </tr>
             </tbody>
           </table></dd>
