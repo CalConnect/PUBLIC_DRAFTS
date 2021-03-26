@@ -16,7 +16,7 @@
 ]>
 
 <rfc category="std" updates="5545"
-     docName="draft-ietf-calext-eventpub-extensions-18" ipr="trust200902">
+     docName="draft-ietf-calext-eventpub-extensions-19" ipr="trust200902">
   <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
   <?rfc strict="yes" ?>
   <?rfc toc="yes"?>
@@ -45,7 +45,7 @@
       </address>
     </author>
 
-    <date day='13' month='January' year='2021' />
+    <date day='25' month='March' year='2021' />
 
     <area>Applications</area>
 
@@ -934,19 +934,25 @@
 
                 <artwork>
   styleddescription = "STYLED-DESCRIPTION" styleddescparam ":"
-                  styleddescval CRLF
+                     styleddescval CRLF
 
-  styleddescparam   = ; the elements herein may appear in any order,
-                      ; and the order is not significant.
-
-                      (";" "VALUE" "=" ("URI" / "TEXT"))
-
-                      [";" altrepparam]
-                      [";" languageparam]
-                      [";" fmttypeparam]
-                      [";" derivedparam]
-
-                      *(";" other-param)
+  styleddescparam   = *(
+                     ; The following is REQUIRED,
+                     ; but MUST NOT occur more than once.
+                     ;
+                     (";" "VALUE" "=" ("URI" / "TEXT")) /
+                     ;
+                     ; The following are OPTIONAL,
+                     ; but MUST NOT occur more than once.
+                     ;
+                     (";" altrepparam) / (";" languageparam) /
+                     (";" fmttypeparam) / (";" derivedparam) /
+                     ;
+                     ; the following is OPTIONAL
+                     ; and MAY occur more than once
+                     ;
+                     (";" other-param)
+                     )
 
   styleddescval   = ( uri / text )
   ;Value MUST match value type
@@ -1062,29 +1068,38 @@
                 </preamble>
 
                 <artwork name="abnf"><![CDATA[
-   sdataprop    = "STRUCTURED-DATA" sdataparam ":"
-                     sdataval CRLF
+   sdataprop    = "STRUCTURED-DATA" sdataparam
+                    (
+                      ";" "VALUE" "=" "TEXT"
+                      ":" text
+                    ) /
+                    (
+                      ";" "ENCODING" "=" "BASE64"
+                      ";" "VALUE" "=" "BINARY"
+                      ":" binary
+                    ) /
+                    (
+                      ";" "VALUE" "=" "URI"
+                      ":" uri
+                    )
+                    CRLF
 
-   sdataparam     = ; all parameter elements may appear in any order,
-                    ; and the order is not significant.
-                    (sdataparamtext / sdataparambin / sdataparamuri)
-                    *(";" other-param)
+  sdataparam  = *(
+                   ;
+                   ; The following is OPTIONAL for a URI value,
+                   ; REQUIRED for a TEXT or BINARY value,
+                   ; and MUST NOT occur more than once.
+                   ;
+                   (";" fmttypeparam) /
+                   (";" schemaparam) /
+                   ;
+                   ; The following is OPTIONAL,
+                   ; and MAY occur more than once.
+                   ;
+                   (";" other-param)
+                   ;
+                )
 
-   sdataparamtext = ";VALUE=TEXT"
-                    ";" fmttypeparam
-                    ";" schemaparam
-
-   sdataparambin  = ";VALUE=BINARY"
-                    ";ENCODING=BASE64"
-                    ";" fmttypeparam
-                    ";" schemaparam
-
-   sdataparamuri  = ";VALUE=URI"
-                    [";" fmttypeparam]
-                    [";" schemaparam]
-
-   sdataval       = ( binary / text /uri )
-                    ; value MUST match value type
 ]]></artwork>
               </figure>
             </t>
@@ -1163,37 +1178,29 @@
                   partprop *locationc *resourcec
                   "END" ":" "PARTICIPANT" CRLF
 
-   partprop     = ; the elements herein may appear in any order,
-                  ; and the order is not significant.
-
-                  uid
-                  participanttype
-
-                  [calendaraddress]
-                  [created]
-                  [description]
-                  [dtstamp]
-                  [geo]
-                  [last-mod]
-                  [priority]
-                  [seq]
-                  [status]
-                  [summary]
-                  [url]
-
-                  *attach
-                  *categories
-                  *comment
-                  *contact
-                  *location
-                  *rstatus
-                  *related
-                  *resources
-                  *strucloc
-                  *strucres
-                  *styleddescription
-                  *sdataprop
-                  *iana-prop
+   partprop     = *(
+                  ;
+                  ; The following are REQUIRED,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  participanttype / uid /
+                  ;
+                  ; The following are OPTIONAL,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  calendaraddress / created / description / dtstamp /
+                  geo / last-mod / priority / seq /
+                  status / summary / url /
+                  ;
+                  ; The following are OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  attach / categories / comment /
+                  contact / location / rstatus / related /
+                  resources / strucloc / strucres / styleddescription /
+                  sdataprop / iana-prop
+                  ;
+                  )
 
                 </artwork>
               </figure>
@@ -1210,7 +1217,8 @@
               the location of a participant at a given time or times.
               This may represent an unacceptable privacy risk for some
               participants. User agents MUST NOT broadcast this information
-              without the participant's express permission. For further
+              without the express permission of the participants whose
+              location would be exposed. For further
               comments see <xref target="privacy" />
             </t>
 
@@ -1269,7 +1277,7 @@
     UID:123456-abcdef-98765432
     NAME:My home location
     STRUCTURED-DATA;VALUE=URI:
-    http://dir.example.com/addresses/my-home.vcf
+     http://dir.example.com/addresses/my-home.vcf
     END:VLOCATION
     END:PARTICIPANT
                 </artwork>
@@ -1289,7 +1297,7 @@
           </t>
 
           <t>
-            For backwards compatibility wuth existing clients and servers
+            For backwards compatibility with existing clients and servers
             when used to schedule events and tasks
             the ATTENDEE property MUST be used to specify the sheduling
             parameters as defined for that property.
@@ -1375,18 +1383,22 @@
                   locprop
                   "END" ":" "VLOCATION" CRLF
 
-   locprop      = ; the elements herein may appear in any order,
-                  ; and the order is not significant.
-
-                  uid
-
-                  [name]
-                  [description]
-                  [geo]
-                  [loctype]
-
-                  *sdataprop
-                  *iana-prop
+   locprop      = *(
+                  ;
+                  ; The following are REQUIRED,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  uid /
+                  ;
+                  ; The following are OPTIONAL,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  description / geo / loctype / name /
+                  ;
+                  ; The following are OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  sdataprop / iana-prop
                 </artwork>
               </figure>
             </t>
@@ -1466,18 +1478,22 @@
                   resprop
                   "END" ":" "VRESOURCE" CRLF
 
-   resprop      = ; the elements herein may appear in any order,
-                  ; and the order is not significant.
-
-                  uid
-
-                  [name]
-                  [description]
-                  [geo]
-                  [restype]
-
-                  *sdataprop
-                  *iana-prop
+   resprop      = *(
+                  ;
+                  ; The following are REQUIRED,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  uid /
+                  ;
+                  ; The following are OPTIONAL,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  description / geo / name / restype /
+                  ;
+                  ; The following are OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  sdataprop / iana-prop
                 </artwork>
               </figure>
             </t>
@@ -1775,6 +1791,10 @@ END:VEVENT
             <c>SCHEMA</c>
             <c>Current</c>
             <c>RFCXXXX, <xref target="parameter_schema" /></c>
+
+            <c>DERIVED</c>
+            <c>Current</c>
+            <c>RFCXXXX, <xref target="parameter_derived" /></c>
           </texttable>
         </section>
 
@@ -1981,6 +2001,21 @@ END:VEVENT
 
     <section title="Change log">
       <t>To be deleted on publication</t>
+
+      <t>
+        calext-v19 2021-03-25  MD
+        <list style='symbols'>
+          <t>
+            Revert ABNF to RFC5545 format.
+          </t>
+          <t>
+            Add missing DERIVED parameter registration.
+          </t>
+          <t>
+            Fix small error in an example (missing space at start).
+          </t>
+        </list>
+      </t>
 
       <t>
         calext-v18 2021-??-??  MD
