@@ -1227,7 +1227,7 @@ signed-duration = ["+" / "-"] duration
 	      to the <tt>updated</tt> property in future responses to detect and discard older responses
 	      delivered out of order.</t></dd>
               <dt>invitedBy: <tt>Id</tt> (optional)</dt>
-	      <dd>This is the participant id of the participant who invited this one, if known.</dd>
+	      <dd>This is the id of the participant who added this participant to the event/task, if known.</dd>
               <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
 	      <dd>This is set of participant ids that this participant has delegated their participation to.
 	      Each key
