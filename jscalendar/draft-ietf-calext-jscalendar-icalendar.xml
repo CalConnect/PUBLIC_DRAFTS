@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd">
-<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-icalendar-03">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-icalendar-04">
     <?rfc toc="yes"?>
     <?rfc symrefs="yes"?>
     <?rfc sortrefs="yes"?>
@@ -57,7 +57,7 @@
                 <uri>http://bedework.com</uri>
             </address>
         </author>
-        <date year="2021" month="January" day="25"/>
+        <date year="2021" month="February" day="21"/>
         <area>Applications</area>
         <workgroup>Calendaring extensions</workgroup>
         <keyword>JSON</keyword>
@@ -299,7 +299,7 @@
             </t>
             <t>
                 One key difference in the formatting of values used in iCalendar and
-                JSCalendar is that in JSCalendar, the specification uses date/time values aligned
+                JSCalendar is that, in JSCalendar, the specification uses date/time values aligned
                 with the extended format of [ISO.8601.2004], which is more commonly
                 used in Internet applications that make use of the JSON format.  The
                 sections of this document describing the various date and time
@@ -311,7 +311,7 @@
         <section anchor="translate-icalendar-components"
                  title="Translating iCalendar components to JSCalendar">
             <t>
-                This section is an alphabetic list of all
+                This section is an alphabetic list of
                 <xref target="RFC5545"/> components and
                 how they are mapped to JSCalendar.
             </t>
@@ -323,7 +323,7 @@
 
             <section anchor="translate-ical-comp-valarm" title="VALARM">
                 <t>
-                    A <xref target="RFC5545"/> VALARM component is mapped
+                    An <xref target="RFC5545"/> VALARM component is mapped
                     to a member of a JSCalendar "alerts" object with a
                     type of "Alert" and a small id.
                     <figure>
@@ -369,7 +369,7 @@
                     For example, if the user has a smart-watch they may
                     get tapped on the wrist. The method of notification
                     may depend on which device is being used and the
-                    context, for example, a meeting or driving.
+                    context, for example a meeting or driving.
                 </t>
 
                 <t>
@@ -539,8 +539,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-comp-vlocation"
-                     title="VLOCATION">
+            <section anchor="translate-ical-comp-vlocation" title="VLOCATION">
                 <t>
                     A <xref target="draft-ietf-calext-eventpub-extensions"/>
                     VLOCATION component is mapped
@@ -575,8 +574,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-comp-vtimezone"
-                     title="VTIMEZONE, STANDARD, DAYLIGHT">
+            <section anchor="translate-ical-comp-vtimezone" title="VTIMEZONE, STANDARD, DAYLIGHT">
                 <t>
                     A <xref target="RFC5545"/> VTIMEZONE component is mapped
                     to a member of a JSCalendar "timezones" object with a
@@ -656,12 +654,11 @@
             </section>
         </section>
 
-        <section anchor="translate-icalendar-properties"
-                 title="Translating iCalendar properties to JSCalendar">
+        <section anchor="translate-icalendar-properties" title="Translating iCalendar properties to JSCalendar">
             <t>
-                This section is an alphabetic list of all
+                This section is an alphabetic list of
                 <xref target="RFC5545"/> and <xref target="RFC7986"/> properties and
-                how they are mappped to JSCalendar.
+                how they are mapped to JSCalendar.
             </t>
 
             <section anchor="translate-ical-attach" title="ATTACH">
@@ -695,7 +692,7 @@
 
             <section anchor="translate-ical-attendee" title="ATTENDEE">
                 <t>
-                    A <xref target="RFC5545"/> ATTENDEE maps to the
+                    An <xref target="RFC5545"/> ATTENDEE maps to the
                     JSCalendar "participant" property with a
                     JSCalendar "role" of "attendee". The value for role
                     should always be set.
@@ -875,8 +872,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-categories"
-                     title="CATEGORIES">
+            <section anchor="translate-ical-categories" title="CATEGORIES">
                 <t>
                     These map on to the JSCalendar "keywords" property
                     with each category being the key to an entry.
@@ -995,7 +991,7 @@
                     Mapping parameters:
                     <list style="hanging">
                         <t hangText="FEATURE:">
-                            TBD No mapping.
+                            Maps to the "features" property of the virtual location.
                         </t>
                         <t hangText="LABEL:">
                             Maps to the "name" property of the virtual location.
@@ -1110,8 +1106,7 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-times"
-                     title="DTEND, DTSTART, DUE, DURATION">
+            <section anchor="translate-ical-times" title="DTEND, DTSTART, DUE, DURATION">
                 <t>
                     If the DTSTART is a DATE only property then add
                     the JSCalendar showWithoutTime property with the value set
@@ -1548,9 +1543,11 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-recurrence-id" title="TBD: RECURRENCE-ID">
+            <section anchor="translate-ical-recurrence-id"
+                     title="RECURRENCE-ID">
                 <t>
-                    To be defined.
+                    Refer to <xref target="translate-icalendar-recurrences" />
+                    for information on mapping recurrence ids.
                 </t>
             </section>
 
@@ -1606,9 +1603,10 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-request-status" title="TBD: REQUEST-STATUS">
+            <section anchor="translate-ical-request-status"
+                     title="REQUEST-STATUS">
                 <t>
-                    To be defined.
+                    Copy the value into the JSCalendar "requestStatus" property.
                 </t>
             </section>
 
@@ -1972,10 +1970,15 @@
                     JSCalendar "title" property.
                 </t>
                 <t>
-                    TBD: ALTREP param
-                </t>
-                <t>
-                    No mapping.
+                    Mapping parameters:
+                    <list style="hanging">
+                        <t hangText="ALTREP">
+                            No mapping.
+                        </t>
+                        <t hangText="LANG">
+                            Use the "locale" property.
+                        </t>
+                    </list>
                 </t>
             </section>
 
@@ -2011,7 +2014,60 @@
             </section>
         </section>
 
-        <section anchor="translate-icalendar"
+        <section anchor="translate-icalendar-recurrences"
+                 title="Translating iCalendar Recurrences">
+            <section anchor="translate-icalendar-recurrences-simple"
+                     title="Translating iCalendar Recurrences: Simple objects with overrides">
+                <t>
+                    A simple object with overrides will be converted to a
+                    jsCalendar master event with the rules, recurrence
+                    dates and exclusion dates translated appropriately.
+                </t>
+
+                <t>
+                    Overrides MUST be mapped on to a jsCalendar patch
+                    object and added to the "recurrenceOverrides"
+                    property of the master event with the key being
+                    the value of the iCalendar RECURRENCE-ID translated
+                    to a json format.
+                </t>
+
+                <t>
+                    Any override property with the same value as the
+                    master SHOULD be ommitted.
+                    Remaining properties MAY be added in full. Where appropriate,
+                    differences SHOULD be expressed as a patch.
+                </t>
+
+                <t>
+                    This can result in a significant reduction in
+                    size for objects with small changes to overrides,
+                    for example changing the participation status of
+                    an attendee.
+                </t>
+            </section>
+
+            <section anchor="translate-icalendar-recurrences-nomaster"
+                     title="Translating iCalendar Recurrences: Overrides with no master">
+                <t>
+                    When inviting an attendee to a single instance of a recurring
+                    event, only that override should be sent to the attendee.
+                    In this case the override should be a complete jsCalendar
+                    object with the type set to the type of the master.
+                </t>
+
+                <t>
+                    Additionally, there MUST be a recurrenceId property
+                    set to the value of the recurrence id for that override.
+                    If the timezone of the start of the instance is
+                    different from the master value, then there must
+                    also be a "recurrenceIdTimeZone" property set to
+                    the start timezone of the master.
+                </t>
+            </section>
+        </section>
+
+        <section anchor="translate-icalendar-further-examples"
                  title="Translating iCalendar: Further examples">
             <t>
                 This section provides more complete examples of translating
