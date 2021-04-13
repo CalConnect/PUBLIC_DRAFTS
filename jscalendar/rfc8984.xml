@@ -1155,7 +1155,7 @@ signed-duration = ["+" / "-"] duration
 	    than one of the roles "attendee" and "informational" be present; if more than one are given,
 	    "attendee" takes precedence over "informational". Roles that are unknown to the implementation
 	    <bcp14>MUST</bcp14> be preserved.</t></dd>
-              <dt>locationId: <tt>String</tt> (optional)</dt>
+              <dt>locationId: <tt>Id</tt> (optional)</dt>
               <dd><t>This is the location at which this participant is expected to be attending.</t>
               <t>If the value does not correspond to any location id in the <tt>locations</tt> property of the
 	      JSCalendar object, this <bcp14>MUST</bcp14> be treated the same as if the participant's
@@ -1226,20 +1226,20 @@ signed-duration = ["+" / "-"] duration
               <t>This is the <tt>updated</tt> property of the last response when using iTIP. It can be compared
 	      to the <tt>updated</tt> property in future responses to detect and discard older responses
 	      delivered out of order.</t></dd>
-              <dt>invitedBy: <tt>String</tt> (optional)</dt>
+              <dt>invitedBy: <tt>Id</tt> (optional)</dt>
 	      <dd>This is the participant id of the participant who invited this one, if known.</dd>
-              <dt>delegatedTo: <tt>String[Boolean]</tt> (optional)</dt>
+              <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
 	      <dd>This is set of participant ids that this participant has delegated their participation to.
 	      Each key
 	      in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 	      <bcp14>MUST</bcp14> be true. If there are no delegates, this <bcp14>MUST</bcp14> be omitted
 	      (rather than specified as an empty set).</dd>
-              <dt>delegatedFrom: <tt>String[Boolean]</tt> (optional)</dt>
+              <dt>delegatedFrom: <tt>Id[Boolean]</tt> (optional)</dt>
               <dd>This is a set of participant ids that this participant is acting as a delegate for. Each key
 	      in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 	      <bcp14>MUST</bcp14> be true. If there are no delegators, this <bcp14>MUST</bcp14> be omitted
 	      (rather than specified as an empty set).</dd>
-              <dt>memberOf: <tt>String[Boolean]</tt> (optional)</dt>
+              <dt>memberOf: <tt>Id[Boolean]</tt> (optional)</dt>
               <dd>This is a set of group participants that were invited to this calendar object, which caused
 	      this
 	      participant to be invited due to their membership in the group(s). Each key in the set
@@ -2240,14 +2240,14 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">delegatedFrom</td>
-                <td align="left">String[Boolean]</td>
+                <td align="left">Id[Boolean]</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">delegatedTo</td>
-                <td align="left">String[Boolean]</td>
+                <td align="left">Id[Boolean]</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2373,7 +2373,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">invitedBy</td>
-                <td align="left">String</td>
+                <td align="left">Id</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2422,7 +2422,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">locationId</td>
-                <td align="left">String</td>
+                <td align="left">Id</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2443,7 +2443,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">memberOf</td>
-                <td align="left">String[Boolean]</td>
+                <td align="left">Id[Boolean]</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
