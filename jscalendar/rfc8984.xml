@@ -1942,12 +1942,12 @@ reqstatus = statcode ";" statdesc [";" extdata]
 	    allowed parameter values correspond to the <tt>@type</tt> property of the JSON-formatted
 	    JSCalendar object in the body:</t>
             <dl newline="false" spacing="normal">
-              <dt><tt>jsevent</tt>:</dt>
+              <dt><tt>event</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be
 	      <tt>Event</tt>.</dd>
-              <dt><tt>jstask</tt>:</dt>
+              <dt><tt>task</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be <tt>Task</tt>.</dd>
-              <dt><tt>jsgroup</tt>:</dt>
+              <dt><tt>group</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be <tt>Group</tt>.</dd>
             </dl>
             <t>No other parameter values are allowed. The parameter <bcp14>MUST NOT</bcp14> occur more than
