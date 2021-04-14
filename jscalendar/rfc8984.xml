@@ -1233,7 +1233,8 @@ signed-duration = ["+" / "-"] duration
 	      to the <tt>updated</tt> property in future responses to detect and discard older responses
 	      delivered out of order.</t></dd>
               <dt>sentBy: <tt>String</tt> (optional)</dt>
-              <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to).</t></dd>
+              <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to). If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
+        </section></t></dd>
               <dt>invitedBy: <tt>Id</tt> (optional)</dt>
 	      <dd>This is the id of the participant who added this participant to the event/task, if known.</dd>
               <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
