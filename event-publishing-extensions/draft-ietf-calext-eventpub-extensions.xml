@@ -45,7 +45,7 @@
       </address>
     </author>
 
-    <date day='25' month='March' year='2021' />
+    <date day='26' month='March' year='2021' />
 
     <area>Applications</area>
 
@@ -230,7 +230,7 @@
           </t>
 
           <t>
-            There may be an iTip <xref target='RFC5546'/> meeting 
+            There may be an iTIP <xref target='RFC5546'/> meeting
             request for the piano tuner who will arrive
             before the performance. Other members of staff may also receive meeting
             requests.
