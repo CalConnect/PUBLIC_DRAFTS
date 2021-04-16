@@ -987,6 +987,7 @@ signed-duration = ["+" / "-"] duration
             <li>recurrenceRules</li>
             <li>relatedTo</li>
             <li>replyTo</li>
+            <li>sentBy</li>
             <li>timeZones</li>
             <li>uid</li>
           </ul>
@@ -1072,6 +1073,11 @@ signed-duration = ["+" / "-"] duration
 	    undefined.</dd>
           </dl>
         </section>
+        <section anchor="prop-sentBy" numbered="true" toc="default">
+          <name>sentBy</name>
+          <t>Type: <tt>String</tt> (optional)</t>
+          <t>This is the email address in the "From" header of the email in which this calendar object was received. This is only relevant if the calendar object is received via iMIP or as an attachment to a message.  If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
+        </section>
         <section anchor="prop-participants" numbered="true" toc="default">
           <name>participants</name>
           <t>Type: <tt>Id[Participant]</tt> (optional)</t>
@@ -1155,7 +1161,7 @@ signed-duration = ["+" / "-"] duration
 	    than one of the roles "attendee" and "informational" be present; if more than one are given,
 	    "attendee" takes precedence over "informational". Roles that are unknown to the implementation
 	    <bcp14>MUST</bcp14> be preserved.</t></dd>
-              <dt>locationId: <tt>String</tt> (optional)</dt>
+              <dt>locationId: <tt>Id</tt> (optional)</dt>
               <dd><t>This is the location at which this participant is expected to be attending.</t>
               <t>If the value does not correspond to any location id in the <tt>locations</tt> property of the
 	      JSCalendar object, this <bcp14>MUST</bcp14> be treated the same as if the participant's
@@ -1226,20 +1232,23 @@ signed-duration = ["+" / "-"] duration
               <t>This is the <tt>updated</tt> property of the last response when using iTIP. It can be compared
 	      to the <tt>updated</tt> property in future responses to detect and discard older responses
 	      delivered out of order.</t></dd>
-              <dt>invitedBy: <tt>String</tt> (optional)</dt>
-	      <dd>This is the participant id of the participant who invited this one, if known.</dd>
-              <dt>delegatedTo: <tt>String[Boolean]</tt> (optional)</dt>
+              <dt>sentBy: <tt>String</tt> (optional)</dt>
+              <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to). If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
+        </section></t></dd>
+              <dt>invitedBy: <tt>Id</tt> (optional)</dt>
+	      <dd>This is the id of the participant who added this participant to the event/task, if known.</dd>
+              <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
 	      <dd>This is set of participant ids that this participant has delegated their participation to.
 	      Each key
 	      in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 	      <bcp14>MUST</bcp14> be true. If there are no delegates, this <bcp14>MUST</bcp14> be omitted
 	      (rather than specified as an empty set).</dd>
-              <dt>delegatedFrom: <tt>String[Boolean]</tt> (optional)</dt>
+              <dt>delegatedFrom: <tt>Id[Boolean]</tt> (optional)</dt>
               <dd>This is a set of participant ids that this participant is acting as a delegate for. Each key
 	      in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 	      <bcp14>MUST</bcp14> be true. If there are no delegators, this <bcp14>MUST</bcp14> be omitted
 	      (rather than specified as an empty set).</dd>
-              <dt>memberOf: <tt>String[Boolean]</tt> (optional)</dt>
+              <dt>memberOf: <tt>Id[Boolean]</tt> (optional)</dt>
               <dd>This is a set of group participants that were invited to this calendar object, which caused
 	      this
 	      participant to be invited due to their membership in the group(s). Each key in the set
@@ -1933,12 +1942,12 @@ reqstatus = statcode ";" statdesc [";" extdata]
 	    allowed parameter values correspond to the <tt>@type</tt> property of the JSON-formatted
 	    JSCalendar object in the body:</t>
             <dl newline="false" spacing="normal">
-              <dt><tt>jsevent</tt>:</dt>
+              <dt><tt>event</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be
 	      <tt>Event</tt>.</dd>
-              <dt><tt>jstask</tt>:</dt>
+              <dt><tt>task</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be <tt>Task</tt>.</dd>
-              <dt><tt>jsgroup</tt>:</dt>
+              <dt><tt>group</tt>:</dt>
 	      <dd>The <tt>@type</tt> property value <bcp14>MUST</bcp14> be <tt>Group</tt>.</dd>
             </dl>
             <t>No other parameter values are allowed. The parameter <bcp14>MUST NOT</bcp14> occur more than
@@ -2240,14 +2249,14 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">delegatedFrom</td>
-                <td align="left">String[Boolean]</td>
+                <td align="left">Id[Boolean]</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">delegatedTo</td>
-                <td align="left">String[Boolean]</td>
+                <td align="left">Id[Boolean]</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2373,7 +2382,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">invitedBy</td>
-                <td align="left">String</td>
+                <td align="left">Id</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2422,7 +2431,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">locationId</td>
-                <td align="left">String</td>
+                <td align="left">Id</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2443,7 +2452,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
               </tr>
               <tr>
                 <td align="left">memberOf</td>
-                <td align="left">String[Boolean]</td>
+                <td align="left">Id[Boolean]</td>
                 <td align="left">Participant</td>
                 <td align="left">
                   <xref target="prop-participants" format="default"/></td>
@@ -2643,6 +2652,13 @@ reqstatus = statcode ";" statdesc [";" extdata]
                 <td align="left">RecurrenceRule</td>
                 <td align="left">
                   <xref target="prop-recurrenceRules" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">sentBy</td>
+                <td align="left">String</td>
+                <td align="left">Event, Task, Participant</td>
+                <td align="left">
+                  <xref target="prop-sentBy" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">standard</td>
