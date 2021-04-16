@@ -5,7 +5,6 @@
 <!ENTITY RFC7986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7986.xml">
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8288 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8288.xml">
-<!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
 <!ENTITY W3C.CR-skos-reference-20090317 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.CR-skos-reference-20090317.xml">
 <!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
 <!ENTITY I-D.daboo-caldav-attachments SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.daboo-caldav-attachments.xml">
@@ -184,10 +183,11 @@
         <t>
           It is also often necessary to reference calendar components
           in other collections. For example, a VEVENT might refer to
-          a VTODO from which it was derived. The current
-          RELATED-TO property only allows for a UID which is inadequate for many
-          purposes. Allowing other value types for that property may help
-          but might raise a number of
+          a VTODO from which it was derived. The PARENT, SIBLING and CHILD
+          relationships defined for the
+          RELATED-TO property only allow for a UID which is inadequate for many
+          purposes. Allowing other value types for those relationships may help
+          but would cause
           backward compatibility issues. The link property can link components
           in different collections or even on different servers.
         </t>
@@ -276,72 +276,9 @@
       </t>
 
       <t>
-        The relation types defined here will be registered with IANA in
+        The relation types defined in <xref target="linkrel" /> will
+        be registered with IANA in
         accordance with the specifications in  <xref target='RFC8288'/>.
-      </t>
-    </section>
-
-    <section anchor="redefined_reltype"
-             title="Redefined Relation Type">
-      <t>
-        Relationship parameter type values are defined in Section 3.2.15 of
-        <xref target='RFC5545'/>. This specification redefines that type to
-        make it more easily extensible and then goes on to define new
-        values which include the new temporal relationship values FINISHTOSTART,
-        FINISHTOFINISH,
-        STARTTOFINISH and STARTTOSTART. It also adds the DEPENDS-ON
-        value to provide a link to a component upon which the current
-        component depends.
-      </t>
-
-      <t>
-        <list style='hanging'>
-          <t hangText="Format Definition:">
-            <figure>
-              <preamble>
-                 This property parameter is defined by the following notation:
-              </preamble>
-
-              <artwork type="abnf">
-   reltypeparam   = "RELTYPE" "=" iana-token
-
-   ; The value is any IANA-registered iCalendar relationship type.
-   ; This will include at least those below but implementors should expect
-   ; new values to be added
-              </artwork>
-            </figure>
-          </t>
-
-          <t hangText="Description:">
-            This parameter can be specified on a property that
-            references another related calendar component. The parameter may specify the
-            hierarchical relationship type of the calendar component
-            referenced by the property when the value is PARENT, CHILD or SIBLING.
-            It may also define a temporal relationship as found, for example, in
-            project management tools and aslo allows the definition of a dependency
-            on another calendar entity.
-            If this parameter is not specified on an
-            allowable property, the default relationship type is PARENT.
-            Applications MUST treat unrecognized values the same way
-            as they would the PARENT value.
-          </t>
-        </list>
-      </t>
-    </section>
-
-    <section anchor="reltype_values_from_5545"
-             title="RELTYPE Parameter values from RFC5545">
-      <t>
-        Currently registered values from section 3.2.15 of <xref target="RFC5545"/>
-        are:
-        <list style="hanging">
-          <t hangText="PARENT: ">A parent relationship: the default
-          </t>
-          <t hangText="CHILD: ">A child relationship
-          </t>
-          <t hangText="SIBLING: ">A sibling relationship
-          </t>
-        </list>
       </t>
     </section>
 
@@ -350,7 +287,7 @@
       <t>
         This section defines the usual temporal relationships
         for use with the RELTYPE parameter redefined in
-        <xref target="redefined_reltype" />:
+        Section 3.2.15 of <xref target='RFC5545' />:
         FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
       </t>
 
@@ -361,7 +298,7 @@
       </t>
 
       <t>
-        The GAP parameter (see <xref target="gap"/>)
+        The GAP parameter (see <xref target='gap'/>)
         specifies the lead or lag time between the predecessor and
         the successor. In the description of each temporal relationship
         below we refer to Task-A, which contains and controls the relationship, and
@@ -478,8 +415,8 @@
 
     <section anchor="new_property_parameters"
              title="New Property Parameters">
-      <section anchor="rel"
-               title="Rel">
+      <section anchor="linkrel"
+               title="Link Relation">
         <t>
           <list style='hanging'>
             <t hangText="Parameter name:">
@@ -500,7 +437,6 @@
   linkrelparam = "REL" "="
                  ("SOURCE"      ; Link to source of this component
                  / DQUOTE uri DQUOTE
-                 / x-name        ; Experimental reference type
                  / iana-token)   ; Other IANA registered type
                 </artwork>
               </figure>
@@ -704,7 +640,8 @@
             </t>
 
             <t hangText="Property Parameters:">
-              Non-standard, reference type or format type parameters can be
+              The VALUE parameter is required.
+              Non-standard, reference type or format type parameters can also be
               specified on this property. The LABEL parameter
               is defined in <xref target='RFC7986'/>
             </t>
@@ -726,24 +663,18 @@
                 </preamble>
 
                 <artwork>
-  link            = "LINK" linkparam
-                    (
-                      ";" "VALUE" "=" "TEXT"
-                      ":" text
-                    ) /
-                    (
-                      ";" "VALUE" "=" "REFERENCE"
-                      ":" text
-                    ) /
-                    (
-                      ";" "VALUE" "=" "URI"
-                      ":" uri
-                    )
+   link           = "LINK" linkparam ":"
+                      ( text /  ; for VALUE=REFERENCE
+                        uri /  ; for VALUE=URI
+                        text ) ; for VALUE=TEXT
                     CRLF
 
-  linkparam       = ; the elements herein may appear in any order,
+   linkparam      = ; the elements herein may appear in any order,
                     ; and the order is not significant.
 
+                    (";" "VALUE" "=" ("UID" /
+                                      "URI" /
+                                      "TEXT"))
                     1*(";" linkrelparam)
                     (";" fmttypeparam)
                     (";" labelparam)
@@ -756,12 +687,27 @@
             <t hangText="Example:">
               <figure>
                 <preamble>
-                  The following is an example of this property. It points to a
-                  server acting as the source for the calendar object.
+                  The following is an example of this property which
+                  provides a reference to the source for the calendar object.
                 </preamble>
 
                 <artwork>
-  LINK;REL=SOURCE;LABEL=The Venue;VALUE=URI:http://example.com/events
+  LINK;LINKREL=SOURCE;LABEL=Venue;VALUE=URI:http://example.com/events
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following is an example of this property which
+                  provides a reference to an entity from which this one
+                  was derived. The link relation is a vendor defined value
+                </preamble>
+
+                <artwork>
+  LINK;LINKREL="https://example.com/linkrel/derivedFrom";VALUE=URI:
+   http://example.com/tasks/01234567-abcd1234.ics
                 </artwork>
               </figure>
             </t>
@@ -893,6 +839,12 @@
             </t>
 
             <t>
+              To preserve backwards compatibility the value type MUST
+              be UID when the PARENT, SIBLING or CHILD
+              relationships are specified.
+            </t>
+
+            <t>
               The FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART
               relationships define temporal relationships as specified in the
               reltype parameter definition.
@@ -919,22 +871,20 @@
                 </preamble>
 
                 <artwork>
-  related    = "RELATED-TO" relparam ( ":" text ) /
-               (
-                 ";" "VALUE" "=" "UID"
-                 ":" uid
-               ) /
-               (
-                 ";" "VALUE" "=" "URI"
-                 ":" uri
-               )
-               CRLF
+   related    = "RELATED-TO" relparam ":"
+                            ( uid /  ; for VALUE=UID
+                              uri /  ; for VALUE=URI
+                              text ) ; for VALUE=TEXT or default
+                CRLF
 
-  relparam   = ; the elements herein may appear in any order,
-               ; and the order is not significant.
-               [";" reltypeparam]
-               [";" gapparam]
-               *(";" other-param)
+   relparam   = ; the elements herein may appear in any order,
+                ; and the order is not significant.
+                [";" "VALUE" "=" ("UID" /
+                                  "URI" /
+                                  "TEXT")]
+                [";" reltypeparam]
+                [";" gapparam]
+                *(";" other-param)
                 </artwork>
               </figure>
             </t>
@@ -1016,7 +966,7 @@
 
           <c>REL</c>
           <c>Current</c>
-          <c><xref target="rel"/></c>
+          <c><xref target="linkrel"/></c>
 
           <c>GAP</c>
           <c>Current</c>
@@ -1091,7 +1041,7 @@
         </texttable>
       </section>
 
-      <section anchor="new_rel_registration"
+      <section anchor="new_linkrel_registration"
                title="New Reference Type Registration">
         <t>
           The following link relation values have been added to
@@ -1106,7 +1056,7 @@
 
           <c>SOURCE</c>
           <c>Current</c>
-          <c><xref target="rel"/></c>
+          <c><xref target="linkrel"/></c>
         </texttable>
       </section>
     </section>
@@ -1149,7 +1099,6 @@
       &RFC7986;
       &RFC8174;
       &RFC8288;
-      &W3C.REC-xml-20060816;
       &W3C.WD-xptr-xpointer-20021219;
       &W3C.CR-skos-reference-20090317;
       &I-D.daboo-caldav-attachments;
