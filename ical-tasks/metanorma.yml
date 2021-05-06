@@ -1,0 +1,8 @@
+---
+metanorma:
+  deploy:
+    email: "ci@metanorma.org"
+relaton:
+  collection:
+    name: Calendar abuse
+    organization: CalConnect

@@ -1,0 +1,13 @@
+
+[[architecture-foundations]]
+
+=== Architecture Foundations
+
+The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar) <<RFC5545>> and associated protocols. Task and task status are represented by the iCalendar "VTODO" component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP) <<RFC5546>> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV) <<RFC4791>> for client server communication.
+
+Additionally, other iCalendar extensions embraced by this specification include:
+
+.Labeled
+Support for iCalendar Relationships <<Relations>>:: The LINK, REFID, RELATED-TO and CONCEPT properties enable context and a rich set of relationships between tasks and other iCalendar components to be specified.
+
+Event Publishing Extensions to iCalendar <<EventPub>>:: The GROUP parameter specifically enables the grouping of properties associated with specific status changes of a task

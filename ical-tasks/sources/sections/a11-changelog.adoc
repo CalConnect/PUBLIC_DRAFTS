@@ -1,0 +1,23 @@
+
+[#appendix-b]
+[appendix,obligation=informative]
+== Change log
+
+V02. 2021-05-05 MD
+
+* Redo in asciidoc
+* Change STRUCTURED-CATEGORY to CONCEPT
+
+V01. 2015-08-23 AA
+
+* Highlighted use of ESTIMATED-DURATION for time planning.
+
+* Corrected PARTSTAT example section 5.1. Changed DECLINED to FAILED.
+
+* Replaced Task Mode AUTOMATIC-STATUS with CLIENT and SERVER modes. Also, clarified that task mode processing is only done on the organizer's copy.
+
+* Clarified responsibility for setting MODIFIED.
+
+* CalDAV support added.
+
+* Updated normative references.

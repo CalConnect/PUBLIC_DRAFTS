@@ -1,0 +1,48 @@
+
+[[caldav-support]]
+
+=== CalDAV Support for Task Mode
+
+The CalDAV <<RFC4791>> calendar access protocol allows clients and servers to exchange iCalendar data. With the introduction of the "TASK-MODE" property in this specification, different automated task management behaviours may be delegated to the server by the Task Organizer depending upon the value of "TASK-MODE".
+
+In order for a CalDAV client to know what task modes are available, a CalDAV server advertises a CALDAV:supported-task-mode-set WebDAV property on calendar home or calendar collections if it supports the use of the "TASK-MODE" property as described in this specification.  The server can advertise a specific set of supported task modes by including one or more CALDAV:supported-task-mode XML elements within the CALDAV:supported-task-mode-set XML element. If no CALDAV:supported-task-mode XML elements are included in the WebDAV property, then clients can try any task mode, but need to be prepared for a failure when attempting to store the calendar data.
+
+Clients MUST NOT attempt to store iCalendar data containing "TASK-MODE" elements if the CALDAV:supported-task-mode-set WebDAV property is not advertised by the server.
+
+The server SHOULD return an HTTP 403 response with a DAV:error element containing a CALDAV:supported-task-mode XML element, if a client attempts to store iCalendar data with an "TASK-MODE" element value not supported by the server.
+
+It is possible for a "TASK-MODE" value to be present in calendar data on the server being accessed by a client that does not support the "TASK-MODE" property. It is expected that existing clients, unaware of "TASK-MODE", will fail gracefully by ignoring the calendar property.
+
+==== CALDAV:supported-task-mode-set Property
+
+Name:: supported-task-mode-set
+
+Namespace:: urn:ietf:params:xml:ns:caldav
+
+Purpose:: Enumerates the set of supported iCalendar "TASK-MODE" element values supported by the server.
+
+Protected:: This property MUST be protected and SHOULD NOT be returned by a PROPFIND allprop request (as defined in Section 14.2 of [RFC4918]).
+
+Description:: See above.
+
+Definition::
+
+[source]
+----
+<!ELEMENT supported-task-mode-set(supported-task-mode*)>
+<!ELEMENT supported-task-mode (#PCDATA)>
+<!-- PCDATA value: string - case insensitive but
+uppercase preferred -->
+----
+
+Example::
+
+[source,xml]
+----
+<C:supported-task-mode-set xmlns:C="urn:ietf:params:xml:ns:caldav">
+  <C:supported-task-mode>AUTOMATIC-COMPLETION</C:supported-task-mode>
+  <C:supported-task-mode>AUTOMATIC-FAILURE</C:supported-task-mode>
+  <C:supported-task-mode>SERVER</C:supported-task-mode>
+  <C:supported-task-mode>CLIENT</C:supported-task-mode>
+</C:supported-task-mode-set>
+----

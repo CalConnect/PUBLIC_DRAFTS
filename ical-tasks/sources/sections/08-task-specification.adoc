@@ -1,0 +1,67 @@
+[[task-specification]]
+
+=== Task Specification
+
+The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current VTODO component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:
+
+.Labeled
+Task type:: explicitly what type of task is to be performed is identified.
+
+Task context and relationships:: how a specific task relates to other tasks and other objects that need to be understood for the effective execution of a task.
+
+Task specific data:: the form and content of domain data provided as input to a task and/or that may be output from a task.
+
+Organizer and attendee:: recognizes that a task organizer or attendee can be an automated system.
+
+==== CONCEPT for task type identification
+
+The CONCEPT property is used to identify the type of task, for example;
+
+[source]
+----
+CONCEPT:http://example.com/task/delivery
+----
+
+==== Task Context and Relationships
+
+The LINK property specifies a link to external information, which may be context to the task. For example:
+
+[source]
+----
+LINK;REL=SOURCE:http://example.com/package/1234567890
+
+LINK;REL=describedby:mid:752142.1414823874.307E5@mx123.example.com
+----
+
+The external information may be data to be manipulated in performing the task. See section 3.1.3 Task Domain Data Handling.
+
+REFID is used to identify a key allowing the association of tasks that are related to the same object and retrieval of a task based on this key. This may be, for example, to identify the tasks associated with a given project without having to communicate the task structure of the project, or all tasks associated to a specific package.
+
+[source]
+----
+REFID:Manhattan
+
+REFID:1234567890
+----
+
+Extensions [Doug114] to the RELATED-TO property allow temporal relationships between tasks as found in project management to be specified as well as parent / child relationships and dependencies (DEPENDS-ON). Tasks (VTODOs) may also be related to other calendar components; for example to a VEVENT to block time to perform a task.
+
+==== Task Domain Data Handling
+
+Provide support for task specific input and output data (including updates) beyond the standard iCalendar properties. It is envisaged that standard calendar user agents will be able to launch task specific applications by passing task specific data.
+
+The LINK property can be used to 'attach' the domain specific data to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.
+
+[source]
+----
+LINK;REL="vacation-system";VALUE=URI:http://example.com/
+vacation-approval?id=1234
+----
+
+Or it might be used for attachments specific to the task, for example an electronic copy of a signature taken to confirm delivery of a package.
+
+[source]
+----
+LINK;REL="electronic-signature";VALUE=URI:http://example.com/
+delivery/sig1234.jpg
+----

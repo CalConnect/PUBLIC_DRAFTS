@@ -1,0 +1,59 @@
+
+[#appendix-a]
+[appendix,obligation=informative]
+== Examples of Task State Lifecycle
+
+=== Simple Case Status Change
+
+Example of status changes in assigning and performing a task with one attendee.
+
+[cols="1,3,3,10",options=header]
+[frame="topbot",grid="none"]
+|===
+|  | STATUS   | PARTSTAT  | Action
+| 1 | - |  - | Organizer draft
+| 2 | NEEDS-ACTION  | NEEDS-ACTION  | Organizer sends iTIP request
+| 3 | NEEDS-ACTION  | ACCEPTED        | Attendee reply
+| 4 | PENDING       | ACCEPTED        | Task accepted but waiting on some "trigger" to start (e.g. another task has to finish first)
+| 5 | IN-PROCESS    | IN-PROCESS      | Attendee reply now working on the task
+| 6 | IN-PROCESS    | COMPLETED       | Attendee reply completed
+| 7 | COMPLETED     | COMPLETED       | Organizer changes overall state
+|===
+
+=== Example for multiple Attendees
+
+Example of status changes in assigning and performing a task with two attendees (A1 and A2).
+
+[cols="1,3,3,3,10",options=header]
+[frame="topbot",grid="none"]
+|===
+| | STATUS | PARTSTAT (A1) | PARTSTAT (A2) | Action
+| 1 | - |  -  | - | Organizer draft.
+| 2 | NEEDS-ACTION | NEEDS-ACTION  | NEEDS-ACTION | Organizer sends iTIP request.
+| 4 | NEEDS-ACTION  |  ACCEPTED   |     NEEDS-ACTION | Attendee 1 reply.
+| 5 | NEEDS-ACTION  | ACCEPTED      |  ACCEPTED  | Attendee 2 reply.
+| 6 |  PENDING  |  ACCEPTED      |  ACCEPTED    | Task accepted but waiting on some"trigger" to start (e.g. another task has to finish first)
+| 7 | IN-PROCESS |  ACCEPTED   |     IN-PROCESS | Attendee 2 reply now working on the task.
+| 8 | IN-PROCESS |  IN-PROCESS |     IN-PROCESS| Attendee 1 reply now working on the task.
+| 9 | IN-PROCESS    |  COMPLETED  |     IN-PROCESS| Attendee 1 reply Completed (overall status still IN-PROCESS).
+| 10 | IN-PROCESS    |  COMPLETED     |  COMPLETED | Attendee 2 reply Completed
+| 11 |  COMPLETED     |  COMPLETED     |  COMPLETED | Organizer changes overall state once both attendees are finished.
+|===
+
+Note: The logic for determining the status change to the VTODO is determined by the task organizer based on the ATTENDEE status and other business logic.
+
+=== Failed Example
+
+Example of status changes for a task that fails.
+
+[cols="1,3,3,10",options=header]
+[frame="topbot",grid="none"]
+|===
+| | STATUS  | PARTSTAT | Action
+| 1 |  - | - | Organizer draft
+| 2 |  NEEDS-ACTION   |     NEEDS-ACTION | Organizer sends iTIP request
+| 3| NEEDS-ACTION  |  ACCEPTED  | Attendee reply
+| 4| IN-PROCESS | IN-PROCESS | Attendee reply now working on the task
+| 5| IN-PROCESS | FAILED  | Attendee reply task failed
+| 6| FAILED | FAILED  | Organizer changes overall state
+|===

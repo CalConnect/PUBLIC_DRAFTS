@@ -1,0 +1,52 @@
+
+[bibliography]
+== Normative references
+
+// These references are unused...
+////
+* [[[I-D.daboo-icalendar-extensions,IETF I-D.daboo-icalendar-extensions]]], _AUTOFILL_
+// Daboo, C., "New Properties for iCalendar", draft-daboo-icalendar-extensions-09 (work in progress), July 2014.
+
+* [[[RFC2119,IETF RFC 2119]]], _AUTOFILL_
+// Bradner, S., "Key words for use in RFCs to Indicate Requirement Levels", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997, <http://www.rfc-editor.org/info/rfc2119>.
+
+* [[[RFC2434,IETF RFC 2434]]], _AUTOFILL_
+// Narten, T. and H. Alvestrand, "Guidelines for Writing an IANA Considerations Section in RFCs", RFC 2434, DOI 10.17487/RFC2434, October 1998, <http://www.rfc-editor.org/info/rfc2434>.
+
+* [[[RFC3688,IETF RFC 3688]]], _AUTOFILL_
+// Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688, DOI 10.17487/RFC3688, January 2004, <http://www.rfc-editor.org/info/rfc3688>.
+
+* [[[RFC4589,IETF RFC 4589]]], _AUTOFILL_
+// Schulzrinne, H. and H. Tschofenig, "Location Types Registry", RFC 4589, DOI 10.17487/RFC4589, July 2006, <http://www.rfc-editor.org/info/rfc4589>.
+
+* [[[W3C.REC-xml-20060816,W3C REC-xml-20060816]]], Bray, T., Paoli, J., Sperberg-McQueen, M., Maler, E., and F. Yergeau, "Extensible Markup Language (XML) 1.0 (Fourth Edition)", World Wide Web Consortium Recommendation REC-xml-20060816, August 2006, <http://www.w3.org/TR/2006/REC-xml-20060816>.
+
+////
+
+* [[[RFC2518,IETF RFC 2518]]], _AUTOFILL_
+// Goland, Y., Whitehead, E., Faizi, A., Carter, S., and D. Jensen, "HTTP Extensions for Distributed Authoring -- WEBDAV", RFC 2518, DOI 10.17487/RFC2518, February 1999, <http://www.rfc-editor.org/info/rfc2518>.
+
+* [[[RFC3864,IETF RFC 3864]]], _AUTOFILL_
+
+* [[[RFC3986,IETF RFC 3986]]], _AUTOFILL_
+// Berners-Lee, T., Fielding, R., and L. Masinter, "Uniform Resource Identifier (URI): Generic Syntax", STD 66, RFC 3986, DOI 10.17487/RFC3986, January 2005, <http://www.rfc-editor.org/info/rfc3986>.
+
+* [[[RFC4791,IETF RFC 4791]]], _AUTOFILL_
+// Daboo, C., Desruisseaux, B., and L. Dusseault, "Calendaring Extensions to WebDAV (CalDAV)", RFC 4791, DOI 10.17487/RFC4791, March 2007, <http://www.rfc-editor.org/info/rfc4791>.
+
+* [[[RFC5545,IETF RFC 5545]]], _AUTOFILL_
+// Desruisseaux, B., Ed., "Internet Calendaring and Scheduling Core Object Specification (iCalendar)", RFC 5545, DOI 10.17487/RFC5545, September 2009, <http://www.rfc-editor.org/info/rfc5545>.
+
+* [[[RFC5546,IETF RFC 5546]]], _AUTOFILL_
+// Daboo, C., Ed., "iCalendar Transport-Independent Interoperability Protocol (iTIP)", RFC 5546, DOI 10.17487/RFC5546, December 2009, <http://www.rfc-editor.org/info/rfc5546>.
+
+* [[[RFC6047,IETF RFC 6047]]], _AUTOFILL_
+// Melnikov, A., Ed., "iCalendar Message-Based Interoperability Protocol (iMIP)", RFC 6047, DOI 10.17487/RFC6047, December 2010, <http://www.rfc-editor.org/info/rfc6047>.
+
+* [[[RFC6638,IETF RFC 6638]]], _AUTOFILL_
+//Daboo, C. and B. Desruisseaux, "Scheduling Extensions to CalDAV", RFC 6638, DOI 10.17487/RFC6638, June 2012, <http://www.rfc-editor.org/info/rfc6638>.
+
+* [[[RFC5988,IETF RFC 5988]]], _AUTOFILL_
+//M. Nottingham. _Web Linking_. 2010. https://www.rfc-editor.org/info/rfc5988
+
+* [[[RFC7240,IETF RFC 7240]]], _AUTOFILL_

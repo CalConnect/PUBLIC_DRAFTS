@@ -1,0 +1,10 @@
+
+[[acknowledgements]]
+== Acknowledgements
+
+The author would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:
+
+John Chaffee, Marten Gajda, Ken Murchison
+
+The authors would also like to thank CalConnect, the Calendaring and
+Scheduling Consortium, for advice with this specification.

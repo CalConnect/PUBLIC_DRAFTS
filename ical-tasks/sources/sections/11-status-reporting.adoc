@@ -1,0 +1,48 @@
+[[status-reporting]]
+
+=== Status Reporting
+
+==== Improved granularity in status reporting information
+
+This document defines new status parameters that can be applied to the VTODO status (STATUS) property, as well as the participant status (PARTSTAT) parameter. These new parameters provide additional information on why (REASON) and when (MODIFIED) a status has changed. In addition to these parameters new status values are specified to provide for task suspension, failure and preparation.
+
+==== Relating comments to status
+
+The GROUP parameter is used with the STATUS or ATTENDEE properties to relate an associated COMMENT property. The COMMENT property can then be used to include additional human readable information about why the associated STATUS or ATTENDEE property changed.
+
+[source]
+----
+STATUS;REASON="http://example.com/reason/delivery-failed";SUBSTATE=ERROR;MODIFIED=20130212T120000Z;GROUP=G1:FAILED
+COMMENT;MODIFIED=20130226T110451Z;GROUP=G1:Breakdown
+ATTENDEE;PARTSTAT=FAILED;MODIFIED=20130226T1104510Z;GROUP=G2:
+REASON="http://example.com/reason/van-break-down":mailto:xxx@example.com
+COMMENT;MODIFIED=20130226T110451Z;GROUP=G2:Puncture
+----
+
+==== Comments associated to reasons and status changes
+
+Reasons may be associated directly with a comment, allowing for multiple reasons associated with a status to each have a comment associated with them [EDISTS].
+
+[source]
+----
+CONCEPT:http://example.com/task/delivery
+STATUS;SUBSTATE=ERROR;MODIFIED=20130212T120000Z;GROUP=G1:FAILED
+COMMENT;MODIFIED=20130226T110451Z;GROUP=G1:Out of time
+COMMENT;REASON="http://example.com/reason/traffic";MODIFIED=20130226T110451Z;GROUP=G1:Traffic Accident on E44
+COMMENT;REASON="http://example.com/reason/closed";MODIFIED=20130226T110451Z;GROUP=G1:Arrived after office hours
+----
+
+==== Task Alerts and Notifications
+
+Different needs to alert or notify task actors of pending or actual task status changes are recognized:
+
+.Labeled
+Alarms:: Alarms (VLARM components) operate in the calendar user agent space to notify the task actor of a pending task state for a task they are assigned to or are interested in. Note: there is no constraint in the current standards on the propagation of alarms specified on calendar objects by organizers to individual attendees.
+
+Escalations:: An escalation or notification to the ATTENDEE, ORGANIZER, or other task actor may be required if a deadline associated with a task is exceeded or for some other reason. Process Logic identifying when and who to propagate escalations to is the responsibility of the Task Generating System, e.g., a BPMS.
+
+Notifications:: Task actors (observers) not directly involved in performing a task but with a known interest in a given task's status can be identified by the ASSOCIATE property [Doug214] against certain components e.g. ALARM, to identify which task events the stakeholder / party is interested in. Notifications on shared calendars will allow task actors to register an interest in changes to tasks within a calendar (see Appendix B.2).
+
+==== Automated Status Changes
+
+A new property, TASK-MODE, is introduced to instruct servers to apply automated operations for changing the status of a task.

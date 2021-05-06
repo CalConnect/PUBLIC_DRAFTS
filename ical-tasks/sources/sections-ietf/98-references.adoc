@@ -1,0 +1,34 @@
+
+[bibliography]
+== Normative References
+
+* [[[RFC2119,RFC 2119]]]
+* [[[RFC3864,RFC 3864]]]
+* [[[RFC3986,RFC 3986]]]
+* [[[RFC4791,RFC 4791]]]
+* [[[RFC4918,RFC 4918]]]
+* [[[RFC5545,RFC 5545]]]
+* [[[RFC5546,RFC 5546]]]
+* [[[RFC5988,RFC 5988]]]
+* [[[RFC7240,RFC 7240]]]
+* [[[RFC8174,RFC 8174]]]
+* [[[eventpub,IETF(I-D.draft-ietf-calext-eventpub-extensions)]]], _Title_
+* [[[relations,IETF(I-D.draft-ietf-calext-ical-relations)]]], _Title_
+
+[bibliography]
+== Informative References
+
+* [[[BPMN,OMG BPMN 2.0.2]]], Object Management Group, Business Process Model and Notation, Version 2.0.2, December 2013
+
+* [[[VPOLL,IETF I-D.york-vpoll-03]]], York, E., Daboo, C., Douglass, M., "VPOLL: Consensus Scheduling Component for iCalendar", draft-york-vpoll-03, January 6, 2015
+
+* [[[TARCH,CalConnect Task Architecture V1.0]]], Apthorp, A., Daboo, C., Douglass, M., CalConnect, Task Architecture V1.0,
+http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf
+
+* [[[EDISTS,UN/EDIFACT, D14.A]]], UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS STATUS, April 30, 2014,  http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm
+
+* [[[WfRP,WfRP]]], Russell, N., ter Hofstede, A.H.M., Edmond, T., van der Aalst,W.M.P., Workflow Resource Patterns, Eindhoven University of Technology, 2004, http://www.workflowpatterns.com/patterns/resource/
+
+* [[[WSCal,OASIS WS-Calendar V1.0]]], Considine, T., Douglass, M., WS-Calendar Version 1.0, OASIS, 30 July 2011, http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html
+
+* [[[WSHT,OASIS WS-HT V1.1]]], Ings, D., Clement, L., Koenig, D., Mehta, V., Mueller, R., Rangaswamy, R., Rowley, M., Trickovic, I., Web Services - Human Task Version 1.1 (WS-HumanTask), OASIS, 17 August 2010, http://docs.oasis-open.org/ns/bpel4people/ws-humantask/200803

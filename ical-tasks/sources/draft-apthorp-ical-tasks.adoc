@@ -1,0 +1,82 @@
+= Task Extensions to iCalendar
+:doctype: internet-draft
+:docnumber: draft-apthorp-ical-tasks-02
+:abbrev: iCalendar tasks
+:status: standard
+:ipr: trust200902
+:submissionType: individual
+:area: Internet
+:intended-series: full-standard
+:revdate: 2021-05-03
+:fullname: Adrian Apthorp
+:lastname: Apthorp
+:forename_initials: A.
+:organization: DHL Express
+:street: Fritz-Erler-Str. 5
+:city: Bonn
+:code: 53113
+:country: Germany
+:uri: http://www.dhl.com
+:email: aapthorp@theiet.org
+:fullname_2: Cyrus Daboo
+:lastname_2: Daboo
+:forename_initials_2: C.
+:organization_2: Apple Inc.
+:street_2: 1 Infinite Loop
+:city_2: Cupertino
+:state_2: CA
+:code_2: 95014
+:country_2: United States of America
+:uri_2: https://www.apple.com
+:email_2: cyrus@daboo.name
+:fullname_3: Michael Douglass
+:lastname_3: Douglass
+:forename_initials_3: M.
+:organization_3: Bedework Commercial Services
+:street_3: 226 3rd Street
+:city_3: Troy
+:state_3: NY
+:code_3: 12180
+:country_3: United States of America
+:uri_3: https://bcs.com/
+:email_3: mdouglass@bedework.com
+:docfile: draft-apthorp-ical-tasks.adoc
+:mn-document-class: ietf
+:mn-output-extensions: xml,txt,html
+:technical-committee: TC Calendar
+
+:sectnums!:
+
+include::sections/00-abstract.adoc[]
+// CSD Foreword is not used in IETF
+//include::sections/00-foreword.adoc[]
+include::sections/00-intro.adoc[]
+
+:sectnums:
+
+include::sections-ietf/02-conventions.adoc[]
+include::sections/03-terms.adoc[]
+include::sections/04-architecture.adoc[]
+include::sections/05-architecture-elements.adoc[]
+include::sections/06-architecture-foundations.adoc[]
+include::sections/07-task-extensions.adoc[]
+include::sections/08-task-specification.adoc[]
+include::sections/09-deadlines.adoc[]
+include::sections/10-scheduling.adoc[]
+include::sections/11-status-reporting.adoc[]
+
+include::sections/50-new-parameters.adoc[]
+include::sections/51-new-parameter-values.adoc[]
+include::sections/52-new-properties.adoc[]
+include::sections/53-property-extensions.adoc[]
+include::sections/60-caldav.adoc[]
+
+include::sections/100-security.adoc[]
+include::sections/102-iana.adoc[]
+include::sections/103-acknowledgements.adoc[]
+
+include::sections-ietf/98-references.adoc[]
+
+include::sections/a1-eg-task-state-lifecycle.adoc[]
+include::sections/a11-changelog.adoc[]
+include::sections/b-working-notes.adoc[]

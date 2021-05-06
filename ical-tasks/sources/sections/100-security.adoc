@@ -1,0 +1,6 @@
+
+[[security]]
+== Security Considerations
+
+This specification introduces no new security considerations beyond those identified in <<RFC5545>>.
+

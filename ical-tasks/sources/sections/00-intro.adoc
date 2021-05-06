@@ -1,0 +1,17 @@
+
+[#introduction]
+== Introduction
+
+This document specifies extensions to the existing Internet Calendaring and Scheduling Core Object Specification (iCalendar) <<RFC5545>>, and associated protocols, in order to enhance the structured communication and execution of tasks. The enhancements allow for the communication, time planning and scheduling of tasks by and between automated systems (e.g. in smart power grids, business process management systems) as well as for human centered tasks.
+
+A "task" is a representation of an item of work assigned to an individual or organization. In the iCalendar Object Model <<RFC5545>> the representation of tasks is by "VTODO" calendar components. Tasks can be identified in a number of situations, either informally as ad-hoc tasks in personal "to-do" lists or more formally in:
+
+.in 6
+.ti 3
+o  Business processes - ranging from repetitive workflows to adaptive cases and trouble ticketing
+
+.ti 3
+o  Project Management - whether for large scale construction projects or collaborative software development
+
+.in 3
+The extensions specified here are defined in the context of an overall architecture for task calendaring and scheduling.
