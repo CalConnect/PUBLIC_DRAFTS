@@ -7,10 +7,11 @@
 
 // Example of status changes in assigning and performing a task with one attendee.
 
-[cols="1,3,3,10",options=header]
-[frame="topbot",grid="none",alt="Example of status changes in assigning and performing a task with one attendee.", summary="Example of status changes in assigning and performing a task with one attendee."]
+.Example of status changes in assigning and performing a task with one attendee.
+[cols="1,3,3,10",options=header,alt="Example of status changes in assigning and performing a task with one attendee.", summary="Example of status changes in assigning and performing a task with one attendee."]
 |===
 |  | STATUS   | PARTSTAT  | Action
+
 | 1 | - |  - | Organizer draft
 | 2 | NEEDS-ACTION  | NEEDS-ACTION  | Organizer sends iTIP request
 | 3 | NEEDS-ACTION  | ACCEPTED        | Attendee reply
@@ -18,6 +19,7 @@
 | 5 | IN-PROCESS    | IN-PROCESS      | Attendee reply now working on the task
 | 6 | IN-PROCESS    | COMPLETED       | Attendee reply completed
 | 7 | COMPLETED     | COMPLETED       | Organizer changes overall state
+
 |===
 
 === Example for multiple Attendees
