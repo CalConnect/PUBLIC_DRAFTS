@@ -6,7 +6,9 @@
 [[param-val-partstat]]
 ==== Redefined VTODO Participant Status
 
-Participant status parameter type values are defined in section 3.2.12. of <<RFC5545>>.  This specification redefines that type to include the new value FAILED for VTODO iCalendar components.
+Participant status parameter type values are defined in
+<<RFC5545,section=3.2.12>>.  This specification redefines that type
+to include the new value FAILED for VTODO iCalendar components.
 
 Format Definition:: This property parameter is extended by the following notation:
 
@@ -19,5 +21,6 @@ Example::
 
 [source]
 ----
-ATTENDEE;REASON="http://example.com/reason/not-enough-time";PARTSTAT=FAILED:mailto:jsmith@example.com
+ATTENDEE;REASON="http://example.com/reason/not-enough-time";
+ PARTSTAT=FAILED:mailto:jsmith@example.com
 ----

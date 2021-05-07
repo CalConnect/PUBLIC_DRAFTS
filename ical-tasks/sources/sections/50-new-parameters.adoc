@@ -7,7 +7,8 @@
 
 Parameter name::  REASON
 
-Purpose:: To indicate the reason for a change in status of a task or attendee participation status.
+Purpose:: To indicate the reason for a change in status of a task or
+attendee participation status.
 
 Format Definition:: This parameter is defined by the following notation:
 
@@ -17,7 +18,12 @@ reasonparam      = "REASON" "=" DQUOTE uri DQUOTE
                    *("," DQUOTE uri DQUOTE)
 ----
 
-Description:: This property parameter allows the change in status of a task or participant status to be qualified by the reason for the change with a codified reason. Typically reasons are defined within the context of the task type and therefore SHOULD include the name-space of the authority defining the task. Common reason codes are IANA registered and do not have a name-space prefix.
+Description:: This property parameter allows the change in status of a
+task or participant status to be qualified by the reason for the change
+with a codified reason. Typically reasons are defined within the
+context of the task type and therefore SHOULD include the name-space
+of the authority defining the task. Common reason codes are IANA
+registered and do not have a name-space prefix.
 
 Example::
 
@@ -25,7 +31,9 @@ Example::
 ----
 STATUS;REASON="http://example.com/reason/delivered-on-time";
 MODIFIED=20130212T120000Z;GROUP=G1:COMPLETED
-ATTENDEE;REASON="x-example-reason:out-of-office";PARTSTAT=DECLINED;MODIFIED=20130212T120000Z;GROUP=123:mailto:cyrus@example.com
+ATTENDEE;REASON="x-example-reason:out-of-office";
+ PARTSTAT=DECLINED;MODIFIED=20130212T120000Z;
+ GROUP=123:mailto:cyrus@example.com
 ----
 
 [[param-modified]]
@@ -33,7 +41,8 @@ ATTENDEE;REASON="x-example-reason:out-of-office";PARTSTAT=DECLINED;MODIFIED=2013
 
 Parameter name:: MODIFIED
 
-Purpose:: To specify the time and date of when the status of a task or attendee participant status changed.
+Purpose:: To specify the time and date of when the status of a task or
+attendee participant status changed.
 
 Format Definition:: This parameter is defined by the following notation:
 
@@ -42,13 +51,22 @@ Format Definition:: This parameter is defined by the following notation:
 modifiedparam    = "MODIFIED" "=" date-time
 ----
 
-Description:: The modified parameter allows the specification of the date time of when a status (STATUS) or participant status (PARTSTAT) changed. It MUST be specified in the UTC time format. The value of MODIFIED SHOULD be set at the time when the associated status (either STATUS or PARTSTAT)is changed. Therefore either a client or server may set the value of MODIFIED depending on which is updating the value of STATUS or PARTSTAT. For backwards compatibility if the server detects that MODIFIED should have changed but wasn't (for example the client doesn't support MODIFIED) then the server MAY set MODIFIED retrospectively.
+Description:: The modified parameter allows the specification of the
+date time of when a status (STATUS) or participant status (PARTSTAT)
+changed. It MUST be specified in the UTC time format. The value of
+MODIFIED SHOULD be set at the time when the associated status (either
+STATUS or PARTSTAT)is changed. Therefore either a client or server may
+set the value of MODIFIED depending on which is updating the value of
+STATUS or PARTSTAT. For backwards compatibility if the server detects
+that MODIFIED should have changed but wasn't (for example the client
+doesn't support MODIFIED) then the server MAY set MODIFIED retrospectively.
 
 Example::
 
 [source]
 ----
-STATUS;REASON=""http://example.com/reason/delivered-on-time";MODIFIED=20130212T120000Z;GROUP=G1:COMPLETED
+STATUS;REASON=""http://example.com/reason/delivered-on-time";
+ MODIFIED=20130212T120000Z;GROUP=G1:COMPLETED
 ----
 
 [[param-sub-state]]
@@ -56,7 +74,8 @@ STATUS;REASON=""http://example.com/reason/delivered-on-time";MODIFIED=20130212T1
 
 Parameter name:: SUBSTATE
 
-Purpose:: To provide additional granularity of task status for e.g. IN-PROCESS.
+Purpose:: To provide additional granularity of task status for e.g.
+IN-PROCESS.
 
 Format Definition:: This parameter is defined by the following notation:
 
@@ -74,12 +93,20 @@ substateparam    = "SUBSTATE" "="
                     / iana-token) ; Other IANA-registered type
 ----
 
-Description:: The sub-state parameter allows additional qualification and granularity of states to be recorded, in particular for the IN-PROCESS state. It allows individual sub-states to be recorded without the need to define and publish a sub-task associated with a parent task purely to track that a particular state has been reached. This property also allows parallel states to be expressed e.g. that a task has been suspended at whatever state it has reached.
+Description:: The sub-state parameter allows additional qualification
+and granularity of states to be recorded, in particular for the
+IN-PROCESS state. It allows individual sub-states to be recorded
+without the need to define and publish a sub-task associated with a
+parent task purely to track that a particular state has been reached.
+This property also allows parallel states to be expressed e.g. that a
+task has been suspended at whatever state it has reached.
 
 Example::
 
 [source]
 ----
-STATUS;REASON="http://example.com/reason/no-one-home";SUBSTATE=ERROR:FAILED
-STATUS;REASON="http://example.com/reason/paint-drying";SUBSTATE=SUSPENDED:IN-PROCESS
+STATUS;REASON="http://example.com/reason/no-one-home";
+ SUBSTATE=ERROR:FAILED
+STATUS;REASON="http://example.com/reason/paint-drying";
+ SUBSTATE=SUSPENDED:IN-PROCESS
 ----

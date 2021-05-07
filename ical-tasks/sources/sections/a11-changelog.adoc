@@ -1,5 +1,6 @@
 
-[#appendix-b]
+[[changelog]]
+
 [appendix,obligation=informative]
 == Change log
 

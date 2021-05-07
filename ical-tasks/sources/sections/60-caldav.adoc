@@ -21,7 +21,7 @@ Namespace:: urn:ietf:params:xml:ns:caldav
 
 Purpose:: Enumerates the set of supported iCalendar "TASK-MODE" element values supported by the server.
 
-Protected:: This property MUST be protected and SHOULD NOT be returned by a PROPFIND allprop request (as defined in Section 14.2 of [RFC4918]).
+Protected:: This property MUST be protected and SHOULD NOT be returned by a PROPFIND allprop request (as defined in Section 14.2 of <<RFC4918>>).
 
 Description:: See above.
 

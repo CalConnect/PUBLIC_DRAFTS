@@ -4,6 +4,9 @@
 :abbrev: iCalendar tasks
 :status: standard
 :ipr: trust200902
+:consensus: true
+:updates: 5545
+:submission-type: IETF
 :submissionType: individual
 :area: Internet
 :intended-series: full-standard
@@ -11,34 +14,34 @@
 :fullname: Adrian Apthorp
 :lastname: Apthorp
 :forename_initials: A.
-:organization: DHL Express
+:affiliation: DHL Express
 :street: Fritz-Erler-Str. 5
 :city: Bonn
 :code: 53113
 :country: Germany
-:uri: http://www.dhl.com
+:contibutor-uri: http://www.dhl.com
 :email: aapthorp@theiet.org
 :fullname_2: Cyrus Daboo
 :lastname_2: Daboo
 :forename_initials_2: C.
-:organization_2: Apple Inc.
+:affiliation_2: Apple Inc.
 :street_2: 1 Infinite Loop
 :city_2: Cupertino
 :state_2: CA
 :code_2: 95014
 :country_2: United States of America
-:uri_2: https://www.apple.com
+:contibutor-uri_2: https://www.apple.com
 :email_2: cyrus@daboo.name
 :fullname_3: Michael Douglass
 :lastname_3: Douglass
 :forename_initials_3: M.
-:organization_3: Bedework Commercial Services
+:affiliation_3: Bedework Commercial Services
 :street_3: 226 3rd Street
 :city_3: Troy
 :state_3: NY
 :code_3: 12180
 :country_3: United States of America
-:uri_3: https://bcs.com/
+:contibutor-uri_3: https://bcs.com/
 :email_3: mdouglass@bedework.com
 :docfile: draft-apthorp-ical-tasks.adoc
 :mn-document-class: ietf

@@ -3,17 +3,13 @@
 == Normative References
 
 * [[[RFC2119,RFC 2119]]]
-* [[[RFC3864,RFC 3864]]]
-* [[[RFC3986,RFC 3986]]]
 * [[[RFC4791,RFC 4791]]]
 * [[[RFC4918,RFC 4918]]]
 * [[[RFC5545,RFC 5545]]]
 * [[[RFC5546,RFC 5546]]]
-* [[[RFC5988,RFC 5988]]]
-* [[[RFC7240,RFC 7240]]]
 * [[[RFC8174,RFC 8174]]]
-* [[[eventpub,IETF(I-D.draft-ietf-calext-eventpub-extensions)]]], _Title_
-* [[[relations,IETF(I-D.draft-ietf-calext-ical-relations)]]], _Title_
+* [[[EventPub,IETF(I-D.draft-ietf-calext-eventpub-extensions)]]], _Title_
+* [[[Relations,IETF(I-D.draft-ietf-calext-ical-relations)]]], _Title_
 
 [bibliography]
 == Informative References
@@ -25,7 +21,7 @@
 * [[[TARCH,CalConnect Task Architecture V1.0]]], Apthorp, A., Daboo, C., Douglass, M., CalConnect, Task Architecture V1.0,
 http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf
 
-* [[[EDISTS,UN/EDIFACT, D14.A]]], UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS STATUS, April 30, 2014,  http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm
+* [[[EDISTS,UN/EDIFACT, D14.A]]], UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS STATUS, April 30, 2014,http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm
 
 * [[[WfRP,WfRP]]], Russell, N., ter Hofstede, A.H.M., Edmond, T., van der Aalst,W.M.P., Workflow Resource Patterns, Eindhoven University of Technology, 2004, http://www.workflowpatterns.com/patterns/resource/
 

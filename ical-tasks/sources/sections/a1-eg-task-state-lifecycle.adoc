@@ -5,10 +5,10 @@
 
 === Simple Case Status Change
 
-Example of status changes in assigning and performing a task with one attendee.
+// Example of status changes in assigning and performing a task with one attendee.
 
 [cols="1,3,3,10",options=header]
-[frame="topbot",grid="none"]
+[frame="topbot",grid="none",alt="Example of status changes in assigning and performing a task with one attendee.", summary="Example of status changes in assigning and performing a task with one attendee."]
 |===
 |  | STATUS   | PARTSTAT  | Action
 | 1 | - |  - | Organizer draft

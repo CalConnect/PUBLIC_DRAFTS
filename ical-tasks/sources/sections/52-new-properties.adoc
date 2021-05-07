@@ -25,7 +25,7 @@ est-duration  = "ESTIMATED-DURATION" durparam ":" dur-value CRLF
 durparam      = *(";" other-param)
 ----
 
-Description:: In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed.  When present, DTSTART and DUE/DURATION represent the window in which the task can be performed. ESTIMATED-DURATION SHOULD be passed from ORGANIZER to ATTENDEE in iTIP [RFC5546] messages.
+Description:: In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed.  When present, DTSTART and DUE/DURATION represent the window in which the task can be performed. ESTIMATED-DURATION SHOULD be passed from ORGANIZER to ATTENDEE in iTIP <<RFC5546>> messages.
 
 Example:: The following is an example of this property that specifies an interval of time of exactly one hour:
 

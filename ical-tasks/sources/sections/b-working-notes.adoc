@@ -1,7 +1,6 @@
 
 [[working-notes]]
 
-[#appendix-b]
 [appendix,obligation=informative]
 == Working Notes
 
