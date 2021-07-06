@@ -341,7 +341,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "alerts": {
       "1": {
@@ -447,7 +447,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "alerts": {
       "1": {
@@ -509,10 +509,10 @@
                     </figure>
                 </t>
                 <t>
-                    Note that a single JSEvent or JSTask MAY be converted
+                    Note that a single Event or Task MAY be converted
                     without a surrounding JSGroup if the VCALENDAR
                     component only contains PRODID and CALSCALE properties.
-                    In this case the prddid can go in the JSEvent or JSTask.
+                    In this case the prodid can go in the Event or Task.
                     The CALSCALE property is dropped - there is no equivalence
                     in JSCalendar.
                 </t>
@@ -521,7 +521,7 @@
             <section anchor="translate-ical-comp-vevent" title="VEVENT">
                 <t>
                     A <xref target="RFC5545"/> VEVENT component is mapped
-                    to a JSCalendar object with a type of "jsevent".
+                    to a JSCalendar object with a type of "Event".
                     <figure>
                         <artwork><![CDATA[
   BEGIN: VEVENT
@@ -531,7 +531,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
   }
 ]]></artwork>
@@ -539,7 +539,8 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-comp-vlocation" title="VLOCATION">
+            <section anchor="translate-ical-comp-vlocation"
+                     title="VLOCATION">
                 <t>
                     A <xref target="draft-ietf-calext-eventpub-extensions"/>
                     VLOCATION component is mapped
@@ -574,7 +575,8 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-comp-vtimezone" title="VTIMEZONE, STANDARD, DAYLIGHT">
+            <section anchor="translate-ical-comp-vtimezone"
+                     title="VTIMEZONE, STANDARD, DAYLIGHT">
                 <t>
                     A <xref target="RFC5545"/> VTIMEZONE component is mapped
                     to a member of a JSCalendar "timezones" object with a
@@ -654,7 +656,8 @@
             </section>
         </section>
 
-        <section anchor="translate-icalendar-properties" title="Translating iCalendar properties to JSCalendar">
+        <section anchor="translate-icalendar-properties"
+                 title="Translating iCalendar properties to JSCalendar">
             <t>
                 This section is an alphabetic list of
                 <xref target="RFC5545"/> and <xref target="RFC7986"/> properties and
@@ -872,7 +875,8 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-categories" title="CATEGORIES">
+            <section anchor="translate-ical-categories"
+                     title="CATEGORIES">
                 <t>
                     These map on to the JSCalendar "keywords" property
                     with each category being the key to an entry.
@@ -1106,7 +1110,8 @@
                 </t>
             </section>
 
-            <section anchor="translate-ical-times" title="DTEND, DTSTART, DUE, DURATION">
+            <section anchor="translate-ical-times"
+                     title="DTEND, DTSTART, DUE, DURATION">
                 <t>
                     If the DTSTART is a DATE only property then add
                     the JSCalendar showWithoutTime property with the value set
@@ -1231,6 +1236,30 @@
     "showWithoutTime": true,
     ...
   }
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-ical-estimated-duration"
+                     title="ESTIMATED-DURATION">
+                <t>
+                    Copy the value into the JSCalendar
+                    "estimatedDuration" property.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+  ...
+  ESTIMATED-DURATION:PT18H
+  ...
+
+  maps to
+
+  ...
+  "estimatedDuration": "PT18H"
+  ...
 ]]></artwork>
                     </figure>
                 </t>
@@ -2669,6 +2698,238 @@
                 </t>
             </section>
 
+            <section anchor="translate-jscal-alerts" title="alerts">
+                <t>
+                    Each member of a JSCalendar alerts property maps to
+                    a <xref target="RFC5545"/>
+                    VALARM component. Only display and email alarms are
+                    allowed in JSCalendar.
+                </t>
+
+                <section anchor="translate-jscal-alert-action"
+                         title="action">
+                    <t>
+                        The JSCalendar "alert" property maps to the
+                        <xref target="RFC5545"/> ACTION property.
+                        The value SHOULD be the uppercased version if the
+                        JSCalendar "alert" property.
+                    </t>
+                    <t>
+                        For example:
+                        <figure>
+                            <artwork><![CDATA[
+   ...
+   "action": "display",
+   ...
+
+  maps to
+
+   ACTION:DISPLAY
+
+  and
+
+   ...
+   "action": "email",
+   ...
+
+  maps to
+
+   ACTION:EMAIL
+
+]]></artwork>
+                        </figure>
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-alert-trigger"
+                         title="trigger">
+                    <t>
+                        A JSCalendar trigger with a type of
+                        "AbsoluteTrigger" maps on to a <xref target="RFC5545"/>
+                        TRIGGER property with a "VALUE" parameter of
+                        "DATE-TIME" and a value taken from the JSCalendar "when"
+                        property.
+                    </t>
+                    <t>
+                        For example:
+                        <figure>
+                            <artwork><![CDATA[
+   "trigger": {
+     "@type": "AbsoluteTrigger",
+     "when": "20210315T133000Z"
+   }
+
+  maps to
+
+   TRIGGER;VALUE=DATE-TIME:20210315T133000Z
+]]></artwork>
+                        </figure>
+                    </t>
+                    <t>
+                        A JSCalendar trigger with a type of
+                        "OffsetTrigger" maps on to a <xref target="RFC5545"/>
+                        TRIGGER property with a duration value taken
+                        from the JSCalendar "offset" property.
+                    </t>
+                    <t>
+                        If the JSCalendar trigger has a "relativeTo"
+                        property with the value "end" then the <xref target="RFC5545"/>
+                        TRIGGER property will have a RELATED=END parameter.
+                    </t>
+                    <t>
+                        For example:
+                        <figure>
+                            <artwork><![CDATA[
+   "trigger": {
+     "@type": "OffsetTrigger",
+     "offset": "-P2D",
+     "relativeTo": "end"
+   }
+
+  maps to
+
+   TRIGGER;RELATED=END:-P2D
+
+  and
+
+     "trigger": {
+     "@type": "OffsetTrigger",
+     "offset": "-PT30M"
+   }
+
+  maps to
+
+  TRIGGER:-PT30M
+]]></artwork>
+                        </figure>
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-alert-todo"
+                         title="todo">
+                    <t>
+                        Need to deal with "acknowledged" and "relatedTo".
+                        Also in the icalendar to jscalendar.
+                    </t>
+                </section>
+            </section>
+
+            <section anchor="translate-jscal-categories"
+                     title="categories">
+                <t>
+                    Each member of the JSCalendar "categories" property
+                    maps on to a <xref target="draft-ietf-calext-eventpub-extensions"/> CONCEPT property with
+                    the value being the key of each member.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+   ...
+   "categories": {
+     "http://example.com/event-types/arts/music": true,
+     "http://example.com/performance-types/arts/live": true
+   }
+   ...
+
+  maps to
+
+   ...
+   CONCEPT:http://example.com/event-types/arts/music
+   CONCEPT:http://example.com/performance-types/arts/live
+   ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-created" title="created">
+                <t>
+                    The JSCalendar "created" property
+                    maps on to a <xref target="RFC5545"/> CREATED
+                    property with the value being the
+                    <xref target="RFC5545"/> UTC date-time derived from
+                    the value of the property.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+   ...
+   "created": "2021-03-15T13:30"00Z"
+   ...
+
+  maps to
+
+   ...
+   CREATED:20210315T133000Z
+   ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-estimatedDuration" title="estimatedDuration">
+                <t>
+                    The JSCalendar "estimatedDuration" property
+                    maps on to a <xref target="RFC5545"/> ESTIMATED-DURATION
+                    property.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+   ...
+   "estimatedDuration": "PT18H"
+   ...
+
+  maps to
+
+   ...
+   ESTIMATED-DURATION:PT18H
+   ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
+            <section anchor="translate-jscal-keywords" title="keywords">
+                <t>
+                    Each member of the JSCalendar "categories" property
+                    maps on to a <xref target="RFC5545"/> CATEGORIES
+                    property with
+                    the value being the key of each member.
+                </t>
+                <t>
+                    For example:
+                    <figure>
+                        <artwork><![CDATA[
+   ...
+   "keywords": {
+        "APPOINTMENT": true,
+        "EDUCATION": true,
+        "MEETING": true
+      },
+   ...
+
+  maps to
+
+   ...
+   CATEGORIES:APPOINTMENT
+   CATEGORIES:EDUCATION
+   CATEGORIES:MEETING
+   ...
+
+   or alternatively
+
+   ...
+   CATEGORIES:APPOINTMENT,EDUCATION,MEETING
+   ...
+]]></artwork>
+                    </figure>
+                </t>
+            </section>
+
             <section anchor="translate-jscal-locations" title="locations">
                 <t>
                     JSCalendar locations should be mapped on to
@@ -3059,6 +3320,7 @@
                     <vspace blankLines="1"/>
                     A JSCalendar time maps to the iCalendar DATE type if all of the following
                     criteria apply:
+
                     <list style="symbols">
                         <t>
                             The <spanx style="verb">start</spanx> (<spanx style="verb">due</spanx>)
@@ -3072,6 +3334,15 @@
                         <t>
                             The <spanx style="verb">timeZone</spanx> property value is null,
                             or is not set.
+                        </t>
+                        <t>
+                            The <spanx style="verb">showWithoutTime</spanx> property value is not set or "true".
+                        </t>
+                        <t>
+                          The recurrenceRule.frequency is at most daily.
+                        </t>
+                        <t>
+                          All recurrenceOverrides recurrence ids have zero time
                         </t>
                     </list>
                     <vspace blankLines="1"/>
@@ -3090,7 +3361,7 @@
                             property value is null or not set.
                         </t>
                     </list>
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
+                    Fractional seconds SHOULD be preserved with the FRACTIONAL parameter.
                 </t>
             </section>
 
