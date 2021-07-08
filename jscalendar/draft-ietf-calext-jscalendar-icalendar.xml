@@ -138,6 +138,12 @@
                             be mapped directly in either direction in the original or a custom format,
                             however this is not interoperable.
                         </t>
+                        <t>
+                            JSCalendar supports fractional seconds in time values
+                            whereas iCalendar does not. A subsequent
+                            specification will define how fractional seconds
+                            can be represented in iCalendar.
+                        </t>
                     </list>
                     Accordingly, this document defines a canonical translation
                     between iCalendar and JSCalendar, and implementations MUST follow
@@ -181,75 +187,6 @@
                 </t>
             </section>
 
-        </section>
-
-        <section anchor="new-icalendar-parameters"
-                 title="New iCalendar parameters">
-            <section anchor="fractional-parameter" title="FRACTIONAL parameter">
-                <t>
-                    <list style='hanging'>
-                        <t hangText="Parameter name:">
-                            FRACTIONAL
-                        </t>
-                        <t hangText="Purpose:">
-                            This parameter is used to contain a value with fractional seconds for
-                            time values and durations.
-                            FRACTIONAL MUST NOT be used in date-time calculations or comparisons in 
-                            iCalendar.
-                            It is meant to preserve time precision on time
-                            values and duration with sub-second precision, without
-                            increasing the time value range within iCalendar.
-                        </t>
-                        <t hangText="Description:">
-                            This parameter MAY be specified on properties of type DATE-TIME
-                            or DURATION.
-                            It MUST be a valid iCalendar DATE-TIME or DURATION value with
-                            the addition of
-                            fractional seconds. The value MUST NOT be negative
-                            for durations but MAY be negative for alarm triggers.
-                            iCalendar implementations SHOULD ignore this parameter in date
-                            time arithmetic.
-                            Implementations MUST ignore presence of the FRACTIONAL parameter
-                            on RECURRENCE-ID properties when determining recurrence overrides.
-                        </t>
-                        <t>
-                            Applications receiving a property with a FRACTIONAL parameter
-                            MUST ensure its value is consistent with the value of the
-                            property. The property value must match:
-                            <vspace/>
-                            - a positive FRACTIONAL value rounded up to the next non-fractional second
-                            or
-                            <vspace/>
-                            - a negative FRACTIONAL value rounded down the next non-fractional second
-                        </t>
-                        <t>
-                            If the values do not match the the application
-                            MUST assume that the property value has been
-                            updated by an application that is unaware
-                            of the FRACTIONAL parameter. The parameter should be
-                            ignored in this case.
-                        </t>
-                        <t hangText="Format Definition:">
-                            <figure>
-                                <preamble>
-                                    This parameter is defined by the following notation:
-                                </preamble>
-
-                                <artwork type="abnf">
-    fractional-param = DATE-TIME or DURATION
-                                </artwork>
-                            </figure>
-                        </t>
-                        <t hangText="Example:">
-                            <figure>
-                                <artwork><![CDATA[
-    DTSTART;FRACTIONAL=20190605T133015.03:20190605T133015
-]]></artwork>
-                            </figure>
-                        </t>
-                    </list>
-                </t>
-            </section>
         </section>
 
         <section anchor="icalendar-preprocessing"
@@ -1126,17 +1063,6 @@
                 </t>
 
                 <t>
-                    Note that all four properties may have a FRACTIONAL
-                    parameter if the values contain a time part. When
-                    obtaining the property value check for the presence
-                    of the FRACTIONAL parameter. If present check that
-                    it is a valid value using the criteria
-                    specified in  <xref target="fractional-parameter"/>.
-                    If valid, then use that value. If not valid use the
-                    property value instead..
-                </t>
-
-                <t>
                     If the DTSTART has a UTC value then set the
                     JSCalendar "timeZone" property to the value "Etc/UTC".
                     The JSCalendar "start" property is set
@@ -1255,34 +1181,13 @@
             <section anchor="translate-ical-estimated-duration"
                      title="ESTIMATED-DURATION">
                 <t>
-                    If the property has a FRACTIONAL parameter first
-                    check that it is a valid value using the criteria
-                    specified in  <xref target="fractional-parameter"/>.
-                    if valid, use that value for the JSCalendar
-                    "estimatedDuration" property.
-                </t>
-                <t>
-                    If the property has no FRACTIONAL parameter or the
-                    value of that parameter is invalid then copy the
-                    ESTIMATED-DURATION value into the JSCalendar
-                    "estimatedDuration" property.
+                    Copy the ESTIMATED-DURATION value into the
+                    JSCalendar "estimatedDuration" property.
                 </t>
                 <t>
                     For example:
                     <figure>
                         <artwork><![CDATA[
-  ...
-  ESTIMATED-DURATION;FRACTIONAL="PT17H15M23.5S:PT18H
-  ...
-
-  maps to
-
-  ...
-  "estimatedDuration": "PT18H"
-  ...
-
-  because the FRACTIONAL parameter is not valid..
-
   ...
   ESTIMATED-DURATION:PT18H
   ...
@@ -1292,20 +1197,6 @@
   ...
   "estimatedDuration": "PT18H"
   ...
-
-  and
-    ...
-  ESTIMATED-DURATION;FRACTIONAL="PT17H15M23.5S:PT17H15M24S
-  ...
-
-  maps to
-
-  ...
-  "estimatedDuration": "PT17H15M23.5S"
-  ...
-
-  because the FRACTIONAL parameter is valid.
-
 ]]></artwork>
                     </figure>
                 </t>
@@ -2850,30 +2741,14 @@
             <section anchor="translate-jscal-duration" title="duration">
                 <t>
                     The JSCalendar "duration" property is only valid for
-                    event objects and maps on to the
+                    event objects. Copy the JSCalendar "duration" property
+                    in to the
                     <xref target="RFC5545"/> DURATION property.
-                    If the "duration" property value has fractional
-                    seconds then the <xref target="RFC5545"/> value
-                    is set to the "duration" value rounded up to the
-                    next non-fractional value and a FRACTIONAL parameter
-                    is added with the full unrounded value.
                 </t>
                 <t>
                     For example:
                     <figure>
                         <artwork><![CDATA[
-   ...
-   "duration": "PT0.5S"
-   ...
-
-  maps to
-
-   ...
-   DURATION;FRACTIONAL="PT0.5S":PT1S
-   ...
-
-and
-
    ...
    "duration": "PT1H"
    ...
@@ -2891,31 +2766,15 @@ and
 
             <section anchor="translate-jscal-estimatedDuration" title="estimatedDuration">
                 <t>
-                    The JSCalendar "estimatedDuration" property
-                    maps on to a <xref target="RFC5545"/> ESTIMATED-DURATION
-                    property.
-                    If the "estimatedDuration" property value has fractional
-                    seconds then the <xref target="RFC5545"/> value
-                    is set to the "estimatedDuration" value rounded up to the
-                    next non-fractional value and a FRACTIONAL parameter
-                    is added with the full unrounded value.
+                    The JSCalendar "estimatedDuration" property is only valid for
+                    task objects. Copy the JSCalendar "estimatedDuration" property
+                    in to the
+                    <xref target="RFC5545"/> ESTIMATED-DURATION property.
                 </t>
                 <t>
                     For example:
                     <figure>
                         <artwork><![CDATA[
-   ...
-   "estimatedDuration": "PT0.5S"
-   ...
-
-  maps to
-
-   ...
-   ESTIMATED-DURATION;FRACTIONAL="PT0.5S":PT1S
-   ...
-
-and
-
    ...
    "estimatedDuration": "PT18H"
    ...
@@ -3133,18 +2992,12 @@ and
                 <c>
                     Maps to the DUE property. See <xref target="translate-time"/>.
                 </c>
-                <c>estimatedDuration</c>
-                <c>
-                    ESTIMATED-DURATION property in the RFC draft <xref target="draft-apthorp-ical-tasks"/>,
-                    or the DURATION property otherwise.
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
-                </c>
 
                 <c>statusUpdatedAt</c>
                 <c>
                     COMPLETED property. The JSTask status property
                     MUST have value <spanx style="verb">completed</spanx>.
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
+
                 </c>
 
                 <c>progress</c>
@@ -3221,7 +3074,6 @@ and
                 <c>created</c>
                 <c>
                     CREATED property.
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
                 </c>
 
                 <c>description</c>
@@ -3237,7 +3089,6 @@ and
                 <c>excluded</c>
                 <c>
                     EXDATE property.
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
                 </c>
 
                 <c>freeBusyStatus</c>
@@ -3308,11 +3159,7 @@ and
                 <c>
                     RDATE and EXDATE properties, and any VEVENT or
                     VTODO instances with a recurrence-id and same UID
-                    as the mapped main object. If the DTSTART property
-                    defines a SUBSECOND parameter, but the RECURRENCE-ID
-                    of a recurrence instance does not, then use the
-                    SUBSECOND parameter value of DTSTART to determine
-                    the recurrence override time stamp.
+                    as the mapped main object.
                 </c>
 
                 <c>recurrenceRule</c>
@@ -3383,7 +3230,6 @@ and
                 <c>updated</c>
                 <c>
                     DTSTAMP and LAST-MODIFIED properties.
-                    Fractional seconds SHOULD be preserved with the SUBSECOND parameter.
                 </c>
 
                 <c>useDefaultAlerts</c>
@@ -3449,7 +3295,6 @@ and
                             property value is null or not set.
                         </t>
                     </list>
-                    Fractional seconds SHOULD be preserved with the FRACTIONAL parameter.
                 </t>
             </section>
 
