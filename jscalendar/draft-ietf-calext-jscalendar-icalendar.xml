@@ -558,10 +558,12 @@
     "timezones": {
       "/Example/Somewhere: {
         "@type": "TimeZone",
+        "tzId": "Example/Somewhere",
         ...
       },
       "/Example/Somewhere-else": {
         "@type": "TimeZone",
+        "tzId": "Example/Somewhere-else",
         ...
       }
     }
@@ -2525,10 +2527,12 @@
     "timezones": {
       "/Example/Somewhere: {
         "@type": "TimeZone",
+        "tzId": "Example/Somewhere",
         ...
       },
       "/Example/Somewhere-else": {
         "@type": "TimeZone",
+        "tzId": "Example/Somewhere-else",
         ...
       }
     }
@@ -2537,11 +2541,11 @@
   maps to
 
   BEGIN: VTIMEZONE
-  TZID: /Example/Somewhere
+  TZID: Example/Somewhere
   ...
   END: VTIMEZONE
   BEGIN: VTIMEZONE
-  TZID: /Example/Somewhere-else
+  TZID: Example/Somewhere-else
   ...
   END: VTIMEZONE
   BEGIN: VEVENT
