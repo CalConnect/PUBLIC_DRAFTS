@@ -20,7 +20,7 @@
 :code: 53113
 :country: Germany
 :contibutor-uri: http://www.dhl.com
-:email: aapthorp@theiet.org
+:email: adrian.apthorp@dhl.com
 :fullname_2: Michael Douglass
 :lastname_2: Douglass
 :forename_initials_2: M.
