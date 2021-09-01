@@ -1,9 +1,42 @@
 [[new-parameters]]
 
-=== New Property Parameters
+== New Property Parameters
+
+
+[[param-group]]
+=== Group
+
+Parameter name:: GROUP
+
+Purpose:: This parameter allows the association of different
+             (usually) multiply occurring properties.
+
+Format Definition:: This parameter is defined by the following notation:
+
+[source]
+----
+groupparam       = "GROUP" "=" text
+                   *("," text)
+----
+
+Description::  The value of this parameter is free-form text that
+      creates an identifier for associated properties. All properties
+      that use the same GROUP value are associated through that value.
+      For example, multiple comments and an attendee may be associated
+      with a status value.
+
+Example::
+
+The following is an example of this property.
+
+
+[source]
+----
+GROUP=G1
+----
 
 [[param-reason]]
-==== Reason
+=== Reason
 
 Parameter name::  REASON
 
@@ -37,7 +70,7 @@ ATTENDEE;REASON="x-example-reason:out-of-office";
 ----
 
 [[param-modified]]
-==== Modified
+=== Modified
 
 Parameter name:: MODIFIED
 
@@ -70,7 +103,7 @@ STATUS;REASON=""http://example.com/reason/delivered-on-time";
 ----
 
 [[param-sub-state]]
-==== Sub-State
+=== Sub-State
 
 Parameter name:: SUBSTATE
 

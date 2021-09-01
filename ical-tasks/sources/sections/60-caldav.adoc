@@ -1,7 +1,7 @@
 
 [[caldav-support]]
 
-=== CalDAV Support for Task Mode
+== CalDAV Support for Task Mode
 
 The CalDAV <<RFC4791>> calendar access protocol allows clients and servers to exchange iCalendar data. With the introduction of the "TASK-MODE" property in this specification, different automated task management behaviours may be delegated to the server by the Task Organizer depending upon the value of "TASK-MODE".
 
@@ -13,7 +13,7 @@ The server SHOULD return an HTTP 403 response with a DAV:error element containin
 
 It is possible for a "TASK-MODE" value to be present in calendar data on the server being accessed by a client that does not support the "TASK-MODE" property. It is expected that existing clients, unaware of "TASK-MODE", will fail gracefully by ignoring the calendar property.
 
-==== CALDAV:supported-task-mode-set Property
+=== CALDAV:supported-task-mode-set Property
 
 Name:: supported-task-mode-set
 

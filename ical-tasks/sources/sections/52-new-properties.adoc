@@ -1,9 +1,9 @@
 [[new-properties]]
 
-=== New Properties
+== New Properties
 
 [[prop-estimated-duration]]
-==== Estimated Duration
+=== Estimated Duration
 
 Property Name:: ESTIMATED-DURATION
 
@@ -35,7 +35,7 @@ ESTIMATED-DURATION:PT1H
 ----
 
 [[prop-task-mode]]
-==== Task Mode
+=== Task Mode
 
 Property Name:: TASK-MODE
 

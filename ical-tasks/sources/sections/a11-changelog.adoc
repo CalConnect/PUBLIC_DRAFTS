@@ -8,6 +8,7 @@ V02. 2021-05-05 MD
 
 * Redo in asciidoc
 * Change STRUCTURED-CATEGORY to CONCEPT
+* Add GROUP parameter definition
 
 V01. 2015-08-23 AA
 

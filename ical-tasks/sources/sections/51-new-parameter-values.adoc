@@ -1,10 +1,10 @@
 
 [[new-parameter-values]]
 
-=== New Parameter Values
+== New Parameter Values
 
 [[param-val-partstat]]
-==== Redefined VTODO Participant Status
+=== Redefined VTODO Participant Status
 
 Participant status parameter type values are defined in
 <<RFC5545,section=3.2.12>>.  This specification redefines that type

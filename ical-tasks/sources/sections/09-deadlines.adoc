@@ -1,7 +1,22 @@
 [[deadlines]]
 
-=== Task Deadlines, Milestones and Time Planning
+== Task Deadlines, Milestones and Time Planning
 
-Deadlines for starting and finishing a task are defined by the DTSTART, DUE and DURATION properties. DTSTART represents the earliest start time for beginning work on a task. DUE, or DTSTART + DURATION represent the latest finish time for a task. Thus these properties define a "window" within which a task has to be performed. However, there is currently no way to indicate how long the task is expected to take. This document defines a new property, ESTIMATED-DURATION, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.
+Deadlines for starting and finishing a task are defined
+by the DTSTART, DUE and DURATION properties. DTSTART
+represents the earliest start time for beginning work
+on a task. DUE, or DTSTART + DURATION represent the
+latest finish time for a task. Thus these properties
+define a "window" within which a task has to be
+performed. However, there is currently no way to
+indicate how long the task is expected to take. This
+document defines a new property, ESTIMATED-DURATION, to
+allow the estimated time that a task should take to be
+specified separately from the deadlines for starting
+and finishing a task. This supports time planning by
+enabling calendar user agents to display when tasks
+should occur and therefore allow calendar users to
+visualize when tasks should be performed and allocate
+time to them.
 
 A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child VTODO components (i.e., sub-tasks associated with each of the milestones) in conjunction with the RELATED-TO property to relate the parent and child tasks.

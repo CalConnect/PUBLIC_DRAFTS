@@ -1,6 +1,6 @@
 [[scheduling-assignment]]
 
-=== Task Scheduling and Assignment
+== Task Scheduling and Assignment
 
 This specification supports the two distinct models of assigning actors to tasks, i.e., 1) strictly one assignee per task or 2) task assignment to multiple assignees. In this regard one or many ATTENDEES may be specified against a task depending upon the model applied by the task organizer.
 

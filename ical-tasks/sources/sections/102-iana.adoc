@@ -6,9 +6,11 @@
 
 This specification updates <<RFC5545>> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <<RFC5545>>.
 
+.Initial Status Value Registry
 [cols="a,a,a",options=header]
 |===
 | Name          | Status | Reference
+
 | CANCELLED    | Current | <<RFC5545, section=3.8.1.11>>
 | COMPLETED    | Current | <<RFC5545, section=3.8.1.11>>
 | CONFIRMED    | Current | <<RFC5545, section=3.8.1.11>>
@@ -17,76 +19,95 @@ This specification updates <<RFC5545>> by adding a Status value registry to the 
 | IN-PROCESS   | Current | <<RFC5545, section=3.8.1.11>>
 | NEEDS-ACTION | Current | <<RFC5545, section=3.8.1.11>>
 | TENTATIVE    | Current | <<RFC5545, section=3.8.1.11>>
+
 |===
 
 === Update of the Status registry
 
 This specification further updates the Status registry with additional values defined in this document.
 
+.Updated Status Value Registry
 [cols="a,a,a",options=header]
 |===
 | Value    | Status  | Reference
+
 | PENDING   | Current | This Spec, <<prop-ext-status>>
 | FAILED    | Current | This Spec, <<prop-ext-status>>
+
 |===
 
 === Sub-State value registry
 
 The following table has been used to initialize the Sub-State registry.
 
+.Sub-State registry
 [cols="a,a,a",options=header]
 |===
 | Substate  | Status  | Reference
+
 | OK        | Current | This Spec, <<param-sub-state>>
 | ERROR     | Current | This Spec, <<param-sub-state>>
 | SUSPENDED | Current | This Spec, <<param-sub-state>>
+
 |===
 
 === Task Mode value registry
 
 The following table has been used to initialize the Task Mode registry.
 
+.Task Mode Value Registry
 [cols="a,a,a",options=header]
 |===
 | Task Mode            | Status  | Reference
+
 | AUTOMATIC-COMPLETION | Current | This Spec, <<prop-task-mode>>
 | AUTOMATIC-FAILURE    | Current | This Spec,  <<prop-task-mode>>
 | CLIENT               | Current | This Spec,  <<prop-task-mode>>
 | SERVER               | Current | This Spec,  <<prop-task-mode>>
+
 |===
 
 === Participation Statuses registry
 
 The following table has been used to update the Participation Statuses registry.
 
+.Participation Statuses Registry
 [cols="a,a,a",options=header]
 |===
 | Value    | Status  | Reference
+
 | FAILED    | Current | This Spec, <<param-val-partstat>>
+
 |===
 
 === Properties registry
 
 The following table has been used to update the Properties registry.
 
+.Updated Properties Registry
 [cols="a,a,a",options=header]
 |===
 | Property           | Status  | Reference
+
 | ATTENDEE           | Current | This Spec, <<prop-ext-attendee>>
 | COMMENT            | Current | This Spec, <<prop-ext-comment>>
 | ESTIMATED_DURATION | Current | This Spec, <<prop-estimated-duration>>
 | STATUS             | Current | This Spec, <<prop-ext-status>>
 | TASK-MODE          | Current | This Spec, <<prop-task-mode>>
+
 |===
 
 === Parameters registry
 
 The following table has been used to update the Parameters registry.
 
+.Ipdated Parameters Registry
 [cols="a,a,a",options=header]
 |===
 | Parameter | Status  | Reference
+
 | REASON    | Current | This Spec, <<param-reason>>
 | MODIFIED  | Current | This Spec, <<param-modified>>
 | SUBSTATE  | Current | This Spec, <<param-sub-state>>
+
 |===

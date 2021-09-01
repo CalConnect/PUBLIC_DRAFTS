@@ -1,10 +1,10 @@
 [[task-specification]]
 
-=== Task Specification
+== Task Specification
 
 The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current VTODO component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:
 
-.Labeled
+[horizontal]
 Task type:: explicitly what type of task is to be performed is identified.
 
 Task context and relationships:: how a specific task relates to other tasks and other objects that need to be understood for the effective execution of a task.
@@ -13,7 +13,7 @@ Task specific data:: the form and content of domain data provided as input to a 
 
 Organizer and attendee:: recognizes that a task organizer or attendee can be an automated system.
 
-==== CONCEPT for task type identification
+=== CONCEPT for task type identification
 
 The CONCEPT property is used to identify the type of task, for example;
 
@@ -22,7 +22,7 @@ The CONCEPT property is used to identify the type of task, for example;
 CONCEPT:http://example.com/task/delivery
 ----
 
-==== Task Context and Relationships
+=== Task Context and Relationships
 
 The LINK property specifies a link to external information, which may be context to the task. For example:
 
@@ -46,7 +46,7 @@ REFID:1234567890
 
 Extensions [Doug114] to the RELATED-TO property allow temporal relationships between tasks as found in project management to be specified as well as parent / child relationships and dependencies (DEPENDS-ON). Tasks (VTODOs) may also be related to other calendar components; for example to a VEVENT to block time to perform a task.
 
-==== Task Domain Data Handling
+=== Task Domain Data Handling
 
 Provide support for task specific input and output data (including updates) beyond the standard iCalendar properties. It is envisaged that standard calendar user agents will be able to launch task specific applications by passing task specific data.
 

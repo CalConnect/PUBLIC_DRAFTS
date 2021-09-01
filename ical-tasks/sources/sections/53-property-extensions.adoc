@@ -1,10 +1,10 @@
 
 [[property-extensions]]
 
-=== Property Extensions and Clarifications
+== Property Extensions and Clarifications
 
 [[prop-ext-attendee]]
-==== The ATTENDEE property
+=== The ATTENDEE property
 
 The Attendee property is defined in <<RFC5545,section 3.8.4.1>>.
 This specification extends that property to include new parameters to
@@ -40,7 +40,7 @@ ATTENDEE;PARTSTAT=IN-PROCESS;MODIFIED=20130212T120000Z;
 ----
 
 [[prop-ext-comment]]
-==== Redefined COMMENT Property Parameter List
+=== Redefined COMMENT Property Parameter List
 
 The Comment property is defined in <<RFC5545, section=3.8.1.4>>.
 
@@ -58,7 +58,7 @@ commparam    /= *(
 ----
 
 [[prop-ext-status]]
-==== Redefined STATUS Property
+=== Redefined STATUS Property
 
 The Status property is defined in <<RFC5545, section=3.8.1.11>>. This
 specification extends that property to include new parameters to

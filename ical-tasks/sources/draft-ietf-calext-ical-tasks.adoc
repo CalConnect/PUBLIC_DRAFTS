@@ -1,6 +1,6 @@
 = Task Extensions to iCalendar
 :doctype: internet-draft
-:docnumber: draft-apthorp-ical-tasks-02
+:docnumber: draft-ietf-calext-ical-tasks-00
 :abbrev: iCalendar tasks
 :status: standard
 :ipr: trust200902
@@ -10,7 +10,7 @@
 :submissionType: individual
 :area: Internet
 :intended-series: full-standard
-:revdate: 2021-05-09
+:revdate: 2021-08-23
 :fullname: Adrian Apthorp
 :lastname: Apthorp
 :forename_initials: A.
@@ -21,29 +21,18 @@
 :country: Germany
 :contibutor-uri: http://www.dhl.com
 :email: aapthorp@theiet.org
-:fullname_2: Cyrus Daboo
-:lastname_2: Daboo
-:forename_initials_2: C.
-:affiliation_2: Apple Inc.
-:street_2: 1 Infinite Loop
-:city_2: Cupertino
-:state_2: CA
-:code_2: 95014
+:fullname_2: Michael Douglass
+:lastname_2: Douglass
+:forename_initials_2: M.
+:affiliation_2: Bedework Commercial Services
+:street_2: 226 3rd Street
+:city_2: Troy
+:state_2: NY
+:code_2: 12180
 :country_2: United States of America
-:contibutor-uri_2: https://www.apple.com
-:email_2: cyrus@daboo.name
-:fullname_3: Michael Douglass
-:lastname_3: Douglass
-:forename_initials_3: M.
-:affiliation_3: Bedework Commercial Services
-:street_3: 226 3rd Street
-:city_3: Troy
-:state_3: NY
-:code_3: 12180
-:country_3: United States of America
-:contibutor-uri_3: https://bcs.com/
-:email_3: mdouglass@bedework.com
-:docfile: draft-apthorp-ical-tasks.adoc
+:contibutor-uri_2: https://bcs.com/
+:email_2: mdouglass@bedework.com
+:docfile: draft-ietf-calext-ical-tasks.adoc
 :mn-document-class: ietf
 :mn-output-extensions: xml,txt,html
 :technical-committee: TC Calendar

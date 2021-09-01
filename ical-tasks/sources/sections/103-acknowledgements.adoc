@@ -2,7 +2,7 @@
 [[acknowledgements]]
 == Acknowledgements
 
-The author would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:
+The authors would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:
 
 John Chaffee, Marten Gajda, Ken Murchison
 

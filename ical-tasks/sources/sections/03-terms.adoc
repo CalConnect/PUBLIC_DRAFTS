@@ -1,12 +1,16 @@
 
 [[terms]]
 
-.Labeled
+Terms defined in this specification include:
+
+[horizontal]
+
 Assignee:: A calendar user assigned to perform a given task. An assignee is equivalent to an attendee of an event.
 
 Calendar User (CU):: A person or software system that accesses or modifies calendar information.
 
-Calendar User Agent (CUA)::
+Calendar User Agent (CUA):: This may be
+
 1. Software with which the calendar user communicates with a calendar service or local calendar store to access calendar information.
 
 2. Software that gathers calendar data on the Calendar User's behalf.

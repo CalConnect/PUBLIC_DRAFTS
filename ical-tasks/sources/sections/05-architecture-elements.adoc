@@ -1,11 +1,12 @@
 
 [[architecture-elements]]
 
-=== Task Architecture Elements
+== Task Architecture Elements
 
 The following logical elements form the task architecture that this specification is based on:
 
-.Labeled
+[horizontal]
+
 Task Actors:: Various calendar users that may be involved in the monitoring or performing of a task. The set of actors includes: Organizers, Observers, Resources, Assignees, and Candidates.
 
 Task Organizer:: The Organizer of a task.
