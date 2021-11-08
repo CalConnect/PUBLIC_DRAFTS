@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="US-ASCII"?>
+
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
 <!ENTITY RFC7986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7986.xml">
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8288 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8288.xml">
-<!ENTITY W3C.CR-skos-reference-20090317 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.CR-skos-reference-20090317.xml">
+<!ENTITY RFC8607 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8607.xml">
+<!ENTITY W3C.REC-skos-reference-20090818 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml-w3c/reference.W3C.REC-skos-reference-20090818.xml">
 <!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
-<!ENTITY I-D.daboo-caldav-attachments SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.daboo-caldav-attachments.xml">
-]>
+        ]>
 
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
-<?rfc strict="yes" ?>
-<?rfc toc="yes"?>
-<?rfc tocdepth="5"?>
-<?rfc symrefs="yes"?>
-<?rfc sortrefs="yes" ?>
-<?rfc compact="yes" ?>
-<?rfc subcompact="no" ?>
 <rfc category="std"
      updates='5545' 
-     docName="draft-ietf-calext-ical-relations-06" ipr="trust200902">
+     docName="draft-ietf-calext-ical-relations-08" ipr="trust200902">
+        <?rfc strict="yes" ?>
+        <?rfc toc="yes"?>
+        <?rfc tocdepth="5"?>
+        <?rfc symrefs="yes"?>
+        <?rfc sortrefs="yes" ?>
+        <?rfc compact="yes" ?>
+        <?rfc subcompact="no" ?>
 
   <front>
     <title abbrev="iCalendar Relationships">Support for iCalendar Relationships</title>
@@ -42,7 +42,7 @@
       </address>
     </author>
 
-    <date month='December' year='2020' />
+    <date day='13' month='October' year='2021' />
 
     <area>Applications</area>
 
@@ -55,7 +55,7 @@
     <abstract>
       <t>
         This specification updates RELATED-TO defined in  
-        <xref target='RFC5545'/> and introduces new iCalendar
+        iCalendar (RFC5545) and introduces new iCalendar
         properties LINK, CONCEPT and REFID to allow better
         linking and grouping of iCalendar components and related data.
       </t>
@@ -129,7 +129,7 @@
       <section title="Concept relationships">
         <t>
           The name CONCEPT is used by the Simple Knowledge Organization
-          System defined in <xref target='W3C.CR-skos-reference-20090317'/>.
+          System defined in <xref target='W3C.REC-skos-reference-20090818'/>.
           The term "concept" more accurately defines what we often
           mean by a category. It's not the text string that is important
           but the meaning attached to it. For example, the term
@@ -188,7 +188,7 @@
           RELATED-TO property only allow for a UID which is inadequate for many
           purposes. Allowing other value types for those relationships may help
           but would cause
-          backward compatibility issues. The link property can link components
+          backward compatibility issues. The LINK property can link components
           in different collections or even on different servers.
         </t>
 
@@ -207,12 +207,18 @@
         </t>
 
         <t>
-          The LINK property SHOULD NOT be treated as just another
-          attachment. The ATTACH property is being extended to handle
+          The LINK property MUST NOT be treated as just another
+          attachment. The ATTACH property defined in
+          <xref target='RFC5545'/> is being extended to handle
           server-side management and stripping of inline data. Clients
-          may choose to handle attachments differently as they are often
+          may choose to handle attachments differently from the LINK
+          property as they are often
           an integral part of the message - for example, the agenda.
-          See <xref target='I-D.daboo-caldav-attachments'/>
+        </t>
+
+        <t>
+          For more information on managed attachments see
+          <xref target='RFC8607'/>
         </t>
       </section>
 
@@ -286,7 +292,7 @@
              title="New temporal RELTYPE Parameter values">
       <t>
         This section defines the usual temporal relationships
-        for use with the RELTYPE parameter redefined in
+        for use with the RELTYPE parameter defined in
         Section 3.2.15 of <xref target='RFC5545' />:
         FINISHTOSTART, FINISHTOFINISH, STARTTOFINISH or STARTTOSTART.
       </t>
@@ -326,21 +332,24 @@
           </t>
 
           <t hangText="RELTYPE=FINISHTOFINISH:">
-            Task-B cannot finish before Task-A
-            is finished, that is the end of Task-A defines the
-            end of Task-B.
-            For example, we start the potatoes, then the meat then the peas
+            Task-B can only be completed after Task-A
+            is finished. The related tasks may run in parallel before
+            completion.
+          </t>
+          <t>
+            For example, if the goal is to prepare a meal, we start the
+            potatoes, then the meat then the peas
             but they should all be cooked at the same time.
             <figure anchor='finishtofinish' title='Finish to finish relationship'>
               <artwork><![CDATA[
 
-                    ============
-                    |  Task-A  |--+
-                    ============  |
-                                  |
-                    ============  |
-                    |  Task-B  |<-+
-                    ============
+                    ==================
+                    |     Task-A     |--+
+                    ==================  |
+                                        |
+                          ============  |
+                          |  Task-B  |<-+
+                          ============
 ]]></artwork>
             </figure>
           </t>
@@ -392,6 +401,12 @@
 
       <t>
         <list style="hanging">
+          <t hangText="RELTYPE=FIRST:">
+            Indicates that the referenced calendar component is the
+            first in a series the referenced calendar component is
+            part of.
+          </t>
+
           <t hangText="RELTYPE=DEPENDS-ON:">
             Indicates that the current calendar component depends on
             the referenced calendar component in some manner. For example
@@ -647,7 +662,8 @@
             </t>
 
             <t hangText="Conformance:">
-              This property MAY be specified in any iCalendar component.
+              This property can be specified zero or more times in any
+              iCalendar component.
             </t>
 
             <t hangText="Description:">
@@ -737,7 +753,7 @@
             </t>
 
             <t hangText="Conformance:">
-              This property MAY be specified multiple times in any
+              This property can be specified zero or more times in any
               iCalendar component.
             </t>
 
@@ -929,7 +945,9 @@
         <t>
           The following iCalendar property names have been added to
           the iCalendar Properties Registry defined in Section 8.3.2 of
-          <xref target='RFC5545'/>
+          <xref target='RFC5545'/>  IANA has also added a
+          reference to this document where the properties originally defined in
+          <xref target='RFC5545'/> have been updated by this document.
         </t>
 
         <texttable>
@@ -948,6 +966,10 @@
           <c>REFID</c>
           <c>Current</c>
           <c><xref target="refid"/></c>
+
+          <c>RELATED-TO</c>
+          <c>Current</c>
+          <c><xref target='RFC5545'/>, <xref target="redefined_property_related_to"/></c>
         </texttable>
       </section>
 
@@ -964,13 +986,13 @@
           <ttcol align="left">Status</ttcol>
           <ttcol align="left">Reference</ttcol>
 
-          <c>REL</c>
-          <c>Current</c>
-          <c><xref target="linkrel"/></c>
-
           <c>GAP</c>
           <c>Current</c>
           <c><xref target="gap"/></c>
+
+          <c>REL</c>
+          <c>Current</c>
+          <c><xref target="linkrel"/></c>
         </texttable>
       </section>
 
@@ -987,11 +1009,11 @@
           <ttcol align="left">Status</ttcol>
           <ttcol align="left">Reference</ttcol>
 
-          <c>UID</c>
+          <c>REFERENCE</c>
           <c>Current</c>
           <c><xref target="new_value_data_types"/></c>
 
-          <c>REFERENCE</c>
+          <c>UID</c>
           <c>Current</c>
           <c><xref target="new_value_data_types"/></c>
         </texttable>
@@ -1011,25 +1033,29 @@
           <ttcol align="left">Status</ttcol>
           <ttcol align="left">Reference</ttcol>
 
+          <c>CONCEPT</c>
+          <c>Current</c>
+          <c><xref target="additional_new_reltype_values"/></c>
+
           <c>DEPENDS-ON</c>
+          <c>Current</c>
+          <c><xref target="additional_new_reltype_values"/></c>
+
+          <c>FINISHTOFINISH</c>
+          <c>Current</c>
+          <c><xref target="new_temporal_reltype_values"/></c>
+
+          <c>FINISHTOSTART</c>
+          <c>Current</c>
+          <c><xref target="new_temporal_reltype_values"/></c>
+
+          <c>FIRST</c>
           <c>Current</c>
           <c><xref target="additional_new_reltype_values"/></c>
 
           <c>REFID</c>
           <c>Current</c>
           <c><xref target="additional_new_reltype_values"/></c>
-
-          <c>CONCEPT</c>
-          <c>Current</c>
-          <c><xref target="additional_new_reltype_values"/></c>
-
-          <c>FINISHTOSTART</c>
-          <c>Current</c>
-          <c><xref target="new_temporal_reltype_values"/></c>
-
-          <c>FINISHTOFINISH</c>
-          <c>Current</c>
-          <c><xref target="new_temporal_reltype_values"/></c>
 
           <c>STARTTOFINISH</c>
           <c>Current</c>
@@ -1093,6 +1119,10 @@
      with a value containing a set of directories to search.  These can be either in the local
      filing system or remote ones accessed by http (http://domain/dir/... ).-->
 
+    <references title="Informative References">
+      &RFC8607;
+    </references>
+
     <references title="Normative References">
       &RFC2119;
       &RFC5545;
@@ -1100,8 +1130,7 @@
       &RFC8174;
       &RFC8288;
       &W3C.WD-xptr-xpointer-20021219;
-      &W3C.CR-skos-reference-20090317;
-      &I-D.daboo-caldav-attachments;
+      &W3C.REC-skos-reference-20090818;
     </references>
   </back>
 </rfc>
