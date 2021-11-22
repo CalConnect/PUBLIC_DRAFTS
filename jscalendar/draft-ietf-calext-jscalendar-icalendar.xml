@@ -669,7 +669,7 @@
         "be450b70-9bf7-4f6e-8f65-971ede566ce3": {
           "@type": "Participant",
           "sendTo": {
-            "imip": "user01@example.org"
+            "imip": "mailto:user01@example.org"
           },
   ...
   }
