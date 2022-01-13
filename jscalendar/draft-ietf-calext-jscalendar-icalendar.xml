@@ -87,7 +87,7 @@
 
             <section anchor="motivation" title="Motivation">
                 <t>
-                    The JSCalendar <xref target="draft-ietf-calext-jscalendar"/> data format
+                    The JSCalendar <xref target="RFC8984"/> data format
                     is used to represent calendar data, and is meant as an alternative to
                     the widely deployed iCalendar <xref target="RFC5545"/> data format.
                 </t>
@@ -156,21 +156,27 @@
                     <list style="symbols">
                         <t>
                             <xref format="title" target="RFC5545"/>
+                            <xref target="RFC5545"/>
                         </t>
                         <t>
                             <xref format="title" target="RFC5546"/>
+                            <xref target="RFC5546"/>
                         </t>
                         <t>
                             <xref format="title" target="RFC7986"/>
+                            <xref target="RFC7986"/>
                         </t>
                         <t>
-                            <xref format="title" target="draft-ietf-calext-eventpub-extensions"/>
+                            <xref format="title" target="RFC9073"/>
+                            <xref target="RFC9073"/>
                         </t>
                         <t>
                            <xref format="title" target="draft-ietf-calext-ical-relations"/>
+                           <xref target="draft-ietf-calext-ical-relations"/>
                         </t>
                         <t>
-                            <xref format="title" target="draft-ietf-calext-valarm-extensions"/>
+                            <xref format="title" target="RFC9074"/>
+                            <xref target="RFC9074"/>
                         </t>
                     </list>
                     Therefore
@@ -479,7 +485,7 @@
             <section anchor="translate-ical-comp-vlocation"
                      title="VLOCATION">
                 <t>
-                    A <xref target="draft-ietf-calext-eventpub-extensions"/>
+                    A <xref target="RFC9073"/>
                     VLOCATION component is mapped
                     to a JSCalendar object with a type of "Location". Any
                     properties within the VLOCATION must be mapped as
@@ -1290,7 +1296,7 @@
             <section anchor="translate-ical-location"
                      title="LOCATION">
                 <t>
-                    If any <xref target="draft-ietf-calext-eventpub-extensions"/>
+                    If any <xref target="RFC9073"/>
                     "VLOCATION" components are present, then the
                     <xref target="RFC5545"/>"LOCATION" property should
                     be ignored.
@@ -2642,7 +2648,7 @@
                      title="categories">
                 <t>
                     Each member of the JSCalendar "categories" property
-                    maps on to a <xref target="draft-ietf-calext-eventpub-extensions"/> CONCEPT property with
+                    maps on to a <xref target="RFC9073"/> CONCEPT property with
                     the value being the key of each member.
                 </t>
                 <t>
@@ -2784,7 +2790,7 @@
             <section anchor="translate-jscal-locations" title="locations">
                 <t>
                     JSCalendar locations map to
-                    <xref target="draft-ietf-calext-eventpub-extensions"/>VLOCATION
+                    <xref target="RFC9073"/>VLOCATION
                     components.
                 </t>
                 <t>
@@ -2888,14 +2894,14 @@
                     A participant with a role containing "contact"
                     MUST be mapped on to an iCalendar CONTACT property
                     and SHOULD also be mapped on to a
-                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    <xref target="RFC9073"/>PARTICIPANT
                     component which provides a better mapping.
                 </t>
                 <t>
                     A participant with a role containing "owner"
                     MUST be mapped on to an iCalendar ORGANIZER property
                     and SHOULD also be mapped on to a
-                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    <xref target="RFC9073"/>PARTICIPANT
                     component which provides a better mapping.
                 </t>
                 <t>
@@ -2903,13 +2909,13 @@
                     "optional" or "informational"
                     MUST be mapped on to an iCalendar ATTENDEE property
                     and SHOULD also be mapped on to a
-                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    <xref target="RFC9073"/>PARTICIPANT
                     component which provides a better mapping.
                 </t>
 
                 <t>
                     A more complete mapping may be achieved by creating a
-                    <xref target="draft-ietf-calext-eventpub-extensions"/>PARTICIPANT
+                    <xref target="RFC9073"/>PARTICIPANT
                     component.
                 </t>
 
@@ -2986,7 +2992,7 @@
 
         <section anchor="security-considerations" title="Security Considerations">
             <t>
-                The same security considerations as for <xref target="draft-ietf-calext-jscalendar"/> apply.
+                The same security considerations as for <xref target="RFC8984"/> apply.
             </t>
         </section>
 
@@ -3013,16 +3019,10 @@
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
-            <reference anchor="draft-ietf-calext-eventpub-extensions"
-                       target="https://tools.ietf.org/html/draft-ietf-calext-eventpub-extensions">
-                <front>
-                    <title>Event Publishing Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8984.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9073.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9074.xml"?>
             <reference anchor="draft-ietf-calext-ical-relations"
                        target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
                 <front>
@@ -3031,33 +3031,9 @@
                     <date/>
                 </front>
             </reference>
-            <reference anchor="draft-ietf-calext-valarm-extensions"
-                       target="https://tools.ietf.org/html/draft-ietf-calext-valarm-extensions">
-                <front>
-                    <title>VALARM Extensions for iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
         </references>
 
         <references title="Informative References">
-            <reference anchor="draft-ietf-calext-jscalendar"
-                target="https://tools.ietf.org/html/draft-ietf-calext-jscalendar">
-                <front>
-                    <title>Task Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
-            <reference anchor="draft-apthorp-ical-tasks"
-                       target="https://tools.ietf.org/html/draft-apthorp-ical-tasks">
-                <front>
-                    <title>Task Extensions to iCalendar</title>
-                    <author/>
-                    <date/>
-                </front>
-            </reference>
             <reference anchor="TZDB" target="https://www.iana.org/time-zones">
               <front>
                 <title>Time Zone Database</title>
