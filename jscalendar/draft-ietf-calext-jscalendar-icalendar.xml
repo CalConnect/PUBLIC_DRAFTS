@@ -427,7 +427,7 @@
             <section anchor="translate-ical-comp-vcalendar" title="VCALENDAR">
                 <t>
                     A <xref target="RFC5545"/> VCALENDAR component may be mapped
-                    to a JSCalendar object with a type of "jsgroup".
+                    to a JSCalendar object with a type of "Group".
                     <figure>
                         <artwork><![CDATA[
   BEGIN: VCALENDAR
@@ -438,7 +438,7 @@
   maps to
 
   {
-    "@type": "jsgroup",
+    "@type": "Group",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
   }
@@ -447,7 +447,7 @@
                 </t>
                 <t>
                     Note that a single Event or Task MAY be converted
-                    without a surrounding JSGroup if the VCALENDAR
+                    without a surrounding Group if the VCALENDAR
                     component only contains PRODID and CALSCALE properties.
                     In this case the prodid can go in the Event or Task.
                     The CALSCALE property is dropped - there is no equivalence
@@ -498,7 +498,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
      "locations": {
        "1": {
@@ -553,7 +553,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "timezones": {
       "/Example/Somewhere: {
@@ -576,7 +576,7 @@
             <section anchor="translate-ical-comp-vtodo" title="VTODO">
                 <t>
                     A <xref target="RFC5545"/> VTODO component is mapped
-                    to a JSCalendar object with a type of "jstask".
+                    to a JSCalendar object with a type of "Task".
                     <figure>
                         <artwork><![CDATA[
   BEGIN: VTODO
@@ -586,7 +586,7 @@
   maps to
 
   {
-    "@type": "jstask",
+    "@type": "Task",
     ...
   }
 ]]></artwork>
@@ -990,7 +990,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "created": "1996-03-29T13:30"00Z",
     ...
@@ -1033,7 +1033,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "description": // Note: comments and string concatenation are not
             // allowed per the JSON specification and is used here
@@ -1111,7 +1111,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "start": "2017-03-15T15:00:00",
     "timeZone": "America/New_York",
@@ -1136,7 +1136,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "start": "2017-03-15T15:00:00",
     "timeZone": "America/New_York",
@@ -1168,7 +1168,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "start": "2017-03-15T00:00:00",
     "duration": "P3D",
@@ -1368,7 +1368,7 @@
   maps to
 
   {
-    "@type": "jstask",
+    "@type": "Task",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
     "percentComplete": 39
@@ -1403,7 +1403,7 @@
   maps to
 
   {
-    "@type": "jstask",
+    "@type": "Task",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
     "participants": {
@@ -1447,7 +1447,7 @@
   maps to
 
   {
-    "@type": "jstask",
+    "@type": "Task",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
     "participants": {
@@ -1482,12 +1482,12 @@
 
             <section anchor="translate-ical-prodid" title="PRODID">
                 <t>
-                    For a vcalendar JSGroup object with multiple JSEvent
-                    and/or JSTask object the <xref target="RFC5545"/> VCALENDAR PRODID is
+                    For a vcalendar Group object with multiple Event
+                    and/or Task object the <xref target="RFC5545"/> VCALENDAR PRODID is
                     mapped to a JSCalendar "prodid" property in the group.
                 </t>
                 <t>
-                    When mapping to a single JSEvent and/or JSTask object
+                    When mapping to a single Event and/or Task object
                     the <xref target="RFC5545"/> VCALENDAR PRODID is
                     mapped to a JSCalendar "prodid" property in the group
                     <figure>
@@ -1502,7 +1502,7 @@
   maps to
 
   {
-    "@type": "jsevent",
+    "@type": "Event",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
   }
@@ -1562,7 +1562,7 @@
     },
   },
   {
-    "@type": "jsevent",
+    "@type": "Event",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
   }
@@ -2182,11 +2182,11 @@
     translates to
 
     {
-      "@type": "jsgroup",
+      "@type": "Group",
       "prodId": "//Example.org//Example V3.13.2//EN",
       "entries": [
         {
-          "@type": "jsevent",
+          "@type": "Event",
           "participants": {
             "40288108-733187c1-0173-3188007b-00000001": {
               "@type": "Participant",
@@ -2291,11 +2291,11 @@
     translates to
 
     {
-      "@type": "jsgroup",
+      "@type": "Group",
       "prodId": "//Example.org//Example V3.13.2//EN",
       "entries": [
         {
-          "@type": "jsevent",
+          "@type": "Event",
           "created ": "2020-07-04T03:57:06Z",
           "start": "2020-05-22T12:00:00",
           "timeZone": "America/New_York",
@@ -2401,9 +2401,9 @@
             </t>
 
 
-            <section anchor="translate-jscal-jsevent" title="jsevent">
+            <section anchor="translate-jscal-event" title="Event">
                 <t>
-                    A JSCalendar object with a type of "jsevent" is mapped on to a
+                    A JSCalendar object with a type of "Event" is mapped on to a
                     <xref target="RFC5545"/> VEVENT component.
                 </t>
                 <t>
@@ -2414,7 +2414,7 @@
                     <figure>
                         <artwork><![CDATA[
   {
-    "@type": "jsevent",
+    "@type": "Event",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
   }
@@ -2431,29 +2431,29 @@
                     </figure>
                 </t>
                 <t>
-                    When converting multiple JSEvent or JSTask objects
+                    When converting multiple Event or Task objects
                     the surrounding <xref target="RFC5545"/> VCALENDAR
                     object must have a <xref target="RFC5545"/> PRODID
-                    set from either the JSGroup "prodid" or generated.
+                    set from either the Group "prodid" or generated.
                 </t>
             </section>
 
-            <section anchor="translate-jscal-jsgroup" title="jsgroup">
+            <section anchor="translate-jscal-group" title="Group">
                 <t>
-                    A JSCalendar object with a type of "jsgroup" is mapped on to a
+                    A JSCalendar object with a type of "Group" is mapped on to a
                     <xref target="RFC5545"/> VCALENDAR component.
                     <figure>
                         <artwork><![CDATA[
   {
-    "@type": "jsgroup",
+    "@type": "Group",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
     {
-      "@type": "jsevent",
+      "@type": "Event",
       ...
     }
     {
-      "@type": "jsevent",
+      "@type": "Event",
       ...
     }
   }
@@ -2474,9 +2474,9 @@
                 </t>
             </section>
 
-            <section anchor="translate-jscal-jstask" title="jstask">
+            <section anchor="translate-jscal-task" title="Task">
                 <t>
-                    A JSCalendar object with a type of "jstask" is mapped on to a
+                    A JSCalendar object with a type of "Task" is mapped on to a
                     <xref target="RFC5545"/> VTODO component.
                 </t>
                 <t>
@@ -2487,7 +2487,7 @@
                     <figure>
                         <artwork><![CDATA[
   {
-    "@type": "jstask",
+    "@type": "Task",
     "prodid": "-//ABC Corporation//NONSGML My Product//EN",
     ...
   }
@@ -2504,10 +2504,10 @@
                     </figure>
                 </t>
                 <t>
-                    When converting multiple JSEvent or JSTask objects
+                    When converting multiple Event or Task objects
                     the surrounding <xref target="RFC5545"/> VCALENDAR
                     object must have a <xref target="RFC5545"/> PRODID
-                    set from either the JSGroup "prodid" or generated.
+                    set from either the Group "prodid" or generated.
                 </t>
             </section>
 
@@ -2522,7 +2522,7 @@
                     <figure>
                         <artwork><![CDATA[
   {
-    "@type": "jsevent",
+    "@type": "Event",
     ...
     "timezones": {
       "/Example/Somewhere: {
@@ -2555,10 +2555,10 @@
                     </figure>
                 </t>
                 <t>
-                    When converting multiple JSEvent or JSTask objects
+                    When converting multiple Event or Task objects
                     the surrounding <xref target="RFC5545"/> VCALENDAR
                     object must have a <xref target="RFC5545"/> PRODID
-                    set from either the JSGroup "prodid" or generated.
+                    set from either the Group "prodid" or generated.
                 </t>
             </section>
 
@@ -2983,13 +2983,13 @@
             </t>
         </section>
 
-        <section anchor="translate-jstask" title="JSTask">
+        <section anchor="translate-task" title="Task">
             <t>
-                A JSTask object maps to the iCalendar VTODO component type
+                A Task object maps to the iCalendar VTODO component type
                 <xref target="RFC5545"/>.
-                The following tables maps the JSTask-specific properties to iCalendar:
+                The following tables maps the Task-specific properties to iCalendar:
             </t>
-            <texttable anchor="translate-jstask-time-table" title="Mapping JSTask properties">
+            <texttable anchor="translate-task-time-table" title="Mapping Task properties">
                 <ttcol align='left'>Property</ttcol>
                 <ttcol align='left'>iCalendar counterpart</ttcol>
                 <c>due</c>
@@ -2999,7 +2999,7 @@
 
                 <c>statusUpdatedAt</c>
                 <c>
-                    COMPLETED property. The JSTask status property
+                    COMPLETED property. The Task status property
                     MUST have value <spanx style="verb">completed</spanx>.
 
                 </c>
@@ -3019,11 +3019,11 @@
             </texttable>
         </section>
 
-        <section title="JSGroup">
+        <section title="Group">
             <t>
-                A JSGroup maps to a iCalendar VCALENDAR containing VEVENT or VTODO components.
+                A Group maps to a iCalendar VCALENDAR containing VEVENT or VTODO components.
             </t>
-            <texttable anchor="translate-jsgroup-table" title="Mapping JSGroup properties">
+            <texttable anchor="translate-Group-table" title="Mapping Group properties">
                 <ttcol align='left'>Property</ttcol>
                 <ttcol align='left'>iCalendar counterpart</ttcol>
 
@@ -3053,9 +3053,9 @@
 
                 <c>@type</c>
                 <c>
-                    Determined by the iCalendar component type: <spanx style="verb">jsevent</spanx>
-                    for VEVENT, <spanx style="verb">jstask</spanx> for VTODO,
-                    <spanx style="verb">jsgroup</spanx> for VCALENDAR.
+                    Determined by the iCalendar component type: <spanx style="verb">Event</spanx>
+                    for VEVENT, <spanx style="verb">Task</spanx> for VTODO,
+                    <spanx style="verb">Group</spanx> for VCALENDAR.
                 </c>
 
                 <c>alerts</c>
