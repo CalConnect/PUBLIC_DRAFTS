@@ -2394,10 +2394,10 @@
         </section>
 
         <section anchor="translate-jscalendar-components"
-                 title="Translating JSCalendar properties to iCalendar components">
+                 title="Translating JSCalendar objects to iCalendar">
             <t>
-                This section lists JSCalendar property types that map
-                on to <xref target="RFC5545"/> components.
+                This section lists the JSCalendar objects that map
+                to <xref target="RFC5545"/> components.
             </t>
 
 
@@ -2511,56 +2511,16 @@
                 </t>
             </section>
 
-            <section anchor="translate-jscal-timezones-comp"
-                     title="timezones">
-                <t>
-                    The JSCalendar TimeZone objects within a "timezones"
-                    property are mapped on to
-                    <xref target="RFC5545"/> VTIMEZONE components within
-                    the surrounding VCALENDAR component. Each mapped
-                    TimeZone MUST only appear once.
-                    <figure>
-                        <artwork><![CDATA[
-  {
-    "@type": "Event",
-    ...
-    "timezones": {
-      "/Example/Somewhere: {
-        "@type": "TimeZone",
-        "tzId": "Example/Somewhere",
-        ...
-      },
-      "/Example/Somewhere-else": {
-        "@type": "TimeZone",
-        "tzId": "Example/Somewhere-else",
-        ...
-      }
-    }
-  }
 
-  maps to
+        </section>
 
-  BEGIN: VTIMEZONE
-  TZID: Example/Somewhere
-  ...
-  END: VTIMEZONE
-  BEGIN: VTIMEZONE
-  TZID: Example/Somewhere-else
-  ...
-  END: VTIMEZONE
-  BEGIN: VEVENT
-  ...
-  END: VEVENT
-]]></artwork>
-                    </figure>
-                </t>
-                <t>
-                    When converting multiple Event or Task objects
-                    the surrounding <xref target="RFC5545"/> VCALENDAR
-                    object must have a <xref target="RFC5545"/> PRODID
-                    set from either the Group "prodid" or generated.
-                </t>
-            </section>
+        <section anchor="translate-jscalendar-properties"
+                 title="Translating JSCalendar properties to iCalendar">
+            <t>
+                This section is an alphabetic list of all JSCalendar top-level
+                properties that map to <xref target="RFC5545"/> iCalendar.
+            </t>
+
 
             <section anchor="translate-jscal-alerts" title="alerts">
                 <t>
@@ -2677,15 +2637,6 @@
                     </t>
                 </section>
             </section>
-
-        </section>
-
-        <section anchor="translate-jscalendar-properties"
-                 title="Translating JSCalendar properties to iCalendar properties">
-            <t>
-                This section is an alphabetic list of all JSCalendar
-                property types that map on to <xref target="RFC5545"/> properties.
-            </t>
 
             <section anchor="translate-jscal-categories"
                      title="categories">
@@ -2895,6 +2846,57 @@
                     Where do we get the cua?
                 </t>
 
+            </section>
+
+            <section anchor="translate-jscal-timezones"
+                     title="timezones">
+                <t>
+                    The JSCalendar TimeZone objects within a "timezones"
+                    property are mapped on to
+                    <xref target="RFC5545"/> VTIMEZONE components within
+                    the surrounding VCALENDAR component. Each mapped
+                    TimeZone MUST only appear once.
+                    <figure>
+                        <artwork><![CDATA[
+  {
+    "@type": "Event",
+    ...
+    "timezones": {
+      "/Example/Somewhere: {
+        "@type": "TimeZone",
+        "tzId": "Example/Somewhere",
+        ...
+      },
+      "/Example/Somewhere-else": {
+        "@type": "TimeZone",
+        "tzId": "Example/Somewhere-else",
+        ...
+      }
+    }
+  }
+
+  maps to
+
+  BEGIN: VTIMEZONE
+  TZID: Example/Somewhere
+  ...
+  END: VTIMEZONE
+  BEGIN: VTIMEZONE
+  TZID: Example/Somewhere-else
+  ...
+  END: VTIMEZONE
+  BEGIN: VEVENT
+  ...
+  END: VEVENT
+]]></artwork>
+                    </figure>
+                </t>
+                <t>
+                    When converting multiple Event or Task objects
+                    the surrounding <xref target="RFC5545"/> VCALENDAR
+                    object must have a <xref target="RFC5545"/> PRODID
+                    set from either the Group "prodid" or generated.
+                </t>
             </section>
         </section>
 
