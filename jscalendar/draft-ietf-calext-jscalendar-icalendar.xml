@@ -206,7 +206,7 @@
             <t>
                 iCalendar data uses an "escape" character sequence for text values
                 and property parameter values.  See Sections 3.1 and 3.3 of <xref target="RFC5545"/>
-                as well as [RFC6868].
+                as well as <xref target="RFC6868"/>.
             </t>
             <t>
                 There is a subtle difference in the number representations between
@@ -218,7 +218,7 @@
             <t>
                 When converting from iCalendar to JSCalendar: First, iCalendar lines MUST
                 be unfolded.  Afterwards, any iCalendar escaping MUST be unescaped.
-                Finally, JSON escaping, as described in Section 7 of <xref target="RFC7159"/>, MUST
+                Finally, JSON escaping, as described in Section 7 of <xref target="RFC8259"/>, MUST
                 be applied.  The reverse order applies when converting from JSCalendar to
                 iCalendar, which is further described in Section ?.
             </t>
@@ -238,7 +238,7 @@
                     </t>
                 </list>
                 When base64 encoding is used, it MUST conform to Section 4 of
-                [RFC4648], which is the base64 method used in [RFC5545].
+                <xref target="RFC4648"/>, which is the base64 method used in <xref target="RFC5545"/>.
             </t>
             <t>
                 One key difference in the formatting of values used in iCalendar and
@@ -3015,11 +3015,13 @@
         <references title="Normative References">
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"?>
-            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7159.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6868.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"?>
+            <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8984.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9073.xml"?>
             <?rfc include="http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9074.xml"?>
