@@ -2783,14 +2783,98 @@
 
             <section anchor="translate-jscal-locations" title="locations">
                 <t>
-                    JSCalendar locations should be mapped on to
+                    JSCalendar locations map to
                     <xref target="draft-ietf-calext-eventpub-extensions"/>VLOCATION
-                    components. Additionally, for backwards compatibility,
-                    a location should be mapped on to a
-                    <xref target="RFC5545"/> LOCATION property. This property
-                    should be mapped from the only location or the one
-                    related to the start.
+                    components.
                 </t>
+                <t>
+                  Additionally, for backwards compatibility,
+                  one location should be mapped on to a
+                  <xref target="RFC5545"/> LOCATION property.
+                </t>
+
+                <section anchor="translate-jscal-location-coordinates"
+                         title="coordinates">
+                    <t>
+                      TODO. Need to decide if to use GEO or define new GEO-URI.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-description"
+                         title="description">
+                    <t>
+                      The "description" property maps to the
+                      DESCRIPTON property value of the VLOCATION.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-links"
+                         title="links">
+                    <t>
+                      TODO. First need to define top-level links property
+                      mapping.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-locationtypes"
+                         title="locationTypes">
+                    <t>
+                      The keys of the "locationTypes" property map to the
+                      LOCATION-TYPE property value of the VLOCATION. The
+                      keys MUST be separated by the COMMA character (U+002c)
+                      and SHOULD sort in ascending alphabetical order.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-name"
+                         title="name">
+                    <t>
+                      The "name" property maps to the NAME property value
+                      of the VLOCATION.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-relativeTo"
+                         title="relativeTo">
+                    <t>
+                      The "relativeTo" property maps to the RELATED-TO property
+                      value of the VLOCATION.
+                      TODO need updated definition of the RELATED-TO draft.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-timeZone"
+                         title="timeZone">
+                    <t>
+                      The "timeZone" property maps to the TZID property value
+                      of the VLOCATION.
+                    </t>
+                    <t>
+                        If the TimeZoneId value matches a name from the
+                        IANA Time Zone Database
+                        <xref target="TZDB" format="default"/> then this value
+                        MUST be set in the TZID property.
+                    </t>
+                    <t>
+                        If the TimeZoneId identifies a custom TimeZone in the
+                        JSCalendar object, then the TZID property value MUST
+                        be set to the "tzId" property value of the custom
+                        TimeZone object, and its related VTIMEZONE added to
+                        the VCALENDAR component that encloses the VLOCATION.
+                    </t>
+                </section>
+
+                <section anchor="translate-jscal-location-uid"
+                         title="uid">
+                    <t>
+                      The "uid" property maps to the UID property value of
+                      the VLOCATION. The identifier of the Location object
+                      in the enclosing "locations" property maps to the
+                      JMAP-ID property parameter. The parameter MAY be
+                      omitted if the identifier of the Location matches
+                      the "uid" value.
+                    </t>
+                </section>
             </section>
 
             <section anchor="translate-jscal-participants"
@@ -2973,6 +3057,13 @@
                     <author/>
                     <date/>
                 </front>
+            </reference>
+            <reference anchor="TZDB" target="https://www.iana.org/time-zones">
+              <front>
+                <title>Time Zone Database</title>
+                <author><organization>IANA</organization></author>
+                <date/>
+              </front>
             </reference>
         </references>
 
