@@ -2,6 +2,8 @@
 
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3986.xml">
+<!ENTITY RFC4918 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4918.xml">
 <!ENTITY RFC5545 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5545.xml">
 <!ENTITY RFC7986 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7986.xml">
 <!ENTITY RFC8174 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8174.xml">
@@ -9,11 +11,12 @@
 <!ENTITY RFC8607 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8607.xml">
 <!ENTITY W3C.REC-skos-reference-20090818 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml-w3c/reference.W3C.REC-skos-reference-20090818.xml">
 <!ENTITY W3C.WD-xptr-xpointer-20021219 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.WD-xptr-xpointer-20021219.xml">
+<!ENTITY W3C.REC-xptr-framework-20030325 SYSTEM "https://xml2rfc.tools.ietf.org/public/rfc/bibxml4/reference.W3C.REC-xptr-framework-20030325.xml">
         ]>
 
 <rfc category="std"
      updates='5545' 
-     docName="draft-ietf-calext-ical-relations-08" ipr="trust200902">
+     docName="draft-ietf-calext-ical-relations-09" ipr="trust200902">
         <?rfc strict="yes" ?>
         <?rfc toc="yes"?>
         <?rfc tocdepth="5"?>
@@ -42,7 +45,7 @@
       </address>
     </author>
 
-    <date day='13' month='October' year='2021' />
+    <date day='23' month='January' year='2022' />
 
     <area>Applications</area>
 
@@ -54,8 +57,8 @@
 
     <abstract>
       <t>
-        This specification updates RELATED-TO defined in  
-        iCalendar (RFC5545) and introduces new iCalendar
+        This specification updates the iCalendar RELATED-TO property
+        by adding new relation types and introduces new iCalendar
         properties LINK, CONCEPT and REFID to allow better
         linking and grouping of iCalendar components and related data.
       </t>
@@ -65,7 +68,8 @@
   <middle>
     <section title="Introduction">
       <t>
-        iCalendar entities often need to be related to each other or to
+        iCalendar entities defined in <xref target='RFC5545'/> often
+        need to be related to each other or to
         associated meta-data. The specifications below support
         relationships of the following forms:
         <list style='hanging'>
@@ -88,7 +92,7 @@
 
       <section title="Structured iCalendar relationships">
         <t>
-          The currently existing iCalendar <xref target='RFC5545'/>
+          The iCalendar <xref target='RFC5545'/>
           RELATED-TO property has no support for temporal relationships
           as used by standard project management tools.
         </t>
@@ -262,10 +266,11 @@
             MUST be another component within that collection.
           </t>
           <t hangText="REFERENCE:">
-            An XPointer. In an XML environment it may be necessary to refer to
-            an external XML artifact. The XPointer is defined in
-            <xref target='W3C.WD-xptr-xpointer-20021219'/> and allows
-            addressing portions of XML documents.
+            In an XML environment it may be necessary to refer to a
+            fragment of an external XML artifact. This value is a URI
+            with an XPointer anchor value. The XPointer is defined in
+            <xref target='W3C.WD-xptr-xpointer-20021219'/> and it's
+            use as an anchor is defined in <xref target="W3C.REC-xptr-framework-20030325"/>
           </t>
         </list>
       </t>
@@ -449,7 +454,7 @@
                 </preamble>
 
                 <artwork type="abnf">
-  linkrelparam = "REL" "="
+  linkrelparam = "LINKREL" "="
                  ("SOURCE"      ; Link to source of this component
                  / DQUOTE uri DQUOTE
                  / iana-token)   ; Other IANA registered type
@@ -459,13 +464,18 @@
 
             <t hangText="Description:">
               This parameter MUST be specified on all LINK properties, and
-              defines the type of reference.  This allows programs consuming this
-              data to automatically scan for references they support.  In addition
-              to the values defined here any value defined in <xref target='RFC8288'/>
-              may be used. There is no default relation type.
+              defines the type of reference. This allows programs consuming this
+              data to automatically scan for references they support. There is no default relation type.
             </t>
 
-            <t hangText="REL=SOURCE:">
+            <t>
+              In addition to the values defined here any value defined
+              in <xref target='RFC8288'/> may be used. However these uses
+              SHOULD be documented in an RFC updating both
+              <xref target='RFC5545'/> and <xref target='RFC8288'/>
+            </t>
+
+            <t hangText="LINKREL=SOURCE:">
               identifies the source of the event information.
             </t>
 
@@ -539,8 +549,11 @@
           </t>
 
           <t hangText="REFERENCE">
-            VALUE=REFERENCE indicates that the associated value is an XPointer
-            referencing an associated XML artifact.
+            VALUE=REFERENCE indicates that the associated value
+            references an associated XML artifact and is a URI
+            with an XPointer anchor value. The XPointer is defined in
+            <xref target='W3C.WD-xptr-xpointer-20021219'/> and it's
+            use as an anchor is defined in <xref target="W3C.REC-xptr-framework-20030325"/>.
           </t>
         </list>
       </t>
@@ -646,8 +659,8 @@
             </t>
 
             <t hangText="Purpose:">
-              This property provides a reference to external information about a
-              component.
+              This property provides a reference to external information
+              related to a component.
             </t>
 
             <t hangText="Value type:">
@@ -680,7 +693,7 @@
 
                 <artwork>
    link           = "LINK" linkparam ":"
-                      ( text /  ; for VALUE=REFERENCE
+                      ( uri /  ; for VALUE=REFERENCE
                         uri /  ; for VALUE=URI
                         text ) ; for VALUE=TEXT
                     CRLF
@@ -688,16 +701,51 @@
    linkparam      = ; the elements herein may appear in any order,
                     ; and the order is not significant.
 
-                    (";" "VALUE" "=" ("UID" /
+                    (";" "VALUE" "=" ("REFERENCE" /
                                       "URI" /
                                       "TEXT"))
                     1*(";" linkrelparam)
                     (";" fmttypeparam)
                     (";" labelparam)
+                    (";" langparam)
                     *(";" other-param)
 
                 </artwork>
               </figure>
+            </t>
+
+            <t>
+              This property is a serialisation of the model in
+              <xref target="RFC8288"/>, where the link target is
+              carried in the property value, the link context is the
+              containing calendar entity, and the link relation type
+              and any target attributes are carried in iCalendar property
+              parameters.
+            </t>
+
+            <t>
+              The LINK property parameters
+              map to <xref target="RFC8288"/> attributes as follows:
+
+              <list style='hanging'>
+                <t hangText="LABEL:">
+                  Maps to the "title" attribute defined in section 3.4.1 of <xref target="RFC8288"/>.
+                </t>
+                <t hangText="LANG:">
+                  Maps to the "hreflang" attribute defined in section 3.4.1 of <xref target="RFC8288"/>.
+                </t>
+                <t hangText="LINKREL:">
+                  Maps to the link relation type defined in section 2.1 of <xref target="RFC8288"/>.
+                </t>
+                <t hangText="FMTTYPE:">
+                  Maps to the "type" attribute defined in section 3.4.1 of <xref target="RFC8288"/>.
+                </t>
+              </list>
+            </t>
+
+            <t>
+              There is no mapping for <xref target="RFC8288"/> "title*",
+              "anchor", "rev" or "media".
             </t>
 
             <t hangText="Example:">
@@ -724,6 +772,23 @@
                 <artwork>
   LINK;LINKREL="https://example.com/linkrel/derivedFrom";VALUE=URI:
    http://example.com/tasks/01234567-abcd1234.ics
+                </artwork>
+              </figure>
+            </t>
+
+            <t hangText="Example:">
+              <figure>
+                <preamble>
+                  The following is an example of this property which
+                  provides a reference to a fragment of an XML document.
+                  The link relation is a vendor defined value
+                </preamble>
+
+                <artwork>
+  LINK;LINKREL="https://example.com/linkrel/costStructure";
+   VALUE=REFERENCE:
+   http://example.com/xmlDocs/bidFramework.xml
+   #xpointer(descendant::CostStruc/range-to(following::CostStrucEND[1]))
                 </artwork>
               </figure>
             </t>
@@ -782,6 +847,10 @@
               </figure>
             </t>
 
+            <t>
+              The current link registry
+            </t>
+
             <t hangText="Example:">
               <figure>
                 <preamble>
@@ -798,8 +867,21 @@
       </section>
     </section>
 
-    <section anchor="redefined_property_related_to"
-             title="Redefined RELATED-TO Property">
+    <section anchor="updates_to_rfc_5545"
+             title="Updates to RFC 5545">
+      <t>
+        This specification updates the RELATED-TO property defined
+        in Section 3.8.4.5 of <xref target='RFC5545'/>.
+      </t>
+
+      <t>
+        The RELTYPE parameter is extended to take new values defining
+        temporal relationships, a GAP parameter is defined to provide lead
+        and lag values, and RELATED-TO is extended to allow URI values.
+        These changes allow the RELATED-TO property to define a richer set of
+        relationships useful for project management.
+      </t>
+
       <section anchor="related-to"
                title="RELATED-TO">
         <t>
@@ -930,8 +1012,23 @@
     <section title='Security Considerations'>
       <t>
        Applications using the LINK property need to be aware of the risks
-       entailed in using the URIs provided as values. See [RFC3986] for
+       entailed in using the URIs provided as values. See section 7 of
+        <xref target='RFC3986'/> for
        a discussion of the security considerations relating to URIs.
+      </t>
+
+      <t>
+        In particular note section 7.1 "Reliability and Consistency" of
+        <xref target='RFC3986'/> which points out the lack of a stability
+        guarantee for referenced resources.
+      </t>
+
+      <t>
+        When the value is a REFERENCE type the targeted data is an XML document
+        or portion thereof. Consumers need to be aware of the security issues
+        related to XML processing - in particular those related to XML entities.
+        See <xref target='RFC4918'/> - Section 20.6. Additionally note that
+        the reference may be invalid or become so over time.
       </t>
       <t>
         The CONCEPT and redefined RELATED-TO property have
@@ -969,7 +1066,7 @@
 
           <c>RELATED-TO</c>
           <c>Current</c>
-          <c><xref target='RFC5545'/>, <xref target="redefined_property_related_to"/></c>
+          <c><xref target='RFC5545'/>, <xref target="related-to"/></c>
         </texttable>
       </section>
 
@@ -990,7 +1087,7 @@
           <c>Current</c>
           <c><xref target="gap"/></c>
 
-          <c>REL</c>
+          <c>LINKREL</c>
           <c>Current</c>
           <c><xref target="linkrel"/></c>
         </texttable>
@@ -1125,11 +1222,14 @@
 
     <references title="Normative References">
       &RFC2119;
+      &RFC3986;
+      &RFC4918;
       &RFC5545;
       &RFC7986;
       &RFC8174;
       &RFC8288;
       &W3C.WD-xptr-xpointer-20021219;
+      &W3C.REC-xptr-framework-20030325;
       &W3C.REC-skos-reference-20090818;
     </references>
   </back>

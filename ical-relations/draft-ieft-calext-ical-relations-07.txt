@@ -4,19 +4,20 @@
 
 Network Working Group                                        M. Douglass
 Internet-Draft                                                  Bedework
-Updates: 5545 (if approved)                            December 31, 2020
+Updates: 5545 (if approved)                                July 30, 2021
 Intended status: Standards Track
-Expires: July 4, 2021
+Expires: January 31, 2022
 
 
                   Support for iCalendar Relationships
-                  draft-ietf-calext-ical-relations-06
+                  draft-ietf-calext-ical-relations-07
 
 Abstract
 
-   This specification updates RELATED-TO defined in [RFC5545] and
-   introduces new iCalendar properties LINK, CONCEPT and REFID to allow
-   better linking and grouping of iCalendar components and related data.
+   This specification updates RELATED-TO defined in iCalendar (RFC5545)
+   and introduces new iCalendar properties LINK, CONCEPT and REFID to
+   allow better linking and grouping of iCalendar components and related
+   data.
 
 Status of This Memo
 
@@ -33,11 +34,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 4, 2021.
+   This Internet-Draft will expire on January 31, 2022.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -52,10 +53,9 @@ Copyright Notice
 
 
 
-
-Douglass                  Expires July 4, 2021                  [Page 1]
+Douglass                Expires January 31, 2022                [Page 1]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
 Table of Contents
@@ -78,7 +78,7 @@ Table of Contents
    8.  New Properties  . . . . . . . . . . . . . . . . . . . . . . .   9
      8.1.  Concept . . . . . . . . . . . . . . . . . . . . . . . . .   9
      8.2.  Link  . . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     8.3.  Refid . . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     8.3.  Refid . . . . . . . . . . . . . . . . . . . . . . . . . .  12
    9.  Redefined RELATED-TO Property . . . . . . . . . . . . . . . .  12
      9.1.  RELATED-TO  . . . . . . . . . . . . . . . . . . . . . . .  12
    10. Security Considerations . . . . . . . . . . . . . . . . . . .  14
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Douglass                  Expires July 4, 2021                  [Page 2]
+Douglass                Expires January 31, 2022                [Page 2]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
    Linked:  Entities can be linked to other entities such as vcards
@@ -165,9 +165,9 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 
 
-Douglass                  Expires July 4, 2021                  [Page 3]
+Douglass                Expires January 31, 2022                [Page 3]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
    The current [RFC5545] CATEGORY property is used as a free form
@@ -217,17 +217,17 @@ Internet-Draft           iCalendar Relationships           December 2020
    The LINK property SHOULD NOT be treated as just another attachment.
    The ATTACH property is being extended to handle server-side
    management and stripping of inline data.  Clients may choose to
-   handle attachments differently as they are often an integral part of
 
 
 
-Douglass                  Expires July 4, 2021                  [Page 4]
+
+Douglass                Expires January 31, 2022                [Page 4]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
-   the message - for example, the agenda.  See
-   [I-D.daboo-caldav-attachments]
+   handle attachments differently as they are often an integral part of
+   the message - for example, the agenda.  See [RFC8607]
 
 1.5.  Caching and offline use
 
@@ -277,9 +277,9 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 
 
-Douglass                  Expires July 4, 2021                  [Page 5]
+Douglass                Expires January 31, 2022                [Page 5]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
 4.  New temporal RELTYPE Parameter values
@@ -318,7 +318,6 @@ Internet-Draft           iCalendar Relationships           December 2020
       For example, we start the potatoes, then the meat then the peas
       but they should all be cooked at the same time.
 
-
                        ============
                        |  Task-A  |--+
                        ============  |
@@ -333,9 +332,9 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 
 
-Douglass                  Expires July 4, 2021                  [Page 6]
+Douglass                Expires January 31, 2022                [Page 6]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
    RELTYPE=STARTTOFINISH:  The start of Task-A (which occurs after Task-
@@ -371,6 +370,10 @@ Internet-Draft           iCalendar Relationships           December 2020
 
    This section defines the additional relationships below:
 
+   RELTYPE=FIRST:  Indicates that the referenced calendar component is
+      the first in a series the referenced calendar component is part
+      of.
+
    RELTYPE=DEPENDS-ON:  Indicates that the current calendar component
       depends on the referenced calendar component in some manner.  For
       example a task may be blocked waiting on the other, referenced,
@@ -380,19 +383,19 @@ Internet-Draft           iCalendar Relationships           December 2020
       components with a REFID property which matches the value given in
       the associated RELATED-TO property.
 
+
+
+
+
+
+Douglass                Expires January 31, 2022                [Page 7]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
+
    RELTYPE=CONCEPT:  Establishes a reference from the current component
       to components with a CONCEPT property which matches the value
       given in the associated RELATED-TO property.
-
-
-
-
-
-
-Douglass                  Expires July 4, 2021                  [Page 7]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
 
 6.  New Property Parameters
 
@@ -438,17 +441,17 @@ Internet-Draft           iCalendar Relationships           December 2020
 
    Description:  This parameter MAY be specified on the RELATED-TO
       property, and defines the duration of time between the predecessor
+
+
+
+Douglass                Expires January 31, 2022                [Page 8]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
+
       and successor in an interval.  When positive it defines the lag
       time between a task and its logical successor.  When negative it
       defines the lead time.
-
-
-
-
-Douglass                  Expires July 4, 2021                  [Page 8]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
 
       An example of lag time might be if task A is "paint the room" and
       task B is "hang the drapes" then task A may be related to task B
@@ -492,20 +495,22 @@ Internet-Draft           iCalendar Relationships           December 2020
       in searching for a calendar component of a particular type and
       category.
 
+
+
+
+
+
+Douglass                Expires January 31, 2022                [Page 9]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
+
       Within the "VEVENT", "VTODO", or "VJOURNAL" calendar components,
       more than one formal category can be specified by using multiple
       CONCEPT properties.
 
       This categorization is distinct from the more informal "tagging"
       of components provided by the existing CATEGORIES property.  It is
-
-
-
-Douglass                  Expires July 4, 2021                  [Page 9]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
-
       expected that the value of the CONCEPT property will reference an
       external resource which provides information about the
       categorization.
@@ -547,20 +552,21 @@ Internet-Draft           iCalendar Relationships           December 2020
       reference type or format type parameters can also be specified on
       this property.  The LABEL parameter is defined in [RFC7986]
 
+
+
+
+
+Douglass                Expires January 31, 2022               [Page 10]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
+
    Conformance:  This property MAY be specified in any iCalendar
       component.
 
    Description:  When used in a component the value of this property
       points to additional information related to the component.  For
       example, it may reference the originating web server.
-
-
-
-
-Douglass                  Expires July 4, 2021                 [Page 10]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
 
    Format Definition:
 
@@ -600,6 +606,17 @@ Internet-Draft           iCalendar Relationships           December 2020
      LINK;LINKREL="https://example.com/linkrel/derivedFrom";VALUE=URI:
       http://example.com/tasks/01234567-abcd1234.ics
 
+
+
+
+
+
+
+Douglass                Expires January 31, 2022               [Page 11]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
+
 8.3.  Refid
 
    Property name:  REFID
@@ -608,15 +625,6 @@ Internet-Draft           iCalendar Relationships           December 2020
       entities.
 
    Value type:  TEXT
-
-
-
-
-
-Douglass                  Expires July 4, 2021                 [Page 11]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
 
    Property Parameters:  Non-standard parameters can be specified on
       this property.
@@ -658,6 +666,13 @@ Internet-Draft           iCalendar Relationships           December 2020
       definition here extends the definition in Section 3.8.4.5 of
       [RFC5545] by allowing URI or UID values and a GAP parameter.
 
+
+
+Douglass                Expires January 31, 2022               [Page 12]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
+
    Value type:  URI, UID or TEXT
 
    Property Parameters:  Relationship type, IANA and non-standard
@@ -665,14 +680,6 @@ Internet-Draft           iCalendar Relationships           December 2020
 
    Conformance:  This property MAY be specified in any iCalendar
       component.
-
-
-
-
-Douglass                  Expires July 4, 2021                 [Page 12]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
 
    Description:  By default or when VALUE=UID is specified, the property
       value consists of the persistent, globally unique identifier of
@@ -717,17 +724,9 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 
 
-
-
-
-
-
-
-
-
-Douglass                  Expires July 4, 2021                 [Page 13]
+Douglass                Expires January 31, 2022               [Page 13]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
    This property is defined by the following notation:
@@ -781,9 +780,9 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 
 
-Douglass                  Expires July 4, 2021                 [Page 14]
+Douglass                Expires January 31, 2022               [Page 14]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
                    +----------+---------+-------------+
@@ -803,8 +802,8 @@ Internet-Draft           iCalendar Relationships           December 2020
                    +-----------+---------+-------------+
                    | Parameter | Status  | Reference   |
                    +-----------+---------+-------------+
-                   | REL       | Current | Section 6.1 |
                    | GAP       | Current | Section 6.2 |
+                   | REL       | Current | Section 6.1 |
                    +-----------+---------+-------------+
 
 11.3.  iCalendar Value Data Type Registrations
@@ -816,8 +815,8 @@ Internet-Draft           iCalendar Relationships           December 2020
                  +-----------------+---------+-----------+
                  | Value Data Type | Status  | Reference |
                  +-----------------+---------+-----------+
-                 | UID             | Current | Section 7 |
                  | REFERENCE       | Current | Section 7 |
+                 | UID             | Current | Section 7 |
                  +-----------------+---------+-----------+
 
 11.4.  iCalendar RELTYPE Value Registrations
@@ -837,19 +836,20 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 
 
-Douglass                  Expires July 4, 2021                 [Page 15]
+Douglass                Expires January 31, 2022               [Page 15]
 
-Internet-Draft           iCalendar Relationships           December 2020
+Internet-Draft           iCalendar Relationships               July 2021
 
 
                 +-------------------+---------+-----------+
                 | Relationship Type | Status  | Reference |
                 +-------------------+---------+-----------+
-                | DEPENDS-ON        | Current | Section 5 |
-                | REFID             | Current | Section 5 |
                 | CONCEPT           | Current | Section 5 |
-                | FINISHTOSTART     | Current | Section 4 |
+                | DEPENDS-ON        | Current | Section 5 |
                 | FINISHTOFINISH    | Current | Section 4 |
+                | FINISHTOSTART     | Current | Section 4 |
+                | FIRST             | Current | Section 5 |
+                | REFID             | Current | Section 5 |
                 | STARTTOFINISH     | Current | Section 4 |
                 | STARTTOSTART      | Current | Section 4 |
                 +-------------------+---------+-----------+
@@ -878,30 +878,24 @@ Internet-Draft           iCalendar Relationships           December 2020
 
 13.  Normative References
 
-   [I-D.daboo-caldav-attachments]
-              Daboo, C. and A. Quillaud, "CalDAV Managed Attachments",
-              draft-daboo-caldav-attachments-03 (work in progress),
-              February 2014.
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
 
-
-
-
-
-
-Douglass                  Expires July 4, 2021                 [Page 16]
-
-Internet-Draft           iCalendar Relationships           December 2020
-
-
    [RFC5545]  Desruisseaux, B., Ed., "Internet Calendaring and
               Scheduling Core Object Specification (iCalendar)",
               RFC 5545, DOI 10.17487/RFC5545, September 2009,
               <https://www.rfc-editor.org/info/rfc5545>.
+
+
+
+
+
+Douglass                Expires January 31, 2022               [Page 16]
+
+Internet-Draft           iCalendar Relationships               July 2021
+
 
    [RFC7986]  Daboo, C., "New Properties for iCalendar", RFC 7986,
               DOI 10.17487/RFC7986, October 2016,
@@ -914,6 +908,11 @@ Internet-Draft           iCalendar Relationships           December 2020
    [RFC8288]  Nottingham, M., "Web Linking", RFC 8288,
               DOI 10.17487/RFC8288, October 2017,
               <https://www.rfc-editor.org/info/rfc8288>.
+
+   [RFC8607]  Daboo, C., Quillaud, A., and K. Murchison, Ed.,
+              "Calendaring Extensions to WebDAV (CalDAV): Managed
+              Attachments", RFC 8607, DOI 10.17487/RFC8607, June 2019,
+              <https://www.rfc-editor.org/info/rfc8607>.
 
    [W3C.CR-skos-reference-20090317]
               Bechhofer, S. and A. Miles, "SKOS Simple Knowledge
@@ -949,4 +948,4 @@ Author's Address
 
 
 
-Douglass                  Expires July 4, 2021                 [Page 17]
+Douglass                Expires January 31, 2022               [Page 17]
