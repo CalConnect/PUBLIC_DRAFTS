@@ -329,6 +329,9 @@
                     generally indicate what actions they prefer.
         </t>
         <t>
+          Any ATTENDEE properties in the VALARM MUST be ignored.
+        </t>
+        <t>
                     An <xref target="RFC5545" format="default"/> ACTION property
                     can take the defined values
                     "AUDIO" / "DISPLAY" / "EMAIL" whereas the
@@ -340,20 +343,33 @@
                     alert. Any attachment MUST be ignored.
         </t>
         <t>
-                    The <xref target="RFC5545" format="default"/> example VALARMs will
-                    be mapped as follows, assuming they are all in the
-                    same event:
+          The iCalendar DESCRIPTION property is required for both
+          ACTION:EMAIL and ACTION:DISPLAY. Additionally, the iCalendar
+          SUMMARY property is required for ACTION:EMAIL.
+        </t>
+        <t>
+          Store the SUMMARY in the optional alert title property and
+          the DESCRIPTION is the alert description property.
+        </t>
+        <t>
+          The <xref target="RFC5545" format="default"/> example VALARMs will
+          be mapped as follows, assuming they are all in the
+          same event:
         </t>
         <artwork name="" type="" align="left" alt=""><![CDATA[
   BEGIN:VEVENT
-  ...
+  DTSTAMP:20200522T142047Z
+  DTSTART;TZID=America/New_York:20220622T120000
+  DURATION:PT1H
+  SUMMARY:event with alarms
+  UID:6252D6C40A8308BFE25BBEFsimple-alarms-1
   BEGIN:VALARM
   TRIGGER;VALUE=DATE-TIME:20220508T120000Z
   REPEAT:4
   DURATION:PT15M
   ACTION:AUDIO
   ATTACH;FMTTYPE=audio/basic:ftp://example.com/pub/
-  sounds/bell-01.aud
+   sounds/bell-01.aud
   END:VALARM
   BEGIN:VALARM
   TRIGGER:-PT30M
@@ -369,50 +385,69 @@
   ATTENDEE:mailto:john_doe@example.com
   SUMMARY:*** REMINDER: SEND AGENDA FOR WEEKLY STAFF MEETING ***
   DESCRIPTION:A draft agenda needs to be sent out to the attendees
-  to the weekly managers meeting (MGR-LIST). Attached is a
-  pointer the document template for the agenda file.
+    to the weekly managers meeting (MGR-LIST). Attached is a
+    pointer the document template for the agenda file.
   ATTACH;FMTTYPE=application/msword:http://example.com/
-  templates/agenda.doc
+   templates/agenda.doc
   END:VALARM
   END:VEVENT
 
   maps to
 
   {
-    "@type": "Event",
-    ...
-    "alerts": {
-      "1": {
-        "@type": "Alert",
-        "action": "display",
-        "trigger": {
-          "@type": "AbsoluteTrigger",
-          "when": "2022-05-08T12:00:00Z"
-        }
-      },
-      "2": {
-        "@type": "Alert",
-        "action": "display",
-        "trigger": {
-          "@type": "OffsetTrigger",
-          "offset": "-PT30M"
-        }
-      },
-      "3": {
-        "@type": "Alert",
-        "action": "email",
-        "trigger": {
-          "@type": "OffsetTrigger",
-          "offset": "-P2D",
-          "relativeTo": "end"
-        }
+    "@type": "Group",
+    "prodId": "//example.org//Example V3.14//EN",
+    "entries": [
+      {
+        "@type": "Event",
+        "alerts": {
+          "1": {
+            "@type": "Alert",
+            "action": "display",
+            "trigger": {
+              "@type": "AbsoluteTrigger",
+              "when": "2022-05-08T12:00:00Z"
+            }
+          },
+          "2": {
+            "@type": "Alert",
+            "action": "display",
+            "description": "Breakfast meeting with executive\n
+                       team at 8:30 AM EST.",
+            "trigger": {
+              "@type": "OffsetTrigger",
+              "offset": "-PT30M"
+            }
+          },
+          "3": {
+            "@type": "Alert",
+            "action": "email",
+            "title": "*** REMINDER: SEND AGENDA FOR WEEKLY
+                      STAFF MEETING ***",
+            "description": "A draft agenda needs to be sent out to
+                    the attendees to the weekly managers meeting
+                    (MGR-LIST). Attached is a pointer the document
+                    template for the agenda file.",
+            "trigger": {
+              "@type": "OffsetTrigger",
+              "offset": "-P-2D",
+              "relativeTo": "end"
+            }
+          }
+        },
+        "created": "2022-05-02T20:04:12Z",
+        "start": "2022-06-22T12:00:00",
+        "timeZone": "America/New_York",
+        "duration": "PT1H",
+        "title": "event with alarms",
+        "uid": "6252D6C40A8308BFE25BBEFsimple-alarms-1"
       }
-    }
+    ]
   }
 ]]></artwork>
         <t>
-                    Note that the ATTACH, ATTENDEE, DESCRIPTION, DURATION, REPEAT and
-                    SUMMARY properties have been dropped.
+          Note that the ATTENDEE, DURATION and REPEAT properties
+          have been dropped.
         </t>
       </section>
       <section anchor="translate-ical-comp-vcalendar" numbered="true" toc="default">
@@ -2472,18 +2507,18 @@
       <section anchor="translate-jscal-alerts" numbered="true" toc="default">
         <name>alerts</name>
         <t>
-                    Each member of a JSCalendar alerts property maps to
-                    a <xref target="RFC5545" format="default"/>
-                    VALARM component. Only display and email alarms are
-                    allowed in JSCalendar.
+          Each member of a JSCalendar alerts property maps to
+          a <xref target="RFC5545" format="default"/>
+          VALARM component. Only display and email alarms are
+          allowed in JSCalendar.
         </t>
         <section anchor="translate-jscal-alert-action" numbered="true" toc="default">
           <name>action</name>
           <t>
-                        The JSCalendar "alert" property maps to the
-                        <xref target="RFC5545" format="default"/> ACTION property.
-                        The value SHOULD be the uppercased version if the
-                        JSCalendar "alert" property.
+            The JSCalendar "action" property maps to the
+            <xref target="RFC5545" format="default"/> ACTION property.
+            The value SHOULD be the uppercased version of the
+            JSCalendar "alert" property.
           </t>
           <t>
                         For example:
@@ -2508,6 +2543,24 @@
    ACTION:EMAIL
 
 ]]></artwork>
+        </section>
+        <section anchor="translate-jscal-alert-title-desc" numbered="true" toc="default">
+          <name>title and description</name>
+          <t>
+            The iCalendar DESCRIPTION property is required for both
+            ACTION:EMAIL and ACTION:DISPLAY. Additionally, the iCalendar
+            SUMMARY property is required for ACTION:EMAIL.
+          </t>
+          <t>
+            Both of these are optional in a JSCalendar alert. When
+            converting is there is a title property in the alert use
+            that for the SUMMARY.
+          </t>
+          <t>
+            Similarly if a JSCalendar description property is present
+            use that for the description. Otherwise use the alert
+            title property and if that is absent use the event title.
+          </t>
         </section>
         <section anchor="translate-jscal-alert-trigger" numbered="true" toc="default">
           <name>trigger</name>
@@ -2575,6 +2628,91 @@
                         Also in the icalendar to jscalendar.
           </t>
         </section>
+        <section anchor="translate-jscal-alert-example" numbered="true" toc="default">
+          <name>Example event with alerts</name>
+          <artwork name="" type="" align="left" alt=""><![CDATA[
+  {
+    "@type": "Group",
+    "prodId": "//Example.org//Example V3.14//EN",
+    "entries": [
+      {
+        "@type": "Event",
+        "alerts": {
+          "1": {
+            "@type": "Alert",
+            "action": "display",
+            "trigger": {
+              "@type": "AbsoluteTrigger",
+              "when": "2022-05-08T12:00:00Z"
+            }
+          },
+          "2": {
+            "@type": "Alert",
+            "action": "display",
+            "description": "Breakfast meeting with executive\nteam
+                            at 8:30 AM EST.",
+            "trigger": {
+              "@type": "OffsetTrigger",
+              "offset": "-PT30M"
+            }
+          },
+          "3": {
+            "@type": "Alert",
+            "action": "email",
+            "title": "*** REMINDER: SEND AGENDA FOR WEEKLY
+                      STAFF MEETING ***",
+            "description": "A draft agenda needs to be sent out to
+                      the attendees to the weekly managers meeting
+                      (MGR-LIST). Attached is a pointer the document
+                      template for the agenda file.",
+            "trigger": {
+              "@type": "OffsetTrigger",
+              "offset": "-P-2D",
+              "relativeTo": "end"
+            }
+          }
+        },
+        "created": "2022-05-02T20:04:12Z",
+        "start": "2022-06-22T12:00:00",
+        "timeZone": "America/New_York",
+        "duration": "PT1H",
+        "title": "event with alarms",
+        "uid": "6252D6C40A8308BFE25BBEFsimple-alarms-1"
+      }
+    ]
+  }
+  maps to
+
+  BEGIN:VEVENT
+  CREATED:20220502T200412Z
+  DURATION:PT1H
+  DTSTAMP:20220502T201921Z
+  DTSTART;TZID=America/New_York:20220622T120000
+  LAST-MODIFIED:20220502T201921Z
+  SUMMARY:event with alarms
+  UID:6252D6C40A8308BFE25BBEFsimple-alarms-1
+  BEGIN:VALARM
+  ACTION:DISPLAY
+  TRIGGER;RELATED=START:-PT30M
+  DESCRIPTION:event with alarms
+  END:VALARM
+  BEGIN:VALARM
+  ACTION:DISPLAY
+  TRIGGER;VALUE=DATE-TIME:20220508T120000Z
+  DESCRIPTION:event with alarms
+  END:VALARM
+  BEGIN:VALARM
+  ACTION:EMAIL
+  TRIGGER;RELATED=END:-P2D
+  DESCRIPTION:A draft agenda needs to be sent out to the attendees
+    to the weekly managers meeting (MGR-LIST). Attached is a pointe
+   r the document template for the agenda file.
+  SUMMARY:*** REMINDER: SEND AGENDA FOR WEEKLY STAFF MEETING ***
+  END:VALARM
+  END:VEVENT
+]]></artwork>
+        </section>
+
       </section>
       <section anchor="translate-jscal-categories" numbered="true" toc="default">
         <name>categories</name>
@@ -2893,6 +3031,15 @@
                     set from either the Group "prodid" or generated.
         </t>
       </section>
+    </section>
+    <section anchor="jscalendar-spec-updates" numbered="true" toc="default">
+      <name>JsCalendar base spec updates</name>
+      <ul>
+        <li>
+          Make title and description optional in an alert. Used to hold
+          SUMMARY and DESCRIPTION if present.
+        </li>
+      </ul>
     </section>
     <section anchor="security-considerations" numbered="true" toc="default">
       <name>Security Considerations</name>
