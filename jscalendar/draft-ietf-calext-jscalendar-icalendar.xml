@@ -348,7 +348,7 @@
   BEGIN:VEVENT
   ...
   BEGIN:VALARM
-  TRIGGER;VALUE=DATE-TIME:19970317T133000Z
+  TRIGGER;VALUE=DATE-TIME:20220508T120000Z
   REPEAT:4
   DURATION:PT15M
   ACTION:AUDIO
@@ -387,7 +387,7 @@
         "action": "display",
         "trigger": {
           "@type": "AbsoluteTrigger",
-          "when": "19970317T133000Z"
+          "when": "2022-05-08T12:00:00Z"
         }
       },
       "2": {
