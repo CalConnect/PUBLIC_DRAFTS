@@ -397,7 +397,7 @@
           "@type": "OffsetTrigger",
           "offset": "-PT30M"
         }
-      }
+      },
       "3": {
         "@type": "Alert",
         "action": "email",
@@ -949,10 +949,16 @@
       <section anchor="translate-ical-contact" numbered="true" toc="default">
         <name>CONTACT</name>
         <t>
-                    The CONTACT property is mapped on to a participant
-                    object with a "roles" property of
-                    "contact" and an "order" property of 1 (one). This
-                    defines the participant as a primary contact.
+          A CONTACT property is mapped on to a participant
+          object with a "roles" property of
+          "contact". The value of the property is used to set the
+          jscalendar participant "name" property.
+        </t>
+        <t>
+          QUESTIONS - what to use for the id? I have a uid but that's my
+          implementation. There may be multiple CONTACT properties. If
+          we create PARTICIPANT objects going the other way - how to
+          link them - "name" == CONTACT value?
         </t>
         <t>
                     Mapping parameters:
