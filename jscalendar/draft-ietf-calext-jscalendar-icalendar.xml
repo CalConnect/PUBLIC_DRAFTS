@@ -2814,7 +2814,7 @@
       <section anchor="translate-jscal-keywords" numbered="true" toc="default">
         <name>keywords</name>
         <t>
-                    Each member of the JSCalendar "categories" property
+                    Each member of the JSCalendar "keywords" property
                     maps on to a <xref target="RFC5545" format="default"/> CATEGORIES
                     property with
                     the value being the key of each member.
