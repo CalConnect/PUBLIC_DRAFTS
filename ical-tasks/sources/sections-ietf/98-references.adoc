@@ -8,15 +8,14 @@
 * [[[RFC5545,RFC 5545]]]
 * [[[RFC5546,RFC 5546]]]
 * [[[RFC8174,RFC 8174]]]
-* [[[EventPub,IETF(I-D.draft-ietf-calext-eventpub-extensions)]]], _Title_
+* [[[RFC9073,RFC 9073]]]
+
 * [[[Relations,IETF(I-D.draft-ietf-calext-ical-relations)]]], _Title_
 
 [bibliography]
 == Informative References
 
 * [[[BPMN,OMG BPMN 2.0.2]]], Object Management Group, Business Process Model and Notation, Version 2.0.2, December 2013
-
-* [[[VPOLL,IETF I-D.york-vpoll-03]]], York, E., Daboo, C., Douglass, M., "VPOLL: Consensus Scheduling Component for iCalendar", draft-york-vpoll-03, January 6, 2015
 
 * [[[TARCH,CalConnect Task Architecture V1.0]]], Apthorp, A., Daboo, C., Douglass, M., CalConnect, Task Architecture V1.0,
 http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf

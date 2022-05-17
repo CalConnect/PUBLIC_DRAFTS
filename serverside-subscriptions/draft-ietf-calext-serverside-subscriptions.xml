@@ -11,7 +11,6 @@
 <!ENTITY RFC5546 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5546.xml">
 <!ENTITY RFC5988 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5988.xml">
 <!ENTITY RFC7240 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7240.xml">
-<!ENTITY I-D.ietf-calext-extensions SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-calext-extensions.xml">
 <!ENTITY W3C.REC-xml-20060816 SYSTEM "http://xml.resource.org/public/rfc/bibxml4/reference.W3C.REC-xml-20060816.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
@@ -23,7 +22,7 @@
 <?rfc compact="yes" ?>
 <?rfc subcompact="no" ?>
 <rfc category="std" updates="2518"
-     docName="draft-ietf-calext-serverside-subscriptions-01" ipr="trust200902">
+     docName="draft-ietf-calext-serverside-subscriptions-02" ipr="trust200902">
   <front>
     <title abbrev="Serverside Subscriptions">Serverside Subscriptions</title>
 
@@ -44,7 +43,7 @@
       </address>
     </author>
 
-    <date month='February' year='2021' />
+    <date day="07" month='March' year='2022' />
 
     <area>Applications</area>
 
@@ -58,7 +57,7 @@
         to external resources can be handled by the server.
       </t>
       <t>
-        This specification updates <xref target='RFC4791'/> to add new
+        This specification updates RFC4791 to add new
         properties for the MKCOL request.
       </t>
     </abstract>
@@ -133,9 +132,13 @@
             <D:subscription/>
           </D:resourcetype>
           <D:displayname>Parrot Events</D:displayname>
-          <D:subscription-href>http://example.org/parrot-events.ics</D:subscription-href>
-          <D:subscription-deletions-suppressed>true</D:subscription-deletions-suppressed>
-          <D:subscription-suggested-refresh-interval>PT1H</D:subscription-suggested-refresh-interval>
+          <D:subscription-href
+              >http://example.org/parrot-events.ics<
+              /D:subscription-href>
+          <D:subscription-deletions-suppressed
+              >true</D:subscription-deletions-suppressed>
+          <D:subscription-suggested-refresh-interval
+              >PT1H</D:subscription-suggested-refresh-interval>
         </D:prop>
       </D:set>
     </D:mkcol>
@@ -589,7 +592,6 @@
       &RFC5988;
       &RFC7240;
       &W3C.REC-xml-20060816;
-      &I-D.ietf-calext-extensions;
     </references>
 
     <section title="Open issues">

@@ -20,7 +20,7 @@
 <?rfc subcompact="no" ?>
 <rfc category="std"
      updates='5545' 
-     docName="draft-ietf-calext-icalendar-series-00" ipr="trust200902">
+     docName="draft-ietf-calext-icalendar-series-01" ipr="trust200902">
 
   <front>
     <title abbrev="iCalendar Series">Support for Series in iCalendar</title>
@@ -28,7 +28,7 @@
     <!-- add 'role="editor"' below for the editors if appropriate -->
 
     <author initials="M." surname="Douglass" fullname="Michael Douglass">
-      <organization abbrev="Spherical Cow Group">Spherical Cow Group</organization>
+      <organization abbrev="BCS">Bedework Commercial Services</organization>
       <address>
         <postal>
           <street>226 3rd Street</street>
@@ -37,12 +37,12 @@
           <code>12180</code>
           <country>USA</country>
         </postal>
-        <email>mdouglass@sphericalcowgroup.com</email>
-        <uri>http://sphericalcowgroup.com</uri>
+        <email>mdouglass@bedework.com</email>
+        <uri>http://bedework.com</uri>
       </address>
     </author>
 
-    <date month='October' year='2019' />
+    <date month='July' year='2020' />
 
     <area>Applications</area>
 

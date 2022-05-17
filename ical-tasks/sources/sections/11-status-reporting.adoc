@@ -4,46 +4,67 @@
 
 === Improved granularity in status reporting information
 
-This document defines new status parameters that can be applied to the
-VTODO status (STATUS) property, as well as the participant status
-(PARTSTAT) parameter. These new parameters provide additional
-information on why (REASON) and when (MODIFIED) a status has changed.
-In addition to these parameters new status values are specified to
+This document defines a new status component that can be used to
+group related information about the status. This might include
+information on why (REASON) and when (DTSTAMP) a status has changed.
+In addition new status values are specified to
 provide for task suspension, failure and preparation.
 
-=== Relating comments to status
+=== Relating reason and comments to ATTENDEE status changes.
 
-The GROUP parameter is used with the STATUS or ATTENDEE properties to
-relate an associated COMMENT property. The COMMENT property can then
+The <<RFC9073>> PARTICIPANT component can be used to provide additional
+information about why an ATTENDEE participation status has changed.
+The COMMENT property can also
 be used to include additional human readable information about why the
 associated STATUS or ATTENDEE property changed.
 
 [source]
 ----
-STATUS;REASON="http://example.com/reason/delivery-failed";
- SUBSTATE=ERROR;MODIFIED=20130212T120000Z;GROUP=G1:FAILED
-COMMENT;MODIFIED=20130226T110451Z;GROUP=G1:Breakdown
-ATTENDEE;PARTSTAT=FAILED;MODIFIED=20130226T1104510Z;GROUP=G2:
-REASON="http://example.com/reason/van-break-down":
- mailto:xxx@example.com
-COMMENT;MODIFIED=20130226T110451Z;GROUP=G2:Puncture
+BEGIN:VSTATUS
+STATUS:FAILED
+REASON:http://example.com/reason/delivery-failed
+SUBSTATE:ERROR
+DTSTAMP:20130212T120000Z
+COMMENT:Breakdown
+END:VSTATUS
+
+ATTENDEE;PARTSTAT=FAILED:mailto:xxx@example.com
+...
+BEGIN:PARTICIPANT
+CALENDAR-ADDRESS:mailto:xxx@example.com
+DTSTAMP:20130226T1104510Z
+REASON:http://example.com/reason/van-break-down
+COMMENT:Puncture
+END:PARTICIPANT
 ----
 
 === Comments associated to reasons and status changes
 
-Reasons may be associated directly with a comment, allowing for
-multiple reasons associated with a status to each have a comment
-associated with them <<EDISTS>>.
+Multiple comments and reasons may have the same status. As situations
+chnage further VSTATUS components can be added to provide additional
+information..
 
 [source]
 ----
 CONCEPT:http://example.com/task/delivery
-STATUS;SUBSTATE=ERROR;MODIFIED=20130212T120000Z;GROUP=G1:FAILED
-COMMENT;MODIFIED=20130226T110451Z;GROUP=G1:Out of time
-COMMENT;REASON="http://example.com/reason/traffic";
- MODIFIED=20130226T110451Z;GROUP=G1:Traffic Accident on E44
-COMMENT;REASON="http://example.com/reason/closed";
- MODIFIED=20130226T110451Z;GROUP=G1:Arrived after office hours
+BEGIN:VSTATUS
+STATUS:FAILED
+SUBSTATE:ERROR
+DTSTAMP:20220212T104900Z
+COMMENT:Out of time
+END:VSTATUS
+BEGIN:VSTATUS
+STATUS:FAILED
+COMMENT:Traffic Accident on E44
+REASON:http://example.com/reason/traffic
+DTSTAMP:20220212T110451Z
+END:VSTATUS
+BEGIN:VSTATUS
+STATUS:FAILED
+COMMENT:Arrived after office hours
+REASON:http://example.com/reason/closed
+DTSTAMP:20220212T180451Z
+END:VSTATUS
 ----
 
 === Task Alerts and Notifications

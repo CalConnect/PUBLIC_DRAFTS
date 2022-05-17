@@ -894,7 +894,8 @@
       <section anchor="translate-ical-color" numbered="true" toc="default">
         <name>COLOR</name>
         <t>
-                    Maps to the "color" property. Copy the verbatim value.
+          The COLOR property is defined in <xref target="RFC7986"/> and
+          maps to the JSCalendar "color" property. Copy the value verbatim.
         </t>
       </section>
       <section anchor="translate-ical-comment" numbered="true" toc="default">
@@ -2740,6 +2741,13 @@
    ...
 ]]></artwork>
       </section>
+      <section anchor="translate-jscal-color" numbered="true" toc="default">
+        <name>color</name>
+        <t>
+          The value is copied verbatim to the <xref target="RFC7986"/>
+          "COLOR" property.
+        </t>
+      </section>
       <section anchor="translate-jscal-created" numbered="true" toc="default">
         <name>created</name>
         <t>
@@ -2850,7 +2858,7 @@
         <name>locations</name>
         <t>
                     JSCalendar locations map to
-                    <xref target="RFC9073" format="default"/>VLOCATION
+                    <xref target="RFC9073" format="default"/> VLOCATION
                     components.
         </t>
         <t>

@@ -1,0 +1,61 @@
+[[new-components]]
+
+== New Components
+
+[[vstatus]]
+=== Status Component
+
+Component Name:: VSTATUS
+
+Purpose:: This component allows information to be
+ associated with a status, for example comments and date stamps.
+
+Conformance::  This component can be specified multiple times in
+any appropriate calendar component.
+
+Description:: This component provides a way for multiple date-stamped
+  statuses to be associated with a component such as a task or an event.
+
+This compoment may also be added to the <<RFC9073>> PARTICIPANT component
+to allow participants in a task to specify their own status.
+
+Format Definition::
+
+This component is defined by the following notation:
+
+[source,bnf]
+----
+statusc = "BEGIN" ":" "VSTATUS" CRLF
+          statusprop
+          "END" ":" "VSTATUS" CRLF
+
+statusprop     = *(
+               ;
+               ; The following is REQUIRED,
+               ; but MUST NOT occur more than once.
+               ;
+               status /
+               ;
+               ; The following are OPTIONAL,
+               ; but MUST NOT occur more than once.
+               ;
+               description / dtstamp / reason / substate / summary
+               ;
+               ; The following are OPTIONAL,
+               ; and MAY occur more than once.
+               ;
+               comment / styleddescription / iana-prop
+               ;
+               )
+----
+
+Examples::
+
+[source]
+----
+BEGIN:VSTATUS
+STATUS:COMPLETED
+REASON: http://example.com/reason/delivered-on-time
+DTSTAMP:20220212T120000Z
+END:VSTATUS
+----

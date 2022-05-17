@@ -34,6 +34,102 @@ Example:: The following is an example of this property that specifies an interva
 ESTIMATED-DURATION:PT1H
 ----
 
+[[prop-reason]]
+=== Reason
+
+Property name::  REASON
+
+Purpose:: To indicate the reason for a change in status of a task or
+attendee participation status.
+
+Value Type::  URI
+
+Property Parameters:: IANA and non-standard property parameters can be specified on this property.
+
+Conformance:: This property can be specified in "VSTATUS" and PARTICIPANT calendar components.
+
+Format Definition:: This property is defined by the following notation:
+
+[source]
+----
+reason      = "REASON" reasonparam ":" uri CRLF
+
+reasonparam = *(";" other-param)
+----
+
+Description:: This property allows the change in status of a
+task or participant status to be qualified by the reason for the change
+with a codified reason. Typically reasons are defined within the
+context of the task type and therefore SHOULD include the name-space
+of the authority defining the task. Common reason codes are IANA
+registered and do not have a name-space prefix.
+
+Example::
+
+[source]
+----
+REASON:http://example.com/reason/delivered-on-time
+
+REASON:out-of-office
+----
+
+[[prop-sub-state]]
+=== Sub-State
+
+Property name:: SUBSTATE
+
+Purpose:: To provide additional granularity of task status for e.g.
+IN-PROCESS.
+
+Value Type::  TEXT
+
+Property Parameters:: IANA and non-standard property parameters can be specified on this property.
+
+Conformance:: This property can be specified in a "VSTATUS" calendar component.
+
+Format Definition:: This property is defined by the following notation:
+
+[source]
+----
+substate          = "SUBSTATE" substateparam ":" substatevalue CRLF
+
+substateparam     = *(";" other-param)
+
+substatevalue       = ("OK"        ; everything is fine(the default)
+                     / "ERROR"     ; something is wrong (the REASON
+                     ;               code explains why)
+                     / "SUSPENDED" ; waiting on some other task to
+                     ;               complete or availability of a
+                     ;               resource (REASON code explains
+                     ;               why)
+                     / iana-token) ; Other IANA-registered type
+----
+
+Description:: The sub-state property allows additional qualification
+and granularity of states to be recorded, in particular for the
+IN-PROCESS state. It allows individual sub-states to be recorded
+without the need to define and publish a sub-task associated with a
+parent task purely to track that a particular state has been reached.
+This property also allows parallel states to be expressed e.g. that a
+task has been suspended at whatever state it has reached.
+
+Example::
+
+[source]
+----
+BEGIN:VSTATUS
+STATUS:FAILED
+REASON:http://example.com/reason/no-one-home
+SUBSTATE:ERROR
+END:VSTATUS
+
+BEGIN:VSTATUS
+STATUS:IN-PROCESS
+REASON:http://example.com/reason/paint-drying
+SUBSTATE:SUSPENDED
+END:VSTATUS
+----
+
 [[prop-task-mode]]
 === Task Mode
 

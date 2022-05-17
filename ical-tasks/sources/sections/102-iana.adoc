@@ -45,9 +45,9 @@ The following table has been used to initialize the Sub-State registry.
 |===
 | Substate  | Status  | Reference
 
-| OK        | Current | This Spec, <<param-sub-state>>
-| ERROR     | Current | This Spec, <<param-sub-state>>
-| SUSPENDED | Current | This Spec, <<param-sub-state>>
+| OK        | Current | This Spec, <<prop-sub-state>>
+| ERROR     | Current | This Spec, <<prop-sub-state>>
+| SUSPENDED | Current | This Spec, <<prop-sub-state>>
 
 |===
 
@@ -89,25 +89,10 @@ The following table has been used to update the Properties registry.
 |===
 | Property           | Status  | Reference
 
-| ATTENDEE           | Current | This Spec, <<prop-ext-attendee>>
-| COMMENT            | Current | This Spec, <<prop-ext-comment>>
 | ESTIMATED_DURATION | Current | This Spec, <<prop-estimated-duration>>
+| REASON    | Current | This Spec, <<prop-reason>>
+| SUBSTATE  | Current | This Spec, <<prop-sub-state>>
 | STATUS             | Current | This Spec, <<prop-ext-status>>
 | TASK-MODE          | Current | This Spec, <<prop-task-mode>>
-
-|===
-
-=== Parameters registry
-
-The following table has been used to update the Parameters registry.
-
-.Ipdated Parameters Registry
-[cols="a,a,a",options=header]
-|===
-| Parameter | Status  | Reference
-
-| REASON    | Current | This Spec, <<param-reason>>
-| MODIFIED  | Current | This Spec, <<param-modified>>
-| SUBSTATE  | Current | This Spec, <<param-sub-state>>
 
 |===

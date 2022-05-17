@@ -3,66 +3,11 @@
 
 == Property Extensions and Clarifications
 
-[[prop-ext-attendee]]
-=== The ATTENDEE property
-
-The Attendee property is defined in <<RFC5545,section 3.8.4.1>>.
-This specification extends that property to include new parameters to
-indicate the reason for a participant status change (See Appendix A)
-and sub-states.
-
-Format Definition:: This property is defined by the following notation:
-
-[source,bnf]
-----
-attendee   = "ATTENDEE" attparam ":" cal-address CRLF
-
-attparam   /= *(
-                ;
-                ; The following are OPTIONAL,
-                ; but MUST NOT occur more than once.
-                ;
-                (";" reasonparam)
-                (";" modifiedparam)
-                (";" substateparam)
-                )
-----
-
-Example: The following are examples of this property's use for tasks:
-
-[source]
-----
-ATTENDEE;PARTSTAT=DECLINED;MODIFIED=20130212T120000Z;GROUP=G1;
- REASON="http://example.com/reason/too-busy":mailto:xxx@example.com
-
-ATTENDEE;PARTSTAT=IN-PROCESS;MODIFIED=20130212T120000Z;
- SUBSTATE=X-EXAMPLE-STEP-1:mailto:xxx@example.com
-----
-
-[[prop-ext-comment]]
-=== Redefined COMMENT Property Parameter List
-
-The Comment property is defined in <<RFC5545, section=3.8.1.4>>.
-
-Format Definition:: The "COMMENT" property parameter list is augmented
-as follows:
-
-[source,bnf]
-----
-commparam    /= *(
-                ; The following are OPTIONAL,
-                ; but MUST NOT occur more than once.
-                (";" reasonparam) /
-                (";" modifiedparam)
-                )
-----
-
 [[prop-ext-status]]
 === Redefined STATUS Property
 
 The Status property is defined in <<RFC5545, section=3.8.1.11>>. This
-specification extends that property to include new parameters to
-indicate the reason for a status change as well as new values
+specification extends that property to include new values
 associated with VTODO iCalendar components (See Appendix A for
 examples of the task state lifecycle).
 
@@ -71,14 +16,6 @@ as follows:
 
 [source,bnf]
 ----
-statparam      /= *(
-                    ; The following are OPTIONAL,
-                    ; but MUST NOT occur more than once.
-                    ;
-                    (";" reasonparam)
-                    (";" modifiedparam)
-                    (";" substateparam) /
-                    )
 
 statvalue-todo = / "PENDING"    ;Indicates a to-do has been
                 ;created and accepted, but has not
@@ -102,6 +39,5 @@ calendar component:
 
 [source]
 ----
-STATUS;REASON="http://example.com/reason/delivery-failed";
- SUBSTATE=ERROR;MODIFIED=20130212T120000Z;GROUP=G1:FAILED
+STATUS:FAILED
 ----
