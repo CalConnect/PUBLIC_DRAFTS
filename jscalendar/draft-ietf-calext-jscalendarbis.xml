@@ -1160,11 +1160,9 @@ signed-duration = ["+" / "-"] duration
 	          than one of the roles "attendee" and "informational" be present; if more than one are given,
 		      "attendee" takes precedence over "informational". Roles that are unknown to the implementation
 		          <bcp14>MUST</bcp14> be preserved.</t></dd>
-              <dt>locationId: <tt>Location</tt> (optional)</dt>
-              <dd><t>This is the location at which this participant is expected to be attending.</t>
-              <t>If the value does not correspond to any location id in the <tt>locations</tt> property of the
-              JSCalendar object, this <bcp14>MUST</bcp14> be treated the same as if the participant's
-              locationId were omitted.</t></dd>
+              <dt>locations: <tt>Id[Location]</tt> (optional)</dt>
+              <dd><t>These are the locations at which this participant is expected to be attending.
+                See <xref target="prop-locations"/> for the definition of this property.</t></dd>
               <dt>language: <tt>String</tt> (optional)</dt>
               <dd>This is the language tag, as defined in <xref target="BCP47" format="default"/>, that best
 	            describes
@@ -2441,18 +2439,11 @@ Please let us know any objections.
                   <xref target="prop-localizations" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">locationId</td>
-                <td align="left">Id[Location]</td>
-                <td align="left">Participant</td>
-                <td align="left">
-                  <xref target="prop-participants" format="default"/></td>
-              </tr>
-              <tr>
                 <td align="left">locations</td>
                 <td align="left">Id[Location]</td>
-                <td align="left">Event, Task</td>
+                <td align="left">Event, Task, Participant</td>
                 <td align="left">
-                  <xref target="prop-locations" format="default"/></td>
+                  <xref target="prop-locations" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">locationTypes</td>
