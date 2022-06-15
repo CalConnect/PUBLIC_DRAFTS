@@ -317,10 +317,9 @@ signed-duration = ["+" / "-"] duration
 		          in JSCalendar object instances.</t></dd>
               <dt>cid: <tt>String</tt> (optional)
               </dt>
-              <dd><t>This <bcp14>MUST</bcp14> be a valid <tt>content-id</tt> value according to the definition
-	            of <xref target="RFC2392" sectionFormat="of" section="2"/>. The value <bcp14>MUST</bcp14> be
-		          unique within this Link object but has no meaning beyond that. It <bcp14>MAY</bcp14> be different
-			        from the link id for this Link object.</t></dd>
+              <dd><t>This <bcp14>MUST</bcp14> be a URI in the <tt>cid</tt> scheme defined in
+	            <xref target="RFC2392" sectionFormat="of" section="2"/>. The value <bcp14>MUST</bcp14> be
+		          unique across all Link objects in an Event or Task object, but has no meaning beyond that.</t></dd>
               <dt>contentType: <tt>String</tt> (optional)</dt>
               <dd>This is the media type <xref target="RFC6838" format="default"/> of the resource, if
 	            known.</dd>
