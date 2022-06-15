@@ -576,29 +576,29 @@ signed-duration = ["+" / "-"] duration
 		          <bcp14>MUST</bcp14> be omitted (rather than specified as an empty set).</dd>
           </dl>
         </section>
-        <section anchor="prop-virtualLocations" numbered="true" toc="default">
-          <name>virtualLocations</name>
-          <t>Type: <tt>Id[VirtualLocation]</tt> (optional)</t>
-          <t>This is a map of virtual location ids to VirtualLocation objects, representing virtual locations,
+        <section anchor="prop-conferences" numbered="true" toc="default">
+          <name>conferences</name>
+          <t>Type: <tt>Id[Conference]</tt> (optional)</t>
+          <t>This is a map of conference ids to Conference objects, representing online meetings,
 	    such as video conferences or chat rooms, associated with the object.</t>
-          <t>A VirtualLocation object has the following properties.</t>
+          <t>A Conference object has the following properties.</t>
           <dl newline="true">
               <dt>@type: <tt>String</tt> (mandatory)</dt>
               <dd>This specifies the type of this object. This <bcp14>MUST</bcp14> be
-	            <tt>VirtualLocation</tt>.</dd>
+	            <tt>Conference</tt>.</dd>
               <dt>name: <tt>String</tt> (optional, default: empty String)</dt>
-              <dd>This is the human-readable name of the virtual location.</dd>
+              <dd>This is the human-readable name of the conference.</dd>
               <dt>description: <tt>String</tt> (optional)</dt>
-              <dd>These are human-readable plain-text instructions for accessing this virtual location. This
-	            may be a conference access code, etc.</dd>
+              <dd>These are human-readable plain-text instructions for accessing this conference. This
+	            may be an access code, etc.</dd>
               <dt>uri: <tt>String</tt> (mandatory)</dt>
               <dd><t>This is a URI <xref target="RFC3986" format="default"/> that represents how to connect to
-	            this virtual location.</t>
+	            this conference.</t>
               <t>This may be a telephone number (represented using the <tt>tel:</tt> scheme, e.g.,
 	            <tt>tel:+1-555-555-5555</tt>) for a teleconference, a web address for online chat, or any custom
 		          URI.</t></dd>
               <dt>features: <tt>String[Boolean]</tt> (optional)</dt>
-              <dd><t>A set of features supported by this virtual location. The set is represented as a map, with the keys being the feature. The value for each key in the map <bcp14>MUST</bcp14> be true.</t>
+              <dd><t>A set of features supported by this conference. The set is represented as a map, with the keys being the feature. The value for each key in the map <bcp14>MUST</bcp14> be true.</t>
               <t>The feature <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref target="custom-properties" />). Any value the client or server doesn't understand should be treated the same as if this feature is omitted.</t>
               <dl>
                 <dt>audio:</dt>
@@ -1719,7 +1719,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
       <section anchor="example-multi-location-event" numbered="true" toc="default">
         <name>Event with Multiple Locations and Localization</name>
         <t>
-    This example illustrates an event that happens at both a physical and a virtual location. Fans can see a live concert on premises or online. The event title and descriptions are localized.
+    This example illustrates an event that happens at both a physical location and online. Fans can see a live concert on premises or online. The event title and descriptions are localized.
         </t>
 <sourcecode name="" type="json"><![CDATA[
 {
@@ -1738,9 +1738,9 @@ reqstatus = statcode ";" statdesc [";" extdata]
       "coordinates": "geo:40.7829,-73.9654"
     }
   },
-  "virtualLocations": {
-    "vloc1": {
-      "@type": "VirtualLocation",
+  "conferences": {
+    "conf1": {
+      "@type": "Conference",
       "name": "Free live Stream from Music Bowl",
       "uri": "https://stream.example.com/the_band_2020"
     }
@@ -1749,7 +1749,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
     "de": {
       "title": "Live von der Music Bowl: The Band!",
       "description": "Schau dir das größte Musikereignis an!",
-      "virtualLocations/vloc1/name":
+      "conferences/vloc1/name":
         "Gratis Live-Stream aus der Music Bowl"
     }
   }
@@ -1815,9 +1815,9 @@ reqstatus = statcode ";" statdesc [";" extdata]
   "start": "2020-01-08T09:00:00",
   "timeZone": "Africa/Johannesburg",
   "duration": "PT1H",
-  "virtualLocations": {
+  "conferences": {
     "0": {
-      "@type": "VirtualLocation",
+      "@type": "Conference",
       "name": "ChatMe meeting room",
       "uri": "https://chatme.example.com?id=1234567&pw=a8a24627b63d"
     }
@@ -2080,9 +2080,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">@type</td>
                 <td align="left">String</td>
-                <td align="left">Event, Task, Group, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, VirtualLocation</td>
+                <td align="left">Event, Task, Group, AbsoluteTrigger, Alert, Link, Location, NDay, OffsetTrigger, Participant, RecurrenceRule, Relation, TimeZone, TimeZoneRule, Conference</td>
                 <td align="left">
-                  <xref target="prop-type" format="default"/>, <xref target="prop-alerts" format="default"/>, <xref target="type-Link" format="default"/>, <xref target="prop-locations" format="default"/>, <xref target="prop-participants" format="default"/>, <xref target="prop-recurrenceRules" format="default"/>, <xref target="type-Relation" format="default"/>, <xref target="prop-timeZones" format="default"/>, <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-type" format="default"/>, <xref target="prop-alerts" format="default"/>, <xref target="type-Link" format="default"/>, <xref target="prop-locations" format="default"/>, <xref target="prop-participants" format="default"/>, <xref target="prop-recurrenceRules" format="default"/>, <xref target="type-Relation" format="default"/>, <xref target="prop-timeZones" format="default"/>, <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">acknowledged</td>
@@ -2262,9 +2262,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">description</td>
                 <td align="left">String</td>
-                <td align="left">Event, Task, Location, Participant, VirtualLocation</td>
+                <td align="left">Event, Task, Location, Participant, Conference</td>
                 <td align="left">
-                  <xref target="prop-description" format="default"/>, <xref target="prop-locations" format="default"/>, <xref target="prop-participants" format="default"/>, <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-description" format="default"/>, <xref target="prop-locations" format="default"/>, <xref target="prop-participants" format="default"/>, <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">description&zwsp;ContentType</td>
@@ -2339,9 +2339,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">features</td>
                 <td align="left">String[Boolean]</td>
-                <td align="left">VirtualLocation</td>
+                <td align="left">Conference</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">firstDayOfWeek</td>
@@ -2458,9 +2458,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">name</td>
                 <td align="left">String</td>
-                <td align="left">Location, VirtualLocation, Participant</td>
+                <td align="left">Location, Conference, Participant</td>
                 <td align="left">
-                  <xref target="prop-locations" format="default"/>, <xref target="prop-virtualLocations" format="default"/>, <xref target="prop-participants" format="default"/></td>
+                  <xref target="prop-locations" format="default"/>, <xref target="prop-conferences" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">names</td>
@@ -2815,9 +2815,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">uri</td>
                 <td align="left">String</td>
-                <td align="left">VirtualLocation</td>
+                <td align="left">Conference</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">url</td>
@@ -2841,11 +2841,11 @@ Please let us know any objections.
                   <xref target="prop-timeZones" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">virtualLocations</td>
-                <td align="left">Id&zwsp;[VirtualLocation]</td>
+                <td align="left">conferences</td>
+                <td align="left">Id&zwsp;[Conference]</td>
                 <td align="left">Event, Task</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">when</td>
@@ -2992,9 +2992,9 @@ Please let us know any objections.
                   <xref target="type-UTCDateTime" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">VirtualLocation</td>
+                <td align="left">Conference</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
             </tbody>
           </table>
@@ -3097,11 +3097,11 @@ Please let us know any objections.
 </dl>
 <dl spacing="compact" newline="false" indent="20">
           <dt>Property Name:</dt><dd>features</dd>
-          <dt>Context:</dt><dd>VirtualLocation</dd>
+          <dt>Context:</dt><dd>Conference</dd>
           <dt>Change Controller:</dt><dd>IETF</dd>
           <dt>Initial Contents:</dt><dd>
-          <table anchor="tab-iana-enum-virtualLocation-features" align="left">
-      <name>JSCalendar Enum Values for features (Context: VirtualLocation)</name>
+          <table anchor="tab-iana-enum-conference-features" align="left">
+      <name>JSCalendar Enum Values for features (Context: Conference)</name>
             <thead>
               <tr>
                 <th align="left">Enum Value</th>
@@ -3112,37 +3112,37 @@ Please let us know any objections.
               <tr>
                 <td align="left">audio</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">chat</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">feed</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">moderator</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">phone</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">screen</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">video</td>
                 <td align="left">
-                  <xref target="prop-virtualLocations" format="default"/></td>
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
             </tbody>
           </table></dd>
