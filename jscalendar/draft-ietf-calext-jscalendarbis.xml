@@ -1379,20 +1379,8 @@ reqstatus = statcode ";" statdesc [";" extdata]
         <section anchor="prop-localizations" numbered="true" toc="default">
           <name>localizations</name>
           <t>Type: <tt>String[PatchObject]</tt> (optional)</t>
-          <t>A map where each key is a language tag <xref target="BCP47" format="default"/>, and the corresponding value is a set of patches to apply to the calendar object in order to localize it into that locale.</t>
-          <t>See the description of <xref target="type-PatchObject" format="default">PatchObject</xref> for the structure of the PatchObject. The patches are applied to the top-level calendar object. In addition, the <tt>locale</tt> property of the patched object is set to the language tag. All pointers for patches <bcp14>MUST</bcp14> end with one of the following suffixes; any patch that does not follow this <bcp14>MUST</bcp14> be ignored unless otherwise specified in a future RFC:
-
-          </t>
-          <ul spacing="normal">
-            <li>title</li>
-            <li>description</li>
-            <li>name</li>
-          </ul>
-          <t>A patch <bcp14>MUST NOT</bcp14> have the prefix <tt>recurrenceOverrides</tt>; any localization of
-	    the override <bcp14>MUST</bcp14> be a patch to the <tt>localizations</tt> property inside the override
-	      instead. For example, a patch to <tt>locations/abcd1234/title</tt> is permissible, but a patch to
-	        <tt>uid</tt> or <tt>recurrenceOverrides/2020-01-05T14:00:00/title</tt> is not.</t>
-          <t>Note that this specification does not define how to maintain validity of localized content. For example, a client application changing a JSCalendar object's <tt>title</tt> property might also need to update any localizations of this property. Client implementations <bcp14>SHOULD</bcp14> provide the means to manage localizations, but how to achieve this is specific to the application's workflow and requirements.</t>
+          <t>A map where each key is a language tag <xref target="BCP47" format="default"/>, and the value is a PatchObject (<xref target="type-PatchObject" format="default"/>) that localizes the patch target properties in that language. The value type of the patched property <bcp14>MUST</bcp14> be <tt>String</tt> and the property <bcp14>SHOULD</bcp14> contain human-readable text. A patch pointer <bcp14>MUST NOT</bcp14> have the prefix <tt>recurrenceOverrides</tt>; instead, the override should define its own <tt>localizations</tt> property.</t>
+          <t>This specification does not define how to maintain validity of localized content. For example, a client application changing a JSCalendar object's <tt>title</tt> property might also need to update any localizations of this property. Client implementations <bcp14>SHOULD</bcp14> provide the means to manage localizations, but how to achieve this is specific to the application workflow and requirements.</t>
         </section>
       </section>
     </section>
