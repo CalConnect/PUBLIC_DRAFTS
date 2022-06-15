@@ -504,8 +504,7 @@ signed-duration = ["+" / "-"] duration
           <t>This describes the media type <xref target="RFC6838" format="default"/> of the contents of the
 	    <tt>description</tt> property. Media types <bcp14>MUST</bcp14> be subtypes of type <tt>text</tt> and
 	      <bcp14>SHOULD</bcp14> be <tt>text/plain</tt> or <tt>text/html</tt> <xref target="MEDIATYPES"
-	        format="default"/>. They <bcp14>MAY</bcp14> include parameters, and the <tt>charset</tt> parameter
-	        value <bcp14>MUST</bcp14> be <tt>utf-8</tt>, if specified. Descriptions of type <tt>text/html</tt>
+	        format="default"/>. The media type value <bcp14>MUST NOT</bcp14> include parameters. Descriptions of type <tt>text/html</tt>
 		  <bcp14>MAY</bcp14> contain <tt>cid</tt> URLs <xref target="RFC2392" format="default"/> to reference
 		    links in the calendar object by use of the <tt>cid</tt> property of the Link object.</t>
         </section>
