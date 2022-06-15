@@ -544,6 +544,9 @@ signed-duration = ["+" / "-"] duration
 			        start of the event) and location of arrival (at the end); this is particularly important if these
 				      locations are in different time zones, as a client may wish to highlight this information for the
 				            user.</t>
+              <t>The <tt>start</tt> and <tt>end</tt> values of the <tt>relativeTo</tt>
+          property each <bcp14>MUST</bcp14> be set in at most one Location (e.g. an event may only start at a single
+          location and may only end at one other).</t>
               <t>This <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA
 	            &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref target="custom-properties"
 		          format="default"/>). Any value the client or server doesn't understand should be treated the same
