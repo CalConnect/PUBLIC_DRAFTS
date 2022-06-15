@@ -350,8 +350,8 @@ signed-duration = ["+" / "-"] duration
 		constrained</dd>
               </dl>
 	      </dd>
-            <dt>title: <tt>String</tt> (optional)</dt>
-              <dd>This is a human-readable, plain-text description of the resource.</dd>
+            <dt>filename: <tt>String</tt> (optional)</dt>
+              <dd>This is the indicative file name when storing the Link contents in a file.</dd>
           </dl>
         </section>
       </section>
