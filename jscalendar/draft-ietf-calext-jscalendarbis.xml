@@ -580,7 +580,7 @@ signed-duration = ["+" / "-"] duration
           <name>conferences</name>
           <t>Type: <tt>Id[Conference]</tt> (optional)</t>
           <t>This is a map of conference ids to Conference objects, representing online meetings,
-	    such as video conferences or chat rooms, associated with the object.</t>
+	    such as video conferences or chat rooms.</t>
           <t>A Conference object has the following properties.</t>
           <dl newline="true">
               <dt>@type: <tt>String</tt> (mandatory)</dt>
@@ -1173,6 +1173,9 @@ signed-duration = ["+" / "-"] duration
               <dt>locations: <tt>Id[Location]</tt> (optional)</dt>
               <dd><t>These are the locations at which this participant is expected to be attending.
                 See <xref target="prop-locations"/> for the definition of this property.</t></dd>
+              <dt>conferences: <tt>Id[Conference]</tt> (optional)</dt>
+              <dd><t>This is online conferencing information that is specific for the participant.
+                See <xref target="prop-conferences"/> for the definition of this property.</t></dd>
               <dt>language: <tt>String</tt> (optional)</dt>
               <dd>This is the language tag, as defined in <xref target="BCP47" format="default"/>, that best
 	            describes
@@ -1806,7 +1809,7 @@ reqstatus = statcode ";" statdesc [";" extdata]
       <section anchor="example-recurring-participants" numbered="true" toc="default">
         <name>Recurring Event with Participants</name>
         <t>
-    This example illustrates scheduled events. A team meeting occurs every week since January 8, 2020 at 9 am Johannesburg time. The event owner also chairs the event. Participants meet in a virtual meeting room. An attendee has accepted the invitation, but, on March 4, 2020, he is unavailable and declined participation for this occurrence.
+    This example illustrates scheduled events. A team meeting occurs every week since January 8, 2020 at 9 am Johannesburg time. The event owner also chairs the event. Participants meet in an online meeting. An attendee has accepted the invitation, but is unavailable on March 4, 2020 and declined participation for this occurrence.
         </t>
 <sourcecode name="" type="json"><![CDATA[
 {
@@ -2202,6 +2205,13 @@ Please let us know any objections.
                 <td align="left">TimeZoneRule</td>
                 <td align="left">
                   <xref target="prop-timeZones" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">conferences</td>
+                <td align="left">Id&zwsp;[Conference]</td>
+                <td align="left">Event, Task, Participant</td>
+                <td align="left">
+                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">contentType</td>
@@ -2839,13 +2849,6 @@ Please let us know any objections.
                 <td align="left">TimeZone</td>
                 <td align="left">
                   <xref target="prop-timeZones" format="default"/></td>
-              </tr>
-              <tr>
-                <td align="left">conferences</td>
-                <td align="left">Id&zwsp;[Conference]</td>
-                <td align="left">Event, Task</td>
-                <td align="left">
-                  <xref target="prop-conferences" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">when</td>
