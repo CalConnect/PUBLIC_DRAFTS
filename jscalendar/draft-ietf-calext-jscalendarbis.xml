@@ -439,7 +439,7 @@ signed-duration = ["+" / "-"] duration
         <section anchor="prop-uid" numbered="true" toc="default">
           <name>uid</name>
           <t>Type: <tt>String</tt> (mandatory)</t>
-          <t>This is a globally unique identifier used to associate objects representing the same event, task, group, or other object across different systems, calendars, and views. For recurring events and tasks, the UID is associated with the base object and therefore is the same for all occurrences; the combination of the UID with a <tt>recurrenceId</tt> identifies a particular instance.</t>
+          <t>This is a globally unique identifier used to associate objects representing the same object across different systems, calendars, and views. For recurring events and tasks, the UID is associated with the base object and therefore is the same for all occurrences; the combination of the UID with a <tt>recurrenceId</tt> identifies a particular instance.</t>
           <t>The generator of the identifier <bcp14>MUST</bcp14> guarantee that the identifier is unique. <xref target="RFC4122" format="default"/> describes a range of established algorithms to generate universally unique identifiers (UUIDs). UUID version 4, described in <xref target="RFC4122" sectionFormat="of" section="4.4"/>, is <bcp14>RECOMMENDED</bcp14>.</t>
           <t>For compatibility with  UIDs <xref target="RFC5545" format="default"/>, implementations <bcp14>MUST</bcp14> be able to receive and persist values of at least 255 octets for this property, but they <bcp14>MUST NOT</bcp14> truncate values in the middle of a UTF-8 multi-octet sequence.</t>
         </section>
@@ -533,6 +533,8 @@ signed-duration = ["+" / "-"] duration
           <dl newline="true">
               <dt>@type: <tt>String</tt> (mandatory)</dt>
               <dd>This specifies the type of this object. This <bcp14>MUST</bcp14> be <tt>Location</tt>.</dd>
+              <dt>uid: <tt>String</tt> (optional)</dt>
+              <dd>This is the globally unique identifier of the location. See <xref target="prop-uid"/> for the definition of this property.</dd>
               <dt>name: <tt>String</tt> (optional)</dt>
               <dd>This is the human-readable name of the location.</dd>
               <dt>description: <tt>String</tt> (optional)</dt>
@@ -1307,6 +1309,8 @@ reqstatus = statcode ";" statdesc [";" extdata]
           <dl newline="true">
               <dt>@type: <tt>String</tt> (mandatory)</dt>
               <dd>This specifies the type of this object. This <bcp14>MUST</bcp14> be <tt>Alert</tt>.</dd>
+                <dt>uid: <tt>String</tt> (optional)</dt>
+              <dd>This is the globally unique identifier of the alert. See <xref target="prop-uid"/> for the definition of this property.</dd>
               <dt>trigger: <tt>OffsetTrigger|AbsoluteTrigger|UnknownTrigger</tt> (mandatory)</dt>
               <dd><t>This defines when to trigger the alert. New types may be defined in future documents.</t>
               <t>An <tt>OffsetTrigger</tt> object has the following properties:</t>
@@ -2792,7 +2796,7 @@ Please let us know any objections.
               <tr>
                 <td align="left">uid</td>
                 <td align="left">String</td>
-                <td align="left">Event, Task, Group</td>
+                <td align="left">Event, Task, Group, Alert, Location</td>
                 <td align="left">
                   <xref target="prop-uid" format="default"/></td>
               </tr>
