@@ -997,7 +997,8 @@ signed-duration = ["+" / "-"] duration
             <li>recurrenceOverrides</li>
             <li>recurrenceRules</li>
             <li>relatedTo</li>
-            <li>replyTo</li>
+            <li>scheduleAddress</li>
+            <li>scheduleForceSend</li>
             <li>sentBy</li>
             <li>timeZones</li>
             <li>uid</li>
@@ -1065,71 +1066,66 @@ signed-duration = ["+" / "-"] duration
 		    in is shared.</dd>
           </dl>
         </section>
-        <section anchor="prop-replyTo" numbered="true" toc="default">
+        <section anchor="prop-scheduleaddress" numbered="true" toc="default">
+          <name>scheduleAddress</name>
+          <t>Type: <tt>String</tt> (optional)</t>
+          <t>This is the scheduling address by which participants may submit their response to the organizer of the calendar object.
+           The value <bcp14>MUST</bcp14> must be a <xref target="RFC3986"/> URI, but it <bcp14>MAY</bcp14> be in any scheme.
+           If it is a <tt>mailto</tt> URI <xref target="RFC6068"/>, then the organizer accepts an iCalendar Message-Based Interoperability Protocol (iMIP) <xref
+		    target="RFC6047" format="default"/> response at this email address.</t>
+        </section>
+        <section anchor="prop-scheduleforcesend" numbered="true" toc="default">
+          <name>scheduleForceSend</name>
+          <t>Type: <tt>Boolean</tt> (optional, default: false)</t>
+          <t>A client may set this property to true to request that the server send a
+	            scheduling message to the organizer when it would not normally do so (e.g., if no
+		          change is made the object or the scheduleAgent is set to client). The property <bcp14>MUST
+			        NOT</bcp14> be stored in the JSCalendar object on the server or appear in a scheduling
+				      message. If this property is set, then the <tt>scheduleAddress</tt> property <bcp14>MUST</bcp14> be set.</t>
+        </section>
+        <section anchor="prop-replyto" numbered="true" toc="default">
           <name>replyTo</name>
           <t>Type: <tt>String[String]</tt> (optional)</t>
-          <t>This represents methods by which participants may submit their response to the organizer of the calendar object. The keys in the property value are the available methods and <bcp14>MUST</bcp14> only contain ASCII alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the key. Future methods may be defined in future specifications and registered with IANA; a calendar client <bcp14>MUST</bcp14> ignore any method it does not understand but <bcp14>MUST</bcp14> preserve the method key and URI. This property <bcp14>MUST</bcp14> be omitted if no method is defined (rather than being specified as an empty object).</t>
-          <t>The following methods are defined:</t>
+          <t>This represents methods by which participants may submit their RSVP response for a calendar object,
+          either as an alternative to scheduling or if the <tt>scheduleAddress</tt> property is not set.
+          The keys in the property value are the available methods and <bcp14>MUST</bcp14> only contain ASCII
+          alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the key.
+          Future methods may be defined in future specifications and registered with IANA; a calendar client
+          <bcp14>MUST</bcp14> ignore any method it does not understand but <bcp14>MUST</bcp14> preserve the method
+          key and URI. This property <bcp14>MUST</bcp14> be omitted if no method is defined
+          (rather than being specified as an empty object).</t>
+          <t>This standard defines a single method:</t>
           <dl newline="false">
-            <dt><tt>imip</tt>:</dt>
-	        <dd>The organizer accepts an iCalendar Message-Based Interoperability Protocol (iMIP) <xref
-		    target="RFC6047" format="default"/> response at this email address. The value <bcp14>MUST</bcp14>
-            be a <tt>mailto:</tt> URI.</dd>
             <dt><tt>web</tt>:</dt>
 	        <dd> Opening this URI in a web browser will provide the user with a page where they can submit a
 		    reply to the organizer. The value <bcp14>MUST</bcp14> be a URL using the <tt>https:</tt>
             scheme.</dd>
-            <dt><tt>other</tt>:</dt>
-	        <dd> The organizer is identified by this URI, but the method for submitting the response is
-		    undefined.</dd>
           </dl>
         </section>
         <section anchor="prop-sentBy" numbered="true" toc="default">
           <name>sentBy</name>
           <t>Type: <tt>String</tt> (optional)</t>
-          <t>This is the email address in the "From" header of the email in which this calendar object was received. This is only relevant if the calendar object is received via iMIP or as an attachment to a message.  If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
+          <t>This is the email address in the "From" header of the email in which this calendar object was received. This is only relevant if the calendar object is received via iMIP or as an attachment to a message.  If set, the value <bcp14>MUST</bcp14> be a <tt>mailto</tt> URI as defined in <xref target="RFC6068" format="default"/>.</t>
         </section>
         <section anchor="prop-participants" numbered="true" toc="default">
           <name>participants</name>
           <t>Type: <tt>Id[Participant]</tt> (optional)</t>
           <t>This is a map of participant ids to participants, describing their participation in the calendar
 	    object.</t>
-          <t>If this property is set and any participant has a <tt>sendTo</tt> property, then the <tt>replyTo</tt>
-	    property of this calendar object <bcp14>MUST</bcp14> define at least one reply method.</t>
-          <t>A Participant object has the following properties:
-          </t>
+          <t>A Participant object has the following properties:</t>
           <dl newline="true">
 	        <dt>@type: <tt>String</tt> (mandatory)</dt>
               <dd>This specifies the type of this object. This <bcp14>MUST</bcp14> be <tt>Participant</tt>.</dd>
-            <dt>name: <tt>String</tt> (optional)</dt>
-              <dd>This is the display name of the participant (e.g., "Joe Bloggs").</dd>
+              <dt>conferences: <tt>Id[Conference]</tt> (optional)</dt>
+                <dd><t>This is online conferencing information that is specific for the participant.
+                See <xref target="prop-conferences"/> for the definition of this property.</t></dd>
+              <dt>description: <tt>String</tt> (optional)</dt>
+              <dd>This is a plain-text description of this participant. For example, this may include
+	             information about their role in the event or how best to contact them.</dd>
               <dt>email: <tt>String</tt> (optional)</dt>
               <dd>This is the email address to use to contact the participant or, for example, match with an address book entry. If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</dd>
-              <dt>description: <tt>String</tt> (optional)</dt>
-              <dd>This is a plain-text description of this participant. For example, this may include more
-	             information about their role in the event or how best to contact them.</dd>
-              <dt>sendTo: <tt>String[String]</tt> (optional)</dt>
-              <dd><t>This represents methods by which the participant may receive the invitation and updates to
-	            the calendar object.</t>
-              <t>The keys in the property value are the available methods and <bcp14>MUST</bcp14> only contain
-	            ASCII alphanumeric characters (A-Za-z0-9). The value is a URI for the method specified in the
-		          key. Future methods may be defined in future specifications and registered with IANA; a calendar
-			        client <bcp14>MUST</bcp14> ignore any method it does not understand but <bcp14>MUST</bcp14>
-				      preserve the method key and URI. This property <bcp14>MUST</bcp14> be omitted if no method is
-				            defined (rather than being specified as an empty object).</t>
-              <t>The following methods are defined:</t>
-              <dl>
-                <dt><tt>imip</tt>:</dt>
-		<dd>The participant accepts an iMIP <xref target="RFC6047"
-		format="default"/> request at this email address. The value <bcp14>MUST</bcp14> be a
-		<tt>mailto:</tt> URI. It <bcp14>MAY</bcp14> be different from the value of the participant's
-		<tt>email</tt> property.</dd>
-                <dt><tt>other</tt>:</dt>
-		<dd>The participant is identified by this URI, but the method for submitting the invitation is
-		undefined.</dd>
-              </dl></dd>
               <dt>kind: <tt>String</tt> (optional)</dt>
-              <dd><t>This is what kind of entity this participant is, if known.</t>
+              <dd><t>This describes what kind of entity this participant is.</t>
               <t>This <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA
 	            &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref target="custom-properties"
 		          format="default"/>). Any value the client or server doesn't understand should be treated the same
@@ -1144,9 +1140,22 @@ signed-duration = ["+" / "-"] duration
                 <dt><tt>resource</tt>:</dt>
 		<dd>a non-human resource other than a location, such as a projector</dd>
    </dl></dd>
-            <dt>roles: <tt>String[Boolean]</tt> (mandatory)</dt>
-	        <dd><t>This is a set of roles that this participant fulfills.</t>
-              <t>At least one role <bcp14>MUST</bcp14> be specified for the participant. The keys in the set
+              <dt>language: <tt>String</tt> (optional)</dt>
+              <dd>This is the language tag, as defined in <xref target="BCP47" format="default"/>, that best
+	            describes
+		          the participant's preferred language.</dd>
+              <dt>links: <tt>Id[Link]</tt> (optional)</dt>
+              <dd>This is a map of link ids to Link objects, representing external resources associated with
+	            this participant, for example, a vCard or image. If there are no links, this <bcp14>MUST</bcp14>
+		          be omitted (rather than specified as an empty set).</dd>
+              <dt>locations: <tt>Id[Location]</tt> (optional)</dt>
+              <dd><t>These are the locations at which this participant is expected to be attending.
+                See <xref target="prop-locations"/> for the definition of this property.</t></dd>
+               <dt>name: <tt>String</tt> (optional)</dt>
+              <dd>This is the display name of the participant (e.g., "Joe Bloggs").</dd>
+              <dt>roles: <tt>String[Boolean]</tt> (mandatory)</dt>
+	        <dd><t>This is a set of roles that this participant fulfills. This property <bcp14>MUST</bcp14> be set, if the <tt>scheduleAddress</tt> property is set. Otherwise it <bcp14>MUST NOT</bcp14> not be set.
+              At least one role <bcp14>MUST</bcp14> be specified for the participant. The keys in the set
 	            <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA
 		          &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref target="custom-properties"
 			        format="default"/>):</t>
@@ -1172,16 +1181,42 @@ signed-duration = ["+" / "-"] duration
 	          than one of the roles "attendee" and "informational" be present; if more than one are given,
 		      "attendee" takes precedence over "informational". Roles that are unknown to the implementation
 		          <bcp14>MUST</bcp14> be preserved.</t></dd>
-              <dt>locations: <tt>Id[Location]</tt> (optional)</dt>
-              <dd><t>These are the locations at which this participant is expected to be attending.
-                See <xref target="prop-locations"/> for the definition of this property.</t></dd>
-              <dt>conferences: <tt>Id[Conference]</tt> (optional)</dt>
-              <dd><t>This is online conferencing information that is specific for the participant.
-                See <xref target="prop-conferences"/> for the definition of this property.</t></dd>
-              <dt>language: <tt>String</tt> (optional)</dt>
-              <dd>This is the language tag, as defined in <xref target="BCP47" format="default"/>, that best
-	            describes
-		          the participant's preferred language, if known.</dd>
+              <dt>scheduleAddress: <tt>String</tt> (optional)</dt>
+              <dd>This is the scheduling address to invite this participant.
+              The value <bcp14>MUST</bcp14> must be a <xref target="RFC3986"/> URI, but it <bcp14>MAY</bcp14> be in any scheme.
+              If it is a <tt>mailto</tt> URI <xref target="RFC6068" format="default"/>, then the participant accepts an iCalendar Message-Based Interoperability Protocol (iMIP) <xref
+		    target="RFC6047" format="default"/> request at this email address. The email address <bcp14>MAY</bcp14> be different from the value of the participant's
+		<tt>email</tt> property.</dd>
+   </dl>
+
+             <t>In addition, if the participant <tt>scheduleAddress</tt> property is set then the
+                following properties <bcp14>MAY</bcp14> be set. Otherwise they <bcp14>MUST NOT</bcp14> be set:</t>
+
+          <dl newline="true">
+              <dt>expectReply: <tt>Boolean</tt> (optional, default: false)</dt>
+              <dd>If true, the organizer is expecting the participant to notify them of their participation
+	            status.</dd>
+              <dt>delegatedFrom: <tt>Id[Boolean]</tt> (optional)</dt>
+              <dd>This is the set of delegators that this participant is acting as a delegate for, represented as a set of schedule addresses. Each key
+	            in the set <bcp14>MUST</bcp14> be a URI <xref target="RFC3986"/>. The value for each key in the map
+		          <bcp14>MUST</bcp14> be true. If there are no delegators, this <bcp14>MUST</bcp14> be omitted
+			        (rather than specified as an empty set).</dd>
+              <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
+	            <dd>This is the set of delegates that this participant has delegated their participation to, represented as a set
+              of schedule addresses. Each key in the set <bcp14>MUST</bcp14> be a URI <xref target="RFC3986"/>. The value for each key in the map
+				      <bcp14>MUST</bcp14> be true. If there are no delegates, this <bcp14>MUST</bcp14> be omitted
+				            (rather than specified as an empty set).</dd>
+              <dt>invitedBy: <tt>String</tt> (optional)</dt>
+	            <dd>This is the schedule address of the calendar user who added this participant to the event/task, if known. The value <bcp14>MUST</bcp14> be a URI <xref target="RFC3986"/></dd>
+              <dt>memberOf: <tt>Id[Boolean]</tt> (optional)</dt>
+              <dd>This is a set of groups that were invited to this calendar object, which caused
+	            this
+		          participant to be invited due to their membership in the group(s), represented as a set of schedule addresses. Each key in the set
+			        <bcp14>MUST</bcp14> be a URI <xref target="RFC3986"/>. The value for each key in the map
+				      <bcp14>MUST</bcp14> be true. If there are no groups, this <bcp14>MUST</bcp14> be omitted (rather
+				            than specified as an empty set).</dd>
+              <dt>participationComment: <tt>String</tt> (optional)</dt>
+              <dd>This is a  note from the participant to explain their participation status.</dd>
               <dt>participationStatus: <tt>String</tt> (optional, default: <tt>needs-action</tt>)</dt>
 	            <dd><t>This is the participation status, if any, of this participant.</t>
               <t>The value <bcp14>MUST</bcp14> be one of the following values, another value registered in the
@@ -1200,11 +1235,15 @@ signed-duration = ["+" / "-"] duration
 		<dd> The invited participant has delegated their attendance to another participant, as
 		specified in the <tt>delegatedTo</tt> property.</dd>
               </dl></dd>
-              <dt>participationComment: <tt>String</tt> (optional)</dt>
-              <dd>This is a  note from the participant to explain their participation status.</dd>
-              <dt>expectReply: <tt>Boolean</tt> (optional, default: false)</dt>
-              <dd>If true, the organizer is expecting the participant to notify them of their participation
-	            status.</dd>
+                <dt>percentComplete: <tt>UnsignedInt</tt> (optional; only allowed for participants of a Task)</dt>
+	              <dd>This represents the percent completion of the participant for this task. The property value <bcp14>MUST</bcp14> be a positive integer between 0 and 100.</dd>
+                <dt>progress: <tt>String</tt> (optional; only allowed for participants of a Task)</dt>
+	              <dd>This represents the progress of the participant for this task. It <bcp14>MUST NOT</bcp14> be
+		            set if the <tt>participationStatus</tt> of this participant is any value other than <tt>accepted</tt>. See
+			    <xref target="prop-progress" format="default"/> for allowed values and semantics.</dd>
+            <dt>progressUpdated: <tt>UTCDateTime</tt> (optional; only allowed for participants of a
+	        Task)</dt>
+		    <dd>This specifies the date-time the <tt>progress</tt> property was last set on this participant. See <xref target="prop-progressUpdated" format="default"/> for allowed values and semantics.</dd>
               <dt>scheduleAgent: <tt>String</tt> (optional, default: <tt>server</tt>)</dt><dd>
               <t>This is who is responsible for sending scheduling messages with this calendar object to the
 	            participant.</t>
@@ -1245,43 +1284,13 @@ signed-duration = ["+" / "-"] duration
 	            to the <tt>updated</tt> property in future responses to detect and discard older responses
 		          delivered out of order.</t></dd>
               <dt>sentBy: <tt>String</tt> (optional)</dt>
-              <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to). If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
+              <dd><t>This is the scheduling address of the calendar user that replied on behalf of this participant.
+              If the reply was sent via iMIP, this is the email address in the "From" header of the email that last updated this participant,
+              encoded as <tt>mailto</tt> URI <xref target="RFC6068" format="default"/> .
+              This SHOULD only be set if the URI is different to that in the participant's <tt>scheduleAddress</tt> property
+              (i.e., the response was received from a different address to that which the invitation was sent to).</t>
               </dd>
-              <dt>invitedBy: <tt>Id</tt> (optional)</dt>
-	            <dd>This is the id of the participant who added this participant to the event/task, if known.</dd>
-              <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
-	            <dd>This is set of participant ids that this participant has delegated their participation to.
-		          Each key
-			        in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
-				      <bcp14>MUST</bcp14> be true. If there are no delegates, this <bcp14>MUST</bcp14> be omitted
-				            (rather than specified as an empty set).</dd>
-              <dt>delegatedFrom: <tt>Id[Boolean]</tt> (optional)</dt>
-              <dd>This is a set of participant ids that this participant is acting as a delegate for. Each key
-	            in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
-		          <bcp14>MUST</bcp14> be true. If there are no delegators, this <bcp14>MUST</bcp14> be omitted
-			        (rather than specified as an empty set).</dd>
-              <dt>memberOf: <tt>Id[Boolean]</tt> (optional)</dt>
-              <dd>This is a set of group participants that were invited to this calendar object, which caused
-	            this
-		          participant to be invited due to their membership in the group(s). Each key in the set
-			        <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
-				      <bcp14>MUST</bcp14> be true. If there are no groups, this <bcp14>MUST</bcp14> be omitted (rather
-				            than specified as an empty set).</dd>
-              <dt>links: <tt>Id[Link]</tt> (optional)</dt>
-              <dd>This is a map of link ids to Link objects, representing external resources associated with
-	            this participant, for example, a vCard or image. If there are no links, this <bcp14>MUST</bcp14>
-		          be omitted (rather than specified as an empty set).</dd>
-            <dt>progress: <tt>String</tt> (optional; only allowed for participants of a Task)</dt>
-	        <dd>This represents the progress of the participant for this task. It <bcp14>MUST NOT</bcp14> be
-		    set if
-		        the <tt>participationStatus</tt> of this participant is any value other than <tt>accepted</tt>. See
-			    <xref target="prop-progress" format="default"/> for allowed values and semantics.</dd>
-            <dt>progressUpdated: <tt>UTCDateTime</tt> (optional; only allowed for participants of a
-	        Task)</dt>
-		    <dd>This specifies the date-time the <tt>progress</tt> property was last set on this participant. See <xref target="prop-progressUpdated" format="default"/> for allowed values and semantics.</dd>
-            <dt>percentComplete: <tt>UnsignedInt</tt> (optional; only allowed for participants of a Task)</dt>
-	        <dd>This represents the percent completion of the participant for this task. The property value <bcp14>MUST</bcp14> be a positive integer between 0 and 100.</dd>
-              </dl>
+            </dl>
             </section>
         <section anchor="prop-requestStatus" numbered="true" toc="default">
           <name>requestStatus</name>
@@ -2623,7 +2632,7 @@ Please let us know any objections.
                 <td align="left">String[String]</td>
                 <td align="left">Event, Task</td>
                 <td align="left">
-                  <xref target="prop-replyTo" format="default"/></td>
+                  <xref target="prop-replyto" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">requestStatus</td>
@@ -2647,25 +2656,11 @@ Please let us know any objections.
                   <xref target="prop-recurrenceRules" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">sentBy</td>
+                <td align="left">scheduleAddress</td>
                 <td align="left">String</td>
                 <td align="left">Event, Task, Participant</td>
                 <td align="left">
-                  <xref target="prop-sentBy" format="default"/>, <xref target="prop-participants" format="default"/></td>
-              </tr>
-              <tr>
-                <td align="left">standard</td>
-                <td align="left">TimeZoneRule[]</td>
-                <td align="left">TimeZone</td>
-                <td align="left">
-                  <xref target="prop-timeZones" format="default"/></td>
-              </tr>
-              <tr>
-                <td align="left">start</td>
-                <td align="left">LocalDateTime</td>
-                <td align="left">TimeZoneRule</td>
-                <td align="left">
-                  <xref target="prop-timeZones" format="default"/></td>
+                  <xref target="prop-scheduleaddress" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">scheduleAgent</td>
@@ -2677,9 +2672,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">scheduleForceSend</td>
                 <td align="left">Boolean</td>
-                <td align="left">Participant</td>
+                <td align="left">Event, Task, Participant</td>
                 <td align="left">
-                  <xref target="prop-participants" format="default"/></td>
+                  <xref target="prop-scheduleaddress" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">scheduleSequence</td>
@@ -2703,11 +2698,11 @@ Please let us know any objections.
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">sendTo</td>
-                <td align="left">String[String]</td>
-                <td align="left">Participant</td>
+                <td align="left">sentBy</td>
+                <td align="left">String</td>
+                <td align="left">Event, Task, Participant</td>
                 <td align="left">
-                  <xref target="prop-participants" format="default"/></td>
+                  <xref target="prop-sentBy" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">sequence</td>
@@ -2747,9 +2742,9 @@ Please let us know any objections.
               <tr>
                 <td align="left">start</td>
                 <td align="left">LocalDateTime</td>
-                <td align="left">Event, Task</td>
+                <td align="left">Event, Task, TimeZone</td>
                 <td align="left">
-                  <xref target="prop-start-jsevent" format="default"/>, <xref target="prop-start-jstask" format="default"/></td>
+                  <xref target="prop-start-jsevent" format="default"/>, <xref target="prop-start-jstask" format="default"/>, <xref target="prop-timeZone" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">status</td>
@@ -3524,6 +3519,7 @@ Please let us know any objections.
 </referencegroup>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5870.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6047.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6068.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6901.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7493.xml"/>
