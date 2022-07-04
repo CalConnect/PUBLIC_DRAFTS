@@ -1199,6 +1199,10 @@ signed-duration = ["+" / "-"] duration
                 <dt><tt>delegated</tt>:</dt>
 		<dd> The invited participant has delegated their attendance to another participant, as
 		specified in the <tt>delegatedTo</tt> property.</dd>
+                <dt><tt>in-process</tt>:</dt>
+		            <dd>The participant is in process of completing their participation in this task. This value only is allowed for participants of a Task object.</dd>
+                <dt><tt>completed</tt>:</dt>
+		            <dd>The participant has completed their participation in this task. This value only is allowed for participants of a Task object.</dd>
               </dl></dd>
               <dt>participationComment: <tt>String</tt> (optional)</dt>
               <dd>This is a  note from the participant to explain their participation status.</dd>
