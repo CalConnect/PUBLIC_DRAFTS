@@ -535,10 +535,10 @@ signed-duration = ["+" / "-"] duration
               <dd>This specifies the type of this object. This <bcp14>MUST</bcp14> be <tt>Location</tt>.</dd>
               <dt>uid: <tt>String</tt> (optional)</dt>
               <dd>This is the globally unique identifier of the location. See <xref target="prop-uid"/> for the definition of this property.</dd>
-              <dt>name: <tt>String</tt> (optional)</dt>
-              <dd>This is the human-readable name of the location.</dd>
+              <dt>title: <tt>String</tt> (optional)</dt>
+              <dd>This is a short human-readable title of the location.</dd>
               <dt>description: <tt>String</tt> (optional)</dt>
-              <dd>This is the human-readable, plain-text instructions for accessing this location. This may be
+              <dd>This is a human-readable, plain-text description of this location, such as instructions for accessing it. This may be
 	            an address, set of directions, door access code, etc.</dd>
               <dt>locationTypes: <tt>String[Boolean]</tt> (optional)</dt>
               <dd>This is a set of one or more location types that describe this location. All types
