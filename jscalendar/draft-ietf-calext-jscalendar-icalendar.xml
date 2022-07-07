@@ -10,22 +10,6 @@
   <front>
     <title abbrev="JSCalendar">JSCalendar: Converting from and to iCalendar</title>
     <seriesInfo name="Internet-Draft" value="draft-ietf-calext-jscalendar-icalendar-06"/>
-    <author initials="N.M." surname="Jenkins" fullname="Neil Jenkins">
-      <organization>FastMail</organization>
-      <address>
-        <postal>
-          <street>PO Box 234</street>
-          <street>Collins St West</street>
-          <city>Melbourne</city>
-          <code>VIC 8007</code>
-          <country>Australia</country>
-          <region/>
-        </postal>
-        <phone/>
-        <email>neilj@fastmailteam.com</email>
-        <uri>https://www.fastmail.com</uri>
-      </address>
-    </author>
     <author initials="R." surname="Stepanek" fullname="Robert Stepanek">
       <organization>FastMail</organization>
       <address>
