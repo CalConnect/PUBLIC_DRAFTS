@@ -108,6 +108,57 @@
     <section anchor="new-properties">
       <name>New Properties</name>
 
+      <section anchor="prop-comp-id">
+        <name>COMP-ID Property</name>
+        <dl>
+          <dt>Property name:</dt>
+          <dd>COMP-ID</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This property uniquely identifies a component among all its siblings of the same type.</dd>
+
+          <dt>Value type:</dt>
+          <dd>TEXT, also see Format Definition for value restrictions.</dd>
+
+          <dt>Conformance:</dt>
+          <dd>The property can be specified once in a calendar component.</dd>
+
+          <dt>Property parameters:</dt>
+          <dd>IANA and non-standard property parameters can be specified on this property.</dd>
+
+          <dt>Description:</dt>
+          <dd>
+            <t>
+              A calendar component may embed multiple components of the same type. For example, a VEVENT component may embed multiple VALARM components. To distinguish these VALARMs among all global instances of VALARM calendar components, an application may choose to assign a uniquely global UID to each of them. However, some applications or formats such as JSCalendar, do not require globally uniqueness. Instead, they only require uniqueness among all instances of calendar components within one parent component. This is what the COMP-ID property is for.
+            </t>
+            <t>
+              A valid COMP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only contain characters from the “URL and Filename Safe” base64 alphabet, as defined in <xref target="RFC4648" section="5"/>, excluding the pad character (<tt>=</tt>). This means the allowed characters are the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>). If an application makes use of COMP-ID it <bcp14>SHOULD</bcp14> assign a unique identifier to each sibling component of the same component type within their parent component. The same identifier <bcp14>MAY</bcp14> be used for components of a different type, and it <bcp14>MAY</bcp14> also be assigned to a same-typed component that is not a sibling.
+            </t>
+            <t>
+              Conflict-resolution is application specific. Conflicts include resolving duplicate identifiers for sibling, same-typed components, as well as processing components where no COMP-ID is assigned to some siblings.
+            </t>
+          </dd>
+
+          <dt>Format definition:</dt>
+          <dd><t>This property is defined by the following notation:</t>
+          <sourcecode name="" type="abnf"><![CDATA[
+comp-id  = "COMP-ID" comp-id-param ":" comp-id-value CRLF
+
+comp-id-value  = 1*255(ALPHA / DIGIT / "-"/ "_")
+
+comp-id-param  = *(";" other-param)
+]]></sourcecode>
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+COMP-ID:m2398
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
       <section anchor="prop-show-without-time">
         <name>SHOW-WITHOUT-TIME Property</name>
         <dl>
@@ -121,7 +172,7 @@
           <dd>BOOLEAN</dd>
 
           <dt>Conformance:</dt>
-          <dd>The property can be specified at most once in the <tt>VEVENT</tt> or <tt>VTODO</tt> components.</dd>
+          <dd>The property can be specified once in the <tt>VEVENT</tt>, <tt>VTODO</tt> or <tt>VJOURNAL</tt> calendar components.</dd>
 
           <dt>Property parameters:</dt>
           <dd>IANA and non-standard property parameters can be specified on this property.</dd>
@@ -218,7 +269,7 @@ GEO;VALUE=URI:geo:48.198634,16.371648;crs=wgs84;u=40
           <dd>CONTENT-ID</dd>
 
           <dt>Purpose:</dt>
-          <dd>This parameter assigns an identifier to attachment for use with styled descriptions.</dd>
+          <dd>This parameter identifies an attachment contents for use with styled descriptions.</dd>
 
           <dt>Format definition:</dt>
           <dd>
@@ -246,7 +297,7 @@ STYLED-DESCRIPTION;VALUE=TEXT;FMTTYPE=text/html:
         </dl>
       </section>
 
-      <section anchor="paramn-invited-by">
+      <section anchor="param-invited-by">
         <name>INVITED-BY Parameter</name>
         <dl>
           <dt>Parameter name:</dt>
@@ -308,6 +359,37 @@ ATTACH;LINK-REL=payment:https://example.com/donate
         </dl>
       </section>
 
+         <section anchor="prop-id">
+        <name>PROP-ID Parameter</name>
+        <dl>
+          <dt>Parameter name:</dt>
+          <dd>PROP-ID</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This parameter identifies a property among all its siblings of the same type.</dd>
+
+          <dt>Format definition:</dt>
+          <dd>
+          <sourcecode name="" type="abnf"><![CDATA[
+prop-id-param  = "PROP-ID" "=" 1*255(ALPHA / DIGIT / "-"/ "_")
+]]></sourcecode>
+          </dd>
+
+          <dt>Description:</dt>
+          <dd>
+            This parameter uniquely identifies a property among all of its siblings with the same name within a calendar component. It is the equivalent for iCalendar properties to what the <xref target="prop-comp-id">COMP-ID</xref> property is for components. A property identifier has no meaning outside the calendar component it is defined in. Properties of the same name that are not siblings <bcp14>MAY</bcp14> have the same identifier, as <bcp14>MAY</bcp14> sibling properties with a different property name. Conflict resolution as outlined in <tt>COMP-ID</tt> is application-specific.
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+ATTACH;PROP-ID=a983:https://example.com/something
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+
     </section>
 
     <section anchor="IANA">
@@ -331,6 +413,7 @@ ATTACH;LINK-REL=payment:https://example.com/donate
         <name>Normative References</name>
 
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.4648.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5545.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5870.xml"/>
         <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.7986.xml"/>
