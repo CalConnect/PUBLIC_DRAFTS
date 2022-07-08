@@ -73,6 +73,15 @@
   <middle>
 
     <section>
+      <name>Preface</name>
+      <t>
+        This document is a work in progress. The list of new or updated properties
+        and parameters is likely to be incomplete. This section is removed from
+        the document before publication.
+      </t>
+    </section>
+
+    <section>
       <name>Introduction</name>
       <t>
         The JSCalendar <xref target="RFC8984"/> format aims to be an alternative to the
