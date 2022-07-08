@@ -51,7 +51,7 @@
         <uri>http://bedework.com</uri>
       </address>
     </author>
-    <date year="2022" month="July" day="7"/>
+    <date year="2022" month="July" day="11"/>
     <area>Applications</area>
     <workgroup>Calendaring Extensions</workgroup>
     <keyword>addressbook</keyword>
@@ -132,10 +132,10 @@
               A calendar component may embed multiple components of the same type. For example, a VEVENT component may embed multiple VALARM components. To distinguish these VALARMs among all global instances of VALARM calendar components, an application may choose to assign a uniquely global UID to each of them. However, some applications or formats such as JSCalendar, do not require globally uniqueness. Instead, they only require uniqueness among all instances of calendar components within one parent component. This is what the COMP-ID property is for.
             </t>
             <t>
-              A valid COMP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only contain characters from the “URL and Filename Safe” base64 alphabet, as defined in <xref target="RFC4648" section="5"/>, excluding the pad character (<tt>=</tt>). This means the allowed characters are the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>). If an application makes use of COMP-ID it <bcp14>SHOULD</bcp14> assign a unique identifier to each sibling component of the same component type within their parent component. The same identifier <bcp14>MAY</bcp14> be used for components of a different type, and it <bcp14>MAY</bcp14> also be assigned to a same-typed component that is not a sibling.
+              The COMP-ID property identifies a component among all of its siblings of the same type. A valid COMP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only contain the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>). The identifier only has the purpose to uniquely identify siblings, its value has no other meaning. If an application makes use of COMP-ID it <bcp14>SHOULD</bcp14> assign a unique identifier to each sibling component of the same type within their parent component. The same identifier <bcp14>MAY</bcp14> be used for components of a different type, and it <bcp14>MAY</bcp14> also be assigned to a same-typed component that is not a sibling.
             </t>
             <t>
-              Conflict-resolution is application specific. Conflicts include resolving duplicate identifiers for sibling, same-typed components, as well as processing components where no COMP-ID is assigned to some siblings.
+              Resolving duplicate identifier conflicts is specific to the application. Similarly, handling components where some but not all siblings have a COMP-ID is assigned, is application-specific.
             </t>
           </dd>
 
@@ -359,7 +359,7 @@ ATTACH;LINK-REL=payment:https://example.com/donate
         </dl>
       </section>
 
-         <section anchor="prop-id">
+      <section anchor="prop-id">
         <name>PROP-ID Parameter</name>
         <dl>
           <dt>Parameter name:</dt>
@@ -377,7 +377,12 @@ prop-id-param  = "PROP-ID" "=" 1*255(ALPHA / DIGIT / "-"/ "_")
 
           <dt>Description:</dt>
           <dd>
-            This parameter uniquely identifies a property among all of its siblings with the same name within a calendar component. It is the equivalent for iCalendar properties to what the <xref target="prop-comp-id">COMP-ID</xref> property is for components. A property identifier has no meaning outside the calendar component it is defined in. Properties of the same name that are not siblings <bcp14>MAY</bcp14> have the same identifier, as <bcp14>MAY</bcp14> sibling properties with a different property name. Conflict resolution as outlined in <tt>COMP-ID</tt> is application-specific.
+          <t>
+              This parameter uniquely identifies a property among all of its siblings with the same name within a calendar component. A valid PROP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only contain the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>). The identifier only has the purpose to uniquely identify siblings, its value has no other meaning. If an application makes use of PROP-ID it <bcp14>SHOULD</bcp14> assign a unique identifier to each sibling property of the same name within their embedding component. The same identifier <bcp14>MAY</bcp14> be used for properties of a different name, and it <bcp14>MAY</bcp14> also be assigned to a same-named property that is not a sibling.
+            </t>
+            <t>
+              Resolving duplicate identifier conflicts is specific to the application. Similarly, handling properties where some but not all siblings have a PROP-ID is assigned, is application-specific.
+            </t>
           </dd>
 
           <dt>Example(s):</dt>
