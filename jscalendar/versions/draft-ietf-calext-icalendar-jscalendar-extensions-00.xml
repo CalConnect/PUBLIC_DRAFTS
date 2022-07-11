@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="rfc7991bis.rnc"?>
+
+<!DOCTYPE rfc [
+  <!ENTITY nbsp    "&#160;">
+  <!ENTITY zwsp   "&#8203;">
+  <!ENTITY nbhy   "&#8209;">
+  <!ENTITY wj     "&#8288;">
+]>
+
+<rfc
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  category="std"
+  docName="draft-ietf-calext-icalendar-jscalendar-extensions-00"
+  ipr="trust200902"
+  obsoletes=""
+  updates=""
+  submissionType="IETF"
+  xml:lang="en"
+  version="3">
+
+  <front>
+    <title abbrev="iCalendar JSCalendar Extensions">iCalendar Format Extension for JSCalendar</title>
+
+    <seriesInfo name="Internet-Draft" value="draft-ietf-calext-icalendar-jscalendar-extensions-00"/>
+
+    <author initials="R." surname="Stepanek" fullname="Robert Stepanek">
+      <organization>FastMail</organization>
+      <address>
+        <postal>
+          <street>PO Box 234, Collins St West</street>
+          <city>Melbourne</city>
+          <code>VIC 8007</code>
+          <country>Australia</country>
+          <region> </region>
+        </postal>
+        <email>rsto@fastmailteam.com</email>
+      </address>
+    </author>
+    <author initials="M." surname="Douglass" fullname="Michael Douglass">
+      <organization abbrev="BCS">Bedework Commercial Services</organization>
+      <address>
+        <postal>
+          <street>226 3rd Street</street>
+          <city>Troy</city>
+          <region>NY</region>
+          <code>12180</code>
+          <country>United States of America</country>
+        </postal>
+        <email>mdouglass@bedework.com</email>
+        <uri>http://bedework.com</uri>
+      </address>
+    </author>
+    <date year="2022" month="July" day="11"/>
+    <area>Applications</area>
+    <workgroup>Calendaring Extensions</workgroup>
+    <keyword>addressbook</keyword>
+    <keyword>contacts</keyword>
+    <keyword>cards</keyword>
+    <keyword>ICALENDAR</keyword>
+    <keyword>JSCalendar</keyword>
+
+    <abstract>
+      <t>
+        This document defines a set of new properties for iCalendar and extends the use of existing ones.
+        Their primary purpose is to align the same set of features between the JSCalendar and iCalendar formats,
+        but the new definitions also aim to be useful within just the iCalendar format.
+      </t>
+    </abstract>
+
+  </front>
+
+  <middle>
+
+    <section>
+      <name>Preface</name>
+      <t>
+        This document is a work in progress. The list of new or updated properties
+        and parameters is likely to be incomplete. This section is removed from
+        the document before publication.
+      </t>
+    </section>
+
+    <section>
+      <name>Introduction</name>
+      <t>
+        The JSCalendar <xref target="RFC8984"/> format aims to be an alternative to the
+        iCalendar <xref target="RFC5545"/> format for representation of calendar
+        data. As such, it introduces new semantics that are not covered in the current
+        definition of iCalendar and its extensions. Converting calendar data between
+        the two formats is defined in <xref target="ref-jscalendar-icalendar"/> with the goal of
+        not loosing any semantics during conversion. In order to do so, this document
+        defines a new set of properties for iCalendar and extends existing definitions.
+      </t>
+
+      <section>
+        <name>Requirements Language</name>
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
+          "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT
+          RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
+          interpreted as described in BCP 14 <xref target="RFC2119"/>
+          <xref target="RFC8174"/> when, and only when, they appear in
+          all capitals, as shown here.</t>
+      </section>
+
+    </section>
+
+    <section anchor="new-properties">
+      <name>New Properties</name>
+
+      <section anchor="prop-comp-id">
+        <name>COMP-ID Property</name>
+        <dl>
+          <dt>Property name:</dt>
+          <dd>COMP-ID</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This property uniquely identifies a component among all its siblings of the same type.</dd>
+
+          <dt>Value type:</dt>
+          <dd>TEXT, also see Format Definition for value restrictions.</dd>
+
+          <dt>Conformance:</dt>
+          <dd>The property can be specified once in a calendar component.</dd>
+
+          <dt>Property parameters:</dt>
+          <dd>IANA and non-standard property parameters can be specified on this property.</dd>
+
+          <dt>Description:</dt>
+          <dd>
+            <t>
+              A calendar component may embed multiple components of the same type. For example, a VEVENT component may embed multiple VALARM components. To distinguish these VALARMs among all global instances of VALARM calendar components, an application may choose to assign a uniquely global UID to each of them. However, some applications or formats such as JSCalendar, do not require globally uniqueness. Instead, they only require uniqueness among all instances of calendar components within one parent component. This is what the COMP-ID property is for.
+            </t>
+            <t>
+              The COMP-ID property identifies a component among all of its siblings of the same type. A valid COMP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only contain the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>). The identifier only has the purpose to uniquely identify siblings, its value has no other meaning. If an application makes use of COMP-ID it <bcp14>SHOULD</bcp14> assign a unique identifier to each sibling component of the same type within their parent component. The same identifier <bcp14>MAY</bcp14> be used for components of a different type, and it <bcp14>MAY</bcp14> also be assigned to a same-typed component that is not a sibling.
+            </t>
+            <t>
+              Resolving duplicate identifier conflicts is specific to the application. Similarly, handling components where some but not all siblings have a COMP-ID is assigned, is application-specific.
+            </t>
+          </dd>
+
+          <dt>Format definition:</dt>
+          <dd><t>This property is defined by the following notation:</t>
+          <sourcecode name="" type="abnf"><![CDATA[
+comp-id  = "COMP-ID" comp-id-param ":" comp-id-value CRLF
+
+comp-id-value  = 1*255(ALPHA / DIGIT / "-"/ "_")
+
+comp-id-param  = *(";" other-param)
+]]></sourcecode>
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+COMP-ID:m2398
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+      <section anchor="prop-show-without-time">
+        <name>SHOW-WITHOUT-TIME Property</name>
+        <dl>
+          <dt>Property name:</dt>
+          <dd>SHOW-WITHOUT-TIME</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This property indicates if an event or task should be displayed with time information.</dd>
+
+          <dt>Value type:</dt>
+          <dd>BOOLEAN</dd>
+
+          <dt>Conformance:</dt>
+          <dd>The property can be specified once in the <tt>VEVENT</tt>, <tt>VTODO</tt> or <tt>VJOURNAL</tt> calendar components.</dd>
+
+          <dt>Property parameters:</dt>
+          <dd>IANA and non-standard property parameters can be specified on this property.</dd>
+
+          <dt>Description:</dt>
+          <dd>
+            This indicates that the time is not important to display to the user when rendering this calendar object. An example of this is an event that conceptually occurs all day or across multiple days, such as "New Year's Day" or "Italy Vacation". While the time component is important for free-busy calculations and checking for scheduling clashes, calendars may choose to omit displaying it and/or display the object separately to other objects to enhance the user's view of their schedule.
+          </dd>
+
+          <dt>Format definition:</dt>
+          <dd><t>This property is defined by the following notation:</t>
+          <sourcecode name="" type="abnf"><![CDATA[
+show-without-time  = "SHOW-WITHOUT-TIME" show-without-time-param
+                     ":" boolean CRLF
+
+show-without-time-param  = *(";" other-param)
+]]></sourcecode>
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+SHOW-WITHOUT-TIME:TRUE
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+    </section>
+
+    <section anchor="updated-properties">
+      <name>Updated Properties</name>
+
+      <section anchor="prop-geo">
+        <name>GEO Property</name>
+        <t>
+          This specification modifies the definition of the <tt>GEO</tt> property
+          to allow storing spatial positions in form of URIs using the <tt>geo:</tt>
+          scheme <xref target="RFC5870"/>. The following additions are made to the
+          definition of this property, original specified in
+          <xref target="RFC5545" section="3.8.1.6"/>.
+        </t>
+        <dl>
+          <dt>Value type:</dt>
+          <dd>The default value type is FLOAT, where the value MUST be two SEMICOLON-separated FLOAT
+      values. The value type can also be set to URI to indicate <tt>geo:</tt> encoded coordinates.</dd>
+
+          <dt>Property parameters:</dt>
+          <dd>VALUE</dd>
+
+          <dt>Description:</dt>
+          <dd>
+            When the property value is a URI in the <tt>geo:</tt> scheme, then the <tt>VALUE</tt>
+            property parameter <bcp14>MUST</bcp14> be set to <tt>URI</tt>.
+          </dd>
+
+          <dt>Format definition:</dt>
+          <dd><t>This property is defined by the following notation:</t>
+          <sourcecode name="" type="abnf"><![CDATA[
+geo   = "GEO" geoparam ( ":" geovalue ) /
+                       (
+                         ";" "VALUE" "=" "URI"
+                         ":"  uri ; uri MUST be in the geo: scheme
+                       )
+                       CRLF
+
+geoparam   = *(";" other-param)
+
+geovalue   = float ";" float
+       ;Latitude and Longitude components
+
+]]></sourcecode>
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+GEO:37.386013;-122.082932
+GEO;VALUE=URI:geo:48.198634,16.371648;crs=wgs84;u=40
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+    </section>
+
+    <section anchor="new-parameters">
+      <name>New Parameters</name>
+
+      <section anchor="param-content-id">
+        <name>CONTENT-ID Parameter</name>
+        <dl>
+          <dt>Parameter name:</dt>
+          <dd>CONTENT-ID</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This parameter identifies an attachment contents for use with styled descriptions.</dd>
+
+          <dt>Format definition:</dt>
+          <dd>
+          <sourcecode name="" type="abnf"><![CDATA[
+cid-param  = "CONTENT-ID" "=" DQUOTE uri DQUOTE
+               ; uri must be a cid-url defined in RFC 8288
+]]></sourcecode>
+          </dd>
+
+          <dt>Description:</dt>
+          <dd>
+          This parameter <bcp14>MAY</bcp14> be set on an "ATTACH" or "IMAGE" property. It assigns the property an identifier that <bcp14>MUST</bcp14> be unique within the calendar component. A calendar component <bcp14>MAY</bcp14> include a <tt>STYLED-DESCRIPTION</tt> property as specified in <xref target="RFC9073" section="6.5"/>, and <bcp14>MAY</bcp14> contain HTML text. URLs in the "cid:" scheme referred to by images and other data within that HTML description can be resolved to calendar component attachments having that content-id.
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+IMAGE;CONTENT-ID="cid:foo@bar.net":
+ data:image/jpeg;base64,SGVsbG8sIFdvcmxk..
+
+STYLED-DESCRIPTION;VALUE=TEXT;FMTTYPE=text/html:
+  <html><body><img src="cid:foo@bar.net" alt="foo"/></body></html>
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+      <section anchor="param-invited-by">
+        <name>INVITED-BY Parameter</name>
+        <dl>
+          <dt>Parameter name:</dt>
+          <dd>INVITED-BY</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This parameter specifies which calendar address user invited another.</dd>
+
+          <dt>Format definition:</dt>
+          <dd>
+          <sourcecode name="" type="abnf"><![CDATA[
+inviteby-param  = "INVITED-BY" "=" DQUOTE cal-address DQUOTE
+]]></sourcecode>
+          </dd>
+
+          <dt>Description:</dt>
+          <dd>
+          This parameter <bcp14>MAY</bcp14> be set on an "ATTENDEE" property, specified in <xref target="RFC5545" section="3.8.4.1"/>. If set, it identifies the participant that invited the calendar user represented by the <tt>ATTENDEE</tt> property to the calendar component.
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+ATTENDEE;INVITED-BY="inviter@example.com":invitee@example.com
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+      <section anchor="param-link-rel">
+        <name>LINK-REL Parameter</name>
+        <dl>
+          <dt>Parameter name:</dt>
+          <dd>LINK-REL</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This parameter defines how an attachment relates to calendar component.</dd>
+
+          <dt>Format definition:</dt>
+          <dd>
+          <sourcecode name="" type="abnf"><![CDATA[
+linkrel-param  = "LINK-REL" "=" paramtext
+                   ; one of Link Relation Types registered in
+                   ; the IANA Link Relations Registry (RFC 8288)
+]]></sourcecode>
+          </dd>
+
+          <dt>Description:</dt>
+          <dd>
+          This parameter <bcp14>MAY</bcp14> be set on an "ATTACH" or "IMAGE" property. It indicates how the contents of the attachment or image relate to the calendar component this property is part of. For the list of available relations, see the Link Relation Types in the IANA Link Relations Registry <xref target="RFC8288"/>.
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+ATTACH;LINK-REL=payment:https://example.com/donate
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+      <section anchor="prop-id">
+        <name>PROP-ID Parameter</name>
+        <dl>
+          <dt>Parameter name:</dt>
+          <dd>PROP-ID</dd>
+
+          <dt>Purpose:</dt>
+          <dd>This parameter identifies a property among all its siblings of the same type.</dd>
+
+          <dt>Format definition:</dt>
+          <dd>
+          <sourcecode name="" type="abnf"><![CDATA[
+prop-id-param  = "PROP-ID" "=" 1*255(ALPHA / DIGIT / "-"/ "_")
+]]></sourcecode>
+          </dd>
+
+          <dt>Description:</dt>
+          <dd>
+          <t>
+              This parameter uniquely identifies a property among all of its siblings with the same name within a calendar component. A valid PROP-ID value must be of 1 and a maximum of 255 octets in size, and it MUST only contain the ASCII alphanumeric characters (<tt>A-Za-z0-9</tt>), hyphen (<tt>-</tt>), and underscore (<tt>_</tt>). The identifier only has the purpose to uniquely identify siblings, its value has no other meaning. If an application makes use of PROP-ID it <bcp14>SHOULD</bcp14> assign a unique identifier to each sibling property of the same name within their embedding component. The same identifier <bcp14>MAY</bcp14> be used for properties of a different name, and it <bcp14>MAY</bcp14> also be assigned to a same-named property that is not a sibling.
+            </t>
+            <t>
+              Resolving duplicate identifier conflicts is specific to the application. Similarly, handling properties where some but not all siblings have a PROP-ID is assigned, is application-specific.
+            </t>
+          </dd>
+
+          <dt>Example(s):</dt>
+          <dd>
+          <sourcecode name=""><![CDATA[
+ATTACH;PROP-ID=a983:https://example.com/something
+]]></sourcecode>
+          </dd>
+        </dl>
+      </section>
+
+
+    </section>
+
+    <section anchor="IANA">
+    <!-- All drafts are required to have an IANA considerations section. See RFC 8126 for a guide.-->
+      <name>IANA Considerations</name>
+      <t>This section will be filled at a later stage.</t>
+    </section>
+
+    <section anchor="Security">
+      <!-- All drafts are required to have a security considerations section. See RFC 3552 for a guide. -->
+      <name>Security Considerations</name>
+      <t>This section will be filled at a later stage.</t>
+    </section>
+
+  </middle>
+
+  <back>
+    <references>
+      <name>References</name>
+      <references>
+        <name>Normative References</name>
+
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5545.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.5870.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8174.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8288.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.8984.xml"/>
+        <xi:include href="https://www.rfc-editor.org/refs/bibxml/reference.RFC.9073.xml"/>
+        <!-- The recommended and simplest way to include a well known reference -->
+
+      </references>
+
+      <references>
+        <name>Informative References</name>
+
+        <reference anchor="ref-jscalendar-icalendar" target="https://datatracker.ietf.org/doc/draft-ietf-calext-jscalendar-icalendar/">
+          <front>
+            <title>JSCalendar: Converting from and to iCalendar</title>
+            <author/>
+          </front>
+        </reference>
+
+      </references>
+    </references>
+
+    <!--section anchor="Acknowledgements" numbered="false">
+      <name>Acknowledgements</name>
+      <t>This template uses extracts from templates written by Pekka Savola, Elwyn Davies and
+        Henrik Levkowetz. [REPLACE]</t>
+    </section-->
+
+    <!--section anchor="Contributors" numbered="false">
+      <name>Contributors</name>
+      <t>Thanks to all of the contributors. [REPLACE]</t>
+    </section-->
+
+ </back>
+</rfc>
