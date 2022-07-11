@@ -5,11 +5,11 @@
   <!ENTITY nbhy   "&#8209;">
   <!ENTITY wj     "&#8288;">
 ]>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-icalendar-06" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" symRefs="true" sortRefs="true" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" ipr="trust200902" category="std" docName="draft-ietf-calext-jscalendar-icalendar-07" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" symRefs="true" sortRefs="true" version="3">
   <!-- xml2rfc v2v3 conversion 3.12.1 -->
   <front>
     <title abbrev="JSCalendar">JSCalendar: Converting from and to iCalendar</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-calext-jscalendar-icalendar-06"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-calext-jscalendar-icalendar-07"/>
     <author initials="R." surname="Stepanek" fullname="Robert Stepanek">
       <organization>FastMail</organization>
       <address>
@@ -39,7 +39,7 @@
         <uri>http://bedework.com</uri>
       </address>
     </author>
-    <date year="2022" month="January" day="13"/>
+    <date year="2022" month="July" day="11"/>
     <area>Applications</area>
     <workgroup>Calendaring extensions</workgroup>
     <keyword>JSON</keyword>
