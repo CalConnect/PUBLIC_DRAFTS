@@ -1980,6 +1980,175 @@
         </t>
       </section>
     </section>
+
+    <section anchor="translate-icalendar-non-standard" numbered="true" toc="default">
+      <name>Translating non-standard iCalendar to JSCalendar</name>
+      <t>
+        iCalendar data may contain entries for which no standard property
+        or object type exists in JSCalendar. This mainly occurs for experimental
+        properties, parameter and components in iCalendar
+        (<em>X</em>-extensions, see <xref target="RFC5545" section="3.8.8.2"/>), but may be the case
+        for other iCalendar data, too. Typically, the semantics or value types of
+        such entries are known.
+      </t>
+      <t>
+        This section defines new properties, by which implementations <bcp14>SHOULD</bcp14>
+        map such data. Applications that have more insight into the semantics of such iCalendar
+        entries <bcp14>MAY</bcp14> choose to map differently.
+      </t>
+      <t>
+        NOTE: The verbatim <tt>XXXX</tt> values in this section will be replaced with
+        the RFC number of this document before publication. Also, the following properties
+        require a redefinition of vendor-extension properties for JSCalendar. Currently,
+        only domain names are allowed as prefix for vendor extensions.
+        This document assumes that also URIs with the <tt>urn</tt> scheme are allowed.
+      </t>
+
+      <section anchor="translate-non-standard-extension-components" numbered="true" toc="default">
+        <name><tt>urn:ietf:rfcXXXX#components</tt></name>
+        <t>
+          Type: <tt>JCalComp[]</tt> where <tt>JCalComp</tt> denotes a jCal-encoded component as
+          defined in <xref target="RFC7265" section="3.3"/>
+        </t>
+        <t>
+          This property is set on a JSCalendar object for which a standard mapping from
+          an iCalendar component is defined. If set, it contains one or more iCalendar
+          components that are direct children of the iCalendar component represented by
+          the JSCalendar object.
+        </t>
+        <artwork name="" type="" align="left" alt=""><![CDATA[
+BEGIN:VEVENT
+UID:c2236fe3-4dc9-4b3b-8a18-cd8f29eca594
+DTSTART:20220711T104800
+BEGIN:X-COMP
+UID:6dcff59c-d251-44c9-9010-a62cab390df0
+END:X-COMP
+END:VEVENT
+
+maps to
+
+{
+  "@type": "Event",
+  "uid": "c2236fe3-4dc9-4b3b-8a18-cd8f29eca594",
+  "start": "2022-07-11T10:48:00",
+  "urn:ietf:rfcXXXX#components": [
+    ["x-comp", [
+      ["uid", {}, "text", "6dcff59c-d251-44c9-9010-a62cab390df0"]
+    ]
+  ]
+}
+]]></artwork>
+      </section>
+
+      <section anchor="translate-non-standard-extension-properties" numbered="true" toc="default">
+        <name><tt>urn:ietf:rfcXXXX#properties</tt></name>
+        <t>
+          Type: <tt>JCalProp[]</tt> where <tt>JCalProp</tt> denotes a jCal-encoded property as
+          defined in <xref target="RFC7265" section="3.4"/>
+        </t>
+        <t>
+          This property is set on a JSCalendar object for which a standard mapping from
+          an iCalendar component is defined. If set, it contains one or more iCalendar
+          properties that are set in the iCalendar component represented by the JSCalendar object.
+        </t>
+        <artwork name="" type="" align="left" alt=""><![CDATA[
+BEGIN:VEVENT
+UID:c2236fe3-4dc9-4b3b-8a18-cd8f29eca594
+DTSTART:20220711T104800
+X-PROP;X-PARAM=Bar:Foo
+END:VEVENT
+
+maps to
+
+{
+  "@type": "Event",
+  "uid": "c2236fe3-4dc9-4b3b-8a18-cd8f29eca594",
+  "start": "2022-07-11T10:48:00",
+  "urn:ietf:rfcXXXX#properties": [
+    ["x-prop", {
+      "x-param": "Bar"
+    }, "unknown", "Foo"]
+  ]
+}
+]]></artwork>
+      </section>
+
+    <section anchor="translate-non-standard-extension-parameters" numbered="true" toc="default">
+        <name><tt>urn:ietf:rfcXXXX#parameters</tt></name>
+        <t>
+          Type: <tt>String[String]</tt> denotes a JSON object encoding iCalendar parameters
+          as defined in <xref target="RFC7265" section="3.5"/>
+        </t>
+        <t>
+          This property is set on a JSCalendar object for which a standard mapping from
+          an iCalendar property is defined. If set, it contains one or more iCalendar
+          parameters that are set on the iCalendar property represented by the JSCalendar object.
+        </t>
+        <artwork name="" type="" align="left" alt=""><![CDATA[
+...
+ATTACH;X-PARAM=Bar;VALUE=URI:https://example.com/foo.zip
+...
+
+maps to
+
+...
+{
+  "@type": "Link",
+  "href": "https://example.com/foo.zip",
+  "urn:ietf:rfcXXXX#parameters": {
+    "x-param": "Bar"
+  }
+}
+...
+]]></artwork>
+      </section>
+
+    <section anchor="translate-non-standard-extension-short-form-prop" numbered="true" toc="default">
+        <name><tt>urn:ietf:rfcXXXX#prop</tt></name>
+        <t>
+          A short-form variant of the <tt>properties</tt> property defined in
+          <xref target="translate-non-standard-extension-properties"/> <bcp14>MAY</bcp14>
+          be used to map a single property from iCalendar. This aims to provide a compact
+          representation for mapping an iCalendar property without parameters and for
+          which no value type is known. It is defined as follows:
+        </t>
+        <t>
+          Name: <tt>urn:ietf:rfcXXXX#prop/<em>propname</em></tt> where <em>propname</em> denotes
+          the ASCII lower-case <tt>name</tt> (<xref target="RFC5545" section="3.1"/>) of the
+          mapped property.
+        </t>
+        <t>
+          Type: <tt>String</tt> where the string must adhere to the definitions of
+          <xref target="RFC7265" section="5"/>.
+        </t>
+        <t>
+          The following example contains both the long-form and short-form
+          mapping for illustration:
+        </t>
+        <artwork name="" type="" align="left" alt=""><![CDATA[
+...
+X-Foo:Bar
+...
+
+maps to short-form
+
+...
+"urn:ietf:rfcXXXX#prop/x-foo": "Bar"
+...
+
+or long-form
+
+...
+"urn:ietf:rfcXXXX#properties": [
+    ["x-foo", { }, "unknown", "Bar"]
+]
+...
+
+]]></artwork>
+      </section>
+
+    </section>
+
     <section anchor="translate-icalendar-recurrences" numbered="true" toc="default">
       <name>Translating iCalendar Recurrences</name>
       <section anchor="translate-icalendar-recurrences-simple" numbered="true" toc="default">
@@ -2163,7 +2332,7 @@
     UID:6252D6C40A8308BFE25BBEFcontact-1
     CONTACT;ALTREP="ldap://example.com:6666/o=ABC%20Industries\,
      c=US???(cn=Jim%20Dolittle)":Jim Dolittle\, ABC Industries\,
-     +1-919-555-1234
+     +1-919-555-XXXX
     END:VEVENT
     END:VCALENDAR
 
@@ -2182,7 +2351,7 @@
                 "contact": true
               },
               "description": "Jim Dolittle, ABC Industries,\
-                             +1-919-555-1234",
+                             +1-919-555-XXXX",
               "links": {
                 "1": {
                   "@type": "Link",
@@ -3024,6 +3193,311 @@
         </t>
       </section>
     </section>
+
+<section anchor="translate-jscal-non-standard" numbered="true" toc="default">
+      <name>Translating non-standard JSCalendar to iCalendar</name>
+      <t>
+        JSCalendar objects may contain properties for which no standard mapping
+        to iCalendar is defined. This may occur for vendor-extension properties
+        (<xref target="draft-ietf-calext-jscalendarbis" section="3.3" relative="#"/>) or any
+        other property for which there no standard mapping is defined.
+      </t>
+      <t>
+        This section defines properties and parameters with which implementations
+        <bcp14>SHOULD</bcp14> map such data. Applications that have more insight
+        into the semantics of such iCalendar entries <bcp14>MAY</bcp14> choose to
+        map differently.
+      </t>
+      <t>
+        NOTE: The verbatim <tt>XXXX</tt> values in this section will be replaced with
+        the RFC number of this document before publication. Also, the following properties
+        require a redefinition of vendor-extension properties for JSCalendar. Currently,
+        only domain names are allowed as prefix for vendor extensions.
+        This document assumes that also URIs with the <tt>urn</tt> scheme are allowed.
+      </t>
+
+      <section anchor="translate-jscal-non-standard-new-properties">
+        <name>New iCalendar properties</name>
+
+          <section anchor="translate-jscal-non-standard-prop-jsprop" numbered="true" toc="default">
+          <name>X-RFCXXXX-JSPROP Property</name>
+          <dl>
+            <dt>Property name:</dt>
+            <dd>X-RFCXXXX-JSPROP</dd>
+
+            <dt>Purpose:</dt>
+            <dd>This property embeds JSCalendar properties in iCalendar.</dd>
+
+            <dt>Value type:</dt>
+            <dd>URI, also see Format Definition for value restrictions.</dd>
+
+            <dt>Conformance:</dt>
+            <dd>The property can be specified multiple times in a calendar component.</dd>
+
+            <dt>Property parameters:</dt>
+            <dd>
+              The X-RFCXXXX-JSNAME parameter MUST be set exactly once for this property.
+              The VALUE parameter <bcp14>MAY</bcp14> be set once, in which case its value
+              <bcp14>MUST</bcp14> be URI. Other IANA and non-standard property parameters
+              can be specified on this property.
+            </dd>
+
+            <dt>Description:</dt>
+            <dd>
+              <t>
+                This property maps a JSCalendar property to iCalendar. The property name
+                is defined using the X-RFCXXXX-JSNAME parameter (<xref target="translate-jscal-non-standard-param-jsname"/>).
+                The property value is encoded as a URL using the <tt>data</tt> scheme <xref target="RFC2397"/>.
+                The media type <bcp14>MUST</bcp14> be specified as <tt>application/json</tt> and
+                <bcp14>MUST NOT</bcp14> define parameters. The property value <bcp14>MAY</bcp14> be
+                any <xref target="RFC8259"> Javascript Object Notation (JSON)</xref> value restricted by the
+                <xref target="RFC7493">I-JSON</xref> profile, be that a JSON object, array, string, number,
+                <tt>true</tt> or <tt>false</tt>.
+              </t>
+            </dd>
+
+            <dt>Format definition:</dt>
+            <dd><t>This property is defined by the following notation:</t>
+            <sourcecode name="" type="abnf"><![CDATA[
+  jsprop = "X-RFCXXXX-JSPROP" jsprop-param ":" jsprop-value CRLF
+
+  jsprop-value  = "data:application/json" [";base64"] "," data
+                  ; data is defined in RFC 2397, section 3
+
+  jsprop-param  = *(
+                  ; The following is MANDATORY and MUST NOT
+                  ; occur more than once
+                  jsname-param /
+                  ;
+                  ; The following is OPTIONAL,
+                  ; but MUST NOT occur more than once.
+                  ;
+                  (";" "VALUE" "=" "URI" ) /
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                  )
+  ]]></sourcecode>
+            </dd>
+
+            <dt>Example(s):</dt>
+            <dd>
+            <sourcecode name=""><![CDATA[
+;
+; encodes the property
+; ...
+; "foo": {
+;  "bar": 1234
+; }
+;
+X-RFCXXXX-JSPROP;X-RFCXXXX-JSNAME="foo"
+ :data:application/json;base64,eyJiYXIiOiAxMjM0fQ==
+  ]]></sourcecode>
+            </dd>
+          </dl>
+        </section>
+
+        <section anchor="translate-jscal-non-standard-prop-prop" numbered="true" toc="default">
+          <name>X-RFCXXXX-PROP Property</name>
+          <dl>
+            <dt>Property name:</dt>
+            <dd>X-RFCXXXX-PROP</dd>
+
+            <dt>Purpose:</dt>
+            <dd>This property embeds simple-typed JSCalendar properties in iCalendar.</dd>
+
+            <dt>Value type:</dt>
+            <dd>Default is none. It <bcp14>MAY</bcp14> be set to BOOLEAN, FLOAT or INTEGER.</dd>
+
+            <dt>Conformance:</dt>
+            <dd>The property can be specified multiple times in a calendar component.</dd>
+
+            <dt>Property parameters:</dt>
+            <dd>
+              The X-RFCXXXX-JSNAME parameter MUST be set exactly once for this property.
+              The VALUE parameter <bcp14>MAY</bcp14> be set once, in which case its value
+              <bcp14>MUST</bcp14> be BOOLEAN, FLOAT or INTEGER. Other IANA and non-standard
+              property parameters can be specified on this property.
+            </dd>
+
+            <dt>Description:</dt>
+            <dd>
+              <t>
+                This property maps a simple-valued JSCalendar property to iCalendar.
+                The property name is defined using the X-RFCXXXX-JSNAME parameter.
+                (<xref target="translate-jscal-non-standard-param-jsname"/>).
+                The property value is set by the following rules:
+              </t>
+                <ul>
+                  <li>
+                    If the JSON property value is a string and its contents solely consists
+                    of characters defined in the <tt>value</tt> ABNF of <xref target="RFC5545"
+                    section="3.1"/>, then the iCalendar property value is a verbatim copy of the
+                    JSON property value. The VALUE parameter <bcp14>MUST NOT</bcp14> be set.
+                  </li>
+                  <li>
+                    If the JSON property value is a number without fractional and exponent,
+                    then the iCalendar property value is a verbatim copy of the JSON property
+                    value. The VALUE parameter <bcp14>SHOULD</bcp14> be <tt>INTEGER</tt> if
+                    the JSON property is known to only allow integer values. Otherwise the
+                    parameter value <bcp14>MUST</bcp14> be <tt>FLOAT</tt>.
+                  </li>
+                  <li>
+                    If the JSON property value is a number with fractional or exponent,
+                    then the iCalendar property value is a verbatim copy of the JSON property
+                    value. The VALUE parameter <bcp14>MUST</bcp14> be <tt>FLOAT</tt>.
+                  </li>
+                  <li>
+                    If the JSON property value is verbatim <tt>true</tt> then the iCalendar property
+                    value is <tt>TRUE</tt>, or <tt>false</tt> and <tt>FALSE</tt>, respectively.
+                    The VALUE parameter <bcp14>MUST</bcp14> be <tt>BOOLEAN</tt>.
+                  </li>
+                  <li>
+                    If none of the above rules match, then the JSCalendar property <bcp14>MUST NOT</bcp14>
+                    map to the X-RFCXXXX-PROP property. Instead, it <bcp14>MAY</bcp14> map to the
+                    <xref target="translate-jscal-non-standard-prop-jsprop">X-RFCXXXX-JSPROP</xref>
+                    property.
+                  </li>
+                </ul>
+            </dd>
+
+            <dt>Format definition:</dt>
+            <dd><t>This property is defined by the following notation:</t>
+            <sourcecode name="" type="abnf"><![CDATA[
+jsprop-short = "X-RFCXXXX-PROP"
+                  (
+                    jsprop-string /
+                    jsprop-int /
+                    jsprop-float /
+                    jsprop-bool
+                  )
+
+jsprop-string = *(
+                  ; The following is MANDATORY and MUST NOT
+                  ; occur more than once
+                  jsname-param /
+                  ;
+                  ; The following MUST NOT occur
+                  ;
+                  (";" "VALUE" "=" valuetype ) /
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                )
+                ":" value ; defined in RFC5545, section 3.1
+
+jsprop-int =    *(
+                  ; The following are MANDATORY and each MUST NOT
+                  ; occur more than once
+                    jsname-param /
+                    ( "VALUE" "=" "INTEGER" )
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                )
+                ":" integer ; defined in RFC5545, section 3.3.8
+
+jsprop-float =  *(
+                  ; The following are MANDATORY and each MUST NOT
+                  ; occur more than once
+                    jsname-param /
+                    ( "VALUE" "=" "FLOAT" )
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                )
+                ":" float ; defined in RFC5545, section 3.3.7
+
+jsprop-bool =  *(
+                  ; The following are MANDATORY and each MUST NOT
+                  ; occur more than once
+                    jsname-param /
+                    ( "VALUE" "=" "BOOLEAN" )
+                  ;
+                  ; The following is OPTIONAL,
+                  ; and MAY occur more than once.
+                  ;
+                  (";" other-param)
+                  ;
+                )
+                ":" boolean ; defined in RFC5545, section 3.3.2
+
+  ]]></sourcecode>
+            </dd>
+
+            <dt>Example(s):</dt>
+            <dd>
+            <sourcecode name=""><![CDATA[
+;
+; encodes the property
+; ...
+; "foo": 12.3
+;
+X-RFCXXXX-PROP
+ ;X-RFCXXXX-JSNAME="foo"
+ ;VALUE=FLOAT
+ :12.3
+  ]]></sourcecode>
+            </dd>
+          </dl>
+        </section>
+
+      </section>
+
+      <section anchor="new-parameters">
+      <name>New iCalendar Parameters</name>
+
+        <section anchor="translate-jscal-non-standard-param-jsname">
+          <name>X-RFCXXXX-JSNAME Parameter</name>
+          <dl>
+            <dt>Parameter name:</dt>
+            <dd>X-RFCXXXX-JSNAME</dd>
+
+            <dt>Purpose:</dt>
+            <dd>This parameter assigns a JSCalendar property name to JSCalendar data embedded
+            in an iCalendar property.</dd>
+
+            <dt>Format definition:</dt>
+            <dd>
+            <sourcecode name="" type="abnf"><![CDATA[
+jsname-param  = "X-RFCXXXX-JSNAME" "=" DQUOTE *QSAFE-CHAR DQUOTE
+  ]]></sourcecode>
+            </dd>
+
+            <dt>Description:</dt>
+            <dd>
+            This parameter is set on a X-RFCXXXX-JSPROP or X-RFCXXXX-PROP property.
+            It assigns the JSCalendar property name to the value embedded in the iCalendar
+            property value. The parameter value contains the verbatim name of the JSCalendar
+            property. It <bcp14>MUST</bcp14> be quoted to preserve case.
+            </dd>
+
+            <dt>Example(s):</dt>
+            <dd>
+            <sourcecode name=""><![CDATA[
+  X-RFCXXXX-PROP;X-RFCXXXX-JSNAME="fooBar":baz
+  ]]></sourcecode>
+            </dd>
+          </dl>
+        </section>
+
+    </section>
+
+    </section>
+
+
     <section anchor="jscalendar-spec-updates" numbered="true" toc="default">
       <name>JsCalendar base spec updates</name>
       <ul>
@@ -3067,6 +3541,7 @@
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6868.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7493.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"/>
         <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8984.xml"/>
@@ -3076,6 +3551,14 @@
         <reference anchor="draft-ietf-calext-ical-relations" target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
           <front>
             <title>Support for iCalendar Relationships</title>
+            <author/>
+            <date/>
+          </front>
+        </reference>
+
+        <reference anchor="draft-ietf-calext-jscalendarbis" target="https://tools.ietf.org/html/draft-ietf-calext-jscalendarbis">
+          <front>
+            <title>JSCalendar: A JSON Representation of Calendar Data</title>
             <author/>
             <date/>
           </front>
