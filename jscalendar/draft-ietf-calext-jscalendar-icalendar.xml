@@ -3059,189 +3059,20 @@
       <name>References</name>
       <references>
         <name>Normative References</name>
-        <reference anchor="RFC2119" target="https://www.rfc-editor.org/info/rfc2119" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
-          <front>
-            <title>Key words for use in RFCs to Indicate Requirement Levels</title>
-            <author initials="S." surname="Bradner" fullname="S. Bradner">
-              <organization/>
-            </author>
-            <date year="1997" month="March"/>
-            <abstract>
-              <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized. This document defines these words as they should be interpreted in IETF documents.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="BCP" value="14"/>
-          <seriesInfo name="RFC" value="2119"/>
-          <seriesInfo name="DOI" value="10.17487/RFC2119"/>
-        </reference>
-        <reference anchor="RFC2397" target="https://www.rfc-editor.org/info/rfc2397" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml">
-          <front>
-            <title>The "data" URL scheme</title>
-            <author initials="L." surname="Masinter" fullname="L. Masinter">
-              <organization/>
-            </author>
-            <date year="1998" month="August"/>
-            <abstract>
-              <t>A new URL scheme, "data", is defined. It allows inclusion of small data items as "immediate" data, as if it had been included externally. [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="2397"/>
-          <seriesInfo name="DOI" value="10.17487/RFC2397"/>
-        </reference>
-        <reference anchor="RFC4648" target="https://www.rfc-editor.org/info/rfc4648" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml">
-          <front>
-            <title>The Base16, Base32, and Base64 Data Encodings</title>
-            <author initials="S." surname="Josefsson" fullname="S. Josefsson">
-              <organization/>
-            </author>
-            <date year="2006" month="October"/>
-            <abstract>
-              <t>This document describes the commonly used base 64, base 32, and base 16 encoding schemes.  It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="4648"/>
-          <seriesInfo name="DOI" value="10.17487/RFC4648"/>
-        </reference>
-        <reference anchor="RFC5545" target="https://www.rfc-editor.org/info/rfc5545" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml">
-          <front>
-            <title>Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-            <author initials="B." surname="Desruisseaux" fullname="B. Desruisseaux" role="editor">
-              <organization/>
-            </author>
-            <date year="2009" month="September"/>
-            <abstract>
-              <t>This document defines the iCalendar data format for representing and exchanging calendaring and scheduling information such as events, to-dos, journal entries, and free/busy information, independent of any particular calendar service or protocol. [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="5545"/>
-          <seriesInfo name="DOI" value="10.17487/RFC5545"/>
-        </reference>
-        <reference anchor="RFC5546" target="https://www.rfc-editor.org/info/rfc5546" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml">
-          <front>
-            <title>iCalendar Transport-Independent Interoperability Protocol (iTIP)</title>
-            <author initials="C." surname="Daboo" fullname="C. Daboo" role="editor">
-              <organization/>
-            </author>
-            <date year="2009" month="December"/>
-            <abstract>
-              <t>This document specifies a protocol that uses the iCalendar object specification to provide scheduling interoperability between different calendaring systems.  This is done without reference to a specific transport protocol so as to allow multiple methods of communication between systems.  Subsequent documents will define profiles of this protocol that use specific, interoperable methods of communication between systems.</t>
-              <t>The iCalendar Transport-Independent Interoperability Protocol (iTIP) complements the iCalendar object specification by adding semantics for group scheduling methods commonly available in current calendaring systems.  These scheduling methods permit two or more calendaring systems to perform transactions such as publishing, scheduling, rescheduling, responding to scheduling requests, negotiating changes, or canceling.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="5546"/>
-          <seriesInfo name="DOI" value="10.17487/RFC5546"/>
-        </reference>
-        <reference anchor="RFC6638" target="https://www.rfc-editor.org/info/rfc6638" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml">
-          <front>
-            <title>Scheduling Extensions to CalDAV</title>
-            <author initials="C." surname="Daboo" fullname="C. Daboo">
-              <organization/>
-            </author>
-            <author initials="B." surname="Desruisseaux" fullname="B. Desruisseaux">
-              <organization/>
-            </author>
-            <date year="2012" month="June"/>
-            <abstract>
-              <t>This document defines extensions to the Calendaring Extensions to WebDAV (CalDAV) "calendar-access" feature to specify a standard way of performing scheduling operations with iCalendar-based calendar components.  This document defines the "calendar-auto-schedule" feature of CalDAV.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="6638"/>
-          <seriesInfo name="DOI" value="10.17487/RFC6638"/>
-        </reference>
-        <reference anchor="RFC6868" target="https://www.rfc-editor.org/info/rfc6868" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6868.xml">
-          <front>
-            <title>Parameter Value Encoding in iCalendar and vCard</title>
-            <author initials="C." surname="Daboo" fullname="C. Daboo">
-              <organization/>
-            </author>
-            <date year="2013" month="February"/>
-            <abstract>
-              <t>This specification updates the data formats for iCalendar (RFC 5545) and vCard (RFC 6350) to allow parameter values to include certain characters forbidden by the existing specifications.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="6868"/>
-          <seriesInfo name="DOI" value="10.17487/RFC6868"/>
-        </reference>
-        <reference anchor="RFC7986" target="https://www.rfc-editor.org/info/rfc7986" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml">
-          <front>
-            <title>New Properties for iCalendar</title>
-            <author initials="C." surname="Daboo" fullname="C. Daboo">
-              <organization/>
-            </author>
-            <date year="2016" month="October"/>
-            <abstract>
-              <t>This document defines a set of new properties for iCalendar data and extends the use of some existing properties to the entire iCalendar object.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="7986"/>
-          <seriesInfo name="DOI" value="10.17487/RFC7986"/>
-        </reference>
-        <reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml">
-          <front>
-            <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
-            <author initials="T." surname="Bray" fullname="T. Bray" role="editor">
-              <organization/>
-            </author>
-            <date year="2017" month="December"/>
-            <abstract>
-              <t>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format.  It was derived from the ECMAScript Programming Language Standard.  JSON defines a small set of formatting rules for the portable representation of structured data.</t>
-              <t>This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="STD" value="90"/>
-          <seriesInfo name="RFC" value="8259"/>
-          <seriesInfo name="DOI" value="10.17487/RFC8259"/>
-        </reference>
-        <reference anchor="RFC8984" target="https://www.rfc-editor.org/info/rfc8984" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8984.xml">
-          <front>
-            <title>JSCalendar: A JSON Representation of Calendar Data</title>
-            <author initials="N." surname="Jenkins" fullname="N. Jenkins">
-              <organization/>
-            </author>
-            <author initials="R." surname="Stepanek" fullname="R. Stepanek">
-              <organization/>
-            </author>
-            <date year="2021" month="July"/>
-            <abstract>
-              <t>This specification defines a data model and JSON representation of calendar data that can be used for storage and data exchange in a calendaring and scheduling environment. It aims to be an alternative and, over time, successor to the widely deployed iCalendar data format. It also aims to be unambiguous, extendable, and simple to process. In contrast to the jCal format, which is also based on JSON, JSCalendar is not a direct mapping from iCalendar but defines the data model independently and expands semantics where appropriate.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="8984"/>
-          <seriesInfo name="DOI" value="10.17487/RFC8984"/>
-        </reference>
-        <reference anchor="RFC9073" target="https://www.rfc-editor.org/info/rfc9073" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9073.xml">
-          <front>
-            <title>Event Publishing Extensions to iCalendar</title>
-            <author initials="M." surname="Douglass" fullname="M. Douglass">
-              <organization/>
-            </author>
-            <date year="2021" month="August"/>
-            <abstract>
-              <t>This specification updates RFC 5545 by introducing a number of new iCalendar properties and components that are of particular use for event publishers and in social networking. </t>
-              <t>This specification also defines a new "STRUCTURED-DATA" property for iCalendar (RFC 5545) to allow for data that is directly pertinent to an event or task to be included with the calendar data.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="9073"/>
-          <seriesInfo name="DOI" value="10.17487/RFC9073"/>
-        </reference>
-        <reference anchor="RFC9074" target="https://www.rfc-editor.org/info/rfc9074" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9074.xml">
-          <front>
-            <title>"VALARM" Extensions for iCalendar</title>
-            <author initials="C." surname="Daboo" fullname="C. Daboo">
-              <organization/>
-            </author>
-            <author initials="K." surname="Murchison" fullname="K. Murchison" role="editor">
-              <organization/>
-            </author>
-            <date year="2021" month="August"/>
-            <abstract>
-              <t>This document defines a set of extensions to the iCalendar "VALARM" component to enhance the use of alarms and improve interoperability between clients and servers.</t>
-              <t>This document updates RFC 5545.</t>
-            </abstract>
-          </front>
-          <seriesInfo name="RFC" value="9074"/>
-          <seriesInfo name="DOI" value="10.17487/RFC9074"/>
-        </reference>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2397.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5545.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5546.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6638.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6868.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7265.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7986.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8984.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9073.xml"/>
+        <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9074.xml"/>
+
         <reference anchor="draft-ietf-calext-ical-relations" target="https://tools.ietf.org/html/draft-ietf-calext-ical-relations">
           <front>
             <title>Support for iCalendar Relationships</title>
