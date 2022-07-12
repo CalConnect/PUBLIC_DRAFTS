@@ -3347,8 +3347,9 @@ X-RFCXXXX-JSPROP;X-RFCXXXX-JSNAME="foo"
                   </li>
                   <li>
                     If the JSON property value is a number with fractional or exponent,
-                    then the iCalendar property value is a verbatim copy of the JSON property
-                    value. The VALUE parameter <bcp14>MUST</bcp14> be <tt>FLOAT</tt>.
+                    then the iCalendar property value is the FLOAT representation of
+                    of the JSON property value (note that iCalendar FLOAT does not
+                    support exponents). The VALUE parameter <bcp14>MUST</bcp14> be <tt>FLOAT</tt>.
                   </li>
                   <li>
                     If the JSON property value is verbatim <tt>true</tt> then the iCalendar property
