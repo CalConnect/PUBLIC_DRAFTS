@@ -1989,7 +1989,7 @@
         properties, parameter and components in iCalendar
         (<em>X</em>-extensions, see <xref target="RFC5545" section="3.8.8.2"/>), but may be the case
         for other iCalendar data, too. Typically, the semantics or value types of
-        such entries are known.
+        such entries are unknown.
       </t>
       <t>
         This section defines new properties, by which implementations <bcp14>SHOULD</bcp14>
