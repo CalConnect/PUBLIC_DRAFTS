@@ -1009,7 +1009,7 @@ signed-duration = ["+" / "-"] duration
         <section anchor="prop-excluded" numbered="true" toc="default">
           <name>excluded</name>
           <t>Type: <tt>Boolean</tt> (optional, default: false)</t>
-          <t>This defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" format="default"/>). If this property value is true, this calendar object instance <bcp14>MUST</bcp14> be removed from the occurrence expansion. The absence of this property, or the presence of its default value as false, indicates that this instance <bcp14>MUST</bcp14> be included in the occurrence expansion.</t>
+          <t>This defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" format="default"/>). If this property value is true, this calendar object instance <bcp14>MUST</bcp14> be removed from the occurrence expansion. The absence of this property, or the presence of its default value as false, indicates that this instance <bcp14>MUST</bcp14> be included in the occurrence expansion. If this property is set, then the <tt>recurrenceId</tt> property <bcp14>MUST</bcp14> be set.</t>
         </section>
       </section>
       <section anchor="sharing-scheduling-properties" numbered="true" toc="default">
