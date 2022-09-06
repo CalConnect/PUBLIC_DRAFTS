@@ -1001,7 +1001,7 @@ signed-duration = ["+" / "-"] duration
             <li>recurrenceRules</li>
             <li>relatedTo</li>
             <li>replyTo</li>
-            <li>sentBy</li>
+            <li>sentFrom</li>
             <li>timeZones</li>
             <li>uid</li>
           </ul>
@@ -1085,8 +1085,8 @@ signed-duration = ["+" / "-"] duration
 		    undefined.</dd>
           </dl>
         </section>
-        <section anchor="prop-sentBy" numbered="true" toc="default">
-          <name>sentBy</name>
+        <section anchor="prop-sentFrom" numbered="true" toc="default">
+          <name>sentFrom</name>
           <t>Type: <tt>String</tt> (optional)</t>
           <t>This is the email address in the "From" header of the email in which this calendar object was received. This is only relevant if the calendar object is received via iMIP or as an attachment to a message.  If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
         </section>
@@ -1249,7 +1249,7 @@ signed-duration = ["+" / "-"] duration
               <t>This is the <tt>updated</tt> property of the last response when using iTIP. It can be compared
 	            to the <tt>updated</tt> property in future responses to detect and discard older responses
 		          delivered out of order.</t></dd>
-              <dt>sentBy: <tt>String</tt> (optional)</dt>
+              <dt>sentFrom: <tt>String</tt> (optional)</dt>
               <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to). If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
               </dd>
               <dt>invitedBy: <tt>Id</tt> (optional)</dt>
@@ -2652,11 +2652,11 @@ Please let us know any objections.
                   <xref target="prop-recurrenceRules" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">sentBy</td>
+                <td align="left">sentFrom</td>
                 <td align="left">String</td>
                 <td align="left">Event, Task, Participant</td>
                 <td align="left">
-                  <xref target="prop-sentBy" format="default"/>, <xref target="prop-participants" format="default"/></td>
+                  <xref target="prop-sentFrom" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">standard</td>
