@@ -1035,15 +1035,14 @@ signed-duration = ["+" / "-"] duration
         <section anchor="prop-privacy" numbered="true" toc="default">
           <name>privacy</name>
           <t>Type: <tt>String</tt> (optional, default: <tt>public</tt>)</t>
-          <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property is up to the API via which this object is accessed.</t>
+          <t>Calendar objects are normally collected together and may be shared with others. The privacy property allows the object owners to indicate that it should not be shared or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property is up to the API via which this object is accessed.</t>
           <t>This property <bcp14>MUST NOT</bcp14> affect the information sent to scheduled participants; it is only interpreted by protocols that share the calendar objects belonging to one user with other users.</t>
           <t>The value <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref target="custom-properties" format="default"/>). Any value the client or server doesn't understand should be preserved but treated as equivalent to <tt>private</tt>.</t>
           <dl newline="false" spacing="normal">
             <dt><tt>public</tt>:</dt>
-	        <dd>The full details of the object are visible to those whom the object's calendar is shared
-		    with.</dd>
+	        <dd>The full details of the object are visible to anyone it is shared with.</dd>
             <dt><tt>private</tt>:</dt>
-	        <dd><t>The details of the object are hidden; only the basic time and metadata are shared. The
+	        <dd><t>The details of the object are hidden to anyone but the the object owners; only the basic time and metadata are shared. The
 		    following properties <bcp14>MAY</bcp14> be shared; any other properties <bcp14>MUST NOT</bcp14> be
 		        shared:</t>
               <ul spacing="normal">
@@ -1064,8 +1063,7 @@ signed-duration = ["+" / "-"] duration
                 <li>updated</li>
               </ul></dd>
             <dt><tt>secret</tt>:</dt>
-	        <dd>The object is hidden completely (as though it did not exist) when the calendar this object is
-		    in is shared.</dd>
+            <dd>The object is hidden completely (as though it did not exist) to anyone but the object owners.</dd>
           </dl>
         </section>
         <section anchor="prop-replyTo" numbered="true" toc="default">
