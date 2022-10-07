@@ -1109,6 +1109,8 @@ signed-duration = ["+" / "-"] duration
               <dt>description: <tt>String</tt> (optional)</dt>
               <dd>This is a plain-text description of this participant. For example, this may include more
 	             information about their role in the event or how best to contact them.</dd>
+              <dt>scheduleId: <tt>String</tt> (optional)</dt>
+              <dd>A persistent, global id that represents this participant for scheduling purposes. The value MUST be a URI. This MAY be the same as a URI in the sendTo property.</dd>
               <dt>sendTo: <tt>String[String]</tt> (optional)</dt>
               <dd><t>This represents methods by which the participant may receive the invitation and updates to
 	            the calendar object.</t>
@@ -1252,24 +1254,23 @@ signed-duration = ["+" / "-"] duration
               <dt>sentFrom: <tt>String</tt> (optional)</dt>
               <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to). If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
               </dd>
-              <dt>invitedBy: <tt>Id</tt> (optional)</dt>
-	            <dd>This is the id of the participant who added this participant to the event/task, if known.</dd>
-              <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
-	            <dd>This is set of participant ids that this participant has delegated their participation to.
-		          Each key
-			        in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
+              <dt>invitedBy: <tt>String</tt> (optional)</dt>
+	            <dd>This is the scheduleId of the participant who added this participant to the event/task, if known.</dd>
+              <dt>delegatedTo: <tt>String[Boolean]</tt> (optional)</dt>
+	            <dd>This is a set of scheduleIds of other participants that this participant has delegated their participation to.
+		          Each key in the set <bcp14>MUST</bcp14> be a URI. The value for each key in the map
 				      <bcp14>MUST</bcp14> be true. If there are no delegates, this <bcp14>MUST</bcp14> be omitted
 				            (rather than specified as an empty set).</dd>
               <dt>delegatedFrom: <tt>Id[Boolean]</tt> (optional)</dt>
-              <dd>This is a set of participant ids that this participant is acting as a delegate for. Each key
-	            in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
+              <dd>This is a set of scheduleIds of other participants that this participant is acting as a delegate for. Each key
+	            in the set <bcp14>MUST</bcp14> be a URI. The value for each key in the map
 		          <bcp14>MUST</bcp14> be true. If there are no delegators, this <bcp14>MUST</bcp14> be omitted
 			        (rather than specified as an empty set).</dd>
-              <dt>memberOf: <tt>Id[Boolean]</tt> (optional)</dt>
-              <dd>This is a set of group participants that were invited to this calendar object, which caused
+              <dt>memberOf: <tt>String[Boolean]</tt> (optional)</dt>
+              <dd>This is a set of scheduleIds of group participants that were invited to this calendar object, which caused
 	            this
 		          participant to be invited due to their membership in the group(s). Each key in the set
-			        <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
+			        <bcp14>MUST</bcp14> be a URI. The value for each key in the map
 				      <bcp14>MUST</bcp14> be true. If there are no groups, this <bcp14>MUST</bcp14> be omitted (rather
 				            than specified as an empty set).</dd>
               <dt>links: <tt>Id[Link]</tt> (optional)</dt>
