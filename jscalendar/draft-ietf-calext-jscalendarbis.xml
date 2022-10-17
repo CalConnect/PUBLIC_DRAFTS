@@ -1085,6 +1085,43 @@ signed-duration = ["+" / "-"] duration
 		    undefined.</dd>
           </dl>
         </section>
+        <section anchor="prop-replytoscheduleagent" numbered="true" toc="default">
+          <name>replyToScheduleAgent</name>
+          <t>Type: <tt>String</tt> (optional, default: <tt>server</tt>)</t>
+          <t>This is who is responsible for sending scheduling reply messages for this calendar object.</t>
+          <t>The value <bcp14>MUST</bcp14> be one of the following values, another value registered in the
+             IANA "JSCalendar Enum Values" registry, or a vendor-specific value (see <xref target="custom-properties" format="default"/>):</t>
+          <dl spacing="normal">
+            <dt><tt>server</tt>:</dt>
+            <dd> The calendar server will send the scheduling reply messages.</dd>
+            <dt><tt>client</tt>:</dt>
+            <dd> The calendar client will send the scheduling reply messages.</dd>
+            <dt><tt>none</tt>:</dt>
+            <dd> No scheduling reply messages are to be sent.</dd>
+          </dl>
+        </section>
+        <section anchor="prop-replytoscheduleforcesend" numbered="true" toc="default">
+          <name>replyToScheduleForceSend</name>
+          <t>Type: <tt>Boolean</tt> (optional, default: false)</t>
+          <t>A client may set this property to <tt>true</tt> to request that the server send a
+             scheduling reply when it would not normally do so (e.g., if no significant
+             change is made the object or the scheduleAgent is set to client). The property <bcp14>MUST
+              NOT</bcp14> be stored in the JSCalendar object on the server or appear in a scheduling
+              message.
+          </t>
+        </section>
+        <section anchor="prop-replytoschedulestatus" numbered="true" toc="default">
+          <name>replyToScheduleStatus</name>
+          <t>Type: <tt>String[]</tt> (optional)</t>
+          <t>This is a list of status codes, returned from the sending of the most recent scheduling reply message.
+            The status codes MUST be valid <tt>statcode</tt> values as defined in the ABNF
+            in <xref target="RFC5545" sectionFormat="of" section="3.8.8.3"/>.</t>
+          <t>Servers <bcp14>MUST</bcp14> only add or change this property when they send a scheduling
+             reply. Clients <bcp14>SHOULD NOT</bcp14> change or remove this property if
+             it was provided by the server. Clients <bcp14>MAY</bcp14> add, change, or remove the property where
+             the client is sending the scheduling replies.</t>
+          <t>This property <bcp14>MUST NOT</bcp14> be included in scheduling messages.</t>
+        </section>
         <section anchor="prop-sentFrom" numbered="true" toc="default">
           <name>sentFrom</name>
           <t>Type: <tt>String</tt> (optional)</t>
@@ -2632,6 +2669,28 @@ Please let us know any objections.
                   <xref target="prop-replyTo" format="default"/></td>
               </tr>
               <tr>
+                <td align="left">replyToScheduleAgent</td>
+                <td align="left">String</td>
+                <td align="left">Event, Task</td>
+                <td align="left">
+                  <xref target="prop-replytoscheduleagent" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">replyToScheduleForceSend</td>
+                <td align="left">Boolean</td>
+                <td align="left">Event, Task</td>
+                <td align="left">
+                  <xref target="prop-replytoscheduleforcesend" format="default"/></td>
+              </tr>
+              <tr>
+                <td align="left">replyToScheduleStatus</td>
+                <td align="left">String[]</td>
+                <td align="left">Event, Task</td>
+                <td align="left">
+                  <xref target="prop-replytoschedulestatus" format="default"/></td>
+              </tr>
+
+              <tr>
                 <td align="left">requestStatus</td>
                 <td align="left">String</td>
                 <td align="left">Event, Task</td>
@@ -3440,12 +3499,12 @@ Please let us know any objections.
           </table></dd>
 </dl>
 <dl spacing="compact" newline="false" indent="20">
-          <dt>Property Name:</dt><dd>scheduleAgent</dd>
-          <dt>Context:</dt><dd>Participant</dd>
+          <dt>Property Name:</dt><dd>replyToScheduleAgent, scheduleAgent</dd>
+          <dt>Context:</dt><dd>Event and Task (replyToScheduleAgent), Participant (scheduleAgent)</dd>
           <dt>Change Controller:</dt><dd>IETF</dd>
           <dt>Initial Contents:</dt><dd>
           <table anchor="tab-iana-enum-participant-scheduleagent" align="left">
-	        <name>JSCalendar Enum Values for scheduleAgent (Context: Participant)</name>
+	        <name>JSCalendar Enum Values for replyToScheduleAgent (Context: Event, Task) and scheduleAgent (Context: Participant)</name>
             <thead>
               <tr>
                 <th align="left">Enum Value</th>
@@ -3456,16 +3515,19 @@ Please let us know any objections.
               <tr>
                 <td align="left">server</td>
                 <td align="left">
+                  <xref target="prop-replytoscheduleagent" format="default"/>,
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">client</td>
                 <td align="left">
+                  <xref target="prop-replytoscheduleagent" format="default"/>,
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">none</td>
                 <td align="left">
+                  <xref target="prop-replytoscheduleagent" format="default"/>,
                   <xref target="prop-participants" format="default"/></td>
               </tr>
             </tbody>
