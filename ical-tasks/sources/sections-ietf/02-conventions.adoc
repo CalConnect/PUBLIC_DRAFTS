@@ -6,3 +6,37 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
 "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in BCP 14 <<RFC2119>> <<RFC8174>> when, and
 only when, they appear in all capitals, as shown here.
+
+Calendaring and scheduling roles are referred to in quoted-strings of
+text with the first character of each word in upper case.  For
+example, "Organizer" refers to a role of a "Calendar User" (CU)
+within the scheduling protocol.
+
+Calendar components defined by <<RFC5545>> are referred to with
+capitalized, quoted-strings of text.  All calendar components start
+with the letter "V".  For example, "VEVENT" refers to the event
+calendar component, "VTODO" refers to the to-do calendar component,
+and "VJOURNAL" refers to the daily journal calendar component.
+
+Scheduling methods are referred to with capitalized, quoted-strings
+of text.  For example, "REQUEST" refers to the method for requesting
+a scheduling calendar component be created or modified; "REPLY"
+refers to the method a recipient of a request uses to update their
+status with the "Organizer" of the calendar component.
+
+Properties defined by [RFC5545] are referred to with capitalized,
+quoted-strings of text, followed by the word "property".  For
+example, "ATTENDEE" property refers to the iCalendar property used to
+convey the calendar address of a "Calendar User".
+
+Property parameters defined by this specification are referred to
+with capitalized, quoted-strings of text, followed by the word
+"parameter".  For example, "VALUE" parameter refers to the iCalendar
+property parameter used to override the default data type for a
+property value.
+
+Enumerated values defined by this specification are referred to with
+capitalized text, either alone or followed by the word "value".
+
+In tables, the quoted-string text is specified without quotes in
+order to minimize the table length.

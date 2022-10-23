@@ -1,6 +1,6 @@
 = Task Extensions to iCalendar
 :doctype: internet-draft
-:docnumber: draft-ietf-calext-ical-tasks-03
+:docnumber: draft-ietf-calext-ical-tasks-04
 :abbrev: iCalendar tasks
 :status: standard
 :ipr: trust200902
@@ -10,7 +10,7 @@
 :submissionType: individual
 :area: Internet
 :intended-series: full-standard
-:revdate: 2022-03-22
+:revdate: 2022-10-23
 :fullname: Adrian Apthorp
 :lastname: Apthorp
 :forename_initials: A.
