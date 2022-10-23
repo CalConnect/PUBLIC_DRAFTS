@@ -1001,7 +1001,7 @@ signed-duration = ["+" / "-"] duration
             <li>recurrenceRules</li>
             <li>relatedTo</li>
             <li>replyTo</li>
-            <li>sentFrom</li>
+            <li>sentBy</li>
             <li>timeZones</li>
             <li>uid</li>
           </ul>
@@ -1009,7 +1009,7 @@ signed-duration = ["+" / "-"] duration
         <section anchor="prop-excluded" numbered="true" toc="default">
           <name>excluded</name>
           <t>Type: <tt>Boolean</tt> (optional, default: false)</t>
-          <t>This defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" format="default"/>). If this property value is true, this calendar object instance <bcp14>MUST</bcp14> be removed from the occurrence expansion. The absence of this property, or the presence of its default value as false, indicates that this instance <bcp14>MUST</bcp14> be included in the occurrence expansion. If this property is set, then the <tt>recurrenceId</tt> property <bcp14>MUST</bcp14> be set.</t>
+          <t>This defines if this object is an overridden, excluded instance of a recurring JSCalendar object (see <xref target="prop-recurrenceOverrides" format="default"/>). If this property value is true, this calendar object instance <bcp14>MUST</bcp14> be removed from the occurrence expansion. The absence of this property, or the presence of its default value as false, indicates that this instance <bcp14>MUST</bcp14> be included in the occurrence expansion.</t>
         </section>
       </section>
       <section anchor="sharing-scheduling-properties" numbered="true" toc="default">
@@ -1035,14 +1035,15 @@ signed-duration = ["+" / "-"] duration
         <section anchor="prop-privacy" numbered="true" toc="default">
           <name>privacy</name>
           <t>Type: <tt>String</tt> (optional, default: <tt>public</tt>)</t>
-          <t>Calendar objects are normally collected together and may be shared with others. The privacy property allows the object owners to indicate that it should not be shared or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property is up to the API via which this object is accessed.</t>
+          <t>Calendar objects are normally collected together and may be shared with other users. The privacy property allows the object owner to indicate that it should not be shared or should only have the time information shared but the details withheld. Enforcement of the restrictions indicated by this property is up to the API via which this object is accessed.</t>
           <t>This property <bcp14>MUST NOT</bcp14> affect the information sent to scheduled participants; it is only interpreted by protocols that share the calendar objects belonging to one user with other users.</t>
           <t>The value <bcp14>MUST</bcp14> be one of the following values, another value registered in the IANA &quot;JSCalendar Enum Values&quot; registry, or a vendor-specific value (see <xref target="custom-properties" format="default"/>). Any value the client or server doesn't understand should be preserved but treated as equivalent to <tt>private</tt>.</t>
           <dl newline="false" spacing="normal">
             <dt><tt>public</tt>:</dt>
-	        <dd>The full details of the object are visible to anyone it is shared with.</dd>
+	        <dd>The full details of the object are visible to those whom the object's calendar is shared
+		    with.</dd>
             <dt><tt>private</tt>:</dt>
-	        <dd><t>The details of the object are hidden to anyone but the the object owners; only the basic time and metadata are shared. The
+	        <dd><t>The details of the object are hidden; only the basic time and metadata are shared. The
 		    following properties <bcp14>MAY</bcp14> be shared; any other properties <bcp14>MUST NOT</bcp14> be
 		        shared:</t>
               <ul spacing="normal">
@@ -1063,7 +1064,8 @@ signed-duration = ["+" / "-"] duration
                 <li>updated</li>
               </ul></dd>
             <dt><tt>secret</tt>:</dt>
-            <dd>The object is hidden completely (as though it did not exist) to anyone but the object owners.</dd>
+	        <dd>The object is hidden completely (as though it did not exist) when the calendar this object is
+		    in is shared.</dd>
           </dl>
         </section>
         <section anchor="prop-replyTo" numbered="true" toc="default">
@@ -1085,45 +1087,8 @@ signed-duration = ["+" / "-"] duration
 		    undefined.</dd>
           </dl>
         </section>
-        <section anchor="prop-replytoscheduleagent" numbered="true" toc="default">
-          <name>replyToScheduleAgent</name>
-          <t>Type: <tt>String</tt> (optional, default: <tt>server</tt>)</t>
-          <t>This is who is responsible for sending scheduling reply messages for this calendar object.</t>
-          <t>The value <bcp14>MUST</bcp14> be one of the following values, another value registered in the
-             IANA "JSCalendar Enum Values" registry, or a vendor-specific value (see <xref target="custom-properties" format="default"/>):</t>
-          <dl spacing="normal">
-            <dt><tt>server</tt>:</dt>
-            <dd> The calendar server will send the scheduling reply messages.</dd>
-            <dt><tt>client</tt>:</dt>
-            <dd> The calendar client will send the scheduling reply messages.</dd>
-            <dt><tt>none</tt>:</dt>
-            <dd> No scheduling reply messages are to be sent.</dd>
-          </dl>
-        </section>
-        <section anchor="prop-replytoscheduleforcesend" numbered="true" toc="default">
-          <name>replyToScheduleForceSend</name>
-          <t>Type: <tt>Boolean</tt> (optional, default: false)</t>
-          <t>A client may set this property to <tt>true</tt> to request that the server send a
-             scheduling reply when it would not normally do so (e.g., if no significant
-             change is made the object or the scheduleAgent is set to client). The property <bcp14>MUST
-              NOT</bcp14> be stored in the JSCalendar object on the server or appear in a scheduling
-              message.
-          </t>
-        </section>
-        <section anchor="prop-replytoschedulestatus" numbered="true" toc="default">
-          <name>replyToScheduleStatus</name>
-          <t>Type: <tt>String[]</tt> (optional)</t>
-          <t>This is a list of status codes, returned from the sending of the most recent scheduling reply message.
-            The status codes MUST be valid <tt>statcode</tt> values as defined in the ABNF
-            in <xref target="RFC5545" sectionFormat="of" section="3.8.8.3"/>.</t>
-          <t>Servers <bcp14>MUST</bcp14> only add or change this property when they send a scheduling
-             reply. Clients <bcp14>SHOULD NOT</bcp14> change or remove this property if
-             it was provided by the server. Clients <bcp14>MAY</bcp14> add, change, or remove the property where
-             the client is sending the scheduling replies.</t>
-          <t>This property <bcp14>MUST NOT</bcp14> be included in scheduling messages.</t>
-        </section>
-        <section anchor="prop-sentFrom" numbered="true" toc="default">
-          <name>sentFrom</name>
+        <section anchor="prop-sentBy" numbered="true" toc="default">
+          <name>sentBy</name>
           <t>Type: <tt>String</tt> (optional)</t>
           <t>This is the email address in the "From" header of the email in which this calendar object was received. This is only relevant if the calendar object is received via iMIP or as an attachment to a message.  If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
         </section>
@@ -1146,8 +1111,6 @@ signed-duration = ["+" / "-"] duration
               <dt>description: <tt>String</tt> (optional)</dt>
               <dd>This is a plain-text description of this participant. For example, this may include more
 	             information about their role in the event or how best to contact them.</dd>
-              <dt>scheduleId: <tt>String</tt> (optional)</dt>
-              <dd>A persistent, global id that represents this participant for scheduling purposes. The value MUST be a URI. This MAY be the same as a URI in the sendTo property.</dd>
               <dt>sendTo: <tt>String[String]</tt> (optional)</dt>
               <dd><t>This represents methods by which the participant may receive the invitation and updates to
 	            the calendar object.</t>
@@ -1288,26 +1251,27 @@ signed-duration = ["+" / "-"] duration
               <t>This is the <tt>updated</tt> property of the last response when using iTIP. It can be compared
 	            to the <tt>updated</tt> property in future responses to detect and discard older responses
 		          delivered out of order.</t></dd>
-              <dt>sentFrom: <tt>String</tt> (optional)</dt>
+              <dt>sentBy: <tt>String</tt> (optional)</dt>
               <dd><t>This is the email address in the "From" header of the email that last updated this participant via iMIP. This SHOULD only be set if the email address is different to that in the mailto URI of this participant's <tt>imip</tt> method in the <tt>sendTo</tt> property (i.e., the response was received from a different address to that which the invitation was sent to). If set, the value <bcp14>MUST</bcp14> be a valid <tt>addr-spec</tt> value as defined in Section 3.4.1 of <xref target="RFC5322" format="default"/>.</t>
               </dd>
-              <dt>invitedBy: <tt>String</tt> (optional)</dt>
-	            <dd>This is the scheduleId of the participant who added this participant to the event/task, if known.</dd>
-              <dt>delegatedTo: <tt>String[Boolean]</tt> (optional)</dt>
-	            <dd>This is a set of scheduleIds of other participants that this participant has delegated their participation to.
-		          Each key in the set <bcp14>MUST</bcp14> be a URI. The value for each key in the map
+              <dt>invitedBy: <tt>Id</tt> (optional)</dt>
+	            <dd>This is the id of the participant who added this participant to the event/task, if known.</dd>
+              <dt>delegatedTo: <tt>Id[Boolean]</tt> (optional)</dt>
+	            <dd>This is set of participant ids that this participant has delegated their participation to.
+		          Each key
+			        in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 				      <bcp14>MUST</bcp14> be true. If there are no delegates, this <bcp14>MUST</bcp14> be omitted
 				            (rather than specified as an empty set).</dd>
               <dt>delegatedFrom: <tt>Id[Boolean]</tt> (optional)</dt>
-              <dd>This is a set of scheduleIds of other participants that this participant is acting as a delegate for. Each key
-	            in the set <bcp14>MUST</bcp14> be a URI. The value for each key in the map
+              <dd>This is a set of participant ids that this participant is acting as a delegate for. Each key
+	            in the set <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 		          <bcp14>MUST</bcp14> be true. If there are no delegators, this <bcp14>MUST</bcp14> be omitted
 			        (rather than specified as an empty set).</dd>
-              <dt>memberOf: <tt>String[Boolean]</tt> (optional)</dt>
-              <dd>This is a set of scheduleIds of group participants that were invited to this calendar object, which caused
+              <dt>memberOf: <tt>Id[Boolean]</tt> (optional)</dt>
+              <dd>This is a set of group participants that were invited to this calendar object, which caused
 	            this
 		          participant to be invited due to their membership in the group(s). Each key in the set
-			        <bcp14>MUST</bcp14> be a URI. The value for each key in the map
+			        <bcp14>MUST</bcp14> be the id of a participant. The value for each key in the map
 				      <bcp14>MUST</bcp14> be true. If there are no groups, this <bcp14>MUST</bcp14> be omitted (rather
 				            than specified as an empty set).</dd>
               <dt>links: <tt>Id[Link]</tt> (optional)</dt>
@@ -2669,28 +2633,6 @@ Please let us know any objections.
                   <xref target="prop-replyTo" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">replyToScheduleAgent</td>
-                <td align="left">String</td>
-                <td align="left">Event, Task</td>
-                <td align="left">
-                  <xref target="prop-replytoscheduleagent" format="default"/></td>
-              </tr>
-              <tr>
-                <td align="left">replyToScheduleForceSend</td>
-                <td align="left">Boolean</td>
-                <td align="left">Event, Task</td>
-                <td align="left">
-                  <xref target="prop-replytoscheduleforcesend" format="default"/></td>
-              </tr>
-              <tr>
-                <td align="left">replyToScheduleStatus</td>
-                <td align="left">String[]</td>
-                <td align="left">Event, Task</td>
-                <td align="left">
-                  <xref target="prop-replytoschedulestatus" format="default"/></td>
-              </tr>
-
-              <tr>
                 <td align="left">requestStatus</td>
                 <td align="left">String</td>
                 <td align="left">Event, Task</td>
@@ -2712,11 +2654,11 @@ Please let us know any objections.
                   <xref target="prop-recurrenceRules" format="default"/></td>
               </tr>
               <tr>
-                <td align="left">sentFrom</td>
+                <td align="left">sentBy</td>
                 <td align="left">String</td>
                 <td align="left">Event, Task, Participant</td>
                 <td align="left">
-                  <xref target="prop-sentFrom" format="default"/>, <xref target="prop-participants" format="default"/></td>
+                  <xref target="prop-sentBy" format="default"/>, <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">standard</td>
@@ -3499,12 +3441,12 @@ Please let us know any objections.
           </table></dd>
 </dl>
 <dl spacing="compact" newline="false" indent="20">
-          <dt>Property Name:</dt><dd>replyToScheduleAgent, scheduleAgent</dd>
-          <dt>Context:</dt><dd>Event and Task (replyToScheduleAgent), Participant (scheduleAgent)</dd>
+          <dt>Property Name:</dt><dd>scheduleAgent</dd>
+          <dt>Context:</dt><dd>Participant</dd>
           <dt>Change Controller:</dt><dd>IETF</dd>
           <dt>Initial Contents:</dt><dd>
           <table anchor="tab-iana-enum-participant-scheduleagent" align="left">
-	        <name>JSCalendar Enum Values for replyToScheduleAgent (Context: Event, Task) and scheduleAgent (Context: Participant)</name>
+	        <name>JSCalendar Enum Values for scheduleAgent (Context: Participant)</name>
             <thead>
               <tr>
                 <th align="left">Enum Value</th>
@@ -3515,19 +3457,16 @@ Please let us know any objections.
               <tr>
                 <td align="left">server</td>
                 <td align="left">
-                  <xref target="prop-replytoscheduleagent" format="default"/>,
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">client</td>
                 <td align="left">
-                  <xref target="prop-replytoscheduleagent" format="default"/>,
                   <xref target="prop-participants" format="default"/></td>
               </tr>
               <tr>
                 <td align="left">none</td>
                 <td align="left">
-                  <xref target="prop-replytoscheduleagent" format="default"/>,
                   <xref target="prop-participants" format="default"/></td>
               </tr>
             </tbody>
