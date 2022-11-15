@@ -9,8 +9,7 @@
 * [[[RFC5546,RFC 5546]]]
 * [[[RFC8174,RFC 8174]]]
 * [[[RFC9073,RFC 9073]]]
-
-* [[[Relations,IETF(I-D.draft-ietf-calext-ical-relations)]]], _Title_
+* [[[RFC9253,RFC 9253]]]
 
 [bibliography]
 == Informative References

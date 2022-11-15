@@ -16,7 +16,7 @@ any appropriate calendar component.
 Description:: This component provides a way for multiple date-stamped
   statuses to be associated with a component such as a task or an event.
 
-This compoment may also be added to the <<RFC9073>> PARTICIPANT component
+This component may also be added to the <<RFC9073>> PARTICIPANT component
 to allow participants in a task to specify their own status.
 
 Format Definition::
@@ -55,7 +55,7 @@ Examples::
 ----
 BEGIN:VSTATUS
 STATUS:COMPLETED
-REASON: http://example.com/reason/delivered-on-time
+REASON: https://example.com/reason/delivered-on-time
 DTSTAMP:20220212T120000Z
 END:VSTATUS
 ----

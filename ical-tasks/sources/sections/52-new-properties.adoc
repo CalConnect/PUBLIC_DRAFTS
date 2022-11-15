@@ -59,7 +59,7 @@ reasonparam = *(";" other-param)
 
 Description:: This property allows the change in status of a
 task or participant status to be qualified by the reason for the change
-with a codified reason. Typically reasons are defined within the
+with a codified reason. Typically, reasons are defined within the
 context of the task type and therefore SHOULD include the name-space
 of the authority defining the task. Common reason codes are IANA
 registered and do not have a name-space prefix.
@@ -68,7 +68,7 @@ Example::
 
 [source]
 ----
-REASON:http://example.com/reason/delivered-on-time
+REASON:https://example.com/reason/delivered-on-time
 
 REASON:out-of-office
 ----
@@ -119,13 +119,13 @@ Example::
 ----
 BEGIN:VSTATUS
 STATUS:FAILED
-REASON:http://example.com/reason/no-one-home
+REASON:https://example.com/reason/no-one-home
 SUBSTATE:ERROR
 END:VSTATUS
 
 BEGIN:VSTATUS
 STATUS:IN-PROCESS
-REASON:http://example.com/reason/paint-drying
+REASON:https://example.com/reason/paint-drying
 SUBSTATE:SUSPENDED
 END:VSTATUS
 ----
@@ -163,7 +163,7 @@ taskmodeparam      = *(";" other-param)
 
 Description:: In a "VTODO" calendar component this property MAY be used to indicate to servers how they can automatically change the state of the task based on iTIP replies from Attendees. For example, the server can automatically set the overall task status (STATUS) to COMPLETED when every attendee has marked their own status (PARTSTAT) as COMPLETED, or the server could mark the task as FAILED if its DUE date passes without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.
 
-The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following sub-sections.
+The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following subsections.
 
 Examples::
 

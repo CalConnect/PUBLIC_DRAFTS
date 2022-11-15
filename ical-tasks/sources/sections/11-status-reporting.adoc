@@ -7,7 +7,7 @@
 This document defines a new status component that can be used to
 group related information about the status. This might include
 information on why (REASON) and when (DTSTAMP) a status has changed.
-In addition new status values are specified to
+In addition, new status values are specified to
 provide for task suspension, failure and preparation.
 
 === Relating reason and comments to ATTENDEE status changes.
@@ -15,14 +15,14 @@ provide for task suspension, failure and preparation.
 The <<RFC9073>> PARTICIPANT component can be used to provide additional
 information about why an ATTENDEE participation status has changed.
 The COMMENT property can also
-be used to include additional human readable information about why the
+be used to include additional human-readable information about why the
 associated STATUS or ATTENDEE property changed.
 
 [source]
 ----
 BEGIN:VSTATUS
 STATUS:FAILED
-REASON:http://example.com/reason/delivery-failed
+REASON:https://example.com/reason/delivery-failed
 SUBSTATE:ERROR
 DTSTAMP:20130212T120000Z
 COMMENT:Breakdown
@@ -33,7 +33,7 @@ ATTENDEE;PARTSTAT=FAILED:mailto:xxx@example.com
 BEGIN:PARTICIPANT
 CALENDAR-ADDRESS:mailto:xxx@example.com
 DTSTAMP:20130226T1104510Z
-REASON:http://example.com/reason/van-break-down
+REASON:https://example.com/reason/van-break-down
 COMMENT:Puncture
 END:PARTICIPANT
 ----
@@ -41,12 +41,12 @@ END:PARTICIPANT
 === Comments associated to reasons and status changes
 
 Multiple comments and reasons may have the same status. As situations
-chnage further VSTATUS components can be added to provide additional
+change further VSTATUS components can be added to provide additional
 information..
 
 [source]
 ----
-CONCEPT:http://example.com/task/delivery
+CONCEPT:https://example.com/task/delivery
 BEGIN:VSTATUS
 STATUS:FAILED
 SUBSTATE:ERROR
@@ -56,13 +56,13 @@ END:VSTATUS
 BEGIN:VSTATUS
 STATUS:FAILED
 COMMENT:Traffic Accident on E44
-REASON:http://example.com/reason/traffic
+REASON:https://example.com/reason/traffic
 DTSTAMP:20220212T110451Z
 END:VSTATUS
 BEGIN:VSTATUS
 STATUS:FAILED
 COMMENT:Arrived after office hours
-REASON:http://example.com/reason/closed
+REASON:https://example.com/reason/closed
 DTSTAMP:20220212T180451Z
 END:VSTATUS
 ----

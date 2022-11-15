@@ -6,7 +6,7 @@ Deadlines for starting and finishing a task are defined
 by the DTSTART, DUE and DURATION properties. DTSTART
 represents the earliest start time for beginning work
 on a task. DUE, or DTSTART + DURATION represent the
-latest finish time for a task. Thus these properties
+latest finish time for a task. Thus, these properties
 define a "window" within which a task has to be
 performed. However, there is currently no way to
 indicate how long the task is expected to take. This

@@ -3,6 +3,50 @@
 
 == Property Extensions and Clarifications
 
+[[prop-ext-duration]]
+=== Updated DURATION Property definition
+
+<<RFC5545>> section 3.6.2 introduced a constraint on the duration property requiring
+that a DURATION MUSt be accompanied by a DTSTART.
+This constraint is dropped reverting to the situation as specified
+previously.
+
+Thus the text:
+
+----
+                  ; Either 'due' or 'duration' MAY appear in
+                  ; a 'todoprop', but 'due' and 'duration'
+                  ; MUST NOT occur in the same 'todoprop'.
+                  ; If 'duration' appear in a 'todoprop',
+                  ; then 'dtstart' MUST also appear in
+                  ; the same 'todoprop'.
+----
+ is replaced by
+
+----
+                  ; Either 'due' or 'duration' MAY appear in
+                  ; a 'todoprop', but 'due' and 'duration'
+                  ; MUST NOT occur in the same 'todoprop'.
+----
+
+This allows a VTODO to only have a DURATION property.
+
+Furthermore, the following text:
+
+----
+      A "VTODO" calendar component without the "DTSTART" and "DUE" (or
+      "DURATION") properties specifies a to-do that will be associated
+      with each successive calendar date, until it is completed.
+----
+
+is replaced by
+
+----
+      A "VTODO" calendar component without the "DTSTART" and "DUE"
+      properties specifies a to-do that will be associated
+      with each successive calendar date, until it is completed.
+----
+
 [[prop-ext-status]]
 === Redefined STATUS Property
 

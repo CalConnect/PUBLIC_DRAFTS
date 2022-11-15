@@ -21,6 +21,6 @@ Example::
 
 [source]
 ----
-ATTENDEE;REASON="http://example.com/reason/not-enough-time";
+ATTENDEE;REASON="https://example.com/reason/not-enough-time";
  PARTSTAT=FAILED:mailto:jsmith@example.com
 ----

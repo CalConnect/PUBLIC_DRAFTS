@@ -3,19 +3,6 @@
 
 [appendix,obligation=informative]
 == Working Notes
-
-=== Advertising tasks
-
-Use VPOLL for advertising a task to a pool of possible ATTENDEEs and then select the respondent to assign one or more assignees.
-
-Introduce POLL-MODE:ASSIGNMENT
-
-Need to indicate number of assignees required.
-
-Potentially different types of response e.g. ACCEPT or DECLINE, or a weighting e.g. 0 - 100
-
-Take into FREEBUSY discussion.
-
 === Subscribing to task updates
 
 Stakeholders should have the ability to subscribe to categories / types of tasks on an ongoing basis. Reference calendarserver.org notifications draft
