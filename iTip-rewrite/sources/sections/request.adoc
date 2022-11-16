@@ -1,0 +1,30 @@
+==== The REQUEST method
+
+This method is valid for
+
+  * VEVENT
+  * VTODO
+  * VFREEBUSY
+
+
+The "Organizer" originates the "REQUEST".  The recipients of the
+"REQUEST" method are the CUs invited to the event, the "Attendees".
+For VEVENT and VTODO "Attendees" use the "REPLY" method to convey attendance status to the
+"Organizer".
+
+The "UID" and "SEQUENCE" properties are used to distinguish the
+various uses of the "REQUEST" method.  If the "UID" property value in
+the "REQUEST" is not found on the recipient's calendar, then the
+"REQUEST" is for a new calendar component.  If the "UID"
+property value is found on the recipient's calendar, then the
+"REQUEST" is for a rescheduling, an update, or a reconfirmation of
+the "VEVENT" calendar component.
+
+For the "REQUEST" method, multiple "VEVENT" components in a single
+iCalendar object are only permitted for components with the same
+"UID" property.  That is, a series of recurring events may have
+instance-specific information.  In this case, multiple "VEVENT"
+components are needed to express the entire series.
+
+===== REQUEST for VEVENT
+

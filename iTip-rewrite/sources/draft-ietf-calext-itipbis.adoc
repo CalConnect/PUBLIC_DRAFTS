@@ -1,0 +1,53 @@
+= iCalendar Transport-Independent Interoperability Protocol (iTIP)
+:doctype: internet-draft
+:docnumber: draft-ietf-calext-itipbis-00
+:abbrev: iTip
+:status: standard
+:ipr: trust200902
+:consensus: true
+:updates: 5545
+:submission-type: IETF
+:submissionType: individual
+:area: Internet
+:intended-series: full-standard
+:revdate: 2022-06-27
+:fullname: Michael Douglass
+:lastname: Douglass
+:forename_initials: M.
+:affiliation: Bedework Commercial Services
+:street: 226 3rd Street
+:city: Troy
+:state: NY
+:code: 12180
+:country: United States of America
+:contibutor-uri: https://bcs.com/
+:email: mdouglass@bedework.com
+:docfile: draft-ietf-calext-itipbis.adoc
+:mn-document-class: ietf
+:mn-output-extensions: xml,txt,html
+:technical-committee: TC Calendar
+
+include::sections/00-abstract.adoc[]
+// :sectnums!:
+
+// CSD Foreword is not used in IETF
+//include::sections/00-foreword.adoc[]
+include::sections/01-intro.adoc[]
+
+// :sectnums:
+
+include::sections/applicationprotocolelements.adoc[]
+include::sections/publish.adoc[]
+include::sections/request.adoc[]
+include::sections/refresh.adoc[]
+include::sections/cancel.adoc[]
+include::sections/add.adoc[]
+include::sections/reply.adoc[]
+include::sections/counter.adoc[]
+include::sections/declinecounter.adoc[]
+
+include::sections/100-security.adoc[]
+include::sections/102-iana.adoc[]
+include::sections/103-acknowledgements.adoc[]
+
+include::sections-ietf/98-references.adoc[]

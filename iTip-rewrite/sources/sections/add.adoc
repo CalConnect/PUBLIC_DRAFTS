@@ -1,0 +1,8 @@
+==== The ADD method
+
+This method is valid for
+
+* VEVENT
+* VTODO
+* VJOURNAL
+

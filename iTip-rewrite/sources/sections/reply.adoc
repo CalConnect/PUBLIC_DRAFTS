@@ -1,0 +1,8 @@
+==== The REPLY method
+
+This method is valid for
+
+* VEVENT
+* VTODO
+* VFREEBUSY
+

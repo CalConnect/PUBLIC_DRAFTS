@@ -1,0 +1,213 @@
+[[interoperability]]
+== Interoperability Models
+
+There are two distinct protocols relevant to interoperability: an
+"application protocol" and a "transport protocol".  The application
+protocol defines the content of the calendar objects sent between
+sender and receiver to accomplish the scheduling transactions listed
+above.  The transport protocol defines how the iCalendar objects are
+sent between the sender and receiver.  This document focuses on the
+application protocol.  Binding documents such as [iMIP] focus on the
+transport protocol.
+
+The connection between sender and receiver in the diagram below
+refers to the application protocol.  The calendar objects passed
+from the sender to the receiver are presented in <<application-protocol-elements>>.
+
+[source]
+----
+           +----------+                +----------+
+           |          |      iTIP      |          |
+           |  Sender  |<-------------->| Receiver |
+           |          |                |          |
+           +----------+                +----------+
+----
+
+There are several variations of this diagram in which the sender and
+receiver take on various roles of a "Calendar User Agent" (CUA) or a
+"Calendar Service" (CS).
+
+The architecture of iTIP is depicted in the diagram below.  An
+application written to this specification may work with bindings for
+the store-and-forward transport, the real-time transport, or both.
+Also note that iTIP could be bound to other transports.
+
+
+[source]
+----
++--------------------------------------------------------+
+      |                     iTIP Protocol                      |
+      +--------------------------------------------------------+
+      |                       Transport                        |
+      +  -  -  -  -  -  +  -  -  -  -  -  -  +  -  -  -  -  -  +
+      | Real-Time       | Store-and-Forward  | Others          |
+      +-----------------+--------------------+-----------------+
+----
+
+=== Application Protocol
+
+In the iTIP model, an iCalendar object is created and managed by an
+"Organizer".  The "Organizer" interacts with other CUs by sending one
+or more of the iTIP messages listed above.  "Attendees" use the
+"REPLY" method to communicate their status.  "Attendees" do not make
+direct changes to the master iCalendar object.  They can, however,
+use the "COUNTER" method to suggest changes to the "Organizer".  In
+any case, the "Organizer" has complete control over the master
+iCalendar object.
+
+==== Scheduling State
+
+There are two distinct states relevant to iCalendar objects used in
+scheduling: the overall state of the calendar object and the state
+associated with an "Attendee" in that calendar object.
+
+The state of an iCalendar object is defined by a status property
+and is controlled by the "Organizer."  There is no default value for
+this property.  The "Organizer" sets the property to
+the appropriate value for each calendar object.
+
+The state of a particular "Attendee" relative to an iCalendar object
+used for scheduling is defined by the "PARTSTAT" parameter in the
+"ATTENDEE" property for each "Attendee".  When an "Organizer" issues
+the initial iCalendar object, "Attendee" status is typically unknown.
+The "Organizer" specifies this by setting the "PARTSTAT" parameter to
+"NEEDS-ACTION".  Each "Attendee" modifies their "ATTENDEE" property
+"PARTSTAT" parameter to an appropriate value as part of a "REPLY"
+message sent back to the "Organizer".
+
+==== Delegation
+
+Delegation is defined as the process by which an "Attendee" grants
+another CU (or several CUs) the right to attend on their behalf.  The
+"Organizer" is made aware of this change because the delegating
+"Attendee" informs the "Organizer".  These steps are detailed in the
+"REQUEST" method sections for the appropriate components.
+
+==== Acting on Behalf of Other Calendar Users
+
+In many organizations, one user will act on behalf of another to
+organize and/or respond to meeting requests. iTIP provides two
+mechanisms that support these activities.
+
+First, the "Organizer" is treated as a special entity, separate from
+"Attendees".  All responses from "Attendees" flow to the "Organizer",
+making it easy to separate a "Calendar User" organizing a meeting
+from "Calendar Users" attending the meeting.  Additionally, iCalendar
+provides descriptive roles for each "Attendee".  For instance, a role
+of "chair" may be ascribed to one or more "Attendees".  The "chair"
+and the "Organizer" may or may not be the same "Calendar User".  This
+maps well to scenarios where an assistant may manage meeting
+logistics for another individual who chairs a meeting.
+
+Second, a "SENT-BY" parameter may be specified in either the
+"Organizer" or "Attendee" properties.  When specified, the "SENT-BY"
+parameter indicates that the responding CU acted on behalf of the
+specified "Attendee" or "Organizer".
+
+==== Component Revisions
+
+The "SEQUENCE" property is used by the "Organizer" to indicate
+revisions to the calendar component.  When the "Organizer" makes
+changes to one of the following properties, the sequence number MUST
+be incremented:
+
+  *  "DTSTART"
+  * "DTEND"
+  * "DURATION"
+  * "DUE"
+  * "RRULE"
+  * "RDATE"
+  * "EXDATE"
+  * "STATUS"
+
+In addition, changes made by the "Organizer" to other properties MAY
+also require the sequence number to be incremented.  The "Organizer"
+CUA MUST increment the sequence number whenever it makes changes to
+properties in the calendar component that the "Organizer" deems will
+jeopardize the validity of the participation status of the
+"Attendees".  For example, changing the location of a meeting from
+one location to another distant location could effectively impact the
+participation status of the "Attendees".
+
+Depending on the "METHOD", the "SEQUENCE" property MUST follow these
+rules in the context of iTIP:
+
+  * For the "PUBLISH" and "REQUEST" methods, the "SEQUENCE" property
+      value is incremented according to the rules stated above.
+
+  * The "SEQUENCE" property value MUST be incremented each time the
+      "Organizer" uses the "ADD" or "CANCEL" methods.
+
+  * The "SEQUENCE" property value MUST NOT be incremented when using
+      "REPLY", "REFRESH", "COUNTER", "DECLINECOUNTER", or when sending a
+      delegation "REQUEST".
+
+In some circumstances, the "Organizer" may not have received
+responses to the final revision sent out.  In this situation, the
+"Organizer" may wish to send an update "REQUEST" and set "RSVP=TRUE"
+for all "Attendees" so that current responses can be collected.
+
+The value of the "SEQUENCE" property contained in a response from an
+"Attendee" may not always match the "Organizer's" revision.
+Implementations may choose to have the CUA indicate to the CU that
+the response is to an iCalendar object that has been revised, and
+allow the CU to decide whether or not to accept the response.
+
+Whilst a change in sequence number is indicative of a significant
+change to a previously scheduled item, "Attendee" CUAs SHOULD NOT
+rely solely on a change in sequence number as a means of detecting a
+significant change.  Instead, CUAs SHOULD compare the old and new
+versions of the calendar components, determine the exact nature of
+the changes, and make decisions -- possibly based on "Calendar User"
+preferences -- as to whether the user needs to be explicitly informed
+of the change.
+
+==== Message Sequencing
+
+CUAs that handle the iTIP application protocol must often correlate a
+component in a calendar store with a component received in the iTIP
+message.  For example, an event may be updated with a later revision
+of the same event.  To accomplish this, a CUA must correlate the
+version of the event already in its calendar store with the version
+sent in the iTIP message.  In addition to this correlation, there are
+several factors that can cause iTIP messages to arrive in an
+unexpected order.  That is, an "Organizer" could receive a reply to
+an earlier revision of a component after receiving a reply to a later
+revision.
+
+To maximize interoperability and to handle messages that arrive in an
+unexpected order, use the following rules:
+
+  1.  The primary key for referencing a particular iCalendar component
+is the "UID" property value.  To reference an instance of a
+recurring component, the primary key is composed of the "UID" and
+the "RECURRENCE-ID" properties.
+
+  1.  The secondary key for referencing a component is the "SEQUENCE"
+property value.  For components where the "UID" and
+"RECURRENCE-ID" property values are the same, the component with
+the highest numeric value for the "SEQUENCE" property obsoletes
+all other revisions of the component with lower values.
+
+  1.  "Attendees" send "REPLY" messages to the "Organizer".  For
+replies where the "UID" and "RECURRENCE-ID" property values are
+the same, the value of the "SEQUENCE" property indicates the
+revision of the component to which the "Attendee" is replying.
+The reply with the highest numeric value for the "SEQUENCE"
+property obsoletes all other replies with lower values.
+
+  1.  In situations where the "UID", "RECURRENCE-ID", and "SEQUENCE"
+property values match, the "DTSTAMP" property is used as the tie-
+breaker.  The component with the latest "DTSTAMP" overrides all
+others.  Similarly, for "Attendee" responses where the "UID",
+"RECURRENCE-ID", and "SEQUENCE" property values match, the
+response with the latest "DTSTAMP" overrides all others.
+
+Hence, CUAs will need to persist the following component properties
+in order to correctly process iTIP messages: "UID", "RECURRENCE-ID",
+"SEQUENCE", and "DTSTAMP".  Furthermore, for each "ATTENDEE" property
+of a component, "Organizer" CUAs will need to persist the "SEQUENCE"
+and "DTSTAMP" property values associated with the "Attendee's" last
+response, so that any earlier responses from an "Attendee" that are
+received out of order (e.g., due to a delay in the transport) can be
+correctly discarded.

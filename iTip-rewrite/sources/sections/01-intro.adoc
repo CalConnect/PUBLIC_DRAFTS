@@ -1,0 +1,141 @@
+
+== Introduction
+
+This document specifies how calendaring systems use calendar
+objects to interoperate with other calendaring systems.  In
+particular, it specifies how to schedule events and tasks.
+It further specifies how to search for available
+busy time information.  It does so in a general way, without
+specifying how communication between different systems actually takes
+place.  Other documents specify transport bindings between
+systems that use this protocol.
+
+The protocol is described in abstract terms with examples shown
+in iCalendar as defined in <<RFC5545>> and jsCalendar as specified
+in <<RFC8984>>.
+
+This protocol is based on messages sent from an originator to one or
+more recipients.  For certain types of messages, a recipient may
+reply in order to update their status and may also return
+transaction/request status information.  The protocol supports the
+ability for the message originator to modify or cancel the original
+message.  The protocol also supports the ability for recipients to
+suggest changes to the originator of a message.  The elements of the
+protocol also define the user roles for its transactions.
+
+This specification obsoletes RFC 5546.
+
+=== Related Documents
+
+Implementers will need to be familiar with several other
+specifications that, along with this one, describe the Internet
+calendaring and scheduling standards.  The related documents are:
+
+[horizontal]
+<<RFC5545>>:: The iCalendqr specification for the objects, data types,
+      properties, and property parameters used in the protocols in that format.
+      Also defines the methods
+      for representing and encoding them.
+
+<<RFC8984>>:: Describes the properties and objects used in the jsCalendar
+       representation.
+
+<<iMIP>>:: specifies an Internet email binding for iTIP.
+
+This specification does not attempt to repeat the concepts or
+definitions from these other specifications.  Where possible,
+explicit references are made to the other specifications.
+
+=== Roles
+
+Exchanges of calendar objects for the purposes of group calendaring
+and scheduling occur between "Calendar Users" (CUs).  CUs take on
+several roles in iTIP:
+
+[cols="20,80"]
+|===
+|Role |Description
+
+|Organizer
+|The CU who initiates an exchange takes on the role of  Organizer.
+For example, the CU who proposes a group  meeting is the Organizer.
+
+|Attendee or participant
+|CUs who are included in the scheduling message as possible recipients
+of that scheduling message.  For example, the CUs asked to participate
+in a group meeting by the Organizer take on the role of Attendee.
+
+|Other CU
+|A CU that is not explicitly included in a scheduling message, i.e.,
+not the Organizer or an Attendee.
+|===
+
+Note that in iCalendar and jsCalendar the role is also used to
+convey descriptive context about an "Attendee" -- such as "chair",
+"required participant", or "non- required participant". These roles
+have nothing to do with the calendaring workflow.
+
+=== Methods
+
+The iTIP methods are listed below and their usage and semantics are
+defined in Section <<methods>> of this document.
+
+[cols="20,80"]
+|===
+|Method |Description
+
+|PUBLISH
+|Used to publish a calendar object to one or more "Calendar Users".
+There is no interactivity between the publisher and any other
+"Calendar User". An example might include a baseball team publishing
+its schedule to the public.
+
+|REQUEST
+|Used to schedule a calendar object with other "Calendar Users".
+Requests are interactive in that they require the receiver to respond
+using the reply methods.  Meeting requests, busy-time requests, and the
+assignment of tasks to other "Calendar Users" are all examples.
+Requests are also used by the Organizer to update the status of a
+calendar object.
+
+|REPLY
+|A reply is used in response to a request to convey Attendee status
+to the Organizer. Replies are commonly used to respond to meeting and task requests.
+
+|ADD
+|Add one or more new instances to an existing recurring calendar object.
+
+|CANCEL
+|Cancel one or more instances of an existing calendar object.
+
+|REFRESH
+|Used by an Attendee to request the latest version of a calendar object.
+
+|COUNTER
+|Used by an Attendee to negotiate a change in a calendar object.
+Examples include the request to change the location. Note that COUNTER
+is little used.
+
+|DECLINECOUNTER
+|Used by the Organizer to decline the proposed counter proposal.
+|===
+
+Group scheduling in iTIP is accomplished using the set of "request"
+and "response" methods described above.  The following table shows
+the methods broken down by who can send them.
+
+[cols="20,80"]
+|===
+|Originator | Methods
+
+| Organizer
+| PUBLISH, REQUEST, ADD, CANCEL, DECLINECOUNTER
+
+| Attendee
+| REPLY, REFRESH, COUNTER, REQUEST (only when delegating)
+|===
+
+Note that for some calendar component types, the allowable methods
+are a subset of the above set.  In addition, apart from timezone
+components, only one component type is allowed in a single
+iTIP message.

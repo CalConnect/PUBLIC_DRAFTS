@@ -1,0 +1,112 @@
+[[application-protocol-elements]]
+=== Application Protocol Elements
+iTip uses a number of attributes in the calendar objects to provide
+scheding information and to maintain th scheduling state. These
+attributes takes different forms in <<RFC5545>> iCalendar objects
+and <<RFC8984>> jsCalendar objects.
+
+The table below lists all iTip attributes and which roperty or parameter
+is used in each representation.
+
+[cols="40,a,a",options="header"]
+|===
+|| iCalendar | jsCalendar
+
+| Organizer | ORGANIZER property | Participant with role ??
+| Attendee | Attendee property | Participant object
+| Date stamp | DTSTAMP property |
+| Method | METHOD property |
+| Participation status | PARTSTAT parameter |
+| Status | STATUS property |
+| Sequence | SEQUENCE property |
+
+|===
+
+
+iTIP messages are "text/calendar" MIME entities that contain
+calendaring and scheduling information.  The particular type of
+iCalendar message is referred to as the "method type".  Each method
+type is identified by a method property specified as part of the
+"text/calendar" content type.  The table below shows various
+combinations of calendar components and the method types that this
+specification supports.
+
+[cols="40,a,a,a,a",options="header"]
+|===
+|     | Event | Task | Journal | Free-busy
+
+| PUBLISH        | Yes    | Yes   | Yes      | Yes
+
+| REQUEST        | Yes    | Yes   | No       | Yes
+
+| REFRESH        | Yes    | Yes   | No       | No
+
+| CANCEL         | Yes    | Yes   | Yes      | No
+
+| ADD            | Yes    | Yes   | Yes      | No
+
+| REPLY          | Yes    | Yes   | No       | Yes
+
+| COUNTER        | Yes    | Yes   | No       | No
+
+| DECLINECOUNTER | Yes    | Yes   | No       | No
+|===
+
+
+==== Required properties per components
+
+When sending iTip messages the sender SHOULD send the minimum set of
+properties. Receivers MUST ignore all optional properties. The tables
+below show the required properties per component type. All others are optional.
+
+For PUBLISH and REQUEST as many properties as are required to define
+the component SHOULD be sent and MUST follow the contraints defined
+in <<RFC5545>> or <<RFC8984>>.
+
+In particular the sequence property MUST be present if the value is
+greater than 0.
+
+For REPLY the minimum set of properties should be returned.
+
+. Required Properties in a VCALENDAR Component
+[cols="40,a",options="header"]
+|===
+| Component/Property | Comment
+
+| PRODID             |
+
+| VERSION            | Value MUST be 2.0.
+
+|===
+
+. Required Properties in a VTIMEZONE Component
+[cols="40,a",options="header"]
+|===
+| Component/Property | Comment
+|   TZID             |
+|===
+
+. Required Properties in a VTIMEZONE STANDARD oor DAYLIGHT Component
+[cols="40,a",options="header"]
+|===
+
+|     DTSTART        | MUST be local time format.
+
+|     RDATE          | Only if required to specify the transitions
+
+|     RRULE          | Only if required to specify the transitions
+
+|     TZOFFSETFROM   |
+
+|     TZOFFSETTO     |
+
+|===
+
+. Required Properties in a VALARM Component
+[cols="40,a",options="header"]
+|===
+| Component/Property | Comment
+
+   |   ACTION           | 1        |                                   |
+
+|===
