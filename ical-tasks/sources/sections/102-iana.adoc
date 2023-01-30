@@ -96,3 +96,16 @@ The following table has been used to update the Properties registry.
 | TASK-MODE          | Current | This Spec, <<prop-task-mode>>
 
 |===
+
+=== Components Registry
+
+The following table has been used to update the Components registry.
+
+.Updated Components Registry
+[cols="a,a,a",options=header]
+|===
+| Component           | Status  | Reference
+
+| VSTATUS | Current | This Spec, <<vstatus>>
+
+|===
