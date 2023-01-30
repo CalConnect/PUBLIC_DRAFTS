@@ -5,7 +5,6 @@
 
 In order to support the task architecture described in <<architecture>>, this document defines a number of extensions to the current iCalendar standards in the areas of:
 
-[horizontal]
 Task Specification:: improved ability to specify domain specific tasks
 
 Task Deadlines, Milestones and Time Planning:: clarification of deadlines and extension for task duration to support task time planning

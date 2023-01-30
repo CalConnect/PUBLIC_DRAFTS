@@ -3,8 +3,6 @@
 
 Terms defined in this specification include:
 
-[horizontal]
-
 Assignee:: A calendar user assigned to perform a given task. An assignee is equivalent to an attendee of an event.
 
 Calendar User (CU):: A person or software system that accesses or modifies calendar information.
@@ -22,7 +20,7 @@ Organizer::
 A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an Organizer who invites Attendees <<RFC5545>>.
 
 Observer::
-A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed.
+A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed. Often represented as an attendee with ROLE=NON-PARTICIPANT.
 
 Resource::
 A resource in the scheduling context is any shared entity that can be scheduled by a calendar user, but does not control its own attendance status. Resources can be of "Location", "Equipment", or "Role" type.
