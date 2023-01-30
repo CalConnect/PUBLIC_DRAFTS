@@ -19,6 +19,9 @@ Description:: This component provides a way for multiple date-stamped
 This component may also be added to the <<RFC9073>> PARTICIPANT component
 to allow participants in a task to specify their own status.
 
+For backwards compatibility, when a VSTATUS component is added the
+<<RFC5545>> STATUS property MUST be set on the parent component.
+
 Format Definition::
 
 This component is defined by the following notation:
