@@ -10,6 +10,10 @@ information on why (REASON) and when (DTSTAMP) a status has changed.
 In addition, new status values are specified to
 provide for task suspension, failure and preparation.
 
+Note that while VSTATUS is intended to allow multiple date-stamped
+status changes to be stored it is not intended to be used as a history
+of changes to a tasks properties.
+
 === Relating reason and comments to ATTENDEE status changes.
 
 The <<RFC9073>> PARTICIPANT component can be used to provide additional
@@ -72,7 +76,6 @@ END:VSTATUS
 Different needs to alert or notify task actors of pending or actual
 task status changes are recognized:
 
-[horizontal]
 Alarms:: Alarms (VLARM components) operate in the calendar user agent
 space to notify the task actor of a pending task state for a task they
 are assigned to or are interested in. Note: there is no constraint in

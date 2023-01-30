@@ -135,7 +135,9 @@ END:VSTATUS
 
 Property Name:: TASK-MODE
 
-Purpose:: This property specifies automatic operations that servers apply to tasks based on changes in attendee status (PARTSTAT).
+Purpose:: This property specifies automatic operations that servers
+acting on behalf of the organizer apply to tasks based on changes in
+attendee status (PARTSTAT).
 
 Value Type:: TEXT
 
@@ -161,7 +163,15 @@ taskvalue   = "AUTOMATIC-COMPLETION" ; set STATUS completed
 taskmodeparam      = *(";" other-param)
 ----
 
-Description:: In a "VTODO" calendar component this property MAY be used to indicate to servers how they can automatically change the state of the task based on iTIP replies from Attendees. For example, the server can automatically set the overall task status (STATUS) to COMPLETED when every attendee has marked their own status (PARTSTAT) as COMPLETED, or the server could mark the task as FAILED if its DUE date passes without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.
+Description:: In a "VTODO" calendar component this property MAY be
+used to indicate to servers how they can automatically change the
+state of the task based on iTIP replies from Attendees. For example,
+the server can automatically set the overall task status to COMPLETED
+when every attendee has marked their own status (PARTSTAT) as COMPLETED,
+or the server could mark the task as FAILED if its DUE date passes
+without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.
+
+To set the status, add a VSTATUS component as specified in <<vstatus>>.
 
 The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following subsections.
 
@@ -177,27 +187,39 @@ TASK-MODE:AUTOMATIC-FAILURE
 [[task-mode-automatic-completion]]
 AUTOMATIC-COMPLETION Task Mode::
 
-The task mode value "AUTOMATIC-COMPLETION" indicates to the server that it can change the "VTODO" component's STATUS property value to "COMPLETED" as soon as all ATTENDEEs in the task have replied with a "PARTSTAT" parameter set to "COMPLETED".
+The task mode value "AUTOMATIC-COMPLETION" indicates to the server
+that it can change the "VTODO" component's status to "COMPLETED" as
+soon as all ATTENDEEs in the task have replied with a "PARTSTAT"
+parameter set to "COMPLETED".
 
 [[task-mode-automatic-failure]]
 AUTOMATIC-FAILURE Task Mode::
 
-The task mode value "AUTOMATIC-FAILURE" indicates to the server that it SHOULD change the "VTODO" component's STATUS property value to "FAILED" if either:
+The task mode value "AUTOMATIC-FAILURE" indicates to the server that
+it SHOULD change the "VTODO" component's status to "FAILED" if either:
 
 - the PARTSTAT of one ATTENDEE is set to FAILED; or
 
 - the current time is past the effective due date of the component and the task has not yet been completed.
 
-Note: The effective due date is either the "DUE" property value or the combination of the "DTSTART" and "DURATION" property values.
+NOTE: The effective due date is either the "DUE" property value or the
+combination of the "DTSTART" and "DURATION" property values.
+
 
 [[task-mode-client]]
 CLIENT Task Mode::
 
-The task mode value "CLIENT" is an instruction to the server to honour the status set by the client.
+The task mode value "CLIENT" is an instruction to the server to honour
+the status set by the client.
 
 [[task-mode-server]]
 SERVER Task Mode::
 
-The task mode value "SERVER" indicates to the server that it can change the "VTODO" component's STATUS property value to an appropriate value, based on implementation defined "business rules", as ATTENDEE responses are processed or as deadlines related to the task pass.
+The task mode value "SERVER" indicates to the server that it can change
+the "VTODO" component's status to an appropriate value, based on
+implementation defined "business rules", as ATTENDEE responses are
+processed or as deadlines related to the task pass.
 +
-The server can add this property to a "VTODO" component to indicate to the client that it will be managing the status.
+The server can add this property to a "VTODO" component to indicate to
+the client that it will be managing the status.
+
