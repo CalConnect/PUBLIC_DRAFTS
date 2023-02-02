@@ -1,6 +1,5 @@
 
 [[architecture]]
-
 == Task Architecture
 A reference architecture for task calendaring and
 scheduling is defined in order to identify the key
@@ -15,8 +14,9 @@ where some elements are tightly bound and the interfaces
 between bound elements are not exposed. The task
 architecture is also described in <<TARCH>>.
 
-[source]
-----
+.Task architecture diagram
+[align=center,alt=ASCII Art]
+....
   Task        +-------+
   Trigger             |
 +---------------------V---------------------+    +-----------+
@@ -64,4 +64,4 @@ architecture is also described in <<TARCH>>.
 |          Candidate(s)        Observer(s)  |    |           |
 | Assignee(s)       Resource(s)             |    |           |
 +-------------------------------------------+    +-----------+
-----
+....
