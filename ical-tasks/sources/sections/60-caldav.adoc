@@ -27,7 +27,7 @@ Description:: See above.
 
 Definition::
 
-[source]
+[source,xml]
 ----
 <!ELEMENT supported-task-mode-set(supported-task-mode*)>
 <!ELEMENT supported-task-mode (#PCDATA)>
