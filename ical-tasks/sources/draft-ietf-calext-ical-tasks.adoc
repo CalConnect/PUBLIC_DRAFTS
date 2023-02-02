@@ -32,7 +32,7 @@
 :contibutor-uri_2: https://bcs.com/
 :email_2: mdouglass@bedework.com
 :mn-document-class: ietf
-:mn-output-extensions: xml,txt,html
+:mn-output-extensions: xml,txt,html,rxl
 :technical-committee: TC Calendar
 
 include::sections/00-abstract.adoc[]
