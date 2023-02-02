@@ -7,7 +7,7 @@
 === Updated DURATION Property definition
 
 <<RFC5545>> section 3.6.2 introduced a constraint on the duration property requiring
-that a DURATION MUSt be accompanied by a DTSTART.
+that a DURATION MUST be accompanied by a DTSTART.
 This constraint is dropped reverting to the situation as specified
 previously.
 
@@ -21,7 +21,8 @@ Thus the text:
                   ; then 'dtstart' MUST also appear in
                   ; the same 'todoprop'.
 ----
- is replaced by
+
+is replaced by
 
 ----
                   ; Either 'due' or 'duration' MAY appear in
@@ -60,7 +61,6 @@ as follows:
 
 [source,bnf]
 ----
-
 statvalue-todo = / "PENDING"    ;Indicates a to-do has been
                 ;created and accepted, but has not
                 ;yet started.
