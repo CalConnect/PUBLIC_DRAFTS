@@ -78,9 +78,10 @@ task status changes are recognized:
 
 Alarms:: Alarms (VLARM components) operate in the calendar user agent
 space to notify the task actor of a pending task state for a task they
-are assigned to or are interested in. Note: there is no constraint in
-the current standards on the propagation of alarms specified on
-calendar objects by organizers to individual attendees.
+are assigned to or are interested in.
++
+NOTE: There is no constraint in the current standards on the propagation of
+alarms specified on calendar objects by organizers to individual attendees.
 
 Escalations:: An escalation or notification to the ATTENDEE, ORGANIZER,
 or other task actor may be required if a deadline associated with a
