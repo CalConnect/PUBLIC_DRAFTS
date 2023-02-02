@@ -198,9 +198,9 @@ AUTOMATIC-FAILURE Task Mode::
 The task mode value "AUTOMATIC-FAILURE" indicates to the server that
 it SHOULD change the "VTODO" component's status to "FAILED" if either:
 
-- the PARTSTAT of one ATTENDEE is set to FAILED; or
+. the PARTSTAT of one ATTENDEE is set to FAILED; or
 
-- the current time is past the effective due date of the component and the task has not yet been completed.
+. the current time is past the effective due date of the component and the task has not yet been completed.
 
 NOTE: The effective due date is either the "DUE" property value or the
 combination of the "DTSTART" and "DURATION" property values.

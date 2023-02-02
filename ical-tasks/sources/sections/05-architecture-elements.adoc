@@ -1,6 +1,5 @@
 
 [[architecture-elements]]
-
 == Task Architecture Elements
 
 The following logical elements form the task architecture that this specification is based on:
@@ -26,9 +25,9 @@ Task Assignment Rules:: Govern how actors are assigned to a task.
 A range of different assignment patterns <<WfRP>> may be considered,
 including the two general cases:
 
-1. Delegation to a named actor or group of actors
+.. Delegation to a named actor or group of actors
 
-2. Advertising to a pool of actors for self-selection
+.. Advertising to a pool of actors for self-selection
 
 +
 In either case the assignment may be made based on a variety of criteria
