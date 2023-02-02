@@ -50,7 +50,7 @@ Conformance:: This property can be specified in "VSTATUS" and PARTICIPANT calend
 
 Format Definition:: This property is defined by the following notation:
 
-[source]
+[source,bnf]
 ----
 reason      = "REASON" reasonparam ":" uri CRLF
 
@@ -89,7 +89,7 @@ Conformance:: This property can be specified in a "VSTATUS" calendar component.
 
 Format Definition:: This property is defined by the following notation:
 
-[source]
+[source,bnf]
 ----
 substate          = "SUBSTATE" substateparam ":" substatevalue CRLF
 

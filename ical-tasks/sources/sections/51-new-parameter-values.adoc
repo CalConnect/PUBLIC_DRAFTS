@@ -12,7 +12,7 @@ to include the new value FAILED for VTODO iCalendar components.
 
 Format Definition:: This property parameter is extended by the following notation:
 
-[source]
+[source,bnf]
 ----
 partstat-todo    /= *("FAILED")  ; To-do cannot be completed
 ----
