@@ -1,8 +1,9 @@
 ---
 metanorma:
-  deploy:
-    email: "ci@metanorma.org"
-relaton:
+  source:
+    files:
+      - sources/draft-ietf-calext-ical-tasks.adoc
+
   collection:
-    name: Calendar abuse
-    organization: CalConnect
+    organization: "CalConnect"
+    name: "iCal Tasks"
