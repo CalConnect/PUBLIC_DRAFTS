@@ -48,8 +48,6 @@ Extensions to the RELATED-TO property defined in <<RFC9253>> allow temporal rela
 
 === Task Specific Data
 
-Provide support for task specific input and output data (including updates) beyond the standard iCalendar properties. It is envisaged that standard calendar user agents will be able to launch task specific applications by passing task specific data.
-
 The LINK property can be used to relate a domain specific service to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.
 
 [source]

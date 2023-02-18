@@ -2,9 +2,8 @@
 
 == Task Scheduling and Assignment
 
-This specification supports the two distinct models of assigning actors to tasks, i.e., 1) strictly one assignee per task or 2) task assignment to multiple assignees. In this regard one or many ATTENDEES may be specified against a task depending upon the model applied by the task organizer.
-
-In addition, a number of different patterns of resource or assignee identification are anticipated. The specific Task Assignment Rules are the responsibility of the Task Organizer.
+Tasks are assigned to actors using one or more <<RFC5545>> ATTENDEE
+properties and/or one or more <<RFC9073>> PARTICIPANT components.
 
 Communication of task assignment or delegation to one or more actors who are allocated to a task by the organizer is directly supported by iTIP, i.e., all included ATTENDEES in an iTIP REQUEST are expected to perform the task.
 
