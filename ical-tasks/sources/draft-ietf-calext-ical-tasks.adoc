@@ -1,6 +1,6 @@
 = Task Extensions to iCalendar
 :doctype: internet-draft
-:docnumber: draft-ietf-calext-ical-tasks-05
+:docnumber: draft-ietf-calext-ical-tasks-06
 :abbrev: iCalendar tasks
 :status: standard
 :ipr: trust200902
