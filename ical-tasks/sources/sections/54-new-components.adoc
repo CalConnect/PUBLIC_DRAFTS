@@ -11,12 +11,12 @@ Purpose:: This component allows information to be
  associated with a status, for example comments and date stamps.
 
 Conformance::  This component can be specified multiple times in
-any appropriate calendar component.
+any calendar component.
 
 Description:: This component provides a way for multiple date-stamped
-  statuses to be associated with a component such as a task or an event.
+  statuses to be associated with a component such as a participant, task or event.
 
-This component may also be added to the <<RFC9073>> PARTICIPANT component
+This component may be added to the <<RFC9073>> PARTICIPANT component
 to allow participants in a task to specify their own status.
 
 For backwards compatibility, when a VSTATUS component is added the

@@ -4,8 +4,9 @@
 
 === Improved granularity in status reporting information
 
-This document defines a new status component that can be used to
-group related information about the status. This might include
+This document defines a new "VSTATUS" component (see section <<vstatus>>)
+that can be used to
+group related information about the status of the task. This might include
 information on why (REASON) and when (DTSTAMP) a status has changed.
 In addition, new status values are specified to
 provide for task suspension, failure and preparation.
@@ -20,7 +21,9 @@ The <<RFC9073>> PARTICIPANT component can be used to provide additional
 information about why an ATTENDEE participation status has changed.
 The COMMENT property can also
 be used to include additional human-readable information about why the
-associated STATUS or ATTENDEE property changed.
+associated STATUS or ATTENDEE property changed. For example, if a driver
+failed to deliver a package
+because of a puncture it might be expressed as
 
 [source]
 ----
@@ -76,12 +79,16 @@ END:VSTATUS
 Different needs to alert or notify task actors of pending or actual
 task status changes are recognized:
 
-Alarms:: Alarms (VLARM components) operate in the calendar user agent
+Alarms:: Alarms (VALARM components) operate in the calendar user agent
 space to notify the task actor of a pending task state for a task they
 are assigned to or are interested in.
-+
-NOTE: There is no constraint in the current standards on the propagation of
-alarms specified on calendar objects by organizers to individual attendees.
+
+Current standards (see <<RFC9074>>) indicate VALARMs SHOULD be removed
+from incoming data and many systems in fact do so. In a task assignment
+scenario it may be appropriate for the organizer to be able to set alarms
+for the participants. A system implementing these standards may choose to
+preserve VALARMs but sending a task via some external service may result in
+them being removed. This issue is not addressed by this specification.
 
 Escalations:: An escalation or notification to the ATTENDEE, ORGANIZER,
 or other task actor may be required if a deadline associated with a
@@ -91,7 +98,7 @@ Task Generating System, e.g., a BPMS.
 
 Notifications:: Task actors (observers) not directly involved in
 performing a task but with a known interest in a given task's status
-can be identified by the ASSOCIATE property [Doug214] against certain
+can be identified by the PARTICPANT property <<RFC9073>> against certain
 components e.g. ALARM, to identify which task events the
 stakeholder/party is interested in. Notifications on shared calendars
 will allow task actors to register an interest in changes to tasks

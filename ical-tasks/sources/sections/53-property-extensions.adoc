@@ -35,17 +35,17 @@ This allows a VTODO to only have a DURATION property.
 Furthermore, the following text:
 
 ----
-      A "VTODO" calendar component without the "DTSTART" and "DUE" (or
-      "DURATION") properties specifies a to-do that will be associated
-      with each successive calendar date, until it is completed.
+     A "VTODO" calendar component without the "DTSTART" and "DUE" (or
+     "DURATION") properties specifies a to-do that will be associated
+     with each successive calendar date, until it is completed.
 ----
 
 is replaced by
 
 ----
-      A "VTODO" calendar component without the "DTSTART" and "DUE"
-      properties specifies a to-do that will be associated
-      with each successive calendar date, until it is completed.
+     A "VTODO" calendar component without the "DTSTART" and "DUE"
+     properties specifies a to-do that will be associated
+     with each successive calendar date, until it is completed.
 ----
 
 [[prop-ext-status]]
@@ -62,20 +62,20 @@ as follows:
 [source,bnf]
 ----
 statvalue-todo = / "PENDING"    ;Indicates a to-do has been
-                ;created and accepted, but has not
-                ;yet started.
-                / "FAILED"       ;Indicates to-do has failed.
-                ;Extended status values for
-                ;"VTODO".
+                                ;created and accepted, but has
+                                ; not yet started.
+                / "FAILED"      ;Indicates to-do has failed.
+;Extended status values for "VTODO".
 ----
 
 Description:
 
-PENDING - A task has been created but has not yet started and is ready
+PENDING - A to-do has been created and accepted but has not yet
+started and is ready
 to start subject to other dependencies (e.g. preceding task or
 DTSTART). This is the default state.
 
-FAILED - task has failed and may need some follow-up from the
+FAILED - to-do has failed and may need some follow-up from the
 organizer to re-schedule or cancel
 
 Example: The following is an example of this property for a "VTODO"

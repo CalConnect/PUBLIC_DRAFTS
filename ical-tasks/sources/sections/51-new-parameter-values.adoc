@@ -14,7 +14,7 @@ Format Definition:: This property parameter is extended by the following notatio
 
 [source,bnf]
 ----
-partstat-todo    /= *("FAILED")  ; To-do cannot be completed
+partstat-todo    =/ *("FAILED")  ; To-do cannot be completed
 ----
 
 Example::

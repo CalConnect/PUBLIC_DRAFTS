@@ -32,7 +32,7 @@ LINK;LINKREL=SOURCE:http://example.com/package/1234567890
 LINK;LINKREL=describedby:mid:752142.141482.307E5@mx123.example.com
 ----
 
-The external information may be data to be manipulated in performing the task. See section 3.1.3 Task Domain Data Handling.
+The external information may be data to be manipulated in performing the task. See <<task-specific-data>>.
 
 The <<RFC9253>> REFID property is used to identify a key
 used to group tasks by that key.
@@ -46,6 +46,7 @@ REFID:1234567890
 
 Extensions to the RELATED-TO property defined in <<RFC9253>> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks (VTODOs) may also be related to other calendar components; for example to a VEVENT to block time to perform a task.
 
+[[task-specific-data]]
 === Task Specific Data
 
 The LINK property can be used to relate a domain specific service to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.

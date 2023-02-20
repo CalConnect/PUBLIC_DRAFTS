@@ -1,9 +1,11 @@
 
 [[terms]]
 
-Terms defined in this specification include:
+Terms defined and used in this specification include:
 
 Assignee:: A calendar user assigned to perform a given task. An assignee is equivalent to an attendee of an event.
+
+BPMS:: Business Process Management Software
 
 Calendar User (CU):: A person or software system that accesses or modifies calendar information.
 
