@@ -12,12 +12,18 @@ is used in each representation.
 |===
 || iCalendar | jsCalendar
 
-| Organizer | ORGANIZER property | Participant with role ??
+| Organizer | ORGANIZER property | Participant with role owner
+
 | Attendee | Attendee property | Participant object
+
 | Date stamp | DTSTAMP property |
+
 | Method | METHOD property |
+
 | Participation status | PARTSTAT parameter |
+
 | Status | STATUS property |
+
 | Sequence | SEQUENCE property |
 
 |===
