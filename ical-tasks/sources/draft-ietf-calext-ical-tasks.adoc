@@ -1,14 +1,14 @@
 = Task Extensions to iCalendar
 :doctype: internet-draft
-:docnumber: draft-ietf-calext-ical-tasks-06
+:docnumber: draft-ietf-calext-ical-tasks-08
 :status: standard
 :ipr: trust200902
 :consensus: true
-:updates: RFC 5545
+:updates: RFC5545
 :submission-type: IETF
 :area: Internet
 :intended-series: full-standard
-:revdate: 2024-02-15
+:revdate: 2024-04-06
 :fullname: Adrian Apthorp
 :lastname: Apthorp
 :forename_initials: A.
@@ -82,9 +82,5 @@ include::sections/103-acknowledgements.adoc[]
 
 include::sections-ietf/98-references.adoc[]
 
-
 include::sections/a1-eg-task-state-lifecycle.adoc[]
 
-include::sections/a11-changelog.adoc[]
-
-include::sections/b-working-notes.adoc[]

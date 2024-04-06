@@ -2,7 +2,13 @@
 [#iana]
 == IANA Considerations
 
-=== Initialization of the Status registry
+=== New and updated iCalendar Elements Registration
+
+This specification updates <<RFC5545>> by adding and updating
+a number of elements. The procedures and templates specified in
+<<RFC5545, section=8.2>>
+
+==== Initialization of the Status registry
 
 This specification updates <<RFC5545>> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <<RFC5545>>.
 
@@ -22,7 +28,7 @@ This specification updates <<RFC5545>> by adding a Status value registry to the 
 
 |===
 
-=== Update of the Status registry
+==== Update of the Status registry
 
 This specification further updates the Status registry with additional values defined in this document.
 
@@ -36,7 +42,7 @@ This specification further updates the Status registry with additional values de
 
 |===
 
-=== Sub-State value registry
+==== Sub-State value registry
 
 The following table has been used to initialize the Sub-State registry.
 
@@ -51,7 +57,7 @@ The following table has been used to initialize the Sub-State registry.
 
 |===
 
-=== Task Mode value registry
+==== Task Mode value registry
 
 The following table has been used to initialize the Task Mode registry.
 
@@ -67,7 +73,7 @@ The following table has been used to initialize the Task Mode registry.
 
 |===
 
-=== Participation Statuses registry
+==== Participation Statuses registry
 
 The following table has been used to update the Participation Statuses registry.
 
@@ -80,9 +86,24 @@ The following table has been used to update the Participation Statuses registry.
 
 |===
 
-=== Properties registry
+==== Components Registry
 
-The following table has been used to update the Properties registry.
+The following table has been used to update the Components registry
+defined in <<RFC5545, section=8.3.1>>.
+
+.Updated Components Registry
+[cols="a,a,a",options=header]
+|===
+| Component           | Status  | Reference
+
+| VSTATUS | Current | This Spec, <<vstatus>>
+
+|===
+
+==== Properties registry
+
+The following table has been used to update the Properties registry
+defined in <<RFC5545, section=8.3.2>>.
 
 .Updated Properties Registry
 [cols="a,a,a",options=header]
@@ -94,18 +115,5 @@ The following table has been used to update the Properties registry.
 | SUBSTATE  | Current | This Spec, <<prop-sub-state>>
 | STATUS             | Current | This Spec, <<prop-ext-status>>
 | TASK-MODE          | Current | This Spec, <<prop-task-mode>>
-
-|===
-
-=== Components Registry
-
-The following table has been used to update the Components registry.
-
-.Updated Components Registry
-[cols="a,a,a",options=header]
-|===
-| Component           | Status  | Reference
-
-| VSTATUS | Current | This Spec, <<vstatus>>
 
 |===
