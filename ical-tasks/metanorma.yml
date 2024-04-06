@@ -3,6 +3,7 @@ metanorma:
   source:
     files:
       - sources/draft-ietf-calext-ical-tasks.adoc
+      - sources/cc-11001.adoc
 
   collection:
     organization: "CalConnect"
