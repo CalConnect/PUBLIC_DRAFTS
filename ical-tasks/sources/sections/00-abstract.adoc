@@ -1,7 +1,7 @@
 
 [abstract]
 == Abstract
-This document defines extensions to the
+This document updates and defines extensions to the
 Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545)
 to provide improved status tracking, scheduling and specification of tasks.
 

@@ -2,5 +2,5 @@
 [[security]]
 == Security Considerations
 
-This specification introduces no new security considerations beyond those identified in <<RFC5545>>.
+This specification introduces no new security considerations beyond those identified in <<RFC5545>>, <<RFC5546>> and <<RFC4791>>.
 
