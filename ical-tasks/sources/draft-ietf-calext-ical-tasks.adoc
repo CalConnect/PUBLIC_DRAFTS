@@ -32,6 +32,7 @@
 :email_2: mdouglass@bedework.com
 :mn-document-class: ietf
 :mn-output-extensions: xml,txt,html
+:workgroup: calext
 :technical-committee: TC Calendar
 
 include::sections/00-abstract.adoc[]
