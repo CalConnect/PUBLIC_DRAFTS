@@ -1,0 +1,13 @@
+
+[bibliography]
+== Normative references
+
+* [[[RFC2119,RFC 2119]]]
+* [[[RFC4791,RFC 4791]]]
+* [[[RFC4918,RFC 4918]]]
+* [[[RFC5545,RFC 5545]]]
+* [[[RFC5546,RFC 5546]]]
+* [[[RFC8174,RFC 8174]]]
+* [[[RFC9073,RFC 9073]]]
+* [[[RFC9074,RFC 9074]]]
+* [[[RFC9253,RFC 9253]]]

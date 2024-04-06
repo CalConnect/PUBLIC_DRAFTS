@@ -1,14 +1,10 @@
-= Task Extensions to iCalendar
-:doctype: internet-draft
-:docnumber: draft-ietf-calext-ical-tasks-08
+= Calendaring -- Task Extensions to iCalendar
+:doctype: standard
+:docnumber: 11001
 :status: standard
-:ipr: trust200902
-:consensus: true
-:updates: RFC5545
-:submission-type: IETF
-:area: Internet
-:intended-series: full-standard
-:revdate: 2024-04-06
+:copyright-year: 2024
+:revdate: 2024-02-15
+:technical-committee: CALENDAR
 :fullname: Adrian Apthorp
 :lastname: Apthorp
 :forename_initials: A.
@@ -30,18 +26,19 @@
 :country_2: United States of America
 :contibutor-uri_2: https://bcs.com/
 :email_2: mdouglass@bedework.com
-:mn-document-class: ietf
-:mn-output-extensions: xml,txt,html
-:workgroup: calext
-:technical-committee: TC Calendar
+:mn-document-class: cc
+:mn-output-extensions: xml,html,pdf,rxl
+:local-cache-only:
+:data-uri-image:
 
 include::sections/00-abstract.adoc[]
 
-// CSD Foreword is not used in IETF
-//include::sections/00-foreword.adoc[]
+// CalConnect Foreword instead of IETF
+include::sections/00-foreword.adoc[]
+
 include::sections/00-intro.adoc[]
 
-include::sections-ietf/02-conventions.adoc[]
+include::sections/02-normrefs.adoc[]
 
 include::sections/03-terms.adoc[]
 
@@ -80,7 +77,11 @@ include::sections/102-iana.adoc[]
 include::sections/103-acknowledgements.adoc[]
 
 
-include::sections-ietf/98-references.adoc[]
+include::sections/900-bibliography.adoc[]
+
 
 include::sections/a1-eg-task-state-lifecycle.adoc[]
 
+include::sections/a11-changelog.adoc[]
+
+include::sections/b-working-notes.adoc[]
