@@ -1,0 +1,492 @@
+<html><head><title>sources/draft-ietf-calext-ical-tasks.err.html errors</title>
+<meta charset="UTF-8"/>
+<style> pre { white-space: pre-wrap; }
+thead th { font-weight: bold; background-color: aqua; }
+.severity0 { font-weight: bold; background-color: lightpink }
+.severity1 { font-weight: bold; }
+.severity2 { }
+.severity3 { font-style: italic; color: grey; }
+</style>
+</head><body><h1>sources/draft-ietf-calext-ical-tasks.err.html errors</h1>
+<h2>Style</h2>
+<table border="1">
+<thead><th width="5%">Line</th><th width="20%">ID</th>
+<th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
+<tbody>
+<tr class="severity2">
+<td>000033</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#_introduction'>_​introduction</a></code></th>
+<td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;_introduction&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
+&lt;title&gt;Introduction&lt;/title&gt;
+&lt;p id=&quot;_99b259c5-536b-2212-29fb-dfa205a6eb6b&quot;&gt;This document specifies extensions to the existing Internet Calendaring and Scheduling Core Object Specification (iCalendar) &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt;, and associated protocols, in order to enhance the structured communication and execution of tasks. The enhancements allow for the communication, time planning and scheduling of tasks by and between automated systems (e.g. in smart power grids, business process management systems) as well as for human centered tasks.&lt;/p&gt;
+
+&lt;p id=&quot;_baa80340-ea14-cdb7-ec37-8a9dad6e962b&quot;&gt;A &quot;task&quot; is a representation of an item of work assigned to an individual or organization. In the iCalendar Object Model &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt; the representation of tasks is by &quot;VTODO&quot; calendar components. Tasks can be identified in a number of situations, either informally as ad-hoc tasks in personal &quot;to-do&quot; lists or more formally in:&lt;/p&gt;</pre></td><td>2</td></tr>
+<tr class="severity2">
+<td>000279</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#task-specification'>task-specification</a></code></th>
+<td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;task-specification&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
+&lt;title&gt;Task Specification&lt;/title&gt;
+&lt;p id=&quot;_e892cf00-aec3-6d02-8a7a-3849a8cac31d&quot;&gt;The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current VTODO component only provides for simple ad-hoc tasks or &apos;to do&apos; lists, and is therefore extended by this specification as follows:&lt;/p&gt;
+
+&lt;dl id=&quot;_84a1b574-a1d0-cb32-fe06-7a3ba795ce6e&quot;&gt; &lt;dt&gt;Task type&lt;/dt&gt;</pre></td><td>2</td></tr>
+<tr class="severity2">
+<td>000924</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#caldav-support'>caldav-support</a></code></th>
+<td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;caldav-support&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
+&lt;title&gt;CalDAV Support for Task Mode&lt;/title&gt;
+&lt;p id=&quot;_2d196c81-78e9-89f9-358e-fcb6f29c60cf&quot;&gt;The CalDAV &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC4791&quot; citeas=&quot;RFC 4791&quot;/&gt; calendar access protocol allows clients and servers to exchange iCalendar data. With the introduction of the &quot;TASK-MODE&quot; property in this specification, different automated task management behaviours may be delegated to the server by the Task Organizer depending upon the value of &quot;TASK-MODE&quot;.&lt;/p&gt;
+
+&lt;p id=&quot;_74176d3f-620c-8387-0107-28c7549072ba&quot;&gt;In order for a CalDAV client to know what task modes are available, a CalDAV server advertises a CALDAV:supported-task-mode-set WebDAV property on calendar home or calendar collections if it supports the use of the &quot;TASK-MODE&quot; property as described in this specification.  The server can advertise a specific set of supported task modes by including one or more CALDAV:supported-task-mode XML elements within the CALDAV:supported-task-mode-set XML element. If no CALDAV:supported-task-mode XML elements are included in the WebDAV property, then clients can try any task mode, but need to be prepared for a failure when attempting to store the calendar data.&lt;/p&gt;</pre></td><td>2</td></tr>
+<tr class="severity2">
+<td>000982</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#_new_and_updated_icalendar_elements_registration'>_new_and_​updated_​icalendar_​elements_​registration</a></code></th>
+<td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;_new_and_updated_icalendar_elements_registration&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
+&lt;title&gt;New and updated iCalendar Elements Registration&lt;/title&gt;
+&lt;p id=&quot;_352db091-95f0-ef78-7d9e-d919e5fcb6f8&quot;&gt;This specification updates &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt; by adding and updating
+a number of elements. The procedures and templates specified in
+&lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;&gt; &lt;localityStack&gt; &lt;locality type=&quot;section&quot;&gt; &lt;referenceFrom&gt;8.2&lt;/referenceFrom&gt; &lt;/locality&gt; &lt;/localityStack&gt; &lt;/eref&gt; &lt;/p&gt;</pre></td><td>2</td></tr>
+</tbody></table>
+<h2>Document Attributes</h2>
+<table border="1">
+<thead><th width="5%">Line</th><th width="20%">ID</th>
+<th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
+<tbody>
+<tr class="severity1">
+<td></td><th><code>--</code></th>
+<td>IETF: unrecognised working group calext</td><td><pre></pre></td><td>1</td></tr>
+</tbody></table>
+<h2>Metanorma XML Syntax</h2>
+<table border="1">
+<thead><th width="5%">Line</th><th width="20%">ID</th>
+<th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
+<tbody>
+<tr class="severity2">
+<td></td><th><code>XML Line 000004:54</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 000004:54</code></th>
+<td>attribute "language" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 000015:180</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 000015:180</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 000019:4</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 000019:4</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 000031:75</code></th>
+<td>element "workgroup" not allowed here; expected the element end-tag or element "committee"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001256:82</code></th>
+<td>attribute "inline-header" not allowed here; expected attribute "language", "numbered", "obligation", "removeInRFC", "script" or "toc"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001260:237</code></th>
+<td>element "colgroup" not allowed here; expected element "name", "tbody" or "thead"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001260:259</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001260:281</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001260:303</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001260:326</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001302:114</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001302:132</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001302:150</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001302:61</code></th>
+<td>element "colgroup" not allowed here; expected element "name", "tbody" or "thead"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001302:78</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001302:96</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001370:105</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001370:127</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001370:150</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001370:61</code></th>
+<td>element "colgroup" not allowed here; expected element "name", "tbody" or "thead"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001370:83</code></th>
+<td>found attribute "width", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001406:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001413:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001413:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001413:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001413:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001413:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001415:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001417:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001419:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001422:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001433:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001433:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001433:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001433:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001433:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001435:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001437:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001440:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001447:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001447:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001447:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001447:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001447:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001448:8</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001448:8</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001450:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001452:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001455:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001462:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001462:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001462:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001462:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001462:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001464:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001466:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001469:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001476:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001476:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001476:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001476:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001476:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001477:8</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001477:8</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001478:94</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001480:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001482:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001485:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001492:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001492:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001492:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001492:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001492:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001493:94</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001495:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001497:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001499:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001502:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001509:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001509:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001509:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001509:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001509:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001510:8</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001510:8</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001511:94</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001513:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001515:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001518:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001527:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001527:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001527:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001527:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001527:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001528:8</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001528:8</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001529:94</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001531:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001533:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001536:40</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001543:143</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001543:143</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001543:143</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001543:150</code></th>
+<td>element "p" missing required attribute "id"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001543:150</code></th>
+<td>element "p" not allowed here; expected the element end-tag, text or element "add", "bcp14", "bookmark", "br", "concept", "date", "del", "em", "eref", "erefstack", "hr", "image", "index", "index-xref", "keyword", "link", "pagebreak", "review",​ "ruby", "smallcap", "span", "stem", "strike",​ "strong",​ "sub", "sup", "tt", "underline" or "xref"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001544:94</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001546:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001548:28</code></th>
+<td>attribute "format" not allowed here; expected attribute "type"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001552:68</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001552:68</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001552:68</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001553:409</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001553:409</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001553:409</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001553:982</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001554:96</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001555:96</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001557:141</code></th>
+<td>element "link" missing required attribute "target"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001557:51</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001559:10</code></th>
+<td>element "title" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001562:19</code></th>
+<td>element "uri" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001563:18</code></th>
+<td>element "docidentifier" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001592:136</code></th>
+<td>element "link" missing required attribute "target"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001592:51</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001594:10</code></th>
+<td>element "title" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001595:19</code></th>
+<td>element "uri" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001596:28</code></th>
+<td>element "docidentifier" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001607:208</code></th>
+<td>element "link" missing required attribute "target"</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001607:51</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001660:68</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001660:68</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001660:68</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001677:255</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001677:255</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001677:255</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001678:68</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001678:68</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001678:68</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001685:138</code></th>
+<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001685:138</code></th>
+<td>found attribute "language", but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<tr class="severity2">
+<td></td><th><code>XML Line 001685:138</code></th>
+<td>found attribute "script",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+</tbody></table>
+</body></html>
