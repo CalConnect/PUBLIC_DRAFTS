@@ -32,4 +32,14 @@ freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
              fbprop *participantc *locationc *resourcec *statusc
              "END" ":" "VFREEBUSY" CRLF
 
+; Addition of VSTATUS as a valid component for PARTICIPANT
+participantc = "BEGIN" ":" "PARTICIPANT" CRLF
+               partprop *locationc *resourcec
+               *statusc
+               "END" ":" "PARTICIPANT" CRLF
+
+
+; Addition of propertY REASON to PARTICIPANT
+partprop =/ reason
+
 ----
