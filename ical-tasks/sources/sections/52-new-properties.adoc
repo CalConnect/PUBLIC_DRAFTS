@@ -60,8 +60,7 @@ Description:: This property allows the change in status of a
 task or participant status to be qualified by the reason for the change
 with a codified reason. Typically, reasons are defined within the
 context of the task type and therefore SHOULD include the name-space
-of the authority defining the task. Common reason codes are IANA
-registered and do not have a name-space prefix.
+of the authority defining the task.
 
 Example::
 
@@ -69,7 +68,6 @@ Example::
 ----
 REASON:https://example.com/reason/delivered-on-time
 
-REASON:out-of-office
 ----
 
 [[prop-sub-state]]
