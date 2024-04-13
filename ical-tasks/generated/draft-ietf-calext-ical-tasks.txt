@@ -116,14 +116,14 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
        17.1.4.  Task Mode value registry . . . . . . . . . . . . . .  26
        17.1.5.  Participation Statuses registry  . . . . . . . . . .  26
-       17.1.6.  Components Registry  . . . . . . . . . . . . . . . .  26
+       17.1.6.  Components Registry  . . . . . . . . . . . . . . . .  27
        17.1.7.  Properties registry  . . . . . . . . . . . . . . . .  27
    18. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  27
    19. Normative References  . . . . . . . . . . . . . . . . . . . .  27
    20. Informative References  . . . . . . . . . . . . . . . . . . .  28
    Appendix A.  Examples of Task State Lifecycle . . . . . . . . . .  29
      A.1.  Simple Case Status Change . . . . . . . . . . . . . . . .  29
-     A.2.  Example for multiple Attendees  . . . . . . . . . . . . .  30
+     A.2.  Example for multiple Attendees  . . . . . . . . . . . . .  29
      A.3.  Example of Failure  . . . . . . . . . . . . . . . . . . .  31
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
 
@@ -1322,15 +1322,15 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 17.1.  New and updated iCalendar Elements Registration
 
    This specification updates [RFC5545] by adding and updating a number
-   of elements.  The procedures and templates specified in Section 8.2
-   of [RFC5545]
+   of elements according to the procedures and templates specified in
+   Section 8.2 of [RFC5545].
 
 17.1.1.  Initialization of the Status registry
 
    This specification updates [RFC5545] by adding a Status value
-   registry to the iCalendar Elements registry and initializing it as
+   registry to the iCalendar Elements registry located here:
+   https://www.iana.org/assignments/icalendar> and initializing it as
    per [RFC5545].
-
 
 
 
@@ -1436,7 +1436,8 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 17.1.5.  Participation Statuses registry
 
    The following table has been used to update the Participation
-   Statuses registry.
+   Statuses registry defined in Section 8.3.7 of [RFC5545] and located
+   here: https://www.iana.org/assignments/icalendar>
 
               +========+=========+=========================+
               | Value  | Status  | Reference               |
@@ -1446,10 +1447,9 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
                  Table 5: Participation Statuses Registry
 
-17.1.6.  Components Registry
 
-   The following table has been used to update the Components registry
-   defined in Section 8.3.1 of [RFC5545].
+
+
 
 
 
@@ -1457,6 +1457,12 @@ Apthorp & Douglass       Expires 15 October 2024               [Page 26]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
+
+17.1.6.  Components Registry
+
+   The following table has been used to update the Components registry
+   defined in Section 8.3.1 of [RFC5545] and located here:
+   https://www.iana.org/assignments/icalendar>.
 
              +===========+=========+=========================+
              | Component | Status  | Reference               |
@@ -1469,7 +1475,8 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 17.1.7.  Properties registry
 
    The following table has been used to update the Properties registry
-   defined in Section 8.3.2 of [RFC5545].
+   defined in Section 8.3.2 of [RFC5545] and located here:
+   https://www.iana.org/assignments/icalendar>.
 
         +====================+=========+=========================+
         | Property           | Status  | Reference               |
@@ -1500,19 +1507,17 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 19.  Normative References
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", IETF, DOI 10.17487/RFC2119, BCP 14,
-              RFC 2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
-
-
-
 
 
 Apthorp & Douglass       Expires 15 October 2024               [Page 27]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", IETF, DOI 10.17487/RFC2119, BCP 14,
+              RFC 2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC4791]  Daboo, C., Desruisseaux, B., and L. Dusseault,
               "Calendaring Extensions to WebDAV (CalDAV)", IETF,
@@ -1557,11 +1562,6 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
               January 2014,
               <https://www.omg.org/spec/BPMN/2.0.2/About-BPMN>.
 
-   [TARCH]    Apthorp, A., Daboo, C., and M. Douglass, "CalConnect, Task
-              Architecture V1.0", (CalConnect Task Architecture V1.0,
-              <http://www.calconnect.org/architectures/
-              Task%20Architecture%201.0.pdf>.
-
 
 
 
@@ -1570,24 +1570,14 @@ Apthorp & Douglass       Expires 15 October 2024               [Page 28]
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
-   [EDISTS]   UN Economic Commission for Europe, "STS STATUS", UN/
-              EDIFACT, D14.A, 30 April 2014,
-              <http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/
-              trsd/trsdsts.htm>.
+   [TARCH]    Apthorp, A., Daboo, C., and M. Douglass, "CalConnect, Task
+              Architecture V1.0", (CalConnect Task Architecture V1.0,
+              <https://www.calconnect.org/architectures/
+              Task%20Architecture%201.0.pdf>.
 
    [WfRP]     Russell, N., ter Hofstede, A.H.M., Edmond, T., and W.M.P.
               van der Aalst,, "Workflow Resource Patterns", WfRP, 2004,
               <http://www.workflowpatterns.com/patterns/resource/>.
-
-   [WSCal]    Considine, T., Considine, T., and M. Douglass, "WS-
-              Calendar Version 1.0", OASIS WS-Calendar-CS01, 31 July
-              2011, <http://docs.oasis-open.org/ws-calendar/ws-calendar-
-              spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html>.
-
-   [WSHT]     Ings,, D., "Web Services - Human Task (WS-HumanTask)
-              Specification Version 1.1", OASIS ws-humantask-v1.1-CS01,
-              17 August 2010, <http://docs.oasis-open.org/bpel4people/
-              ws-humantask-1.1-spec-cs-01.html>.
 
 Appendix A.  Examples of Task State Lifecycle
 
@@ -1618,6 +1608,16 @@ A.1.  Simple Case Status Change
       +---+--------------+--------------+---------------------------+
 
             Table 8: Example of status changes in assigning and
+                    performing a task with one attendee.
+
+A.2.  Example for multiple Attendees
+
+   Example of status changes in assigning and performing a task with two
+   attendees (A1 and A2).
+
+
+
+
 
 
 
@@ -1625,13 +1625,6 @@ Apthorp & Douglass       Expires 15 October 2024               [Page 29]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
-
-                    performing a task with one attendee.
-
-A.2.  Example for multiple Attendees
-
-   Example of status changes in assigning and performing a task with two
-   attendees (A1 and A2).
 
    +====+==============+==============+==============+================+
    |    | STATUS       | PARTSTAT     | PARTSTAT     | Action         |
@@ -1674,6 +1667,13 @@ A.2.  Example for multiple Attendees
    |    |              |              |              | (overall       |
    |    |              |              |              | status still   |
    |    |              |              |              | IN-PROCESS).   |
+   +----+--------------+--------------+--------------+----------------+
+   | 10 | IN-PROCESS   | COMPLETED    | COMPLETED    | Attendee 2     |
+   |    |              |              |              | reply          |
+   |    |              |              |              | Completed      |
+   +----+--------------+--------------+--------------+----------------+
+   | 11 | COMPLETED    | COMPLETED    | COMPLETED    | Organizer      |
+   |    |              |              |              | changes        |
 
 
 
@@ -1682,13 +1682,6 @@ Apthorp & Douglass       Expires 15 October 2024               [Page 30]
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
-   +----+--------------+--------------+--------------+----------------+
-   | 10 | IN-PROCESS   | COMPLETED    | COMPLETED    | Attendee 2     |
-   |    |              |              |              | reply          |
-   |    |              |              |              | Completed      |
-   +----+--------------+--------------+--------------+----------------+
-   | 11 | COMPLETED    | COMPLETED    | COMPLETED    | Organizer      |
-   |    |              |              |              | changes        |
    |    |              |              |              | overall state  |
    |    |              |              |              | once both      |
    |    |              |              |              | attendees are  |
@@ -1727,6 +1720,13 @@ A.3.  Example of Failure
 
 Authors' Addresses
 
+   Adrian Apthorp
+   DHL Express
+   Fritz-Erler-Str. 5
+   Bonn
+   Germany
+   Email: adrian.apthorp@dhl.com
+
 
 
 
@@ -1738,20 +1738,20 @@ Apthorp & Douglass       Expires 15 October 2024               [Page 31]
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
-   Adrian Apthorp
-   DHL Express
-   Fritz-Erler-Str. 5
-   Bonn
-   Germany
-   Email: adrian.apthorp@dhl.com
-
-
    Michael Douglass
    Bedework Commercial Services
    226 3rd Street
    Troy, NY
    United States of America
    Email: mdouglass@bedework.com
+
+
+
+
+
+
+
+
 
 
 

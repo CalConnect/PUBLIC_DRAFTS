@@ -15,16 +15,16 @@ to provide improved status tracking, scheduling and specification of tasks.
 WebDAV (CalDAV) (RFC 4791) servers can be extended to
 support certain automated task management behaviours. 
     " name="description">
-<meta content="xml2rfc 3.20.1" name="generator">
+<meta content="xml2rfc 3.21.0" name="generator">
 <meta content="draft-ietf-calext-ical-tasks-08" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.20.1
+  xml2rfc 3.21.0
     Python 3.8.10
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.3
-    lxml 5.1.0
+    lxml 5.2.1
     platformdirs 4.2.0
     pycountry 23.12.11
     PyYAML 6.0.1
@@ -316,6 +316,9 @@ cite {
   display: block;
   text-align: right;
   font-style: italic;
+}
+.xref {
+  overflow-wrap: normal;
 }
 
 /* tables */
@@ -3156,18 +3159,19 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
         <h3 id="name-new-and-updated-icalendar-e">
 <a href="#section-17.1" class="section-number selfRef">17.1. </a><a href="#name-new-and-updated-icalendar-e" class="section-name selfRef">New and updated iCalendar Elements Registration</a>
         </h3>
-<div id="_d048e05d-bde6-8e22-6f7b-9005cb0354a7">
+<div id="_cd979c51-c25c-aee0-5660-68df970f7511">
 <p id="section-17.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding and updating
-a number of elements. The procedures and templates specified in
-<span><a class="relref">Section 8.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1-1" class="pilcrow">¶</a></p>
+a number of elements according to the procedures and templates specified in
+<span><a class="relref">Section 8.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_initialization_of_the_status_registry">
 <section id="section-17.1.1">
           <h4 id="name-initialization-of-the-statu">
 <a href="#section-17.1.1" class="section-number selfRef">17.1.1. </a><a href="#name-initialization-of-the-statu" class="section-name selfRef">Initialization of the Status registry</a>
           </h4>
-<div id="_064b5e0b-038b-b995-0ecc-2c5c27ba34aa">
-<p id="section-17.1.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1.1-1" class="pilcrow">¶</a></p>
+<div id="_5c9b7f9b-8606-86bc-253b-9c5577d06232">
+<p id="section-17.1.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding a Status value registry to the iCalendar Elements registry
+located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt; and initializing it as per <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1.1-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-initial-status-value-regist"></span><div id="_f502cf79-524f-7b0a-383b-a907147e6d82">
 <table class="center" id="table-1">
@@ -3563,8 +3567,8 @@ a number of elements. The procedures and templates specified in
           <h4 id="name-participation-statuses-regi">
 <a href="#section-17.1.5" class="section-number selfRef">17.1.5. </a><a href="#name-participation-statuses-regi" class="section-name selfRef">Participation Statuses registry</a>
           </h4>
-<div id="_ab3e38e2-2b91-a5f6-ad8d-7ed777c0fb0c">
-<p id="section-17.1.5-1">The following table has been used to update the Participation Statuses registry.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
+<div id="_1e60f52e-9d7b-062c-c087-2435116f2fcb">
+<p id="section-17.1.5-1">The following table has been used to update the Participation Statuses registry defined in <span><a class="relref">Section 8.3.7</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-participation-statuses-regis"></span><div id="_a45e6d4d-1e73-e3cc-258d-8f15f07ef811">
 <table class="center" id="table-5">
@@ -3607,9 +3611,9 @@ a number of elements. The procedures and templates specified in
           <h4 id="name-components-registry">
 <a href="#section-17.1.6" class="section-number selfRef">17.1.6. </a><a href="#name-components-registry" class="section-name selfRef">Components Registry</a>
           </h4>
-<div id="_d4d78873-4ce2-a4c1-626a-a0446679a110">
+<div id="_4b701f26-34a1-0666-a740-558d38a829a2">
 <p id="section-17.1.6-1">The following table has been used to update the Components registry
-defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
+defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-updated-components-registry"></span><div id="_5044af9e-9d1f-9b22-6ac0-ac6d05634292">
 <table class="center" id="table-6">
@@ -3652,9 +3656,9 @@ defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" clas
           <h4 id="name-properties-registry">
 <a href="#section-17.1.7" class="section-number selfRef">17.1.7. </a><a href="#name-properties-registry" class="section-name selfRef">Properties registry</a>
           </h4>
-<div id="_c57ab343-372c-cf7b-1ca5-6a2ed0bddb0e">
+<div id="_86cb3e25-1336-73ea-9f0b-687a9e65ffc3">
 <p id="section-17.1.7-1">The following table has been used to update the Properties registry
-defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
+defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-updated-properties-registry"></span><div id="_b0feecee-15fd-339a-fbfd-2d5eb17553a7">
 <table class="center" id="table-7">
@@ -3838,23 +3842,11 @@ Scheduling Consortium, for advice with this specification.<a href="#section-18-3
 <dd class="break"></dd>
 <dt id="TARCH">[TARCH]</dt>
       <dd>
-<span class="refAuthor">Apthorp, A.</span>, <span class="refAuthor">Daboo, C.</span>, and <span class="refAuthor">M. Douglass</span>, <span class="refTitle">"CalConnect, Task Architecture V1.0"</span>, <span class="refContent">(CalConnect Task Architecture V1.0</span>, <span>&lt;<a href="http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf">http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="EDISTS">[EDISTS]</dt>
-      <dd>
-<span class="refAuthor">UN Economic Commission for Europe</span>, <span class="refTitle">"STS STATUS"</span>, <span class="refContent">UN/EDIFACT, D14.A</span>, <time datetime="2014-04-30" class="refDate">30 April 2014</time>, <span>&lt;<a href="http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm">http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm</a>&gt;</span>. </dd>
+<span class="refAuthor">Apthorp, A.</span>, <span class="refAuthor">Daboo, C.</span>, and <span class="refAuthor">M. Douglass</span>, <span class="refTitle">"CalConnect, Task Architecture V1.0"</span>, <span class="refContent">(CalConnect Task Architecture V1.0</span>, <span>&lt;<a href="https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf">https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="WfRP">[WfRP]</dt>
-      <dd>
-<span class="refAuthor">Russell, N.</span>, <span class="refAuthor">ter Hofstede, A.H.M.</span>, <span class="refAuthor">Edmond, T.</span>, and <span class="refAuthor">W.M.P. van der Aalst,</span>, <span class="refTitle">"Workflow Resource Patterns"</span>, <span class="refContent">WfRP</span>, <time datetime="2004" class="refDate">2004</time>, <span>&lt;<a href="http://www.workflowpatterns.com/patterns/resource/">http://www.workflowpatterns.com/patterns/resource/</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="WSCal">[WSCal]</dt>
-      <dd>
-<span class="refAuthor">Considine, T.</span>, <span class="refAuthor">Considine, T.</span>, and <span class="refAuthor">M. Douglass</span>, <span class="refTitle">"WS-Calendar Version 1.0"</span>, <span class="refContent">OASIS WS-Calendar-CS01</span>, <time datetime="2011-07-31" class="refDate">31 July 2011</time>, <span>&lt;<a href="http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html">http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="WSHT">[WSHT]</dt>
     <dd>
-<span class="refAuthor">Ings,, D.</span>, <span class="refTitle">"Web Services - Human Task (WS-HumanTask) Specification Version 1.1"</span>, <span class="refContent">OASIS ws-humantask-v1.1-CS01</span>, <time datetime="2010-08-17" class="refDate">17 August 2010</time>, <span>&lt;<a href="http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.html">http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.html</a>&gt;</span>. </dd>
+<span class="refAuthor">Russell, N.</span>, <span class="refAuthor">ter Hofstede, A.H.M.</span>, <span class="refAuthor">Edmond, T.</span>, and <span class="refAuthor">W.M.P. van der Aalst,</span>, <span class="refTitle">"Workflow Resource Patterns"</span>, <span class="refContent">WfRP</span>, <time datetime="2004" class="refDate">2004</time>, <span>&lt;<a href="http://www.workflowpatterns.com/patterns/resource/">http://www.workflowpatterns.com/patterns/resource/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

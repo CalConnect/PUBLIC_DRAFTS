@@ -852,13 +852,14 @@ uppercase preferred -->]]></sourcecode>
 
 <section anchor="_new_and_updated_icalendar_elements_registration"><name>New and updated iCalendar Elements Registration</name>
 
-<t anchor="_d048e05d-bde6-8e22-6f7b-9005cb0354a7">This specification updates <xref target="RFC5545" section="" relative=""></xref> by adding and updating
-a number of elements. The procedures and templates specified in
-<xref target="RFC5545" section="8.2" relative=""></xref></t>
+<t anchor="_cd979c51-c25c-aee0-5660-68df970f7511">This specification updates <xref target="RFC5545" section="" relative=""></xref> by adding and updating
+a number of elements according to the procedures and templates specified in
+<xref target="RFC5545" section="8.2" relative=""></xref>.</t>
 
 <section anchor="_initialization_of_the_status_registry"><name>Initialization of the Status registry</name>
 
-<t anchor="_064b5e0b-038b-b995-0ecc-2c5c27ba34aa">This specification updates <xref target="RFC5545" section="" relative=""></xref> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <xref target="RFC5545" section="" relative=""></xref>.</t>
+<t anchor="_5c9b7f9b-8606-86bc-253b-9c5577d06232">This specification updates <xref target="RFC5545" section="" relative=""></xref> by adding a Status value registry to the iCalendar Elements registry
+located here: <eref target="https://www.iana.org/assignments/icalendar"></eref>&#x3e; and initializing it as per <xref target="RFC5545" section="" relative=""></xref>.</t>
 
 <table anchor="_f502cf79-524f-7b0a-383b-a907147e6d82"><name>Initial Status Value Registry</name><thead><tr><th align="left">Name</th><th align="left">Status</th><th align="left">Reference</th></tr></thead><tbody><tr><td align="left"><t anchor="_fb4ab838-9252-fbd8-544a-afc7b8292588">CANCELLED</t>
 </td><td align="left"><t anchor="_5f77c230-a501-5288-e292-ac6bc1c6d007">Current</t>
@@ -937,7 +938,7 @@ a number of elements. The procedures and templates specified in
 
 <section anchor="_participation_statuses_registry"><name>Participation Statuses registry</name>
 
-<t anchor="_ab3e38e2-2b91-a5f6-ad8d-7ed777c0fb0c">The following table has been used to update the Participation Statuses registry.</t>
+<t anchor="_1e60f52e-9d7b-062c-c087-2435116f2fcb">The following table has been used to update the Participation Statuses registry defined in <xref target="RFC5545" section="8.3.7" relative=""></xref> and located here: <eref target="https://www.iana.org/assignments/icalendar"></eref>&#x3e;</t>
 
 <table anchor="_a45e6d4d-1e73-e3cc-258d-8f15f07ef811"><name>Participation Statuses Registry</name><thead><tr><th align="left">Value</th><th align="left">Status</th><th align="left">Reference</th></tr></thead><tbody><tr><td align="left"><t anchor="_db94f5fa-8e9b-d309-5f81-8ed4dab5bbf0">FAILED</t>
 </td><td align="left"><t anchor="_ae408b02-d4ed-d2f9-3fda-26b87b79dc4a">Current</t>
@@ -947,8 +948,8 @@ a number of elements. The procedures and templates specified in
 
 <section anchor="_components_registry"><name>Components Registry</name>
 
-<t anchor="_d4d78873-4ce2-a4c1-626a-a0446679a110">The following table has been used to update the Components registry
-defined in <xref target="RFC5545" section="8.3.1" relative=""></xref>.</t>
+<t anchor="_4b701f26-34a1-0666-a740-558d38a829a2">The following table has been used to update the Components registry
+defined in <xref target="RFC5545" section="8.3.1" relative=""></xref> and located here: <eref target="https://www.iana.org/assignments/icalendar"></eref>&#x3e;.</t>
 
 <table anchor="_5044af9e-9d1f-9b22-6ac0-ac6d05634292"><name>Updated Components Registry</name><thead><tr><th align="left">Component</th><th align="left">Status</th><th align="left">Reference</th></tr></thead><tbody><tr><td align="left"><t anchor="_2de74444-524b-70bf-9015-db4c9298bc60">VSTATUS</t>
 </td><td align="left"><t anchor="_96acae7a-7ff1-e5a4-f77f-48373d6d844e">Current</t>
@@ -958,8 +959,8 @@ defined in <xref target="RFC5545" section="8.3.1" relative=""></xref>.</t>
 
 <section anchor="_properties_registry"><name>Properties registry</name>
 
-<t anchor="_c57ab343-372c-cf7b-1ca5-6a2ed0bddb0e">The following table has been used to update the Properties registry
-defined in <xref target="RFC5545" section="8.3.2" relative=""></xref>.</t>
+<t anchor="_86cb3e25-1336-73ea-9f0b-687a9e65ffc3">The following table has been used to update the Properties registry
+defined in <xref target="RFC5545" section="8.3.2" relative=""></xref> and located here: <eref target="https://www.iana.org/assignments/icalendar"></eref>&#x3e;.</t>
 
 <table anchor="_b0feecee-15fd-339a-fbfd-2d5eb17553a7"><name>Updated Properties Registry</name><thead><tr><th align="left">Property</th><th align="left">Status</th><th align="left">Reference</th></tr></thead><tbody><tr><td align="left"><t anchor="_4994e18f-a48f-b40a-f1c0-fe9215294f65">ESTIMATED_DURATION</t>
 </td><td align="left"><t anchor="_b6263c5c-ca9f-ee6d-812f-e17b6547cfc9">Current</t>
@@ -1006,11 +1007,8 @@ Scheduling Consortium, for advice with this specification.</t>
     <references anchor="_informative_references">
       <name>Informative References</name>
       <reference target="https://www.omg.org/spec/BPMN/2.0.2/About-BPMN" anchor="BPMN"><front> <title>Business Process Model and Notation</title><author surname="Unknown"></author> <date month="January" year="2014"></date> <keyword>Business Modeling</keyword><keyword>Domain</keyword> <abstract><t>Business Process Model and Notation has become the de-facto standard for business processes diagrams. It is intended to be used directly by the stakeholders who design, manage and realize business processes, but at the same time be precise enough to allow BPMN diagrams to be translated into software process components. BPMN has an easy-to-use flowchart-like notation that is independent of any particular implementation environment.</t></abstract> </front> <format target="https://www.omg.org/spec/BPMN/2.0.2/About-BPMN" type="src"></format><format target="https://www.omg.org/spec/BPMN/2.0.2/PDF" type="pdf"></format> <refcontent>OMG BPMN 2.0.2</refcontent></reference>
-      <reference target="http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf" anchor="TARCH"><front> <title>CalConnect, Task Architecture V1.0</title> <author surname="Apthorp" asciiSurname="Apthorp" initials="A." asciiInitials="A."></author> <author surname="Daboo" asciiSurname="Daboo" initials="C." asciiInitials="C."></author> <author surname="Douglass" asciiSurname="Douglass" initials="M." asciiInitials="M."></author>  </front> <format target="http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf" type="src"></format> <refcontent>(CalConnect Task Architecture V1.0</refcontent></reference>
-      <reference target="http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm" anchor="EDISTS"><front> <title>STS STATUS</title> <author><organization ascii="UN Economic Commission for Europe">UN Economic Commission for Europe</organization></author> <date day="30" year="2014" month="April"></date> </front> <format target="http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm" type="src"></format> <refcontent>UN/EDIFACT, D14.A</refcontent></reference>
+      <reference target="https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf" anchor="TARCH"><front> <title>CalConnect, Task Architecture V1.0</title> <author surname="Apthorp" asciiSurname="Apthorp" initials="A." asciiInitials="A."></author> <author surname="Daboo" asciiSurname="Daboo" initials="C." asciiInitials="C."></author> <author surname="Douglass" asciiSurname="Douglass" initials="M." asciiInitials="M."></author>  </front> <format target="https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf" type="src"></format> <refcontent>(CalConnect Task Architecture V1.0</refcontent></reference>
       <reference target="http://www.workflowpatterns.com/patterns/resource/" anchor="WfRP"><front> <title>Workflow Resource Patterns</title> <author surname="Russell" asciiSurname="Russell" initials="N." asciiInitials="N."></author> <author surname="ter Hofstede" asciiSurname="ter Hofstede" initials="A.H.M." asciiInitials="A.H.M."></author> <author surname="Edmond" asciiSurname="Edmond" initials="T." asciiInitials="T."></author> <author surname="van der Aalst," asciiSurname="van der Aalst," initials="W.M.P." asciiInitials="W.M.P."></author> <date year="2004"></date> </front> <format target="http://www.workflowpatterns.com/patterns/resource/" type="src"></format> <refcontent>WfRP</refcontent></reference>
-      <reference target="http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html" anchor="WSCal"><front> <title>WS-Calendar Version 1.0</title> <author surname="Considine" asciiSurname="Considine" initials="T." asciiInitials="T."></author> <author surname="Considine" asciiSurname="Considine" initials="T." asciiInitials="T."></author> <author surname="Douglass" asciiSurname="Douglass" initials="M." asciiInitials="M."></author> <date day="31" year="2011" month="July"></date> <abstract><t>Describes: . A semantic (or information) model for exchange of calendar information to coordinate activities . A means of synchronizing and maintaining calendars The specification includes XML vocabularies for the interoperable and standard exchange of: . Schedules, including sequences of schedules . Intervals, including sequences of Intervals . Other calendar information consistent with the IETF iCalendar standards These vocabularies describe schedules and Intervals future, present, or past (historical). The specification is divided into three parts. 1) The information model and XML vocabularies for exchanging schedule information 2) RESTful Services for calendar update and synchronization 3) Web services for calendar update and synchronization The Technical Committee has decided not to publish Parts 2 and 3 until a later version.</t></abstract> </front> <format target="http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html" type="src"></format><format target="http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.pdf" type="pdf"></format><format target="http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.doc" type="doc"></format> <refcontent>OASIS WS-Calendar-CS01</refcontent></reference>
-      <reference target="http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.html" anchor="WSHT"><front> <title>Web Services - Human Task (WS-HumanTask) Specification Version 1.1</title> <author surname="Ings," asciiSurname="Ings," initials="D." asciiInitials="D."></author> <date day="17" year="2010" month="August"></date> <abstract><t>Introduces the definition of human tasks, including their properties, behavior and a set of operations used to manipulate human tasks. A coordination protocol is introduced in order to control autonomy and life cycle of service-enabled human tasks in an interoperable manner.</t></abstract> </front> <format target="http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.html" type="src"></format><format target="http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.pdf" type="pdf"></format><format target="http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.doc" type="doc"></format> <refcontent>OASIS ws-humantask-v1.1-CS01</refcontent></reference>
     </references>
     <section anchor="appendix-a"><name>Examples of Task State Lifecycle</name>
 

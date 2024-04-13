@@ -1027,13 +1027,14 @@ uppercase preferred --&gt;</sourcecode>
 <title>IANA Considerations</title>
 <clause id="_new_and_updated_icalendar_elements_registration" inline-header="false" obligation="normative">
 <title>New and updated iCalendar Elements Registration</title>
-<p id="_d048e05d-bde6-8e22-6f7b-9005cb0354a7">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding and updating
-a number of elements. The procedures and templates specified in
-<eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.2</referenceFrom></locality></localityStack></eref></p>
+<p id="_cd979c51-c25c-aee0-5660-68df970f7511">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding and updating
+a number of elements according to the procedures and templates specified in
+<eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.2</referenceFrom></locality></localityStack></eref>.</p>
 
 <clause id="_initialization_of_the_status_registry" inline-header="false" obligation="normative">
 <title>Initialization of the Status registry</title>
-<p id="_064b5e0b-038b-b995-0ecc-2c5c27ba34aa">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
+<p id="_5c9b7f9b-8606-86bc-253b-9c5577d06232">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding a Status value registry to the iCalendar Elements registry
+located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt; and initializing it as per <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
 
 <table id="_f502cf79-524f-7b0a-383b-a907147e6d82">
 <name>Initial Status Value Registry</name>
@@ -1191,7 +1192,7 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_participation_statuses_registry" inline-header="false" obligation="normative">
 <title>Participation Statuses registry</title>
-<p id="_ab3e38e2-2b91-a5f6-ad8d-7ed777c0fb0c">The following table has been used to update the Participation Statuses registry.</p>
+<p id="_1e60f52e-9d7b-062c-c087-2435116f2fcb">The following table has been used to update the Participation Statuses registry defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.7</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;</p>
 
 <table id="_a45e6d4d-1e73-e3cc-258d-8f15f07ef811">
 <name>Participation Statuses Registry</name>
@@ -1211,8 +1212,8 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_components_registry" inline-header="false" obligation="normative">
 <title>Components Registry</title>
-<p id="_d4d78873-4ce2-a4c1-626a-a0446679a110">The following table has been used to update the Components registry
-defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.1</referenceFrom></locality></localityStack></eref>.</p>
+<p id="_4b701f26-34a1-0666-a740-558d38a829a2">The following table has been used to update the Components registry
+defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.1</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;.</p>
 
 <table id="_5044af9e-9d1f-9b22-6ac0-ac6d05634292">
 <name>Updated Components Registry</name>
@@ -1232,8 +1233,8 @@ defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityS
 
 <clause id="_properties_registry" inline-header="false" obligation="normative">
 <title>Properties registry</title>
-<p id="_c57ab343-372c-cf7b-1ca5-6a2ed0bddb0e">The following table has been used to update the Properties registry
-defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.2</referenceFrom></locality></localityStack></eref>.</p>
+<p id="_86cb3e25-1336-73ea-9f0b-687a9e65ffc3">The following table has been used to update the Properties registry
+defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.2</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;.</p>
 
 <table id="_b0feecee-15fd-339a-fbfd-2d5eb17553a7">
 <name>Updated Properties Registry</name>
@@ -1593,12 +1594,12 @@ Scheduling Consortium, for advice with this specification.</p>
   </relation>  <relation type="obsoletes">    <bibitem>      <formattedref format="text/plain">OMG BPMN 1.1</formattedref>    </bibitem>
   </relation>  <relation type="obsoletes">    <bibitem>      <formattedref format="text/plain">OMG BPMN 1.0</formattedref>    </bibitem>
   </relation>  <license>RF-RAND</license>  <keyword>Business Modeling</keyword>  <keyword>Domain</keyword></bibitem><bibitem id="TARCH" type="book">
-  <formattedref format="application/x-isodoc+xml">Apthorp, A., Daboo, C., Douglass, M., <em>CalConnect, Task Architecture V1.0</em>, <link target="http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf"/>. </formattedref>
+  <formattedref format="application/x-isodoc+xml">Apthorp, A., Daboo, C., Douglass, M., <em>CalConnect, Task Architecture V1.0</em>, <link target="https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf"/>. </formattedref>
   <docnumber>1.0</docnumber>
   <title>
   <em>CalConnect, Task Architecture V1.0</em>
 </title>
-  <uri type="src">http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf</uri>
+  <uri type="src">https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf</uri>
   <docidentifier>(CalConnect Task Architecture V1.0</docidentifier>
   <contributor>
   <role type="author"/>
@@ -1626,21 +1627,6 @@ Scheduling Consortium, for advice with this specification.</p>
       <surname>Douglass</surname>
     </name>
   </person>
-</contributor>
-</bibitem><bibitem id="EDISTS">
-  <formattedref format="application/x-isodoc+xml">UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS STATUS, 2014-04-30, <link target="http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm"/></formattedref>
-  <docnumber>14.A</docnumber>
-  <title>STS STATUS</title>
-  <uri type="src">http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm</uri>
-  <docidentifier type="UN">UN/EDIFACT, D14.A</docidentifier>
-  <date type="published">
-  <on>2014-04-30</on>
-</date>
-  <contributor>
-  <role type="author"/>
-  <organization>
-    <name>UN Economic Commission for Europe</name>
-  </organization>
 </contributor>
 </bibitem><bibitem id="WfRP" type="book">
   <formattedref format="application/x-isodoc+xml">Russell, N., ter Hofstede, A.H.M., Edmond, T., van der Aalst,, W.M.P., <em>Workflow Resource Patterns</em>, Eindhoven University of Technology, 2004, <link target="http://www.workflowpatterns.com/patterns/resource/"/>. </formattedref>
@@ -1695,36 +1681,7 @@ Scheduling Consortium, for advice with this specification.</p>
     <name>Eindhoven University of Technology</name>
   </organization>
 </contributor>
-</bibitem><bibitem id="WSCal" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
-<title type="main" format="text/plain" language="en" script="Latn">WS-Calendar Version 1.0</title>
-  <uri type="src">http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html</uri>  <uri type="pdf">http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.pdf</uri>  <uri type="doc">http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.doc</uri>  <docidentifier type="OASIS" primary="true">OASIS WS-Calendar-CS01</docidentifier>  <docnumber>WS-Calendar-CS01</docnumber>  <date type="issued">    <on>2011-07-31</on>  </date>  <contributor>    <role type="authorizer">      <description>Standards Development Organization</description>    </role>    <role type="publisher"/>    <organization>      
-<name>OASIS</name>
-      <uri>https://www.oasis-open.org/</uri>    </organization>  </contributor>  <contributor>    <role type="authorizer">      <description>Committee</description>    </role>    <organization>      
-<name>OASIS Web Services Calendar (WS-Calendar) TC</name>
-      <uri>https://www.oasis-open.org/committees/ws-calendar/</uri>    </organization>  </contributor>  <contributor>    <role type="editor">      <description>Chair</description>    </role>    <person>      
-<name>        <forename language="en" script="Latn">Toby</forename>        <surname language="en" script="Latn">Considine</surname>      </name>
-      <affiliation>        <organization>          
-<name>University of North Carolina at Chapel Hill</name>
-          <uri>http://www.unc.edu</uri>        </organization>      </affiliation>      <email>toby.considine@unc.edu</email>    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
-<name>        <forename language="en" script="Latn">Toby</forename>        <surname language="en" script="Latn">Considine</surname>      </name>
-      <affiliation>        <organization>          
-<name>University of North Carolina at Chapel Hill</name>
-          <uri>http://www.unc.edu</uri>        </organization>      </affiliation>      <email>toby.considine@unc.edu</email>    </person>  </contributor>  <contributor>    <role type="editor"/>    <person>      
-<name>        <forename language="en" script="Latn">Mike</forename>        <surname language="en" script="Latn">Douglass</surname>      </name>
-      <affiliation>        <organization>          
-<name>Rensselaer Polytechnic Institute</name>
-          <uri>http://www.rpi.edu</uri>        </organization>      </affiliation>      <email>douglm@rpi.edu</email>    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">Describes: .       A semantic (or information) model for exchange of calendar information to coordinate activities .       A means of synchronizing and maintaining calendars The specification includes XML vocabularies for the interoperable and standard exchange of: .       Schedules, including sequences of schedules .       Intervals, including sequences of Intervals .       Other calendar information consistent with the IETF iCalendar standards These vocabularies describe schedules and Intervals future, present, or past (historical). The specification is divided into three parts. 1) The information model and XML vocabularies for exchanging schedule information 2) RESTful Services for calendar update and synchronization 3) Web services for calendar update and synchronization The Technical Committee has decided not to publish Parts 2 and 3 until a later version.</abstract></bibitem><bibitem id="WSHT" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
-<title type="main" format="text/plain" language="en" script="Latn">Web Services - Human Task (WS-HumanTask) Specification Version 1.1</title>
-  <uri type="src">http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.html</uri>  <uri type="pdf">http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.pdf</uri>  <uri type="doc">http://docs.oasis-open.org/bpel4people/ws-humantask-1.1-spec-cs-01.doc</uri>  <docidentifier type="OASIS" primary="true">OASIS ws-humantask-v1.1-CS01</docidentifier>  <docnumber>ws-humantask-v1.1-CS01</docnumber>  <date type="issued">    <on>2010-08-17</on>  </date>  <contributor>    <role type="authorizer">      <description>Standards Development Organization</description>    </role>    <role type="publisher"/>    <organization>      
-<name>OASIS</name>
-      <uri>https://www.oasis-open.org/</uri>    </organization>  </contributor>  <contributor>    <role type="authorizer">      <description>Committee</description>    </role>    <organization>      
-<name>OASIS BPEL4People TC</name>
-      <uri>https://www.oasis-open.org/committees/bpel4people/</uri>    </organization>  </contributor>  <contributor>    <role type="editor">      <description>Chair</description>    </role>    <person>      
-<name>        <forename language="en" script="Latn">Dave</forename>        <surname language="en" script="Latn">Ings,</surname>      </name>
-    </person>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/plain" language="en" script="Latn">Introduces the definition of human tasks, including their properties, behavior and a set of operations used to manipulate human tasks. A coordination protocol is introduced in order to control autonomy and life cycle of service-enabled human tasks in an interoperable manner.</abstract></bibitem>
-
-
-
+</bibitem>
 
 
 
