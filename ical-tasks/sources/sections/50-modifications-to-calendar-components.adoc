@@ -1,0 +1,35 @@
+[[modifications-to-calendar-components]]
+
+== Modifications to Calendar Components
+
+The following changes to the syntax defined in iCalendar <<RFC5545>>
+are made here. New elements are defined in subsequent sections.
+
+[source,bnf]
+----
+; Addition of VSTATUS as a valid component for VEVENT
+eventc     = "BEGIN" ":" "VEVENT" CRLF
+             eventprop *alarmc *participantc *locationc *resourcec *statusc
+             "END" ":" "VEVENT" CRLF
+
+; Addition of VSTATUS as a valid component for VTODO
+todoc      = "BEGIN" ":" "VTODO" CRLF
+             todoprop *alarmc *participantc *locationc *resourcec *statusc
+             "END" ":" "VTODO" CRLF
+
+; Addition of properties ESTIMATED-DURATION and TASK-MODE to VTODO
+todoprop =/ est-duration /
+            task-mode
+
+; Addition of VSTATUS as a valid component for VJOURNAL
+journalc   = "BEGIN" ":" "VJOURNAL" CRLF
+              jourprop *statusc
+              "END" ":" "VJOURNAL" CRLF
+
+
+; Addition of VSTATUS as a valid component for VFREEBUSY
+freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
+             fbprop *participantc *locationc *resourcec *statusc
+             "END" ":" "VFREEBUSY" CRLF
+
+----
