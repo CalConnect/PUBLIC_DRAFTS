@@ -22,15 +22,8 @@ span:surname[Apthorp], span:initials[A.],
 span:surname[Daboo], span:initials[C.],
 span:surname[Douglass], span:initials[M.],
 span:title[_CalConnect, Task Architecture V1.0_],
-span:uri.src[http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf].
+span:uri.src[https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf].
 span:type[book]
-
-* [[[EDISTS,nofetch(UN/EDIFACT, D14.A)]]],
-span:organization[UN Economic Commission for Europe],
-span:docid.UN[UN/EDIFACT, D14.A],
-span:title[STS STATUS],
-span:date[2014-04-30],
-span:uri.src[http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm]
 
 * [[[WfRP,nofetch(WfRP)]]],
 span:surname[Russell], span:initials[N.],
@@ -42,7 +35,3 @@ span:publisher[Eindhoven University of Technology],
 span:date[2004],
 span:uri.src[http://www.workflowpatterns.com/patterns/resource/].
 span:type[book]
-
-* [[[WSCal,OASIS WS-Calendar-CS01]]], Considine, T., Douglass, M., WS-Calendar Version 1.0, OASIS, 30 July 2011, http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html
-
-* [[[WSHT,OASIS ws-humantask-v1.1-CS01]]], Ings, D., Clement, L., Koenig, D., Mehta, V., Mueller, R., Rangaswamy, R., Rowley, M., Trickovic, I., Web Services - Human Task Version 1.1 (WS-HumanTask), OASIS, 17 August 2010, http://docs.oasis-open.org/ns/bpel4people/ws-humantask/200803
