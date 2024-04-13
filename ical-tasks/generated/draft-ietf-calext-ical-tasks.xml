@@ -508,7 +508,7 @@ automated operations for changing the status of a task.</p>
 <p id="_ec821cf3-350f-e0d8-83ca-cabf7575b870">The following changes to the syntax defined in iCalendar <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>
 are made here. New elements are defined in subsequent sections.</p>
 
-<sourcecode id="_a77bce9d-ff44-84aa-e362-76c4a6b7855f" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
+<sourcecode id="_cd07a8cb-6803-0511-b4e7-323c9252fddd" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
 eventc     = "BEGIN" ":" "VEVENT" CRLF
              eventprop *alarmc *participantc *locationc *resourcec *statusc
              "END" ":" "VEVENT" CRLF
@@ -531,7 +531,17 @@ journalc   = "BEGIN" ":" "VJOURNAL" CRLF
 ; Addition of VSTATUS as a valid component for VFREEBUSY
 freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
              fbprop *participantc *locationc *resourcec *statusc
-             "END" ":" "VFREEBUSY" CRLF</sourcecode>
+             "END" ":" "VFREEBUSY" CRLF
+
+; Addition of VSTATUS as a valid component for PARTICIPANT
+participantc = "BEGIN" ":" "PARTICIPANT" CRLF
+               partprop *locationc *resourcec
+               *statusc
+               "END" ":" "PARTICIPANT" CRLF
+
+
+; Addition of propertY REASON to PARTICIPANT
+partprop =/ reason</sourcecode>
 
 </clause>
 

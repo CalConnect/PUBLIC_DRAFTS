@@ -2263,7 +2263,7 @@ automated operations for changing the status of a task.<a href="#section-9.5-1" 
 <p id="section-10-1">The following changes to the syntax defined in iCalendar <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>
 are made here. New elements are defined in subsequent sections.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_a77bce9d-ff44-84aa-e362-76c4a6b7855f">
+<div id="_cd07a8cb-6803-0511-b4e7-323c9252fddd">
 <div class="lang-bnf sourcecode" id="section-10-2">
 <pre>; Addition of VSTATUS as a valid component for VEVENT
 eventc     = "BEGIN" ":" "VEVENT" CRLF
@@ -2288,7 +2288,17 @@ journalc   = "BEGIN" ":" "VJOURNAL" CRLF
 ; Addition of VSTATUS as a valid component for VFREEBUSY
 freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
              fbprop *participantc *locationc *resourcec *statusc
-             "END" ":" "VFREEBUSY" CRLF</pre><a href="#section-10-2" class="pilcrow">¶</a>
+             "END" ":" "VFREEBUSY" CRLF
+
+; Addition of VSTATUS as a valid component for PARTICIPANT
+participantc = "BEGIN" ":" "PARTICIPANT" CRLF
+               partprop *locationc *resourcec
+               *statusc
+               "END" ":" "PARTICIPANT" CRLF
+
+
+; Addition of propertY REASON to PARTICIPANT
+partprop =/ reason</pre><a href="#section-10-2" class="pilcrow">¶</a>
 </div>
 </div>
 </section>
