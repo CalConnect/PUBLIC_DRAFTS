@@ -497,17 +497,14 @@ durparam      = *(";" other-param)]]></sourcecode>
 reasonparam = *(";" other-param)]]></sourcecode>
 
 
-<dl anchor="_24e4b9d9-f181-c621-7183-4ff4a7b109cc"><dt>Description</dt><dd><t anchor="_d29cbab9-a32f-9587-807a-5c78d47db986">This property allows the change in status of a
+<dl anchor="_eece1e58-f12d-3c3c-b2c8-ec535278c046"><dt>Description</dt><dd><t anchor="_7c69211b-c892-51df-fc25-b616c7c67cca">This property allows the change in status of a
 task or participant status to be qualified by the reason for the change
 with a codified reason. Typically, reasons are defined within the
 context of the task type and therefore SHOULD include the name-space
-of the authority defining the task. Common reason codes are IANA
-registered and do not have a name-space prefix.</t>
+of the authority defining the task.</t>
 </dd><dt>Example</dt><dd></dd></dl>
 
-<sourcecode anchor="_ceafab0a-ae8d-8c3d-0cd6-af11f7cdb5f4"><![CDATA[REASON:https://example.com/reason/delivered-on-time
-
-REASON:out-of-office]]></sourcecode>
+<sourcecode anchor="_f91e9524-622a-7e41-537e-4111200f89e2"><![CDATA[REASON:https://example.com/reason/delivered-on-time]]></sourcecode>
 
 </section>
 

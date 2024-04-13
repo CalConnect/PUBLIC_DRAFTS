@@ -12,7 +12,7 @@
 <name>Bedework Commercial Services</name>
 <address><street>226 3rd Street</street><city>Troy</city><state>NY</state><country>United States of America</country></address></organization></affiliation><email>mdouglass@bedework.com</email></person></contributor><contributor><role type="publisher"/><organization>
 <name>Internet Engineering Task Force</name>
-<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-04-06</revision-date></version><language>en</language><script>Latn</script><abstract><p>This document updates and defines extensions to the
+<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-04-12</revision-date></version><language>en</language><script>Latn</script><abstract><p>This document updates and defines extensions to the
 Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545)
 to provide improved status tracking, scheduling and specification of tasks.</p>
 
@@ -597,20 +597,17 @@ durparam      = *(";" other-param)</sourcecode>
 reasonparam = *(";" other-param)</sourcecode>
 
 
-<dl id="_24e4b9d9-f181-c621-7183-4ff4a7b109cc"><dt>Description</dt>
-<dd><p id="_d29cbab9-a32f-9587-807a-5c78d47db986">This property allows the change in status of a
+<dl id="_eece1e58-f12d-3c3c-b2c8-ec535278c046"><dt>Description</dt>
+<dd><p id="_7c69211b-c892-51df-fc25-b616c7c67cca">This property allows the change in status of a
 task or participant status to be qualified by the reason for the change
 with a codified reason. Typically, reasons are defined within the
 context of the task type and therefore SHOULD include the name-space
-of the authority defining the task. Common reason codes are IANA
-registered and do not have a name-space prefix.</p>
+of the authority defining the task.</p>
 </dd>
 <dt>Example</dt>
 <dd/></dl>
 
-<sourcecode id="_ceafab0a-ae8d-8c3d-0cd6-af11f7cdb5f4">REASON:https://example.com/reason/delivered-on-time
-
-REASON:out-of-office</sourcecode>
+<sourcecode id="_f91e9524-622a-7e41-537e-4111200f89e2">REASON:https://example.com/reason/delivered-on-time</sourcecode>
 
 </clause>
 
