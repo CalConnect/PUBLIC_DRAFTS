@@ -503,26 +503,58 @@ automated operations for changing the status of a task.</p>
 </clause>
 </clause>
 
+<clause id="modifications-to-calendar-components" inline-header="false" obligation="normative">
+<title>Modifications to Calendar Components</title>
+<p id="_ec821cf3-350f-e0d8-83ca-cabf7575b870">The following changes to the syntax defined in iCalendar <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>
+are made here. New elements are defined in subsequent sections.</p>
+
+<sourcecode id="_a77bce9d-ff44-84aa-e362-76c4a6b7855f" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
+eventc     = "BEGIN" ":" "VEVENT" CRLF
+             eventprop *alarmc *participantc *locationc *resourcec *statusc
+             "END" ":" "VEVENT" CRLF
+
+; Addition of VSTATUS as a valid component for VTODO
+todoc      = "BEGIN" ":" "VTODO" CRLF
+             todoprop *alarmc *participantc *locationc *resourcec *statusc
+             "END" ":" "VTODO" CRLF
+
+; Addition of properties ESTIMATED-DURATION and TASK-MODE to VTODO
+todoprop =/ est-duration /
+            task-mode
+
+; Addition of VSTATUS as a valid component for VJOURNAL
+journalc   = "BEGIN" ":" "VJOURNAL" CRLF
+              jourprop *statusc
+              "END" ":" "VJOURNAL" CRLF
+
+
+; Addition of VSTATUS as a valid component for VFREEBUSY
+freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
+             fbprop *participantc *locationc *resourcec *statusc
+             "END" ":" "VFREEBUSY" CRLF</sourcecode>
+
+</clause>
+
 <clause id="new-parameter-values" inline-header="false" obligation="normative">
 <title>New Parameter Values</title>
 <clause id="param-val-partstat" inline-header="false" obligation="normative">
 <title>Redefined VTODO Participant Status</title>
-<p id="_4ebdffe9-55c0-4ad9-9563-5d383702ec4b">Participant status parameter type values are defined in
+<p id="_3799da00-fa48-b4a2-8b88-e44848ac439f">Participant status parameter type values are defined in
 <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.2.12</referenceFrom></locality></localityStack></eref>.  This specification redefines that type
 to include the new value FAILED for VTODO iCalendar components.</p>
 
-<dl id="_ceaa5680-b5b4-abff-c3e6-5b6b03376e5f"><dt>Format Definition</dt>
-<dd><p id="_c11dce89-aeed-781b-4021-256ded2cc9dd">This property parameter is extended by the following notation:</p>
+<dl id="_e29cb84e-6b91-07ce-6201-5208de238091"><dt>Format Definition</dt>
+<dd><p id="_dd67fb97-de6b-df70-f02e-9240cee57066">This property parameter is extended by the following notation:</p>
 </dd>
 </dl>
 
-<sourcecode id="_e1c6861d-72a1-d1c8-0362-a8edc7bdf403" lang="bnf">partstat-todo    =/ *("FAILED")  ; To-do cannot be completed</sourcecode>
+<sourcecode id="_aecd9f5a-268d-0818-14b0-1befae70f5e6" lang="bnf">partstat-todo    =/ *("FAILED")  ; To-do cannot be completed</sourcecode>
 
 
-<dl id="_444958b4-57a2-5268-49bd-1d8c6086a88b"><dt>Example</dt>
+<dl id="_538f2724-bf2c-f04d-6c85-2dc2528ac441"><dt>Example</dt>
 <dd/></dl>
 
-<sourcecode id="_6f2f217a-ef71-cc20-dadc-6ec05849a2db">ATTENDEE;REASON="https://example.com/reason/not-enough-time";
+<sourcecode id="_e0e883d8-85db-3018-f8aa-3d880d322ed7">ATTENDEE;REASON="https://example.com/reason/not-enough-time";
  PARTSTAT=FAILED:mailto:jsmith@example.com</sourcecode>
 
 </clause>
@@ -532,73 +564,73 @@ to include the new value FAILED for VTODO iCalendar components.</p>
 <title>New Properties</title>
 <clause id="prop-estimated-duration" inline-header="false" obligation="normative">
 <title>Estimated Duration</title>
-<dl id="_3d38b1fb-eb91-c4f0-9462-fb134529ee8b"><dt>Property Name</dt>
-<dd><p id="_91e710d6-1091-fa59-7eb0-3b6441274468">ESTIMATED-DURATION</p>
+<dl id="_d4ee6600-55fe-6577-89f3-ee4852ef0fc5"><dt>Property Name</dt>
+<dd><p id="_fe03682e-10a4-9397-5970-dcfcc5d6b9ca">ESTIMATED-DURATION</p>
 </dd>
 <dt>Purpose</dt>
-<dd><p id="_fd90a1c4-f2bb-21a5-6003-c7a34724bcd3">This property specifies the estimated positive duration of time the corresponding task will take to complete.</p>
+<dd><p id="_5cc2f066-f162-855f-4050-3e6174db591c">This property specifies the estimated positive duration of time the corresponding task will take to complete.</p>
 </dd>
 <dt>Value Type</dt>
-<dd><p id="_fe528fc7-8843-c3e0-25bf-917f6a2b546e">DURATION</p>
+<dd><p id="_3ce6c6ef-ca28-da19-60a2-fa656a0b23b5">DURATION</p>
 </dd>
 <dt>Property Parameters</dt>
-<dd><p id="_2bddf2ff-6367-78c7-9b00-fd4b197c0c8d">IANA and non-standard property parameters can be specified on this property.</p>
+<dd><p id="_d3fbc4f2-389e-6376-889a-98221c1640c2">IANA and non-standard property parameters can be specified on this property.</p>
 </dd>
 <dt>Conformance</dt>
-<dd><p id="_532ddbca-af17-0bc4-c5c3-c039e4c4ff93">This property can be specified in "VTODO" calendar components.</p>
+<dd><p id="_bec88b22-fc12-de48-e1bb-c0a0164fd894">This property can be specified in "VTODO" calendar components.</p>
 </dd>
 <dt>Format Definition</dt>
-<dd><p id="_8fdb833d-e450-bd7c-ad85-44d480fd2fa6">This property is defined by the following notation:</p>
+<dd><p id="_50eec600-2fac-9f4d-0c1b-17a0e350e3ac">This property is defined by the following notation:</p>
 </dd>
 </dl>
 
-<sourcecode id="_09504ef2-1b38-4416-ebb0-f6ea8ca8d450" lang="bnf">est-duration  = "ESTIMATED-DURATION" durparam ":" dur-value CRLF
+<sourcecode id="_9e65e444-3833-742a-ca7f-c8d60476b954" lang="bnf">est-duration  = "ESTIMATED-DURATION" durparam ":" dur-value CRLF
                 ;consisting of a positive duration of time.
 
 durparam      = *(";" other-param)</sourcecode>
 
 
-<dl id="_59b4a746-62ec-8e4a-1719-6fc40d956251"><dt>Description</dt>
-<dd><p id="_75493dd1-a671-664d-25b4-1e51c94a9a41">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed.  When present, DTSTART and DUE/DURATION represent the window in which the task can be performed. ESTIMATED-DURATION SHOULD be passed from ORGANIZER to ATTENDEE in iTIP <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> messages.</p>
+<dl id="_77b15923-19d7-7904-a4c5-0d833059fd0d"><dt>Description</dt>
+<dd><p id="_972984ef-6762-1ca6-1cda-6095ec4f0bab">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed.  When present, DTSTART and DUE/DURATION represent the window in which the task can be performed. ESTIMATED-DURATION SHOULD be passed from ORGANIZER to ATTENDEE in iTIP <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> messages.</p>
 </dd>
 <dt>Example</dt>
-<dd><p id="_5321a592-f2ca-92af-13f1-c022fd3acf16">The following is an example of this property that estimates the duration of a task to be one hour:</p>
+<dd><p id="_7f414b00-b129-3ae9-0c94-1d0e21a7778a">The following is an example of this property that estimates the duration of a task to be one hour:</p>
 </dd>
 </dl>
 
-<sourcecode id="_a5e7d91b-7cd0-d5de-71e4-6426a8d4c3a0">ESTIMATED-DURATION:PT1H</sourcecode>
+<sourcecode id="_bca8e7f5-670c-d2bf-9bbf-f469eb45bd4c">ESTIMATED-DURATION:PT1H</sourcecode>
 
 </clause>
 
 <clause id="prop-reason" inline-header="false" obligation="normative">
 <title>Reason</title>
-<dl id="_aec721cb-e9d9-4227-e3ee-ba9e7cc4f103"><dt>Property name</dt>
-<dd><p id="_aa1b849e-7f20-6afb-8008-4e31fe0a87de">REASON</p>
+<dl id="_386ef074-0b03-1be7-7f91-3025a5352c4d"><dt>Property name</dt>
+<dd><p id="_92262b9a-e5c8-c901-ecb1-68013f61d51b">REASON</p>
 </dd>
 <dt>Purpose</dt>
-<dd><p id="_c88a03a2-6700-f053-daa3-e92c8b17d88a">To indicate the reason for a status change or change of attendee participation status.</p>
+<dd><p id="_db3333fd-0284-6807-db8f-bd3034b9f57b">To indicate the reason for a status change or change of attendee participation status.</p>
 </dd>
 <dt>Value Type</dt>
-<dd><p id="_2fa5109c-7cdb-9608-6434-775fb2b0d55e">URI</p>
+<dd><p id="_88016954-4ff6-8db7-cc19-1da13452dc9a">URI</p>
 </dd>
 <dt>Property Parameters</dt>
-<dd><p id="_a533c8e9-54b5-b820-0fcd-9394aa6f5f52">IANA and non-standard property parameters can be specified on this property.</p>
+<dd><p id="_6b177ee1-e29f-44a9-2182-b7099038669a">IANA and non-standard property parameters can be specified on this property.</p>
 </dd>
 <dt>Conformance</dt>
-<dd><p id="_fc5796c9-f4db-28c4-7eb1-2728b187e5df">This property can be specified in "VSTATUS" and PARTICIPANT calendar components.</p>
+<dd><p id="_a76887f0-be8b-6f99-731f-95e04a9b9a0f">This property can be specified in "VSTATUS" and PARTICIPANT calendar components.</p>
 </dd>
 <dt>Format Definition</dt>
-<dd><p id="_8cb1fdab-d914-47ae-974d-e1ddda3055a8">This property is defined by the following notation:</p>
+<dd><p id="_abee92f1-d8ba-a066-1d51-ef8e6ee005cd">This property is defined by the following notation:</p>
 </dd>
 </dl>
 
-<sourcecode id="_6a5aa21e-5fd9-bd18-717f-ed5b0204b8de" lang="bnf">reason      = "REASON" reasonparam ":" uri CRLF
+<sourcecode id="_ee91b53f-93f7-9ea4-7725-127a8634ebba" lang="bnf">reason      = "REASON" reasonparam ":" uri CRLF
 
 reasonparam = *(";" other-param)</sourcecode>
 
 
-<dl id="_eece1e58-f12d-3c3c-b2c8-ec535278c046"><dt>Description</dt>
-<dd><p id="_7c69211b-c892-51df-fc25-b616c7c67cca">This property allows the change in status of a
+<dl id="_d64b1965-2a07-ef0b-fb5c-2d52e47b321a"><dt>Description</dt>
+<dd><p id="_c72f8aee-be54-0fc0-eedf-53f788b9faa2">This property allows the change in status of a
 task or participant status to be qualified by the reason for the change
 with a codified reason. Typically, reasons are defined within the
 context of the task type and therefore SHOULD include the name-space
@@ -607,34 +639,34 @@ of the authority defining the task.</p>
 <dt>Example</dt>
 <dd/></dl>
 
-<sourcecode id="_f91e9524-622a-7e41-537e-4111200f89e2">REASON:https://example.com/reason/delivered-on-time</sourcecode>
+<sourcecode id="_a5bd8355-de10-fcfb-8a50-777cd041c55f">REASON:https://example.com/reason/delivered-on-time</sourcecode>
 
 </clause>
 
 <clause id="prop-sub-state" inline-header="false" obligation="normative">
 <title>Sub-State</title>
-<dl id="_54a327c5-8bd0-142f-df85-e5fb8b652337"><dt>Property name</dt>
-<dd><p id="_793a941b-5808-aa22-ce0f-71c0cc3f113f">SUBSTATE</p>
+<dl id="_02050011-5360-0c2a-5247-f05d30342c6c"><dt>Property name</dt>
+<dd><p id="_aae60b76-6eca-957b-669f-4a88cc1f90e3">SUBSTATE</p>
 </dd>
 <dt>Purpose</dt>
-<dd><p id="_2b658826-851c-1e22-2c23-f5cbdf81d434">To provide additional granularity of task status for e.g.
+<dd><p id="_c77361c1-f263-119e-8ab2-b14345c8c75f">To provide additional granularity of task status for e.g.
 IN-PROCESS.</p>
 </dd>
 <dt>Value Type</dt>
-<dd><p id="_4a7a8072-39c5-d9b9-43c8-36226c14d15c">TEXT</p>
+<dd><p id="_38724e80-bf80-a08f-c0d3-45fa0d34c3ce">TEXT</p>
 </dd>
 <dt>Property Parameters</dt>
-<dd><p id="_166f064b-95e3-813d-3d3a-bab1cb0f6918">IANA and non-standard property parameters can be specified on this property.</p>
+<dd><p id="_620f07f2-c416-853b-eeb0-6535a0effb9a">IANA and non-standard property parameters can be specified on this property.</p>
 </dd>
 <dt>Conformance</dt>
-<dd><p id="_2ddf2733-550e-5675-1e00-c386eea37540">This property can be specified in a "VSTATUS" calendar component.</p>
+<dd><p id="_668969b1-3e28-215b-c107-42b7f9367c60">This property can be specified in a "VSTATUS" calendar component.</p>
 </dd>
 <dt>Format Definition</dt>
-<dd><p id="_01f409a4-a623-efa4-7817-614da49a04d1">This property is defined by the following notation:</p>
+<dd><p id="_79916563-d8d7-411c-1974-7865968bb123">This property is defined by the following notation:</p>
 </dd>
 </dl>
 
-<sourcecode id="_7343bf91-ad25-27ec-8790-823c831a0804" lang="bnf">substate          = "SUBSTATE" substateparam ":" substatevalue CRLF
+<sourcecode id="_fb60b92a-b945-ffb4-39d4-f280c8ea1332" lang="bnf">substate          = "SUBSTATE" substateparam ":" substatevalue CRLF
 
 substateparam     = *(";" other-param)
 
@@ -648,8 +680,8 @@ substatevalue       = ("OK"        ; everything is fine(the default)
                      / iana-token) ; Other IANA-registered type</sourcecode>
 
 
-<dl id="_6f1ffae2-7343-1758-30dd-859fbcddd159"><dt>Description</dt>
-<dd><p id="_1ad6db73-b9ac-e879-ff64-949449d5fe25">The sub-state property allows additional qualification
+<dl id="_623314d4-7978-85ed-3f44-4c8eb800f8ed"><dt>Description</dt>
+<dd><p id="_43b58d1f-a682-8e20-f841-c6fc1632dd0e">The sub-state property allows additional qualification
 and granularity of states to be recorded, in particular for the
 IN-PROCESS state. It allows individual sub-states to be recorded
 without the need to define and publish a sub-task associated with a
@@ -660,7 +692,7 @@ task has been suspended at whatever state it has reached.</p>
 <dt>Example</dt>
 <dd/></dl>
 
-<sourcecode id="_ad22fb69-3415-d8f3-d8fb-78336fffd073">BEGIN:VSTATUS
+<sourcecode id="_06dba276-57be-c825-4ded-25d92ae55b32">BEGIN:VSTATUS
 STATUS:FAILED
 REASON:https://example.com/reason/no-one-home
 SUBSTATE:ERROR
@@ -676,29 +708,29 @@ END:VSTATUS</sourcecode>
 
 <clause id="prop-task-mode" inline-header="false" obligation="normative">
 <title>Task Mode</title>
-<dl id="_25b12474-117f-a36e-a683-d6d02ca228bf"><dt>Property Name</dt>
-<dd><p id="_e4c86a6f-e8ba-83d5-ac68-3d8294ed4873">TASK-MODE</p>
+<dl id="_e350d22a-2252-ee99-4152-5898672fee51"><dt>Property Name</dt>
+<dd><p id="_717e2dd0-d184-a3f5-5bfb-ec0cd2e33e5e">TASK-MODE</p>
 </dd>
 <dt>Purpose</dt>
-<dd><p id="_4f0a421b-61d2-1ac8-1396-93d226d69c4a">This property specifies automatic operations that servers
+<dd><p id="_988b931e-e681-1b16-e7f3-0cd410425be3">This property specifies automatic operations that servers
 acting on behalf of the organizer apply to tasks based on changes in
 attendee status (PARTSTAT).</p>
 </dd>
 <dt>Value Type</dt>
-<dd><p id="_f459e952-f1ce-2e7a-045e-3170af68b4f1">TEXT</p>
+<dd><p id="_2abbddb5-6534-8134-56e5-784c8249d5a8">TEXT</p>
 </dd>
 <dt>Property Parameters</dt>
-<dd><p id="_b5c31a38-e9c9-7b43-1fc4-78370deff92e">IANA and non-standard property parameters can be specified on this property.</p>
+<dd><p id="_cf704758-32c2-56d7-aa68-d56debc1fa81">IANA and non-standard property parameters can be specified on this property.</p>
 </dd>
 <dt>Conformance</dt>
-<dd><p id="_6ffe3e12-8be0-718f-e7e1-32c6bc67cdf1">This property can be specified zero or more times in a "VTODO" calendar component.</p>
+<dd><p id="_d9a86dd2-1c28-14f4-3950-984842ca3fbd">This property can be specified zero or more times in a "VTODO" calendar component.</p>
 </dd>
 <dt>Format Definition</dt>
-<dd><p id="_5315f366-f83c-fdce-8abd-c104d72bff64">This property is defined by the following notation:</p>
+<dd><p id="_6fc82372-af1a-ffc0-1bfa-09b87cbd631c">This property is defined by the following notation:</p>
 </dd>
 </dl>
 
-<sourcecode id="_1eeb11c6-1aa8-8c8a-ccbb-8f7dd89c77f3" lang="bnf">task-mode   = "TASK-MODE taskmodeparam ":" taskvalue
+<sourcecode id="_72f2c110-a5c6-939d-750e-e18e7f628d2b" lang="bnf">task-mode   = "TASK-MODE taskmodeparam ":" taskvalue
               *("," taskvalue) CRLF
 
 taskvalue   = "AUTOMATIC-COMPLETION" ; set STATUS completed
@@ -712,8 +744,8 @@ taskvalue   = "AUTOMATIC-COMPLETION" ; set STATUS completed
 taskmodeparam      = *(";" other-param)</sourcecode>
 
 
-<dl id="_1c76f50c-137d-9c58-2b2b-312c72cd1295"><dt>Description</dt>
-<dd><p id="_fddb886c-0e91-3dbb-b992-b4ddcf12ea9b">In a "VTODO" calendar component this property MAY be
+<dl id="_bb55a586-f8d1-f4fb-5911-7006574465e1"><dt>Description</dt>
+<dd><p id="_246acd3c-fc01-3950-9789-e7fc4c43abb9">In a "VTODO" calendar component this property MAY be
 used to indicate to servers how they can automatically change the
 state of the task based on iTIP replies from Attendees. For example,
 the server can automatically set the overall task status to COMPLETED
@@ -723,20 +755,20 @@ without it being completed. TASK-MODE processing is performed on the organizer's
 </dd>
 </dl>
 
-<p id="_faf02315-c356-f5b6-aa1a-a6ddbcd4df01">To set the status, add a VSTATUS component as specified in <xref target="vstatus"/>.</p>
+<p id="_3411b58a-e2c5-5f30-706f-b4908c89b08f">To set the status, add a VSTATUS component as specified in <xref target="vstatus"/>.</p>
 
-<p id="_100e90e2-7c0c-2755-8d81-da71658f492e">The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following subsections.</p>
+<p id="_1e20973d-7321-149d-7329-b3fc52eae9c2">The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following subsections.</p>
 
-<dl id="_b9fbeb68-c68b-b9e4-cc2b-c4fa4c12d6ff"><dt>Examples</dt>
+<dl id="_16ebd72f-5c43-46c7-135a-68db1a5effd5"><dt>Examples</dt>
 <dd/></dl>
 
-<sourcecode id="_d69002a0-5ec8-1a66-3b31-f1ba8c3430d9">TASK-MODE:AUTOMATIC-COMPLETION,AUTOMATIC-FAILURE
+<sourcecode id="_c82d212e-5cad-882f-d1a9-cc48f5d5e519">TASK-MODE:AUTOMATIC-COMPLETION,AUTOMATIC-FAILURE
 TASK-MODE:SERVER
 TASK-MODE:AUTOMATIC-FAILURE</sourcecode>
 
 
 <dl id="task-mode-automatic-completion"><dt>AUTOMATIC-COMPLETION Task Mode</dt>
-<dd><p id="_7accfc00-90cc-29c1-3d6f-ab67a76cd175">The task mode value "AUTOMATIC-COMPLETION" indicates to the server
+<dd><p id="_0b5998c4-2443-33f8-5c53-61b8c1be0abd">The task mode value "AUTOMATIC-COMPLETION" indicates to the server
 that it can change the "VTODO" component's status to "COMPLETED" as
 soon as all ATTENDEEs in the task have replied with a "PARTSTAT"
 parameter set to "COMPLETED".</p>
@@ -744,32 +776,32 @@ parameter set to "COMPLETED".</p>
 </dl>
 
 <dl id="task-mode-automatic-failure"><dt>AUTOMATIC-FAILURE Task Mode</dt>
-<dd><p id="_0c03a2f0-ea0d-a483-e480-361f96b4e4b2">The task mode value "AUTOMATIC-FAILURE" indicates to the server that
+<dd><p id="_7a91073b-7162-11e3-88eb-4607df25b745">The task mode value "AUTOMATIC-FAILURE" indicates to the server that
 it SHOULD change the "VTODO" component's status to "FAILED" if either:</p>
-<ol id="_dc2e238f-935c-4ae4-7abf-a046f9d2f370" type="arabic"><li><p id="_c3195cf9-027f-3e15-2b42-f2cc5f5dd961">the PARTSTAT of one ATTENDEE is set to FAILED; or</p>
+<ol id="_8fbfcbcc-4333-76a8-ff55-d306427c6a52" type="arabic"><li><p id="_47addbd7-be88-9a1a-ff7b-137f6d11a69d">the PARTSTAT of one ATTENDEE is set to FAILED; or</p>
 </li>
-<li><p id="_095aa166-4f2d-b38a-2f40-3041048fc609">the current time is past the effective due date of the component and the task has not yet been completed.</p>
+<li><p id="_5a0d8ea4-94fa-d4c9-06b6-c68baec0842b">the current time is past the effective due date of the component and the task has not yet been completed.</p>
 </li>
 </ol>
 </dd>
 </dl>
 
-<note id="_a0421755-23fd-ae9f-7dc1-fdca60a48566"><p id="_f6570148-e961-3c70-9e22-aedda20b4bf4">The effective due date is either the "DUE" property value or the
+<note id="_c53aa879-b801-46ad-481e-01a06bb18443"><p id="_6063a786-da27-b54b-e556-af2425332b09">The effective due date is either the "DUE" property value or the
 combination of the "DTSTART" and "DURATION" property values.</p>
 </note>
 
 <dl id="task-mode-client"><dt>CLIENT Task Mode</dt>
-<dd><p id="_949ad786-1bc2-8f10-96e9-4dc85ad7f2c3">The task mode value "CLIENT" is an instruction to the server to honour
+<dd><p id="_894ad073-4b02-a955-6fc9-41994cb04d5d">The task mode value "CLIENT" is an instruction to the server to honour
 the status set by the client.</p>
 </dd>
 </dl>
 
 <dl id="task-mode-server"><dt>SERVER Task Mode</dt>
-<dd><p id="_4a245472-e45b-525b-d380-62d561c5fdbd">The task mode value "SERVER" indicates to the server that it can change
+<dd><p id="_c03a9ebe-2cc6-dc36-ce66-cf24b9cc2fcd">The task mode value "SERVER" indicates to the server that it can change
 the "VTODO" component's status to an appropriate value, based on
 implementation defined "business rules", as ATTENDEE responses are
 processed or as deadlines related to the task pass.</p>
-<p id="_0fc7dda4-7e07-3eaf-a355-27a53140e3c1">The server can add this property to a "VTODO" component to indicate to
+<p id="_141c173c-acd6-ec5d-5396-e2c37bece0ef">The server can add this property to a "VTODO" component to indicate to
 the client that it will be managing the status.</p>
 </dd>
 </dl>
@@ -780,14 +812,14 @@ the client that it will be managing the status.</p>
 <title>Property Extensions and Clarifications</title>
 <clause id="prop-ext-duration" inline-header="false" obligation="normative">
 <title>Updated DURATION Property definition</title>
-<p id="_de752343-44ba-7d7b-e3f5-1009ac694020"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> section 3.6.2 introduced a constraint on the duration property requiring
+<p id="_43905ff8-caa0-2012-afbd-366fc238de6e"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> section 3.6.2 introduced a constraint on the duration property requiring
 that a DURATION MUST be accompanied by a DTSTART.
 This constraint is dropped reverting to the situation as specified
 previously.</p>
 
-<p id="_3851873a-5cad-1974-d3fa-b1115aec8b27">Thus the text:</p>
+<p id="_737a5836-e4aa-1254-2fd8-87e33f92bfb1">Thus the text:</p>
 
-<sourcecode id="_dd3b6def-a756-1d2d-36ff-d8db4e5e8043">                  ; Either 'due' or 'duration' MAY appear in
+<sourcecode id="_d0d1dc12-c3a6-6d41-18a5-6797b8f2b763">                  ; Either 'due' or 'duration' MAY appear in
                   ; a 'todoprop', but 'due' and 'duration'
                   ; MUST NOT occur in the same 'todoprop'.
                   ; If 'duration' appear in a 'todoprop',
@@ -795,25 +827,25 @@ previously.</p>
                   ; the same 'todoprop'.</sourcecode>
 
 
-<p id="_54cc8b76-0085-2595-f162-e24bb3b0cf42">is replaced by</p>
+<p id="_c57473b4-8267-e63e-723c-c955a9ee0e59">is replaced by</p>
 
-<sourcecode id="_d3f38765-191f-6aba-be43-b28accada2b1">                  ; Either 'due' or 'duration' MAY appear in
+<sourcecode id="_9ddd6223-8324-c726-1998-f2efb1a0952d">                  ; Either 'due' or 'duration' MAY appear in
                   ; a 'todoprop', but 'due' and 'duration'
                   ; MUST NOT occur in the same 'todoprop'.</sourcecode>
 
 
-<p id="_ae6b8a0e-ad94-9bb8-e9dd-6887e580e8ca">This allows a VTODO to only have a DURATION property.</p>
+<p id="_4739b276-fc97-bc05-3cc4-be46fb6ade23">This allows a VTODO to only have a DURATION property.</p>
 
-<p id="_20f70b11-ac26-50ce-199a-4c33825278bf">Furthermore, the following text:</p>
+<p id="_0a685609-158d-88de-69e9-d7d0f6889bfc">Furthermore, the following text:</p>
 
-<sourcecode id="_4e25038a-e831-13e6-44f4-f595dacd32e8">     A "VTODO" calendar component without the "DTSTART" and "DUE" (or
+<sourcecode id="_fe214cf4-c926-5b40-052e-4b1b86e4de95">     A "VTODO" calendar component without the "DTSTART" and "DUE" (or
      "DURATION") properties specifies a to-do that will be associated
      with each successive calendar date, until it is completed.</sourcecode>
 
 
-<p id="_7a07478c-4828-e571-db68-93d5b45f02e1">is replaced by</p>
+<p id="_448467d0-b95d-4210-9fa6-3e4cf1f4a2fb">is replaced by</p>
 
-<sourcecode id="_45dda20e-4a33-0973-6cad-79df301a52fb">     A "VTODO" calendar component without the "DTSTART" and "DUE"
+<sourcecode id="_ebbae1e2-a436-fe6d-ef0d-2ff46efa19ba">     A "VTODO" calendar component without the "DTSTART" and "DUE"
      properties specifies a to-do that will be associated
      with each successive calendar date, until it is completed.</sourcecode>
 
@@ -821,38 +853,38 @@ previously.</p>
 
 <clause id="prop-ext-status" inline-header="false" obligation="normative">
 <title>Redefined STATUS Property</title>
-<p id="_0882e2c8-2dae-d374-dc7b-cb534668d9e2">The Status property is defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref>. This
+<p id="_6a5d285b-2542-76dc-fd71-d2792629bf8c">The Status property is defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref>. This
 specification extends that property to include new values
 associated with VTODO iCalendar components (See Appendix A for
 examples of the task state lifecycle).</p>
 
-<dl id="_c700489b-0bfd-642d-66ba-2b3b358e20a8"><dt>Format Definition</dt>
-<dd><p id="_edc35545-1652-4690-d09c-ac17db9fe9ed">The "STATUS" property parameter list is augmented
+<dl id="_bb264e54-fa97-3bed-e35a-567b9ed1cc9c"><dt>Format Definition</dt>
+<dd><p id="_0fa0308b-cabd-118d-7270-d295969b276e">The "STATUS" property parameter list is augmented
 as follows:</p>
 </dd>
 </dl>
 
-<sourcecode id="_672b77df-4f34-8d11-2d67-906972bbf46a" lang="bnf">statvalue-todo = / "PENDING"    ;Indicates a to-do has been
+<sourcecode id="_7feb7a8a-f03d-c721-d05b-c913eaf86af3" lang="bnf">statvalue-todo = / "PENDING"    ;Indicates a to-do has been
                                 ;created and accepted, but has
                                 ; not yet started.
                 / "FAILED"      ;Indicates to-do has failed.
 ;Extended status values for "VTODO".</sourcecode>
 
 
-<p id="_0891bef7-3456-2744-9279-4249e8b68b66">Description:</p>
+<p id="_1bb78168-bf79-42c3-4dec-543ac60c25ff">Description:</p>
 
-<p id="_ea019fac-57cf-bf4a-47b3-c3a60a3190f2">PENDING - A to-do has been created and accepted but has not yet
+<p id="_d1371b2b-f592-2970-8004-e09fc566c0c3">PENDING - A to-do has been created and accepted but has not yet
 started and is ready
 to start subject to other dependencies (e.g. preceding task or
 DTSTART). This is the default state.</p>
 
-<p id="_5ce2e21a-e53d-6c77-2330-905adb09c94c">FAILED - to-do has failed and may need some follow-up from the
+<p id="_74c74bc3-9d8e-9db6-f169-824365b09845">FAILED - to-do has failed and may need some follow-up from the
 organizer to re-schedule or cancel</p>
 
-<p id="_a5db4548-3e56-9f03-38f1-0d12bdabf48d">Example: The following is an example of this property for a "VTODO"
+<p id="_8bbfa9f9-b680-5f69-91be-29f2056cb72e">Example: The following is an example of this property for a "VTODO"
 calendar component:</p>
 
-<sourcecode id="_0a70924d-fa3e-260b-87b3-1cde1d001137">STATUS:FAILED</sourcecode>
+<sourcecode id="_dbe3be1c-b85f-8f62-0928-cbf91a078aa4">STATUS:FAILED</sourcecode>
 
 </clause>
 </clause>
@@ -861,35 +893,35 @@ calendar component:</p>
 <title>New Components</title>
 <clause id="vstatus" inline-header="false" obligation="normative">
 <title>Status Component</title>
-<dl id="_c58105fc-d683-696e-a8f8-45747c50c625"><dt>Component Name</dt>
-<dd><p id="_c0eeeed6-4598-877e-1763-35e37a5cf69d">VSTATUS</p>
+<dl id="_c398c99d-4282-4916-29c3-9f95cf998956"><dt>Component Name</dt>
+<dd><p id="_aad4f5ba-09aa-c20f-7f5b-ccea61fa1f0c">VSTATUS</p>
 </dd>
 <dt>Purpose</dt>
-<dd><p id="_0280ba00-e642-5d17-6d7d-669a29059e4a">This component allows information to be
+<dd><p id="_bfaee9ef-d2e9-e94b-b59e-7f0e099611b1">This component allows information to be
 associated with a status, for example comments and date stamps.</p>
 </dd>
 <dt>Conformance</dt>
-<dd><p id="_cf22c79d-9ad8-6632-5319-5eaf439ff05c">This component can be specified multiple times in
+<dd><p id="_77d4df10-6efb-35fc-089b-4fcbde044023">This component can be specified multiple times in
 any calendar component.</p>
 </dd>
 <dt>Description</dt>
-<dd><p id="_362442f4-69c8-1ffe-430c-16b988e08bb9">This component provides a way for multiple date-stamped
+<dd><p id="_6ecf4c0b-7464-882b-11b5-6d7908aa320a">This component provides a way for multiple date-stamped
 statuses to be associated with a component such as a participant, task or event.</p>
 </dd>
 </dl>
 
-<p id="_ce9714ec-1cbf-dba2-e28a-6b293883113d">This component may be added to the <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> PARTICIPANT component
+<p id="_5e3ade8c-6b67-01dd-ea19-e5996c1eb498">This component may be added to the <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> PARTICIPANT component
 to allow participants in a task to specify their own status.</p>
 
-<p id="_2dd3de03-9184-883a-40e2-9a54cbddca0f">For backwards compatibility, when a VSTATUS component is added the
+<p id="_17f80fdf-a9cd-c768-9a0b-704b44914abc">For backwards compatibility, when a VSTATUS component is added the
 <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> STATUS property MUST be set on the parent component.</p>
 
-<dl id="_0bb64042-ead9-c407-6d3d-c6cb02b719e6"><dt>Format Definition</dt>
-<dd><p id="_04067464-cde4-5729-db0d-6f4f0c3da96f">This component is defined by the following notation:</p>
+<dl id="_f2ca4028-1ee9-f04a-58ff-3fe3edd0c5eb"><dt>Format Definition</dt>
+<dd><p id="_2a2b8347-50d2-8aec-5bca-8092afb9b164">This component is defined by the following notation:</p>
 </dd>
 </dl>
 
-<sourcecode id="_33782b86-2792-1f6b-ef0b-b499ac5a3435" lang="bnf">statusc = "BEGIN" ":" "VSTATUS" CRLF
+<sourcecode id="_6725b59f-b1ec-7075-c083-dc22419701d9" lang="bnf">statusc = "BEGIN" ":" "VSTATUS" CRLF
           statusprop
           "END" ":" "VSTATUS" CRLF
 
@@ -913,10 +945,10 @@ statusprop     = *(
                )</sourcecode>
 
 
-<dl id="_78468b26-d686-dc6f-0235-53fc653cf666"><dt>Examples</dt>
+<dl id="_c7d65703-a247-54fa-7cc4-bf9fdca1c55a"><dt>Examples</dt>
 <dd/></dl>
 
-<sourcecode id="_bccbbd3a-9b87-7e3c-a936-d2175c61107b">BEGIN:VSTATUS
+<sourcecode id="_58ac34a9-7b14-d75a-e031-22f50341ef5e">BEGIN:VSTATUS
 STATUS:COMPLETED
 REASON: https://example.com/reason/delivered-on-time
 DTSTAMP:20220212T120000Z
@@ -927,46 +959,46 @@ END:VSTATUS</sourcecode>
 
 <clause id="caldav-support" inline-header="false" obligation="normative">
 <title>CalDAV Support for Task Mode</title>
-<p id="_2d196c81-78e9-89f9-358e-fcb6f29c60cf">The CalDAV <eref type="inline" bibitemid="RFC4791" citeas="RFC 4791"/> calendar access protocol allows clients and servers to exchange iCalendar data. With the introduction of the "TASK-MODE" property in this specification, different automated task management behaviours may be delegated to the server by the Task Organizer depending upon the value of "TASK-MODE".</p>
+<p id="_af710561-e720-81cb-9069-2c2e67257f6c">The CalDAV <eref type="inline" bibitemid="RFC4791" citeas="RFC 4791"/> calendar access protocol allows clients and servers to exchange iCalendar data. With the introduction of the "TASK-MODE" property in this specification, different automated task management behaviours may be delegated to the server by the Task Organizer depending upon the value of "TASK-MODE".</p>
 
-<p id="_74176d3f-620c-8387-0107-28c7549072ba">In order for a CalDAV client to know what task modes are available, a CalDAV server advertises a CALDAV:supported-task-mode-set WebDAV property on calendar home or calendar collections if it supports the use of the "TASK-MODE" property as described in this specification.  The server can advertise a specific set of supported task modes by including one or more CALDAV:supported-task-mode XML elements within the CALDAV:supported-task-mode-set XML element. If no CALDAV:supported-task-mode XML elements are included in the WebDAV property, then clients can try any task mode, but need to be prepared for a failure when attempting to store the calendar data.</p>
+<p id="_81045c8e-8478-2d32-05fd-a1e8e2d64741">In order for a CalDAV client to know what task modes are available, a CalDAV server advertises a CALDAV:supported-task-mode-set WebDAV property on calendar home or calendar collections if it supports the use of the "TASK-MODE" property as described in this specification.  The server can advertise a specific set of supported task modes by including one or more CALDAV:supported-task-mode XML elements within the CALDAV:supported-task-mode-set XML element. If no CALDAV:supported-task-mode XML elements are included in the WebDAV property, then clients can try any task mode, but need to be prepared for a failure when attempting to store the calendar data.</p>
 
-<p id="_a0fc4e28-dc17-9246-f745-87e34dfa70a5">Clients MUST NOT attempt to store iCalendar data containing "TASK-MODE" elements if the CALDAV:supported-task-mode-set WebDAV property is not advertised by the server.</p>
+<p id="_600a310f-4c7f-912f-9ef9-2add9c463918">Clients MUST NOT attempt to store iCalendar data containing "TASK-MODE" elements if the CALDAV:supported-task-mode-set WebDAV property is not advertised by the server.</p>
 
-<p id="_b580df82-47d1-ac81-c229-3283fec98512">The server SHOULD return an HTTP 403 response with a DAV:error element containing a CALDAV:supported-task-mode XML element, if a client attempts to store iCalendar data with an "TASK-MODE" element value not supported by the server.</p>
+<p id="_8d1f990e-ac9f-6d37-0ae6-64da689ed35a">The server SHOULD return an HTTP 403 response with a DAV:error element containing a CALDAV:supported-task-mode XML element, if a client attempts to store iCalendar data with an "TASK-MODE" element value not supported by the server.</p>
 
-<p id="_91448718-a6e1-c197-47b4-82de0eb2a3fd">It is possible for a "TASK-MODE" value to be present in calendar data on the server being accessed by a client that does not support the "TASK-MODE" property. It is expected that existing clients, unaware of "TASK-MODE", will fail gracefully by ignoring the calendar property.</p>
+<p id="_44074c20-c746-ac59-47d3-c091bdf3c336">It is possible for a "TASK-MODE" value to be present in calendar data on the server being accessed by a client that does not support the "TASK-MODE" property. It is expected that existing clients, unaware of "TASK-MODE", will fail gracefully by ignoring the calendar property.</p>
 
 <clause id="_caldavsupported_task_mode_set_property" inline-header="false" obligation="normative">
 <title>CALDAV:supported-task-mode-set Property</title>
-<dl id="_471c1a37-c509-a24a-d2fb-69cd8e1808fa"><dt>Name</dt>
-<dd><p id="_6300fb01-c7a1-f678-f4dd-5892b60a85c5">supported-task-mode-set</p>
+<dl id="_a46562c5-c01f-8ec0-41a8-5826aa374031"><dt>Name</dt>
+<dd><p id="_80906590-1702-d0a2-7350-9fd1bd6e5ba1">supported-task-mode-set</p>
 </dd>
 <dt>Namespace</dt>
-<dd><p id="_181f3c37-c295-647f-d288-455d90bbf83f">urn:ietf:params:xml:ns:caldav</p>
+<dd><p id="_f3cf5fe5-43e0-5b4b-3bd0-255188861576">urn:ietf:params:xml:ns:caldav</p>
 </dd>
 <dt>Purpose</dt>
-<dd><p id="_5b1df4d0-5e59-4ff1-364e-81ff47a76faf">Enumerates the set of supported iCalendar "TASK-MODE" element values supported by the server.</p>
+<dd><p id="_0578f1ce-81ff-ca9a-2d5f-2c5a44e59e42">Enumerates the set of supported iCalendar "TASK-MODE" element values supported by the server.</p>
 </dd>
 <dt>Protected</dt>
-<dd><p id="_e196102d-e1a2-7fd4-b5e9-99475e078d7b">This property MUST be protected and SHOULD NOT be returned by a PROPFIND allprop request (as defined in Section 14.2 of <eref type="inline" bibitemid="RFC4918" citeas="RFC 4918"/>).</p>
+<dd><p id="_a6ab22a3-4565-cd85-5b8a-01e07fbaf062">This property MUST be protected and SHOULD NOT be returned by a PROPFIND allprop request (as defined in Section 14.2 of <eref type="inline" bibitemid="RFC4918" citeas="RFC 4918"/>).</p>
 </dd>
 <dt>Description</dt>
-<dd><p id="_8ec14969-b989-0dfa-6cbf-018716f11e08">See above.</p>
+<dd><p id="_da6faa68-bb32-0d6c-effb-b0cb1d760eb0">See above.</p>
 </dd>
 <dt>Definition</dt>
 <dd/></dl>
 
-<sourcecode id="_e174f341-5078-b4a2-d2f4-c4261f15e1af" lang="xml">&lt;!ELEMENT supported-task-mode-set(supported-task-mode*)&gt;
+<sourcecode id="_b723e964-fa74-b591-a53a-0eb38669d657" lang="xml">&lt;!ELEMENT supported-task-mode-set(supported-task-mode*)&gt;
 &lt;!ELEMENT supported-task-mode (#PCDATA)&gt;
 &lt;!-- PCDATA value: string - case insensitive but
 uppercase preferred --&gt;</sourcecode>
 
 
-<dl id="_08456f08-62bf-cd39-72ae-d3a79e301d53"><dt>Example</dt>
+<dl id="_e649137c-ad91-afe6-27e3-9c4f27082c37"><dt>Example</dt>
 <dd/></dl>
 
-<sourcecode id="_ec2a6c62-e001-18fa-2959-893a417d9224" lang="xml">&lt;C:supported-task-mode-set xmlns:C="urn:ietf:params:xml:ns:caldav"&gt;
+<sourcecode id="_003f11a4-375e-7f1f-efc7-5830cfc338cd" lang="xml">&lt;C:supported-task-mode-set xmlns:C="urn:ietf:params:xml:ns:caldav"&gt;
   &lt;C:supported-task-mode&gt;AUTOMATIC-COMPLETION&lt;/C:supported-task-mode&gt;
   &lt;C:supported-task-mode&gt;AUTOMATIC-FAILURE&lt;/C:supported-task-mode&gt;
   &lt;C:supported-task-mode&gt;SERVER&lt;/C:supported-task-mode&gt;
@@ -978,74 +1010,74 @@ uppercase preferred --&gt;</sourcecode>
 
 <clause id="security" inline-header="false" obligation="normative">
 <title>Security Considerations</title>
-<p id="_3d29f91a-a9cc-0257-1258-0cdfe61c5279">This specification introduces no new security considerations beyond those identified in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>, <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> and <eref type="inline" bibitemid="RFC4791" citeas="RFC 4791"/>.</p>
+<p id="_77037719-d2f5-64b7-047e-6aa8e07539b6">This specification introduces no new security considerations beyond those identified in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>, <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> and <eref type="inline" bibitemid="RFC4791" citeas="RFC 4791"/>.</p>
 </clause>
 
 <clause id="iana" inline-header="false" obligation="normative">
 <title>IANA Considerations</title>
 <clause id="_new_and_updated_icalendar_elements_registration" inline-header="false" obligation="normative">
 <title>New and updated iCalendar Elements Registration</title>
-<p id="_352db091-95f0-ef78-7d9e-d919e5fcb6f8">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding and updating
+<p id="_d048e05d-bde6-8e22-6f7b-9005cb0354a7">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding and updating
 a number of elements. The procedures and templates specified in
 <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.2</referenceFrom></locality></localityStack></eref></p>
 
 <clause id="_initialization_of_the_status_registry" inline-header="false" obligation="normative">
 <title>Initialization of the Status registry</title>
-<p id="_764d7d29-c83e-e08d-ce96-5c686634ff58">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
+<p id="_064b5e0b-038b-b995-0ecc-2c5c27ba34aa">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding a Status value registry to the iCalendar Elements registry and initializing it as per <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
 
-<table id="_ce02585a-5a6a-eb61-7b40-e0ccf8a38b04">
+<table id="_f502cf79-524f-7b0a-383b-a907147e6d82">
 <name>Initial Status Value Registry</name>
 <thead><tr><th valign="top" align="left">Name</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_e4fc80f4-fa73-1f20-4e1e-483b779d89f6">CANCELLED</p>
+<tbody><tr><td valign="top" align="left"><p id="_fb4ab838-9252-fbd8-544a-afc7b8292588">CANCELLED</p>
 </td>
-<td valign="top" align="left"><p id="_0281e7cd-1e15-9670-9931-bc4a06dbb304">Current</p>
+<td valign="top" align="left"><p id="_5f77c230-a501-5288-e292-ac6bc1c6d007">Current</p>
 </td>
-<td valign="top" align="left"><p id="_cb7fbf2a-15d7-04b6-e995-38725e1e4835"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_bcdf858d-cfff-f4bb-7f29-df03610b2b26"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_057c3f61-b5e2-2dc2-608b-19f3a71abaf2">COMPLETED</p>
+</tr><tr><td valign="top" align="left"><p id="_45e2b579-e513-cc63-a625-a4a85ad09f55">COMPLETED</p>
 </td>
-<td valign="top" align="left"><p id="_414bb97a-3d4f-99c5-59d4-58b3ea01ff9d">Current</p>
+<td valign="top" align="left"><p id="_173b1988-e1f2-af06-d719-0fb7e03c3e3b">Current</p>
 </td>
-<td valign="top" align="left"><p id="_ba20ffd5-c3d9-3f3a-0eb7-d9f06cb68a93"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_5528b6a4-f3dd-19ed-d7b2-b415a5694dd5"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_1a6e87bb-9a90-a610-8231-5ce9279f4ff3">CONFIRMED</p>
+</tr><tr><td valign="top" align="left"><p id="_b9aa1c43-5ec5-3353-ee37-5aea9bb9782e">CONFIRMED</p>
 </td>
-<td valign="top" align="left"><p id="_83f64183-7a51-86bc-54f4-2eea6f60dec8">Current</p>
+<td valign="top" align="left"><p id="_e3e33302-7c6b-78cb-c63a-ab9190a410c3">Current</p>
 </td>
-<td valign="top" align="left"><p id="_a2487b25-126a-a8f9-eff9-d83bf98cba29"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_03f4b130-96c2-e871-2748-7434b08c94fa"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_655a7a91-2f3e-be90-b461-1dae1ac81d90">DRAFT</p>
+</tr><tr><td valign="top" align="left"><p id="_48702198-ee0a-3d85-9d85-40ea642e4a78">DRAFT</p>
 </td>
-<td valign="top" align="left"><p id="_c693bb2f-f3e0-6899-01ad-a3b5fdf007e2">Current</p>
+<td valign="top" align="left"><p id="_d82c620a-5202-170e-5cfd-929ff334df2f">Current</p>
 </td>
-<td valign="top" align="left"><p id="_55e7fc8b-dca6-b375-531a-a8b4da00b5cb"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_0a275a4b-2ee2-b240-6214-9b96556808dc"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_4b1cbff9-2e5a-4cb1-6917-fdc0b4bfee86">FINAL</p>
+</tr><tr><td valign="top" align="left"><p id="_8d296bed-7419-afa6-970f-a92c012dddb6">FINAL</p>
 </td>
-<td valign="top" align="left"><p id="_a26325a0-cb31-023c-f5d8-ee7317a069ba">Current</p>
+<td valign="top" align="left"><p id="_38d826c1-9dd6-5c6c-4fc7-0e65c0f0d6c5">Current</p>
 </td>
-<td valign="top" align="left"><p id="_c4184de7-32d4-fe1e-f0d7-39e5c2ebbf88"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_9432375a-44f5-0cfb-b1f3-fa0948d9ce1f"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_c7850cf2-5755-468a-0ba8-fe8048bd266e">IN-PROCESS</p>
+</tr><tr><td valign="top" align="left"><p id="_5d006c9c-10c8-84f2-0bca-7605a3a602d8">IN-PROCESS</p>
 </td>
-<td valign="top" align="left"><p id="_669e9154-6539-2e93-f270-9e129675a8b0">Current</p>
+<td valign="top" align="left"><p id="_822f929f-abc6-1c05-686f-6e04e35aef9f">Current</p>
 </td>
-<td valign="top" align="left"><p id="_4bf046d1-a323-5f9e-9be3-46aa93ba56a3"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_aed8aac8-9190-0b00-428a-84b36f6643b0"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_2536e283-9667-e434-7d1a-be8c323de6be">NEEDS-ACTION</p>
+</tr><tr><td valign="top" align="left"><p id="_d2e2721f-7996-1436-4eb4-fa1d6715cb2d">NEEDS-ACTION</p>
 </td>
-<td valign="top" align="left"><p id="_e615d1af-7c3a-1917-a069-ded14e87a2a5">Current</p>
+<td valign="top" align="left"><p id="_91f50b67-a354-7095-40d0-a87b6241de37">Current</p>
 </td>
-<td valign="top" align="left"><p id="_d4f81d0c-8c9b-272f-915d-bb52f3c7e1af"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_00ff8286-a12b-1daa-614a-63da24fee597"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_37025871-00c7-5bb6-d8bf-885e3a07335f">TENTATIVE</p>
+</tr><tr><td valign="top" align="left"><p id="_aa13f183-e351-b875-bfcf-1f720ada7bfb">TENTATIVE</p>
 </td>
-<td valign="top" align="left"><p id="_3e368670-457c-3001-9c9f-5be2c8d3837b">Current</p>
+<td valign="top" align="left"><p id="_15768784-0417-5384-0000-496b745cec4b">Current</p>
 </td>
-<td valign="top" align="left"><p id="_14029c0a-9e18-1bd3-17d6-a755cb268f82"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
+<td valign="top" align="left"><p id="_134c7a76-ec06-8751-bc43-3012a163133d"><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>3.8.1.11</referenceFrom></locality></localityStack></eref></p>
 </td>
 </tr></tbody>
 </table>
@@ -1053,25 +1085,25 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_update_of_the_status_registry" inline-header="false" obligation="normative">
 <title>Update of the Status registry</title>
-<p id="_e12270c5-b170-2613-20cc-c40b3d2895fa">This specification further updates the Status registry with additional values defined in this document.</p>
+<p id="_87b727a8-c7a5-17fa-bcd8-242ba37b7b10">This specification further updates the Status registry with additional values defined in this document.</p>
 
-<table id="_a9cc7142-af26-e234-442e-517368bbc768">
+<table id="_fd541fbe-4d38-8abc-48c0-236473dc0bbb">
 <name>Updated Status Value Registry</name>
 <thead><tr><th valign="top" align="left">Value</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_16bc3623-ab81-1120-0e10-6477f4b9aff1">PENDING</p>
+<tbody><tr><td valign="top" align="left"><p id="_a79fcf41-c95e-8e4c-55a1-1bc8ac19f79d">PENDING</p>
 </td>
-<td valign="top" align="left"><p id="_db7fe091-d57a-e200-19ad-fcef628f16b5">Current</p>
+<td valign="top" align="left"><p id="_43e56ecb-1728-4cd2-5b86-898ba914490f">Current</p>
 </td>
-<td valign="top" align="left"><p id="_8164e5da-afe0-92f7-038d-e6ebf98ceff6">This Spec, <xref target="prop-ext-status"/></p>
+<td valign="top" align="left"><p id="_ed3c8e22-a4ee-231c-8009-e4854a9794de">This Spec, <xref target="prop-ext-status"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_5af127e7-a558-8cb9-8301-5719a9541b11">FAILED</p>
+</tr><tr><td valign="top" align="left"><p id="_eb9db5e5-fed4-4d3a-f441-97ad57fb1514">FAILED</p>
 </td>
-<td valign="top" align="left"><p id="_6e5ab125-1c0a-aca9-e629-b209941c29e6">Current</p>
+<td valign="top" align="left"><p id="_63a229dd-c0c3-f905-245b-67a9df21a828">Current</p>
 </td>
-<td valign="top" align="left"><p id="_1b8abac4-3fb5-6030-026c-f967821f2f63">This Spec, <xref target="prop-ext-status"/></p>
+<td valign="top" align="left"><p id="_4a592d25-10c1-84f3-9e71-4c8c04f9022c">This Spec, <xref target="prop-ext-status"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1079,31 +1111,31 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_sub_state_value_registry" inline-header="false" obligation="normative">
 <title>Sub-State value registry</title>
-<p id="_54048ab1-72d0-e119-e188-735955f7db7f">The following table has been used to initialize the Sub-State registry.</p>
+<p id="_000306ad-46b0-f81a-efe1-746448bdcf4c">The following table has been used to initialize the Sub-State registry.</p>
 
-<table id="_c5c986c5-461d-1373-c64a-4b6b4c3e0c07">
+<table id="_b990c112-2028-7b32-473f-a1053be34473">
 <name>Sub-State registry</name>
 <thead><tr><th valign="top" align="left">Substate</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_74baaa4b-176f-e29b-0c23-efd2736ada52">OK</p>
+<tbody><tr><td valign="top" align="left"><p id="_62c3f97b-6f33-a355-efbf-cf16eca496ae">OK</p>
 </td>
-<td valign="top" align="left"><p id="_c8e28f9f-d4dc-1d64-0603-19f73bec851d">Current</p>
+<td valign="top" align="left"><p id="_2ec531a3-83bb-3c47-3c73-2a42cbc421cf">Current</p>
 </td>
-<td valign="top" align="left"><p id="_8002e4d5-9dae-596c-0082-ef27895b1828">This Spec, <xref target="prop-sub-state"/></p>
+<td valign="top" align="left"><p id="_309b1e0d-6ed3-174a-8526-a8b644d5419e">This Spec, <xref target="prop-sub-state"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_8ef4ed71-036a-e0e4-d12f-b3bd535ab39f">ERROR</p>
+</tr><tr><td valign="top" align="left"><p id="_3f2ae4cf-71fb-0c02-d18c-b02252e8aa6f">ERROR</p>
 </td>
-<td valign="top" align="left"><p id="_680928b9-743c-7c06-1eac-ce376303af74">Current</p>
+<td valign="top" align="left"><p id="_0ff1db05-0c03-b651-fc0f-e8bfc1f1b27a">Current</p>
 </td>
-<td valign="top" align="left"><p id="_79cfa70e-f450-f241-9341-190dfca58bf4">This Spec, <xref target="prop-sub-state"/></p>
+<td valign="top" align="left"><p id="_55ec84b6-5740-430c-8b5d-fb11cd5ac6ed">This Spec, <xref target="prop-sub-state"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_7ae3aaa6-a170-57f9-4ccd-bd8e6ae548f1">SUSPENDED</p>
+</tr><tr><td valign="top" align="left"><p id="_8b44d1c5-fe14-731f-aa2c-7811891a249e">SUSPENDED</p>
 </td>
-<td valign="top" align="left"><p id="_5c6c279a-8d2b-fc8f-9903-26edf318132d">Current</p>
+<td valign="top" align="left"><p id="_099bfcce-69dc-0541-f504-86ff05c14c6c">Current</p>
 </td>
-<td valign="top" align="left"><p id="_c6290575-c6fe-f6b4-88ad-1a72b6668219">This Spec, <xref target="prop-sub-state"/></p>
+<td valign="top" align="left"><p id="_cbb37640-5b7f-48e4-62ab-1dc41a6de174">This Spec, <xref target="prop-sub-state"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1111,37 +1143,37 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_task_mode_value_registry" inline-header="false" obligation="normative">
 <title>Task Mode value registry</title>
-<p id="_7986ffca-ff4c-cf8a-81f4-18ac13513958">The following table has been used to initialize the Task Mode registry.</p>
+<p id="_44855e8e-4588-e6fb-aa5e-14523e936687">The following table has been used to initialize the Task Mode registry.</p>
 
-<table id="_b3a2ad05-6fa2-0679-636b-c7fcfc57c387">
+<table id="_4b3a8c1f-db42-a5eb-a07c-ed972608c726">
 <name>Task Mode Value Registry</name>
 <thead><tr><th valign="top" align="left">Task Mode</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_c9052444-fe9d-9961-bea8-bc7faee19e81">AUTOMATIC-COMPLETION</p>
+<tbody><tr><td valign="top" align="left"><p id="_d119c300-3d9a-5633-a544-8a0d39eae4bf">AUTOMATIC-COMPLETION</p>
 </td>
-<td valign="top" align="left"><p id="_8a15ec98-4115-1538-1459-b1cec4fa9e1c">Current</p>
+<td valign="top" align="left"><p id="_5cbb7428-71a3-d472-950d-53f0742d5efd">Current</p>
 </td>
-<td valign="top" align="left"><p id="_6dbf9f5e-6ac2-f922-2ba0-69b9413bea0c">This Spec, <xref target="prop-task-mode"/></p>
+<td valign="top" align="left"><p id="_8217335d-a89c-5e6a-946d-ff7a54b66227">This Spec, <xref target="prop-task-mode"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_17d0a9a6-05d1-3310-d67e-11b52b5546aa">AUTOMATIC-FAILURE</p>
+</tr><tr><td valign="top" align="left"><p id="_fa263772-2f54-e911-f954-7382c15a1bb9">AUTOMATIC-FAILURE</p>
 </td>
-<td valign="top" align="left"><p id="_0ef6f1d4-3fb5-614c-4783-f33415db0bb7">Current</p>
+<td valign="top" align="left"><p id="_6832b27b-a75f-776c-9cc2-6a11e2e0b007">Current</p>
 </td>
-<td valign="top" align="left"><p id="_238c017f-4239-c5ea-6d52-514b3d805dd1">This Spec,  <xref target="prop-task-mode"/></p>
+<td valign="top" align="left"><p id="_7ad8d381-79f6-214f-9487-36d6c71f894a">This Spec,  <xref target="prop-task-mode"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_04e34d38-4975-c31c-4e4e-090660f8ba52">CLIENT</p>
+</tr><tr><td valign="top" align="left"><p id="_e6a6318b-1074-b7f5-ffcb-7c028d7aa68b">CLIENT</p>
 </td>
-<td valign="top" align="left"><p id="_64b887e7-54c2-d256-1fa8-f8bd5c1deb2d">Current</p>
+<td valign="top" align="left"><p id="_80d85459-fe8b-228b-b03f-253b9d32141d">Current</p>
 </td>
-<td valign="top" align="left"><p id="_5143d4dc-a984-72b6-813b-ba3fc4db3467">This Spec,  <xref target="prop-task-mode"/></p>
+<td valign="top" align="left"><p id="_83ffc7dc-c0c7-6a95-0c46-c2175d554da0">This Spec,  <xref target="prop-task-mode"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_d83cf172-1084-1302-c4bf-4d61fcb4880d">SERVER</p>
+</tr><tr><td valign="top" align="left"><p id="_5f32e783-3043-f0d1-f578-33ec60541932">SERVER</p>
 </td>
-<td valign="top" align="left"><p id="_a36d431b-b0fb-fa39-659e-ee5f886cf57f">Current</p>
+<td valign="top" align="left"><p id="_41921af4-4df4-a5a1-6797-26ed2571b882">Current</p>
 </td>
-<td valign="top" align="left"><p id="_51ea8e91-0585-5eb2-e137-4dd7527bd6a4">This Spec,  <xref target="prop-task-mode"/></p>
+<td valign="top" align="left"><p id="_d03946f9-3c35-2b47-182b-e183da57cef8">This Spec,  <xref target="prop-task-mode"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1149,19 +1181,19 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_participation_statuses_registry" inline-header="false" obligation="normative">
 <title>Participation Statuses registry</title>
-<p id="_38a94f65-661f-4759-3b5f-cd0953152e08">The following table has been used to update the Participation Statuses registry.</p>
+<p id="_ab3e38e2-2b91-a5f6-ad8d-7ed777c0fb0c">The following table has been used to update the Participation Statuses registry.</p>
 
-<table id="_e5176cc5-e92e-0012-9fb5-325314ab56f6">
+<table id="_a45e6d4d-1e73-e3cc-258d-8f15f07ef811">
 <name>Participation Statuses Registry</name>
 <thead><tr><th valign="top" align="left">Value</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_bf28c390-6d7d-4af8-aaad-7aad1a58ec6c">FAILED</p>
+<tbody><tr><td valign="top" align="left"><p id="_db94f5fa-8e9b-d309-5f81-8ed4dab5bbf0">FAILED</p>
 </td>
-<td valign="top" align="left"><p id="_fd49e579-5cf8-c760-ea62-3fe9f87a3b58">Current</p>
+<td valign="top" align="left"><p id="_ae408b02-d4ed-d2f9-3fda-26b87b79dc4a">Current</p>
 </td>
-<td valign="top" align="left"><p id="_f41ef820-3465-bc88-184a-0689027815b4">This Spec, <xref target="param-val-partstat"/></p>
+<td valign="top" align="left"><p id="_f7ac1e13-ce09-3486-04e0-4ab0b1ae9d51">This Spec, <xref target="param-val-partstat"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1169,20 +1201,20 @@ a number of elements. The procedures and templates specified in
 
 <clause id="_components_registry" inline-header="false" obligation="normative">
 <title>Components Registry</title>
-<p id="_ed9dfbf5-084a-154e-5dc9-35502f9da601">The following table has been used to update the Components registry
+<p id="_d4d78873-4ce2-a4c1-626a-a0446679a110">The following table has been used to update the Components registry
 defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.1</referenceFrom></locality></localityStack></eref>.</p>
 
-<table id="_1aea22a5-1bdb-e5bc-def2-cc1469df4904">
+<table id="_5044af9e-9d1f-9b22-6ac0-ac6d05634292">
 <name>Updated Components Registry</name>
 <thead><tr><th valign="top" align="left">Component</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_3b6f342b-d8fd-ba6f-baa1-a0bb393140d6">VSTATUS</p>
+<tbody><tr><td valign="top" align="left"><p id="_2de74444-524b-70bf-9015-db4c9298bc60">VSTATUS</p>
 </td>
-<td valign="top" align="left"><p id="_973fa183-c688-e4bb-530c-e2fa0ab01486">Current</p>
+<td valign="top" align="left"><p id="_96acae7a-7ff1-e5a4-f77f-48373d6d844e">Current</p>
 </td>
-<td valign="top" align="left"><p id="_74706ff0-4fcb-84c0-6773-143bc516a258">This Spec, <xref target="vstatus"/></p>
+<td valign="top" align="left"><p id="_ea30c516-057c-0f79-3883-9ff2883579ad">This Spec, <xref target="vstatus"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1190,44 +1222,44 @@ defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityS
 
 <clause id="_properties_registry" inline-header="false" obligation="normative">
 <title>Properties registry</title>
-<p id="_72651561-257d-b83d-1be7-fbd21e050eb8">The following table has been used to update the Properties registry
+<p id="_c57ab343-372c-cf7b-1ca5-6a2ed0bddb0e">The following table has been used to update the Properties registry
 defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.2</referenceFrom></locality></localityStack></eref>.</p>
 
-<table id="_c14fc1a6-65cb-3a7b-03c8-5c3c75946de6">
+<table id="_b0feecee-15fd-339a-fbfd-2d5eb17553a7">
 <name>Updated Properties Registry</name>
 <thead><tr><th valign="top" align="left">Property</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_27bc7b5b-a4ab-ba92-26bf-dfbbb96036f1">ESTIMATED_DURATION</p>
+<tbody><tr><td valign="top" align="left"><p id="_4994e18f-a48f-b40a-f1c0-fe9215294f65">ESTIMATED_DURATION</p>
 </td>
-<td valign="top" align="left"><p id="_487cffb8-7fce-9970-ca9d-88d77a425429">Current</p>
+<td valign="top" align="left"><p id="_b6263c5c-ca9f-ee6d-812f-e17b6547cfc9">Current</p>
 </td>
-<td valign="top" align="left"><p id="_03d31170-a223-02d1-507e-7cb3a9f37af4">This Spec, <xref target="prop-estimated-duration"/></p>
+<td valign="top" align="left"><p id="_3ac1170c-85ea-acf8-73c0-8209daeecdbd">This Spec, <xref target="prop-estimated-duration"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_7d11203c-f7b1-128e-3d11-dd42f1493a06">REASON</p>
+</tr><tr><td valign="top" align="left"><p id="_841b72f0-b0ba-2395-8d6f-138a983ee4cd">REASON</p>
 </td>
-<td valign="top" align="left"><p id="_67cda21c-3913-5419-8b45-69126af9c981">Current</p>
+<td valign="top" align="left"><p id="_3be5f456-9928-15db-2df8-c3a78ac3fc1f">Current</p>
 </td>
-<td valign="top" align="left"><p id="_0a184ec1-b026-a9b8-aa33-9c6e0c3b65c4">This Spec, <xref target="prop-reason"/></p>
+<td valign="top" align="left"><p id="_d350a3ac-5d59-cbbc-8b23-570386026b1d">This Spec, <xref target="prop-reason"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_fb9b9c86-b89c-5af2-7b15-d819524ee14d">SUBSTATE</p>
+</tr><tr><td valign="top" align="left"><p id="_a544287c-c6f6-8ae4-5400-ea76ba081573">SUBSTATE</p>
 </td>
-<td valign="top" align="left"><p id="_7a786486-7148-986e-7cb6-82556fde5ff1">Current</p>
+<td valign="top" align="left"><p id="_fd5759ba-b3ee-c994-1538-b413fe485fce">Current</p>
 </td>
-<td valign="top" align="left"><p id="_c8f38afa-41e1-78a6-96d8-074c937caeac">This Spec, <xref target="prop-sub-state"/></p>
+<td valign="top" align="left"><p id="_fd1a1dba-352f-8d62-428d-d98cbd53374b">This Spec, <xref target="prop-sub-state"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_44b07acf-74a1-ad12-ee02-8781d4c74fdb">STATUS</p>
+</tr><tr><td valign="top" align="left"><p id="_f51220ff-8941-0212-74d5-0e6b991bd0dd">STATUS</p>
 </td>
-<td valign="top" align="left"><p id="_1fc7b317-f313-1a91-64bc-ac69117709fe">Current</p>
+<td valign="top" align="left"><p id="_ee80ba02-325f-9bb2-6f6f-ed65475b9dd5">Current</p>
 </td>
-<td valign="top" align="left"><p id="_3f960162-2495-54a2-7b30-1f3be2e445de">This Spec, <xref target="prop-ext-status"/></p>
+<td valign="top" align="left"><p id="_d7362338-7625-d70f-248b-7cbde7257e14">This Spec, <xref target="prop-ext-status"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_7e22bcb5-3b07-d00e-9a64-b9869d833915">TASK-MODE</p>
+</tr><tr><td valign="top" align="left"><p id="_f5f8add7-0f15-b2c2-310b-28d6ca48bc83">TASK-MODE</p>
 </td>
-<td valign="top" align="left"><p id="_09f4fffb-7be5-15f0-d4b9-9ab50514cb26">Current</p>
+<td valign="top" align="left"><p id="_b2804fdf-9a2f-2c20-6489-8abab2e6b4ed">Current</p>
 </td>
-<td valign="top" align="left"><p id="_df2ac5a8-3f4c-e48d-df76-64896228db34">This Spec, <xref target="prop-task-mode"/></p>
+<td valign="top" align="left"><p id="_3b922650-65c4-2264-1b56-37f7b295bd20">This Spec, <xref target="prop-task-mode"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1237,11 +1269,11 @@ defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityS
 
 <clause id="acknowledgements" inline-header="false" obligation="normative">
 <title>Acknowledgements</title>
-<p id="_526894e1-b099-e4e7-b64b-6d60009dd402">The authors would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:</p>
+<p id="_4e716ccd-91d9-183a-18ee-0c5bab628f8d">The authors would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:</p>
 
-<p id="_86aec6fa-504d-717a-556d-a08bdfb8d385">John Chaffee, Marten Gajda, Ken Murchison</p>
+<p id="_7c1c001f-d76e-9cfc-da5b-c6d85a15bd76">John Chaffee, Marten Gajda, Ken Murchison</p>
 
-<p id="_623d0ea7-1967-91b0-e427-592893a524c1">The authors would also like to thank CalConnect, the Calendaring and
+<p id="_f8a5425a-38d2-9ba7-373e-a05403863e4d">The authors would also like to thank CalConnect, the Calendaring and
 Scheduling Consortium, for advice with this specification.</p>
 </clause>
 

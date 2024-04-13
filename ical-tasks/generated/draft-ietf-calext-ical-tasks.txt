@@ -6,7 +6,7 @@ calext                                                        A. Apthorp
 Internet-Draft                                               DHL Express
 Updates: RFC5545 (if approved)                               M. Douglass
 Intended status: Standards Track            Bedework Commercial Services
-Expires: 14 October 2024                                   12 April 2024
+Expires: 15 October 2024                                   13 April 2024
 
 
                       Task Extensions to iCalendar
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 October 2024.
+   This Internet-Draft will expire on 15 October 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 1]
+Apthorp & Douglass       Expires 15 October 2024                [Page 1]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -85,46 +85,47 @@ Table of Contents
      9.3.  Comments associated to reasons and status changes . . . .  12
      9.4.  Task Alerts and Notifications . . . . . . . . . . . . . .  13
      9.5.  Automated Status Changes  . . . . . . . . . . . . . . . .  14
-   10. New Parameter Values  . . . . . . . . . . . . . . . . . . . .  14
-     10.1.  Redefined VTODO Participant Status . . . . . . . . . . .  14
-   11. New Properties  . . . . . . . . . . . . . . . . . . . . . . .  14
-     11.1.  Estimated Duration . . . . . . . . . . . . . . . . . . .  14
-     11.2.  Reason . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     11.3.  Sub-State  . . . . . . . . . . . . . . . . . . . . . . .  16
-     11.4.  Task Mode  . . . . . . . . . . . . . . . . . . . . . . .  17
-   12. Property Extensions and Clarifications  . . . . . . . . . . .  19
-     12.1.  Updated DURATION Property definition . . . . . . . . . .  19
-     12.2.  Redefined STATUS Property  . . . . . . . . . . . . . . .  19
-   13. New Components  . . . . . . . . . . . . . . . . . . . . . . .  20
-     13.1.  Status Component . . . . . . . . . . . . . . . . . . . .  20
-   14. CalDAV Support for Task Mode  . . . . . . . . . . . . . . . .  21
-     14.1.  CALDAV:supported-task-mode-set Property  . . . . . . . .  22
-   15. Security Considerations . . . . . . . . . . . . . . . . . . .  23
-   16. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  23
-     16.1.  New and updated iCalendar Elements Registration  . . . .  23
-       16.1.1.  Initialization of the Status registry  . . . . . . .  23
-       16.1.2.  Update of the Status registry  . . . . . . . . . . .  24
-       16.1.3.  Sub-State value registry . . . . . . . . . . . . . .  24
-       16.1.4.  Task Mode value registry . . . . . . . . . . . . . .  25
+   10. Modifications to Calendar Components  . . . . . . . . . . . .  14
+   11. New Parameter Values  . . . . . . . . . . . . . . . . . . . .  14
+     11.1.  Redefined VTODO Participant Status . . . . . . . . . . .  15
+   12. New Properties  . . . . . . . . . . . . . . . . . . . . . . .  15
+     12.1.  Estimated Duration . . . . . . . . . . . . . . . . . . .  15
+     12.2.  Reason . . . . . . . . . . . . . . . . . . . . . . . . .  16
+     12.3.  Sub-State  . . . . . . . . . . . . . . . . . . . . . . .  16
+     12.4.  Task Mode  . . . . . . . . . . . . . . . . . . . . . . .  17
+   13. Property Extensions and Clarifications  . . . . . . . . . . .  19
+     13.1.  Updated DURATION Property definition . . . . . . . . . .  19
+     13.2.  Redefined STATUS Property  . . . . . . . . . . . . . . .  20
+   14. New Components  . . . . . . . . . . . . . . . . . . . . . . .  21
+     14.1.  Status Component . . . . . . . . . . . . . . . . . . . .  21
+   15. CalDAV Support for Task Mode  . . . . . . . . . . . . . . . .  22
+     15.1.  CALDAV:supported-task-mode-set Property  . . . . . . . .  23
+   16. Security Considerations . . . . . . . . . . . . . . . . . . .  24
+   17. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  24
+     17.1.  New and updated iCalendar Elements Registration  . . . .  24
+       17.1.1.  Initialization of the Status registry  . . . . . . .  24
+       17.1.2.  Update of the Status registry  . . . . . . . . . . .  25
+       17.1.3.  Sub-State value registry . . . . . . . . . . . . . .  25
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 2]
+Apthorp & Douglass       Expires 15 October 2024                [Page 2]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
-       16.1.5.  Participation Statuses registry  . . . . . . . . . .  25
-       16.1.6.  Components Registry  . . . . . . . . . . . . . . . .  25
-       16.1.7.  Properties registry  . . . . . . . . . . . . . . . .  26
-   17. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  26
-   18. Normative References  . . . . . . . . . . . . . . . . . . . .  26
-   19. Informative References  . . . . . . . . . . . . . . . . . . .  27
-   Appendix A.  Examples of Task State Lifecycle . . . . . . . . . .  28
-     A.1.  Simple Case Status Change . . . . . . . . . . . . . . . .  28
-     A.2.  Example for multiple Attendees  . . . . . . . . . . . . .  29
-     A.3.  Example of Failure  . . . . . . . . . . . . . . . . . . .  30
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  30
+       17.1.4.  Task Mode value registry . . . . . . . . . . . . . .  26
+       17.1.5.  Participation Statuses registry  . . . . . . . . . .  26
+       17.1.6.  Components Registry  . . . . . . . . . . . . . . . .  26
+       17.1.7.  Properties registry  . . . . . . . . . . . . . . . .  27
+   18. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  27
+   19. Normative References  . . . . . . . . . . . . . . . . . . . .  27
+   20. Informative References  . . . . . . . . . . . . . . . . . . .  28
+   Appendix A.  Examples of Task State Lifecycle . . . . . . . . . .  29
+     A.1.  Simple Case Status Change . . . . . . . . . . . . . . . .  29
+     A.2.  Example for multiple Attendees  . . . . . . . . . . . . .  30
+     A.3.  Example of Failure  . . . . . . . . . . . . . . . . . . .  31
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
 
 1.  Introduction
 
@@ -164,8 +165,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-
-Apthorp & Douglass       Expires 14 October 2024                [Page 3]
+Apthorp & Douglass       Expires 15 October 2024                [Page 3]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -221,7 +221,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 4]
+Apthorp & Douglass       Expires 15 October 2024                [Page 4]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -277,7 +277,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 5]
+Apthorp & Douglass       Expires 15 October 2024                [Page 5]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -333,7 +333,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 6]
+Apthorp & Douglass       Expires 15 October 2024                [Page 6]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -389,7 +389,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 7]
+Apthorp & Douglass       Expires 15 October 2024                [Page 7]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -445,7 +445,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 8]
+Apthorp & Douglass       Expires 15 October 2024                [Page 8]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -501,7 +501,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024                [Page 9]
+Apthorp & Douglass       Expires 15 October 2024                [Page 9]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -557,7 +557,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 10]
+Apthorp & Douglass       Expires 15 October 2024               [Page 10]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -571,7 +571,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    properties define a "window" within which a task has to be performed.
    However, there is currently no way to indicate how long the task is
    expected to take.  This document defines a new property, in
-   Section 11.1 ESTIMATED-DURATION, to allow the estimated time that a
+   Section 12.1 ESTIMATED-DURATION, to allow the estimated time that a
    task should take to be specified separately from the deadlines for
    starting and finishing a task.  This supports time planning by
    enabling calendar user agents to display when tasks should occur and
@@ -604,7 +604,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 9.1.  Improved granularity in status reporting information
 
    This document defines a new "VSTATUS" component (see section
-   Section 13.1) that can be used to group related information about the
+   Section 14.1) that can be used to group related information about the
    status of the task.  This might include information on why (REASON)
    and when (DTSTAMP) a status has changed.  In addition, new status
    values are specified to provide for task suspension, failure and
@@ -613,7 +613,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 11]
+Apthorp & Douglass       Expires 15 October 2024               [Page 11]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -669,7 +669,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 12]
+Apthorp & Douglass       Expires 15 October 2024               [Page 12]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -725,7 +725,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 13]
+Apthorp & Douglass       Expires 15 October 2024               [Page 13]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -742,9 +742,51 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    A new property, TASK-MODE, is introduced to instruct servers to apply
    automated operations for changing the status of a task.
 
-10.  New Parameter Values
+10.  Modifications to Calendar Components
 
-10.1.  Redefined VTODO Participant Status
+   The following changes to the syntax defined in iCalendar [RFC5545]
+   are made here.  New elements are defined in subsequent sections.
+
+   ; Addition of VSTATUS as a valid component for VEVENT
+   eventc     = "BEGIN" ":" "VEVENT" CRLF
+                eventprop *alarmc *participantc *locationc *resourcec *statusc
+                "END" ":" "VEVENT" CRLF
+
+   ; Addition of VSTATUS as a valid component for VTODO
+   todoc      = "BEGIN" ":" "VTODO" CRLF
+                todoprop *alarmc *participantc *locationc *resourcec *statusc
+                "END" ":" "VTODO" CRLF
+
+   ; Addition of properties ESTIMATED-DURATION and TASK-MODE to VTODO
+   todoprop =/ est-duration /
+               task-mode
+
+   ; Addition of VSTATUS as a valid component for VJOURNAL
+   journalc   = "BEGIN" ":" "VJOURNAL" CRLF
+                 jourprop *statusc
+                 "END" ":" "VJOURNAL" CRLF
+
+
+   ; Addition of VSTATUS as a valid component for VFREEBUSY
+   freebusyc  = "BEGIN" ":" "VFREEBUSY" CRLF
+                fbprop *participantc *locationc *resourcec *statusc
+                "END" ":" "VFREEBUSY" CRLF
+
+11.  New Parameter Values
+
+
+
+
+
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 14]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
+
+11.1.  Redefined VTODO Participant Status
 
    Participant status parameter type values are defined in
    Section 3.2.12 of [RFC5545].  This specification redefines that type
@@ -760,9 +802,9 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    ATTENDEE;REASON="https://example.com/reason/not-enough-time";
     PARTSTAT=FAILED:mailto:jsmith@example.com
 
-11.  New Properties
+12.  New Properties
 
-11.1.  Estimated Duration
+12.1.  Estimated Duration
 
    Property Name  ESTIMATED-DURATION
 
@@ -778,14 +820,6 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
       components.
 
    Format Definition  This property is defined by the following
-
-
-
-Apthorp & Douglass       Expires 14 October 2024               [Page 14]
-
-Internet-Draft        Task Extensions to iCalendar            April 2024
-
-
       notation:
 
    est-duration  = "ESTIMATED-DURATION" durparam ":" dur-value CRLF
@@ -801,12 +835,19 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
       SHOULD be passed from ORGANIZER to ATTENDEE in iTIP [RFC5546]
       messages.
 
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 15]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
+
    Example  The following is an example of this property that estimates
       the duration of a task to be one hour:
 
    ESTIMATED-DURATION:PT1H
 
-11.2.  Reason
+12.2.  Reason
 
    Property name  REASON
 
@@ -834,19 +875,11 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
       context of the task type and therefore SHOULD include the name-
       space of the authority defining the task.
 
-
-
-
-Apthorp & Douglass       Expires 14 October 2024               [Page 15]
-
-Internet-Draft        Task Extensions to iCalendar            April 2024
-
-
    Example
 
    REASON:https://example.com/reason/delivered-on-time
 
-11.3.  Sub-State
+12.3.  Sub-State
 
    Property name  SUBSTATE
 
@@ -857,6 +890,13 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
    Property Parameters  IANA and non-standard property parameters can be
       specified on this property.
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 16]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
 
    Conformance  This property can be specified in a "VSTATUS" calendar
       component.
@@ -888,16 +928,6 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
    Example
 
-
-
-
-
-
-Apthorp & Douglass       Expires 14 October 2024               [Page 16]
-
-Internet-Draft        Task Extensions to iCalendar            April 2024
-
-
    BEGIN:VSTATUS
    STATUS:FAILED
    REASON:https://example.com/reason/no-one-home
@@ -910,11 +940,20 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    SUBSTATE:SUSPENDED
    END:VSTATUS
 
-11.4.  Task Mode
+12.4.  Task Mode
 
    Property Name  TASK-MODE
 
    Purpose  This property specifies automatic operations that servers
+
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 17]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
+
       acting on behalf of the organizer apply to tasks based on changes
       in attendee status (PARTSTAT).
 
@@ -946,21 +985,13 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
       used to indicate to servers how they can automatically change the
       state of the task based on iTIP replies from Attendees.  For
       example, the server can automatically set the overall task status
-
-
-
-Apthorp & Douglass       Expires 14 October 2024               [Page 17]
-
-Internet-Draft        Task Extensions to iCalendar            April 2024
-
-
       to COMPLETED when every attendee has marked their own status
       (PARTSTAT) as COMPLETED, or the server could mark the task as
       FAILED if its DUE date passes without it being completed.  TASK-
       MODE processing is performed on the organizer's copy of the task.
 
    To set the status, add a VSTATUS component as specified in
-   Section 13.1.
+   Section 14.1.
 
    The property value is a list of one or more IANA registered tokens
    that defines modes to be used for the task.  This specification
@@ -971,6 +1002,13 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    TASK-MODE:AUTOMATIC-COMPLETION,AUTOMATIC-FAILURE
    TASK-MODE:SERVER
    TASK-MODE:AUTOMATIC-FAILURE
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 18]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
 
    AUTOMATIC-COMPLETION Task Mode  The task mode value "AUTOMATIC-
       COMPLETION" indicates to the server that it can change the "VTODO"
@@ -1002,17 +1040,9 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
       The server can add this property to a "VTODO" component to
       indicate to the client that it will be managing the status.
 
+13.  Property Extensions and Clarifications
 
-
-
-Apthorp & Douglass       Expires 14 October 2024               [Page 18]
-
-Internet-Draft        Task Extensions to iCalendar            April 2024
-
-
-12.  Property Extensions and Clarifications
-
-12.1.  Updated DURATION Property definition
+13.1.  Updated DURATION Property definition
 
    [RFC5545] section 3.6.2 introduced a constraint on the duration
    property requiring that a DURATION MUST be accompanied by a DTSTART.
@@ -1027,6 +1057,14 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
                      ; If 'duration' appear in a 'todoprop',
                      ; then 'dtstart' MUST also appear in
                      ; the same 'todoprop'.
+
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 19]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
 
    is replaced by
 
@@ -1048,7 +1086,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
         properties specifies a to-do that will be associated
         with each successive calendar date, until it is completed.
 
-12.2.  Redefined STATUS Property
+13.2.  Redefined STATUS Property
 
    The Status property is defined in Section 3.8.1.11 of [RFC5545].
    This specification extends that property to include new values
@@ -1057,14 +1095,6 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
    Format Definition  The "STATUS" property parameter list is augmented
       as follows:
-
-
-
-
-Apthorp & Douglass       Expires 14 October 2024               [Page 19]
-
-Internet-Draft        Task Extensions to iCalendar            April 2024
-
 
    statvalue-todo = / "PENDING"    ;Indicates a to-do has been
                                    ;created and accepted, but has
@@ -1084,11 +1114,19 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    Example: The following is an example of this property for a "VTODO"
    calendar component:
 
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 20]
+
+Internet-Draft        Task Extensions to iCalendar            April 2024
+
+
    STATUS:FAILED
 
-13.  New Components
+14.  New Components
 
-13.1.  Status Component
+14.1.  Status Component
 
    Component Name  VSTATUS
 
@@ -1117,7 +1155,25 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 20]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Apthorp & Douglass       Expires 15 October 2024               [Page 21]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1153,7 +1209,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    DTSTAMP:20220212T120000Z
    END:VSTATUS
 
-14.  CalDAV Support for Task Mode
+15.  CalDAV Support for Task Mode
 
    The CalDAV [RFC4791] calendar access protocol allows clients and
    servers to exchange iCalendar data.  With the introduction of the
@@ -1173,7 +1229,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 21]
+Apthorp & Douglass       Expires 15 October 2024               [Page 22]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1204,7 +1260,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    of "TASK-MODE", will fail gracefully by ignoring the calendar
    property.
 
-14.1.  CALDAV:supported-task-mode-set Property
+15.1.  CALDAV:supported-task-mode-set Property
 
    Name  supported-task-mode-set
 
@@ -1229,7 +1285,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 22]
+Apthorp & Douglass       Expires 15 October 2024               [Page 23]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1243,20 +1299,20 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
      <C:supported-task-mode>CLIENT</C:supported-task-mode>
    </C:supported-task-mode-set>
 
-15.  Security Considerations
+16.  Security Considerations
 
    This specification introduces no new security considerations beyond
    those identified in [RFC5545], [RFC5546] and [RFC4791].
 
-16.  IANA Considerations
+17.  IANA Considerations
 
-16.1.  New and updated iCalendar Elements Registration
+17.1.  New and updated iCalendar Elements Registration
 
    This specification updates [RFC5545] by adding and updating a number
    of elements.  The procedures and templates specified in Section 8.2
    of [RFC5545]
 
-16.1.1.  Initialization of the Status registry
+17.1.1.  Initialization of the Status registry
 
    This specification updates [RFC5545] by adding a Status value
    registry to the iCalendar Elements registry and initializing it as
@@ -1285,7 +1341,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 23]
+Apthorp & Douglass       Expires 15 October 2024               [Page 24]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1312,7 +1368,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
                   Table 1: Initial Status Value Registry
 
-16.1.2.  Update of the Status registry
+17.1.2.  Update of the Status registry
 
    This specification further updates the Status registry with
    additional values defined in this document.
@@ -1320,14 +1376,14 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
               +=========+=========+=========================+
               | Value   | Status  | Reference               |
               +=========+=========+=========================+
-              | PENDING | Current | This Spec, Section 12.2 |
+              | PENDING | Current | This Spec, Section 13.2 |
               +---------+---------+-------------------------+
-              | FAILED  | Current | This Spec, Section 12.2 |
+              | FAILED  | Current | This Spec, Section 13.2 |
               +---------+---------+-------------------------+
 
                    Table 2: Updated Status Value Registry
 
-16.1.3.  Sub-State value registry
+17.1.3.  Sub-State value registry
 
    The following table has been used to initialize the Sub-State
    registry.
@@ -1341,7 +1397,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 24]
+Apthorp & Douglass       Expires 15 October 2024               [Page 25]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1349,16 +1405,16 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
              +===========+=========+=========================+
              | Substate  | Status  | Reference               |
              +===========+=========+=========================+
-             | OK        | Current | This Spec, Section 11.3 |
+             | OK        | Current | This Spec, Section 12.3 |
              +-----------+---------+-------------------------+
-             | ERROR     | Current | This Spec, Section 11.3 |
+             | ERROR     | Current | This Spec, Section 12.3 |
              +-----------+---------+-------------------------+
-             | SUSPENDED | Current | This Spec, Section 11.3 |
+             | SUSPENDED | Current | This Spec, Section 12.3 |
              +-----------+---------+-------------------------+
 
                         Table 3: Sub-State registry
 
-16.1.4.  Task Mode value registry
+17.1.4.  Task Mode value registry
 
    The following table has been used to initialize the Task Mode
    registry.
@@ -1366,18 +1422,18 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
        +======================+=========+=========================+
        | Task Mode            | Status  | Reference               |
        +======================+=========+=========================+
-       | AUTOMATIC-COMPLETION | Current | This Spec, Section 11.4 |
+       | AUTOMATIC-COMPLETION | Current | This Spec, Section 12.4 |
        +----------------------+---------+-------------------------+
-       | AUTOMATIC-FAILURE    | Current | This Spec, Section 11.4 |
+       | AUTOMATIC-FAILURE    | Current | This Spec, Section 12.4 |
        +----------------------+---------+-------------------------+
-       | CLIENT               | Current | This Spec, Section 11.4 |
+       | CLIENT               | Current | This Spec, Section 12.4 |
        +----------------------+---------+-------------------------+
-       | SERVER               | Current | This Spec, Section 11.4 |
+       | SERVER               | Current | This Spec, Section 12.4 |
        +----------------------+---------+-------------------------+
 
                     Table 4: Task Mode Value Registry
 
-16.1.5.  Participation Statuses registry
+17.1.5.  Participation Statuses registry
 
    The following table has been used to update the Participation
    Statuses registry.
@@ -1385,19 +1441,19 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
               +========+=========+=========================+
               | Value  | Status  | Reference               |
               +========+=========+=========================+
-              | FAILED | Current | This Spec, Section 10.1 |
+              | FAILED | Current | This Spec, Section 11.1 |
               +--------+---------+-------------------------+
 
                  Table 5: Participation Statuses Registry
 
-16.1.6.  Components Registry
+17.1.6.  Components Registry
 
    The following table has been used to update the Components registry
    defined in Section 8.3.1 of [RFC5545].
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 25]
+Apthorp & Douglass       Expires 15 October 2024               [Page 26]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1405,12 +1461,12 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
              +===========+=========+=========================+
              | Component | Status  | Reference               |
              +===========+=========+=========================+
-             | VSTATUS   | Current | This Spec, Section 13.1 |
+             | VSTATUS   | Current | This Spec, Section 14.1 |
              +-----------+---------+-------------------------+
 
                     Table 6: Updated Components Registry
 
-16.1.7.  Properties registry
+17.1.7.  Properties registry
 
    The following table has been used to update the Properties registry
    defined in Section 8.3.2 of [RFC5545].
@@ -1418,20 +1474,20 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
         +====================+=========+=========================+
         | Property           | Status  | Reference               |
         +====================+=========+=========================+
-        | ESTIMATED_DURATION | Current | This Spec, Section 11.1 |
+        | ESTIMATED_DURATION | Current | This Spec, Section 12.1 |
         +--------------------+---------+-------------------------+
-        | REASON             | Current | This Spec, Section 11.2 |
+        | REASON             | Current | This Spec, Section 12.2 |
         +--------------------+---------+-------------------------+
-        | SUBSTATE           | Current | This Spec, Section 11.3 |
+        | SUBSTATE           | Current | This Spec, Section 12.3 |
         +--------------------+---------+-------------------------+
-        | STATUS             | Current | This Spec, Section 12.2 |
+        | STATUS             | Current | This Spec, Section 13.2 |
         +--------------------+---------+-------------------------+
-        | TASK-MODE          | Current | This Spec, Section 11.4 |
+        | TASK-MODE          | Current | This Spec, Section 12.4 |
         +--------------------+---------+-------------------------+
 
                    Table 7: Updated Properties Registry
 
-17.  Acknowledgements
+18.  Acknowledgements
 
    The authors would like to thank the members of the Calendaring and
    Scheduling Consortium technical committees and the following
@@ -1442,7 +1498,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
    The authors would also like to thank CalConnect, the Calendaring and
    Scheduling Consortium, for advice with this specification.
 
-18.  Normative References
+19.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", IETF, DOI 10.17487/RFC2119, BCP 14,
@@ -1453,7 +1509,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 26]
+Apthorp & Douglass       Expires 15 October 2024               [Page 27]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1495,7 +1551,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
               DOI 10.17487/RFC9253, RFC 9253, August 2022,
               <https://www.rfc-editor.org/info/rfc9253>.
 
-19.  Informative References
+20.  Informative References
 
    [BPMN]     "Business Process Model and Notation", OMG BPMN 2.0.2,
               January 2014,
@@ -1509,7 +1565,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 27]
+Apthorp & Douglass       Expires 15 October 2024               [Page 28]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1565,7 +1621,7 @@ A.1.  Simple Case Status Change
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 28]
+Apthorp & Douglass       Expires 15 October 2024               [Page 29]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1621,7 +1677,7 @@ A.2.  Example for multiple Attendees
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 29]
+Apthorp & Douglass       Expires 15 October 2024               [Page 30]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1677,7 +1733,7 @@ Authors' Addresses
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 30]
+Apthorp & Douglass       Expires 15 October 2024               [Page 31]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1733,4 +1789,4 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 14 October 2024               [Page 31]
+Apthorp & Douglass       Expires 15 October 2024               [Page 32]
