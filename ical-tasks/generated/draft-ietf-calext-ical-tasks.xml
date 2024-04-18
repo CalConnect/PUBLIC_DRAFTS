@@ -2,7 +2,7 @@
 <ietf-standard xmlns="https://www.metanorma.org/ns/ietf" type="semantic" version="3.3.5" schema-version="v1.3.0">
 <bibdata type="standard">
 <title language="en" format="text/plain" type="main">Task Extensions to iCalendar</title>
-<docidentifier primary="true">draft-ietf-calext-ical-tasks-08</docidentifier><docnumber>draft-ietf-calext-ical-tasks-08</docnumber><contributor><role type="author"/><person>
+<docidentifier primary="true">draft-ietf-calext-ical-tasks-09</docidentifier><docnumber>draft-ietf-calext-ical-tasks-09</docnumber><contributor><role type="author"/><person>
 <name><completename>Adrian Apthorp</completename></name>
 <affiliation><organization>
 <name>DHL Express</name>
@@ -12,7 +12,7 @@
 <name>Bedework Commercial Services</name>
 <address><street>226 3rd Street</street><city>Troy</city><state>NY</state><country>United States of America</country></address></organization></affiliation><email>mdouglass@bedework.com</email></person></contributor><contributor><role type="publisher"/><organization>
 <name>Internet Engineering Task Force</name>
-<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-04-12</revision-date></version><language>en</language><script>Latn</script><abstract><p>This document updates and defines extensions to the
+<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-04-18</revision-date></version><language>en</language><script>Latn</script><abstract><p>This document updates and defines extensions to the
 Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545)
 to provide improved status tracking, scheduling and specification of tasks.</p>
 

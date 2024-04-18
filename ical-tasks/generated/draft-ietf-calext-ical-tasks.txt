@@ -6,11 +6,11 @@ calext                                                        A. Apthorp
 Internet-Draft                                               DHL Express
 Updates: RFC5545 (if approved)                               M. Douglass
 Intended status: Standards Track            Bedework Commercial Services
-Expires: 15 October 2024                                   13 April 2024
+Expires: 20 October 2024                                   18 April 2024
 
 
                       Task Extensions to iCalendar
-                    draft-ietf-calext-ical-tasks-08
+                    draft-ietf-calext-ical-tasks-09
 
 Abstract
 
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 15 October 2024.
+   This Internet-Draft will expire on 20 October 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 1]
+Apthorp & Douglass       Expires 20 October 2024                [Page 1]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 2]
+Apthorp & Douglass       Expires 20 October 2024                [Page 2]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -165,7 +165,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 3]
+Apthorp & Douglass       Expires 20 October 2024                [Page 3]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -221,7 +221,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 4]
+Apthorp & Douglass       Expires 20 October 2024                [Page 4]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -277,7 +277,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 5]
+Apthorp & Douglass       Expires 20 October 2024                [Page 5]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -333,7 +333,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 6]
+Apthorp & Douglass       Expires 20 October 2024                [Page 6]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -389,7 +389,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 7]
+Apthorp & Douglass       Expires 20 October 2024                [Page 7]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -445,7 +445,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 8]
+Apthorp & Douglass       Expires 20 October 2024                [Page 8]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -501,7 +501,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024                [Page 9]
+Apthorp & Douglass       Expires 20 October 2024                [Page 9]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -557,7 +557,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 10]
+Apthorp & Douglass       Expires 20 October 2024               [Page 10]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -613,7 +613,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 11]
+Apthorp & Douglass       Expires 20 October 2024               [Page 11]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -669,7 +669,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 12]
+Apthorp & Douglass       Expires 20 October 2024               [Page 12]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -725,7 +725,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 13]
+Apthorp & Douglass       Expires 20 October 2024               [Page 13]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -781,7 +781,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 14]
+Apthorp & Douglass       Expires 20 October 2024               [Page 14]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -837,7 +837,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 15]
+Apthorp & Douglass       Expires 20 October 2024               [Page 15]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -893,7 +893,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 16]
+Apthorp & Douglass       Expires 20 October 2024               [Page 16]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -949,7 +949,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 17]
+Apthorp & Douglass       Expires 20 October 2024               [Page 17]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 18]
+Apthorp & Douglass       Expires 20 October 2024               [Page 18]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 19]
+Apthorp & Douglass       Expires 20 October 2024               [Page 19]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 20]
+Apthorp & Douglass       Expires 20 October 2024               [Page 20]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 21]
+Apthorp & Douglass       Expires 20 October 2024               [Page 21]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1229,7 +1229,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 22]
+Apthorp & Douglass       Expires 20 October 2024               [Page 22]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1285,7 +1285,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 23]
+Apthorp & Douglass       Expires 20 October 2024               [Page 23]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1341,7 +1341,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 24]
+Apthorp & Douglass       Expires 20 October 2024               [Page 24]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1397,7 +1397,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 25]
+Apthorp & Douglass       Expires 20 October 2024               [Page 25]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1453,7 +1453,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 26]
+Apthorp & Douglass       Expires 20 October 2024               [Page 26]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1509,7 +1509,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 27]
+Apthorp & Douglass       Expires 20 October 2024               [Page 27]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1565,7 +1565,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 28]
+Apthorp & Douglass       Expires 20 October 2024               [Page 28]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1621,7 +1621,7 @@ A.2.  Example for multiple Attendees
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 29]
+Apthorp & Douglass       Expires 20 October 2024               [Page 29]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1677,7 +1677,7 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 30]
+Apthorp & Douglass       Expires 20 October 2024               [Page 30]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1733,7 +1733,7 @@ Authors' Addresses
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 31]
+Apthorp & Douglass       Expires 20 October 2024               [Page 31]
 
 Internet-Draft        Task Extensions to iCalendar            April 2024
 
@@ -1789,4 +1789,4 @@ Internet-Draft        Task Extensions to iCalendar            April 2024
 
 
 
-Apthorp & Douglass       Expires 15 October 2024               [Page 32]
+Apthorp & Douglass       Expires 20 October 2024               [Page 32]
