@@ -17,5 +17,5 @@ The owner (like other participants) is identified by a calendar-address. Additio
 
 (Do we drop sentBy?)
 
-[datamodel_diagram,../models/views/OwnerType.yml,../models/models]
+[datamodel_diagram,models/views/OwnerType.yml, models/models]
 
