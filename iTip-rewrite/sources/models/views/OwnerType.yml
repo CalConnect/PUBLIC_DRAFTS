@@ -1,0 +1,9 @@
+name: OwnerType
+title: Owner datamodel
+caption: Owner datamodel
+imports:
+  OwnerType:
+  ParticipantType:
+  CalendarAddressType:
+fidelity:
+  hideOtherClasses: true

@@ -34,6 +34,8 @@ include::sections/00-abstract.adoc[]
 //include::sections/00-foreword.adoc[]
 include::sections/01-intro.adoc[]
 
+include::sections/20-abstract-model.adoc[]
+
 // :sectnums:
 
 include::sections/applicationprotocolelements.adoc[]

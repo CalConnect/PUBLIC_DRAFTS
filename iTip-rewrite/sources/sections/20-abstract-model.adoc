@@ -1,0 +1,24 @@
+[[abstract-model]]
+== The Abstract Data Model
+
+This section will describe the classes and attributes required to carry out iTip scheduling. They will be described in abstract terms defined here and later sections will describe how the model is expressed in various concrete representations.
+
+This document will not attempt to provide a full abstract model for the calendar components, properties and parameters defined in <<RFC5545>>. Rather, only those classes and attributes that are required for iTip are described here.
+
+=== Calendar Address
+Participants in iTip scheduling are identified only by their calendar-address. The calendar-address value type is a uri, usually a mailto.
+
+Example:: mailto:mike@example.org
+
+=== The Owner.
+when an object is scheduled with iTip one party is the "Owner" (sometimes referred to as the "Organizer").
+
+The owner (like other participants) is identified by a calendar-address. Additionally, it may have any of: a name; a reference to some form of directory entry; a language specifier.
+
+(Do we drop sentBy?)
+
+[datamodel]
+....
+include::../models/views/OwnerType.yml[]
+....
+

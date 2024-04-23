@@ -1,0 +1,13 @@
+name: OwnerType
+attributes:
+  sentBy:
+    definition: uri identify who actually sent for the owner
+    type: uri
+    cardinality:
+      min: 0
+      max: 1
+relations:
+  - target: ParticipantType
+    relationship:
+      target:
+        type: inheritance

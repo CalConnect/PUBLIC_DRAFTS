@@ -1,0 +1,26 @@
+name: ParticipantType
+attributes:
+  calendarAdddress:
+    definition: Uniquely identifies the participant
+    type: CalendarAddressType
+  name:
+    type: String
+  role:
+    type: String
+    cardinality:
+      min: 1
+      max: "*"
+  dir:
+    description: Some form of reference to a directory
+    type: String
+    cardinality:
+      min: 0
+      max: 1
+  language:
+    description: A language code
+    type: String
+    cardinality:
+      min: 0
+      max: 1
+
+
