@@ -1,0 +1,2515 @@
+<!DOCTYPE html>
+<html lang="en" class=" Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>iCalendar Transport-Independent Interoperability Protocol (iTIP)</title>
+<meta content="Michael Douglass" name="author">
+<meta content="
+       This document specifies a protocol that uses calendar objects
+to provide scheduling interoperability between
+different calendaring systems.  This is done without reference to a
+specific transport protocol so as to allow multiple methods of
+communication between systems.  Other documents define
+profiles of this protocol that use specific, interoperable methods of
+communication between systems. 
+       The iCalendar Transport-Independent Interoperability Protocol (iTIP)
+complements the calendar object specifications by adding semantics
+for group scheduling methods commonly available in current
+calendaring systems.  These scheduling methods permit two or more
+calendaring systems to perform transactions such as publishing,
+scheduling, rescheduling, responding to scheduling requests,
+negotiating changes, or canceling. 
+    " name="description">
+<meta content="xml2rfc 3.21.0" name="generator">
+<meta content="draft-ietf-calext-itipbis-00" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.21.0
+    Python 3.8.10
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.0
+    intervaltree 3.1.0
+    Jinja2 3.1.3
+    lxml 5.2.1
+    platformdirs 4.2.0
+    pycountry 23.12.11
+    PyYAML 6.0.1
+    requests 2.31.0
+    setuptools 44.0.0
+    six 1.16.0
+    wcwidth 0.2.13
+-->
+<link href="/home/mike/IdeaProjects/PUBLIC_DRAFTS/iTip-rewrite/sources/draft-ietf-calext-itipbis.rfc.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+:root {
+  --font-sans: 'Noto Sans', Arial, Helvetica, sans-serif;
+  --font-serif: 'Noto Serif', 'Times', 'Times New Roman', serif;
+  --font-mono: 'Roboto Mono', Courier, 'Courier New', monospace;
+}
+
+@viewport {
+  zoom: 1.0;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-wrap: break-word;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+svg[font-family~="serif" i], svg [font-family~="serif" i] {
+  font-family: var(--font-serif);
+}
+svg[font-family~="sans-serif" i], svg [font-family~="sans-serif" i] {
+  font-family: var(--font-sans);
+}
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: var(--font-mono);
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+blockquote > *:last-child {
+  margin-bottom: 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+.xref {
+  overflow-wrap: normal;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.refSubseries {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: var(--font-sans);
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  .breakable pre {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+.sourcecode pre,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div.sourcecode:first-child,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type:only-child {
+  margin-bottom: 0;
+}
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body class="xml2rfc">
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">iTip</td>
+<td class="right">April 2024</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Douglass</td>
+<td class="center">Expires 24 October 2024</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">Network Working Group</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-ietf-calext-itipbis-00</dd>
+<dt class="label-">:</dt>
+<dd></dd>
+<dt class="label-updates">Updates:</dt>
+<dd class="updates">
+<a href="https://www.rfc-editor.org/rfc/rfc5545" class="eref">5545</a> (if approved)</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2024-04-22" class="published">22 April 2024</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Standards Track</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2024-10-24">24 October 2024</time></dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">M. Douglass</div>
+<div class="org">Bedework Commercial Services</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">iCalendar Transport-Independent Interoperability Protocol (iTIP)</h1>
+<div id="_abstract">
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<div id="_bb8497db-1745-829c-1681-e294da1792b9">
+<p id="section-abstract-1">This document specifies a protocol that uses calendar objects
+to provide scheduling interoperability between
+different calendaring systems.  This is done without reference to a
+specific transport protocol so as to allow multiple methods of
+communication between systems.  Other documents define
+profiles of this protocol that use specific, interoperable methods of
+communication between systems.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_c777b399-1c70-ab2d-3084-a19cb9a0cd0c">
+<p id="section-abstract-2">The iCalendar Transport-Independent Interoperability Protocol (iTIP)
+complements the calendar object specifications by adding semantics
+for group scheduling methods commonly available in current
+calendaring systems.  These scheduling methods permit two or more
+calendaring systems to perform transactions such as publishing,
+scheduling, rescheduling, responding to scheduling requests,
+negotiating changes, or canceling.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 24 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2024 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
+                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-related-documents" class="internal xref">Related Documents</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
+                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-roles" class="internal xref">Roles</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-methods" class="internal xref">Methods</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-the-abstract-data-model" class="internal xref">The Abstract Data Model</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-calendar-address" class="internal xref">Calendar Address</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-the-owner" class="internal xref">The Owner.</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-application-protocol-elemen" class="internal xref">Application Protocol Elements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
+                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-required-properties-per-com" class="internal xref">Required properties per components</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
+                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-the-publish-method" class="internal xref">The PUBLISH method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.3">
+                    <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-publishing-vfreebusy" class="internal xref">Publishing VFREEBUSY</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.4">
+                    <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-the-request-method" class="internal xref">The REQUEST method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.5">
+                    <p id="section-toc.1-1.3.2.3.2.5.1"><a href="#section-3.3.5" class="auto internal xref">3.3.5</a>.  <a href="#name-the-refresh-method" class="internal xref">The REFRESH method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.6">
+                    <p id="section-toc.1-1.3.2.3.2.6.1"><a href="#section-3.3.6" class="auto internal xref">3.3.6</a>.  <a href="#name-the-cancel-method" class="internal xref">The CANCEL method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.7">
+                    <p id="section-toc.1-1.3.2.3.2.7.1"><a href="#section-3.3.7" class="auto internal xref">3.3.7</a>.  <a href="#name-the-add-method" class="internal xref">The ADD method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.8">
+                    <p id="section-toc.1-1.3.2.3.2.8.1"><a href="#section-3.3.8" class="auto internal xref">3.3.8</a>.  <a href="#name-the-reply-method" class="internal xref">The REPLY method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.9">
+                    <p id="section-toc.1-1.3.2.3.2.9.1"><a href="#section-3.3.9" class="auto internal xref">3.3.9</a>.  <a href="#name-the-counter-method" class="internal xref">The COUNTER method</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.10">
+                    <p id="section-toc.1-1.3.2.3.2.10.1"><a href="#section-3.3.10" class="auto internal xref">3.3.10</a>. <a href="#name-the-declinecounter-method" class="internal xref">The DECLINECOUNTER method</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-initialization-of-the-statu" class="internal xref">Initialization of the Status registry</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="acknowledgements">
+<section id="section-1">
+      <h2 id="name-acknowledgements">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-acknowledgements" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<div id="_4b94069e-3238-7b20-3d14-df35ee228d70">
+<p id="section-1-1">The authors would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:<a href="#section-1-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_345048c2-b9ac-de68-5790-732b4c85e6df">
+<p id="section-1-2">John Chaffee, Marten Gajda, Ken Murchison<a href="#section-1-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_02978224-8d42-1d05-121a-a1fffbdfeac8">
+<p id="section-1-3">The authors would also like to thank CalConnect, the Calendaring and
+Scheduling Consortium, for advice with this specification.<a href="#section-1-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_introduction">
+<section id="section-2">
+      <h2 id="name-introduction">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<div id="_74ec45c6-185c-5bcc-9d9c-4067af3d8841">
+<p id="section-2-1">This document specifies how calendaring systems use calendar
+objects to interoperate with other calendaring systems.  In
+particular, it specifies how to schedule events and tasks.
+It further specifies how to search for available
+busy time information.  It does so in a general way, without
+specifying how communication between different systems actually takes
+place.  Other documents specify transport bindings between
+systems that use this protocol.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_bf2aa19c-eb4a-0c8d-dd4a-b4a7da2f491b">
+<p id="section-2-2">The protocol is described in abstract terms with examples shown
+in iCalendar as defined in <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and jsCalendar as specified
+in <span>[<a href="#RFC8984" class="cite xref">RFC8984</a>]</span>.<a href="#section-2-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_712ba320-e52c-a1b1-833a-6dc304fa1b7a">
+<p id="section-2-3">This protocol is based on messages sent from an originator to one or
+more recipients.  For certain types of messages, a recipient may
+reply in order to update their status and may also return
+transaction/request status information.  The protocol supports the
+ability for the message originator to modify or cancel the original
+message.  The protocol also supports the ability for recipients to
+suggest changes to the originator of a message.  The elements of the
+protocol also define the user roles for its transactions.<a href="#section-2-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_c5dd156d-075b-b487-4e54-b1ae9c706da8">
+<p id="section-2-4">This specification obsoletes RFC 5546.<a href="#section-2-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_related_documents">
+<section id="section-2.1">
+        <h3 id="name-related-documents">
+<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-related-documents" class="section-name selfRef">Related Documents</a>
+        </h3>
+<div id="_9b02da79-dafc-25ad-b22e-2392808c6973">
+<p id="section-2.1-1">Implementers will need to be familiar with several other
+specifications that, along with this one, describe the Internet
+calendaring and scheduling standards.  The related documents are:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+</div>
+<span class="break"></span><div id="_41601648-c22f-ba2d-3e12-9f05e1a33e6d">
+<dl class="dlParallel" id="section-2.1-2">
+          <dt id="section-2.1-2.1"><span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span></dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.2">
+            <div id="_9e2fba30-502c-e608-d55a-8df4f99785f9">
+<p id="section-2.1-2.2.1">The iCalendqr specification for the objects, data types,
+properties, and property parameters used in the protocols in that format.
+Also defines the methods
+for representing and encoding them.<a href="#section-2.1-2.2.1" class="pilcrow">¶</a></p>
+</div>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-2.1-2.3"><span>[<a href="#RFC8984" class="cite xref">RFC8984</a>]</span></dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.4">
+            <div id="_e5185c57-204f-9afb-93c6-b2b38a4618a7">
+<p id="section-2.1-2.4.1">Describes the properties and objects used in the jsCalendar
+representation.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
+</div>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-2.1-2.5"><span>[<a href="#iMIP" class="cite xref">iMIP</a>]</span></dt>
+          <dd style="margin-left: 1.5em" id="section-2.1-2.6">
+            <div id="_d1ec6c9c-651d-ef4c-d25d-2de94de3f8d4">
+<p id="section-2.1-2.6.1">specifies an Internet email binding for iTIP.<a href="#section-2.1-2.6.1" class="pilcrow">¶</a></p>
+</div>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</div>
+<div id="_aae3736f-1d12-a81a-546f-ce44ba7ff552">
+<p id="section-2.1-3">This specification does not attempt to repeat the concepts or
+definitions from these other specifications.  Where possible,
+explicit references are made to the other specifications.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_roles">
+<section id="section-2.2">
+        <h3 id="name-roles">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-roles" class="section-name selfRef">Roles</a>
+        </h3>
+<div id="_1d886329-8d74-4973-77ca-6f8d0cd4b99d">
+<p id="section-2.2-1">Exchanges of calendar objects for the purposes of group calendaring
+and scheduling occur between "Calendar Users" (CUs).  CUs take on
+several roles in iTIP:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_a9028d5d-2114-028b-bb86-62347b6a5d25">
+<table class="center" id="table-1">
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Role</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Organizer</td>
+              <td class="text-left" rowspan="1" colspan="1">The CU who initiates an exchange takes on the role of  Organizer.
+For example, the CU who proposes a group  meeting is the Organizer.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Attendee or participant</td>
+              <td class="text-left" rowspan="1" colspan="1">CUs who are included in the scheduling message as possible recipients
+of that scheduling message.  For example, the CUs asked to participate
+in a group meeting by the Organizer take on the role of Attendee.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Other CU</td>
+              <td class="text-left" rowspan="1" colspan="1">A CU that is not explicitly included in a scheduling message, i.e.,
+not the Organizer or an Attendee.</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<div id="_ed6cb181-2d80-9835-7b4c-3ceb26dff444">
+<p id="section-2.2-3">Note that in iCalendar and jsCalendar the role is also used to
+convey descriptive context about an "Attendee" - such as "chair",
+"required participant", or "non- required participant". These roles
+have nothing to do with the calendaring workflow.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_methods">
+<section id="section-2.3">
+        <h3 id="name-methods">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-methods" class="section-name selfRef">Methods</a>
+        </h3>
+<div id="_69dc258a-6824-82ab-d8ac-e5eddf1a3504">
+<p id="section-2.3-1">The iTIP methods are listed below and their usage and semantics are
+defined in Section ??? of this document.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_2e6f0cc3-62f4-1a19-6f1f-fc45850d2cd8">
+<table class="center" id="table-2">
+          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Method</th>
+              <th class="text-left" rowspan="1" colspan="1">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">PUBLISH</td>
+              <td class="text-left" rowspan="1" colspan="1">Used to publish a calendar object to one or more "Calendar Users".
+There is no interactivity between the publisher and any other
+"Calendar User". An example might include a baseball team publishing
+its schedule to the public.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">REQUEST</td>
+              <td class="text-left" rowspan="1" colspan="1">Used to schedule a calendar object with other "Calendar Users".
+Requests are interactive in that they require the receiver to respond
+using the reply methods.  Meeting requests, busy-time requests, and the
+assignment of tasks to other "Calendar Users" are all examples.
+Requests are also used by the Organizer to update the status of a
+calendar object.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">REPLY</td>
+              <td class="text-left" rowspan="1" colspan="1">A reply is used in response to a request to convey Attendee status
+to the Organizer. Replies are commonly used to respond to meeting and task requests.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">ADD</td>
+              <td class="text-left" rowspan="1" colspan="1">Add one or more new instances to an existing recurring calendar object.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">CANCEL</td>
+              <td class="text-left" rowspan="1" colspan="1">Cancel one or more instances of an existing calendar object.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">REFRESH</td>
+              <td class="text-left" rowspan="1" colspan="1">Used by an Attendee to request the latest version of a calendar object.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">COUNTER</td>
+              <td class="text-left" rowspan="1" colspan="1">Used by an Attendee to negotiate a change in a calendar object.
+Examples include the request to change the location. Note that COUNTER
+is little used.</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">DECLINECOUNTER</td>
+              <td class="text-left" rowspan="1" colspan="1">Used by the Organizer to decline the proposed counter proposal.</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<div id="_7b32d37d-05e8-9ca5-8d7c-4badfae0af50">
+<p id="section-2.3-3">Group scheduling in iTIP is accomplished using the set of "request"
+and "response" methods described above.  The following table shows
+the methods broken down by who can send them.<a href="#section-2.3-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_5beaad18-5e6a-b19b-db54-8300de4186dd">
+<table class="center" id="table-3">
+          <caption><a href="#table-3" class="selfRef">Table 3</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Originator</th>
+              <th class="text-left" rowspan="1" colspan="1">Methods</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Organizer</td>
+              <td class="text-left" rowspan="1" colspan="1">PUBLISH, REQUEST, ADD, CANCEL, DECLINECOUNTER</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Attendee</td>
+              <td class="text-left" rowspan="1" colspan="1">REPLY, REFRESH, COUNTER, REQUEST (only when delegating)</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<div id="_319955a3-d477-bb44-3616-9b81b0bd1c85">
+<p id="section-2.3-5">Note that for some calendar component types, the allowable methods
+are a subset of the above set.  In addition, apart from timezone
+components, only one component type is allowed in a single
+iTIP message.<a href="#section-2.3-5" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="abstract-model">
+<section id="section-3">
+      <h2 id="name-the-abstract-data-model">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-the-abstract-data-model" class="section-name selfRef">The Abstract Data Model</a>
+      </h2>
+<div id="_7147afbd-c4a4-c42b-5942-4970132a68c1">
+<p id="section-3-1">This section will describe the classes and attributes required to carry out iTip scheduling. They will be described in abstract terms defined here and later sections will describe how the model is expressed in various concrete representations.<a href="#section-3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_e3aa9ad8-6247-4243-6d47-8fc29b1ea0d4">
+<p id="section-3-2">This document will not attempt to provide a full abstract model for the calendar components, properties and parameters defined in <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>. Rather, only those classes and attributes that are required for iTip are described here.<a href="#section-3-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_calendar_address">
+<section id="section-3.1">
+        <h3 id="name-calendar-address">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-calendar-address" class="section-name selfRef">Calendar Address</a>
+        </h3>
+<div id="_47b16623-0127-1ebb-7217-e3b3a2979411">
+<p id="section-3.1-1">Participants in iTip scheduling are identified only by their calendar-address. The calendar-address value type is a uri, usually a mailto.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+</div>
+<span class="break"></span><div id="_13969f7c-8989-cdb6-a154-cb161fe8d3c3">
+<dl class="dlParallel" id="section-3.1-2">
+          <dt id="section-3.1-2.1">Example</dt>
+          <dd style="margin-left: 1.5em" id="section-3.1-2.2">
+            <div id="_4ff04da8-7ab9-e270-5816-7b8de83d3ac8">
+<p id="section-3.1-2.2.1">mailto:mike@example.org<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
+</div>
+</dd>
+        <dd class="break"></dd>
+</dl>
+</div>
+</section>
+</div>
+<div id="_the_owner">
+<section id="section-3.2">
+        <h3 id="name-the-owner">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-the-owner" class="section-name selfRef">The Owner.</a>
+        </h3>
+<div id="_4026cf6b-3bb5-f67f-639c-9a628f5d6382">
+<p id="section-3.2-1">when an object is scheduled with iTip one party is the "Owner" (sometimes referred to as the "Organizer").<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_8b20223f-c289-af22-7f4e-e2dae0ee19d8">
+<p id="section-3.2-2">The owner (like other participants) is identified by a calendar-address. Additionally, it may have any of: a name; a reference to some form of directory entry; a language specifier.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_f693c855-c370-9723-d54a-0b1fc8ff92cb">
+<p id="section-3.2-3">(Do we drop sentBy?)<a href="#section-3.2-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_804cb3ed-0e15-fe35-439e-4d93a176e1ef">
+<figure id="figure-1">
+          <div id="_760bc1e0-476b-8dcb-50f5-8976e5d2b3bb">
+<div class="alignLeft art-ascii-art art-text artwork" id="section-3.2-4.1">
+<pre>name: OwnerType
+title: Owner datamodel
+caption: Owner datamodel
+imports:
+  OwnerType:
+  ParticipantType:
+  CalendarAddressType:
+fidelity:
+  hideOtherClasses: true</pre>
+</div>
+</div>
+<figcaption><a href="#figure-1" class="selfRef">Figure 1</a></figcaption></figure>
+</div>
+</section>
+</div>
+<div id="application-protocol-elements">
+<section id="section-3.3">
+        <h3 id="name-application-protocol-elemen">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-application-protocol-elemen" class="section-name selfRef">Application Protocol Elements</a>
+        </h3>
+<div id="_6ea5c2b6-230e-0cf3-9baf-d1aad195ae81">
+<p id="section-3.3-1">iTip uses a number of attributes in the calendar objects to provide
+scheding information and to maintain th scheduling state. These
+attributes takes different forms in <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> iCalendar objects
+and <span>[<a href="#RFC8984" class="cite xref">RFC8984</a>]</span> jsCalendar objects.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_a2f4ef84-17e3-85da-27c7-088bce863739">
+<p id="section-3.3-2">The table below lists all iTip attributes and which roperty or parameter
+is used in each representation.<a href="#section-3.3-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_77196a8d-052a-fa5e-5066-c105c0e35923">
+<table class="center" id="table-4">
+          <caption><a href="#table-4" class="selfRef">Table 4</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1"></th>
+              <th class="text-left" rowspan="1" colspan="1">iCalendar</th>
+              <th class="text-left" rowspan="1" colspan="1">jsCalendar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Organizer</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_b3d1fbd5-f35c-1815-f907-466706a0c9bc">
+<p id="section-3.3-3.2.1.2.1">ORGANIZER property<a href="#section-3.3-3.2.1.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_30e8dab1-0a7f-f4b9-1c8e-8a701a8f60ff">
+<p id="section-3.3-3.2.1.3.1">Participant with role owner<a href="#section-3.3-3.2.1.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Attendee</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_12744aab-47f9-810d-bbb0-74b86bbe0299">
+<p id="section-3.3-3.2.2.2.1">Attendee property<a href="#section-3.3-3.2.2.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_63cee83c-d0e5-a46e-685e-8526f1e9c0bd">
+<p id="section-3.3-3.2.2.3.1">Participant object<a href="#section-3.3-3.2.2.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Date stamp</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_96b918d9-396d-0e9b-7f9b-9e3357da06fb">
+<p id="section-3.3-3.2.3.2.1">DTSTAMP property<a href="#section-3.3-3.2.3.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Method</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_9bdd39b7-70cb-9459-40c5-722b3f3530bc">
+<p id="section-3.3-3.2.4.2.1">METHOD property<a href="#section-3.3-3.2.4.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Participation status</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_f1b11e5b-1c0f-fb94-c924-48cc97fc7bff">
+<p id="section-3.3-3.2.5.2.1">PARTSTAT parameter<a href="#section-3.3-3.2.5.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Status</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_3be2c6cf-5ad2-0d7c-da44-93617782bffd">
+<p id="section-3.3-3.2.6.2.1">STATUS property<a href="#section-3.3-3.2.6.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Sequence</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_a34f956a-531a-c7a6-8783-e06646c54441">
+<p id="section-3.3-3.2.7.2.1">SEQUENCE property<a href="#section-3.3-3.2.7.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1"></td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<div id="_16e7eca6-82d8-f22c-507b-e26ff3d4b69e">
+<p id="section-3.3-4">iTIP messages are "text/calendar" MIME entities that contain
+calendaring and scheduling information.  The particular type of
+iCalendar message is referred to as the "method type".  Each method
+type is identified by a method property specified as part of the
+"text/calendar" content type.  The table below shows various
+combinations of calendar components and the method types that this
+specification supports.<a href="#section-3.3-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_29040d24-53d6-8303-ee6f-633227a8f6d0">
+<table class="center" id="table-5">
+          <caption><a href="#table-5" class="selfRef">Table 5</a></caption>
+<thead>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1"></th>
+              <th class="text-left" rowspan="1" colspan="1">Event</th>
+              <th class="text-left" rowspan="1" colspan="1">Task</th>
+              <th class="text-left" rowspan="1" colspan="1">Journal</th>
+              <th class="text-left" rowspan="1" colspan="1">Free-busy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">PUBLISH</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_0da0428c-e66e-be80-329d-c20714fae215">
+<p id="section-3.3-5.2.1.2.1">Yes<a href="#section-3.3-5.2.1.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_d18529c8-2e12-7953-fdc0-8c2892db3606">
+<p id="section-3.3-5.2.1.3.1">Yes<a href="#section-3.3-5.2.1.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_70394ce1-3a92-8a77-9a08-e18884ac9795">
+<p id="section-3.3-5.2.1.4.1">Yes<a href="#section-3.3-5.2.1.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_272b95f3-cc69-a2f4-81b9-6227bf2bb0d5">
+<p id="section-3.3-5.2.1.5.1">Yes<a href="#section-3.3-5.2.1.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">REQUEST</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_24665e39-a0e5-62e7-510e-c6dbee4ce455">
+<p id="section-3.3-5.2.2.2.1">Yes<a href="#section-3.3-5.2.2.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_375f67e8-d755-13d8-9c66-4d63cf8f65ed">
+<p id="section-3.3-5.2.2.3.1">Yes<a href="#section-3.3-5.2.2.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_9fd2df9a-c769-8e19-abb1-66cd2f99a529">
+<p id="section-3.3-5.2.2.4.1">No<a href="#section-3.3-5.2.2.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_f8dca103-a94d-b15e-127c-0e524eba845e">
+<p id="section-3.3-5.2.2.5.1">Yes<a href="#section-3.3-5.2.2.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">REFRESH</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_90d4e073-1129-b646-b0c1-4f8046321327">
+<p id="section-3.3-5.2.3.2.1">Yes<a href="#section-3.3-5.2.3.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_f5d4f3e8-4dfd-2705-9335-afacfa5ecc78">
+<p id="section-3.3-5.2.3.3.1">Yes<a href="#section-3.3-5.2.3.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_353c4aa4-400f-bc6a-0c54-8ebffbc9d989">
+<p id="section-3.3-5.2.3.4.1">No<a href="#section-3.3-5.2.3.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_0c619760-a2d0-aab8-d42c-01c0d810d9de">
+<p id="section-3.3-5.2.3.5.1">No<a href="#section-3.3-5.2.3.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">CANCEL</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_0cf4cec5-c365-7263-4d87-1c7a7d80b3a9">
+<p id="section-3.3-5.2.4.2.1">Yes<a href="#section-3.3-5.2.4.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_20ffb633-f491-1fe5-af1a-423441d0199d">
+<p id="section-3.3-5.2.4.3.1">Yes<a href="#section-3.3-5.2.4.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_dfd8dc3d-c4f8-66a0-d739-bbfb9c265c91">
+<p id="section-3.3-5.2.4.4.1">Yes<a href="#section-3.3-5.2.4.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_c8d9f0be-5d0c-b6e4-2b9b-7d7a0d4f0bd4">
+<p id="section-3.3-5.2.4.5.1">No<a href="#section-3.3-5.2.4.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">ADD</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_504abc50-7e45-305a-e757-0a4b58d129b7">
+<p id="section-3.3-5.2.5.2.1">Yes<a href="#section-3.3-5.2.5.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_d63bbdf1-f7f7-304f-9976-19c3e7db6361">
+<p id="section-3.3-5.2.5.3.1">Yes<a href="#section-3.3-5.2.5.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_0bf879ec-e9a2-aaf1-1b34-275ee3d10e13">
+<p id="section-3.3-5.2.5.4.1">Yes<a href="#section-3.3-5.2.5.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_adf256b0-207f-9059-d858-df4f16989080">
+<p id="section-3.3-5.2.5.5.1">No<a href="#section-3.3-5.2.5.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">REPLY</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_11699dd4-29cd-965d-2df9-93b46cd52ff3">
+<p id="section-3.3-5.2.6.2.1">Yes<a href="#section-3.3-5.2.6.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_479c5802-e49c-dcc7-6c52-da033d75e2d9">
+<p id="section-3.3-5.2.6.3.1">Yes<a href="#section-3.3-5.2.6.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_c1b83936-4df4-2730-6b2d-fea89e38dc75">
+<p id="section-3.3-5.2.6.4.1">No<a href="#section-3.3-5.2.6.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_9533a01b-d6e4-83fc-97e0-8b8143790e4f">
+<p id="section-3.3-5.2.6.5.1">Yes<a href="#section-3.3-5.2.6.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">COUNTER</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_1763d8ef-592b-cba8-9c4e-045a23db1ac8">
+<p id="section-3.3-5.2.7.2.1">Yes<a href="#section-3.3-5.2.7.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_f5b8ecbf-6dbd-526e-9a4e-46d31ad7ea72">
+<p id="section-3.3-5.2.7.3.1">Yes<a href="#section-3.3-5.2.7.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_905532d1-e9ce-c95b-bd1d-814e095401b3">
+<p id="section-3.3-5.2.7.4.1">No<a href="#section-3.3-5.2.7.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_2221c27e-ae74-563a-4729-d128d4c834fa">
+<p id="section-3.3-5.2.7.5.1">No<a href="#section-3.3-5.2.7.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">DECLINECOUNTER</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_e96b5062-07f7-6e79-c43b-ce1d807914c1">
+<p id="section-3.3-5.2.8.2.1">Yes<a href="#section-3.3-5.2.8.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_e55a074f-bf77-4aeb-8979-04d1be758ad2">
+<p id="section-3.3-5.2.8.3.1">Yes<a href="#section-3.3-5.2.8.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_ab10b7fe-1a73-6f0f-5e7d-38aabb872931">
+<p id="section-3.3-5.2.8.4.1">No<a href="#section-3.3-5.2.8.4.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              <td class="text-left" rowspan="1" colspan="1">
+                <div id="_a899ed4b-7cd2-b994-d1ec-706aeddc42f8">
+<p id="section-3.3-5.2.8.5.1">No<a href="#section-3.3-5.2.8.5.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+            </tr>
+          </tbody>
+        </table>
+</div>
+<div id="_required_properties_per_components">
+<section id="section-3.3.1">
+          <h4 id="name-required-properties-per-com">
+<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-required-properties-per-com" class="section-name selfRef">Required properties per components</a>
+          </h4>
+<div id="_77db469e-2305-4c9e-1238-88a8fdf95187">
+<p id="section-3.3.1-1">When sending iTip messages the sender SHOULD send the minimum set of
+properties. Receivers MUST ignore all optional properties. The tables
+below show the required properties per component type. All others are optional.<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_302ec373-26fc-c67e-245a-fc3306b7a02f">
+<p id="section-3.3.1-2">For PUBLISH and REQUEST as many properties as are required to define
+the component SHOULD be sent and MUST follow the contraints defined
+in <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> or <span>[<a href="#RFC8984" class="cite xref">RFC8984</a>]</span>.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_d2b9a1c8-da7f-ef73-1f44-6c56e5179eb2">
+<p id="section-3.3.1-3">In particular the sequence property MUST be present if the value is
+greater than 0.<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_ffbd797a-6453-0931-98ad-093e8b7ee7e9">
+<p id="section-3.3.1-4">For REPLY the minimum set of properties should be returned.<a href="#section-3.3.1-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_83e5389d-d5aa-0b76-c45a-a055bf37bc2b">
+<ol start="1" type="1" class="normal type-1" id="section-3.3.1-5">
+<li id="section-3.3.1-5.1">Required Properties in a VCALENDAR Component<a href="#section-3.3.1-5.1" class="pilcrow">¶</a>
+</li>
+          </ol>
+</div>
+<div id="_fbcb21a6-aebf-208e-9a55-22bdeb58a9a8">
+<table class="center" id="table-6">
+            <caption><a href="#table-6" class="selfRef">Table 6</a></caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Component/Property</th>
+                <th class="text-left" rowspan="1" colspan="1">Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">PRODID</td>
+                <td class="text-left" rowspan="1" colspan="1"></td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">VERSION</td>
+                <td class="text-left" rowspan="1" colspan="1">Value MUST be 2.0.</td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+<div id="_b6ca68cc-b936-99fa-5e1d-48dddfe2bf52">
+<ol start="1" type="1" class="normal type-1" id="section-3.3.1-7">
+<li id="section-3.3.1-7.1">Required Properties in a VTIMEZONE Component<a href="#section-3.3.1-7.1" class="pilcrow">¶</a>
+</li>
+          </ol>
+</div>
+<div id="_0bc0d613-947a-2328-eb95-97c2f9393726">
+<table class="center" id="table-7">
+            <caption><a href="#table-7" class="selfRef">Table 7</a></caption>
+<tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Component/Property</td>
+                <td class="text-left" rowspan="1" colspan="1">Comment</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">TZID</td>
+                <td class="text-left" rowspan="1" colspan="1"></td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+<div id="_f6c22741-3d10-d473-e0f3-66d787100190">
+<ol start="1" type="1" class="normal type-1" id="section-3.3.1-9">
+<li id="section-3.3.1-9.1">Required Properties in a VTIMEZONE STANDARD oor DAYLIGHT Component<a href="#section-3.3.1-9.1" class="pilcrow">¶</a>
+</li>
+          </ol>
+</div>
+<div id="_ee75cd84-f24d-5d49-3a9f-eedfaaff77b0">
+<table class="center" id="table-8">
+            <caption><a href="#table-8" class="selfRef">Table 8</a></caption>
+<tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">DTSTART</td>
+                <td class="text-left" rowspan="1" colspan="1">MUST be local time format.</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">RDATE</td>
+                <td class="text-left" rowspan="1" colspan="1">Only if required to specify the transitions</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">RRULE</td>
+                <td class="text-left" rowspan="1" colspan="1">Only if required to specify the transitions</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">TZOFFSETFROM</td>
+                <td class="text-left" rowspan="1" colspan="1"></td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">TZOFFSETTO</td>
+                <td class="text-left" rowspan="1" colspan="1"></td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+<div id="_71539ac1-5f31-fa8d-dfc4-af3f832befcd">
+<ol start="1" type="1" class="normal type-1" id="section-3.3.1-11">
+<li id="section-3.3.1-11.1">Required Properties in a VALARM Component<a href="#section-3.3.1-11.1" class="pilcrow">¶</a>
+</li>
+          </ol>
+</div>
+<div id="_c8ab0d7a-af73-063a-0f20-75a0b2f073e0">
+<table class="center" id="table-9">
+            <caption><a href="#table-9" class="selfRef">Table 9</a></caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Component/Property</th>
+                <th class="text-left" rowspan="1" colspan="1">Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">ACTION</td>
+                <td class="text-left" rowspan="1" colspan="1">1</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1"></td>
+                <td class="text-left" rowspan="1" colspan="1"></td>
+              </tr>
+            </tbody>
+          </table>
+</div>
+</section>
+</div>
+<div id="_the_publish_method">
+<section id="section-3.3.2">
+          <h4 id="name-the-publish-method">
+<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-the-publish-method" class="section-name selfRef">The PUBLISH method</a>
+          </h4>
+<div id="_301a634f-a508-d126-b00b-3fcd2d68ab82">
+<p id="section-3.3.2-1">This method is valid for all component types and is an
+unsolicited posting of an iCalendar object.  Any CU may add published
+components to their calendar.  The "ORGANIZER" property MUST be present in a
+published iCalendar component.  "Attendees" MUST NOT be present.  Its
+expected usage is for encapsulating an arbitrary event as an
+iCalendar object.  The "Organizer" may subsequently update (with
+another "PUBLISH" method), add instances to (with an "ADD" method),
+or cancel (with a "CANCEL" method) a previously published calendar component.<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_0e6555b1-b574-30ac-e1f1-a494bacedc5f">
+<p id="section-3.3.2-2">As many properties as are required to define
+the component SHOULD be sent and MUST follow the contraints defined in <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span>.<a href="#section-3.3.2-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_a175f962-cde5-68f1-b5b4-0f08457c0d45">
+<p id="section-3.3.2-3">In particular the SEQUENCE property MUST be present if the value is greater than 0.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_publishing_vfreebusy">
+<section id="section-3.3.3">
+          <h4 id="name-publishing-vfreebusy">
+<a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-publishing-vfreebusy" class="section-name selfRef">Publishing VFREEBUSY</a>
+          </h4>
+<div id="_4ffa82dd-f7fa-d200-959a-baf1694f9335">
+<p id="section-3.3.3-1">The "PUBLISH" method for a "VFREEBUSY" calendar component is used to
+publish busy time data.  The method may be sent from one CU to any
+other.  The purpose of the method is to provide a way to send
+unsolicited busy time data.  That is, the busy time data is not being
+sent as a "REPLY" to the receipt of a "REQUEST" method.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_141aa6ea-ccd6-1797-0e58-7e1e2aaaaffe">
+<p id="section-3.3.3-2">The "ORGANIZER" property MUST be specified in the busy time
+information.  The value is the CU address of the originator of the
+busy time information.<a href="#section-3.3.3-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_97506d57-f649-c617-1de5-15b914311d19">
+<p id="section-3.3.3-3">The busy time information within the iCalendar object MAY be grouped
+into more than one "VFREEBUSY" calendar component.  This capability
+allows busy time periods to be grouped according to some common
+periodicity, such as a calendar week, month, or year.  In this case,
+each "VFREEBUSY" calendar component MUST include the "ORGANIZER",
+"DTSTART", and "DTEND" properties in order to specify the source of
+the busy time information and the date and time interval over which
+the busy time information covers.<a href="#section-3.3.3-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_the_request_method">
+<section id="section-3.3.4">
+          <h4 id="name-the-request-method">
+<a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-the-request-method" class="section-name selfRef">The REQUEST method</a>
+          </h4>
+<div id="_8d971156-e0c2-59e6-1770-85ea806f661e">
+<p id="section-3.3.4-1">This method is valid for<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.4-2.1">VEVENT<a href="#section-3.3.4-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.4-2.2">VTODO<a href="#section-3.3.4-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.4-2.3">VFREEBUSY<a href="#section-3.3.4-2.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+<div id="_67d0bf22-5e31-17fe-275f-0447b3053ace">
+<p id="section-3.3.4-3">The "Organizer" originates the "REQUEST".  The recipients of the
+"REQUEST" method are the CUs invited to the event, the "Attendees".
+For VEVENT and VTODO "Attendees" use the "REPLY" method to convey attendance status to the
+"Organizer".<a href="#section-3.3.4-3" class="pilcrow">¶</a></p>
+</div>
+<div id="_ce914ffe-7d52-8baf-9e2f-d012a93fec85">
+<p id="section-3.3.4-4">The "UID" and "SEQUENCE" properties are used to distinguish the
+various uses of the "REQUEST" method.  If the "UID" property value in
+the "REQUEST" is not found on the recipient's calendar, then the
+"REQUEST" is for a new calendar component.  If the "UID"
+property value is found on the recipient's calendar, then the
+"REQUEST" is for a rescheduling, an update, or a reconfirmation of
+the "VEVENT" calendar component.<a href="#section-3.3.4-4" class="pilcrow">¶</a></p>
+</div>
+<div id="_e845f243-b9d5-a024-aed6-99278ed735d9">
+<p id="section-3.3.4-5">For the "REQUEST" method, multiple "VEVENT" components in a single
+iCalendar object are only permitted for components with the same
+"UID" property.  That is, a series of recurring events may have
+instance-specific information.  In this case, multiple "VEVENT"
+components are needed to express the entire series.<a href="#section-3.3.4-5" class="pilcrow">¶</a></p>
+</div>
+<div id="_request_for_vevent">
+<section id="section-3.3.4.1">
+            <h5 id="name-request-for-vevent">
+<a href="#section-3.3.4.1" class="section-number selfRef">3.3.4.1. </a><a href="#name-request-for-vevent" class="section-name selfRef">REQUEST for VEVENT</a>
+          </h5>
+</section>
+</div>
+</section>
+</div>
+<div id="_the_refresh_method">
+<section id="section-3.3.5">
+          <h4 id="name-the-refresh-method">
+<a href="#section-3.3.5" class="section-number selfRef">3.3.5. </a><a href="#name-the-refresh-method" class="section-name selfRef">The REFRESH method</a>
+          </h4>
+<div id="_8fa83064-492a-de1d-d469-1ad557efc0ea">
+<p id="section-3.3.5-1">This method is valid for<a href="#section-3.3.5-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.5-2.1">VEVENT<a href="#section-3.3.5-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.5-2.2">VTODO<a href="#section-3.3.5-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_the_cancel_method">
+<section id="section-3.3.6">
+          <h4 id="name-the-cancel-method">
+<a href="#section-3.3.6" class="section-number selfRef">3.3.6. </a><a href="#name-the-cancel-method" class="section-name selfRef">The CANCEL method</a>
+          </h4>
+<div id="_2f6ef4e8-1ac1-7cec-c9cd-84996e95eab0">
+<p id="section-3.3.6-1">This method is valid for<a href="#section-3.3.6-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.6-2.1">VEVENT<a href="#section-3.3.6-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.6-2.2">VTODO<a href="#section-3.3.6-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.6-2.3">VJOURNAL<a href="#section-3.3.6-2.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_the_add_method">
+<section id="section-3.3.7">
+          <h4 id="name-the-add-method">
+<a href="#section-3.3.7" class="section-number selfRef">3.3.7. </a><a href="#name-the-add-method" class="section-name selfRef">The ADD method</a>
+          </h4>
+<div id="_f135a671-7c96-e2cb-9eec-cc178db25737">
+<p id="section-3.3.7-1">This method is valid for<a href="#section-3.3.7-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.7-2.1">VEVENT<a href="#section-3.3.7-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.7-2.2">VTODO<a href="#section-3.3.7-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.7-2.3">VJOURNAL<a href="#section-3.3.7-2.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_the_reply_method">
+<section id="section-3.3.8">
+          <h4 id="name-the-reply-method">
+<a href="#section-3.3.8" class="section-number selfRef">3.3.8. </a><a href="#name-the-reply-method" class="section-name selfRef">The REPLY method</a>
+          </h4>
+<div id="_de5288d8-b740-3785-36a7-89ba2d09caad">
+<p id="section-3.3.8-1">This method is valid for<a href="#section-3.3.8-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.8-2.1">VEVENT<a href="#section-3.3.8-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.8-2.2">VTODO<a href="#section-3.3.8-2.2" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.8-2.3">VFREEBUSY<a href="#section-3.3.8-2.3" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_the_counter_method">
+<section id="section-3.3.9">
+          <h4 id="name-the-counter-method">
+<a href="#section-3.3.9" class="section-number selfRef">3.3.9. </a><a href="#name-the-counter-method" class="section-name selfRef">The COUNTER method</a>
+          </h4>
+<div id="_641ea8f0-68f1-f497-aeaf-29a418a172fd">
+<p id="section-3.3.9-1">This method is valid for<a href="#section-3.3.9-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.9-2.1">VEVENT<a href="#section-3.3.9-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.9-2.2">VTODO<a href="#section-3.3.9-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+<div id="_the_declinecounter_method">
+<section id="section-3.3.10">
+          <h4 id="name-the-declinecounter-method">
+<a href="#section-3.3.10" class="section-number selfRef">3.3.10. </a><a href="#name-the-declinecounter-method" class="section-name selfRef">The DECLINECOUNTER method</a>
+          </h4>
+<div id="_5fa10bd5-2cb4-da33-7ce7-002ce29d5cc9">
+<p id="section-3.3.10-1">This method is valid for<a href="#section-3.3.10-1" class="pilcrow">¶</a></p>
+</div>
+<ul class="normal">
+<li class="normal" id="section-3.3.10-2.1">VEVENT<a href="#section-3.3.10-2.1" class="pilcrow">¶</a>
+</li>
+            <li class="normal" id="section-3.3.10-2.2">VTODO<a href="#section-3.3.10-2.2" class="pilcrow">¶</a>
+</li>
+          </ul>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="security">
+<section id="section-4">
+      <h2 id="name-security-considerations">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<div id="_705fa53f-19b6-466f-8c29-e3e9b670d7fa">
+<p id="section-4-1">This specification introduces no new security considerations beyond those identified in <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-4-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="iana">
+<section id="section-5">
+      <h2 id="name-iana-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<div id="_initialization_of_the_status_registry">
+<section id="section-5.1">
+        <h3 id="name-initialization-of-the-statu">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-initialization-of-the-statu" class="section-name selfRef">Initialization of the Status registry</a>
+        </h3>
+<div id="_5b512a32-bd52-ec6f-14be-bf2b1aaf766d">
+<p id="section-5.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding a XXXXX value registry to the iCalendar Elements registry and initializing it as per <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="_normative_references">
+<section id="section-6">
+      <h2 id="name-normative-references">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      </h2>
+<dl class="references">
+<dt id="RFC2119">[RFC2119]</dt>
+      <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4791">[RFC4791]</dt>
+      <dd>
+<span class="refAuthor">Daboo, C.</span>, <span class="refAuthor">Desruisseaux, B.</span>, and <span class="refAuthor">L. Dusseault</span>, <span class="refTitle">"Calendaring Extensions to WebDAV (CalDAV)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC4791</span>, <span class="seriesInfo">RFC 4791</span>, <time datetime="2007-03" class="refDate">March 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4791">https://www.rfc-editor.org/info/rfc4791</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4918">[RFC4918]</dt>
+      <dd>
+<span class="refAuthor">Dusseault, L.</span>, <span class="refTitle">"HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC4918</span>, <span class="seriesInfo">RFC 4918</span>, <time datetime="2007-06" class="refDate">June 2007</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4918">https://www.rfc-editor.org/info/rfc4918</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5545">[RFC5545]</dt>
+      <dd>
+<span class="refAuthor">Desruisseaux, B.</span>, <span class="refTitle">"Internet Calendaring and Scheduling Core Object Specification (iCalendar)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC5545</span>, <span class="seriesInfo">RFC 5545</span>, <time datetime="2009-09" class="refDate">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5545">https://www.rfc-editor.org/info/rfc5545</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5546">[RFC5546]</dt>
+      <dd>
+<span class="refAuthor">Daboo, C.</span>, <span class="refTitle">"iCalendar Transport-Independent Interoperability Protocol (iTIP)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC5546</span>, <span class="seriesInfo">RFC 5546</span>, <time datetime="2009-12" class="refDate">December 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5546">https://www.rfc-editor.org/info/rfc5546</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="iMIP">[iMIP]</dt>
+      <dd>
+<span class="refAuthor">Melnikov, A.</span>, <span class="refTitle">"iCalendar Message-Based Interoperability Protocol (iMIP)"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC6047</span>, <span class="seriesInfo">RFC 6047</span>, <time datetime="2010-12" class="refDate">December 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6047">https://www.rfc-editor.org/info/rfc6047</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+      <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8984">[RFC8984]</dt>
+      <dd>
+<span class="refAuthor">Jenkins, N.</span> and <span class="refAuthor">R. Stepanek</span>, <span class="refTitle">"JSCalendar: A JSON Representation of Calendar Data"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC8984</span>, <span class="seriesInfo">RFC 8984</span>, <time datetime="2021-07" class="refDate">July 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8984">https://www.rfc-editor.org/info/rfc8984</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9073">[RFC9073]</dt>
+      <dd>
+<span class="refAuthor">Douglass, M.</span>, <span class="refTitle">"Event Publishing Extensions to iCalendar"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC9073</span>, <span class="seriesInfo">RFC 9073</span>, <time datetime="2021-08" class="refDate">August 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9073">https://www.rfc-editor.org/info/rfc9073</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Relations">[Relations]</dt>
+    <dd>
+<span class="refAuthor">Douglass, M.</span>, <span class="refTitle">"Support for Icalendar Relationships"</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-calext-ical-relations-00">https://datatracker.ietf.org/doc/html/draft-ietf-calext-ical-relations-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="_informative_references">
+<section id="section-7">
+      <h2 id="name-informative-references">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+      </h2>
+<dl class="references">
+<dt id="BPMN">[BPMN]</dt>
+      <dd>
+<span class="refTitle">"Business Process Model and Notation"</span>, <span class="refContent">OMG BPMN 2.0.2</span>, <time datetime="2014-01" class="refDate">January 2014</time>, <span>&lt;<a href="https://www.omg.org/spec/BPMN/2.0.2/About-BPMN">https://www.omg.org/spec/BPMN/2.0.2/About-BPMN</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="TARCH">[TARCH]</dt>
+      <dd>
+<span class="refTitle">"Apthorp, A., Daboo, C., Douglass, M., CalConnect, Task Architecture V1.0,"</span>. </dd>
+<dd class="break"></dd>
+<dt id="EDISTS">[EDISTS]</dt>
+      <dd>
+<span class="refTitle">"UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS STATUS, April 30, 2014,http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm"</span>, <span class="refContent">UN/EDIFACT, D14.A</span>. </dd>
+<dd class="break"></dd>
+<dt id="WfRP">[WfRP]</dt>
+      <dd>
+<span class="refTitle">"Russell, N., ter Hofstede, A.H.M., Edmond, T., van der Aalst,W.M.P., Workflow Resource Patterns, Eindhoven University of Technology, 2004,"</span>. </dd>
+<dd class="break"></dd>
+<dt id="WSCal">[WSCal]</dt>
+      <dd>
+<span class="refTitle">"Considine, T., Douglass, M., WS-Calendar Version 1.0, OASIS, 30 July 2011,"</span>. </dd>
+<dd class="break"></dd>
+<dt id="WSHT">[WSHT]</dt>
+    <dd>
+<span class="refTitle">"Ings, D., Clement, L., Koenig, D., Mehta, V., Mueller, R., Rangaswamy, R., Rowley, M., Trickovic, I., Web Services - Human Task Version 1.1 (WS-HumanTask), OASIS, 17 August 2010,"</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-A">
+      <h2 id="name-authors-address">
+<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Michael Douglass</span></div>
+<div dir="auto" class="left"><span class="org">Bedework Commercial Services</span></div>
+<div dir="auto" class="left"><span class="street-address">226 3rd Street</span></div>
+<div dir="auto" class="left">
+<span class="locality">Troy</span>, <span class="region">NY</span> </div>
+<div dir="auto" class="left"><span class="country-name">United States of America</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mdouglass@bedework.com" class="email">mdouglass@bedework.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>

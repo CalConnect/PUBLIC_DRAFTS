@@ -1,0 +1,784 @@
+
+
+
+
+Network Working Group                                        M. Douglass
+Internet-Draft                              Bedework Commercial Services
+Updates: 5545 (if approved)                                22 April 2024
+Intended status: Standards Track                                        
+Expires: 24 October 2024
+
+
+    iCalendar Transport-Independent Interoperability Protocol (iTIP)
+                      draft-ietf-calext-itipbis-00
+
+Abstract
+
+   This document specifies a protocol that uses calendar objects to
+   provide scheduling interoperability between different calendaring
+   systems.  This is done without reference to a specific transport
+   protocol so as to allow multiple methods of communication between
+   systems.  Other documents define profiles of this protocol that use
+   specific, interoperable methods of communication between systems.
+
+   The iCalendar Transport-Independent Interoperability Protocol (iTIP)
+   complements the calendar object specifications by adding semantics
+   for group scheduling methods commonly available in current
+   calendaring systems.  These scheduling methods permit two or more
+   calendaring systems to perform transactions such as publishing,
+   scheduling, rescheduling, responding to scheduling requests,
+   negotiating changes, or canceling.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 24 October 2024.
+
+Copyright Notice
+
+   Copyright (c) 2024 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+
+
+Douglass                 Expires 24 October 2024                [Page 1]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+     2.1.  Related Documents . . . . . . . . . . . . . . . . . . . .   3
+     2.2.  Roles . . . . . . . . . . . . . . . . . . . . . . . . . .   4
+     2.3.  Methods . . . . . . . . . . . . . . . . . . . . . . . . .   4
+   3.  The Abstract Data Model . . . . . . . . . . . . . . . . . . .   6
+     3.1.  Calendar Address  . . . . . . . . . . . . . . . . . . . .   6
+     3.2.  The Owner.  . . . . . . . . . . . . . . . . . . . . . . .   6
+     3.3.  Application Protocol Elements . . . . . . . . . . . . . .   7
+       3.3.1.  Required properties per components  . . . . . . . . .   8
+       3.3.2.  The PUBLISH method  . . . . . . . . . . . . . . . . .  10
+       3.3.3.  Publishing VFREEBUSY  . . . . . . . . . . . . . . . .  10
+       3.3.4.  The REQUEST method  . . . . . . . . . . . . . . . . .  10
+       3.3.5.  The REFRESH method  . . . . . . . . . . . . . . . . .  11
+       3.3.6.  The CANCEL method . . . . . . . . . . . . . . . . . .  11
+       3.3.7.  The ADD method  . . . . . . . . . . . . . . . . . . .  11
+       3.3.8.  The REPLY method  . . . . . . . . . . . . . . . . . .  12
+       3.3.9.  The COUNTER method  . . . . . . . . . . . . . . . . .  12
+       3.3.10. The DECLINECOUNTER method . . . . . . . . . . . . . .  12
+   4.  Security Considerations . . . . . . . . . . . . . . . . . . .  12
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  12
+     5.1.  Initialization of the Status registry . . . . . . . . . .  12
+   6.  Normative References  . . . . . . . . . . . . . . . . . . . .  12
+   7.  Informative References  . . . . . . . . . . . . . . . . . . .  13
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  14
+
+1.  Acknowledgements
+
+   The authors would like to thank the members of the Calendaring and
+   Scheduling Consortium technical committees and the following
+   individuals for contributing their ideas, support and comments:
+
+   John Chaffee, Marten Gajda, Ken Murchison
+
+   The authors would also like to thank CalConnect, the Calendaring and
+   Scheduling Consortium, for advice with this specification.
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 2]
+
+Internet-Draft                    iTip                        April 2024
+
+
+2.  Introduction
+
+   This document specifies how calendaring systems use calendar objects
+   to interoperate with other calendaring systems.  In particular, it
+   specifies how to schedule events and tasks.  It further specifies how
+   to search for available busy time information.  It does so in a
+   general way, without specifying how communication between different
+   systems actually takes place.  Other documents specify transport
+   bindings between systems that use this protocol.
+
+   The protocol is described in abstract terms with examples shown in
+   iCalendar as defined in [RFC5545] and jsCalendar as specified in
+   [RFC8984].
+
+   This protocol is based on messages sent from an originator to one or
+   more recipients.  For certain types of messages, a recipient may
+   reply in order to update their status and may also return
+   transaction/request status information.  The protocol supports the
+   ability for the message originator to modify or cancel the original
+   message.  The protocol also supports the ability for recipients to
+   suggest changes to the originator of a message.  The elements of the
+   protocol also define the user roles for its transactions.
+
+   This specification obsoletes RFC 5546.
+
+2.1.  Related Documents
+
+   Implementers will need to be familiar with several other
+   specifications that, along with this one, describe the Internet
+   calendaring and scheduling standards.  The related documents are:
+
+   [RFC5545]  The iCalendqr specification for the objects, data types,
+      properties, and property parameters used in the protocols in that
+      format.  Also defines the methods for representing and encoding
+      them.
+
+   [RFC8984]  Describes the properties and objects used in the
+      jsCalendar representation.
+
+   [iMIP]  specifies an Internet email binding for iTIP.
+
+   This specification does not attempt to repeat the concepts or
+   definitions from these other specifications.  Where possible,
+   explicit references are made to the other specifications.
+
+
+
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 3]
+
+Internet-Draft                    iTip                        April 2024
+
+
+2.2.  Roles
+
+   Exchanges of calendar objects for the purposes of group calendaring
+   and scheduling occur between "Calendar Users" (CUs).  CUs take on
+   several roles in iTIP:
+
+       +=============+=============================================+
+       | Role        | Description                                 |
+       +=============+=============================================+
+       | Organizer   | The CU who initiates an exchange takes on   |
+       |             | the role of Organizer.  For example, the CU |
+       |             | who proposes a group meeting is the         |
+       |             | Organizer.                                  |
+       +-------------+---------------------------------------------+
+       | Attendee or | CUs who are included in the scheduling      |
+       | participant | message as possible recipients of that      |
+       |             | scheduling message.  For example, the CUs   |
+       |             | asked to participate in a group meeting by  |
+       |             | the Organizer take on the role of Attendee. |
+       +-------------+---------------------------------------------+
+       | Other CU    | A CU that is not explicitly included in a   |
+       |             | scheduling message, i.e., not the Organizer |
+       |             | or an Attendee.                             |
+       +-------------+---------------------------------------------+
+
+                                  Table 1
+
+   Note that in iCalendar and jsCalendar the role is also used to convey
+   descriptive context about an "Attendee" - such as "chair", "required
+   participant", or "non- required participant".  These roles have
+   nothing to do with the calendaring workflow.
+
+2.3.  Methods
+
+   The iTIP methods are listed below and their usage and semantics are
+   defined in Section ??? of this document.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 4]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   +================+=================================================+
+   | Method         | Description                                     |
+   +================+=================================================+
+   | PUBLISH        | Used to publish a calendar object to one or     |
+   |                | more "Calendar Users".  There is no             |
+   |                | interactivity between the publisher and any     |
+   |                | other "Calendar User".  An example might        |
+   |                | include a baseball team publishing its schedule |
+   |                | to the public.                                  |
+   +----------------+-------------------------------------------------+
+   | REQUEST        | Used to schedule a calendar object with other   |
+   |                | "Calendar Users".  Requests are interactive in  |
+   |                | that they require the receiver to respond using |
+   |                | the reply methods.  Meeting requests, busy-time |
+   |                | requests, and the assignment of tasks to other  |
+   |                | "Calendar Users" are all examples.  Requests    |
+   |                | are also used by the Organizer to update the    |
+   |                | status of a calendar object.                    |
+   +----------------+-------------------------------------------------+
+   | REPLY          | A reply is used in response to a request to     |
+   |                | convey Attendee status to the Organizer.        |
+   |                | Replies are commonly used to respond to meeting |
+   |                | and task requests.                              |
+   +----------------+-------------------------------------------------+
+   | ADD            | Add one or more new instances to an existing    |
+   |                | recurring calendar object.                      |
+   +----------------+-------------------------------------------------+
+   | CANCEL         | Cancel one or more instances of an existing     |
+   |                | calendar object.                                |
+   +----------------+-------------------------------------------------+
+   | REFRESH        | Used by an Attendee to request the latest       |
+   |                | version of a calendar object.                   |
+   +----------------+-------------------------------------------------+
+   | COUNTER        | Used by an Attendee to negotiate a change in a  |
+   |                | calendar object.  Examples include the request  |
+   |                | to change the location.  Note that COUNTER is   |
+   |                | little used.                                    |
+   +----------------+-------------------------------------------------+
+   | DECLINECOUNTER | Used by the Organizer to decline the proposed   |
+   |                | counter proposal.                               |
+   +----------------+-------------------------------------------------+
+
+                                 Table 2
+
+   Group scheduling in iTIP is accomplished using the set of "request"
+   and "response" methods described above.  The following table shows
+   the methods broken down by who can send them.
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 5]
+
+Internet-Draft                    iTip                        April 2024
+
+
+      +============+===============================================+
+      | Originator | Methods                                       |
+      +============+===============================================+
+      | Organizer  | PUBLISH, REQUEST, ADD, CANCEL, DECLINECOUNTER |
+      +------------+-----------------------------------------------+
+      | Attendee   | REPLY, REFRESH, COUNTER, REQUEST (only when   |
+      |            | delegating)                                   |
+      +------------+-----------------------------------------------+
+
+                                 Table 3
+
+   Note that for some calendar component types, the allowable methods
+   are a subset of the above set.  In addition, apart from timezone
+   components, only one component type is allowed in a single iTIP
+   message.
+
+3.  The Abstract Data Model
+
+   This section will describe the classes and attributes required to
+   carry out iTip scheduling.  They will be described in abstract terms
+   defined here and later sections will describe how the model is
+   expressed in various concrete representations.
+
+   This document will not attempt to provide a full abstract model for
+   the calendar components, properties and parameters defined in
+   [RFC5545].  Rather, only those classes and attributes that are
+   required for iTip are described here.
+
+3.1.  Calendar Address
+
+   Participants in iTip scheduling are identified only by their
+   calendar-address.  The calendar-address value type is a uri, usually
+   a mailto.
+
+   Example  mailto:mike@example.org
+
+3.2.  The Owner.
+
+   when an object is scheduled with iTip one party is the "Owner"
+   (sometimes referred to as the "Organizer").
+
+   The owner (like other participants) is identified by a calendar-
+   address.  Additionally, it may have any of: a name; a reference to
+   some form of directory entry; a language specifier.
+
+   (Do we drop sentBy?)
+
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 6]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   name: OwnerType
+   title: Owner datamodel
+   caption: Owner datamodel
+   imports:
+     OwnerType:
+     ParticipantType:
+     CalendarAddressType:
+   fidelity:
+     hideOtherClasses: true
+
+                                  Figure 1
+
+3.3.  Application Protocol Elements
+
+   iTip uses a number of attributes in the calendar objects to provide
+   scheding information and to maintain th scheduling state.  These
+   attributes takes different forms in [RFC5545] iCalendar objects and
+   [RFC8984] jsCalendar objects.
+
+   The table below lists all iTip attributes and which roperty or
+   parameter is used in each representation.
+
+   +===============+====================+=============================+
+   |               | iCalendar          | jsCalendar                  |
+   +===============+====================+=============================+
+   | Organizer     | ORGANIZER property | Participant with role owner |
+   +---------------+--------------------+-----------------------------+
+   | Attendee      | Attendee property  | Participant object          |
+   +---------------+--------------------+-----------------------------+
+   | Date stamp    | DTSTAMP property   |                             |
+   +---------------+--------------------+-----------------------------+
+   | Method        | METHOD property    |                             |
+   +---------------+--------------------+-----------------------------+
+   | Participation | PARTSTAT parameter |                             |
+   | status        |                    |                             |
+   +---------------+--------------------+-----------------------------+
+   | Status        | STATUS property    |                             |
+   +---------------+--------------------+-----------------------------+
+   | Sequence      | SEQUENCE property  |                             |
+   +---------------+--------------------+-----------------------------+
+
+                                 Table 4
+
+
+
+
+
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 7]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   iTIP messages are "text/calendar" MIME entities that contain
+   calendaring and scheduling information.  The particular type of
+   iCalendar message is referred to as the "method type".  Each method
+   type is identified by a method property specified as part of the
+   "text/calendar" content type.  The table below shows various
+   combinations of calendar components and the method types that this
+   specification supports.
+
+          +================+=======+======+=========+===========+
+          |                | Event | Task | Journal | Free-busy |
+          +================+=======+======+=========+===========+
+          | PUBLISH        | Yes   | Yes  | Yes     | Yes       |
+          +----------------+-------+------+---------+-----------+
+          | REQUEST        | Yes   | Yes  | No      | Yes       |
+          +----------------+-------+------+---------+-----------+
+          | REFRESH        | Yes   | Yes  | No      | No        |
+          +----------------+-------+------+---------+-----------+
+          | CANCEL         | Yes   | Yes  | Yes     | No        |
+          +----------------+-------+------+---------+-----------+
+          | ADD            | Yes   | Yes  | Yes     | No        |
+          +----------------+-------+------+---------+-----------+
+          | REPLY          | Yes   | Yes  | No      | Yes       |
+          +----------------+-------+------+---------+-----------+
+          | COUNTER        | Yes   | Yes  | No      | No        |
+          +----------------+-------+------+---------+-----------+
+          | DECLINECOUNTER | Yes   | Yes  | No      | No        |
+          +----------------+-------+------+---------+-----------+
+
+                                  Table 5
+
+3.3.1.  Required properties per components
+
+   When sending iTip messages the sender SHOULD send the minimum set of
+   properties.  Receivers MUST ignore all optional properties.  The
+   tables below show the required properties per component type.  All
+   others are optional.
+
+   For PUBLISH and REQUEST as many properties as are required to define
+   the component SHOULD be sent and MUST follow the contraints defined
+   in [RFC5545] or [RFC8984].
+
+   In particular the sequence property MUST be present if the value is
+   greater than 0.
+
+   For REPLY the minimum set of properties should be returned.
+
+   1.  Required Properties in a VCALENDAR Component
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 8]
+
+Internet-Draft                    iTip                        April 2024
+
+
+                +====================+====================+
+                | Component/Property | Comment            |
+                +====================+====================+
+                | PRODID             |                    |
+                +--------------------+--------------------+
+                | VERSION            | Value MUST be 2.0. |
+                +--------------------+--------------------+
+
+                                  Table 6
+
+   1.  Required Properties in a VTIMEZONE Component
+
+                     +--------------------+---------+
+                     | Component/Property | Comment |
+                     +--------------------+---------+
+                     | TZID               |         |
+                     +--------------------+---------+
+
+                                 Table 7
+
+   1.  Required Properties in a VTIMEZONE STANDARD oor DAYLIGHT
+       Component
+
+      +--------------+---------------------------------------------+
+      | DTSTART      | MUST be local time format.                  |
+      +--------------+---------------------------------------------+
+      | RDATE        | Only if required to specify the transitions |
+      +--------------+---------------------------------------------+
+      | RRULE        | Only if required to specify the transitions |
+      +--------------+---------------------------------------------+
+      | TZOFFSETFROM |                                             |
+      +--------------+---------------------------------------------+
+      | TZOFFSETTO   |                                             |
+      +--------------+---------------------------------------------+
+
+                                 Table 8
+
+   1.  Required Properties in a VALARM Component
+
+                     +====================+=========+
+                     | Component/Property | Comment |
+                     +====================+=========+
+                     | ACTION             | 1       |
+                     +--------------------+---------+
+                     +--------------------+---------+
+
+                                 Table 9
+
+
+
+
+Douglass                 Expires 24 October 2024                [Page 9]
+
+Internet-Draft                    iTip                        April 2024
+
+
+3.3.2.  The PUBLISH method
+
+   This method is valid for all component types and is an unsolicited
+   posting of an iCalendar object.  Any CU may add published components
+   to their calendar.  The "ORGANIZER" property MUST be present in a
+   published iCalendar component.  "Attendees" MUST NOT be present.  Its
+   expected usage is for encapsulating an arbitrary event as an
+   iCalendar object.  The "Organizer" may subsequently update (with
+   another "PUBLISH" method), add instances to (with an "ADD" method),
+   or cancel (with a "CANCEL" method) a previously published calendar
+   component.
+
+   As many properties as are required to define the component SHOULD be
+   sent and MUST follow the contraints defined in [RFC5546].
+
+   In particular the SEQUENCE property MUST be present if the value is
+   greater than 0.
+
+3.3.3.  Publishing VFREEBUSY
+
+   The "PUBLISH" method for a "VFREEBUSY" calendar component is used to
+   publish busy time data.  The method may be sent from one CU to any
+   other.  The purpose of the method is to provide a way to send
+   unsolicited busy time data.  That is, the busy time data is not being
+   sent as a "REPLY" to the receipt of a "REQUEST" method.
+
+   The "ORGANIZER" property MUST be specified in the busy time
+   information.  The value is the CU address of the originator of the
+   busy time information.
+
+   The busy time information within the iCalendar object MAY be grouped
+   into more than one "VFREEBUSY" calendar component.  This capability
+   allows busy time periods to be grouped according to some common
+   periodicity, such as a calendar week, month, or year.  In this case,
+   each "VFREEBUSY" calendar component MUST include the "ORGANIZER",
+   "DTSTART", and "DTEND" properties in order to specify the source of
+   the busy time information and the date and time interval over which
+   the busy time information covers.
+
+3.3.4.  The REQUEST method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+   *  VFREEBUSY
+
+
+
+Douglass                 Expires 24 October 2024               [Page 10]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   The "Organizer" originates the "REQUEST".  The recipients of the
+   "REQUEST" method are the CUs invited to the event, the "Attendees".
+   For VEVENT and VTODO "Attendees" use the "REPLY" method to convey
+   attendance status to the "Organizer".
+
+   The "UID" and "SEQUENCE" properties are used to distinguish the
+   various uses of the "REQUEST" method.  If the "UID" property value in
+   the "REQUEST" is not found on the recipient's calendar, then the
+   "REQUEST" is for a new calendar component.  If the "UID" property
+   value is found on the recipient's calendar, then the "REQUEST" is for
+   a rescheduling, an update, or a reconfirmation of the "VEVENT"
+   calendar component.
+
+   For the "REQUEST" method, multiple "VEVENT" components in a single
+   iCalendar object are only permitted for components with the same
+   "UID" property.  That is, a series of recurring events may have
+   instance-specific information.  In this case, multiple "VEVENT"
+   components are needed to express the entire series.
+
+3.3.4.1.  REQUEST for VEVENT
+
+3.3.5.  The REFRESH method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+3.3.6.  The CANCEL method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+   *  VJOURNAL
+
+3.3.7.  The ADD method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+   *  VJOURNAL
+
+
+
+Douglass                 Expires 24 October 2024               [Page 11]
+
+Internet-Draft                    iTip                        April 2024
+
+
+3.3.8.  The REPLY method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+   *  VFREEBUSY
+
+3.3.9.  The COUNTER method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+3.3.10.  The DECLINECOUNTER method
+
+   This method is valid for
+
+   *  VEVENT
+
+   *  VTODO
+
+4.  Security Considerations
+
+   This specification introduces no new security considerations beyond
+   those identified in [RFC5545].
+
+5.  IANA Considerations
+
+5.1.  Initialization of the Status registry
+
+   This specification updates [RFC5545] by adding a XXXXX value registry
+   to the iCalendar Elements registry and initializing it as per
+   [RFC5545].
+
+6.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", IETF, DOI 10.17487/RFC2119, BCP 14,
+              RFC 2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+
+
+
+Douglass                 Expires 24 October 2024               [Page 12]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   [RFC4791]  Daboo, C., Desruisseaux, B., and L. Dusseault,
+              "Calendaring Extensions to WebDAV (CalDAV)", IETF,
+              DOI 10.17487/RFC4791, RFC 4791, March 2007,
+              <https://www.rfc-editor.org/info/rfc4791>.
+
+   [RFC4918]  Dusseault, L., "HTTP Extensions for Web Distributed
+              Authoring and Versioning (WebDAV)", IETF,
+              DOI 10.17487/RFC4918, RFC 4918, June 2007,
+              <https://www.rfc-editor.org/info/rfc4918>.
+
+   [RFC5545]  Desruisseaux, B., "Internet Calendaring and Scheduling
+              Core Object Specification (iCalendar)", IETF,
+              DOI 10.17487/RFC5545, RFC 5545, September 2009,
+              <https://www.rfc-editor.org/info/rfc5545>.
+
+   [RFC5546]  Daboo, C., "iCalendar Transport-Independent
+              Interoperability Protocol (iTIP)", IETF,
+              DOI 10.17487/RFC5546, RFC 5546, December 2009,
+              <https://www.rfc-editor.org/info/rfc5546>.
+
+   [iMIP]     Melnikov, A., "iCalendar Message-Based Interoperability
+              Protocol (iMIP)", IETF, DOI 10.17487/RFC6047, RFC 6047,
+              December 2010, <https://www.rfc-editor.org/info/rfc6047>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", IETF, DOI 10.17487/RFC8174, BCP 14,
+              RFC 8174, May 2017,
+              <https://www.rfc-editor.org/info/rfc8174>.
+
+   [RFC8984]  Jenkins, N. and R. Stepanek, "JSCalendar: A JSON
+              Representation of Calendar Data", IETF,
+              DOI 10.17487/RFC8984, RFC 8984, July 2021,
+              <https://www.rfc-editor.org/info/rfc8984>.
+
+   [RFC9073]  Douglass, M., "Event Publishing Extensions to iCalendar",
+              IETF, DOI 10.17487/RFC9073, RFC 9073, August 2021,
+              <https://www.rfc-editor.org/info/rfc9073>.
+
+   [Relations]
+              Douglass, M., "Support for Icalendar Relationships",
+              August 2016, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-calext-ical-relations-00>.
+
+7.  Informative References
+
+   [BPMN]     "Business Process Model and Notation", OMG BPMN 2.0.2,
+              January 2014,
+              <https://www.omg.org/spec/BPMN/2.0.2/About-BPMN>.
+
+
+
+Douglass                 Expires 24 October 2024               [Page 13]
+
+Internet-Draft                    iTip                        April 2024
+
+
+   [TARCH]    "Apthorp, A., Daboo, C., Douglass, M., CalConnect, Task
+              Architecture V1.0,".
+
+   [EDISTS]   "UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS
+              STATUS, April 30,
+              2014,http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/
+              trsd/trsdsts.htm", UN/EDIFACT, D14.A.
+
+   [WfRP]     "Russell, N., ter Hofstede, A.H.M., Edmond, T., van der
+              Aalst,W.M.P., Workflow Resource Patterns, Eindhoven
+              University of Technology, 2004,".
+
+   [WSCal]    "Considine, T., Douglass, M., WS-Calendar Version 1.0,
+              OASIS, 30 July 2011,".
+
+   [WSHT]     "Ings, D., Clement, L., Koenig, D., Mehta, V., Mueller,
+              R., Rangaswamy, R., Rowley, M., Trickovic, I., Web
+              Services - Human Task Version 1.1 (WS-HumanTask), OASIS,
+              17 August 2010,".
+
+Author's Address
+
+   Michael Douglass
+   Bedework Commercial Services
+   226 3rd Street
+   Troy, NY
+   United States of America
+   Email: mdouglass@bedework.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Douglass                 Expires 24 October 2024               [Page 14]

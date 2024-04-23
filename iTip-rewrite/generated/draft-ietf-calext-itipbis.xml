@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ietf-standard xmlns="https://www.metanorma.org/ns/ietf" type="semantic" version="3.3.5" schema-version="v1.3.0">
+<bibdata type="standard">
+<title language="en" format="text/plain" type="main">iCalendar Transport-Independent Interoperability Protocol (iTIP)</title>
+
+<title language="en" format="text/plain" type="abbrev">iTip</title>
+<docidentifier primary="true">draft-ietf-calext-itipbis-00</docidentifier><docnumber>draft-ietf-calext-itipbis-00</docnumber><contributor><role type="author"/><person>
+<name><completename>Michael Douglass</completename></name>
+<affiliation><organization>
+<name>Bedework Commercial Services</name>
+<address><street>226 3rd Street</street><city>Troy</city><state>NY</state><country>United States of America</country></address></organization></affiliation><email>mdouglass@bedework.com</email></person></contributor><contributor><role type="publisher"/><organization>
+<name>Internet Engineering Task Force</name>
+<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2022-06-27</revision-date></version><language>en</language><script>Latn</script><abstract><p>This document specifies a protocol that uses calendar objects
+to provide scheduling interoperability between
+different calendaring systems.  This is done without reference to a
+specific transport protocol so as to allow multiple methods of
+communication between systems.  Other documents define
+profiles of this protocol that use specific, interoperable methods of
+communication between systems.</p>
+
+<p>The iCalendar Transport-Independent Interoperability Protocol (iTIP)
+complements the calendar object specifications by adding semantics
+for group scheduling methods commonly available in current
+calendaring systems.  These scheduling methods permit two or more
+calendaring systems to perform transactions such as publishing,
+scheduling, rescheduling, responding to scheduling requests,
+negotiating changes, or canceling.</p>
+</abstract><status><stage>standard</stage></status><copyright><from>2024</from><owner><organization>
+<name>Internet Engineering Task Force</name>
+<abbreviation>IETF</abbreviation></organization></owner></copyright><relation type="updates"><bibitem>
+<title>--</title>
+<docidentifier>5545</docidentifier></bibitem>
+</relation><series type="stream">
+<title>IETF</title>
+</series><series type="intended">
+<title>full-standard</title>
+</series><ext><doctype>internet-draft</doctype><area>Internet</area><ipr>trust200902</ipr><consensus>true</consensus><pi><tocinclude>yes</tocinclude></pi></ext></bibdata><metanorma-extension><presentation-metadata><name>TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>HTML TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>DOC TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>PDF TOC Heading Levels</name><value>2</value></presentation-metadata></metanorma-extension>
+<preface><abstract id="_abstract"><title>Abstract</title><p id="_bb8497db-1745-829c-1681-e294da1792b9">This document specifies a protocol that uses calendar objects
+to provide scheduling interoperability between
+different calendaring systems.  This is done without reference to a
+specific transport protocol so as to allow multiple methods of
+communication between systems.  Other documents define
+profiles of this protocol that use specific, interoperable methods of
+communication between systems.</p>
+
+<p id="_c777b399-1c70-ab2d-3084-a19cb9a0cd0c">The iCalendar Transport-Independent Interoperability Protocol (iTIP)
+complements the calendar object specifications by adding semantics
+for group scheduling methods commonly available in current
+calendaring systems.  These scheduling methods permit two or more
+calendaring systems to perform transactions such as publishing,
+scheduling, rescheduling, responding to scheduling requests,
+negotiating changes, or canceling.</p>
+</abstract><acknowledgements id="acknowledgements" obligation="informative">
+<title>Acknowledgements</title>
+<p id="_4b94069e-3238-7b20-3d14-df35ee228d70">The authors would like to thank the members of the Calendaring and Scheduling Consortium technical committees and the following individuals for contributing their ideas, support and comments:</p>
+
+<p id="_345048c2-b9ac-de68-5790-732b4c85e6df">John Chaffee, Marten Gajda, Ken Murchison</p>
+
+<p id="_02978224-8d42-1d05-121a-a1fffbdfeac8">The authors would also like to thank CalConnect, the Calendaring and
+Scheduling Consortium, for advice with this specification.</p>
+</acknowledgements></preface><sections>
+<clause id="_introduction" inline-header="false" obligation="normative">
+<title>Introduction</title>
+<p id="_74ec45c6-185c-5bcc-9d9c-4067af3d8841">This document specifies how calendaring systems use calendar
+objects to interoperate with other calendaring systems.  In
+particular, it specifies how to schedule events and tasks.
+It further specifies how to search for available
+busy time information.  It does so in a general way, without
+specifying how communication between different systems actually takes
+place.  Other documents specify transport bindings between
+systems that use this protocol.</p>
+
+<p id="_bf2aa19c-eb4a-0c8d-dd4a-b4a7da2f491b">The protocol is described in abstract terms with examples shown
+in iCalendar as defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> and jsCalendar as specified
+in <eref type="inline" bibitemid="RFC8984" citeas="RFC 8984"/>.</p>
+
+<p id="_712ba320-e52c-a1b1-833a-6dc304fa1b7a">This protocol is based on messages sent from an originator to one or
+more recipients.  For certain types of messages, a recipient may
+reply in order to update their status and may also return
+transaction/request status information.  The protocol supports the
+ability for the message originator to modify or cancel the original
+message.  The protocol also supports the ability for recipients to
+suggest changes to the originator of a message.  The elements of the
+protocol also define the user roles for its transactions.</p>
+
+<p id="_c5dd156d-075b-b487-4e54-b1ae9c706da8">This specification obsoletes RFC 5546.</p>
+
+<clause id="_related_documents" inline-header="false" obligation="normative">
+<title>Related Documents</title>
+<p id="_9b02da79-dafc-25ad-b22e-2392808c6973">Implementers will need to be familiar with several other
+specifications that, along with this one, describe the Internet
+calendaring and scheduling standards.  The related documents are:</p>
+
+<dl id="_41601648-c22f-ba2d-3e12-9f05e1a33e6d"><dt><eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/></dt>
+<dd><p id="_9e2fba30-502c-e608-d55a-8df4f99785f9">The iCalendqr specification for the objects, data types,
+properties, and property parameters used in the protocols in that format.
+Also defines the methods
+for representing and encoding them.</p>
+</dd>
+<dt><eref type="inline" bibitemid="RFC8984" citeas="RFC 8984"/></dt>
+<dd><p id="_e5185c57-204f-9afb-93c6-b2b38a4618a7">Describes the properties and objects used in the jsCalendar
+representation.</p>
+</dd>
+<dt><eref type="inline" bibitemid="iMIP" citeas="RFC 6047"/></dt>
+<dd><p id="_d1ec6c9c-651d-ef4c-d25d-2de94de3f8d4">specifies an Internet email binding for iTIP.</p>
+</dd>
+</dl>
+
+<p id="_aae3736f-1d12-a81a-546f-ce44ba7ff552">This specification does not attempt to repeat the concepts or
+definitions from these other specifications.  Where possible,
+explicit references are made to the other specifications.</p>
+</clause>
+
+<clause id="_roles" inline-header="false" obligation="normative">
+<title>Roles</title>
+<p id="_1d886329-8d74-4973-77ca-6f8d0cd4b99d">Exchanges of calendar objects for the purposes of group calendaring
+and scheduling occur between "Calendar Users" (CUs).  CUs take on
+several roles in iTIP:</p>
+
+<table id="_a9028d5d-2114-028b-bb86-62347b6a5d25"><colgroup><col width="20%"/><col width="80%"/></colgroup><thead><tr><th valign="top" align="left">Role</th>
+<th valign="top" align="left">Description</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">Organizer</td>
+<td valign="top" align="left">The CU who initiates an exchange takes on the role of  Organizer.
+For example, the CU who proposes a group  meeting is the Organizer.</td>
+</tr><tr><td valign="top" align="left">Attendee or participant</td>
+<td valign="top" align="left">CUs who are included in the scheduling message as possible recipients
+of that scheduling message.  For example, the CUs asked to participate
+in a group meeting by the Organizer take on the role of Attendee.</td>
+</tr><tr><td valign="top" align="left">Other CU</td>
+<td valign="top" align="left">A CU that is not explicitly included in a scheduling message, i.e.,
+not the Organizer or an Attendee.</td>
+</tr></tbody>
+</table>
+
+<p id="_ed6cb181-2d80-9835-7b4c-3ceb26dff444">Note that in iCalendar and jsCalendar the role is also used to
+convey descriptive context about an "Attendee" - such as "chair",
+"required participant", or "non- required participant". These roles
+have nothing to do with the calendaring workflow.</p>
+</clause>
+
+<clause id="_methods" inline-header="false" obligation="normative">
+<title>Methods</title>
+<p id="_69dc258a-6824-82ab-d8ac-e5eddf1a3504">The iTIP methods are listed below and their usage and semantics are
+defined in Section ??? of this document.</p>
+
+<table id="_2e6f0cc3-62f4-1a19-6f1f-fc45850d2cd8"><colgroup><col width="20%"/><col width="80%"/></colgroup><thead><tr><th valign="top" align="left">Method</th>
+<th valign="top" align="left">Description</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">PUBLISH</td>
+<td valign="top" align="left">Used to publish a calendar object to one or more "Calendar Users".
+There is no interactivity between the publisher and any other
+"Calendar User". An example might include a baseball team publishing
+its schedule to the public.</td>
+</tr><tr><td valign="top" align="left">REQUEST</td>
+<td valign="top" align="left">Used to schedule a calendar object with other "Calendar Users".
+Requests are interactive in that they require the receiver to respond
+using the reply methods.  Meeting requests, busy-time requests, and the
+assignment of tasks to other "Calendar Users" are all examples.
+Requests are also used by the Organizer to update the status of a
+calendar object.</td>
+</tr><tr><td valign="top" align="left">REPLY</td>
+<td valign="top" align="left">A reply is used in response to a request to convey Attendee status
+to the Organizer. Replies are commonly used to respond to meeting and task requests.</td>
+</tr><tr><td valign="top" align="left">ADD</td>
+<td valign="top" align="left">Add one or more new instances to an existing recurring calendar object.</td>
+</tr><tr><td valign="top" align="left">CANCEL</td>
+<td valign="top" align="left">Cancel one or more instances of an existing calendar object.</td>
+</tr><tr><td valign="top" align="left">REFRESH</td>
+<td valign="top" align="left">Used by an Attendee to request the latest version of a calendar object.</td>
+</tr><tr><td valign="top" align="left">COUNTER</td>
+<td valign="top" align="left">Used by an Attendee to negotiate a change in a calendar object.
+Examples include the request to change the location. Note that COUNTER
+is little used.</td>
+</tr><tr><td valign="top" align="left">DECLINECOUNTER</td>
+<td valign="top" align="left">Used by the Organizer to decline the proposed counter proposal.</td>
+</tr></tbody>
+</table>
+
+<p id="_7b32d37d-05e8-9ca5-8d7c-4badfae0af50">Group scheduling in iTIP is accomplished using the set of "request"
+and "response" methods described above.  The following table shows
+the methods broken down by who can send them.</p>
+
+<table id="_5beaad18-5e6a-b19b-db54-8300de4186dd"><colgroup><col width="20%"/><col width="80%"/></colgroup><thead><tr><th valign="top" align="left">Originator</th>
+<th valign="top" align="left">Methods</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">Organizer</td>
+<td valign="top" align="left">PUBLISH, REQUEST, ADD, CANCEL, DECLINECOUNTER</td>
+</tr><tr><td valign="top" align="left">Attendee</td>
+<td valign="top" align="left">REPLY, REFRESH, COUNTER, REQUEST (only when delegating)</td>
+</tr></tbody>
+</table>
+
+<p id="_319955a3-d477-bb44-3616-9b81b0bd1c85">Note that for some calendar component types, the allowable methods
+are a subset of the above set.  In addition, apart from timezone
+components, only one component type is allowed in a single
+iTIP message.</p>
+</clause>
+</clause>
+
+<clause id="abstract-model" inline-header="false" obligation="normative">
+<title>The Abstract Data Model</title>
+<p id="_7147afbd-c4a4-c42b-5942-4970132a68c1">This section will describe the classes and attributes required to carry out iTip scheduling. They will be described in abstract terms defined here and later sections will describe how the model is expressed in various concrete representations.</p>
+
+<p id="_e3aa9ad8-6247-4243-6d47-8fc29b1ea0d4">This document will not attempt to provide a full abstract model for the calendar components, properties and parameters defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>. Rather, only those classes and attributes that are required for iTip are described here.</p>
+
+<clause id="_calendar_address" inline-header="false" obligation="normative">
+<title>Calendar Address</title>
+<p id="_47b16623-0127-1ebb-7217-e3b3a2979411">Participants in iTip scheduling are identified only by their calendar-address. The calendar-address value type is a uri, usually a mailto.</p>
+
+<dl id="_13969f7c-8989-cdb6-a154-cb161fe8d3c3"><dt>Example</dt>
+<dd><p id="_4ff04da8-7ab9-e270-5816-7b8de83d3ac8">mailto:mike@example.org</p>
+</dd>
+</dl>
+</clause>
+
+<clause id="_the_owner" inline-header="false" obligation="normative">
+<title>The Owner.</title>
+<p id="_4026cf6b-3bb5-f67f-639c-9a628f5d6382">when an object is scheduled with iTip one party is the "Owner" (sometimes referred to as the "Organizer").</p>
+
+<p id="_8b20223f-c289-af22-7f4e-e2dae0ee19d8">The owner (like other participants) is identified by a calendar-address. Additionally, it may have any of: a name; a reference to some form of directory entry; a language specifier.</p>
+
+<p id="_f693c855-c370-9723-d54a-0b1fc8ff92cb">(Do we drop sentBy?)</p>
+
+<figure id="_804cb3ed-0e15-fe35-439e-4d93a176e1ef"><pre id="_760bc1e0-476b-8dcb-50f5-8976e5d2b3bb">name: OwnerType
+title: Owner datamodel
+caption: Owner datamodel
+imports:
+  OwnerType:
+  ParticipantType:
+  CalendarAddressType:
+fidelity:
+  hideOtherClasses: true</pre></figure>
+</clause>
+
+<clause id="application-protocol-elements" inline-header="false" obligation="normative">
+<title>Application Protocol Elements</title>
+<p id="_6ea5c2b6-230e-0cf3-9baf-d1aad195ae81">iTip uses a number of attributes in the calendar objects to provide
+scheding information and to maintain th scheduling state. These
+attributes takes different forms in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> iCalendar objects
+and <eref type="inline" bibitemid="RFC8984" citeas="RFC 8984"/> jsCalendar objects.</p>
+
+<p id="_a2f4ef84-17e3-85da-27c7-088bce863739">The table below lists all iTip attributes and which roperty or parameter
+is used in each representation.</p>
+
+<table id="_77196a8d-052a-fa5e-5066-c105c0e35923"><thead><tr><th valign="top" align="left"/><th valign="top" align="left">iCalendar</th>
+<th valign="top" align="left">jsCalendar</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">Organizer</td>
+<td valign="top" align="left"><p id="_b3d1fbd5-f35c-1815-f907-466706a0c9bc">ORGANIZER property</p>
+</td>
+<td valign="top" align="left"><p id="_30e8dab1-0a7f-f4b9-1c8e-8a701a8f60ff">Participant with role owner</p>
+</td>
+</tr><tr><td valign="top" align="left">Attendee</td>
+<td valign="top" align="left"><p id="_12744aab-47f9-810d-bbb0-74b86bbe0299">Attendee property</p>
+</td>
+<td valign="top" align="left"><p id="_63cee83c-d0e5-a46e-685e-8526f1e9c0bd">Participant object</p>
+</td>
+</tr><tr><td valign="top" align="left">Date stamp</td>
+<td valign="top" align="left"><p id="_96b918d9-396d-0e9b-7f9b-9e3357da06fb">DTSTAMP property</p>
+</td>
+<td valign="top" align="left"/></tr><tr><td valign="top" align="left">Method</td>
+<td valign="top" align="left"><p id="_9bdd39b7-70cb-9459-40c5-722b3f3530bc">METHOD property</p>
+</td>
+<td valign="top" align="left"/></tr><tr><td valign="top" align="left">Participation status</td>
+<td valign="top" align="left"><p id="_f1b11e5b-1c0f-fb94-c924-48cc97fc7bff">PARTSTAT parameter</p>
+</td>
+<td valign="top" align="left"/></tr><tr><td valign="top" align="left">Status</td>
+<td valign="top" align="left"><p id="_3be2c6cf-5ad2-0d7c-da44-93617782bffd">STATUS property</p>
+</td>
+<td valign="top" align="left"/></tr><tr><td valign="top" align="left">Sequence</td>
+<td valign="top" align="left"><p id="_a34f956a-531a-c7a6-8783-e06646c54441">SEQUENCE property</p>
+</td>
+<td valign="top" align="left"/></tr></tbody>
+</table>
+
+<p id="_16e7eca6-82d8-f22c-507b-e26ff3d4b69e">iTIP messages are "text/calendar" MIME entities that contain
+calendaring and scheduling information.  The particular type of
+iCalendar message is referred to as the "method type".  Each method
+type is identified by a method property specified as part of the
+"text/calendar" content type.  The table below shows various
+combinations of calendar components and the method types that this
+specification supports.</p>
+
+<table id="_29040d24-53d6-8303-ee6f-633227a8f6d0"><thead><tr><th valign="top" align="left"/><th valign="top" align="left">Event</th>
+<th valign="top" align="left">Task</th>
+<th valign="top" align="left">Journal</th>
+<th valign="top" align="left">Free-busy</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">PUBLISH</td>
+<td valign="top" align="left"><p id="_0da0428c-e66e-be80-329d-c20714fae215">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_d18529c8-2e12-7953-fdc0-8c2892db3606">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_70394ce1-3a92-8a77-9a08-e18884ac9795">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_272b95f3-cc69-a2f4-81b9-6227bf2bb0d5">Yes</p>
+</td>
+</tr><tr><td valign="top" align="left">REQUEST</td>
+<td valign="top" align="left"><p id="_24665e39-a0e5-62e7-510e-c6dbee4ce455">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_375f67e8-d755-13d8-9c66-4d63cf8f65ed">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_9fd2df9a-c769-8e19-abb1-66cd2f99a529">No</p>
+</td>
+<td valign="top" align="left"><p id="_f8dca103-a94d-b15e-127c-0e524eba845e">Yes</p>
+</td>
+</tr><tr><td valign="top" align="left">REFRESH</td>
+<td valign="top" align="left"><p id="_90d4e073-1129-b646-b0c1-4f8046321327">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_f5d4f3e8-4dfd-2705-9335-afacfa5ecc78">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_353c4aa4-400f-bc6a-0c54-8ebffbc9d989">No</p>
+</td>
+<td valign="top" align="left"><p id="_0c619760-a2d0-aab8-d42c-01c0d810d9de">No</p>
+</td>
+</tr><tr><td valign="top" align="left">CANCEL</td>
+<td valign="top" align="left"><p id="_0cf4cec5-c365-7263-4d87-1c7a7d80b3a9">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_20ffb633-f491-1fe5-af1a-423441d0199d">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_dfd8dc3d-c4f8-66a0-d739-bbfb9c265c91">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_c8d9f0be-5d0c-b6e4-2b9b-7d7a0d4f0bd4">No</p>
+</td>
+</tr><tr><td valign="top" align="left">ADD</td>
+<td valign="top" align="left"><p id="_504abc50-7e45-305a-e757-0a4b58d129b7">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_d63bbdf1-f7f7-304f-9976-19c3e7db6361">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_0bf879ec-e9a2-aaf1-1b34-275ee3d10e13">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_adf256b0-207f-9059-d858-df4f16989080">No</p>
+</td>
+</tr><tr><td valign="top" align="left">REPLY</td>
+<td valign="top" align="left"><p id="_11699dd4-29cd-965d-2df9-93b46cd52ff3">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_479c5802-e49c-dcc7-6c52-da033d75e2d9">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_c1b83936-4df4-2730-6b2d-fea89e38dc75">No</p>
+</td>
+<td valign="top" align="left"><p id="_9533a01b-d6e4-83fc-97e0-8b8143790e4f">Yes</p>
+</td>
+</tr><tr><td valign="top" align="left">COUNTER</td>
+<td valign="top" align="left"><p id="_1763d8ef-592b-cba8-9c4e-045a23db1ac8">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_f5b8ecbf-6dbd-526e-9a4e-46d31ad7ea72">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_905532d1-e9ce-c95b-bd1d-814e095401b3">No</p>
+</td>
+<td valign="top" align="left"><p id="_2221c27e-ae74-563a-4729-d128d4c834fa">No</p>
+</td>
+</tr><tr><td valign="top" align="left">DECLINECOUNTER</td>
+<td valign="top" align="left"><p id="_e96b5062-07f7-6e79-c43b-ce1d807914c1">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_e55a074f-bf77-4aeb-8979-04d1be758ad2">Yes</p>
+</td>
+<td valign="top" align="left"><p id="_ab10b7fe-1a73-6f0f-5e7d-38aabb872931">No</p>
+</td>
+<td valign="top" align="left"><p id="_a899ed4b-7cd2-b994-d1ec-706aeddc42f8">No</p>
+</td>
+</tr></tbody>
+</table>
+
+<clause id="_required_properties_per_components" inline-header="false" obligation="normative">
+<title>Required properties per components</title>
+<p id="_77db469e-2305-4c9e-1238-88a8fdf95187">When sending iTip messages the sender SHOULD send the minimum set of
+properties. Receivers MUST ignore all optional properties. The tables
+below show the required properties per component type. All others are optional.</p>
+
+<p id="_302ec373-26fc-c67e-245a-fc3306b7a02f">For PUBLISH and REQUEST as many properties as are required to define
+the component SHOULD be sent and MUST follow the contraints defined
+in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> or <eref type="inline" bibitemid="RFC8984" citeas="RFC 8984"/>.</p>
+
+<p id="_d2b9a1c8-da7f-ef73-1f44-6c56e5179eb2">In particular the sequence property MUST be present if the value is
+greater than 0.</p>
+
+<p id="_ffbd797a-6453-0931-98ad-093e8b7ee7e9">For REPLY the minimum set of properties should be returned.</p>
+
+<ol id="_83e5389d-d5aa-0b76-c45a-a055bf37bc2b" type="arabic"><li><p id="_0dcf3d78-7edb-1975-2e48-512de73ba40f">Required Properties in a VCALENDAR Component</p>
+</li>
+</ol>
+
+<table id="_fbcb21a6-aebf-208e-9a55-22bdeb58a9a8"><thead><tr><th valign="top" align="left">Component/Property</th>
+<th valign="top" align="left">Comment</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">PRODID</td>
+<td valign="top" align="left"/></tr><tr><td valign="top" align="left">VERSION</td>
+<td valign="top" align="left">Value MUST be 2.0.</td>
+</tr></tbody>
+</table>
+
+<ol id="_b6ca68cc-b936-99fa-5e1d-48dddfe2bf52" type="arabic"><li><p id="_5f560016-b6e5-3d07-4b80-9ad6b169a804">Required Properties in a VTIMEZONE Component</p>
+</li>
+</ol>
+
+<table id="_0bc0d613-947a-2328-eb95-97c2f9393726"><tbody><tr><td valign="top" align="left">Component/Property</td>
+<td valign="top" align="left">Comment</td>
+</tr><tr><td valign="top" align="left">TZID</td>
+<td valign="top" align="left"/></tr></tbody>
+</table>
+
+<ol id="_f6c22741-3d10-d473-e0f3-66d787100190" type="arabic"><li><p id="_c076647b-b19c-885f-487d-94d4acf4d0ce">Required Properties in a VTIMEZONE STANDARD oor DAYLIGHT Component</p>
+</li>
+</ol>
+
+<table id="_ee75cd84-f24d-5d49-3a9f-eedfaaff77b0"><tbody><tr><td valign="top" align="left">DTSTART</td>
+<td valign="top" align="left">MUST be local time format.</td>
+</tr><tr><td valign="top" align="left">RDATE</td>
+<td valign="top" align="left">Only if required to specify the transitions</td>
+</tr><tr><td valign="top" align="left">RRULE</td>
+<td valign="top" align="left">Only if required to specify the transitions</td>
+</tr><tr><td valign="top" align="left">TZOFFSETFROM</td>
+<td valign="top" align="left"/></tr><tr><td valign="top" align="left">TZOFFSETTO</td>
+<td valign="top" align="left"/></tr></tbody>
+</table>
+
+<ol id="_71539ac1-5f31-fa8d-dfc4-af3f832befcd" type="arabic"><li><p id="_96d88751-2aef-bf48-f75e-977ca4ce1da1">Required Properties in a VALARM Component</p>
+</li>
+</ol>
+
+<table id="_c8ab0d7a-af73-063a-0f20-75a0b2f073e0"><thead><tr><th valign="top" align="left">Component/Property</th>
+<th valign="top" align="left">Comment</th>
+</tr></thead>
+<tbody><tr><td valign="top" align="left">ACTION</td>
+<td valign="top" align="left">1</td>
+</tr><tr><td valign="top" align="left"/><td valign="top" align="left"/></tr></tbody>
+</table>
+</clause>
+
+<clause id="_the_publish_method" inline-header="false" obligation="normative">
+<title>The PUBLISH method</title>
+<p id="_301a634f-a508-d126-b00b-3fcd2d68ab82">This method is valid for all component types and is an
+unsolicited posting of an iCalendar object.  Any CU may add published
+components to their calendar.  The "ORGANIZER" property MUST be present in a
+published iCalendar component.  "Attendees" MUST NOT be present.  Its
+expected usage is for encapsulating an arbitrary event as an
+iCalendar object.  The "Organizer" may subsequently update (with
+another "PUBLISH" method), add instances to (with an "ADD" method),
+or cancel (with a "CANCEL" method) a previously published calendar component.</p>
+
+<p id="_0e6555b1-b574-30ac-e1f1-a494bacedc5f">As many properties as are required to define
+the component SHOULD be sent and MUST follow the contraints defined in <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/>.</p>
+
+<p id="_a175f962-cde5-68f1-b5b4-0f08457c0d45">In particular the SEQUENCE property MUST be present if the value is greater than 0.</p>
+</clause>
+
+<clause id="_publishing_vfreebusy" inline-header="false" obligation="normative">
+<title>Publishing VFREEBUSY</title>
+<p id="_4ffa82dd-f7fa-d200-959a-baf1694f9335">The "PUBLISH" method for a "VFREEBUSY" calendar component is used to
+publish busy time data.  The method may be sent from one CU to any
+other.  The purpose of the method is to provide a way to send
+unsolicited busy time data.  That is, the busy time data is not being
+sent as a "REPLY" to the receipt of a "REQUEST" method.</p>
+
+<p id="_141aa6ea-ccd6-1797-0e58-7e1e2aaaaffe">The "ORGANIZER" property MUST be specified in the busy time
+information.  The value is the CU address of the originator of the
+busy time information.</p>
+
+<p id="_97506d57-f649-c617-1de5-15b914311d19">The busy time information within the iCalendar object MAY be grouped
+into more than one "VFREEBUSY" calendar component.  This capability
+allows busy time periods to be grouped according to some common
+periodicity, such as a calendar week, month, or year.  In this case,
+each "VFREEBUSY" calendar component MUST include the "ORGANIZER",
+"DTSTART", and "DTEND" properties in order to specify the source of
+the busy time information and the date and time interval over which
+the busy time information covers.</p>
+</clause>
+
+<clause id="_the_request_method" inline-header="false" obligation="normative">
+<title>The REQUEST method</title>
+<p id="_8d971156-e0c2-59e6-1770-85ea806f661e">This method is valid for</p>
+
+<ul id="_8b939804-1c7b-7b88-51f1-daff2069abc0"><li><p id="_241acfcd-082b-9397-fea8-5947219e8dca">VEVENT</p>
+</li>
+<li><p id="_fac5a15d-4319-575b-b9c1-b8f4f3b6827b">VTODO</p>
+</li>
+<li><p id="_b4f54aac-7870-adb8-afc9-5a53a4dd2ad8">VFREEBUSY</p>
+</li>
+</ul>
+
+<p id="_67d0bf22-5e31-17fe-275f-0447b3053ace">The "Organizer" originates the "REQUEST".  The recipients of the
+"REQUEST" method are the CUs invited to the event, the "Attendees".
+For VEVENT and VTODO "Attendees" use the "REPLY" method to convey attendance status to the
+"Organizer".</p>
+
+<p id="_ce914ffe-7d52-8baf-9e2f-d012a93fec85">The "UID" and "SEQUENCE" properties are used to distinguish the
+various uses of the "REQUEST" method.  If the "UID" property value in
+the "REQUEST" is not found on the recipient's calendar, then the
+"REQUEST" is for a new calendar component.  If the "UID"
+property value is found on the recipient's calendar, then the
+"REQUEST" is for a rescheduling, an update, or a reconfirmation of
+the "VEVENT" calendar component.</p>
+
+<p id="_e845f243-b9d5-a024-aed6-99278ed735d9">For the "REQUEST" method, multiple "VEVENT" components in a single
+iCalendar object are only permitted for components with the same
+"UID" property.  That is, a series of recurring events may have
+instance-specific information.  In this case, multiple "VEVENT"
+components are needed to express the entire series.</p>
+
+<clause id="_request_for_vevent" inline-header="false" obligation="normative">
+<title>REQUEST for VEVENT</title>
+</clause>
+</clause>
+
+<clause id="_the_refresh_method" inline-header="false" obligation="normative">
+<title>The REFRESH method</title>
+<p id="_8fa83064-492a-de1d-d469-1ad557efc0ea">This method is valid for</p>
+
+<ul id="_e30b43e2-0c65-a113-c3b8-343a0f256c9b"><li><p id="_a35b3aa1-b050-4523-9648-f4ffc5d1d2da">VEVENT</p>
+</li>
+<li><p id="_80aa1a68-30de-addd-0b34-4303ee29408b">VTODO</p>
+</li>
+</ul>
+</clause>
+
+<clause id="_the_cancel_method" inline-header="false" obligation="normative">
+<title>The CANCEL method</title>
+<p id="_2f6ef4e8-1ac1-7cec-c9cd-84996e95eab0">This method is valid for</p>
+
+<ul id="_8f6c1375-cc5c-113d-2157-69b0e00c76c0"><li><p id="_7abb7cf8-a979-55ba-8849-87a58a0cf6ea">VEVENT</p>
+</li>
+<li><p id="_6fe8e4a1-8396-2bdf-7244-228ee4bf01c4">VTODO</p>
+</li>
+<li><p id="_4b8c4d92-c8ed-ad49-208a-4c7d30ff5b16">VJOURNAL</p>
+</li>
+</ul>
+</clause>
+
+<clause id="_the_add_method" inline-header="false" obligation="normative">
+<title>The ADD method</title>
+<p id="_f135a671-7c96-e2cb-9eec-cc178db25737">This method is valid for</p>
+
+<ul id="_c991d713-c5c7-cde9-578c-4681be837826"><li><p id="_9a861d86-f8d7-5765-6ba7-0ccf190f6197">VEVENT</p>
+</li>
+<li><p id="_4a502889-656a-078f-8a33-4524f1e56d66">VTODO</p>
+</li>
+<li><p id="_2f1c284b-a4ca-8456-6c00-3dff2849f3c0">VJOURNAL</p>
+</li>
+</ul>
+</clause>
+
+<clause id="_the_reply_method" inline-header="false" obligation="normative">
+<title>The REPLY method</title>
+<p id="_de5288d8-b740-3785-36a7-89ba2d09caad">This method is valid for</p>
+
+<ul id="_ccfb6485-b514-94fc-6637-55a566351f69"><li><p id="_ff20e177-e574-c68c-8f2f-b06dbff5f68b">VEVENT</p>
+</li>
+<li><p id="_e3554e48-11ae-0e96-8cce-651cb7ba7e0e">VTODO</p>
+</li>
+<li><p id="_1b8edccb-abdf-6c42-262f-6c6b193ab336">VFREEBUSY</p>
+</li>
+</ul>
+</clause>
+
+<clause id="_the_counter_method" inline-header="false" obligation="normative">
+<title>The COUNTER method</title>
+<p id="_641ea8f0-68f1-f497-aeaf-29a418a172fd">This method is valid for</p>
+
+<ul id="_1f134fe0-dc18-94bf-b7a1-c17e11f0b5d4"><li><p id="_bca2dc52-2ade-f8e9-56b8-d7a7cba800b9">VEVENT</p>
+</li>
+<li><p id="_6fd0c563-71c5-091d-7729-0828b7765b10">VTODO</p>
+</li>
+</ul>
+</clause>
+
+<clause id="_the_declinecounter_method" inline-header="false" obligation="normative">
+<title>The DECLINECOUNTER method</title>
+<p id="_5fa10bd5-2cb4-da33-7ce7-002ce29d5cc9">This method is valid for</p>
+
+<ul id="_dcbeba0a-c8c1-351c-8822-f9ce1c7b9db4"><li><p id="_6f02b57e-87cd-0fe3-31c4-86ad64afef75">VEVENT</p>
+</li>
+<li><p id="_ffe22bc1-6c74-7310-2fad-5b97827614e4">VTODO</p>
+</li>
+</ul>
+</clause>
+</clause>
+</clause>
+
+<clause id="security" inline-header="false" obligation="normative">
+<title>Security Considerations</title>
+<p id="_705fa53f-19b6-466f-8c29-e3e9b670d7fa">This specification introduces no new security considerations beyond those identified in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
+</clause>
+
+<clause id="iana" inline-header="false" obligation="normative">
+<title>IANA Considerations</title>
+<clause id="_initialization_of_the_status_registry" inline-header="false" obligation="normative">
+<title>Initialization of the Status registry</title>
+<p id="_5b512a32-bd52-ec6f-14be-bf2b1aaf766d">This specification updates <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> by adding a XXXXX value registry to the iCalendar Elements registry and initializing it as per <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
+</clause>
+</clause>
+
+
+
+
+
+</sections><bibliography><references id="_normative_references" normative="true" obligation="informative">
+<title>Normative References</title>
+<bibitem id="RFC2119" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">Key words for use in RFCs to Indicate Requirement Levels</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc2119</uri>  <docidentifier type="IETF" primary="true">RFC 2119</docidentifier>  <docidentifier type="DOI">10.17487/RFC2119</docidentifier>  <docnumber>RFC2119</docnumber>  <date type="published">    <on>1997-03</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">S. Bradner</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_d880f395-e6d7-8f4a-03cf-d16fe47fb9c2">In many standards track documents several words are used to signify the requirements in the specification. These words are often capitalized. This document defines these words as they should be interpreted in IETF documents. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</p>
+  </abstract>  <series>    
+<title format="text/plain">BCP</title>
+    <number>14</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>2119</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>Standards</keyword>  <keyword>Track</keyword>  <keyword>Documents</keyword></bibitem>
+<bibitem id="RFC4791" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">Calendaring Extensions to WebDAV (CalDAV)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc4791</uri>  <docidentifier type="IETF" primary="true">RFC 4791</docidentifier>  <docidentifier type="DOI">10.17487/RFC4791</docidentifier>  <docnumber>RFC4791</docnumber>  <date type="published">    <on>2007-03</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">C. Daboo</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">B. Desruisseaux</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">L. Dusseault</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_5be4efc9-394d-7eb9-056b-14bb643d615a">This document defines extensions to the Web Distributed Authoring and Versioning (WebDAV) protocol to specify a standard way of accessing, managing, and sharing calendaring and scheduling information based on the iCalendar format. This document defines the "calendar-access" feature of CalDAV. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>4791</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>calsched</keyword>  <keyword>calsch</keyword>  <keyword>calcav</keyword>  <keyword>calendar</keyword>  <keyword>calendaring</keyword>  <keyword>scheduling</keyword>  <keyword>webdav</keyword>  <keyword>ical</keyword>  <keyword>icalendar</keyword>  <keyword>itip</keyword>  <keyword>text/calendar</keyword>  <keyword>http</keyword></bibitem>
+<bibitem id="RFC4918" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc4918</uri>  <docidentifier type="IETF" primary="true">RFC 4918</docidentifier>  <docidentifier type="DOI">10.17487/RFC4918</docidentifier>  <docnumber>RFC4918</docnumber>  <date type="published">    <on>2007-06</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">L. Dusseault</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_533cbfc0-83a4-2037-5eb7-789d8c6713f7">Web Distributed Authoring and Versioning (WebDAV) consists of a set of methods, headers, and content-types ancillary to HTTP/1.1 for the management of resource properties, creation and management of resource collections, URL namespace manipulation, and resource locking (collision avoidance).</p>
+    <p id="_4d00507d-7b60-65bc-da11-71b79ae2140e">RFC 2518 was published in February 1999, and this specification obsoletes RFC 2518 with minor revisions mostly due to interoperability experience. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>4918</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>WEBDAV</keyword>  <keyword>hypertext</keyword>  <keyword>transfer</keyword>  <keyword>protocol</keyword>  <keyword>web</keyword>  <keyword>content</keyword></bibitem>
+<bibitem id="RFC5545" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5545</uri>  <docidentifier type="IETF" primary="true">RFC 5545</docidentifier>  <docidentifier type="DOI">10.17487/RFC5545</docidentifier>  <docnumber>RFC5545</docnumber>  <date type="published">    <on>2009-09</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">B. Desruisseaux</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_fa0bf784-4550-0b44-8677-c2ba87a7ce41">This document defines the iCalendar data format for representing and exchanging calendaring and scheduling information such as events, to-dos, journal entries, and free/busy information, independent of any particular calendar service or protocol. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5545</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>calsify</keyword>  <keyword>calsched</keyword>  <keyword>calsch</keyword>  <keyword>caldav</keyword>  <keyword>calendar</keyword>  <keyword>calendaring</keyword>  <keyword>meeting</keyword>  <keyword>event</keyword>  <keyword>task</keyword>  <keyword>to-do</keyword>  <keyword>journal</keyword>  <keyword>appointment</keyword>  <keyword>agenda</keyword>  <keyword>schedule</keyword>  <keyword>scheduling</keyword>  <keyword>ical</keyword>  <keyword>icalendar</keyword>  <keyword>itip</keyword>  <keyword>imip</keyword>  <keyword>text/calendar</keyword>  <keyword>ischedule</keyword>  <keyword>xCalendar</keyword></bibitem>
+<bibitem id="RFC5546" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">iCalendar Transport-Independent Interoperability Protocol (iTIP)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc5546</uri>  <docidentifier type="IETF" primary="true">RFC 5546</docidentifier>  <docidentifier type="DOI">10.17487/RFC5546</docidentifier>  <docnumber>RFC5546</docnumber>  <date type="published">    <on>2009-12</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">C. Daboo</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_2cd2d582-e2ae-29a6-352a-43e32fe9fac6">This document specifies a protocol that uses the iCalendar object specification to provide scheduling interoperability between different calendaring systems. This is done without reference to a specific transport protocol so as to allow multiple methods of communication between systems. Subsequent documents will define profiles of this protocol that use specific, interoperable methods of communication between systems.</p>
+    <p id="_cd6ce1d1-b0b8-b7fe-28a2-489156d14426">The iCalendar Transport-Independent Interoperability Protocol (iTIP) complements the iCalendar object specification by adding semantics for group scheduling methods commonly available in current calendaring systems. These scheduling methods permit two or more calendaring systems to perform transactions such as publishing, scheduling, rescheduling, responding to scheduling requests, negotiating changes, or canceling. [STANDARDS-TRACK]</p>
+  </abstract>  <relation type="updates">    <bibitem>      <formattedref format="text/plain">RFC5545</formattedref>      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">RFC</title>
+    <number>5546</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>calendar</keyword>  <keyword>scheduling</keyword></bibitem>
+<bibitem id="iMIP" type="standard" schema-version="v1.2.8">  <fetched>2024-04-20</fetched>  
+<title type="main" format="text/plain">iCalendar Message-Based Interoperability Protocol (iMIP)</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc6047</uri>  <docidentifier type="IETF" primary="true">RFC 6047</docidentifier>  <docidentifier type="DOI">10.17487/RFC6047</docidentifier>  <docnumber>RFC6047</docnumber>  <date type="published">    <on>2010-12</on>  </date>  <contributor>    <role type="editor"/>    <person>      
+<name>        <completename language="en" script="Latn">A. Melnikov</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_a3b77a68-736f-e16c-8a8b-e40252291711">This document, "iCalendar Message-Based Interoperability Protocol (iMIP)", specifies a binding from the iCalendar Transport-independent Interoperability Protocol (iTIP) to Internet email-based transports. Calendaring entries defined by the iCalendar Object Model (iCalendar) are wrapped using constructs from RFC 5322 and MIME (RFC 2045, RFC 2046, RFC 2047, and RFC 2049), and then transported over SMTP. [STANDARDS-TRACK]</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>6047</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>IMIP]</keyword>  <keyword>electronic mail</keyword>  <keyword>transport</keyword>  <keyword>itip</keyword>  <keyword>iCalendar Transport-independent Interoperability Protocol</keyword>  <keyword>iCalendar Object Model</keyword></bibitem>
+<bibitem id="RFC8174" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc8174</uri>  <docidentifier type="IETF" primary="true">RFC 8174</docidentifier>  <docidentifier type="DOI">10.17487/RFC8174</docidentifier>  <docnumber>RFC8174</docnumber>  <date type="published">    <on>2017-05</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">B. Leiba</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_5e6172d6-dbf3-b51a-aeed-d29a146f1806">RFC 2119 specifies common key words that may be used in protocol specifications. This document aims to reduce the ambiguity by clarifying that only UPPERCASE usage of the key words have the defined special meanings.</p>
+  </abstract>  <relation type="updates">    <bibitem>      <formattedref format="text/plain">RFC2119</formattedref>      <docidentifier type="IETF" primary="true">RFC2119</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">BCP</title>
+    <number>14</number>  </series>  <series>    
+<title format="text/plain">RFC</title>
+    <number>8174</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series></bibitem>
+<bibitem id="RFC8984" type="standard" schema-version="v1.2.8">  <fetched>2024-04-20</fetched>  
+<title type="main" format="text/plain">JSCalendar: A JSON Representation of Calendar Data</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc8984</uri>  <docidentifier type="IETF" primary="true">RFC 8984</docidentifier>  <docidentifier type="DOI">10.17487/RFC8984</docidentifier>  <docnumber>RFC8984</docnumber>  <date type="published">    <on>2021-07</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">N. Jenkins</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">R. Stepanek</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_53f8465c-1b5c-f810-a433-ca3f184aff30">This specification defines a data model and JSON representation of calendar data that can be used for storage and data exchange in a calendaring and scheduling environment. It aims to be an alternative and, over time, successor to the widely deployed iCalendar data format. It also aims to be unambiguous, extendable, and simple to process. In contrast to the jCal format, which is also based on JSON, JSCalendar is not a direct mapping from iCalendar but defines the data model independently and expands semantics where appropriate.</p>
+  </abstract>  <series>    
+<title format="text/plain">RFC</title>
+    <number>8984</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>JSON</keyword>  <keyword>iCalendar</keyword>  <keyword>calendar</keyword>  <keyword>events</keyword>  <keyword>date</keyword>  <keyword>time</keyword></bibitem>
+<bibitem id="RFC9073" type="standard" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain">Event Publishing Extensions to iCalendar</title>
+  <uri type="src">https://www.rfc-editor.org/info/rfc9073</uri>  <docidentifier type="IETF" primary="true">RFC 9073</docidentifier>  <docidentifier type="DOI">10.17487/RFC9073</docidentifier>  <docnumber>RFC9073</docnumber>  <date type="published">    <on>2021-08</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en" script="Latn">M. Douglass</completename>      </name>
+    </person>  </contributor>  <contributor>    <role type="publisher"/>    <organization>      
+<name>RFC Publisher</name>
+    </organization>  </contributor>  <contributor>    <role type="authorizer"/>    <organization>      
+<name>RFC Series</name>
+    </organization>  </contributor>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_d01cad2a-824c-2e1d-92f7-40827b7021de">This specification updates RFC 5545 by introducing a number of new iCalendar properties and components that are of particular use for event publishers and in social networking.</p>
+    <p id="_48c3cd85-1b2b-fd2a-f2de-89217621816c">This specification also defines a new "STRUCTURED-DATA" property for iCalendar (RFC 5545) to allow for data that is directly pertinent to an event or task to be included with the calendar data.</p>
+  </abstract>  <relation type="updates">    <bibitem>      <formattedref format="text/plain">RFC5545</formattedref>      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>    </bibitem>
+  </relation>  <series>    
+<title format="text/plain">RFC</title>
+    <number>9073</number>  </series>  <series type="stream">    
+<title format="text/plain">IETF</title>
+  </series>  <keyword>iCalendar</keyword>  <keyword>properties</keyword></bibitem>
+<bibitem id="Relations" type="standard" schema-version="v1.2.8">  <fetched>2024-04-22</fetched>  
+<title format="text/plain" language="en" script="Latn">Support for Icalendar Relationships</title>
+  <uri type="src">https://datatracker.ietf.org/doc/html/draft-ietf-calext-ical-relations-00</uri>  <docidentifier type="Internet-Draft" primary="true">draft-ietf-calext-ical-relations-00</docidentifier>  <docidentifier type="IETF" scope="anchor">I-D.ietf-calext-ical-relations</docidentifier>  <docnumber>I-D.ietf-calext-ical-relations</docnumber>  <date type="published">    <on>2016-08</on>  </date>  <contributor>    <role type="author"/>    <person>      
+<name>        <completename language="en">Michael Douglass</completename>      </name>
+    </person>  </contributor>  <version>    <draft>00</draft>  </version>  <language>en</language>  <script>Latn</script>  <abstract format="text/html" language="en" script="Latn">    <p id="_ab866923-62da-44e6-edbc-ed169cd3fdd5">This specification updates RELATED-TO and introduces new iCalendar properties LINK, STRUCTURED-CATEGORY and REFID to allow better linking and grouping of iCalendar components and related data.</p>
+  </abstract>  <relation type="updatedBy">    <bibitem>      <formattedref format="text/plain">draft-ietf-calext-ical-relations-01</formattedref>      <docidentifier type="Internet-Draft" primary="true">draft-ietf-calext-ical-relations-01</docidentifier>    </bibitem>
+  </relation>  <series type="main">    
+<title format="text/plain" language="en" script="Latn">Internet-Draft</title>
+    <number>draft-ietf-calext-ical-relations-00</number>  </series></bibitem>
+</references><references id="_informative_references" normative="false" obligation="informative">
+<title>Informative References</title><bibitem id="BPMN" schema-version="v1.2.8">  <fetched>2024-04-11</fetched>  
+<title type="main" format="text/plain" language="en" script="Latn">Business Process Model and Notation</title>
+  <uri type="src">https://www.omg.org/spec/BPMN/2.0.2/About-BPMN</uri>  <uri type="pdf">https://www.omg.org/spec/BPMN/2.0.2/PDF</uri>  <docidentifier type="OMG" primary="true">BPMN 2.0.2</docidentifier>  <date type="published">    <on>2014-01</on>  </date>  <version>    <revision-date>2014-01-01</revision-date>    <draft>2.0.2</draft>  </version>  <abstract format="text/plain" language="en" script="Latn">Business Process Model and Notation has become the de-facto standard for business processes diagrams. It is intended to be used directly by the stakeholders who design, manage and realize business processes, but at the same time be precise enough to allow BPMN diagrams to be translated into software process components. BPMN has an easy-to-use flowchart-like notation that is independent of any particular implementation environment.</abstract>  <status>    <stage>formal</stage>  </status>  <relation type="obsoletes">    <bibitem>      <formattedref format="text/plain">OMG BPMN 1.2</formattedref>    </bibitem>
+  </relation>  <relation type="obsoletes">    <bibitem>      <formattedref format="text/plain">OMG BPMN 1.1</formattedref>    </bibitem>
+  </relation>  <relation type="obsoletes">    <bibitem>      <formattedref format="text/plain">OMG BPMN 1.0</formattedref>    </bibitem>
+  </relation>  <license>RF-RAND</license>  <keyword>Business Modeling</keyword>  <keyword>Domain</keyword></bibitem><bibitem id="TARCH">
+  <formattedref format="application/x-isodoc+xml">Apthorp, A., Daboo, C., Douglass, M., CalConnect, Task Architecture V1.0, <link target="http://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf"/></formattedref>
+  <docidentifier>CalConnect Task Architecture V1.0</docidentifier>
+  <docnumber>1.0</docnumber>
+</bibitem><bibitem id="EDISTS" schema-version="v1.2.8">  <docidentifier>UN/EDIFACT, D14.A</docidentifier>  
+<title>UN Economic Commission for Europe, UN/EDIFACT, D14.A, STS STATUS, April 30, 2014,http://www.unece.org/fileadmin/DAM/trade/untdid/d14a/trsd/trsdsts.htm</title>
+</bibitem><bibitem id="WfRP">
+  <formattedref format="application/x-isodoc+xml">Russell, N., ter Hofstede, A.H.M., Edmond, T., van der Aalst,W.M.P., Workflow Resource Patterns, Eindhoven University of Technology, 2004, <link target="http://www.workflowpatterns.com/patterns/resource/"/></formattedref>
+  <docidentifier>WfRP</docidentifier>
+  
+</bibitem><bibitem id="WSCal">
+  <formattedref format="application/x-isodoc+xml">Considine, T., Douglass, M., WS-Calendar Version 1.0, OASIS, 30 July 2011, <link target="http://docs.oasis-open.org/ws-calendar/ws-calendar-spec/v1.0/cs01/ws-calendar-spec-v1.0-cs01.html"/></formattedref>
+  <docidentifier type="OASIS">OASIS WS-Calendar V1.0</docidentifier>
+  <docnumber>1.0</docnumber>
+</bibitem><bibitem id="WSHT">
+  <formattedref format="application/x-isodoc+xml">Ings, D., Clement, L., Koenig, D., Mehta, V., Mueller, R., Rangaswamy, R., Rowley, M., Trickovic, I., Web Services - Human Task Version 1.1 (WS-HumanTask), OASIS, 17 August 2010, <link target="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/200803"/></formattedref>
+  <docidentifier type="OASIS">OASIS WS-HT V1.1</docidentifier>
+  <docnumber>1.1</docnumber>
+</bibitem>
+
+
+
+
+
+
+</references></bibliography>
+</ietf-standard>
