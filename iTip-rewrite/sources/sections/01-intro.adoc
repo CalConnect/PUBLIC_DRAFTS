@@ -78,7 +78,7 @@ have nothing to do with the calendaring workflow.
 === Methods
 
 The iTIP methods are listed below and their usage and semantics are
-defined in Section <<methods>> of this document.
+defined in Section ??? of this document.
 
 [cols="20,80"]
 |===
