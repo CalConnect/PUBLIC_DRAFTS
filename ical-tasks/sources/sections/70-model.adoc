@@ -1,0 +1,23 @@
+
+== Model
+
+=== General
+
+lutaml_diagram::views/calendar_view.lutaml[]
+
+
+// Calendar
+
+[lutaml_uml_class,views/calendar_view.lutaml,Calendar]
+
+// Event
+
+[lutaml_uml_class,views/calendar_view.lutaml,Event]
+
+
+== Class attribute tables
+
+[lutaml_uml_attributes_table,views/calendar_view.lutaml,Calendar]
+
+[lutaml_uml_attributes_table,views/calendar_view.lutaml,Event]
+
