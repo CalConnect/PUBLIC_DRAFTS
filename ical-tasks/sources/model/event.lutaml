@@ -1,0 +1,39 @@
+class Event {
+  definition {
+    An event.
+  }
+
+  identifier: String[1] {
+    definition {
+      Unique identifier of the event.
+
+      [example]
+      `event:1234` is a sample of a unique event identifier.
+    }
+  }
+
+  startTime: DateTime[1] {
+    definition {
+      Start time of the event.
+    }
+  }
+
+  endTime: DateTime[1] {
+    definition {
+      End time of the event.
+    }
+  }
+
+  location: String[1] {
+    definition {
+      Location of the event.
+    }
+  }
+
+  description: String[1] {
+    definition {
+      Description of the event.
+    }
+  }
+
+}
