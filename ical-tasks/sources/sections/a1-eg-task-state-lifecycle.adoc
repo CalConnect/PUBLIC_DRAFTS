@@ -44,7 +44,8 @@ Example of status changes in assigning and performing a task with two attendees 
 
 |===
 
-NOTE: The logic for determining the status change to the VTODO is determined by the task organizer based on the ATTENDEE status and other business logic.
+NOTE: The logic for determining the status change to the VTODO calendar component
+is determined by the task organizer based on the "ATTENDEE" property status and other business logic.
 
 === Example of Failure
 

@@ -13,4 +13,4 @@ Task Scheduling and Assignment:: ensure support for common pattens of scheduling
 
 Task Status Tracking:: improved granularity in status tracking information and alerting task actors to pending or actual task status changes
 
-These extensions are supported mainly by additions to the properties and parameters used within the "VTODO" component.
+These extensions are supported mainly by additions to the properties and parameters used within the "VTODO" calendar component.

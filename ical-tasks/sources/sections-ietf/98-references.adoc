@@ -11,6 +11,7 @@
 * [[[RFC9073,RFC 9073]]]
 * [[[RFC9074,RFC 9074]]]
 * [[[RFC9253,RFC 9253]]]
+* [[[draft-ietf-calext-subscription-upgrade,draft-ietf-calext-subscription-upgrade]]]
 
 [bibliography]
 == Informative References

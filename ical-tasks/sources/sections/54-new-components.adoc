@@ -16,7 +16,7 @@ any calendar component.
 Description:: This component provides a way for multiple date-stamped
   statuses to be associated with a component such as a participant, task or event.
 
-This component may be added to the <<RFC9073>> PARTICIPANT component
+This component may be added to the <<RFC9073>> "PARTICIPANT" component
 to allow participants in a task to specify their own status.
 
 For backwards compatibility, when a VSTATUS component is added the

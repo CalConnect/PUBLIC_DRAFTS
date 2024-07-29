@@ -6,11 +6,12 @@ The specification of tasks must be semantically explicit in order for them to be
 
 Task type:: explicitly what type of task is to be performed is identified.
 
-Task context and relationships:: how a specific task relates to other tasks and other objects that need to be understood for the effective execution of a task.
+Task context and relationships:: how a specific task relates to other tasks
+and other objects that need to be understood for the effective execution of a task.
 
 Task specific data:: the form and content of domain data provided as input to a task and/or that may be output from a task.
 
-Organizer and attendee:: recognizes that a task organizer or attendee can be an automated system.
+Organizer and attendee:: recognizes that a task "Organizer" or "Attendee" can be an automated system.
 
 === Task type
 

@@ -65,7 +65,7 @@ statvalue-todo = / "PENDING"    ;Indicates a to-do has been
                                 ;created and accepted, but has
                                 ; not yet started.
                 / "FAILED"      ;Indicates to-do has failed.
-;Extended status values for "VTODO".
+;Extended status values for "VTODO" calendar component.
 ----
 
 Description:

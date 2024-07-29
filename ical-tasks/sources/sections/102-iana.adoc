@@ -8,30 +8,10 @@ This specification updates <<RFC5545>> by adding and updating
 a number of elements according to the procedures and templates specified in
 <<RFC5545, section=8.2>>.
 
-==== Initialization of the Status registry
-
-This specification updates <<RFC5545>> by adding a Status value registry to the iCalendar Elements registry
-located here: <https://www.iana.org/assignments/icalendar> and initializing it as per <<RFC5545>>.
-
-.Initial Status Value Registry
-[cols="a,a,a",options=header]
-|===
-| Name          | Status | Reference
-
-| CANCELLED    | Current | <<RFC5545, section=3.8.1.11>>
-| COMPLETED    | Current | <<RFC5545, section=3.8.1.11>>
-| CONFIRMED    | Current | <<RFC5545, section=3.8.1.11>>
-| DRAFT        | Current | <<RFC5545, section=3.8.1.11>>
-| FINAL        | Current | <<RFC5545, section=3.8.1.11>>
-| IN-PROCESS   | Current | <<RFC5545, section=3.8.1.11>>
-| NEEDS-ACTION | Current | <<RFC5545, section=3.8.1.11>>
-| TENTATIVE    | Current | <<RFC5545, section=3.8.1.11>>
-
-|===
-
 ==== Update of the Status registry
 
-This specification further updates the Status registry with additional values defined in this document.
+This specification updates the Status registry defined in <<draft-ietf-calext-subscription-upgrade>>
+with additional values defined in this document.
 
 .Updated Status Value Registry
 [cols="a,a,a",options=header]

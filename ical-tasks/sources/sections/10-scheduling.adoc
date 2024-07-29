@@ -2,9 +2,13 @@
 
 == Task Scheduling and Assignment
 
-Tasks are assigned to actors using one or more <<RFC5545>> ATTENDEE
-properties and/or one or more <<RFC9073>> PARTICIPANT components.
+Tasks are assigned to actors using one or more <<RFC5545>> "ATTENDEE"
+properties and/or one or more <<RFC9073>> "PARTICIPANT" calendar components.
 
-Communication of task assignment or delegation to one or more actors who are allocated to a task by the organizer is directly supported by iTIP, i.e., all included ATTENDEES in an iTIP REQUEST are expected to perform the task.
+Communication of task assignment or delegation to one or more actors who are
+allocated to a task by the organizer is directly supported by iTIP, i.e., all
+included "ATTENDEE" properties in an iTIP REQUEST are expected to perform the task.
 
-The offering or advertising of a task to one or more (potential) actors where only one or a subset of the candidates may accept the task will be addressed by a later specification.
+The offering or advertising of a task to one or more (potential) actors where
+only one or a subset of the candidates may accept the task will be addressed
+by a later specification.

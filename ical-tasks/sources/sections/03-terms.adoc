@@ -3,7 +3,7 @@
 
 Terms defined and used in this specification include:
 
-Assignee:: A calendar user assigned to perform a given task. An assignee is equivalent to an attendee of an event.
+Assignee:: A calendar user assigned to perform a given task. An assignee is equivalent to an "A"ttendee" of a task.
 
 BPMS:: Business Process Management Software
 
@@ -16,13 +16,17 @@ Calendar User Agent (CUA):: This may be
 2. Software that gathers calendar data on the Calendar User's behalf.
 
 Candidate::
-A calendar user who might be able to perform a given task, prior to actually being assigned the task, e.g., a dispatcher has a list of taxi drivers (candidates) from which one will be selected to pick-up a passenger.
+A calendar user who might be able to perform a given task, prior to actually
+being assigned the task, e.g., a dispatcher has a list of taxi drivers (candidates) from which one will be selected to pick-up a passenger.
 
 Organizer::
-A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an Organizer who invites Attendees <<RFC5545>>.
+A calendar user who creates a calendar item, requests free/busy information,
+or published free/busy information. It is an "Organizer" who invites "Attendees" <<RFC5545>>.
 
 Observer::
-A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed. Often represented as an attendee with ROLE=NON-PARTICIPANT.
+A calendar user interested in a calendar component, e.g., a manager may
+have interest in all tasks that have not been completed. Often represented as
+an "Attendee" with ROLE=NON-PARTICIPANT.
 
 Resource::
 A resource in the scheduling context is any shared entity that can be scheduled by a calendar user, but does not control its own attendance status. Resources can be of "Location", "Equipment", or "Role" type.
