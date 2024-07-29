@@ -21,4 +21,7 @@ visualize when tasks should be performed and allocate
 time to them.
 
 === Milestones
-A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child VTODO components (i.e., sub-tasks associated with each of the milestones) in conjunction with the RELATED-TO property to relate the parent and child tasks.
+A task that has intermediary deadlines (i.e., milestones) SHOULD be
+expressed by child "VTODO" calendar component (i.e., sub-tasks
+associated with each of the milestones) in conjunction with the
+"RELATED-TO" property to relate the parent and child tasks.

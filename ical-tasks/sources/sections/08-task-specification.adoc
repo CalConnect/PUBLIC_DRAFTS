@@ -2,7 +2,11 @@
 
 == Task Specification
 
-The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current VTODO component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:
+The specification of tasks must be semantically explicit in order for
+them to be managed within the context of a business process or project,
+and be understood by both humans and IT systems. The current
+"VTODO" calendar component only provides for simple ad-hoc tasks or
+'to do' lists, and is therefore extended by this specification as follows:
 
 Task type:: explicitly what type of task is to be performed is identified.
 
@@ -15,7 +19,7 @@ Organizer and attendee:: recognizes that a task "Organizer" or "Attendee" can be
 
 === Task type
 
-The <<RFC9253>> CONCEPT property is used to identify the type of task, for example;
+The <<RFC9253>> "CONCEPT" property is used to identify the type of task, for example;
 
 [source]
 ----
@@ -24,7 +28,7 @@ CONCEPT:http://example.com/task/delivery
 
 === Task Context and Relationships
 
-The <<RFC9253>> LINK property specifies a link to external information, which may be context to the task. For example:
+The <<RFC9253>> "LINK" property specifies a link to external information, which may be context to the task. For example:
 
 [source]
 ----
@@ -35,7 +39,7 @@ LINK;LINKREL=describedby:mid:752142.141482.307E5@mx123.example.com
 
 The external information may be data to be manipulated in performing the task. See <<task-specific-data>>.
 
-The <<RFC9253>> REFID property is used to identify a key
+The <<RFC9253>> "REFID" property is used to identify a key
 used to group tasks by that key.
 
 [source]
@@ -45,12 +49,15 @@ REFID:Manhattan
 REFID:1234567890
 ----
 
-Extensions to the RELATED-TO property defined in <<RFC9253>> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks (VTODOs) may also be related to other calendar components; for example to a VEVENT to block time to perform a task.
+Extensions to the "RELATED-TO" property defined in <<RFC9253>> allow temporal relationships
+between tasks as found in project management to be specified as well as parent/child
+relationships and dependencies (DEPENDS-ON). Tasks (VTODO calendar components) may also be related to other
+calendar components; for example to a "VEVENT" calendar component to block time to perform a task.
 
 [[task-specific-data]]
 === Task Specific Data
 
-The LINK property can be used to relate a domain specific service to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.
+The "LINK" property can be used to relate a domain specific service to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.
 
 [source]
 ----
@@ -58,7 +65,8 @@ LINK;LINKREL="vacation-system";VALUE=URI:
  http://example.com/vacation-approval?id=1234
 ----
 
-Additionally, it might be used to link data specific to the task, for example an electronic copy of a signature taken to confirm delivery of a package.
+Additionally, it might be used to link data specific to the task, for example an electronic copy
+of a signature taken to confirm delivery of a package.
 
 [source]
 ----

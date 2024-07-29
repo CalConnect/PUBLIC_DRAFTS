@@ -30,7 +30,7 @@ is replaced by
                   ; MUST NOT occur in the same 'todoprop'.
 ----
 
-This allows a VTODO to only have a DURATION property.
+This allows a "VTODO" calendar component to only have a "DURATION" property.
 
 Furthermore, the following text:
 
@@ -53,7 +53,7 @@ is replaced by
 
 The Status property is defined in <<RFC5545, section=3.8.1.11>>. This
 specification extends that property to include new values
-associated with VTODO iCalendar components (See Appendix A for
+associated with "VTODO" calendar components (See Appendix A for
 examples of the task state lifecycle).
 
 Format Definition:: The "STATUS" property parameter list is augmented
