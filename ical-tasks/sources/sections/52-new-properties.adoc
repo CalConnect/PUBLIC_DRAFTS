@@ -195,9 +195,7 @@ it SHOULD change the "VTODO" calendar component's status to "FAILED" if either:
 
 . the PARTSTAT of one "ATTENDEE" property is set to FAILED; or
 
-. the current time is past the effective due date of the component and the task has not yet been completed.
-+
-NOTE: The effective due date is either the "DUE" property value or the
+. the current time is past the effective due date of the component and the task has not yet been completed. The effective due date is either the "DUE" property value or the
 combination of the "DTSTART" and "DURATION" property values.
 +
 Completing the task MUST be handled by a client.
