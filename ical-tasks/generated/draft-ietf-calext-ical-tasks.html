@@ -8,29 +8,25 @@
 <meta content="Adrian Apthorp" name="author">
 <meta content="Michael Douglass" name="author">
 <meta content="
-       This document updates and defines extensions to the
-Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545)
-to provide improved status tracking, scheduling and specification of tasks. 
-       It also defines how Calendaring Extensions to
-WebDAV (CalDAV) (RFC 4791) servers can be extended to
-support certain automated task management behaviours. 
+       The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists. 
+       This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in pther contexts, such as process control and project management. 
+       It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours. 
     " name="description">
-<meta content="xml2rfc 3.21.0" name="generator">
-<meta content="draft-ietf-calext-ical-tasks-09" name="ietf.draft">
+<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="draft-ietf-calext-ical-tasks-10" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.21.0
+  xml2rfc 3.22.0
     Python 3.8.10
     ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
-    Jinja2 3.1.3
-    lxml 5.2.1
-    platformdirs 4.2.0
-    pycountry 23.12.11
+    Jinja2 3.1.4
+    lxml 5.2.2
+    platformdirs 4.2.2
+    pycountry 24.6.1
     PyYAML 6.0.1
-    requests 2.31.0
+    requests 2.32.3
     setuptools 44.0.0
-    six 1.16.0
     wcwidth 0.2.13
 -->
 <link href="/home/mike/IdeaProjects/PUBLIC_DRAFTS/ical-tasks/sources/draft-ietf-calext-ical-tasks.rfc.xml" rel="alternate" type="application/rfc+xml">
@@ -1084,7 +1080,7 @@ table {
 ol.type-a { list-style-type: lower-alpha; }
 ol.type-A { list-style-type: upper-alpha; }
 ol.type-i { list-style-type: lower-roman; }
-ol.type-I { list-style-type: lower-roman; }
+ol.type-I { list-style-type: upper-roman; }
 /* Apply the print table and row borders in general, on request from the RPC,
 and increase the contrast between border and odd row background slightly */
 table {
@@ -1216,11 +1212,11 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Task Extensions to iCalendar</td>
-<td class="right">April 2024</td>
+<td class="right">July 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Apthorp &amp; Douglass</td>
-<td class="center">Expires 20 October 2024</td>
+<td class="center">Expires 31 January 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1230,7 +1226,7 @@ li > p:last-of-type:only-child {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">calext</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-calext-ical-tasks-09</dd>
+<dd class="internet-draft">draft-ietf-calext-ical-tasks-10</dd>
 <dt class="label-">:</dt>
 <dd></dd>
 <dt class="label-updates">Updates:</dt>
@@ -1238,12 +1234,12 @@ li > p:last-of-type:only-child {
 <a href="https://www.rfc-editor.org/rfc/rfcRFC5545" class="eref">RFC5545</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-04-18" class="published">18 April 2024</time>
+<time datetime="2024-07-30" class="published">30 July 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-10-20">20 October 2024</time></dd>
+<dd class="expires"><time datetime="2025-01-31">31 January 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1261,15 +1257,14 @@ li > p:last-of-type:only-child {
 <div id="_abstract">
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<div id="_50e9eb7a-b3bc-d021-53f3-8a25a4da8258">
-<p id="section-abstract-1">This document updates and defines extensions to the
-Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545)
-to provide improved status tracking, scheduling and specification of tasks.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<div id="_dfbfaa0a-52d3-e6cb-bb85-e0061c8c5887">
+<p id="section-abstract-1">The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_e73083ee-4c5b-159f-91c4-bbce2c6193eb">
-<p id="section-abstract-2">It also defines how Calendaring Extensions to
-WebDAV (CalDAV) (RFC 4791) servers can be extended to
-support certain automated task management behaviours.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<div id="_50b4c4ad-2925-1203-2c81-67dc407eb0ea">
+<p id="section-abstract-2">This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in pther contexts, such as process control and project management.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+</div>
+<div id="_9a92a87d-e77d-a034-1a38-7e337f573a33">
+<p id="section-abstract-3">It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -1292,7 +1287,7 @@ support certain automated task management behaviours.<a href="#section-abstract-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 31 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1376,10 +1371,10 @@ support certain automated task management behaviours.<a href="#section-abstract-
                 <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-improved-granularity-in-sta" class="internal xref">Improved granularity in status reporting information</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-relating-reason-and-comment" class="internal xref">Relating reason and comments to ATTENDEE status changes.</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-comments-associated-to-reas" class="internal xref">Comments associated to reasons and status changes</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-comments-associated-to-reas" class="internal xref">Comments associated to reasons and status changes</a></p>
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-relating-reason-and-comment" class="internal xref">Relating reason and comments to "ATTENDEE" property status changes.</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
                 <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-task-alerts-and-notificatio" class="internal xref">Task Alerts and Notifications</a></p>
@@ -1421,7 +1416,7 @@ support certain automated task management behaviours.<a href="#section-abstract-
             <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-property-extensions-and-cla" class="internal xref">Property Extensions and Clarifications</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
-                <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="auto internal xref">13.1</a>.  <a href="#name-updated-duration-property-d" class="internal xref">Updated DURATION Property definition</a></p>
+                <p id="section-toc.1-1.13.2.1.1"><a href="#section-13.1" class="auto internal xref">13.1</a>.  <a href="#name-updated-duration-property-d" class="internal xref">Updated DURATION Property definition for VTODO</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
                 <p id="section-toc.1-1.13.2.2.1"><a href="#section-13.2" class="auto internal xref">13.2</a>.  <a href="#name-redefined-status-property" class="internal xref">Redefined STATUS Property</a></p>
@@ -1454,25 +1449,22 @@ support certain automated task management behaviours.<a href="#section-abstract-
                 <p id="section-toc.1-1.17.2.1.1"><a href="#section-17.1" class="auto internal xref">17.1</a>.  <a href="#name-new-and-updated-icalendar-e" class="internal xref">New and updated iCalendar Elements Registration</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.1">
-                    <p id="section-toc.1-1.17.2.1.2.1.1"><a href="#section-17.1.1" class="auto internal xref">17.1.1</a>.  <a href="#name-initialization-of-the-statu" class="internal xref">Initialization of the Status registry</a></p>
+                    <p id="section-toc.1-1.17.2.1.2.1.1"><a href="#section-17.1.1" class="auto internal xref">17.1.1</a>.  <a href="#name-update-of-the-status-regist" class="internal xref">Update of the Status registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.2">
-                    <p id="section-toc.1-1.17.2.1.2.2.1"><a href="#section-17.1.2" class="auto internal xref">17.1.2</a>.  <a href="#name-update-of-the-status-regist" class="internal xref">Update of the Status registry</a></p>
+                    <p id="section-toc.1-1.17.2.1.2.2.1"><a href="#section-17.1.2" class="auto internal xref">17.1.2</a>.  <a href="#name-sub-state-value-registry" class="internal xref">Sub-State value registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.3">
-                    <p id="section-toc.1-1.17.2.1.2.3.1"><a href="#section-17.1.3" class="auto internal xref">17.1.3</a>.  <a href="#name-sub-state-value-registry" class="internal xref">Sub-State value registry</a></p>
+                    <p id="section-toc.1-1.17.2.1.2.3.1"><a href="#section-17.1.3" class="auto internal xref">17.1.3</a>.  <a href="#name-task-mode-value-registry" class="internal xref">Task Mode value registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.4">
-                    <p id="section-toc.1-1.17.2.1.2.4.1"><a href="#section-17.1.4" class="auto internal xref">17.1.4</a>.  <a href="#name-task-mode-value-registry" class="internal xref">Task Mode value registry</a></p>
+                    <p id="section-toc.1-1.17.2.1.2.4.1"><a href="#section-17.1.4" class="auto internal xref">17.1.4</a>.  <a href="#name-participation-statuses-regi" class="internal xref">Participation Statuses registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.5">
-                    <p id="section-toc.1-1.17.2.1.2.5.1"><a href="#section-17.1.5" class="auto internal xref">17.1.5</a>.  <a href="#name-participation-statuses-regi" class="internal xref">Participation Statuses registry</a></p>
+                    <p id="section-toc.1-1.17.2.1.2.5.1"><a href="#section-17.1.5" class="auto internal xref">17.1.5</a>.  <a href="#name-components-registry" class="internal xref">Components Registry</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.6">
-                    <p id="section-toc.1-1.17.2.1.2.6.1"><a href="#section-17.1.6" class="auto internal xref">17.1.6</a>.  <a href="#name-components-registry" class="internal xref">Components Registry</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.17.2.1.2.7">
-                    <p id="section-toc.1-1.17.2.1.2.7.1"><a href="#section-17.1.7" class="auto internal xref">17.1.7</a>.  <a href="#name-properties-registry" class="internal xref">Properties registry</a></p>
+                    <p id="section-toc.1-1.17.2.1.2.6.1"><a href="#section-17.1.6" class="auto internal xref">17.1.6</a>.  <a href="#name-properties-registry" class="internal xref">Properties registry</a></p>
 </li>
                 </ul>
 </li>
@@ -1533,63 +1525,39 @@ support certain automated task management behaviours.<a href="#section-abstract-
         <h3 id="name-terms-and-definitions">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-terms-and-definitions" class="section-name selfRef">Terms and Definitions</a>
         </h3>
-<div id="_8af4a11e-dd92-fbf3-c566-f0a0af0901a4">
-<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL",
-"SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",
-"NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and
-only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<div id="_dd08dd99-8ed3-42d0-a453-673d62f9a120">
+<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_dc6ff448-96b2-dea2-16f1-9bf4ea3c455d">
-<p id="section-1.1-2">Calendaring and scheduling roles are referred to in quoted-strings of
-text with the first character of each word in upper case.  For
-example, "Organizer" refers to a role of a "Calendar User" (CU)
-within the scheduling protocol.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
+<div id="_9d0c0c24-5d55-cec1-f6d5-a26ebc088858">
+<p id="section-1.1-2">Calendaring and scheduling roles are referred to in quoted-strings of text with the first character of each word in upper case.  For example, "Organizer" refers to a role of a "Calendar User" (CU) within the scheduling protocol.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
 </div>
-<div id="_6fd93b57-3ed0-ff6e-fb4e-bd8ed95d4106">
-<p id="section-1.1-3">Calendar components defined by <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> are referred to with
-capitalized, quoted-strings of text.  All calendar components start
-with the letter "V".  For example, "VEVENT" refers to the event
-calendar component, "VTODO" refers to the to-do calendar component,
-and "VJOURNAL" refers to the daily journal calendar component.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
+<div id="_03ce87db-5a71-c4f8-4136-e59a02c17678">
+<p id="section-1.1-3">Calendar components defined by <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and updating specifications are referred to with capitalized, quoted-strings of text, followed by the words "calendar component".  For example, "VEVENT" calendar component refers to the event calendar component, "VTODO" calendar component refers to the to-do calendar component, and "VJOURNAL" calendar component refers to the daily journal calendar component.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 </div>
-<div id="_55a38d91-f010-e0c0-ad53-0c0db51760e8">
-<p id="section-1.1-4">Scheduling methods are referred to with capitalized, quoted-strings
-of text.  For example, "REQUEST" refers to the method for requesting
-a scheduling calendar component be created or modified; "REPLY"
-refers to the method a recipient of a request uses to update their
-status with the "Organizer" of the calendar component.<a href="#section-1.1-4" class="pilcrow">¶</a></p>
+<div id="_7f7a5633-5c1a-bb78-efe0-44b28a08a223">
+<p id="section-1.1-4">Scheduling methods are referred to with capitalized, quoted-strings of text.  For example, "REQUEST" refers to the method for requesting a scheduling calendar component be created or modified; "REPLY" refers to the method a recipient of a request uses to update their status with the "Organizer" of the calendar component.<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 </div>
-<div id="_a2f095b5-1fe8-1f7e-e12e-b1171e2a2d3a">
-<p id="section-1.1-5">Properties defined by [RFC5545] are referred to with capitalized,
-quoted-strings of text, followed by the word "property".  For
-example, "ATTENDEE" property refers to the iCalendar property used to
-convey the calendar address of a "Calendar User".<a href="#section-1.1-5" class="pilcrow">¶</a></p>
+<div id="_3973f1a4-b762-c728-8637-49e0c32cc4dc">
+<p id="section-1.1-5">Properties defined by <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and updating specifications are referred to with capitalized, quoted-strings of text, followed by the word "property".  For example, "ATTENDEE" property refers to the iCalendar property used to convey the calendar address of a "Calendar User".<a href="#section-1.1-5" class="pilcrow">¶</a></p>
 </div>
-<div id="_62f9ccbc-ff43-0ef9-5a9d-1e37041ab2b2">
-<p id="section-1.1-6">Property parameters defined by this specification are referred to
-with capitalized, quoted-strings of text, followed by the word
-"parameter".  For example, "VALUE" parameter refers to the iCalendar
-property parameter used to override the default data type for a
-property value.<a href="#section-1.1-6" class="pilcrow">¶</a></p>
+<div id="_d87178f8-2358-7e82-fd9b-551b796baeab">
+<p id="section-1.1-6">Property parameters defined by <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and updating specifications are referred to with lowercase, quoted-strings of text, followed by the word "parameter".  For example, "value" parameter refers to the iCalendar property parameter used to override the default data type for a property value.<a href="#section-1.1-6" class="pilcrow">¶</a></p>
 </div>
-<div id="_5a24a7ef-730f-7664-0c39-dd7b5e1e7fb0">
-<p id="section-1.1-7">Enumerated values defined by this specification are referred to with
-capitalized text, either alone or followed by the word "value".<a href="#section-1.1-7" class="pilcrow">¶</a></p>
+<div id="_10b05df0-6d92-7347-84f0-87fad3180e90">
+<p id="section-1.1-7">Enumerated values defined by this specification are referred to with capitalized text, either alone or followed by the word "value".<a href="#section-1.1-7" class="pilcrow">¶</a></p>
 </div>
-<div id="_c3ba044b-d10b-2b99-70f6-7c7bd74501ff">
-<p id="section-1.1-8">In tables, the quoted-string text is specified without quotes in
-order to minimize the table length.<a href="#section-1.1-8" class="pilcrow">¶</a></p>
+<div id="_3363cf93-5d94-df03-d92a-47ad14f3e732">
+<p id="section-1.1-8">In tables, the quoted-string text is specified without quotes in order to minimize the table length.<a href="#section-1.1-8" class="pilcrow">¶</a></p>
 </div>
 <div id="terms">
 <p id="section-1.1-9">Terms defined and used in this specification include:<a href="#section-1.1-9" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_84da2f3f-637b-fb17-54c4-0a797fa4666a">
+<span class="break"></span><div id="_33dc0ae8-4a67-7204-8ecd-1a4b0c15d9ea">
 <dl class="dlParallel" id="section-1.1-10">
           <dt id="section-1.1-10.1">Assignee</dt>
           <dd style="margin-left: 1.5em" id="section-1.1-10.2">
-            <div id="_15194331-c227-737c-4ae1-643dd886fe88">
-<p id="section-1.1-10.2.1">A calendar user assigned to perform a given task. An assignee is equivalent to an attendee of an event.<a href="#section-1.1-10.2.1" class="pilcrow">¶</a></p>
+            <div id="_d9a9339d-fe2c-5ffc-7ed7-1d1d95b12fe9">
+<p id="section-1.1-10.2.1">A calendar user assigned to perform a given task. An assignee is equivalent to an "A"ttendee" of a task.<a href="#section-1.1-10.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -1631,15 +1599,15 @@ order to minimize the table length.<a href="#section-1.1-8" class="pilcrow">¶</
           <dd class="break"></dd>
 <dt id="section-1.1-10.11">Organizer</dt>
           <dd style="margin-left: 1.5em" id="section-1.1-10.12">
-            <div id="_16706946-0be7-6ae3-4e59-ef14d9bc3b4c">
-<p id="section-1.1-10.12.1">A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an Organizer who invites Attendees <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-1.1-10.12.1" class="pilcrow">¶</a></p>
+            <div id="_77961707-2863-1e42-c7af-6e23a8b612b9">
+<p id="section-1.1-10.12.1">A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an "Organizer" who invites "Attendees" <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-1.1-10.12.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
 <dt id="section-1.1-10.13">Observer</dt>
           <dd style="margin-left: 1.5em" id="section-1.1-10.14">
-            <div id="_b71f8455-c0d2-7a38-36e1-7b87fb3d0cd9">
-<p id="section-1.1-10.14.1">A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed. Often represented as an attendee with ROLE=NON-PARTICIPANT.<a href="#section-1.1-10.14.1" class="pilcrow">¶</a></p>
+            <div id="_98c4fe4e-af04-0211-4852-8d89519264d8">
+<p id="section-1.1-10.14.1">A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed. Often represented as an "Attendee" with ROLE=NON-PARTICIPANT.<a href="#section-1.1-10.14.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -1668,19 +1636,8 @@ order to minimize the table length.<a href="#section-1.1-8" class="pilcrow">¶</
       <h2 id="name-task-architecture">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-task-architecture" class="section-name selfRef">Task Architecture</a>
       </h2>
-<div id="_4477d929-fe56-7c5b-eeea-d6764f7a28f2">
-<p id="section-2-1">A reference architecture for task calendaring and
-scheduling is defined in order to identify the key
-logical elements involved in task management and the
-interfaces between them to enable interoperability.
-The logical elements identified here establish an
-appropriate separation of concerns and clarify the
-responsibilities of different elements. However, the
-architecture does not prescribe a binding or packaging
-of elements, i.e., software systems may be developed
-where some elements are tightly bound and the interfaces
-between bound elements are not exposed. The task
-architecture is also described in <span>[<a href="#TARCH" class="cite xref">TARCH</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<div id="_1f67d259-7b2f-f955-8055-7332b6f11d08">
+<p id="section-2-1">A reference architecture for task calendaring and scheduling is defined in order to identify the key logical elements involved in task management and the interfaces between them to enable interoperability. The logical elements identified here establish an appropriate separation of concerns and clarify the responsibilities of different elements. However, the architecture does not prescribe a binding or packaging of elements, i.e., software systems may be developed where some elements are tightly bound and the interfaces between bound elements are not exposed. The task architecture is also described in <span>[<a href="#TARCH" class="cite xref">TARCH</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-task-architecture-diagram"></span><div id="_2bad07e9-7d07-cbdb-fa76-b5ac14dacdcd">
 <figure id="figure-1">
@@ -1749,7 +1706,7 @@ architecture is also described in <span>[<a href="#TARCH" class="cite xref">TARC
 <div id="_b165eb21-77e0-4527-2f36-81cf5ae5ca66">
 <p id="section-3-1">The following logical elements form the task architecture that this specification is based on:<a href="#section-3-1" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_ca7ecfcd-6944-6358-9eeb-45c519cdae50">
+<span class="break"></span><div id="_7c1991c0-38ad-b594-d265-db96e25a387a">
 <dl class="dlParallel" id="section-3-2">
         <dt id="section-3-2.1">Task Actors</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.2">
@@ -1788,22 +1745,15 @@ architecture is also described in <span>[<a href="#TARCH" class="cite xref">TARC
         <dd class="break"></dd>
 <dt id="section-3-2.11">Task Trigger</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.12">
-          <div id="_a0df3f23-d7cd-6ea0-2935-bd222e1a8351">
-<p id="section-3-2.12.1">This is some event that gives rise to the generation
-of a task according to Process Logic. Task triggers can come from
-many sources including, for example; a task being requested through
-the calendaring system, a status change in the progression of a
-business process being managed by a business process management or
-Enterprise resource planning (ERP) system.<a href="#section-3-2.12.1" class="pilcrow">¶</a></p>
+          <div id="_32107964-3a8a-67ed-efd6-86453d6dc699">
+<p id="section-3-2.12.1">This is some event that gives rise to the generation of a task according to Process Logic. Task triggers can come from many sources including, for example; a task being requested through the calendaring system, a status change in the progression of a business process being managed by a business process management or Enterprise resource planning (ERP) system.<a href="#section-3-2.12.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
 <dt id="section-3-2.13">Task Assignment Rules</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.14">
-          <div id="_80be3fa0-12ec-6441-3671-303afebfbe17">
-<p id="section-3-2.14.1">Govern how actors are assigned to a task.
-A range of different assignment patterns <span>[<a href="#WfRP" class="cite xref">WfRP</a>]</span> may be considered,
-including the two general cases:<a href="#section-3-2.14.1" class="pilcrow">¶</a></p>
+          <div id="_aee9a2fd-11c4-3de6-8cbd-3162519d27f0">
+<p id="section-3-2.14.1">Govern how actors are assigned to a task. A range of different assignment patterns <span>[<a href="#WfRP" class="cite xref">WfRP</a>]</span> may be considered, including the two general cases:<a href="#section-3-2.14.1" class="pilcrow">¶</a></p>
 </div>
 <div id="_e07c5881-b03b-0e3b-82b1-cca2a7a2520f">
 <ol start="1" type="a" class="normal type-a" id="section-3-2.14.2">
@@ -1813,9 +1763,8 @@ including the two general cases:<a href="#section-3-2.14.1" class="pilcrow">¶</
 </li>
           </ol>
 </div>
-<div id="_7a6fdee0-5a9b-8b10-6325-59709f440a13">
-<p id="section-3-2.14.3">In either case the assignment may be made based on a variety of criteria
-including, name, availability, skills, capacity, etc.<a href="#section-3-2.14.3" class="pilcrow">¶</a></p>
+<div id="_4f670428-991a-82c3-d220-27a14bfde9cd">
+<p id="section-3-2.14.3">In either case the assignment may be made based on a variety of criteria including, name, availability, skills, capacity, etc.<a href="#section-3-2.14.3" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
@@ -1859,12 +1808,11 @@ including, name, availability, skills, capacity, etc.<a href="#section-3-2.14.3"
       <h2 id="name-architecture-foundations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-architecture-foundations" class="section-name selfRef">Architecture Foundations</a>
       </h2>
-<div id="_8b46f0d9-3cfa-9892-67fb-de52054ed227">
-<p id="section-4-1">The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar) <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and associated protocols. Task and task status are represented by the iCalendar "VTODO" component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP) <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV) <span>[<a href="#RFC4791" class="cite xref">RFC4791</a>]</span> for client server communication.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="_4ef06a82-4102-dd27-126f-0c17f73b1610">
+<p id="section-4-1">The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar) <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and associated protocols. Task and task status are represented by the "VTODO" calendar component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP) <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV) <span>[<a href="#RFC4791" class="cite xref">RFC4791</a>]</span> for client server communication.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_0b7f296b-9ba2-f3b8-0768-27b085a4e160">
-<p id="section-4-2">Additionally, this specification uses definitions from
-Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span>. The LINK, REFID, RELATED-TO and CONCEPT properties enable context and a rich set of relationships between tasks and other iCalendar components to be specified.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<div id="_2f74432c-8dd9-5f8a-6861-d4f5ca041578">
+<p id="section-4-2">Additionally, this specification uses definitions from Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span>. The "LINK", "REFID", "RELATED-TO" and "CONCEPT" properties enable context and a rich set of relationships between tasks and other calendar components to be specified.<a href="#section-4-2" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -1908,8 +1856,8 @@ Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">
       <dd class="break"></dd>
 </dl>
 </div>
-<div id="_36d25a98-cd4d-071f-9302-6f01169f402b">
-<p id="section-5-3">These extensions are supported mainly by additions to the properties and parameters used within the "VTODO" component.<a href="#section-5-3" class="pilcrow">¶</a></p>
+<div id="_8f50cd48-1833-eae6-0324-3bb96d1b25b1">
+<p id="section-5-3">These extensions are supported mainly by additions to the properties and parameters used within the "VTODO" calendar component.<a href="#section-5-3" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -1918,10 +1866,10 @@ Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">
       <h2 id="name-task-specification">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-task-specification" class="section-name selfRef">Task Specification</a>
       </h2>
-<div id="_e892cf00-aec3-6d02-8a7a-3849a8cac31d">
-<p id="section-6-1">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current VTODO component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="_69b8b5fa-00fe-ee29-0ed3-3dd2fcc4912a">
+<p id="section-6-1">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_84a1b574-a1d0-cb32-fe06-7a3ba795ce6e">
+<span class="break"></span><div id="_de073d3c-5264-38a0-44f9-1a435528b1cc">
 <dl class="dlParallel" id="section-6-2">
         <dt id="section-6-2.1">Task type</dt>
         <dd style="margin-left: 1.5em" id="section-6-2.2">
@@ -1946,8 +1894,8 @@ Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">
         <dd class="break"></dd>
 <dt id="section-6-2.7">Organizer and attendee</dt>
         <dd style="margin-left: 1.5em" id="section-6-2.8">
-          <div id="_00916f55-b71a-363e-ef8b-eca4c7510038">
-<p id="section-6-2.8.1">recognizes that a task organizer or attendee can be an automated system.<a href="#section-6-2.8.1" class="pilcrow">¶</a></p>
+          <div id="_2b2395d0-fe09-ea02-460b-7bd260c7f2b2">
+<p id="section-6-2.8.1">recognizes that a task "Organizer" or "Attendee" can be an automated system.<a href="#section-6-2.8.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
       <dd class="break"></dd>
@@ -1958,8 +1906,8 @@ Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">
         <h3 id="name-task-type">
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-task-type" class="section-name selfRef">Task type</a>
         </h3>
-<div id="_53a8abff-a568-3a48-ce0e-a77c1d344b02">
-<p id="section-6.1-1">The <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> CONCEPT property is used to identify the type of task, for example;<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<div id="_cb0e3e50-8527-8396-7d85-bd84db51741e">
+<p id="section-6.1-1">The <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> "CONCEPT" property is used to identify the type of task, for example;<a href="#section-6.1-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_acc90051-f077-ff1a-31b9-26d86143a208">
 <div class="sourcecode" id="section-6.1-2">
@@ -1973,8 +1921,8 @@ Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">
         <h3 id="name-task-context-and-relationsh">
 <a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-task-context-and-relationsh" class="section-name selfRef">Task Context and Relationships</a>
         </h3>
-<div id="_1b6941d5-4720-c416-0889-dedd43e5fcbf">
-<p id="section-6.2-1">The <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> LINK property specifies a link to external information, which may be context to the task. For example:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<div id="_9184a095-6ac4-3f3f-aa6d-2cf462410cda">
+<p id="section-6.2-1">The <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> "LINK" property specifies a link to external information, which may be context to the task. For example:<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_8a72f5dd-40ad-436b-e7a0-38d8f2506411">
 <div class="sourcecode" id="section-6.2-2">
@@ -1986,9 +1934,8 @@ LINK;LINKREL=describedby:mid:752142.141482.307E5@mx123.example.com</pre><a href=
 <div id="_abad4369-4bde-fbd4-2a16-deada0b29ab2">
 <p id="section-6.2-3">The external information may be data to be manipulated in performing the task. See <a href="#task-specific-data" class="auto internal xref">Section 6.3</a>.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 </div>
-<div id="_22da9a5a-94fb-f93d-ccdf-0029c277299e">
-<p id="section-6.2-4">The <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> REFID property is used to identify a key
-used to group tasks by that key.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
+<div id="_bce04884-0271-b0b9-dc07-628267be8f1b">
+<p id="section-6.2-4">The <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> "REFID" property is used to identify a key used to group tasks by that key.<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 </div>
 <div id="_64ee5981-894a-70f4-7f19-fda55abc4588">
 <div class="sourcecode" id="section-6.2-5">
@@ -1997,8 +1944,8 @@ used to group tasks by that key.<a href="#section-6.2-4" class="pilcrow">¶</a><
 REFID:1234567890</pre><a href="#section-6.2-5" class="pilcrow">¶</a>
 </div>
 </div>
-<div id="_b4713ca7-92a9-f3a0-d9cb-5a4daf4ca810">
-<p id="section-6.2-6">Extensions to the RELATED-TO property defined in <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks (VTODOs) may also be related to other calendar components; for example to a VEVENT to block time to perform a task.<a href="#section-6.2-6" class="pilcrow">¶</a></p>
+<div id="_371ae8f6-0ef9-31da-1544-e2bd3305acdb">
+<p id="section-6.2-6">Extensions to the "RELATED-TO" property defined in <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks (VTODO calendar components) may also be related to other calendar components; for example to a "VEVENT" calendar component to block time to perform a task.<a href="#section-6.2-6" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -2007,8 +1954,8 @@ REFID:1234567890</pre><a href="#section-6.2-5" class="pilcrow">¶</a>
         <h3 id="name-task-specific-data">
 <a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-task-specific-data" class="section-name selfRef">Task Specific Data</a>
         </h3>
-<div id="_3634eba3-648b-8187-5a9a-afebf27f1e54">
-<p id="section-6.3-1">The LINK property can be used to relate a domain specific service to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
+<div id="_2aeca489-fd7d-44c4-4391-44d3655986e0">
+<p id="section-6.3-1">The "LINK" property can be used to relate a domain specific service to the task. For example, it might be a URI pointing to a web page where the status of the task can be directly manipulated.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_7b891878-1077-6d42-3843-f1d9458e7d8e">
 <div class="sourcecode" id="section-6.3-2">
@@ -2039,23 +1986,8 @@ REFID:1234567890</pre><a href="#section-6.2-5" class="pilcrow">¶</a>
         <h3 id="name-deadlines">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-deadlines" class="section-name selfRef">Deadlines</a>
         </h3>
-<div id="_2a97d438-7071-4e26-7f82-5f1164cff1ea">
-<p id="section-7.1-1">Deadlines for starting and finishing a task are defined
-by the DTSTART, DUE and DURATION properties. DTSTART
-represents the earliest start time for beginning work
-on a task. DUE, or DTSTART + DURATION represent the
-latest finish time for a task. Thus, these properties
-define a "window" within which a task has to be
-performed. However, there is currently no way to
-indicate how long the task is expected to take. This
-document defines a new property, in <a href="#prop-estimated-duration" class="auto internal xref">Section 12.1</a> ESTIMATED-DURATION, to
-allow the estimated time that a task should take to be
-specified separately from the deadlines for starting
-and finishing a task. This supports time planning by
-enabling calendar user agents to display when tasks
-should occur and therefore allow calendar users to
-visualize when tasks should be performed and allocate
-time to them.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<div id="_21c9f439-3704-b282-3cd6-ec288a0bb343">
+<p id="section-7.1-1">Deadlines for starting and finishing a task are defined by the DTSTART, DUE and DURATION properties. DTSTART represents the earliest start time for beginning work on a task. DUE, or DTSTART + DURATION represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However, there is currently no way to indicate how long the task is expected to take. This document defines a new property, in <a href="#prop-estimated-duration" class="auto internal xref">Section 12.1</a> ESTIMATED-DURATION, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -2064,8 +1996,8 @@ time to them.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
         <h3 id="name-milestones">
 <a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-milestones" class="section-name selfRef">Milestones</a>
         </h3>
-<div id="_0d093b2f-13b7-0d3b-a3cd-cb5be83d894a">
-<p id="section-7.2-1">A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child VTODO components (i.e., sub-tasks associated with each of the milestones) in conjunction with the RELATED-TO property to relate the parent and child tasks.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<div id="_59f6ac8f-4ccc-f11c-a285-7d17f62f3799">
+<p id="section-7.2-1">A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child "VTODO" calendar component (i.e., sub-tasks associated with each of the milestones) in conjunction with the "RELATED-TO" property to relate the parent and child tasks.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -2076,12 +2008,11 @@ time to them.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
       <h2 id="name-task-scheduling-and-assignm">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-task-scheduling-and-assignm" class="section-name selfRef">Task Scheduling and Assignment</a>
       </h2>
-<div id="_1cc02814-47df-b765-b554-929393dba15c">
-<p id="section-8-1">Tasks are assigned to actors using one or more <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> ATTENDEE
-properties and/or one or more <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> PARTICIPANT components.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div id="_0c32e1b9-17de-0dd3-7701-19482933a767">
+<p id="section-8-1">Tasks are assigned to actors using one or more <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> "ATTENDEE" properties and/or one or more <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> "PARTICIPANT" calendar components.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_9db5c462-e7e1-6f94-8142-0e831ae35f52">
-<p id="section-8-2">Communication of task assignment or delegation to one or more actors who are allocated to a task by the organizer is directly supported by iTIP, i.e., all included ATTENDEES in an iTIP REQUEST are expected to perform the task.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<div id="_c24d693c-41b5-6406-4136-9956085ceefd">
+<p id="section-8-2">Communication of task assignment or delegation to one or more actors who are allocated to a task by the organizer is directly supported by iTIP, i.e., all included "ATTENDEE" properties in an iTIP REQUEST are expected to perform the task.<a href="#section-8-2" class="pilcrow">¶</a></p>
 </div>
 <div id="_0e46d010-3fb2-b5d3-977b-089fa39c58a4">
 <p id="section-8-3">The offering or advertising of a task to one or more (potential) actors where only one or a subset of the candidates may accept the task will be addressed by a later specification.<a href="#section-8-3" class="pilcrow">¶</a></p>
@@ -2098,69 +2029,32 @@ properties and/or one or more <span>[<a href="#RFC9073" class="cite xref">RFC907
         <h3 id="name-improved-granularity-in-sta">
 <a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-improved-granularity-in-sta" class="section-name selfRef">Improved granularity in status reporting information</a>
         </h3>
-<div id="_6b5dc60a-f0dd-9b6f-1699-29dcd15aaccb">
-<p id="section-9.1-1">This document defines a new "VSTATUS" component (see section <a href="#vstatus" class="auto internal xref">Section 14.1</a>)
-that can be used to
-group related information about the status of the task. This might include
-information on why (REASON) and when (DTSTAMP) a status has changed.
-In addition, new status values are specified to
-provide for task suspension, failure and preparation.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<div id="_8714f28a-450f-aa61-bbbb-d344bcc6283e">
+<p id="section-9.1-1">This document defines a new "VSTATUS" calendar component (see section <a href="#vstatus" class="auto internal xref">Section 14.1</a>) that can be used to group related information about the status of the task. This might include information on why (REASON) and when (DTSTAMP) a status has changed. In addition, new status values are specified to provide for task suspension, failure and preparation.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_9df86043-94fd-a1f5-a9a4-93b8a4c6f7f6">
-<p id="section-9.1-2">Note that while VSTATUS is intended to allow multiple date-stamped
-status changes to be stored it is not intended to be used as a history
-of changes to a tasks properties.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
-</div>
-</section>
-</div>
-<div id="_relating_reason_and_comments_to_attendee_status_changes">
-<section id="section-9.2">
-        <h3 id="name-relating-reason-and-comment">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-relating-reason-and-comment" class="section-name selfRef">Relating reason and comments to ATTENDEE status changes.</a>
-        </h3>
-<div id="_8cf269b6-37f9-f8ac-2cf3-5075c95a2cc8">
-<p id="section-9.2-1">The <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> PARTICIPANT component can be used to provide additional
-information about why an ATTENDEE participation status has changed.
-The COMMENT property can also
-be used to include additional human-readable information about why the
-associated STATUS or ATTENDEE property changed. For example, if a driver
-failed to deliver a package
-because of a puncture it might be expressed as<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-</div>
-<div id="_595e39ae-459c-af05-6349-1580fe1010ec">
-<div class="sourcecode" id="section-9.2-2">
+<div id="_60e6099a-de05-4f5e-0221-90944803d475">
+<div class="sourcecode" id="section-9.1-2">
 <pre>BEGIN:VSTATUS
 STATUS:FAILED
 REASON:https://example.com/reason/delivery-failed
 SUBSTATE:ERROR
 DTSTAMP:20130212T120000Z
 COMMENT:Breakdown
-END:VSTATUS
-
-ATTENDEE;PARTSTAT=FAILED:mailto:xxx@example.com
-...
-BEGIN:PARTICIPANT
-CALENDAR-ADDRESS:mailto:xxx@example.com
-DTSTAMP:20130226T1104510Z
-REASON:https://example.com/reason/van-break-down
-COMMENT:Puncture
-END:PARTICIPANT</pre><a href="#section-9.2-2" class="pilcrow">¶</a>
+END:VSTATUS</pre><a href="#section-9.1-2" class="pilcrow">¶</a>
 </div>
 </div>
 </section>
 </div>
 <div id="_comments_associated_to_reasons_and_status_changes">
-<section id="section-9.3">
+<section id="section-9.2">
         <h3 id="name-comments-associated-to-reas">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-comments-associated-to-reas" class="section-name selfRef">Comments associated to reasons and status changes</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-comments-associated-to-reas" class="section-name selfRef">Comments associated to reasons and status changes</a>
         </h3>
-<div id="_4ac98e6b-a0c5-e365-a3af-f7c7f9e0d4e7">
-<p id="section-9.3-1">Multiple comments and reasons may have the same status. As situations
-change further VSTATUS components can be added to provide additional
-information..<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<div id="_671b1eab-39d5-1a32-8a27-af2f99a04d26">
+<p id="section-9.2-1">Multiple comments and reasons may have the same status. As situations change further VSTATUS components can be added to provide additional information.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_a4581c72-b7cb-063e-42cc-0d3c9a13143b">
-<div class="sourcecode" id="section-9.3-2">
+<div id="_82f23f05-23c6-e514-9a11-35d712779041">
+<div class="sourcecode" id="section-9.2-2">
 <pre>CONCEPT:https://example.com/task/delivery
 BEGIN:VSTATUS
 STATUS:FAILED
@@ -2179,7 +2073,32 @@ STATUS:FAILED
 COMMENT:Arrived after office hours
 REASON:https://example.com/reason/closed
 DTSTAMP:20220212T180451Z
-END:VSTATUS</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
+END:VSTATUS</pre><a href="#section-9.2-2" class="pilcrow">¶</a>
+</div>
+</div>
+<div id="_806960c9-50f6-c477-8c2e-4747054c830f">
+<p id="section-9.2-3">Note that the "VSTATUS" calendar component not intended to be used as a history of changes to a tasks properties. The purpose of "VSTATUS" calendar component is only to document changes related to fulfilling the tasks<a href="#section-9.2-3" class="pilcrow">¶</a></p>
+</div>
+</section>
+</div>
+<div id="_relating_reason_and_comments_to_attendee_property_status_changes">
+<section id="section-9.3">
+        <h3 id="name-relating-reason-and-comment">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-relating-reason-and-comment" class="section-name selfRef">Relating reason and comments to "ATTENDEE" property status changes.</a>
+        </h3>
+<div id="_1f80396e-3307-2bd5-fc45-2ca24b541fbb">
+<p id="section-9.3-1">The <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> "PARTICIPANT" calendar component can be used to provide additional information about why an "ATTENDEE" property participation status has changed. The "COMMENT" property can also be used to include additional human-readable information about why the associated "STATUS" or "ATTENDEE" property changed. For example, if a driver failed to deliver a package because of a puncture it might be expressed as<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+</div>
+<div id="_40672db0-226e-b508-aa7e-83980c12f5f1">
+<div class="sourcecode" id="section-9.3-2">
+<pre>ATTENDEE;PARTSTAT=FAILED:mailto:xxx@example.com
+...
+BEGIN:PARTICIPANT
+CALENDAR-ADDRESS:mailto:xxx@example.com
+DTSTAMP:20130226T1104510Z
+REASON:https://example.com/reason/van-break-down
+COMMENT:Puncture
+END:PARTICIPANT</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
 </div>
 </div>
 </section>
@@ -2189,54 +2108,32 @@ END:VSTATUS</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
         <h3 id="name-task-alerts-and-notificatio">
 <a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-task-alerts-and-notificatio" class="section-name selfRef">Task Alerts and Notifications</a>
         </h3>
-<div id="_75a49f6c-3c46-8775-eed4-9ffd779a05fc">
-<p id="section-9.4-1">Different needs to alert or notify task actors of pending or actual
-task status changes are recognized:<a href="#section-9.4-1" class="pilcrow">¶</a></p>
+<div id="_e4d8828a-29ae-22a5-b14d-4ddfdd0e04b5">
+<p id="section-9.4-1">Different needs to alert or notify task actors of pending or actual task status changes are recognized:<a href="#section-9.4-1" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_81d346f9-58cb-0897-d76a-d6b012f79afc">
+<span class="break"></span><div id="_1b4ed1e1-f151-3b6a-20d4-ab9286fc675b">
 <dl class="dlParallel" id="section-9.4-2">
           <dt id="section-9.4-2.1">Alarms</dt>
           <dd style="margin-left: 1.5em" id="section-9.4-2.2">
-            <div id="_bd3d0aab-00f3-3061-4292-7448c5c5435d">
-<p id="section-9.4-2.2.1">Alarms (VALARM components) operate in the calendar user agent
-space to notify the task actor of a pending task state for a task they
-are assigned to or are interested in.<a href="#section-9.4-2.2.1" class="pilcrow">¶</a></p>
+            <div id="_67fe9b05-c753-179e-0abd-1b18876d57c7">
+<p id="section-9.4-2.2.1">"VALARM" calendar components operate in the calendar user agent space to notify the task actor of a pending task state for a task they are assigned to or are interested in.<a href="#section-9.4-2.2.1" class="pilcrow">¶</a></p>
 </div>
-</dd>
-        <dd class="break"></dd>
-</dl>
-</div>
-<div id="_71c1d895-c99b-660f-1bb2-1ca8f3f883ee">
-<p id="section-9.4-3">Current standards (see <span>[<a href="#RFC9074" class="cite xref">RFC9074</a>]</span>) indicate VALARMs SHOULD be removed
-from incoming data and many systems in fact do so. In a task assignment
-scenario it may be appropriate for the organizer to be able to set alarms
-for the participants. A system implementing these standards may choose to
-preserve VALARMs but sending a task via some external service may result in
-them being removed. This issue is not addressed by this specification.<a href="#section-9.4-3" class="pilcrow">¶</a></p>
-</div>
-<span class="break"></span><div id="_a2ff7183-7159-12ed-3009-3b100f54fbba">
-<dl class="dlParallel" id="section-9.4-4">
-          <dt id="section-9.4-4.1">Escalations</dt>
-          <dd style="margin-left: 1.5em" id="section-9.4-4.2">
-            <div id="_818b9584-59d0-98c5-aa08-2e1f31125f26">
-<p id="section-9.4-4.2.1">An escalation or notification to the ATTENDEE, ORGANIZER,
-or other task actor may be required if a deadline associated with a
-task is exceeded or for some other reason. Process Logic identifying
-when and who to propagate escalations to is the responsibility of the
-Task Generating System, e.g., a BPMS.<a href="#section-9.4-4.2.1" class="pilcrow">¶</a></p>
+<div id="_6fe2784f-5622-6d63-ee42-49244ef8db8f">
+<p id="section-9.4-2.2.2">Current standards (see <span>[<a href="#RFC9074" class="cite xref">RFC9074</a>]</span>) indicate "VALARM" calendar components SHOULD be removed from incoming data and many systems in fact do so. In a task assignment scenario it may be appropriate for the organizer to be able to set alarms for the participants. A system implementing these standards may choose to preserve "VALARM" calendar components but sending a task via some external service may result in them being removed. This issue is not addressed by this specification.<a href="#section-9.4-2.2.2" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
-<dt id="section-9.4-4.3">Notifications</dt>
-          <dd style="margin-left: 1.5em" id="section-9.4-4.4">
-            <div id="_2133405c-7a35-2c2b-1a90-8924da61d596">
-<p id="section-9.4-4.4.1">Task actors (observers) not directly involved in
-performing a task but with a known interest in a given task's status
-can be identified by the PARTICIPANT component <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> against certain
-components e.g. ALARM, to identify which task events the
-stakeholder/party is interested in. Notifications on shared calendars
-will allow task actors to register an interest in changes to tasks
-within a calendar (see <a href="#appendix-a" class="auto internal xref">Appendix A</a>).<a href="#section-9.4-4.4.1" class="pilcrow">¶</a></p>
+<dt id="section-9.4-2.3">Escalations</dt>
+          <dd style="margin-left: 1.5em" id="section-9.4-2.4">
+            <div id="_91e8870c-e1d6-1b86-a5d4-ccb80f999964">
+<p id="section-9.4-2.4.1">An escalation or notification to the "Attendee", "Organizer", or other task actor may be required if a deadline associated with a task is exceeded or for some other reason. Process Logic identifying when and who to propagate escalations is the responsibility of the Task Generating System, e.g., a BPMS.<a href="#section-9.4-2.4.1" class="pilcrow">¶</a></p>
+</div>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-9.4-2.5">Notifications</dt>
+          <dd style="margin-left: 1.5em" id="section-9.4-2.6">
+            <div id="_a94e4557-299e-d63d-2f70-5573fd8bad14">
+<p id="section-9.4-2.6.1">Task actors (observers) not directly involved in performing a task, but with a known interest in a given task's status, can be identified by the "PARTICIPANT" calendar component <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> against certain components e.g. the "VALARM" calendar component, to identify which task events the stakeholder/party is interested in. Notifications on shared calendars will allow task actors to register an interest in changes to tasks within a calendar (see <a href="#appendix-a" class="auto internal xref">Appendix A</a>).<a href="#section-9.4-2.6.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
@@ -2249,9 +2146,8 @@ within a calendar (see <a href="#appendix-a" class="auto internal xref">Appendix
         <h3 id="name-automated-status-changes">
 <a href="#section-9.5" class="section-number selfRef">9.5. </a><a href="#name-automated-status-changes" class="section-name selfRef">Automated Status Changes</a>
         </h3>
-<div id="_91c0b6d9-4cc2-bc12-fa47-fc9af7bcefb6">
-<p id="section-9.5-1">A new property, TASK-MODE, is introduced to instruct servers to apply
-automated operations for changing the status of a task.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
+<div id="_b3b80eda-7a38-aad5-5003-a17d2679b832">
+<p id="section-9.5-1">A new property, TASK-MODE, is introduced to instruct servers to apply automated operations for changing the status of a task.<a href="#section-9.5-1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -2262,9 +2158,8 @@ automated operations for changing the status of a task.<a href="#section-9.5-1" 
       <h2 id="name-modifications-to-calendar-c">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-modifications-to-calendar-c" class="section-name selfRef">Modifications to Calendar Components</a>
       </h2>
-<div id="_ec821cf3-350f-e0d8-83ca-cabf7575b870">
-<p id="section-10-1">The following changes to the syntax defined in iCalendar <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>
-are made here. New elements are defined in subsequent sections.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<div id="_7c06e2b6-4647-065c-1693-39de4bafc87a">
+<p id="section-10-1">The following changes to the syntax defined in iCalendar <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and Event Publishing Extensions to iCalendar <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> are made here. New elements are defined in subsequent sections.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_cd07a8cb-6803-0511-b4e7-323c9252fddd">
 <div class="lang-bnf sourcecode" id="section-10-2">
@@ -2316,10 +2211,8 @@ partprop =/ reason</pre><a href="#section-10-2" class="pilcrow">¶</a>
         <h3 id="name-redefined-vtodo-participant">
 <a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-redefined-vtodo-participant" class="section-name selfRef">Redefined VTODO Participant Status</a>
         </h3>
-<div id="_3799da00-fa48-b4a2-8b88-e44848ac439f">
-<p id="section-11.1-1">Participant status parameter type values are defined in
-<span><a class="relref">Section 3.2.12</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.  This specification redefines that type
-to include the new value FAILED for VTODO iCalendar components.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<div id="_2e0738bc-dd0c-89e0-b869-a07959a0adb7">
+<p id="section-11.1-1">Participant status parameter type values are defined in <span><a class="relref">Section 3.2.12</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.  This specification redefines that type to include the new value FAILED for "VTODO" calendar components.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
 </div>
 <span class="break"></span><div id="_e29cb84e-6b91-07ce-6201-5208de238091">
 <dl class="dlParallel" id="section-11.1-2">
@@ -2418,12 +2311,12 @@ to include the new value FAILED for VTODO iCalendar components.<a href="#section
 durparam      = *(";" other-param)</pre><a href="#section-12.1-2" class="pilcrow">¶</a>
 </div>
 </div>
-<span class="break"></span><div id="_77b15923-19d7-7904-a4c5-0d833059fd0d">
+<span class="break"></span><div id="_494cfa94-d5c3-deae-9227-ad8a595eb35d">
 <dl class="dlParallel" id="section-12.1-3">
           <dt id="section-12.1-3.1">Description</dt>
           <dd style="margin-left: 1.5em" id="section-12.1-3.2">
-            <div id="_972984ef-6762-1ca6-1cda-6095ec4f0bab">
-<p id="section-12.1-3.2.1">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed.  When present, DTSTART and DUE/DURATION represent the window in which the task can be performed. ESTIMATED-DURATION SHOULD be passed from ORGANIZER to ATTENDEE in iTIP <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> messages.<a href="#section-12.1-3.2.1" class="pilcrow">¶</a></p>
+            <div id="_03a7274f-969f-0191-b79b-45ac69e9f250">
+<p id="section-12.1-3.2.1">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed. When present, "DTSTART" and "DUE"/"DURATION" properties represent the window in which the task can be performed. The "ESTIMATED-DURATION" property SHOULD be passed from the organizer to the "Attendee" in iTIP <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> messages.<a href="#section-12.1-3.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2448,7 +2341,7 @@ durparam      = *(";" other-param)</pre><a href="#section-12.1-2" class="pilcrow
         <h3 id="name-reason">
 <a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-reason" class="section-name selfRef">Reason</a>
         </h3>
-<span class="break"></span><div id="_386ef074-0b03-1be7-7f91-3025a5352c4d">
+<span class="break"></span><div id="_e904bbe0-7f62-4697-3bdb-289d0294b6be">
 <dl class="dlParallel" id="section-12.2-1">
           <dt id="section-12.2-1.1">Property name</dt>
           <dd style="margin-left: 1.5em" id="section-12.2-1.2">
@@ -2459,8 +2352,8 @@ durparam      = *(";" other-param)</pre><a href="#section-12.1-2" class="pilcrow
           <dd class="break"></dd>
 <dt id="section-12.2-1.3">Purpose</dt>
           <dd style="margin-left: 1.5em" id="section-12.2-1.4">
-            <div id="_db3333fd-0284-6807-db8f-bd3034b9f57b">
-<p id="section-12.2-1.4.1">To indicate the reason for a status change or change of attendee participation status.<a href="#section-12.2-1.4.1" class="pilcrow">¶</a></p>
+            <div id="_873b0cb4-9db1-8df4-5596-fd2a92ea2c6e">
+<p id="section-12.2-1.4.1">To indicate the reason for a status change or change of "Attendee" participation status.<a href="#section-12.2-1.4.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2480,8 +2373,8 @@ durparam      = *(";" other-param)</pre><a href="#section-12.1-2" class="pilcrow
           <dd class="break"></dd>
 <dt id="section-12.2-1.9">Conformance</dt>
           <dd style="margin-left: 1.5em" id="section-12.2-1.10">
-            <div id="_a76887f0-be8b-6f99-731f-95e04a9b9a0f">
-<p id="section-12.2-1.10.1">This property can be specified in "VSTATUS" and PARTICIPANT calendar components.<a href="#section-12.2-1.10.1" class="pilcrow">¶</a></p>
+            <div id="_36557ac1-b58d-af7c-8bd2-06a23ef3f717">
+<p id="section-12.2-1.10.1">This property can be specified in "VSTATUS" and "PARTICIPANT" calendar components.<a href="#section-12.2-1.10.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2501,16 +2394,12 @@ durparam      = *(";" other-param)</pre><a href="#section-12.1-2" class="pilcrow
 reasonparam = *(";" other-param)</pre><a href="#section-12.2-2" class="pilcrow">¶</a>
 </div>
 </div>
-<span class="break"></span><div id="_d64b1965-2a07-ef0b-fb5c-2d52e47b321a">
+<span class="break"></span><div id="_5ee3c2d3-4c88-de08-b115-7ca86b21ba50">
 <dl class="dlParallel" id="section-12.2-3">
           <dt id="section-12.2-3.1">Description</dt>
           <dd style="margin-left: 1.5em" id="section-12.2-3.2">
-            <div id="_c72f8aee-be54-0fc0-eedf-53f788b9faa2">
-<p id="section-12.2-3.2.1">This property allows the change in status of a
-task or participant status to be qualified by the reason for the change
-with a codified reason. Typically, reasons are defined within the
-context of the task type and therefore SHOULD include the name-space
-of the authority defining the task.<a href="#section-12.2-3.2.1" class="pilcrow">¶</a></p>
+            <div id="_20c9bb03-bdf5-0e72-e889-870365f1e128">
+<p id="section-12.2-3.2.1">This property allows the change in status of a task or participant status to be qualified by the reason for the change with a codified reason. Typically, reasons are defined within the context of the task type and therefore SHOULD include the name-space of the authority defining the task.<a href="#section-12.2-3.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2531,7 +2420,7 @@ of the authority defining the task.<a href="#section-12.2-3.2.1" class="pilcrow"
         <h3 id="name-sub-state">
 <a href="#section-12.3" class="section-number selfRef">12.3. </a><a href="#name-sub-state" class="section-name selfRef">Sub-State</a>
         </h3>
-<span class="break"></span><div id="_02050011-5360-0c2a-5247-f05d30342c6c">
+<span class="break"></span><div id="_76328230-29ed-dc16-d8e8-2b28e4391574">
 <dl class="dlParallel" id="section-12.3-1">
           <dt id="section-12.3-1.1">Property name</dt>
           <dd style="margin-left: 1.5em" id="section-12.3-1.2">
@@ -2542,9 +2431,8 @@ of the authority defining the task.<a href="#section-12.2-3.2.1" class="pilcrow"
           <dd class="break"></dd>
 <dt id="section-12.3-1.3">Purpose</dt>
           <dd style="margin-left: 1.5em" id="section-12.3-1.4">
-            <div id="_c77361c1-f263-119e-8ab2-b14345c8c75f">
-<p id="section-12.3-1.4.1">To provide additional granularity of task status for e.g.
-IN-PROCESS.<a href="#section-12.3-1.4.1" class="pilcrow">¶</a></p>
+            <div id="_c02052b3-8b8b-d9c0-67b3-5af8e101e6f1">
+<p id="section-12.3-1.4.1">To provide additional granularity of task status for e.g. IN-PROCESS.<a href="#section-12.3-1.4.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2594,18 +2482,12 @@ substatevalue       = ("OK"        ; everything is fine(the default)
                      / iana-token) ; Other IANA-registered type</pre><a href="#section-12.3-2" class="pilcrow">¶</a>
 </div>
 </div>
-<span class="break"></span><div id="_623314d4-7978-85ed-3f44-4c8eb800f8ed">
+<span class="break"></span><div id="_8e6148e6-7d6a-fcb8-ed04-2e194e755966">
 <dl class="dlParallel" id="section-12.3-3">
           <dt id="section-12.3-3.1">Description</dt>
           <dd style="margin-left: 1.5em" id="section-12.3-3.2">
-            <div id="_43b58d1f-a682-8e20-f841-c6fc1632dd0e">
-<p id="section-12.3-3.2.1">The sub-state property allows additional qualification
-and granularity of states to be recorded, in particular for the
-IN-PROCESS state. It allows individual sub-states to be recorded
-without the need to define and publish a sub-task associated with a
-parent task purely to track that a particular state has been reached.
-This property also allows parallel states to be expressed e.g. that a
-task has been suspended at whatever state it has reached.<a href="#section-12.3-3.2.1" class="pilcrow">¶</a></p>
+            <div id="_054a54b7-3dd9-e62e-d301-2f5a4ccfa3bb">
+<p id="section-12.3-3.2.1">The sub-state property allows additional qualification and granularity of states to be recorded, in particular for the IN-PROCESS state. It allows individual sub-states to be recorded without the need to define and publish a sub-task associated with a parent task purely to track that a particular state has been reached. This property also allows parallel states to be expressed e.g. that a task has been suspended at whatever state it has reached.<a href="#section-12.3-3.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2636,7 +2518,7 @@ END:VSTATUS</pre><a href="#section-12.3-4" class="pilcrow">¶</a>
         <h3 id="name-task-mode">
 <a href="#section-12.4" class="section-number selfRef">12.4. </a><a href="#name-task-mode" class="section-name selfRef">Task Mode</a>
         </h3>
-<span class="break"></span><div id="_e350d22a-2252-ee99-4152-5898672fee51">
+<span class="break"></span><div id="_384d69e6-22e3-6e96-b104-408b15faf0cc">
 <dl class="dlParallel" id="section-12.4-1">
           <dt id="section-12.4-1.1">Property Name</dt>
           <dd style="margin-left: 1.5em" id="section-12.4-1.2">
@@ -2647,10 +2529,8 @@ END:VSTATUS</pre><a href="#section-12.3-4" class="pilcrow">¶</a>
           <dd class="break"></dd>
 <dt id="section-12.4-1.3">Purpose</dt>
           <dd style="margin-left: 1.5em" id="section-12.4-1.4">
-            <div id="_988b931e-e681-1b16-e7f3-0cd410425be3">
-<p id="section-12.4-1.4.1">This property specifies automatic operations that servers
-acting on behalf of the organizer apply to tasks based on changes in
-attendee status (PARTSTAT).<a href="#section-12.4-1.4.1" class="pilcrow">¶</a></p>
+            <div id="_af07fdb8-5352-7386-1cfc-c07c60e0c54b">
+<p id="section-12.4-1.4.1">This property specifies automatic operations that servers acting on behalf of the organizer apply to tasks based on changes in attendee status (PARTSTAT).<a href="#section-12.4-1.4.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2670,8 +2550,8 @@ attendee status (PARTSTAT).<a href="#section-12.4-1.4.1" class="pilcrow">¶</a><
           <dd class="break"></dd>
 <dt id="section-12.4-1.9">Conformance</dt>
           <dd style="margin-left: 1.5em" id="section-12.4-1.10">
-            <div id="_d9a86dd2-1c28-14f4-3950-984842ca3fbd">
-<p id="section-12.4-1.10.1">This property can be specified zero or more times in a "VTODO" calendar component.<a href="#section-12.4-1.10.1" class="pilcrow">¶</a></p>
+            <div id="_1b8a68b6-64d0-7b48-e3e9-4b0137d4aae7">
+<p id="section-12.4-1.10.1">This property can be specified zero or once in a "VTODO" calendar component.<a href="#section-12.4-1.10.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2684,86 +2564,72 @@ attendee status (PARTSTAT).<a href="#section-12.4-1.4.1" class="pilcrow">¶</a><
         <dd class="break"></dd>
 </dl>
 </div>
-<div id="_72f2c110-a5c6-939d-750e-e18e7f628d2b">
+<div id="_48912f55-f1d5-e17d-38fa-c86b95e37e15">
 <div class="lang-bnf sourcecode" id="section-12.4-2">
-<pre>task-mode   = "TASK-MODE taskmodeparam ":" taskvalue
-              *("," taskvalue) CRLF
-
-taskvalue   = "AUTOMATIC-COMPLETION" ; set STATUS completed
-                ;if all attendees have completed
-                / "AUTOMATIC-FAILURE"
-                / "SERVER"
-                / "CLIENT"
-                / iana-token
-                / x-name
+<pre>task-mode   = "TASK-MODE taskmodeparam ":"
+                 ("AUTOMATIC-COMPLETION"
+                 / "AUTOMATIC-FAILURE"
+                 / "AUTOMATIC"
+                 / "SERVER"
+                 / "CLIENT"
+                 / iana-token
+                 / x-name) CRLF
 
 taskmodeparam      = *(";" other-param)</pre><a href="#section-12.4-2" class="pilcrow">¶</a>
 </div>
 </div>
-<span class="break"></span><div id="_bb55a586-f8d1-f4fb-5911-7006574465e1">
+<span class="break"></span><div id="_d1306601-603e-ce54-4ae0-affc14c6eca9">
 <dl class="dlParallel" id="section-12.4-3">
           <dt id="section-12.4-3.1">Description</dt>
           <dd style="margin-left: 1.5em" id="section-12.4-3.2">
-            <div id="_246acd3c-fc01-3950-9789-e7fc4c43abb9">
-<p id="section-12.4-3.2.1">In a "VTODO" calendar component this property MAY be
-used to indicate to servers how they can automatically change the
-state of the task based on iTIP replies from Attendees. For example,
-the server can automatically set the overall task status to COMPLETED
-when every attendee has marked their own status (PARTSTAT) as COMPLETED,
-or the server could mark the task as FAILED if its DUE date passes
-without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.<a href="#section-12.4-3.2.1" class="pilcrow">¶</a></p>
+            <div id="_6244bb21-5dde-231f-23cc-2d25e46f8878">
+<p id="section-12.4-3.2.1">In a "VTODO" calendar component this property MAY be used to indicate to servers how they can automatically change the state of the task based on iTIP replies from "Attendees". For example, the server can automatically set the overall task status to COMPLETED when every attendee has marked their own status (PARTSTAT) as COMPLETED, or the server could mark the task as FAILED if its DUE date passes without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.<a href="#section-12.4-3.2.1" class="pilcrow">¶</a></p>
+</div>
+<div id="_f5e95b0f-25fa-5a52-008d-6e523123d974">
+<p id="section-12.4-3.2.2">To set the status, add a VSTATUS component as specified in <a href="#vstatus" class="auto internal xref">Section 14.1</a>.<a href="#section-12.4-3.2.2" class="pilcrow">¶</a></p>
+</div>
+<div id="_4b1c274f-6b6d-c44c-d265-c7042cea6826">
+<p id="section-12.4-3.2.3">The property value is an IANA registered token that defines the mode to be used for the task. The modes are described in the following subsections.<a href="#section-12.4-3.2.3" class="pilcrow">¶</a></p>
+</div>
+<div id="_3aea095c-5597-c7a9-c7ad-b2205ce968c6">
+<p id="section-12.4-3.2.4">If the "TASK-MODE" property is absent then the "CLIENT" value is assumed.<a href="#section-12.4-3.2.4" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
 </dl>
 </div>
-<div id="_3411b58a-e2c5-5f30-706f-b4908c89b08f">
-<p id="section-12.4-4">To set the status, add a VSTATUS component as specified in <a href="#vstatus" class="auto internal xref">Section 14.1</a>.<a href="#section-12.4-4" class="pilcrow">¶</a></p>
-</div>
-<div id="_1e20973d-7321-149d-7329-b3fc52eae9c2">
-<p id="section-12.4-5">The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following subsections.<a href="#section-12.4-5" class="pilcrow">¶</a></p>
-</div>
-<span class="break"></span><div id="_16ebd72f-5c43-46c7-135a-68db1a5effd5">
-<dl class="dlParallel" id="section-12.4-6">
-          <dt id="section-12.4-6.1">Examples</dt>
-          <dd style="margin-left: 1.5em" id="section-12.4-6.2"></dd>
-        <dd class="break"></dd>
-</dl>
-</div>
-<div id="_c82d212e-5cad-882f-d1a9-cc48f5d5e519">
-<div class="sourcecode" id="section-12.4-7">
-<pre>TASK-MODE:AUTOMATIC-COMPLETION,AUTOMATIC-FAILURE
-TASK-MODE:SERVER
-TASK-MODE:AUTOMATIC-FAILURE</pre><a href="#section-12.4-7" class="pilcrow">¶</a>
-</div>
-</div>
 <span class="break"></span><div id="task-mode-automatic-completion">
-<dl class="dlParallel" id="section-12.4-8">
-          <dt id="section-12.4-8.1">AUTOMATIC-COMPLETION Task Mode</dt>
-          <dd style="margin-left: 1.5em" id="section-12.4-8.2">
-            <div id="_0b5998c4-2443-33f8-5c53-61b8c1be0abd">
-<p id="section-12.4-8.2.1">The task mode value "AUTOMATIC-COMPLETION" indicates to the server
-that it can change the "VTODO" component's status to "COMPLETED" as
-soon as all ATTENDEEs in the task have replied with a "PARTSTAT"
-parameter set to "COMPLETED".<a href="#section-12.4-8.2.1" class="pilcrow">¶</a></p>
+<dl class="dlParallel" id="section-12.4-4">
+          <dt id="section-12.4-4.1">AUTOMATIC-COMPLETION Task Mode</dt>
+          <dd style="margin-left: 1.5em" id="section-12.4-4.2">
+            <div id="_121184e4-1c1e-df94-0f85-b5e0ec43c578">
+<p id="section-12.4-4.2.1">The task mode value "AUTOMATIC-COMPLETION" indicates to the server that it can change the "VTODO" calendar component's status to "COMPLETED" as soon as all attendees in the task have replied with a "partstat" parameter set to "COMPLETED".<a href="#section-12.4-4.2.1" class="pilcrow">¶</a></p>
+</div>
+<div id="_0785869a-6882-880a-d694-753f0fcac5d3">
+<p id="section-12.4-4.2.2">Failing the task MUST be handled by a client.<a href="#section-12.4-4.2.2" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
 </dl>
 </div>
 <span class="break"></span><div id="task-mode-automatic-failure">
-<dl class="dlParallel" id="section-12.4-9">
-          <dt id="section-12.4-9.1">AUTOMATIC-FAILURE Task Mode</dt>
-          <dd style="margin-left: 1.5em" id="section-12.4-9.2">
-            <div id="_7a91073b-7162-11e3-88eb-4607df25b745">
-<p id="section-12.4-9.2.1">The task mode value "AUTOMATIC-FAILURE" indicates to the server that
-it SHOULD change the "VTODO" component's status to "FAILED" if either:<a href="#section-12.4-9.2.1" class="pilcrow">¶</a></p>
+<dl class="dlParallel" id="section-12.4-5">
+          <dt id="section-12.4-5.1">AUTOMATIC-FAILURE Task Mode</dt>
+          <dd style="margin-left: 1.5em" id="section-12.4-5.2">
+            <div id="_ff74e8ea-d0ab-647f-f200-520d7e19a064">
+<p id="section-12.4-5.2.1">The task mode value "AUTOMATIC-FAILURE" indicates to the server that it SHOULD change the "VTODO" calendar component's status to "FAILED" if either:<a href="#section-12.4-5.2.1" class="pilcrow">¶</a></p>
 </div>
-<div id="_8fbfcbcc-4333-76a8-ff55-d306427c6a52">
-<ol start="1" type="1" class="normal type-1" id="section-12.4-9.2.2">
-<li id="section-12.4-9.2.2.1">the PARTSTAT of one ATTENDEE is set to FAILED; or<a href="#section-12.4-9.2.2.1" class="pilcrow">¶</a>
+<div id="_77760277-3988-33ea-8272-1580346df53f">
+<ol start="1" type="1" class="normal type-1" id="section-12.4-5.2.2">
+<li id="section-12.4-5.2.2.1">the PARTSTAT of one "ATTENDEE" property is set to FAILED; or<a href="#section-12.4-5.2.2.1" class="pilcrow">¶</a>
 </li>
-              <li id="section-12.4-9.2.2.2">the current time is past the effective due date of the component and the task has not yet been completed.<a href="#section-12.4-9.2.2.2" class="pilcrow">¶</a>
+              <li id="section-12.4-5.2.2.2">
+                <div id="_74e00253-9f5f-b036-0093-c88e4cdaf4d9">
+<p id="section-12.4-5.2.2.2.1">the current time is past the effective due date of the component and the task has not yet been completed. The effective due date is either the "DUE" property value or the combination of the "DTSTART" and "DURATION" property values.<a href="#section-12.4-5.2.2.2.1" class="pilcrow">¶</a></p>
+</div>
+<div id="_bb38a412-4650-3193-848a-7f9b3d55450a">
+<p id="section-12.4-5.2.2.2.2">Completing the task MUST be handled by a client.<a href="#section-12.4-5.2.2.2.2" class="pilcrow">¶</a></p>
+</div>
 </li>
             </ol>
 </div>
@@ -2771,41 +2637,48 @@ it SHOULD change the "VTODO" component's status to "FAILED" if either:<a href="#
         <dd class="break"></dd>
 </dl>
 </div>
-<div id="_c53aa879-b801-46ad-481e-01a06bb18443">
-<aside id="section-12.4-10">
-          <p id="section-12.4-10.1">NOTE: The effective due date is either the "DUE" property value or the
-combination of the "DTSTART" and "DURATION" property values.<a href="#section-12.4-10.1" class="pilcrow">¶</a></p>
-</aside>
+<span class="break"></span><div id="task-mode-automatic">
+<dl class="dlParallel" id="section-12.4-6">
+          <dt id="section-12.4-6.1">AUTOMATIC Task Mode</dt>
+          <dd style="margin-left: 1.5em" id="section-12.4-6.2">
+            <div id="_f50071ee-1bcd-962c-c207-9d5574ba6521">
+<p id="section-12.4-6.2.1">This mode handles both "AUTOMATIC-COMPLETION" and "AUTOMATIC-FAILURE".<a href="#section-12.4-6.2.1" class="pilcrow">¶</a></p>
+</div>
+</dd>
+        <dd class="break"></dd>
+</dl>
 </div>
 <span class="break"></span><div id="task-mode-client">
-<dl class="dlParallel" id="section-12.4-11">
-          <dt id="section-12.4-11.1">CLIENT Task Mode</dt>
-          <dd style="margin-left: 1.5em" id="section-12.4-11.2">
-            <div id="_894ad073-4b02-a955-6fc9-41994cb04d5d">
-<p id="section-12.4-11.2.1">The task mode value "CLIENT" is an instruction to the server to honour
-the status set by the client.<a href="#section-12.4-11.2.1" class="pilcrow">¶</a></p>
+<dl class="dlParallel" id="section-12.4-7">
+          <dt id="section-12.4-7.1">CLIENT Task Mode</dt>
+          <dd style="margin-left: 1.5em" id="section-12.4-7.2">
+            <div id="_7f950b40-0972-ed00-0bb6-d44ef10dc994">
+<p id="section-12.4-7.2.1">The task mode value "CLIENT" is an instruction to the server to honour the status set by the client.<a href="#section-12.4-7.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
 </dl>
 </div>
 <span class="break"></span><div id="task-mode-server">
-<dl class="dlParallel" id="section-12.4-12">
-          <dt id="section-12.4-12.1">SERVER Task Mode</dt>
-          <dd style="margin-left: 1.5em" id="section-12.4-12.2">
-            <div id="_c03a9ebe-2cc6-dc36-ce66-cf24b9cc2fcd">
-<p id="section-12.4-12.2.1">The task mode value "SERVER" indicates to the server that it can change
-the "VTODO" component's status to an appropriate value, based on
-implementation defined "business rules", as ATTENDEE responses are
-processed or as deadlines related to the task pass.<a href="#section-12.4-12.2.1" class="pilcrow">¶</a></p>
-</div>
-<div id="_141c173c-acd6-ec5d-5396-e2c37bece0ef">
-<p id="section-12.4-12.2.2">The server can add this property to a "VTODO" component to indicate to
-the client that it will be managing the status.<a href="#section-12.4-12.2.2" class="pilcrow">¶</a></p>
+<dl class="dlParallel" id="section-12.4-8">
+          <dt id="section-12.4-8.1">SERVER Task Mode</dt>
+          <dd style="margin-left: 1.5em" id="section-12.4-8.2">
+            <div id="_3f633985-ed9f-74ed-2dce-8961ad04ef26">
+<p id="section-12.4-8.2.1">The task mode value "SERVER" indicates to the server that it can change the "VTODO" calendar component's status to an appropriate value, based on implementation defined "business rules", as attendee responses are processed or as deadlines related to the task pass.<a href="#section-12.4-8.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
+          <dd class="break"></dd>
+<dt id="section-12.4-8.3">Examples</dt>
+          <dd style="margin-left: 1.5em" id="section-12.4-8.4"></dd>
         <dd class="break"></dd>
 </dl>
+</div>
+<div id="_b94a1804-0f53-54eb-6c70-cf46f6ebb377">
+<div class="sourcecode" id="section-12.4-9">
+<pre>TASK-MODE:AUTOMATIC-COMPLETION
+TASK-MODE:AUTOMATIC-FAILURE
+TASK-MODE:SERVER</pre><a href="#section-12.4-9" class="pilcrow">¶</a>
+</div>
 </div>
 </section>
 </div>
@@ -2819,13 +2692,10 @@ the client that it will be managing the status.<a href="#section-12.4-12.2.2" cl
 <div id="prop-ext-duration">
 <section id="section-13.1">
         <h3 id="name-updated-duration-property-d">
-<a href="#section-13.1" class="section-number selfRef">13.1. </a><a href="#name-updated-duration-property-d" class="section-name selfRef">Updated DURATION Property definition</a>
+<a href="#section-13.1" class="section-number selfRef">13.1. </a><a href="#name-updated-duration-property-d" class="section-name selfRef">Updated DURATION Property definition for VTODO</a>
         </h3>
-<div id="_43905ff8-caa0-2012-afbd-366fc238de6e">
-<p id="section-13.1-1"><span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> section 3.6.2 introduced a constraint on the duration property requiring
-that a DURATION MUST be accompanied by a DTSTART.
-This constraint is dropped reverting to the situation as specified
-previously.<a href="#section-13.1-1" class="pilcrow">¶</a></p>
+<div id="_fd81ae9d-915f-b3fb-1222-d47d4de9e695">
+<p id="section-13.1-1"><span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> section 3.6.2 introduced a constraint on the use of the "DURATION" property in the "VTODO" calendar component, requiring that a "DURATION" property MUST be accompanied by a "DTSTART" property. This constraint is dropped reverting to the situation as specified previously.<a href="#section-13.1-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_737a5836-e4aa-1254-2fd8-87e33f92bfb1">
 <p id="section-13.1-2">Thus the text:<a href="#section-13.1-2" class="pilcrow">¶</a></p>
@@ -2850,8 +2720,8 @@ previously.<a href="#section-13.1-1" class="pilcrow">¶</a></p>
                   ; MUST NOT occur in the same 'todoprop'.</pre><a href="#section-13.1-5" class="pilcrow">¶</a>
 </div>
 </div>
-<div id="_4739b276-fc97-bc05-3cc4-be46fb6ade23">
-<p id="section-13.1-6">This allows a VTODO to only have a DURATION property.<a href="#section-13.1-6" class="pilcrow">¶</a></p>
+<div id="_c2ebfc4c-7fd7-83b2-5b82-4c181d6cef0c">
+<p id="section-13.1-6">This allows a "VTODO" calendar component to only have a "DURATION" property.<a href="#section-13.1-6" class="pilcrow">¶</a></p>
 </div>
 <div id="_0a685609-158d-88de-69e9-d7d0f6889bfc">
 <p id="section-13.1-7">Furthermore, the following text:<a href="#section-13.1-7" class="pilcrow">¶</a></p>
@@ -2880,49 +2750,40 @@ previously.<a href="#section-13.1-1" class="pilcrow">¶</a></p>
         <h3 id="name-redefined-status-property">
 <a href="#section-13.2" class="section-number selfRef">13.2. </a><a href="#name-redefined-status-property" class="section-name selfRef">Redefined STATUS Property</a>
         </h3>
-<div id="_6a5d285b-2542-76dc-fd71-d2792629bf8c">
-<p id="section-13.2-1">The Status property is defined in <span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>. This
-specification extends that property to include new values
-associated with VTODO iCalendar components (See Appendix A for
-examples of the task state lifecycle).<a href="#section-13.2-1" class="pilcrow">¶</a></p>
+<div id="_dcdcea6a-a8fc-2089-6bd3-8ceb38fb5e8a">
+<p id="section-13.2-1">The Status property is defined in <span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>. This specification extends that property to include new values associated with "VTODO" calendar components (See Appendix A for examples of the task state lifecycle).<a href="#section-13.2-1" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_bb264e54-fa97-3bed-e35a-567b9ed1cc9c">
+<span class="break"></span><div id="_932f7786-45a5-5919-d2ef-64e1c7cb26b8">
 <dl class="dlParallel" id="section-13.2-2">
           <dt id="section-13.2-2.1">Format Definition</dt>
           <dd style="margin-left: 1.5em" id="section-13.2-2.2">
-            <div id="_0fa0308b-cabd-118d-7270-d295969b276e">
-<p id="section-13.2-2.2.1">The "STATUS" property parameter list is augmented
-as follows:<a href="#section-13.2-2.2.1" class="pilcrow">¶</a></p>
+            <div id="_b5d2f512-6d39-8bc9-f741-09b5a84f0376">
+<p id="section-13.2-2.2.1">The "STATUS" property parameter list is augmented as follows:<a href="#section-13.2-2.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
 </dl>
 </div>
-<div id="_7feb7a8a-f03d-c721-d05b-c913eaf86af3">
+<div id="_757a594b-919d-0a68-5973-619dd2cd1f5a">
 <div class="lang-bnf sourcecode" id="section-13.2-3">
 <pre>statvalue-todo = / "PENDING"    ;Indicates a to-do has been
                                 ;created and accepted, but has
                                 ; not yet started.
                 / "FAILED"      ;Indicates to-do has failed.
-;Extended status values for "VTODO".</pre><a href="#section-13.2-3" class="pilcrow">¶</a>
+;Extended status values for "VTODO" calendar component.</pre><a href="#section-13.2-3" class="pilcrow">¶</a>
 </div>
 </div>
 <div id="_1bb78168-bf79-42c3-4dec-543ac60c25ff">
 <p id="section-13.2-4">Description:<a href="#section-13.2-4" class="pilcrow">¶</a></p>
 </div>
-<div id="_d1371b2b-f592-2970-8004-e09fc566c0c3">
-<p id="section-13.2-5">PENDING - A to-do has been created and accepted but has not yet
-started and is ready
-to start subject to other dependencies (e.g. preceding task or
-DTSTART). This is the default state.<a href="#section-13.2-5" class="pilcrow">¶</a></p>
+<div id="_dbe603b6-684d-e93f-d7ea-cb4b2991da27">
+<p id="section-13.2-5">PENDING - A to-do has been created and accepted but has not yet started and is ready to start subject to other dependencies (e.g. preceding task or DTSTART). This is the default state.<a href="#section-13.2-5" class="pilcrow">¶</a></p>
 </div>
-<div id="_74c74bc3-9d8e-9db6-f169-824365b09845">
-<p id="section-13.2-6">FAILED - to-do has failed and may need some follow-up from the
-organizer to re-schedule or cancel<a href="#section-13.2-6" class="pilcrow">¶</a></p>
+<div id="_83d854cf-ba3d-c90e-d040-31db2a4027c6">
+<p id="section-13.2-6">FAILED - to-do has failed and may need some follow-up from the organizer to re-schedule or cancel<a href="#section-13.2-6" class="pilcrow">¶</a></p>
 </div>
-<div id="_8bbfa9f9-b680-5f69-91be-29f2056cb72e">
-<p id="section-13.2-7">Example: The following is an example of this property for a "VTODO"
-calendar component:<a href="#section-13.2-7" class="pilcrow">¶</a></p>
+<div id="_2a48dbeb-eac7-3c2c-3c07-2a14e9fb45c6">
+<p id="section-13.2-7">Example: The following is an example of this property for a "VTODO" calendar component:<a href="#section-13.2-7" class="pilcrow">¶</a></p>
 </div>
 <div id="_dbe3be1c-b85f-8f62-0928-cbf91a078aa4">
 <div class="sourcecode" id="section-13.2-8">
@@ -2943,7 +2804,7 @@ calendar component:<a href="#section-13.2-7" class="pilcrow">¶</a></p>
         <h3 id="name-status-component">
 <a href="#section-14.1" class="section-number selfRef">14.1. </a><a href="#name-status-component" class="section-name selfRef">Status Component</a>
         </h3>
-<span class="break"></span><div id="_c398c99d-4282-4916-29c3-9f95cf998956">
+<span class="break"></span><div id="_921dd1d0-0350-688e-b5b9-da23e023fd09">
 <dl class="dlParallel" id="section-14.1-1">
           <dt id="section-14.1-1.1">Component Name</dt>
           <dd style="margin-left: 1.5em" id="section-14.1-1.2">
@@ -2954,37 +2815,32 @@ calendar component:<a href="#section-13.2-7" class="pilcrow">¶</a></p>
           <dd class="break"></dd>
 <dt id="section-14.1-1.3">Purpose</dt>
           <dd style="margin-left: 1.5em" id="section-14.1-1.4">
-            <div id="_bfaee9ef-d2e9-e94b-b59e-7f0e099611b1">
-<p id="section-14.1-1.4.1">This component allows information to be
-associated with a status, for example comments and date stamps.<a href="#section-14.1-1.4.1" class="pilcrow">¶</a></p>
+            <div id="_56455484-b146-3c2c-d37b-c7371f8eaeef">
+<p id="section-14.1-1.4.1">This component allows information to be associated with a status, for example comments and date stamps.<a href="#section-14.1-1.4.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
 <dt id="section-14.1-1.5">Conformance</dt>
           <dd style="margin-left: 1.5em" id="section-14.1-1.6">
-            <div id="_77d4df10-6efb-35fc-089b-4fcbde044023">
-<p id="section-14.1-1.6.1">This component can be specified multiple times in
-any calendar component.<a href="#section-14.1-1.6.1" class="pilcrow">¶</a></p>
+            <div id="_369446cb-f370-b872-ed11-469147206946">
+<p id="section-14.1-1.6.1">This component can be specified multiple times in any calendar component.<a href="#section-14.1-1.6.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
 <dt id="section-14.1-1.7">Description</dt>
           <dd style="margin-left: 1.5em" id="section-14.1-1.8">
-            <div id="_6ecf4c0b-7464-882b-11b5-6d7908aa320a">
-<p id="section-14.1-1.8.1">This component provides a way for multiple date-stamped
-statuses to be associated with a component such as a participant, task or event.<a href="#section-14.1-1.8.1" class="pilcrow">¶</a></p>
+            <div id="_8dc8a7aa-aa28-62d3-a7ae-6a4ff51c6189">
+<p id="section-14.1-1.8.1">This component provides a way for multiple date-stamped statuses to be associated with a component such as a participant, task or event.<a href="#section-14.1-1.8.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
 </dl>
 </div>
-<div id="_5e3ade8c-6b67-01dd-ea19-e5996c1eb498">
-<p id="section-14.1-2">This component may be added to the <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> PARTICIPANT component
-to allow participants in a task to specify their own status.<a href="#section-14.1-2" class="pilcrow">¶</a></p>
+<div id="_5aafd8cc-b658-24a3-8b7e-0f38c4a64500">
+<p id="section-14.1-2">This component may be added to the <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> "PARTICIPANT" component to allow participants in a task to specify their own status.<a href="#section-14.1-2" class="pilcrow">¶</a></p>
 </div>
-<div id="_17f80fdf-a9cd-c768-9a0b-704b44914abc">
-<p id="section-14.1-3">For backwards compatibility, when a VSTATUS component is added the
-<span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> STATUS property MUST be set on the parent component.<a href="#section-14.1-3" class="pilcrow">¶</a></p>
+<div id="_3b0b4291-5af7-43c0-067c-2f1fcf8c5d4f">
+<p id="section-14.1-3">For backwards compatibility, when a VSTATUS component is added the <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> STATUS property MUST be set on the parent component.<a href="#section-14.1-3" class="pilcrow">¶</a></p>
 </div>
 <span class="break"></span><div id="_f2ca4028-1ee9-f04a-58ff-3fe3edd0c5eb">
 <dl class="dlParallel" id="section-14.1-4">
@@ -3159,187 +3015,21 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
         <h3 id="name-new-and-updated-icalendar-e">
 <a href="#section-17.1" class="section-number selfRef">17.1. </a><a href="#name-new-and-updated-icalendar-e" class="section-name selfRef">New and updated iCalendar Elements Registration</a>
         </h3>
-<div id="_cd979c51-c25c-aee0-5660-68df970f7511">
-<p id="section-17.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding and updating
-a number of elements according to the procedures and templates specified in
-<span><a class="relref">Section 8.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1-1" class="pilcrow">¶</a></p>
+<div id="_3d34ed84-e14c-860f-bc92-b8331536a1ff">
+<p id="section-17.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding and updating a number of elements according to the procedures and templates specified in <span><a class="relref">Section 8.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_initialization_of_the_status_registry">
+<div id="_update_of_the_status_registry">
 <section id="section-17.1.1">
-          <h4 id="name-initialization-of-the-statu">
-<a href="#section-17.1.1" class="section-number selfRef">17.1.1. </a><a href="#name-initialization-of-the-statu" class="section-name selfRef">Initialization of the Status registry</a>
+          <h4 id="name-update-of-the-status-regist">
+<a href="#section-17.1.1" class="section-number selfRef">17.1.1. </a><a href="#name-update-of-the-status-regist" class="section-name selfRef">Update of the Status registry</a>
           </h4>
-<div id="_5c9b7f9b-8606-86bc-253b-9c5577d06232">
-<p id="section-17.1.1-1">This specification updates <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> by adding a Status value registry to the iCalendar Elements registry
-located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt; and initializing it as per <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-17.1.1-1" class="pilcrow">¶</a></p>
+<div id="_05200945-f658-acbc-aa9a-e1dd20e5400e">
+<p id="section-17.1.1-1">This specification updates the Status registry defined in <span>[<a href="#draft-ietf-calext-subscription-upgrade" class="cite xref">draft-ietf-calext-subscription-upgrade</a>]</span> with additional values defined in this document.<a href="#section-17.1.1-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-initial-status-value-regist"></span><div id="_f502cf79-524f-7b0a-383b-a907147e6d82">
+<span id="name-updated-status-value-regist"></span><div id="_88ea8990-b6b4-99b3-60ec-2d9e796c5a9f">
 <table class="center" id="table-1">
             <caption>
 <a href="#table-1" class="selfRef">Table 1</a>:
-<a href="#name-initial-status-value-regist" class="selfRef">Initial Status Value Registry</a>
-            </caption>
-<thead>
-              <tr>
-                <th class="text-left" rowspan="1" colspan="1">Name</th>
-                <th class="text-left" rowspan="1" colspan="1">Status</th>
-                <th class="text-left" rowspan="1" colspan="1">Reference</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_fb4ab838-9252-fbd8-544a-afc7b8292588">
-<p id="section-17.1.1-2.2.1.1.1">CANCELLED<a href="#section-17.1.1-2.2.1.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_5f77c230-a501-5288-e292-ac6bc1c6d007">
-<p id="section-17.1.1-2.2.1.2.1">Current<a href="#section-17.1.1-2.2.1.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_bcdf858d-cfff-f4bb-7f29-df03610b2b26">
-<p id="section-17.1.1-2.2.1.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.1.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_45e2b579-e513-cc63-a625-a4a85ad09f55">
-<p id="section-17.1.1-2.2.2.1.1">COMPLETED<a href="#section-17.1.1-2.2.2.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_173b1988-e1f2-af06-d719-0fb7e03c3e3b">
-<p id="section-17.1.1-2.2.2.2.1">Current<a href="#section-17.1.1-2.2.2.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_5528b6a4-f3dd-19ed-d7b2-b415a5694dd5">
-<p id="section-17.1.1-2.2.2.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.2.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_b9aa1c43-5ec5-3353-ee37-5aea9bb9782e">
-<p id="section-17.1.1-2.2.3.1.1">CONFIRMED<a href="#section-17.1.1-2.2.3.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_e3e33302-7c6b-78cb-c63a-ab9190a410c3">
-<p id="section-17.1.1-2.2.3.2.1">Current<a href="#section-17.1.1-2.2.3.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_03f4b130-96c2-e871-2748-7434b08c94fa">
-<p id="section-17.1.1-2.2.3.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.3.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_48702198-ee0a-3d85-9d85-40ea642e4a78">
-<p id="section-17.1.1-2.2.4.1.1">DRAFT<a href="#section-17.1.1-2.2.4.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_d82c620a-5202-170e-5cfd-929ff334df2f">
-<p id="section-17.1.1-2.2.4.2.1">Current<a href="#section-17.1.1-2.2.4.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_0a275a4b-2ee2-b240-6214-9b96556808dc">
-<p id="section-17.1.1-2.2.4.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.4.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_8d296bed-7419-afa6-970f-a92c012dddb6">
-<p id="section-17.1.1-2.2.5.1.1">FINAL<a href="#section-17.1.1-2.2.5.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_38d826c1-9dd6-5c6c-4fc7-0e65c0f0d6c5">
-<p id="section-17.1.1-2.2.5.2.1">Current<a href="#section-17.1.1-2.2.5.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_9432375a-44f5-0cfb-b1f3-fa0948d9ce1f">
-<p id="section-17.1.1-2.2.5.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.5.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_5d006c9c-10c8-84f2-0bca-7605a3a602d8">
-<p id="section-17.1.1-2.2.6.1.1">IN-PROCESS<a href="#section-17.1.1-2.2.6.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_822f929f-abc6-1c05-686f-6e04e35aef9f">
-<p id="section-17.1.1-2.2.6.2.1">Current<a href="#section-17.1.1-2.2.6.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_aed8aac8-9190-0b00-428a-84b36f6643b0">
-<p id="section-17.1.1-2.2.6.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.6.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_d2e2721f-7996-1436-4eb4-fa1d6715cb2d">
-<p id="section-17.1.1-2.2.7.1.1">NEEDS-ACTION<a href="#section-17.1.1-2.2.7.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_91f50b67-a354-7095-40d0-a87b6241de37">
-<p id="section-17.1.1-2.2.7.2.1">Current<a href="#section-17.1.1-2.2.7.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_00ff8286-a12b-1daa-614a-63da24fee597">
-<p id="section-17.1.1-2.2.7.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.7.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_aa13f183-e351-b875-bfcf-1f720ada7bfb">
-<p id="section-17.1.1-2.2.8.1.1">TENTATIVE<a href="#section-17.1.1-2.2.8.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_15768784-0417-5384-0000-496b745cec4b">
-<p id="section-17.1.1-2.2.8.2.1">Current<a href="#section-17.1.1-2.2.8.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_134c7a76-ec06-8751-bc43-3012a163133d">
-<p id="section-17.1.1-2.2.8.3.1"><span><a class="relref">Section 3.8.1.11</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span><a href="#section-17.1.1-2.2.8.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-            </tbody>
-          </table>
-</div>
-</section>
-</div>
-<div id="_update_of_the_status_registry">
-<section id="section-17.1.2">
-          <h4 id="name-update-of-the-status-regist">
-<a href="#section-17.1.2" class="section-number selfRef">17.1.2. </a><a href="#name-update-of-the-status-regist" class="section-name selfRef">Update of the Status registry</a>
-          </h4>
-<div id="_87b727a8-c7a5-17fa-bcd8-242ba37b7b10">
-<p id="section-17.1.2-1">This specification further updates the Status registry with additional values defined in this document.<a href="#section-17.1.2-1" class="pilcrow">¶</a></p>
-</div>
-<span id="name-updated-status-value-regist"></span><div id="_fd541fbe-4d38-8abc-48c0-236473dc0bbb">
-<table class="center" id="table-2">
-            <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
 <a href="#name-updated-status-value-regist" class="selfRef">Updated Status Value Registry</a>
             </caption>
 <thead>
@@ -3352,35 +3042,35 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_a79fcf41-c95e-8e4c-55a1-1bc8ac19f79d">
-<p id="section-17.1.2-2.2.1.1.1">PENDING<a href="#section-17.1.2-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_aeb11e20-6360-5345-f4c6-c30068a7cc9f">
+<p id="section-17.1.1-2.2.1.1.1">PENDING<a href="#section-17.1.1-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_43e56ecb-1728-4cd2-5b86-898ba914490f">
-<p id="section-17.1.2-2.2.1.2.1">Current<a href="#section-17.1.2-2.2.1.2.1" class="pilcrow">¶</a></p>
+                  <div id="_5f77c230-a501-5288-e292-ac6bc1c6d007">
+<p id="section-17.1.1-2.2.1.2.1">Current<a href="#section-17.1.1-2.2.1.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_ed3c8e22-a4ee-231c-8009-e4854a9794de">
-<p id="section-17.1.2-2.2.1.3.1">This Spec, <a href="#prop-ext-status" class="auto internal xref">Section 13.2</a><a href="#section-17.1.2-2.2.1.3.1" class="pilcrow">¶</a></p>
+                  <div id="_671865d2-7515-276f-a1d7-698ab5d86944">
+<p id="section-17.1.1-2.2.1.3.1">This Spec, <a href="#prop-ext-status" class="auto internal xref">Section 13.2</a><a href="#section-17.1.1-2.2.1.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_eb9db5e5-fed4-4d3a-f441-97ad57fb1514">
-<p id="section-17.1.2-2.2.2.1.1">FAILED<a href="#section-17.1.2-2.2.2.1.1" class="pilcrow">¶</a></p>
+                  <div id="_12196b12-f1bd-0cb9-99f2-73ae413c1f13">
+<p id="section-17.1.1-2.2.2.1.1">FAILED<a href="#section-17.1.1-2.2.2.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_63a229dd-c0c3-f905-245b-67a9df21a828">
-<p id="section-17.1.2-2.2.2.2.1">Current<a href="#section-17.1.2-2.2.2.2.1" class="pilcrow">¶</a></p>
+                  <div id="_173b1988-e1f2-af06-d719-0fb7e03c3e3b">
+<p id="section-17.1.1-2.2.2.2.1">Current<a href="#section-17.1.1-2.2.2.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_4a592d25-10c1-84f3-9e71-4c8c04f9022c">
-<p id="section-17.1.2-2.2.2.3.1">This Spec, <a href="#prop-ext-status" class="auto internal xref">Section 13.2</a><a href="#section-17.1.2-2.2.2.3.1" class="pilcrow">¶</a></p>
+                  <div id="_0a9f8fdc-a560-06db-77eb-822c530797bb">
+<p id="section-17.1.1-2.2.2.3.1">This Spec, <a href="#prop-ext-status" class="auto internal xref">Section 13.2</a><a href="#section-17.1.1-2.2.2.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
@@ -3390,17 +3080,17 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
 </section>
 </div>
 <div id="_sub_state_value_registry">
-<section id="section-17.1.3">
+<section id="section-17.1.2">
           <h4 id="name-sub-state-value-registry">
-<a href="#section-17.1.3" class="section-number selfRef">17.1.3. </a><a href="#name-sub-state-value-registry" class="section-name selfRef">Sub-State value registry</a>
+<a href="#section-17.1.2" class="section-number selfRef">17.1.2. </a><a href="#name-sub-state-value-registry" class="section-name selfRef">Sub-State value registry</a>
           </h4>
-<div id="_000306ad-46b0-f81a-efe1-746448bdcf4c">
-<p id="section-17.1.3-1">The following table has been used to initialize the Sub-State registry.<a href="#section-17.1.3-1" class="pilcrow">¶</a></p>
+<div id="_de94362a-09d9-dfc4-2452-d9266948d6f2">
+<p id="section-17.1.2-1">The following table has been used to initialize the Sub-State registry.<a href="#section-17.1.2-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-sub-state-registry"></span><div id="_b990c112-2028-7b32-473f-a1053be34473">
-<table class="center" id="table-3">
+<span id="name-sub-state-registry"></span><div id="_fcf6e6e7-c9db-d017-1789-bc1b750e74b7">
+<table class="center" id="table-2">
             <caption>
-<a href="#table-3" class="selfRef">Table 3</a>:
+<a href="#table-2" class="selfRef">Table 2</a>:
 <a href="#name-sub-state-registry" class="selfRef">Sub-State registry</a>
             </caption>
 <thead>
@@ -3413,52 +3103,52 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_62c3f97b-6f33-a355-efbf-cf16eca496ae">
-<p id="section-17.1.3-2.2.1.1.1">OK<a href="#section-17.1.3-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_f4a1afe3-8652-f273-9b71-d379a672b4f0">
+<p id="section-17.1.2-2.2.1.1.1">OK<a href="#section-17.1.2-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_2ec531a3-83bb-3c47-3c73-2a42cbc421cf">
-<p id="section-17.1.3-2.2.1.2.1">Current<a href="#section-17.1.3-2.2.1.2.1" class="pilcrow">¶</a></p>
+                  <div id="_43e56ecb-1728-4cd2-5b86-898ba914490f">
+<p id="section-17.1.2-2.2.1.2.1">Current<a href="#section-17.1.2-2.2.1.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_309b1e0d-6ed3-174a-8526-a8b644d5419e">
-<p id="section-17.1.3-2.2.1.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.3-2.2.1.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_3f2ae4cf-71fb-0c02-d18c-b02252e8aa6f">
-<p id="section-17.1.3-2.2.2.1.1">ERROR<a href="#section-17.1.3-2.2.2.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_0ff1db05-0c03-b651-fc0f-e8bfc1f1b27a">
-<p id="section-17.1.3-2.2.2.2.1">Current<a href="#section-17.1.3-2.2.2.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_55ec84b6-5740-430c-8b5d-fb11cd5ac6ed">
-<p id="section-17.1.3-2.2.2.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.3-2.2.2.3.1" class="pilcrow">¶</a></p>
+                  <div id="_ed3c8e22-a4ee-231c-8009-e4854a9794de">
+<p id="section-17.1.2-2.2.1.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.2-2.2.1.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_8b44d1c5-fe14-731f-aa2c-7811891a249e">
-<p id="section-17.1.3-2.2.3.1.1">SUSPENDED<a href="#section-17.1.3-2.2.3.1.1" class="pilcrow">¶</a></p>
+                  <div id="_3d44d80d-c2c7-91db-079a-30675e09231b">
+<p id="section-17.1.2-2.2.2.1.1">ERROR<a href="#section-17.1.2-2.2.2.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_099bfcce-69dc-0541-f504-86ff05c14c6c">
-<p id="section-17.1.3-2.2.3.2.1">Current<a href="#section-17.1.3-2.2.3.2.1" class="pilcrow">¶</a></p>
+                  <div id="_63a229dd-c0c3-f905-245b-67a9df21a828">
+<p id="section-17.1.2-2.2.2.2.1">Current<a href="#section-17.1.2-2.2.2.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_cbb37640-5b7f-48e4-62ab-1dc41a6de174">
-<p id="section-17.1.3-2.2.3.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.3-2.2.3.3.1" class="pilcrow">¶</a></p>
+                  <div id="_4a592d25-10c1-84f3-9e71-4c8c04f9022c">
+<p id="section-17.1.2-2.2.2.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.2-2.2.2.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_594a83a4-160a-9713-6b6c-38d2f7b065ea">
+<p id="section-17.1.2-2.2.3.1.1">SUSPENDED<a href="#section-17.1.2-2.2.3.1.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_2a175fe9-5c00-d84c-c4be-2d0bd782e335">
+<p id="section-17.1.2-2.2.3.2.1">Current<a href="#section-17.1.2-2.2.3.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_08faf684-147b-de8c-1ef9-3d88b0c7c083">
+<p id="section-17.1.2-2.2.3.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.2-2.2.3.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
@@ -3468,17 +3158,17 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
 </section>
 </div>
 <div id="_task_mode_value_registry">
-<section id="section-17.1.4">
+<section id="section-17.1.3">
           <h4 id="name-task-mode-value-registry">
-<a href="#section-17.1.4" class="section-number selfRef">17.1.4. </a><a href="#name-task-mode-value-registry" class="section-name selfRef">Task Mode value registry</a>
+<a href="#section-17.1.3" class="section-number selfRef">17.1.3. </a><a href="#name-task-mode-value-registry" class="section-name selfRef">Task Mode value registry</a>
           </h4>
-<div id="_44855e8e-4588-e6fb-aa5e-14523e936687">
-<p id="section-17.1.4-1">The following table has been used to initialize the Task Mode registry.<a href="#section-17.1.4-1" class="pilcrow">¶</a></p>
+<div id="_a713d2e9-93cf-90d6-7aae-91ac3c98720c">
+<p id="section-17.1.3-1">The following table has been used to initialize the Task Mode registry.<a href="#section-17.1.3-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-task-mode-value-registry-2"></span><div id="_4b3a8c1f-db42-a5eb-a07c-ed972608c726">
-<table class="center" id="table-4">
+<span id="name-task-mode-value-registry-2"></span><div id="_7977ef5a-c2d2-3405-3821-74bb2cde2651">
+<table class="center" id="table-3">
             <caption>
-<a href="#table-4" class="selfRef">Table 4</a>:
+<a href="#table-3" class="selfRef">Table 3</a>:
 <a href="#name-task-mode-value-registry-2" class="selfRef">Task Mode Value Registry</a>
             </caption>
 <thead>
@@ -3491,69 +3181,69 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_d119c300-3d9a-5633-a544-8a0d39eae4bf">
-<p id="section-17.1.4-2.2.1.1.1">AUTOMATIC-COMPLETION<a href="#section-17.1.4-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_13422e4a-103a-f8ea-a097-5f5e7cf6d616">
+<p id="section-17.1.3-2.2.1.1.1">AUTOMATIC-COMPLETION<a href="#section-17.1.3-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_5cbb7428-71a3-d472-950d-53f0742d5efd">
-<p id="section-17.1.4-2.2.1.2.1">Current<a href="#section-17.1.4-2.2.1.2.1" class="pilcrow">¶</a></p>
+                  <div id="_2ec531a3-83bb-3c47-3c73-2a42cbc421cf">
+<p id="section-17.1.3-2.2.1.2.1">Current<a href="#section-17.1.3-2.2.1.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_8217335d-a89c-5e6a-946d-ff7a54b66227">
-<p id="section-17.1.4-2.2.1.3.1">This Spec, <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.4-2.2.1.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_fa263772-2f54-e911-f954-7382c15a1bb9">
-<p id="section-17.1.4-2.2.2.1.1">AUTOMATIC-FAILURE<a href="#section-17.1.4-2.2.2.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_6832b27b-a75f-776c-9cc2-6a11e2e0b007">
-<p id="section-17.1.4-2.2.2.2.1">Current<a href="#section-17.1.4-2.2.2.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_7ad8d381-79f6-214f-9487-36d6c71f894a">
-<p id="section-17.1.4-2.2.2.3.1">This Spec,  <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.4-2.2.2.3.1" class="pilcrow">¶</a></p>
+                  <div id="_309b1e0d-6ed3-174a-8526-a8b644d5419e">
+<p id="section-17.1.3-2.2.1.3.1">This Spec, <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.3-2.2.1.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_e6a6318b-1074-b7f5-ffcb-7c028d7aa68b">
-<p id="section-17.1.4-2.2.3.1.1">CLIENT<a href="#section-17.1.4-2.2.3.1.1" class="pilcrow">¶</a></p>
+                  <div id="_9fa30816-f23e-8730-f427-9ca4cd714790">
+<p id="section-17.1.3-2.2.2.1.1">AUTOMATIC-FAILURE<a href="#section-17.1.3-2.2.2.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_80d85459-fe8b-228b-b03f-253b9d32141d">
-<p id="section-17.1.4-2.2.3.2.1">Current<a href="#section-17.1.4-2.2.3.2.1" class="pilcrow">¶</a></p>
+                  <div id="_0ff1db05-0c03-b651-fc0f-e8bfc1f1b27a">
+<p id="section-17.1.3-2.2.2.2.1">Current<a href="#section-17.1.3-2.2.2.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_83ffc7dc-c0c7-6a95-0c46-c2175d554da0">
-<p id="section-17.1.4-2.2.3.3.1">This Spec,  <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.4-2.2.3.3.1" class="pilcrow">¶</a></p>
+                  <div id="_65689b1c-7466-a7ed-f913-1933e24b328c">
+<p id="section-17.1.3-2.2.2.3.1">This Spec,  <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.3-2.2.2.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_5f32e783-3043-f0d1-f578-33ec60541932">
-<p id="section-17.1.4-2.2.4.1.1">SERVER<a href="#section-17.1.4-2.2.4.1.1" class="pilcrow">¶</a></p>
+                  <div id="_1f924d28-3125-8879-b562-8ebbe947f706">
+<p id="section-17.1.3-2.2.3.1.1">CLIENT<a href="#section-17.1.3-2.2.3.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_41921af4-4df4-a5a1-6797-26ed2571b882">
-<p id="section-17.1.4-2.2.4.2.1">Current<a href="#section-17.1.4-2.2.4.2.1" class="pilcrow">¶</a></p>
+                  <div id="_099bfcce-69dc-0541-f504-86ff05c14c6c">
+<p id="section-17.1.3-2.2.3.2.1">Current<a href="#section-17.1.3-2.2.3.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_d03946f9-3c35-2b47-182b-e183da57cef8">
-<p id="section-17.1.4-2.2.4.3.1">This Spec,  <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.4-2.2.4.3.1" class="pilcrow">¶</a></p>
+                  <div id="_dd06b8c4-97e9-60d0-eca4-182282428594">
+<p id="section-17.1.3-2.2.3.3.1">This Spec,  <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.3-2.2.3.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_804302d8-93f6-f6c9-c031-bd30b549dc58">
+<p id="section-17.1.3-2.2.4.1.1">SERVER<a href="#section-17.1.3-2.2.4.1.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_ae5f5c44-d5b7-8088-ee12-4753ba311d0a">
+<p id="section-17.1.3-2.2.4.2.1">Current<a href="#section-17.1.3-2.2.4.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_d397949c-a560-2569-43d1-50968c6491cf">
+<p id="section-17.1.3-2.2.4.3.1">This Spec,  <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.3-2.2.4.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
@@ -3563,17 +3253,17 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
 </section>
 </div>
 <div id="_participation_statuses_registry">
-<section id="section-17.1.5">
+<section id="section-17.1.4">
           <h4 id="name-participation-statuses-regi">
-<a href="#section-17.1.5" class="section-number selfRef">17.1.5. </a><a href="#name-participation-statuses-regi" class="section-name selfRef">Participation Statuses registry</a>
+<a href="#section-17.1.4" class="section-number selfRef">17.1.4. </a><a href="#name-participation-statuses-regi" class="section-name selfRef">Participation Statuses registry</a>
           </h4>
-<div id="_1e60f52e-9d7b-062c-c087-2435116f2fcb">
-<p id="section-17.1.5-1">The following table has been used to update the Participation Statuses registry defined in <span><a class="relref">Section 8.3.7</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
+<div id="_06ea47a1-a0ea-d83a-e37a-89a537a829bf">
+<p id="section-17.1.4-1">The following table has been used to update the Participation Statuses registry defined in <span><a class="relref">Section 8.3.7</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;<a href="#section-17.1.4-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-participation-statuses-regis"></span><div id="_a45e6d4d-1e73-e3cc-258d-8f15f07ef811">
-<table class="center" id="table-5">
+<span id="name-participation-statuses-regis"></span><div id="_7e813f8a-8cef-ea9b-8133-fba5c29d35ce">
+<table class="center" id="table-4">
             <caption>
-<a href="#table-5" class="selfRef">Table 5</a>:
+<a href="#table-4" class="selfRef">Table 4</a>:
 <a href="#name-participation-statuses-regis" class="selfRef">Participation Statuses Registry</a>
             </caption>
 <thead>
@@ -3586,18 +3276,18 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_db94f5fa-8e9b-d309-5f81-8ed4dab5bbf0">
-<p id="section-17.1.5-2.2.1.1.1">FAILED<a href="#section-17.1.5-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_61e89e2e-6446-0477-bc30-cc5c3d2116f1">
+<p id="section-17.1.4-2.2.1.1.1">FAILED<a href="#section-17.1.4-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_ae408b02-d4ed-d2f9-3fda-26b87b79dc4a">
-<p id="section-17.1.5-2.2.1.2.1">Current<a href="#section-17.1.5-2.2.1.2.1" class="pilcrow">¶</a></p>
+                  <div id="_0701683e-c9c9-12fd-7ed0-e164e327052d">
+<p id="section-17.1.4-2.2.1.2.1">Current<a href="#section-17.1.4-2.2.1.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_f7ac1e13-ce09-3486-04e0-4ab0b1ae9d51">
-<p id="section-17.1.5-2.2.1.3.1">This Spec, <a href="#param-val-partstat" class="auto internal xref">Section 11.1</a><a href="#section-17.1.5-2.2.1.3.1" class="pilcrow">¶</a></p>
+                  <div id="_a18ac31c-992d-5b34-8882-37d8e8e91067">
+<p id="section-17.1.4-2.2.1.3.1">This Spec, <a href="#param-val-partstat" class="auto internal xref">Section 11.1</a><a href="#section-17.1.4-2.2.1.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
@@ -3607,18 +3297,17 @@ located here: <span><a href="https://www.iana.org/assignments/icalendar">https:/
 </section>
 </div>
 <div id="_components_registry">
-<section id="section-17.1.6">
+<section id="section-17.1.5">
           <h4 id="name-components-registry">
-<a href="#section-17.1.6" class="section-number selfRef">17.1.6. </a><a href="#name-components-registry" class="section-name selfRef">Components Registry</a>
+<a href="#section-17.1.5" class="section-number selfRef">17.1.5. </a><a href="#name-components-registry" class="section-name selfRef">Components Registry</a>
           </h4>
-<div id="_4b701f26-34a1-0666-a740-558d38a829a2">
-<p id="section-17.1.6-1">The following table has been used to update the Components registry
-defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
+<div id="_3490ae3d-4262-ce23-94a5-0105140f979d">
+<p id="section-17.1.5-1">The following table has been used to update the Components registry defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-updated-components-registry"></span><div id="_5044af9e-9d1f-9b22-6ac0-ac6d05634292">
-<table class="center" id="table-6">
+<span id="name-updated-components-registry"></span><div id="_b293ebda-88d9-4453-6807-4771886854a0">
+<table class="center" id="table-5">
             <caption>
-<a href="#table-6" class="selfRef">Table 6</a>:
+<a href="#table-5" class="selfRef">Table 5</a>:
 <a href="#name-updated-components-registry" class="selfRef">Updated Components Registry</a>
             </caption>
 <thead>
@@ -3631,18 +3320,18 @@ defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" clas
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_2de74444-524b-70bf-9015-db4c9298bc60">
-<p id="section-17.1.6-2.2.1.1.1">VSTATUS<a href="#section-17.1.6-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_a791ec51-21d6-8e15-b28a-f6444a2140fe">
+<p id="section-17.1.5-2.2.1.1.1">VSTATUS<a href="#section-17.1.5-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_96acae7a-7ff1-e5a4-f77f-48373d6d844e">
-<p id="section-17.1.6-2.2.1.2.1">Current<a href="#section-17.1.6-2.2.1.2.1" class="pilcrow">¶</a></p>
+                  <div id="_ae408b02-d4ed-d2f9-3fda-26b87b79dc4a">
+<p id="section-17.1.5-2.2.1.2.1">Current<a href="#section-17.1.5-2.2.1.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_ea30c516-057c-0f79-3883-9ff2883579ad">
-<p id="section-17.1.6-2.2.1.3.1">This Spec, <a href="#vstatus" class="auto internal xref">Section 14.1</a><a href="#section-17.1.6-2.2.1.3.1" class="pilcrow">¶</a></p>
+                  <div id="_f7ac1e13-ce09-3486-04e0-4ab0b1ae9d51">
+<p id="section-17.1.5-2.2.1.3.1">This Spec, <a href="#vstatus" class="auto internal xref">Section 14.1</a><a href="#section-17.1.5-2.2.1.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
@@ -3652,18 +3341,17 @@ defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" clas
 </section>
 </div>
 <div id="_properties_registry">
-<section id="section-17.1.7">
+<section id="section-17.1.6">
           <h4 id="name-properties-registry">
-<a href="#section-17.1.7" class="section-number selfRef">17.1.7. </a><a href="#name-properties-registry" class="section-name selfRef">Properties registry</a>
+<a href="#section-17.1.6" class="section-number selfRef">17.1.6. </a><a href="#name-properties-registry" class="section-name selfRef">Properties registry</a>
           </h4>
-<div id="_86cb3e25-1336-73ea-9f0b-687a9e65ffc3">
-<p id="section-17.1.7-1">The following table has been used to update the Properties registry
-defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.7-1" class="pilcrow">¶</a></p>
+<div id="_12a45e47-f826-8485-97d8-a8484eed7e1c">
+<p id="section-17.1.6-1">The following table has been used to update the Properties registry defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-updated-properties-registry"></span><div id="_b0feecee-15fd-339a-fbfd-2d5eb17553a7">
-<table class="center" id="table-7">
+<span id="name-updated-properties-registry"></span><div id="_e9c72a68-7521-d614-2ba8-7dbb59e588f1">
+<table class="center" id="table-6">
             <caption>
-<a href="#table-7" class="selfRef">Table 7</a>:
+<a href="#table-6" class="selfRef">Table 6</a>:
 <a href="#name-updated-properties-registry" class="selfRef">Updated Properties Registry</a>
             </caption>
 <thead>
@@ -3676,86 +3364,86 @@ defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" clas
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_4994e18f-a48f-b40a-f1c0-fe9215294f65">
-<p id="section-17.1.7-2.2.1.1.1">ESTIMATED_DURATION<a href="#section-17.1.7-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_82ff7d2e-d100-558b-a95a-ded1ac539d3b">
+<p id="section-17.1.6-2.2.1.1.1">ESTIMATED_DURATION<a href="#section-17.1.6-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_b6263c5c-ca9f-ee6d-812f-e17b6547cfc9">
-<p id="section-17.1.7-2.2.1.2.1">Current<a href="#section-17.1.7-2.2.1.2.1" class="pilcrow">¶</a></p>
+                  <div id="_c2768f02-f5cb-071b-badf-f69e75ed013c">
+<p id="section-17.1.6-2.2.1.2.1">Current<a href="#section-17.1.6-2.2.1.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_3ac1170c-85ea-acf8-73c0-8209daeecdbd">
-<p id="section-17.1.7-2.2.1.3.1">This Spec, <a href="#prop-estimated-duration" class="auto internal xref">Section 12.1</a><a href="#section-17.1.7-2.2.1.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_841b72f0-b0ba-2395-8d6f-138a983ee4cd">
-<p id="section-17.1.7-2.2.2.1.1">REASON<a href="#section-17.1.7-2.2.2.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_3be5f456-9928-15db-2df8-c3a78ac3fc1f">
-<p id="section-17.1.7-2.2.2.2.1">Current<a href="#section-17.1.7-2.2.2.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_d350a3ac-5d59-cbbc-8b23-570386026b1d">
-<p id="section-17.1.7-2.2.2.3.1">This Spec, <a href="#prop-reason" class="auto internal xref">Section 12.2</a><a href="#section-17.1.7-2.2.2.3.1" class="pilcrow">¶</a></p>
+                  <div id="_0f29a7d5-ca1b-7ecc-d3ca-b597ece2c310">
+<p id="section-17.1.6-2.2.1.3.1">This Spec, <a href="#prop-estimated-duration" class="auto internal xref">Section 12.1</a><a href="#section-17.1.6-2.2.1.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_a544287c-c6f6-8ae4-5400-ea76ba081573">
-<p id="section-17.1.7-2.2.3.1.1">SUBSTATE<a href="#section-17.1.7-2.2.3.1.1" class="pilcrow">¶</a></p>
+                  <div id="_03556418-c32d-2e40-d391-50df6d4dacb7">
+<p id="section-17.1.6-2.2.2.1.1">REASON<a href="#section-17.1.6-2.2.2.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_fd5759ba-b3ee-c994-1538-b413fe485fce">
-<p id="section-17.1.7-2.2.3.2.1">Current<a href="#section-17.1.7-2.2.3.2.1" class="pilcrow">¶</a></p>
+                  <div id="_8e4a25e1-26c3-dc30-bf21-ef89c6e71422">
+<p id="section-17.1.6-2.2.2.2.1">Current<a href="#section-17.1.6-2.2.2.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_fd1a1dba-352f-8d62-428d-d98cbd53374b">
-<p id="section-17.1.7-2.2.3.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.7-2.2.3.3.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-              </tr>
-              <tr>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_f51220ff-8941-0212-74d5-0e6b991bd0dd">
-<p id="section-17.1.7-2.2.4.1.1">STATUS<a href="#section-17.1.7-2.2.4.1.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_ee80ba02-325f-9bb2-6f6f-ed65475b9dd5">
-<p id="section-17.1.7-2.2.4.2.1">Current<a href="#section-17.1.7-2.2.4.2.1" class="pilcrow">¶</a></p>
-</div>
-</td>
-                <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_d7362338-7625-d70f-248b-7cbde7257e14">
-<p id="section-17.1.7-2.2.4.3.1">This Spec, <a href="#prop-ext-status" class="auto internal xref">Section 13.2</a><a href="#section-17.1.7-2.2.4.3.1" class="pilcrow">¶</a></p>
+                  <div id="_e0fe639d-c80d-91e2-8682-7fb17757ddcb">
+<p id="section-17.1.6-2.2.2.3.1">This Spec, <a href="#prop-reason" class="auto internal xref">Section 12.2</a><a href="#section-17.1.6-2.2.2.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_f5f8add7-0f15-b2c2-310b-28d6ca48bc83">
-<p id="section-17.1.7-2.2.5.1.1">TASK-MODE<a href="#section-17.1.7-2.2.5.1.1" class="pilcrow">¶</a></p>
+                  <div id="_fd7154df-c660-99b7-e975-8dca58d094f2">
+<p id="section-17.1.6-2.2.3.1.1">SUBSTATE<a href="#section-17.1.6-2.2.3.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_b2804fdf-9a2f-2c20-6489-8abab2e6b4ed">
-<p id="section-17.1.7-2.2.5.2.1">Current<a href="#section-17.1.7-2.2.5.2.1" class="pilcrow">¶</a></p>
+                  <div id="_e139fd44-b671-b35a-431f-a21e06c7fa3b">
+<p id="section-17.1.6-2.2.3.2.1">Current<a href="#section-17.1.6-2.2.3.2.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_3b922650-65c4-2264-1b56-37f7b295bd20">
-<p id="section-17.1.7-2.2.5.3.1">This Spec, <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.7-2.2.5.3.1" class="pilcrow">¶</a></p>
+                  <div id="_d2b6161f-4f58-efe5-1ac4-0c672ba08ce2">
+<p id="section-17.1.6-2.2.3.3.1">This Spec, <a href="#prop-sub-state" class="auto internal xref">Section 12.3</a><a href="#section-17.1.6-2.2.3.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_ae915070-47d5-5ef2-0d4e-dbed2648197c">
+<p id="section-17.1.6-2.2.4.1.1">STATUS<a href="#section-17.1.6-2.2.4.1.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_bd1c9018-b9d1-3894-9a6d-a447bceb9655">
+<p id="section-17.1.6-2.2.4.2.1">Current<a href="#section-17.1.6-2.2.4.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_94a500e5-a0fb-a10a-83d1-1da2eed91675">
+<p id="section-17.1.6-2.2.4.3.1">This Spec, <a href="#prop-ext-status" class="auto internal xref">Section 13.2</a><a href="#section-17.1.6-2.2.4.3.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+              </tr>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_34ba27b5-d77e-e3a1-b22c-c307c07f5e04">
+<p id="section-17.1.6-2.2.5.1.1">TASK-MODE<a href="#section-17.1.6-2.2.5.1.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_4e42b8a6-7443-fd88-d7ba-dd7dbd5a3692">
+<p id="section-17.1.6-2.2.5.2.1">Current<a href="#section-17.1.6-2.2.5.2.1" class="pilcrow">¶</a></p>
+</div>
+</td>
+                <td class="text-left" rowspan="1" colspan="1">
+                  <div id="_47eb473b-7c59-d7b6-770e-df0b0dfae1e8">
+<p id="section-17.1.6-2.2.5.3.1">This Spec, <a href="#prop-task-mode" class="auto internal xref">Section 12.4</a><a href="#section-17.1.6-2.2.5.3.1" class="pilcrow">¶</a></p>
 </div>
 </td>
               </tr>
@@ -3779,9 +3467,8 @@ defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" clas
 <div id="_7c1c001f-d76e-9cfc-da5b-c6d85a15bd76">
 <p id="section-18-2">John Chaffee, Marten Gajda, Ken Murchison<a href="#section-18-2" class="pilcrow">¶</a></p>
 </div>
-<div id="_f8a5425a-38d2-9ba7-373e-a05403863e4d">
-<p id="section-18-3">The authors would also like to thank CalConnect, the Calendaring and
-Scheduling Consortium, for advice with this specification.<a href="#section-18-3" class="pilcrow">¶</a></p>
+<div id="_ad4de990-1465-d3d9-2734-e2e10072c4d6">
+<p id="section-18-3">The authors would also like to thank CalConnect, the Calendaring and Scheduling Consortium, for advice with this specification.<a href="#section-18-3" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -3824,8 +3511,12 @@ Scheduling Consortium, for advice with this specification.<a href="#section-18-3
 <span class="refAuthor">Daboo, C.</span> and <span class="refAuthor">K. Murchison</span>, <span class="refTitle">""VALARM" Extensions for iCalendar"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC9074</span>, <span class="seriesInfo">RFC 9074</span>, <time datetime="2021-08" class="refDate">August 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9074">https://www.rfc-editor.org/info/rfc9074</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9253">[RFC9253]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Douglass, M.</span>, <span class="refTitle">"Support for iCalendar Relationships"</span>, <span class="stream">IETF</span>, <span class="seriesInfo">DOI 10.17487/RFC9253</span>, <span class="seriesInfo">RFC 9253</span>, <time datetime="2022-08" class="refDate">August 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9253">https://www.rfc-editor.org/info/rfc9253</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="draft-ietf-calext-subscription-upgrade">[draft-ietf-calext-subscription-upgrade]</dt>
+    <dd>
+<span class="refTitle">"[NO INFORMATION AVAILABLE]"</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -3862,9 +3553,9 @@ Scheduling Consortium, for advice with this specification.<a href="#section-18-3
 <a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-simple-case-status-change" class="section-name selfRef">Simple Case Status Change</a>
         </h3>
 <span id="name-example-of-status-changes-i"></span><div id="_415955eb-cbfb-da16-5c38-528c62598111">
-<table class="center" id="table-8">
+<table class="center" id="table-7">
           <caption>
-<a href="#table-8" class="selfRef">Table 8</a>:
+<a href="#table-7" class="selfRef">Table 7</a>:
 <a href="#name-example-of-status-changes-i" class="selfRef">Example of status changes in assigning and performing a task with one attendee.</a>
           </caption>
 <thead>
@@ -3931,10 +3622,10 @@ Scheduling Consortium, for advice with this specification.<a href="#section-18-3
 <div id="_4e3a4769-59f2-8909-1b23-7418992efc23">
 <p id="appendix-A.2-1">Example of status changes in assigning and performing a task with two attendees (A1 and A2).<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-example-for-multiple-attende"></span><div id="_356218b7-53dd-f691-ccb9-a664a9f11005">
-<table class="center" id="table-9">
+<span id="name-example-for-multiple-attende"></span><div id="_fdcfa421-88c0-758c-4a8b-3c2da0d96656">
+<table class="center" id="table-8">
           <caption>
-<a href="#table-9" class="selfRef">Table 9</a>:
+<a href="#table-8" class="selfRef">Table 8</a>:
 <a href="#name-example-for-multiple-attende" class="selfRef">Example for multiple Attendees</a>
           </caption>
 <thead>
@@ -4020,9 +3711,10 @@ Scheduling Consortium, for advice with this specification.<a href="#section-18-3
           </tbody>
         </table>
 </div>
-<div id="_aa438b33-6123-4660-dbb6-237b4a6a39c2">
+<div id="_82835b59-ef36-37ee-556b-333036790dd1">
 <aside id="appendix-A.2-3">
-          <p id="appendix-A.2-3.1">NOTE: The logic for determining the status change to the VTODO is determined by the task organizer based on the ATTENDEE status and other business logic.<a href="#appendix-A.2-3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-A.2-3.1">NOTE: The logic for determining the status change to the "VTODO" calendar component
+is determined by the task organizer based on the "ATTENDEE" property status and other business logic.<a href="#appendix-A.2-3.1" class="pilcrow">¶</a></p>
 </aside>
 </div>
 </section>
@@ -4036,9 +3728,9 @@ Scheduling Consortium, for advice with this specification.<a href="#section-18-3
 <p id="appendix-A.3-1">Example of status changes for a task that fails.<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-example-of-failure-2"></span><div id="_5251b70a-0467-40fb-8842-8a0b1fc6a4a4">
-<table class="center" id="table-10">
+<table class="center" id="table-9">
           <caption>
-<a href="#table-10" class="selfRef">Table 10</a>:
+<a href="#table-9" class="selfRef">Table 9</a>:
 <a href="#name-example-of-failure-2" class="selfRef">Example of Failure</a>
           </caption>
 <thead>
