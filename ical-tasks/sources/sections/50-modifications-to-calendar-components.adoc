@@ -3,6 +3,7 @@
 == Modifications to Calendar Components
 
 The following changes to the syntax defined in iCalendar <<RFC5545>>
+and Event Publishing Extensions to iCalendar <<RFC9073>>
 are made here. New elements are defined in subsequent sections.
 
 [source,bnf]

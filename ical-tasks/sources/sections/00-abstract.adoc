@@ -1,9 +1,11 @@
 
 [abstract]
 == Abstract
-This document updates and defines extensions to the
-Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545)
-to provide improved status tracking, scheduling and specification of tasks.
+The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen
+as the poor relation of VEVENT - useful only for personal reminders and to-do lists.
+
+This document updates and defines extensions to VTODO
+to provide improved status tracking, scheduling and specification of tasks to allow its use in pther contexts, such as process control and project management.
 
 It also defines how Calendaring Extensions to
 WebDAV (CalDAV) (RFC 4791) servers can be extended to

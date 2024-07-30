@@ -4,10 +4,10 @@
 == Property Extensions and Clarifications
 
 [[prop-ext-duration]]
-=== Updated DURATION Property definition
+=== Updated DURATION Property definition for VTODO
 
-<<RFC5545>> section 3.6.2 introduced a constraint on the duration property requiring
-that a DURATION MUST be accompanied by a DTSTART.
+<<RFC5545>> section 3.6.2 introduced a constraint on the use of the "DURATION" property in the "VTODO" calendar component, requiring
+that a "DURATION" property MUST be accompanied by a "DTSTART" property.
 This constraint is dropped reverting to the situation as specified
 previously.
 

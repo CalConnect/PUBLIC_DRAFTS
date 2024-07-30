@@ -11,20 +11,6 @@ information on why (REASON) and when (DTSTAMP) a status has changed.
 In addition, new status values are specified to
 provide for task suspension, failure and preparation.
 
-Note that while the "VSTATUS" component is intended to allow multiple date-stamped
-status changes to be stored it is not intended to be used as a history
-of changes to a tasks properties.
-
-=== Relating reason and comments to "ATTENDEE" property status changes.
-
-The <<RFC9073>> "PARTICIPANT" calendar component can be used to provide additional
-information about why an "ATTENDEE" property participation status has changed.
-The "COMMENT" property can also
-be used to include additional human-readable information about why the
-associated "STATUS" or "ATTENDEE" property changed. For example, if a driver
-failed to deliver a package
-because of a puncture it might be expressed as
-
 [source]
 ----
 BEGIN:VSTATUS
@@ -34,22 +20,13 @@ SUBSTATE:ERROR
 DTSTAMP:20130212T120000Z
 COMMENT:Breakdown
 END:VSTATUS
-
-ATTENDEE;PARTSTAT=FAILED:mailto:xxx@example.com
-...
-BEGIN:PARTICIPANT
-CALENDAR-ADDRESS:mailto:xxx@example.com
-DTSTAMP:20130226T1104510Z
-REASON:https://example.com/reason/van-break-down
-COMMENT:Puncture
-END:PARTICIPANT
 ----
 
 === Comments associated to reasons and status changes
 
 Multiple comments and reasons may have the same status. As situations
 change further VSTATUS components can be added to provide additional
-information..
+information.
 
 [source]
 ----
@@ -74,15 +51,40 @@ DTSTAMP:20220212T180451Z
 END:VSTATUS
 ----
 
+Note that the "VSTATUS" calendar component not intended to be used as a history
+of changes to a tasks properties. The purpose of "VSTATUS" calendar component is only to document changes related to fulfilling the tasks
+
+=== Relating reason and comments to "ATTENDEE" property status changes.
+
+The <<RFC9073>> "PARTICIPANT" calendar component can be used to provide additional
+information about why an "ATTENDEE" property participation status has changed.
+The "COMMENT" property can also
+be used to include additional human-readable information about why the
+associated "STATUS" or "ATTENDEE" property changed. For example, if a driver
+failed to deliver a package
+because of a puncture it might be expressed as
+
+[source]
+----
+ATTENDEE;PARTSTAT=FAILED:mailto:xxx@example.com
+...
+BEGIN:PARTICIPANT
+CALENDAR-ADDRESS:mailto:xxx@example.com
+DTSTAMP:20130226T1104510Z
+REASON:https://example.com/reason/van-break-down
+COMMENT:Puncture
+END:PARTICIPANT
+----
+
 === Task Alerts and Notifications
 
 Different needs to alert or notify task actors of pending or actual
 task status changes are recognized:
 
-Alarms:: Alarms ("VALARM" calendar components) operate in the calendar user agent
+Alarms:: "VALARM" calendar components operate in the calendar user agent
 space to notify the task actor of a pending task state for a task they
 are assigned to or are interested in.
-
++
 Current standards (see <<RFC9074>>) indicate "VALARM" calendar components SHOULD be removed
 from incoming data and many systems in fact do so. In a task assignment
 scenario it may be appropriate for the organizer to be able to set alarms
@@ -93,11 +95,11 @@ them being removed. This issue is not addressed by this specification.
 Escalations:: An escalation or notification to the "Attendee", "Organizer",
 or other task actor may be required if a deadline associated with a
 task is exceeded or for some other reason. Process Logic identifying
-when and who to propagate escalations to is the responsibility of the
+when and who to propagate escalations is the responsibility of the
 Task Generating System, e.g., a BPMS.
 
 Notifications:: Task actors (observers) not directly involved in
-performing a task but with a known interest in a given task's status
+performing a task, but with a known interest in a given task's status,
 can be identified by the "PARTICIPANT" calendar component <<RFC9073>> against certain
 components e.g. the "VALARM" calendar component, to identify which task events the
 stakeholder/party is interested in. Notifications on shared calendars

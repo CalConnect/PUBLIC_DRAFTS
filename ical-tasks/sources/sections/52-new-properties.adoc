@@ -145,22 +145,20 @@ Value Type:: TEXT
 
 Property Parameters:: IANA and non-standard property parameters can be specified on this property.
 
-Conformance:: This property can be specified zero or more times in a "VTODO" calendar component.
+Conformance:: This property can be specified zero or once in a "VTODO" calendar component.
 
 Format Definition:: This property is defined by the following notation:
 
 [source,bnf]
 ----
-task-mode   = "TASK-MODE taskmodeparam ":" taskvalue
-              *("," taskvalue) CRLF
-
-taskvalue   = "AUTOMATIC-COMPLETION" ; set STATUS completed
-                ;if all attendees have completed
-                / "AUTOMATIC-FAILURE"
-                / "SERVER"
-                / "CLIENT"
-                / iana-token
-                / x-name
+task-mode   = "TASK-MODE taskmodeparam ":"
+                 ("AUTOMATIC-COMPLETION"
+                 / "AUTOMATIC-FAILURE"
+                 / "AUTOMATIC"
+                 / "SERVER"
+                 / "CLIENT"
+                 / iana-token
+                 / x-name) CRLF
 
 taskmodeparam      = *(";" other-param)
 ----
@@ -172,27 +170,22 @@ the server can automatically set the overall task status to COMPLETED
 when every attendee has marked their own status (PARTSTAT) as COMPLETED,
 or the server could mark the task as FAILED if its DUE date passes
 without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.
-
++
 To set the status, add a VSTATUS component as specified in <<vstatus>>.
-
-The property value is a list of one or more IANA registered tokens that defines modes to be used for the task. This specification defines three modes which are described in the following subsections.
-
-Examples::
-
-[source]
-----
-TASK-MODE:AUTOMATIC-COMPLETION,AUTOMATIC-FAILURE
-TASK-MODE:SERVER
-TASK-MODE:AUTOMATIC-FAILURE
-----
++
+The property value is an IANA registered token that defines the mode to be used for the task. The modes are described in the following subsections.
++
+If the "TASK-MODE" property is absent then the "CLIENT" value is assumed.
 
 [[task-mode-automatic-completion]]
 AUTOMATIC-COMPLETION Task Mode::
 
 The task mode value "AUTOMATIC-COMPLETION" indicates to the server
-that it can change the "VTODO" calendar component's status to "COMPLETED" as
-soon as all attendees in the task have replied with a "PARTSTAT"
-parameter set to "COMPLETED".
+that it can change the "VTODO" calendar component's status to
+"COMPLETED" as soon as all attendees in the task have replied with a
+"partstat" parameter set to "COMPLETED".
++
+Failing the task MUST be handled by a client.
 
 [[task-mode-automatic-failure]]
 AUTOMATIC-FAILURE Task Mode::
@@ -203,10 +196,16 @@ it SHOULD change the "VTODO" calendar component's status to "FAILED" if either:
 . the PARTSTAT of one "ATTENDEE" property is set to FAILED; or
 
 . the current time is past the effective due date of the component and the task has not yet been completed.
-
++
 NOTE: The effective due date is either the "DUE" property value or the
 combination of the "DTSTART" and "DURATION" property values.
++
+Completing the task MUST be handled by a client.
 
+[[task-mode-automatic]]
+AUTOMATIC Task Mode::
+
+This mode handles both "AUTOMATIC-COMPLETION" and "AUTOMATIC-FAILURE".
 
 [[task-mode-client]]
 CLIENT Task Mode::
@@ -221,7 +220,14 @@ The task mode value "SERVER" indicates to the server that it can change
 the "VTODO" calendar component's status to an appropriate value, based on
 implementation defined "business rules", as attendee responses are
 processed or as deadlines related to the task pass.
-+
-The server can add this property to a "VTODO" calendar component to indicate to
-the client that it will be managing the status.
+
+
+Examples::
+
+[source]
+----
+TASK-MODE:AUTOMATIC-COMPLETION
+TASK-MODE:AUTOMATIC-FAILURE
+TASK-MODE:SERVER
+----
 
