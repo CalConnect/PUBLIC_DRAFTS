@@ -14,7 +14,7 @@
 <name>Internet Engineering Task Force</name>
 <abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-07-30</revision-date></version><language>en</language><script>Latn</script><abstract><p>The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists.</p>
 
-<p>This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in pther contexts, such as process control and project management.</p>
+<p>This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in other contexts, such as process control and project management.</p>
 
 <p>It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours.</p>
  </abstract><status><stage>standard</stage></status><copyright><from>2024</from><owner><organization>
@@ -29,7 +29,7 @@
 </series><ext><doctype>internet-draft</doctype><editorialgroup><workgroup>calext</workgroup></editorialgroup><area>Internet</area><ipr>trust200902</ipr><consensus>true</consensus><pi><tocinclude>yes</tocinclude></pi></ext></bibdata><metanorma-extension><presentation-metadata><name>TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>HTML TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>DOC TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>PDF TOC Heading Levels</name><value>2</value></presentation-metadata></metanorma-extension>
 <preface><abstract id="_abstract"><title>Abstract</title><p id="_dfbfaa0a-52d3-e6cb-bb85-e0061c8c5887">The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists.</p>
 
-<p id="_50b4c4ad-2925-1203-2c81-67dc407eb0ea">This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in pther contexts, such as process control and project management.</p>
+<p id="_ff8bb332-0f93-de6a-1fa0-9fc96e3513fc">This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in other contexts, such as process control and project management.</p>
 
 <p id="_9a92a87d-e77d-a034-1a38-7e337f573a33">It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours.</p>
  </abstract></preface><sections>
@@ -67,7 +67,7 @@
 
 <p id="terms">Terms defined and used in this specification include:</p>
 
-<dl id="_33dc0ae8-4a67-7204-8ecd-1a4b0c15d9ea"><dt>Assignee</dt>
+<dl id="_a27d6f63-27dd-c7c3-af03-3648a8e36a12"><dt>Assignee</dt>
 <dd><p id="_d9a9339d-fe2c-5ffc-7ed7-1d1d95b12fe9">A calendar user assigned to perform a given task. An assignee is equivalent to an "A"ttendee" of a task.</p>
 </dd>
 <dt>BPMS</dt>
@@ -94,7 +94,7 @@
 <dd><p id="_98c4fe4e-af04-0211-4852-8d89519264d8">A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed. Often represented as an "Attendee" with ROLE=NON-PARTICIPANT.</p>
 </dd>
 <dt>Resource</dt>
-<dd><p id="_55376c62-c09f-dfcd-5d61-589caa2f493d">A resource in the scheduling context is any shared entity that can be scheduled by a calendar user, but does not control its own attendance status. Resources can be of "Location", "Equipment", or "Role" type.</p>
+<dd><p id="_afc87a3c-392c-0924-678e-ef0fec9f6a32">A resource in the scheduling context is any shared entity that can be scheduled by a calendar user, but does not control its own attendance status. Examples of such resources are locations such as a booakble conference room or equipment such as projectors.</p>
 </dd>
 <dt>Task</dt>
 <dd><p id="_ca42a2c3-471b-061d-e826-fd1bc5066803">A representation of an item of work that can be assigned to one or more task actor assignees. In <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>, these are "VTODO" calendar components, which are groupings of component properties and possibly "VALARM" calendar components that represent an action-item or assignment.</p>
@@ -217,17 +217,17 @@
 <title>Task Extensions</title>
 <p id="_8e268123-e5de-427e-1895-9c5af89c8e93">In order to support the task architecture described in <xref target="architecture"/>, this document defines a number of extensions to the current iCalendar standards in the areas of:</p>
 
-<dl id="_87408dbb-a65e-9cfc-e63f-3cadb4b6230b"><dt>Task Specification</dt>
+<dl id="_e4cde64f-3953-d34f-660d-cf1477e83e46"><dt>Task Specification</dt>
 <dd><p id="_2a15ded0-2a62-babf-16d6-40858ab8e376">improved ability to specify domain specific tasks</p>
 </dd>
 <dt>Task Deadlines, Milestones and Time Planning</dt>
 <dd><p id="_3f63ccf6-845b-be96-fffc-2515ecc1e2c1">clarification of deadlines and extension for task duration to support task time planning</p>
 </dd>
 <dt>Task Scheduling and Assignment</dt>
-<dd><p id="_2d852159-8552-68b5-c7c1-d33127531019">ensure support for common pattens of scheduling and assigning tasks</p>
+<dd><p id="_8bcbcb91-e1bd-ce77-8391-6305e7b6ea29">ensure support for common patterns of scheduling and assigning tasks</p>
 </dd>
 <dt>Task Status Tracking</dt>
-<dd><p id="_2dbbc8df-30f3-714e-3f16-79cba9f49508">improved granularity in status tracking information and alerting task actors to pending or actual task status changes</p>
+<dd><p id="_b2629ffd-16bd-40b6-ad63-81da96809631">improved granularity in status tracking information and alerting task actors of pending or actual task status changes</p>
 </dd>
 </dl>
 
@@ -236,7 +236,7 @@
 
 <clause id="task-specification" inline-header="false" obligation="normative">
 <title>Task Specification</title>
-<p id="_69b8b5fa-00fe-ee29-0ed3-3dd2fcc4912a">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The current "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:</p>
+<p id="_20962d09-f00b-ca47-e475-e0c2f4341097">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:</p>
 
 <dl id="_de073d3c-5264-38a0-44f9-1a435528b1cc"><dt>Task type</dt>
 <dd><p id="_c9038f39-8528-8ec3-a178-c093522b461f">explicitly what type of task is to be performed is identified.</p>
@@ -278,7 +278,7 @@ LINK;LINKREL=describedby:mid:752142.141482.307E5@mx123.example.com</sourcecode>
 REFID:1234567890</sourcecode>
 
 
-<p id="_371ae8f6-0ef9-31da-1544-e2bd3305acdb">Extensions to the "RELATED-TO" property defined in <eref type="inline" bibitemid="RFC9253" citeas="RFC 9253"/> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks (VTODO calendar components) may also be related to other calendar components; for example to a "VEVENT" calendar component to block time to perform a task.</p>
+<p id="_e30db976-37b4-05b1-a67c-d34da1cce759">Extensions to the "RELATED-TO" property defined in <eref type="inline" bibitemid="RFC9253" citeas="RFC 9253"/> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks ("VTODO" calendar components) may also be related to other calendar components; for example to a "VEVENT" calendar component to block time to perform a task.</p>
  </clause>
 
 <clause id="task-specific-data" inline-header="false" obligation="normative">
@@ -301,12 +301,12 @@ REFID:1234567890</sourcecode>
 <title>Task Deadlines, Milestones and Time Planning</title>
 <clause id="_deadlines" inline-header="false" obligation="normative">
 <title>Deadlines</title>
-<p id="_21c9f439-3704-b282-3cd6-ec288a0bb343">Deadlines for starting and finishing a task are defined by the DTSTART, DUE and DURATION properties. DTSTART represents the earliest start time for beginning work on a task. DUE, or DTSTART + DURATION represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However, there is currently no way to indicate how long the task is expected to take. This document defines a new property, in <xref target="prop-estimated-duration"/> ESTIMATED-DURATION, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.</p>
+<p id="_450cfdf9-c624-f8c0-0473-2dfaf0bf9111">Deadlines for starting and finishing a task are defined by the "DTSTART", "DUE" and "DURATION" properties. The "DTSTART" property represents the earliest start time for beginning work on a task. The "DUE", or "DTSTART" + "DURATION" properties represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However, <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> provides no way to indicate how long the task is expected to take. This document defines a new "ESTIMATED-DURATION" property, in <xref target="prop-estimated-duration"/>, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.</p>
  </clause>
 
 <clause id="_milestones" inline-header="false" obligation="normative">
 <title>Milestones</title>
-<p id="_59f6ac8f-4ccc-f11c-a285-7d17f62f3799">A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child "VTODO" calendar component (i.e., sub-tasks associated with each of the milestones) in conjunction with the "RELATED-TO" property to relate the parent and child tasks.</p>
+<p id="_f2276ca1-c069-b193-a9a7-725620a1e7d5">A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child "VTODO" calendar components (i.e., sub-tasks associated with each of the milestones) in conjunction with the "RELATED-TO" property to relate the parent and child tasks.</p>
  </clause>
 </clause>
 
@@ -323,7 +323,7 @@ REFID:1234567890</sourcecode>
 <title>Status Reporting</title>
 <clause id="_improved_granularity_in_status_reporting_information" inline-header="false" obligation="normative">
 <title>Improved granularity in status reporting information</title>
-<p id="_8714f28a-450f-aa61-bbbb-d344bcc6283e">This document defines a new "VSTATUS" calendar component (see section <xref target="vstatus"/>) that can be used to group related information about the status of the task. This might include information on why (REASON) and when (DTSTAMP) a status has changed. In addition, new status values are specified to provide for task suspension, failure and preparation.</p>
+<p id="_5881911f-630d-e255-d4a5-4a2a8c9ef834">This document defines a new "VSTATUS" calendar component (see section <xref target="vstatus"/>) that can be used to group related information about the status of the task. This might include information on why, the "REASON" property and when, the "DTSTAMP" property, a status has changed. In addition, new status values are specified to provide for task suspension, failure and preparation.</p>
 
 <sourcecode id="_60e6099a-de05-4f5e-0221-90944803d475">BEGIN:VSTATUS
 STATUS:FAILED
@@ -337,7 +337,7 @@ END:VSTATUS</sourcecode>
 
 <clause id="_comments_associated_to_reasons_and_status_changes" inline-header="false" obligation="normative">
 <title>Comments associated to reasons and status changes</title>
-<p id="_671b1eab-39d5-1a32-8a27-af2f99a04d26">Multiple comments and reasons may have the same status. As situations change further VSTATUS components can be added to provide additional information.</p>
+<p id="_778c1025-663f-7a1b-3c33-c0a077fd8ae0">Multiple comments and reasons may have the same status. As situations change further "VSTATUS" calendar components can be added to provide additional information.</p>
 
 <sourcecode id="_82f23f05-23c6-e514-9a11-35d712779041">CONCEPT:https://example.com/task/delivery
 BEGIN:VSTATUS
@@ -360,7 +360,7 @@ DTSTAMP:20220212T180451Z
 END:VSTATUS</sourcecode>
 
 
-<p id="_806960c9-50f6-c477-8c2e-4747054c830f">Note that the "VSTATUS" calendar component not intended to be used as a history of changes to a tasks properties. The purpose of "VSTATUS" calendar component is only to document changes related to fulfilling the tasks</p>
+<p id="_417d96eb-1823-1a51-8132-b6affb985cee">Note that the "VSTATUS" calendar component is not intended to be used as a history of changes to a tasks properties. The purpose of the "VSTATUS" calendar component is only to document changes related to fulfilling the tasks</p>
  </clause>
 
 <clause id="_relating_reason_and_comments_to_attendee_property_status_changes" inline-header="false" obligation="normative">
@@ -397,7 +397,7 @@ END:PARTICIPANT</sourcecode>
 
 <clause id="_automated_status_changes" inline-header="false" obligation="normative">
 <title>Automated Status Changes</title>
-<p id="_b3b80eda-7a38-aad5-5003-a17d2679b832">A new property, TASK-MODE, is introduced to instruct servers to apply automated operations for changing the status of a task.</p>
+<p id="_8109928d-9c9d-cccf-f46e-5345ccaaf424">A new "TASK-MODE" property is introduced to instruct servers to apply automated operations for changing the status of a task.</p>
  </clause>
 </clause>
 
@@ -405,14 +405,16 @@ END:PARTICIPANT</sourcecode>
 <title>Modifications to Calendar Components</title>
 <p id="_7c06e2b6-4647-065c-1693-39de4bafc87a">The following changes to the syntax defined in iCalendar <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> and Event Publishing Extensions to iCalendar <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> are made here. New elements are defined in subsequent sections.</p>
 
-<sourcecode id="_cd07a8cb-6803-0511-b4e7-323c9252fddd" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
+<sourcecode id="_906f9181-189b-2557-bfa7-ce42ba9bb859" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
 eventc     = "BEGIN" ":" "VEVENT" CRLF
-             eventprop *alarmc *participantc *locationc *resourcec *statusc
+             eventprop *alarmc *participantc *locationc
+                 *resourcec *statusc
              "END" ":" "VEVENT" CRLF
 
 ; Addition of VSTATUS as a valid component for VTODO
 todoc      = "BEGIN" ":" "VTODO" CRLF
-             todoprop *alarmc *participantc *locationc *resourcec *statusc
+             todoprop *alarmc *participantc *locationc
+                 *resourcec *statusc
              "END" ":" "VTODO" CRLF
 
 ; Addition of properties ESTIMATED-DURATION and TASK-MODE to VTODO
@@ -938,7 +940,7 @@ uppercase preferred --&gt;</sourcecode>
 <title>Task Mode value registry</title>
 <p id="_a713d2e9-93cf-90d6-7aae-91ac3c98720c">The following table has been used to initialize the Task Mode registry.</p>
 
-<table id="_7977ef5a-c2d2-3405-3821-74bb2cde2651">
+<table id="_17e8b058-7805-0aaf-0bf1-02ec10c5710c">
 <name>Task Mode Value Registry</name>
 <thead><tr><th valign="top" align="left">Task Mode</th>
 <th valign="top" align="left">Status</th>
@@ -956,17 +958,23 @@ uppercase preferred --&gt;</sourcecode>
 </td>
 <td valign="top" align="left"><p id="_65689b1c-7466-a7ed-f913-1933e24b328c">This Spec,  <xref target="prop-task-mode"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_1f924d28-3125-8879-b562-8ebbe947f706">CLIENT</p>
+</tr><tr><td valign="top" align="left"><p id="_d3b7c5dc-c2a3-4523-87d3-38f1f0c4e873">AUTOMATIC</p>
 </td>
 <td valign="top" align="left"><p id="_099bfcce-69dc-0541-f504-86ff05c14c6c">Current</p>
 </td>
 <td valign="top" align="left"><p id="_dd06b8c4-97e9-60d0-eca4-182282428594">This Spec,  <xref target="prop-task-mode"/></p>
 </td>
-</tr><tr><td valign="top" align="left"><p id="_804302d8-93f6-f6c9-c031-bd30b549dc58">SERVER</p>
+</tr><tr><td valign="top" align="left"><p id="_09896e71-e094-d743-f8b5-33773ba30e0d">CLIENT</p>
 </td>
 <td valign="top" align="left"><p id="_ae5f5c44-d5b7-8088-ee12-4753ba311d0a">Current</p>
 </td>
 <td valign="top" align="left"><p id="_d397949c-a560-2569-43d1-50968c6491cf">This Spec,  <xref target="prop-task-mode"/></p>
+</td>
+</tr><tr><td valign="top" align="left"><p id="_1035faac-8a5e-adcb-2a7a-2680cb2183a0">SERVER</p>
+</td>
+<td valign="top" align="left"><p id="_f451bde6-03b8-cade-02f8-2bcc70dbcf99">Current</p>
+</td>
+<td valign="top" align="left"><p id="_f992a5c4-8522-91e1-e11b-568511b480f5">This Spec,  <xref target="prop-task-mode"/></p>
 </td>
 </tr></tbody>
 </table>
@@ -1367,7 +1375,17 @@ is determined by the task organizer based on the "ATTENDEE" property status and 
      <number>9253</number>   </series>   <series type="stream">     
 <title format="text/plain">IETF</title>
    </series>   <keyword>iCalendar</keyword>   <keyword>link</keyword>   <keyword>related-to</keyword>   <keyword>relationships</keyword> </bibitem>
-<bibitem id="draft-ietf-calext-subscription-upgrade"><formattedref format="application/x-isodoc+xml">[NO INFORMATION AVAILABLE]</formattedref><docidentifier>draft-ietf-calext-subscription-upgrade</docidentifier></bibitem>
+<bibitem id="draft-ietf-calext-subscription-upgrade" type="book"><formattedref format="application/x-isodoc+xml">Douglass, M., <em>draft-ietf-calext-subscription-upgrade</em>, <link target="https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/"/>. </formattedref><title>
+  <em>draft-ietf-calext-subscription-upgrade</em>
+</title><uri type="src">https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/</uri><docidentifier>draft-ietf-calext-subscription-upgrade</docidentifier><contributor>
+  <role type="author"/>
+  <person>
+    <name>
+      <formatted-initials>M.</formatted-initials>
+      <surname>Douglass</surname>
+    </name>
+  </person>
+</contributor></bibitem>
 </references><references id="_informative_references" normative="false" obligation="informative">
 <title>Informative References</title><bibitem id="BPMN" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
 <title type="main" format="text/plain" language="en" script="Latn">Business Process Model and Notation</title>
