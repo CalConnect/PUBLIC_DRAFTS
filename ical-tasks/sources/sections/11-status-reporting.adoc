@@ -7,7 +7,7 @@
 This document defines a new "VSTATUS" calendar component (see section <<vstatus>>)
 that can be used to
 group related information about the status of the task. This might include
-information on why (REASON) and when (DTSTAMP) a status has changed.
+information on why, the "REASON" property and when, the "DTSTAMP" property, a status has changed.
 In addition, new status values are specified to
 provide for task suspension, failure and preparation.
 
@@ -25,7 +25,7 @@ END:VSTATUS
 === Comments associated to reasons and status changes
 
 Multiple comments and reasons may have the same status. As situations
-change further VSTATUS components can be added to provide additional
+change further "VSTATUS" calendar components can be added to provide additional
 information.
 
 [source]
@@ -51,8 +51,10 @@ DTSTAMP:20220212T180451Z
 END:VSTATUS
 ----
 
-Note that the "VSTATUS" calendar component not intended to be used as a history
-of changes to a tasks properties. The purpose of "VSTATUS" calendar component is only to document changes related to fulfilling the tasks
+Note that the "VSTATUS" calendar component is not intended to be used as a history
+of changes to a tasks properties. The purpose of the "VSTATUS"
+calendar component is only to document changes related to fulfilling
+the tasks
 
 === Relating reason and comments to "ATTENDEE" property status changes.
 
@@ -108,5 +110,5 @@ within a calendar (see <<appendix-a>>).
 
 === Automated Status Changes
 
-A new property, TASK-MODE, is introduced to instruct servers to apply
+A new "TASK-MODE" property is introduced to instruct servers to apply
 automated operations for changing the status of a task.

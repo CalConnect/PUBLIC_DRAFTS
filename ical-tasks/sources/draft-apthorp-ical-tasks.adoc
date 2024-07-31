@@ -68,7 +68,7 @@ include::sections/09-deadlines.adoc[]
 include::sections/10-scheduling.adoc[]
 include::sections/11-status-reporting.adoc[]
 
-include::sections/50-new-parameters.adoc[]
+include::sections/50-modifications-to-calendar-components.adoc[]
 include::sections/51-new-parameter-values.adoc[]
 include::sections/52-new-properties.adoc[]
 include::sections/53-property-extensions.adoc[]

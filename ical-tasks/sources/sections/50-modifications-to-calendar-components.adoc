@@ -10,12 +10,14 @@ are made here. New elements are defined in subsequent sections.
 ----
 ; Addition of VSTATUS as a valid component for VEVENT
 eventc     = "BEGIN" ":" "VEVENT" CRLF
-             eventprop *alarmc *participantc *locationc *resourcec *statusc
+             eventprop *alarmc *participantc *locationc
+                 *resourcec *statusc
              "END" ":" "VEVENT" CRLF
 
 ; Addition of VSTATUS as a valid component for VTODO
 todoc      = "BEGIN" ":" "VTODO" CRLF
-             todoprop *alarmc *participantc *locationc *resourcec *statusc
+             todoprop *alarmc *participantc *locationc
+                 *resourcec *statusc
              "END" ":" "VTODO" CRLF
 
 ; Addition of properties ESTIMATED-DURATION and TASK-MODE to VTODO

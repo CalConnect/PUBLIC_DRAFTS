@@ -4,7 +4,7 @@
 
 The specification of tasks must be semantically explicit in order for
 them to be managed within the context of a business process or project,
-and be understood by both humans and IT systems. The current
+and be understood by both humans and IT systems. The <<RFC5545>>
 "VTODO" calendar component only provides for simple ad-hoc tasks or
 'to do' lists, and is therefore extended by this specification as follows:
 
@@ -51,7 +51,7 @@ REFID:1234567890
 
 Extensions to the "RELATED-TO" property defined in <<RFC9253>> allow temporal relationships
 between tasks as found in project management to be specified as well as parent/child
-relationships and dependencies (DEPENDS-ON). Tasks (VTODO calendar components) may also be related to other
+relationships and dependencies (DEPENDS-ON). Tasks ("VTODO" calendar components) may also be related to other
 calendar components; for example to a "VEVENT" calendar component to block time to perform a task.
 
 [[task-specific-data]]

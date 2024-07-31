@@ -29,7 +29,10 @@ have interest in all tasks that have not been completed. Often represented as
 an "Attendee" with ROLE=NON-PARTICIPANT.
 
 Resource::
-A resource in the scheduling context is any shared entity that can be scheduled by a calendar user, but does not control its own attendance status. Resources can be of "Location", "Equipment", or "Role" type.
+A resource in the scheduling context is any shared entity that can
+be scheduled by a calendar user, but does not control its own
+attendance status. Examples of such resources are locations such
+as a booakble conference room or equipment such as projectors.
 
 Task::
 A representation of an item of work that can be assigned to one or more task actor assignees. In <<RFC5545>>, these are "VTODO" calendar components, which are groupings of component properties and possibly "VALARM" calendar components that represent an action-item or assignment.

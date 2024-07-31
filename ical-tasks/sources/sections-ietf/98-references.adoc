@@ -11,7 +11,12 @@
 * [[[RFC9073,RFC 9073]]]
 * [[[RFC9074,RFC 9074]]]
 * [[[RFC9253,RFC 9253]]]
-* [[[draft-ietf-calext-subscription-upgrade,draft-ietf-calext-subscription-upgrade]]]
+* [[[draft-ietf-calext-subscription-upgrade]]],
+span:surname[Douglass], span:initials[M.],
+span:title[_draft-ietf-calext-subscription-upgrade_],
+span:uri.src[https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/].
+span:type[book]
+
 
 [bibliography]
 == Informative References

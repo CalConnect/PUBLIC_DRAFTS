@@ -4,14 +4,15 @@
 
 === Deadlines
 Deadlines for starting and finishing a task are defined
-by the DTSTART, DUE and DURATION properties. DTSTART
-represents the earliest start time for beginning work
-on a task. DUE, or DTSTART + DURATION represent the
+by the "DTSTART", "DUE" and "DURATION" properties.
+The "DTSTART" property represents the earliest start time
+for beginning work on a task. The "DUE", or "DTSTART" + "DURATION"
+properties represent the
 latest finish time for a task. Thus, these properties
 define a "window" within which a task has to be
-performed. However, there is currently no way to
+performed. However, <<RFC5545>> provides no way to
 indicate how long the task is expected to take. This
-document defines a new property, in <<prop-estimated-duration>> ESTIMATED-DURATION, to
+document defines a new "ESTIMATED-DURATION" property, in <<prop-estimated-duration>>, to
 allow the estimated time that a task should take to be
 specified separately from the deadlines for starting
 and finishing a task. This supports time planning by
@@ -22,6 +23,6 @@ time to them.
 
 === Milestones
 A task that has intermediary deadlines (i.e., milestones) SHOULD be
-expressed by child "VTODO" calendar component (i.e., sub-tasks
+expressed by child "VTODO" calendar components (i.e., sub-tasks
 associated with each of the milestones) in conjunction with the
 "RELATED-TO" property to relate the parent and child tasks.

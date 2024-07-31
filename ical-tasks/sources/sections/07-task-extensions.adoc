@@ -9,8 +9,8 @@ Task Specification:: improved ability to specify domain specific tasks
 
 Task Deadlines, Milestones and Time Planning:: clarification of deadlines and extension for task duration to support task time planning
 
-Task Scheduling and Assignment:: ensure support for common pattens of scheduling and assigning tasks
+Task Scheduling and Assignment:: ensure support for common patterns of scheduling and assigning tasks
 
-Task Status Tracking:: improved granularity in status tracking information and alerting task actors to pending or actual task status changes
+Task Status Tracking:: improved granularity in status tracking information and alerting task actors of pending or actual task status changes
 
 These extensions are supported mainly by additions to the properties and parameters used within the "VTODO" calendar component.
