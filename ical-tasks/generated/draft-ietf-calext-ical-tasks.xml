@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ietf-standard xmlns="https://www.metanorma.org/ns/ietf" type="semantic" version="3.3.8" schema-version="v1.3.3">
+<ietf-standard xmlns="https://www.metanorma.org/ns/ietf" type="semantic" version="3.4.0" schema-version="v1.4.0">
 <bibdata type="standard">
 <title language="en" format="text/plain" type="main">Task Extensions to iCalendar</title>
-<docidentifier primary="true">draft-ietf-calext-ical-tasks-10</docidentifier><docnumber>draft-ietf-calext-ical-tasks-10</docnumber><contributor><role type="author"/><person>
+<docidentifier primary="true">draft-ietf-calext-ical-tasks-11</docidentifier><docnumber>draft-ietf-calext-ical-tasks-11</docnumber><contributor><role type="author"/><person>
 <name><completename>Adrian Apthorp</completename></name>
 <affiliation><organization>
 <name>DHL Express</name>
@@ -12,12 +12,12 @@
 <name>Bedework Commercial Services</name>
 <address><street>226 3rd Street</street><city>Troy</city><state>NY</state><country>United States of America</country></address></organization></affiliation><email>mdouglass@bedework.com</email></person></contributor><contributor><role type="publisher"/><organization>
 <name>Internet Engineering Task Force</name>
-<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-07-30</revision-date></version><language>en</language><script>Latn</script><abstract><p>The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists.</p>
+<abbreviation>IETF</abbreviation></organization></contributor><version><revision-date>2024-12-01</revision-date></version><language>en</language><script>Latn</script><abstract><p>The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists.</p>
 
 <p>This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in other contexts, such as process control and project management.</p>
 
 <p>It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours.</p>
- </abstract><status><stage>standard</stage></status><copyright><from>2024</from><owner><organization>
+</abstract><status><stage>standard</stage></status><copyright><from>2024</from><owner><organization>
 <name>Internet Engineering Task Force</name>
 <abbreviation>IETF</abbreviation></organization></owner></copyright><relation type="updates"><bibitem>
 <title>--</title>
@@ -26,13 +26,13 @@
 <title>IETF</title>
 </series><series type="intended">
 <title>full-standard</title>
-</series><ext><doctype>internet-draft</doctype><editorialgroup><workgroup>calext</workgroup></editorialgroup><area>Internet</area><ipr>trust200902</ipr><consensus>true</consensus><pi><tocinclude>yes</tocinclude></pi></ext></bibdata><metanorma-extension><presentation-metadata><name>TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>HTML TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>DOC TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>PDF TOC Heading Levels</name><value>2</value></presentation-metadata></metanorma-extension>
+</series><ext><doctype>internet-draft</doctype><flavor>ietf</flavor><editorialgroup><workgroup>calext</workgroup></editorialgroup><area>Internet</area><ipr>trust200902</ipr><consensus>true</consensus><pi><tocinclude>yes</tocinclude></pi></ext></bibdata><metanorma-extension><presentation-metadata><name>TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>HTML TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>DOC TOC Heading Levels</name><value>2</value></presentation-metadata><presentation-metadata><name>PDF TOC Heading Levels</name><value>2</value></presentation-metadata></metanorma-extension>
 <preface><abstract id="_abstract"><title>Abstract</title><p id="_dfbfaa0a-52d3-e6cb-bb85-e0061c8c5887">The Internet Calendaring and Scheduling Core Object Specification (iCalendar) (RFC5545) VTODO calendar component has been seen as the poor relation of VEVENT - useful only for personal reminders and to-do lists.</p>
 
 <p id="_ff8bb332-0f93-de6a-1fa0-9fc96e3513fc">This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in other contexts, such as process control and project management.</p>
 
 <p id="_9a92a87d-e77d-a034-1a38-7e337f573a33">It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours.</p>
- </abstract></preface><sections>
+</abstract></preface><sections>
 <clause id="_introduction" inline-header="false" obligation="normative">
 <title>Introduction</title>
 <p id="_99b259c5-536b-2212-29fb-dfa205a6eb6b">This document specifies extensions to the existing Internet Calendaring and Scheduling Core Object Specification (iCalendar) <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>, and associated protocols, in order to enhance the structured communication and execution of tasks. The enhancements allow for the communication, time planning and scheduling of tasks by and between automated systems (e.g. in smart power grids, business process management systems) as well as for human centered tasks.</p>
@@ -49,7 +49,7 @@
 
 <clause id="conventions" inline-header="false" obligation="normative">
 <title>Terms and Definitions</title>
-<p id="_dd08dd99-8ed3-42d0-a453-673d62f9a120">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <eref type="inline" bibitemid="RFC2119" citeas="RFC 2119"/> <eref type="inline" bibitemid="RFC8174" citeas="RFC 8174"/> when, and only when, they appear in all capitals, as shown here.</p>
+<p id="_2e835703-5dbc-1609-2be1-14ab8cc3772e">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14  <eref type="inline" bibitemid="RFC2119" citeas="RFC 2119"/> <eref type="inline" bibitemid="RFC8174" citeas="RFC 8174"/> when, and only when, they appear in all capitals, as shown here.</p>
 
 <p id="_9d0c0c24-5d55-cec1-f6d5-a26ebc088858">Calendaring and scheduling roles are referred to in quoted-strings of text with the first character of each word in upper case.  For example, "Organizer" refers to a role of a "Calendar User" (CU) within the scheduling protocol.</p>
 
@@ -67,7 +67,7 @@
 
 <p id="terms">Terms defined and used in this specification include:</p>
 
-<dl id="_a27d6f63-27dd-c7c3-af03-3648a8e36a12"><dt>Assignee</dt>
+<dl id="_5d1c832c-d567-b4ba-dd43-b722de7ddedd"><dt>Assignee</dt>
 <dd><p id="_d9a9339d-fe2c-5ffc-7ed7-1d1d95b12fe9">A calendar user assigned to perform a given task. An assignee is equivalent to an "A"ttendee" of a task.</p>
 </dd>
 <dt>BPMS</dt>
@@ -88,7 +88,7 @@
 <dd><p id="_42acef95-57db-508f-8989-2fe723ef9be3">A calendar user who might be able to perform a given task, prior to actually being assigned the task, e.g., a dispatcher has a list of taxi drivers (candidates) from which one will be selected to pick-up a passenger.</p>
 </dd>
 <dt>Organizer</dt>
-<dd><p id="_77961707-2863-1e42-c7af-6e23a8b612b9">A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an "Organizer" who invites "Attendees" <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
+<dd><p id="_9e38ae26-9587-a53a-576b-545610d9080c">A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an "Organizer" who invites "Attendees"  <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>.</p>
 </dd>
 <dt>Observer</dt>
 <dd><p id="_98c4fe4e-af04-0211-4852-8d89519264d8">A calendar user interested in a calendar component, e.g., a manager may have interest in all tasks that have not been completed. Often represented as an "Attendee" with ROLE=NON-PARTICIPANT.</p>
@@ -100,12 +100,12 @@
 <dd><p id="_ca42a2c3-471b-061d-e826-fd1bc5066803">A representation of an item of work that can be assigned to one or more task actor assignees. In <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/>, these are "VTODO" calendar components, which are groupings of component properties and possibly "VALARM" calendar components that represent an action-item or assignment.</p>
 </dd>
 </dl>
- </clause>
- </clause>
+</clause>
+</clause>
 
 <clause id="architecture" inline-header="false" obligation="normative">
 <title>Task Architecture</title>
-<p id="_1f67d259-7b2f-f955-8055-7332b6f11d08">A reference architecture for task calendaring and scheduling is defined in order to identify the key logical elements involved in task management and the interfaces between them to enable interoperability. The logical elements identified here establish an appropriate separation of concerns and clarify the responsibilities of different elements. However, the architecture does not prescribe a binding or packaging of elements, i.e., software systems may be developed where some elements are tightly bound and the interfaces between bound elements are not exposed. The task architecture is also described in <eref type="inline" bibitemid="TARCH" citeas="(CalConnect Task Architecture V1.0"/>.</p>
+<p id="_fb67bf9b-2a59-71ff-564b-26c450671c05">A reference architecture for task calendaring and scheduling is defined in order to identify the key logical elements involved in task management and the interfaces between them to enable interoperability. The logical elements identified here establish an appropriate separation of concerns and clarify the responsibilities of different elements. However, the architecture does not prescribe a binding or packaging of elements, i.e., software systems may be developed where some elements are tightly bound and the interfaces between bound elements are not exposed. The task architecture is also described in  <eref type="inline" bibitemid="TARCH" citeas="(CalConnect Task Architecture V1.0"/>.</p>
 
 <figure id="_2bad07e9-7d07-cbdb-fa76-b5ac14dacdcd">
 <name>Task architecture diagram</name>
@@ -156,13 +156,13 @@
 |          Candidate(s)        Observer(s)  |    |           |
 | Assignee(s)       Resource(s)             |    |           |
 +-------------------------------------------+    +-----------+</pre></figure>
- </clause>
+</clause>
 
 <clause id="architecture-elements" inline-header="false" obligation="normative">
 <title>Task Architecture Elements</title>
 <p id="_b165eb21-77e0-4527-2f36-81cf5ae5ca66">The following logical elements form the task architecture that this specification is based on:</p>
 
-<dl id="_7c1991c0-38ad-b594-d265-db96e25a387a"><dt>Task Actors</dt>
+<dl id="_3351f52c-f372-de15-4979-22a44a670db8"><dt>Task Actors</dt>
 <dd><p id="_842263d2-24a4-7629-1ff0-7b94598e6769">Various calendar users that may be involved in the monitoring or performing of a task. The set of actors includes: Organizers, Observers, Resources, Assignees, and Candidates.</p>
 </dd>
 <dt>Task Organizer</dt>
@@ -181,14 +181,15 @@
 <dd><p id="_32107964-3a8a-67ed-efd6-86453d6dc699">This is some event that gives rise to the generation of a task according to Process Logic. Task triggers can come from many sources including, for example; a task being requested through the calendaring system, a status change in the progression of a business process being managed by a business process management or Enterprise resource planning (ERP) system.</p>
 </dd>
 <dt>Task Assignment Rules</dt>
-<dd><p id="_aee9a2fd-11c4-3de6-8cbd-3162519d27f0">Govern how actors are assigned to a task. A range of different assignment patterns <eref type="inline" bibitemid="WfRP" citeas="WfRP"/> may be considered, including the two general cases:</p>
+<dd><p id="_7dd0b881-c724-bc6b-334d-4c89939cf203">Govern how actors are assigned to a task. A range of different assignment patterns  <eref type="inline" bibitemid="WfRP" citeas="WfRP"/> may be considered, including the two general cases:</p>
 <ol id="_e07c5881-b03b-0e3b-82b1-cca2a7a2520f" type="alphabet"><li><p id="_e24bb5e8-6295-115a-07d7-d4a07545a14d">Delegation to a named actor or group of actors</p>
 </li>
 <li><p id="_36b1f772-aa73-dfab-4c2c-c4cbf2a76c1f">Advertising to a pool of actors for self-selection</p>
 </li>
 </ol>
- <p id="_4f670428-991a-82c3-d220-27a14bfde9cd">In either case the assignment may be made based on a variety of criteria including, name, availability, skills, capacity, etc.</p>
- </dd>
+
+<p id="_4f670428-991a-82c3-d220-27a14bfde9cd">In either case the assignment may be made based on a variety of criteria including, name, availability, skills, capacity, etc.</p>
+</dd>
 <dt>Task Generating System</dt>
 <dd><p id="_e3f7bcf8-db9a-8358-a7e3-f8c6ed2d7478">A system that creates and assigns tasks in response to some initiating event (task trigger). Task creation is according to Process Logic with task assignment determined by Task Assignment Rules. This system also tracks the status of tasks and will initiate further actions based upon the status. A task generating system can take many forms, for example; Business Process Management System, Project Management System, Bug Tracking System, Building Control System. A Task Generating System may also be a human. In iCalendar terms the Task Generating System is the organizer.</p>
 </dd>
@@ -208,10 +209,10 @@
 
 <clause id="architecture-foundations" inline-header="false" obligation="normative">
 <title>Architecture Foundations</title>
-<p id="_4ef06a82-4102-dd27-126f-0c17f73b1610">The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar) <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> and associated protocols. Task and task status are represented by the "VTODO" calendar component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP) <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV) <eref type="inline" bibitemid="RFC4791" citeas="RFC 4791"/> for client server communication.</p>
+<p id="_2f75486d-3027-a31f-c8b5-3e55020908cb">The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar)  <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> and associated protocols. Task and task status are represented by the "VTODO" calendar component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP)  <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV)  <eref type="inline" bibitemid="RFC4791" citeas="RFC 4791"/> for client server communication.</p>
 
-<p id="_2f74432c-8dd9-5f8a-6861-d4f5ca041578">Additionally, this specification uses definitions from Support for iCalendar Relationships <eref type="inline" bibitemid="RFC9253" citeas="RFC 9253"/>. The "LINK", "REFID", "RELATED-TO" and "CONCEPT" properties enable context and a rich set of relationships between tasks and other calendar components to be specified.</p>
- </clause>
+<p id="_7790b277-bdbc-e5ba-5d99-9752cd14a440">Additionally, this specification uses definitions from Support for iCalendar Relationships  <eref type="inline" bibitemid="RFC9253" citeas="RFC 9253"/>. The "LINK", "REFID", "RELATED-TO" and "CONCEPT" properties enable context and a rich set of relationships between tasks and other calendar components to be specified.</p>
+</clause>
 
 <clause id="task-extensions" inline-header="false" obligation="normative">
 <title>Task Extensions</title>
@@ -236,7 +237,7 @@
 
 <clause id="task-specification" inline-header="false" obligation="normative">
 <title>Task Specification</title>
-<p id="_20962d09-f00b-ca47-e475-e0c2f4341097">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:</p>
+<p id="_7d34a8cb-accd-1ac9-f182-d621a228c1fe">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The  <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:</p>
 
 <dl id="_de073d3c-5264-38a0-44f9-1a435528b1cc"><dt>Task type</dt>
 <dd><p id="_c9038f39-8528-8ec3-a178-c093522b461f">explicitly what type of task is to be performed is identified.</p>
@@ -279,7 +280,7 @@ REFID:1234567890</sourcecode>
 
 
 <p id="_e30db976-37b4-05b1-a67c-d34da1cce759">Extensions to the "RELATED-TO" property defined in <eref type="inline" bibitemid="RFC9253" citeas="RFC 9253"/> allow temporal relationships between tasks as found in project management to be specified as well as parent/child relationships and dependencies (DEPENDS-ON). Tasks ("VTODO" calendar components) may also be related to other calendar components; for example to a "VEVENT" calendar component to block time to perform a task.</p>
- </clause>
+</clause>
 
 <clause id="task-specific-data" inline-header="false" obligation="normative">
 <title>Task Specific Data</title>
@@ -295,29 +296,29 @@ REFID:1234567890</sourcecode>
  http://example.com/delivery/sig1234.jpg</sourcecode>
 
 </clause>
- </clause>
+</clause>
 
 <clause id="deadlines" inline-header="false" obligation="normative">
 <title>Task Deadlines, Milestones and Time Planning</title>
 <clause id="_deadlines" inline-header="false" obligation="normative">
 <title>Deadlines</title>
-<p id="_450cfdf9-c624-f8c0-0473-2dfaf0bf9111">Deadlines for starting and finishing a task are defined by the "DTSTART", "DUE" and "DURATION" properties. The "DTSTART" property represents the earliest start time for beginning work on a task. The "DUE", or "DTSTART" + "DURATION" properties represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However, <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> provides no way to indicate how long the task is expected to take. This document defines a new "ESTIMATED-DURATION" property, in <xref target="prop-estimated-duration"/>, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.</p>
- </clause>
+<p id="_c780af21-49f4-3826-d2f6-5ce3cc12fae6">Deadlines for starting and finishing a task are defined by the "DTSTART", "DUE" and "DURATION" properties. The "DTSTART" property represents the earliest start time for beginning work on a task. The "DUE", or "DTSTART" + "DURATION" properties represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However,  <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> provides no way to indicate how long the task is expected to take. This document defines a new "ESTIMATED-DURATION" property, in  <xref target="prop-estimated-duration"/>, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.</p>
+</clause>
 
 <clause id="_milestones" inline-header="false" obligation="normative">
 <title>Milestones</title>
 <p id="_f2276ca1-c069-b193-a9a7-725620a1e7d5">A task that has intermediary deadlines (i.e., milestones) SHOULD be expressed by child "VTODO" calendar components (i.e., sub-tasks associated with each of the milestones) in conjunction with the "RELATED-TO" property to relate the parent and child tasks.</p>
- </clause>
+</clause>
 </clause>
 
 <clause id="scheduling-assignment" inline-header="false" obligation="normative">
 <title>Task Scheduling and Assignment</title>
-<p id="_0c32e1b9-17de-0dd3-7701-19482933a767">Tasks are assigned to actors using one or more <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> "ATTENDEE" properties and/or one or more <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> "PARTICIPANT" calendar components.</p>
+<p id="_15f48f80-3e83-19e0-2411-31f30162f966">Tasks are assigned to actors using one or more <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> "ATTENDEE" properties and/or one or more  <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> "PARTICIPANT" calendar components.</p>
 
 <p id="_c24d693c-41b5-6406-4136-9956085ceefd">Communication of task assignment or delegation to one or more actors who are allocated to a task by the organizer is directly supported by iTIP, i.e., all included "ATTENDEE" properties in an iTIP REQUEST are expected to perform the task.</p>
 
 <p id="_0e46d010-3fb2-b5d3-977b-089fa39c58a4">The offering or advertising of a task to one or more (potential) actors where only one or a subset of the candidates may accept the task will be addressed by a later specification.</p>
- </clause>
+</clause>
 
 <clause id="status-reporting" inline-header="false" obligation="normative">
 <title>Status Reporting</title>
@@ -361,7 +362,7 @@ END:VSTATUS</sourcecode>
 
 
 <p id="_417d96eb-1823-1a51-8132-b6affb985cee">Note that the "VSTATUS" calendar component is not intended to be used as a history of changes to a tasks properties. The purpose of the "VSTATUS" calendar component is only to document changes related to fulfilling the tasks</p>
- </clause>
+</clause>
 
 <clause id="_relating_reason_and_comments_to_attendee_property_status_changes" inline-header="false" obligation="normative">
 <title>Relating reason and comments to "ATTENDEE" property status changes.</title>
@@ -382,30 +383,30 @@ END:PARTICIPANT</sourcecode>
 <title>Task Alerts and Notifications</title>
 <p id="_e4d8828a-29ae-22a5-b14d-4ddfdd0e04b5">Different needs to alert or notify task actors of pending or actual task status changes are recognized:</p>
 
-<dl id="_1b4ed1e1-f151-3b6a-20d4-ab9286fc675b"><dt>Alarms</dt>
+<dl id="_4ca3650f-bc0c-fb5b-c7ac-121ba5dc7877"><dt>Alarms</dt>
 <dd><p id="_67fe9b05-c753-179e-0abd-1b18876d57c7">"VALARM" calendar components operate in the calendar user agent space to notify the task actor of a pending task state for a task they are assigned to or are interested in.</p>
 <p id="_6fe2784f-5622-6d63-ee42-49244ef8db8f">Current standards (see <eref type="inline" bibitemid="RFC9074" citeas="RFC 9074"/>) indicate "VALARM" calendar components SHOULD be removed from incoming data and many systems in fact do so. In a task assignment scenario it may be appropriate for the organizer to be able to set alarms for the participants. A system implementing these standards may choose to preserve "VALARM" calendar components but sending a task via some external service may result in them being removed. This issue is not addressed by this specification.</p>
- </dd>
+</dd>
 <dt>Escalations</dt>
 <dd><p id="_91e8870c-e1d6-1b86-a5d4-ccb80f999964">An escalation or notification to the "Attendee", "Organizer", or other task actor may be required if a deadline associated with a task is exceeded or for some other reason. Process Logic identifying when and who to propagate escalations is the responsibility of the Task Generating System, e.g., a BPMS.</p>
 </dd>
 <dt>Notifications</dt>
-<dd><p id="_a94e4557-299e-d63d-2f70-5573fd8bad14">Task actors (observers) not directly involved in performing a task, but with a known interest in a given task's status, can be identified by the "PARTICIPANT" calendar component <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> against certain components e.g. the "VALARM" calendar component, to identify which task events the stakeholder/party is interested in. Notifications on shared calendars will allow task actors to register an interest in changes to tasks within a calendar (see <xref target="appendix-a"/>).</p>
+<dd><p id="_696e75f5-0e38-458f-ca68-8141644e3725">Task actors (observers) not directly involved in performing a task, but with a known interest in a given task's status, can be identified by the "PARTICIPANT" calendar component  <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> against certain components e.g. the "VALARM" calendar component, to identify which task events the stakeholder/party is interested in. Notifications on shared calendars will allow task actors to register an interest in changes to tasks within a calendar (see  <xref target="appendix-a"/>).</p>
 </dd>
 </dl>
- </clause>
+</clause>
 
 <clause id="_automated_status_changes" inline-header="false" obligation="normative">
 <title>Automated Status Changes</title>
 <p id="_8109928d-9c9d-cccf-f46e-5345ccaaf424">A new "TASK-MODE" property is introduced to instruct servers to apply automated operations for changing the status of a task.</p>
- </clause>
+</clause>
 </clause>
 
 <clause id="modifications-to-calendar-components" inline-header="false" obligation="normative">
 <title>Modifications to Calendar Components</title>
-<p id="_7c06e2b6-4647-065c-1693-39de4bafc87a">The following changes to the syntax defined in iCalendar <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> and Event Publishing Extensions to iCalendar <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> are made here. New elements are defined in subsequent sections.</p>
+<p id="_f66574fe-a93e-256d-9e79-b0664d2ae77f">The following changes to the syntax defined in iCalendar <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"/> and Event Publishing Extensions to iCalendar  <eref type="inline" bibitemid="RFC9073" citeas="RFC 9073"/> are made here. New elements are defined in subsequent sections.</p>
 
-<sourcecode id="_906f9181-189b-2557-bfa7-ce42ba9bb859" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
+<sourcecode id="_b2adf083-4ec1-d34f-65d0-8dc725a5ffb9" lang="bnf">; Addition of VSTATUS as a valid component for VEVENT
 eventc     = "BEGIN" ":" "VEVENT" CRLF
              eventprop *alarmc *participantc *locationc
                  *resourcec *statusc
@@ -439,8 +440,9 @@ participantc = "BEGIN" ":" "PARTICIPANT" CRLF
                "END" ":" "PARTICIPANT" CRLF
 
 
-; Addition of propertY REASON to PARTICIPANT
-partprop =/ reason</sourcecode>
+; Addition of properties PERCENT-COMPLETE and REASON to PARTICIPANT
+partprop =/ percent / ; OPTIONAL but MUST NOT occur more than once.
+            reason    ; OPTIONAL but MUST NOT occur more than once.</sourcecode>
 
 </clause>
 
@@ -465,7 +467,7 @@ partprop =/ reason</sourcecode>
  PARTSTAT=FAILED:mailto:jsmith@example.com</sourcecode>
 
 </clause>
- </clause>
+</clause>
 
 <clause id="new-properties" inline-header="false" obligation="normative">
 <title>New Properties</title>
@@ -497,8 +499,8 @@ partprop =/ reason</sourcecode>
 durparam      = *(";" other-param)</sourcecode>
 
 
-<dl id="_494cfa94-d5c3-deae-9227-ad8a595eb35d"><dt>Description</dt>
-<dd><p id="_03a7274f-969f-0191-b79b-45ac69e9f250">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed. When present, "DTSTART" and "DUE"/"DURATION" properties represent the window in which the task can be performed. The "ESTIMATED-DURATION" property SHOULD be passed from the organizer to the "Attendee" in iTIP <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> messages.</p>
+<dl id="_f93b641d-a9ed-3a99-da43-1b2824fe63e0"><dt>Description</dt>
+<dd><p id="_9c03c630-b6d4-e0e5-54ce-398c26cdbad0">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed. When present, "DTSTART" and "DUE"/"DURATION" properties represent the window in which the task can be performed. The "ESTIMATED-DURATION" property SHOULD be passed from the organizer to the "Attendee" in iTIP  <eref type="inline" bibitemid="RFC5546" citeas="RFC 5546"/> messages.</p>
 </dd>
 <dt>Example</dt>
 <dd><p id="_7f414b00-b129-3ae9-0c94-1d0e21a7778a">The following is an example of this property that estimates the duration of a task to be one hour:</p>
@@ -636,11 +638,13 @@ END:VSTATUS</sourcecode>
 taskmodeparam      = *(";" other-param)</sourcecode>
 
 
-<dl id="_d1306601-603e-ce54-4ae0-affc14c6eca9"><dt>Description</dt>
+<dl id="_2578e829-9c19-59cb-6ade-290d16f6d404"><dt>Description</dt>
 <dd><p id="_6244bb21-5dde-231f-23cc-2d25e46f8878">In a "VTODO" calendar component this property MAY be used to indicate to servers how they can automatically change the state of the task based on iTIP replies from "Attendees". For example, the server can automatically set the overall task status to COMPLETED when every attendee has marked their own status (PARTSTAT) as COMPLETED, or the server could mark the task as FAILED if its DUE date passes without it being completed. TASK-MODE processing is performed on the organizer's copy of the task.</p>
 <p id="_f5e95b0f-25fa-5a52-008d-6e523123d974">To set the status, add a VSTATUS component as specified in <xref target="vstatus"/>.</p>
- <p id="_4b1c274f-6b6d-c44c-d265-c7042cea6826">The property value is an IANA registered token that defines the mode to be used for the task. The modes are described in the following subsections.</p>
- <p id="_3aea095c-5597-c7a9-c7ad-b2205ce968c6">If the "TASK-MODE" property is absent then the "CLIENT" value is assumed.</p>
+
+<p id="_4b1c274f-6b6d-c44c-d265-c7042cea6826">The property value is an IANA registered token that defines the mode to be used for the task. The modes are described in the following subsections.</p>
+
+<p id="_3aea095c-5597-c7a9-c7ad-b2205ce968c6">If the "TASK-MODE" property is absent then the "CLIENT" value is assumed.</p>
 </dd>
 </dl>
 
@@ -658,7 +662,7 @@ taskmodeparam      = *(";" other-param)</sourcecode>
 <p id="_bb38a412-4650-3193-848a-7f9b3d55450a">Completing the task MUST be handled by a client.</p>
 </li>
 </ol>
- </dd>
+</dd>
 </dl>
 
 <dl id="task-mode-automatic"><dt>AUTOMATIC Task Mode</dt>
@@ -682,7 +686,7 @@ TASK-MODE:AUTOMATIC-FAILURE
 TASK-MODE:SERVER</sourcecode>
 
 </clause>
- </clause>
+</clause>
 
 <clause id="property-extensions" inline-header="false" obligation="normative">
 <title>Property Extensions and Clarifications</title>
@@ -751,7 +755,7 @@ TASK-MODE:SERVER</sourcecode>
 <sourcecode id="_dbe3be1c-b85f-8f62-0928-cbf91a078aa4">STATUS:FAILED</sourcecode>
 
 </clause>
- </clause>
+</clause>
 
 <clause id="new-components" inline-header="false" obligation="normative">
 <title>New Components</title>
@@ -814,7 +818,7 @@ DTSTAMP:20220212T120000Z
 END:VSTATUS</sourcecode>
 
 </clause>
- </clause>
+</clause>
 
 <clause id="caldav-support" inline-header="false" obligation="normative">
 <title>CalDAV Support for Task Mode</title>
@@ -865,7 +869,7 @@ uppercase preferred --&gt;</sourcecode>
 &lt;/C:supported-task-mode-set&gt;</sourcecode>
 
 </clause>
- </clause>
+</clause>
 
 <clause id="security" inline-header="false" obligation="normative">
 <title>Security Considerations</title>
@@ -1002,7 +1006,7 @@ uppercase preferred --&gt;</sourcecode>
 
 <clause id="_components_registry" inline-header="false" obligation="normative">
 <title>Components Registry</title>
-<p id="_3490ae3d-4262-ce23-94a5-0105140f979d">The following table has been used to update the Components registry defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.1</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;.</p>
+<p id="_ed95c00d-d4df-2c9d-acd4-b1c4a3af7235">The following table has been used to update the Components registry defined in  <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.1</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;.</p>
 
 <table id="_b293ebda-88d9-4453-6807-4771886854a0">
 <name>Updated Components Registry</name>
@@ -1022,15 +1026,15 @@ uppercase preferred --&gt;</sourcecode>
 
 <clause id="_properties_registry" inline-header="false" obligation="normative">
 <title>Properties registry</title>
-<p id="_12a45e47-f826-8485-97d8-a8484eed7e1c">The following table has been used to update the Properties registry defined in <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.2</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;.</p>
+<p id="_894022b8-5fd6-f66d-0b47-62e614db316d">The following table has been used to update the Properties registry defined in  <eref type="inline" bibitemid="RFC5545" citeas="RFC 5545"><localityStack><locality type="section"><referenceFrom>8.3.2</referenceFrom></locality></localityStack></eref> and located here: &lt;<link target="https://www.iana.org/assignments/icalendar"/>&gt;.</p>
 
-<table id="_e9c72a68-7521-d614-2ba8-7dbb59e588f1">
+<table id="_33a27ee0-890c-2291-1f24-7144df43a153">
 <name>Updated Properties Registry</name>
 <thead><tr><th valign="top" align="left">Property</th>
 <th valign="top" align="left">Status</th>
 <th valign="top" align="left">Reference</th>
 </tr></thead>
-<tbody><tr><td valign="top" align="left"><p id="_82ff7d2e-d100-558b-a95a-ded1ac539d3b">ESTIMATED_DURATION</p>
+<tbody><tr><td valign="top" align="left"><p id="_56eb5075-2d0f-c757-7cb9-3688637f6694">ESTIMATED-DURATION</p>
 </td>
 <td valign="top" align="left"><p id="_c2768f02-f5cb-071b-badf-f69e75ed013c">Current</p>
 </td>
@@ -1063,8 +1067,8 @@ uppercase preferred --&gt;</sourcecode>
 </tr></tbody>
 </table>
 </clause>
- </clause>
- </clause>
+</clause>
+</clause>
 
 <clause id="acknowledgements" inline-header="false" obligation="normative">
 <title>Acknowledgements</title>
@@ -1073,14 +1077,14 @@ uppercase preferred --&gt;</sourcecode>
 <p id="_7c1c001f-d76e-9cfc-da5b-c6d85a15bd76">John Chaffee, Marten Gajda, Ken Murchison</p>
 
 <p id="_ad4de990-1465-d3d9-2734-e2e10072c4d6">The authors would also like to thank CalConnect, the Calendaring and Scheduling Consortium, for advice with this specification.</p>
- </clause>
+</clause>
 
 
 
 
 
 
- </sections><annex id="appendix-a" inline-header="false" obligation="informative">
+</sections><annex id="appendix-a" inline-header="false" obligation="informative">
 <title>Examples of Task State Lifecycle</title>
 <clause id="_simple_case_status_change" inline-header="false" obligation="informative">
 <title>Simple Case Status Change</title>
@@ -1126,7 +1130,7 @@ uppercase preferred --&gt;</sourcecode>
 <title>Example for multiple Attendees</title>
 <p id="_4e3a4769-59f2-8909-1b23-7418992efc23">Example of status changes in assigning and performing a task with two attendees (A1 and A2).</p>
 
-<table id="_fdcfa421-88c0-758c-4a8b-3c2da0d96656"><colgroup><col width="5%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="50%"/></colgroup>
+<table id="_4e1f9ea0-2770-3bc9-515e-81a16a523840"><colgroup><col width="5%"/><col width="15%"/><col width="15%"/><col width="15%"/><col width="50%"/></colgroup>
 <name>Example for multiple Attendees</name>
 <thead><tr><th valign="top" align="left"/><th valign="top" align="left">STATUS</th>
 <th valign="top" align="left">PARTSTAT (A1)</th>
@@ -1184,12 +1188,11 @@ uppercase preferred --&gt;</sourcecode>
 <td valign="top" align="left">COMPLETED</td>
 <td valign="top" align="left">Organizer changes overall state once both attendees are finished.</td>
 </tr></tbody>
-<note id="_82835b59-ef36-37ee-556b-333036790dd1"><p id="_6b0630d1-a733-954e-8ba4-ae6cdf78984a">The logic for determining the status change to the "VTODO" calendar component
-is determined by the task organizer based on the "ATTENDEE" property status and other business logic.</p>
+<note id="_ae40a6f8-26ca-43bb-9ebe-9ebf1c200026"><p id="_38533dfe-eef5-91f8-dd56-dd474f51acf7">The logic for determining the status change to the "VTODO" calendar component is determined by the task organizer based on the "ATTENDEE" property status and other business logic.</p>
 </note></table>
 
 
- </clause>
+</clause>
 
 <clause id="_example_of_failure" inline-header="false" obligation="informative">
 <title>Example of Failure</title>
@@ -1228,211 +1231,719 @@ is determined by the task organizer based on the "ATTENDEE" property status and 
 </tr></tbody>
 </table>
 </clause>
- </annex><bibliography><references id="_normative_references" normative="true" obligation="informative">
+</annex><bibliography><references id="_normative_references" normative="true" obligation="informative">
 <title>Normative References</title>
-<bibitem id="RFC2119" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+<bibitem id="RFC2119" type="standard" schema-version="v1.2.9">
+  <fetched>2024-10-16</fetched>
+  
 <title type="main" format="text/plain">Key words for use in RFCs to Indicate Requirement Levels</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc2119</uri>   <docidentifier type="IETF" primary="true">RFC 2119</docidentifier>   <docidentifier type="DOI">10.17487/RFC2119</docidentifier>   <docnumber>RFC2119</docnumber>   <date type="published">     <on>1997-03</on>   </date>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">S. Bradner</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc2119</uri>
+  <docidentifier type="IETF" primary="true">RFC 2119</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC2119</docidentifier>
+  <docnumber>RFC2119</docnumber>
+  <date type="published">
+    <on>1997-03</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">S. Bradner</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_d880f395-e6d7-8f4a-03cf-d16fe47fb9c2">In many standards track documents several words are used to signify the requirements in the specification. These words are often capitalized. This document defines these words as they should be interpreted in IETF documents. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</p>
-   </abstract>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_d880f395-e6d7-8f4a-03cf-d16fe47fb9c2">In many standards track documents several words are used to signify the requirements in the specification. These words are often capitalized. This document defines these words as they should be interpreted in IETF documents. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</p>
+
+  </abstract>
+  <series>
+    
 <title format="text/plain">BCP</title>
-     <number>14</number>   </series>   <series>     
+
+    <number>14</number>
+  </series>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>2119</number>   </series>   <series type="stream">     
+
+    <number>2119</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>Standards</keyword>   <keyword>Track</keyword>   <keyword>Documents</keyword> </bibitem>
-<bibitem id="RFC4791" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>Standards</keyword>
+  <keyword>Track</keyword>
+  <keyword>Documents</keyword>
+</bibitem>
+<bibitem id="RFC4791" type="standard" schema-version="v1.2.9">
+  <fetched>2024-12-01</fetched>
+  
 <title type="main" format="text/plain">Calendaring Extensions to WebDAV (CalDAV)</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc4791</uri>   <docidentifier type="IETF" primary="true">RFC 4791</docidentifier>   <docidentifier type="DOI">10.17487/RFC4791</docidentifier>   <docnumber>RFC4791</docnumber>   <date type="published">     <on>2007-03</on>   </date>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">C. Daboo</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">B. Desruisseaux</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">L. Dusseault</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc4791</uri>
+  <docidentifier type="IETF" primary="true">RFC 4791</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC4791</docidentifier>
+  <docnumber>RFC4791</docnumber>
+  <date type="published">
+    <on>2007-03</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">C. Daboo</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">B. Desruisseaux</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">L. Dusseault</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_5be4efc9-394d-7eb9-056b-14bb643d615a">This document defines extensions to the Web Distributed Authoring and Versioning (WebDAV) protocol to specify a standard way of accessing, managing, and sharing calendaring and scheduling information based on the iCalendar format. This document defines the "calendar-access" feature of CalDAV. [STANDARDS-TRACK]</p>
-   </abstract>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_5be4efc9-394d-7eb9-056b-14bb643d615a">This document defines extensions to the Web Distributed Authoring and Versioning (WebDAV) protocol to specify a standard way of accessing, managing, and sharing calendaring and scheduling information based on the iCalendar format. This document defines the "calendar-access" feature of CalDAV. [STANDARDS-TRACK]</p>
+
+  </abstract>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>4791</number>   </series>   <series type="stream">     
+
+    <number>4791</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>calsched</keyword>   <keyword>calsch</keyword>   <keyword>calcav</keyword>   <keyword>calendar</keyword>   <keyword>calendaring</keyword>   <keyword>scheduling</keyword>   <keyword>webdav</keyword>   <keyword>ical</keyword>   <keyword>icalendar</keyword>   <keyword>itip</keyword>   <keyword>text/calendar</keyword>   <keyword>http</keyword> </bibitem>
-<bibitem id="RFC4918" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>calsched</keyword>
+  <keyword>calsch</keyword>
+  <keyword>calcav</keyword>
+  <keyword>calendar</keyword>
+  <keyword>calendaring</keyword>
+  <keyword>scheduling</keyword>
+  <keyword>webdav</keyword>
+  <keyword>ical</keyword>
+  <keyword>icalendar</keyword>
+  <keyword>itip</keyword>
+  <keyword>text/calendar</keyword>
+  <keyword>http</keyword>
+</bibitem>
+<bibitem id="RFC4918" type="standard" schema-version="v1.2.9">
+  <fetched>2024-12-01</fetched>
+  
 <title type="main" format="text/plain">HTTP Extensions for Web Distributed Authoring and Versioning (WebDAV)</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc4918</uri>   <docidentifier type="IETF" primary="true">RFC 4918</docidentifier>   <docidentifier type="DOI">10.17487/RFC4918</docidentifier>   <docnumber>RFC4918</docnumber>   <date type="published">     <on>2007-06</on>   </date>   <contributor>     <role type="editor"/>     <person>       
-<name>         <completename language="en" script="Latn">L. Dusseault</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc4918</uri>
+  <docidentifier type="IETF" primary="true">RFC 4918</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC4918</docidentifier>
+  <docnumber>RFC4918</docnumber>
+  <date type="published">
+    <on>2007-06</on>
+  </date>
+  <contributor>
+    <role type="editor"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">L. Dusseault</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_533cbfc0-83a4-2037-5eb7-789d8c6713f7">Web Distributed Authoring and Versioning (WebDAV) consists of a set of methods, headers, and content-types ancillary to HTTP/1.1 for the management of resource properties, creation and management of resource collections, URL namespace manipulation, and resource locking (collision avoidance).</p>
-     <p id="_4d00507d-7b60-65bc-da11-71b79ae2140e">RFC 2518 was published in February 1999, and this specification obsoletes RFC 2518 with minor revisions mostly due to interoperability experience. [STANDARDS-TRACK]</p>
-   </abstract>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_533cbfc0-83a4-2037-5eb7-789d8c6713f7">Web Distributed Authoring and Versioning (WebDAV) consists of a set of methods, headers, and content-types ancillary to HTTP/1.1 for the management of resource properties, creation and management of resource collections, URL namespace manipulation, and resource locking (collision avoidance).</p>
+
+    <p id="_4d00507d-7b60-65bc-da11-71b79ae2140e">RFC 2518 was published in February 1999, and this specification obsoletes RFC 2518 with minor revisions mostly due to interoperability experience. [STANDARDS-TRACK]</p>
+
+  </abstract>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>4918</number>   </series>   <series type="stream">     
+
+    <number>4918</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>WEBDAV</keyword>   <keyword>hypertext</keyword>   <keyword>transfer</keyword>   <keyword>protocol</keyword>   <keyword>web</keyword>   <keyword>content</keyword> </bibitem>
-<bibitem id="RFC5545" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>WEBDAV</keyword>
+  <keyword>hypertext</keyword>
+  <keyword>transfer</keyword>
+  <keyword>protocol</keyword>
+  <keyword>web</keyword>
+  <keyword>content</keyword>
+</bibitem>
+<bibitem id="RFC5545" type="standard" schema-version="v1.2.9">
+  <fetched>2024-10-16</fetched>
+  
 <title type="main" format="text/plain">Internet Calendaring and Scheduling Core Object Specification (iCalendar)</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc5545</uri>   <docidentifier type="IETF" primary="true">RFC 5545</docidentifier>   <docidentifier type="DOI">10.17487/RFC5545</docidentifier>   <docnumber>RFC5545</docnumber>   <date type="published">     <on>2009-09</on>   </date>   <contributor>     <role type="editor"/>     <person>       
-<name>         <completename language="en" script="Latn">B. Desruisseaux</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc5545</uri>
+  <docidentifier type="IETF" primary="true">RFC 5545</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC5545</docidentifier>
+  <docnumber>RFC5545</docnumber>
+  <date type="published">
+    <on>2009-09</on>
+  </date>
+  <contributor>
+    <role type="editor"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">B. Desruisseaux</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_fa0bf784-4550-0b44-8677-c2ba87a7ce41">This document defines the iCalendar data format for representing and exchanging calendaring and scheduling information such as events, to-dos, journal entries, and free/busy information, independent of any particular calendar service or protocol. [STANDARDS-TRACK]</p>
-   </abstract>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_fa0bf784-4550-0b44-8677-c2ba87a7ce41">This document defines the iCalendar data format for representing and exchanging calendaring and scheduling information such as events, to-dos, journal entries, and free/busy information, independent of any particular calendar service or protocol. [STANDARDS-TRACK]</p>
+
+  </abstract>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>5545</number>   </series>   <series type="stream">     
+
+    <number>5545</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>calsify</keyword>   <keyword>calsched</keyword>   <keyword>calsch</keyword>   <keyword>caldav</keyword>   <keyword>calendar</keyword>   <keyword>calendaring</keyword>   <keyword>meeting</keyword>   <keyword>event</keyword>   <keyword>task</keyword>   <keyword>to-do</keyword>   <keyword>journal</keyword>   <keyword>appointment</keyword>   <keyword>agenda</keyword>   <keyword>schedule</keyword>   <keyword>scheduling</keyword>   <keyword>ical</keyword>   <keyword>icalendar</keyword>   <keyword>itip</keyword>   <keyword>imip</keyword>   <keyword>text/calendar</keyword>   <keyword>ischedule</keyword>   <keyword>xCalendar</keyword> </bibitem>
-<bibitem id="RFC5546" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>calsify</keyword>
+  <keyword>calsched</keyword>
+  <keyword>calsch</keyword>
+  <keyword>caldav</keyword>
+  <keyword>calendar</keyword>
+  <keyword>calendaring</keyword>
+  <keyword>meeting</keyword>
+  <keyword>event</keyword>
+  <keyword>task</keyword>
+  <keyword>to-do</keyword>
+  <keyword>journal</keyword>
+  <keyword>appointment</keyword>
+  <keyword>agenda</keyword>
+  <keyword>schedule</keyword>
+  <keyword>scheduling</keyword>
+  <keyword>ical</keyword>
+  <keyword>icalendar</keyword>
+  <keyword>itip</keyword>
+  <keyword>imip</keyword>
+  <keyword>text/calendar</keyword>
+  <keyword>ischedule</keyword>
+  <keyword>xCalendar</keyword>
+</bibitem>
+<bibitem id="RFC5546" type="standard" schema-version="v1.2.9">
+  <fetched>2024-10-16</fetched>
+  
 <title type="main" format="text/plain">iCalendar Transport-Independent Interoperability Protocol (iTIP)</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc5546</uri>   <docidentifier type="IETF" primary="true">RFC 5546</docidentifier>   <docidentifier type="DOI">10.17487/RFC5546</docidentifier>   <docnumber>RFC5546</docnumber>   <date type="published">     <on>2009-12</on>   </date>   <contributor>     <role type="editor"/>     <person>       
-<name>         <completename language="en" script="Latn">C. Daboo</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc5546</uri>
+  <docidentifier type="IETF" primary="true">RFC 5546</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC5546</docidentifier>
+  <docnumber>RFC5546</docnumber>
+  <date type="published">
+    <on>2009-12</on>
+  </date>
+  <contributor>
+    <role type="editor"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">C. Daboo</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_2cd2d582-e2ae-29a6-352a-43e32fe9fac6">This document specifies a protocol that uses the iCalendar object specification to provide scheduling interoperability between different calendaring systems. This is done without reference to a specific transport protocol so as to allow multiple methods of communication between systems. Subsequent documents will define profiles of this protocol that use specific, interoperable methods of communication between systems.</p>
-     <p id="_cd6ce1d1-b0b8-b7fe-28a2-489156d14426">The iCalendar Transport-Independent Interoperability Protocol (iTIP) complements the iCalendar object specification by adding semantics for group scheduling methods commonly available in current calendaring systems. These scheduling methods permit two or more calendaring systems to perform transactions such as publishing, scheduling, rescheduling, responding to scheduling requests, negotiating changes, or canceling. [STANDARDS-TRACK]</p>
-   </abstract>   <relation type="updates">     <bibitem>       <formattedref format="text/plain">RFC5545</formattedref>       <docidentifier type="IETF" primary="true">RFC5545</docidentifier>     </bibitem>
-   </relation>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_2cd2d582-e2ae-29a6-352a-43e32fe9fac6">This document specifies a protocol that uses the iCalendar object specification to provide scheduling interoperability between different calendaring systems. This is done without reference to a specific transport protocol so as to allow multiple methods of communication between systems. Subsequent documents will define profiles of this protocol that use specific, interoperable methods of communication between systems.</p>
+
+    <p id="_cd6ce1d1-b0b8-b7fe-28a2-489156d14426">The iCalendar Transport-Independent Interoperability Protocol (iTIP) complements the iCalendar object specification by adding semantics for group scheduling methods commonly available in current calendaring systems. These scheduling methods permit two or more calendaring systems to perform transactions such as publishing, scheduling, rescheduling, responding to scheduling requests, negotiating changes, or canceling. [STANDARDS-TRACK]</p>
+
+  </abstract>
+  <relation type="updates">
+    <bibitem>
+      <formattedref format="text/plain">RFC5545</formattedref>
+      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>
+    </bibitem>
+
+  </relation>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>5546</number>   </series>   <series type="stream">     
+
+    <number>5546</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>calendar</keyword>   <keyword>scheduling</keyword> </bibitem>
-<bibitem id="RFC8174" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>calendar</keyword>
+  <keyword>scheduling</keyword>
+</bibitem>
+<bibitem id="RFC8174" type="standard" schema-version="v1.2.9">
+  <fetched>2024-12-01</fetched>
+  
 <title type="main" format="text/plain">Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc8174</uri>   <docidentifier type="IETF" primary="true">RFC 8174</docidentifier>   <docidentifier type="DOI">10.17487/RFC8174</docidentifier>   <docnumber>RFC8174</docnumber>   <date type="published">     <on>2017-05</on>   </date>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">B. Leiba</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc8174</uri>
+  <docidentifier type="IETF" primary="true">RFC 8174</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC8174</docidentifier>
+  <docnumber>RFC8174</docnumber>
+  <date type="published">
+    <on>2017-05</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">B. Leiba</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_2788e113-2d87-1155-7feb-231acfcf4ac9">RFC 2119 specifies common key words that may be used in protocol specifications. This document aims to reduce the ambiguity by clarifying that only UPPERCASE usage of the key words have the defined special meanings.</p>
-   </abstract>   <relation type="updates">     <bibitem>       <formattedref format="text/plain">RFC2119</formattedref>       <docidentifier type="IETF" primary="true">RFC2119</docidentifier>     </bibitem>
-   </relation>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_2788e113-2d87-1155-7feb-231acfcf4ac9">RFC 2119 specifies common key words that may be used in protocol specifications. This document aims to reduce the ambiguity by clarifying that only UPPERCASE usage of the key words have the defined special meanings.</p>
+
+  </abstract>
+  <relation type="updates">
+    <bibitem>
+      <formattedref format="text/plain">RFC2119</formattedref>
+      <docidentifier type="IETF" primary="true">RFC2119</docidentifier>
+    </bibitem>
+
+  </relation>
+  <series>
+    
 <title format="text/plain">BCP</title>
-     <number>14</number>   </series>   <series>     
+
+    <number>14</number>
+  </series>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>8174</number>   </series>   <series type="stream">     
+
+    <number>8174</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series> </bibitem>
-<bibitem id="RFC9073" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+</bibitem>
+<bibitem id="RFC9073" type="standard" schema-version="v1.2.9">
+  <fetched>2024-10-16</fetched>
+  
 <title type="main" format="text/plain">Event Publishing Extensions to iCalendar</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc9073</uri>   <docidentifier type="IETF" primary="true">RFC 9073</docidentifier>   <docidentifier type="DOI">10.17487/RFC9073</docidentifier>   <docnumber>RFC9073</docnumber>   <date type="published">     <on>2021-08</on>   </date>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">M. Douglass</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc9073</uri>
+  <docidentifier type="IETF" primary="true">RFC 9073</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC9073</docidentifier>
+  <docnumber>RFC9073</docnumber>
+  <date type="published">
+    <on>2021-08</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">M. Douglass</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_55e6d969-b37f-2bb0-6955-96c1774868c6">This specification updates RFC 5545 by introducing a number of new iCalendar properties and components that are of particular use for event publishers and in social networking.</p>
-     <p id="_3662ce40-25da-989e-145a-20860df21e0f">This specification also defines a new "STRUCTURED-DATA" property for iCalendar (RFC 5545) to allow for data that is directly pertinent to an event or task to be included with the calendar data.</p>
-   </abstract>   <relation type="updates">     <bibitem>       <formattedref format="text/plain">RFC5545</formattedref>       <docidentifier type="IETF" primary="true">RFC5545</docidentifier>     </bibitem>
-   </relation>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_55e6d969-b37f-2bb0-6955-96c1774868c6">This specification updates RFC 5545 by introducing a number of new iCalendar properties and components that are of particular use for event publishers and in social networking.</p>
+
+    <p id="_3662ce40-25da-989e-145a-20860df21e0f">This specification also defines a new "STRUCTURED-DATA" property for iCalendar (RFC 5545) to allow for data that is directly pertinent to an event or task to be included with the calendar data.</p>
+
+  </abstract>
+  <relation type="updates">
+    <bibitem>
+      <formattedref format="text/plain">RFC5545</formattedref>
+      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>
+    </bibitem>
+
+  </relation>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>9073</number>   </series>   <series type="stream">     
+
+    <number>9073</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>iCalendar</keyword>   <keyword>properties</keyword> </bibitem>
-<bibitem id="RFC9074" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>iCalendar</keyword>
+  <keyword>properties</keyword>
+</bibitem>
+<bibitem id="RFC9074" type="standard" schema-version="v1.2.9">
+  <fetched>2024-12-01</fetched>
+  
 <title type="main" format="text/plain">"VALARM" Extensions for iCalendar</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc9074</uri>   <docidentifier type="IETF" primary="true">RFC 9074</docidentifier>   <docidentifier type="DOI">10.17487/RFC9074</docidentifier>   <docnumber>RFC9074</docnumber>   <date type="published">     <on>2021-08</on>   </date>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">C. Daboo</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="editor"/>     <person>       
-<name>         <completename language="en" script="Latn">K. Murchison</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc9074</uri>
+  <docidentifier type="IETF" primary="true">RFC 9074</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC9074</docidentifier>
+  <docnumber>RFC9074</docnumber>
+  <date type="published">
+    <on>2021-08</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">C. Daboo</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="editor"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">K. Murchison</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_2735483c-89c6-77e7-cf3e-b466c4b46a2f">This document defines a set of extensions to the iCalendar "VALARM" component to enhance the use of alarms and improve interoperability between clients and servers.</p>
-     <p id="_9cc7b48a-bc21-aa0d-0f0c-ead45c79fbce">This document updates RFC 5545.</p>
-   </abstract>   <relation type="updates">     <bibitem>       <formattedref format="text/plain">RFC5545</formattedref>       <docidentifier type="IETF" primary="true">RFC5545</docidentifier>     </bibitem>
-   </relation>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_2735483c-89c6-77e7-cf3e-b466c4b46a2f">This document defines a set of extensions to the iCalendar "VALARM" component to enhance the use of alarms and improve interoperability between clients and servers.</p>
+
+    <p id="_9cc7b48a-bc21-aa0d-0f0c-ead45c79fbce">This document updates RFC 5545.</p>
+
+  </abstract>
+  <relation type="updates">
+    <bibitem>
+      <formattedref format="text/plain">RFC5545</formattedref>
+      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>
+    </bibitem>
+
+  </relation>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>9074</number>   </series>   <series type="stream">     
+
+    <number>9074</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>alarms</keyword>   <keyword>calendaring</keyword>   <keyword>iCalendar</keyword>   <keyword>CalDAV</keyword> </bibitem>
-<bibitem id="RFC9253" type="standard" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+
+  </series>
+  <keyword>alarms</keyword>
+  <keyword>calendaring</keyword>
+  <keyword>iCalendar</keyword>
+  <keyword>CalDAV</keyword>
+</bibitem>
+<bibitem id="RFC9253" type="standard" schema-version="v1.2.9">
+  <fetched>2024-10-16</fetched>
+  
 <title type="main" format="text/plain">Support for iCalendar Relationships</title>
-   <uri type="src">https://www.rfc-editor.org/info/rfc9253</uri>   <docidentifier type="IETF" primary="true">RFC 9253</docidentifier>   <docidentifier type="DOI">10.17487/RFC9253</docidentifier>   <docnumber>RFC9253</docnumber>   <date type="published">     <on>2022-08</on>   </date>   <contributor>     <role type="author"/>     <person>       
-<name>         <completename language="en" script="Latn">M. Douglass</completename>       </name>
-     </person>   </contributor>   <contributor>     <role type="publisher"/>     <organization>       
+
+  <uri type="src">https://www.rfc-editor.org/info/rfc9253</uri>
+  <docidentifier type="IETF" primary="true">RFC 9253</docidentifier>
+  <docidentifier type="DOI">10.17487/RFC9253</docidentifier>
+  <docnumber>RFC9253</docnumber>
+  <date type="published">
+    <on>2022-08</on>
+  </date>
+  <contributor>
+    <role type="author"/>
+    <person>
+      
+<name>          <completename language="en" script="Latn">M. Douglass</completename>       </name>
+
+    </person>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      
 <name>RFC Publisher</name>
-     </organization>   </contributor>   <contributor>     <role type="authorizer"/>     <organization>       
+
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="authorizer"/>
+    <organization>
+      
 <name>RFC Series</name>
-     </organization>   </contributor>   <language>en</language>   <script>Latn</script>   <abstract format="text/html" language="en" script="Latn">     <p id="_f1442e5c-953b-e410-8fc4-dd253bd41325">This specification updates the iCalendar RELATED-TO property defined in RFC 5545 by adding new relation types and introduces new iCalendar properties (LINK, CONCEPT, and REFID) to allow better linking and grouping of iCalendar components and related data.</p>
-   </abstract>   <relation type="updates">     <bibitem>       <formattedref format="text/plain">RFC5545</formattedref>       <docidentifier type="IETF" primary="true">RFC5545</docidentifier>     </bibitem>
-   </relation>   <series>     
+
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <abstract format="text/html" language="en" script="Latn">
+    <p id="_f1442e5c-953b-e410-8fc4-dd253bd41325">This specification updates the iCalendar RELATED-TO property defined in RFC 5545 by adding new relation types and introduces new iCalendar properties (LINK, CONCEPT, and REFID) to allow better linking and grouping of iCalendar components and related data.</p>
+
+  </abstract>
+  <relation type="updates">
+    <bibitem>
+      <formattedref format="text/plain">RFC5545</formattedref>
+      <docidentifier type="IETF" primary="true">RFC5545</docidentifier>
+    </bibitem>
+
+  </relation>
+  <series>
+    
 <title format="text/plain">RFC</title>
-     <number>9253</number>   </series>   <series type="stream">     
+
+    <number>9253</number>
+  </series>
+  <series type="stream">
+    
 <title format="text/plain">IETF</title>
-   </series>   <keyword>iCalendar</keyword>   <keyword>link</keyword>   <keyword>related-to</keyword>   <keyword>relationships</keyword> </bibitem>
-<bibitem id="draft-ietf-calext-subscription-upgrade" type="book"><formattedref format="application/x-isodoc+xml">Douglass, M., <em>draft-ietf-calext-subscription-upgrade</em>, <link target="https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/"/>. </formattedref><title>
-  <em>draft-ietf-calext-subscription-upgrade</em>
-</title><uri type="src">https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/</uri><docidentifier>draft-ietf-calext-subscription-upgrade</docidentifier><contributor>
+
+  </series>
+  <keyword>iCalendar</keyword>
+  <keyword>link</keyword>
+  <keyword>related-to</keyword>
+  <keyword>relationships</keyword>
+</bibitem>
+<bibitem id="draft-ietf-calext-subscription-upgrade" type="book"><formattedref format="application/x-isodoc+xml">Douglass, M.,
+<em>draft-ietf-calext-subscription-upgrade</em>,
+<link target="https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/"/>.
+</formattedref><title>    <em>draft-ietf-calext-subscription-upgrade</em></title><uri type="src">https://datatracker.ietf.org/doc/draft-ietf-calext-subscription-upgrade/</uri><docidentifier>draft-ietf-calext-subscription-upgrade</docidentifier><contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>M.</formatted-initials>
-      <surname>Douglass</surname>
-    </name>
+    <name>        <formatted-initials>M.</formatted-initials>        <surname>Douglass</surname>     </name>
   </person>
 </contributor></bibitem>
 </references><references id="_informative_references" normative="false" obligation="informative">
-<title>Informative References</title><bibitem id="BPMN" schema-version="v1.2.9">   <fetched>2024-07-30</fetched>   
+<title>Informative References</title><bibitem id="BPMN" schema-version="v1.2.9">
+  <fetched>2024-12-01</fetched>
+  
 <title type="main" format="text/plain" language="en" script="Latn">Business Process Model and Notation</title>
-   <uri type="src">https://www.omg.org/spec/BPMN/2.0.2/About-BPMN</uri>   <uri type="pdf">https://www.omg.org/spec/BPMN/2.0.2/PDF</uri>   <docidentifier type="OMG" primary="true">BPMN 2.0.2</docidentifier>   <date type="published">     <on>2014-01</on>   </date>   <version>     <revision-date>2014-01-01</revision-date>     <draft>2.0.2</draft>   </version>   <abstract format="text/plain" language="en" script="Latn">Business Process Model and Notation has become the de-facto standard for business processes diagrams. It is intended to be used directly by the stakeholders who design, manage and realize business processes, but at the same time be precise enough to allow BPMN diagrams to be translated into software process components. BPMN has an easy-to-use flowchart-like notation that is independent of any particular implementation environment.</abstract>   <status>     <stage>formal</stage>   </status>   <relation type="obsoletes">     <bibitem>       <formattedref format="text/plain">OMG BPMN 1.2</formattedref>     </bibitem>
-   </relation>   <relation type="obsoletes">     <bibitem>       <formattedref format="text/plain">OMG BPMN 1.1</formattedref>     </bibitem>
-   </relation>   <relation type="obsoletes">     <bibitem>       <formattedref format="text/plain">OMG BPMN 1.0</formattedref>     </bibitem>
-   </relation>   <license>RF-RAND</license>   <keyword>Business Modeling</keyword>   <keyword>Domain</keyword> </bibitem><bibitem id="TARCH" type="book">
-  <formattedref format="application/x-isodoc+xml">Apthorp, A., Daboo, C., Douglass, M., <em>CalConnect, Task Architecture V1.0</em>, <link target="https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf"/>. </formattedref>
+
+  <uri type="src">https://www.omg.org/spec/BPMN/2.0.2/About-BPMN</uri>
+  <uri type="pdf">https://www.omg.org/spec/BPMN/2.0.2/PDF</uri>
+  <docidentifier type="OMG" primary="true">OMG BPMN 2.0.2</docidentifier>
+  <date type="published">
+    <on>2014-01</on>
+  </date>
+  <version>
+    <revision-date>2014-01-01</revision-date>
+    <draft>2.0.2</draft>
+  </version>
+  <abstract format="text/plain" language="en" script="Latn">Business Process Model and Notation has become the de-facto standard for business processes diagrams. It is intended to be used directly by the stakeholders who design, manage and realize business processes, but at the same time be precise enough to allow BPMN diagrams to be translated into software process components. BPMN has an easy-to-use flowchart-like notation that is independent of any particular implementation environment.</abstract>
+  <status>
+    <stage>formal</stage>
+  </status>
+  <relation type="obsoletes">
+    <bibitem>
+      <formattedref format="text/plain">OMG BPMN 1.2</formattedref>
+    </bibitem>
+
+  </relation>
+  <relation type="obsoletes">
+    <bibitem>
+      <formattedref format="text/plain">OMG BPMN 1.1</formattedref>
+    </bibitem>
+
+  </relation>
+  <relation type="obsoletes">
+    <bibitem>
+      <formattedref format="text/plain">OMG BPMN 1.0</formattedref>
+    </bibitem>
+
+  </relation>
+  <license>RF-RAND</license>
+  <keyword>Business Modeling</keyword>
+  <keyword>Domain</keyword>
+</bibitem><bibitem id="TARCH" type="book">
+  <formattedref format="application/x-isodoc+xml">Apthorp, A.,
+Daboo, C.,
+Douglass, M.,
+<em>CalConnect, Task Architecture V1.0</em>,
+<link target="https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf"/>.
+</formattedref>
   <docnumber>1.0</docnumber>
-  <title>
-  <em>CalConnect, Task Architecture V1.0</em>
-</title>
+  <title>    <em>CalConnect, Task Architecture V1.0</em></title>
   <uri type="src">https://www.calconnect.org/architectures/Task%20Architecture%201.0.pdf</uri>
   <docidentifier>(CalConnect Task Architecture V1.0</docidentifier>
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>A.</formatted-initials>
-      <surname>Apthorp</surname>
-    </name>
+    <name>        <formatted-initials>A.</formatted-initials>        <surname>Apthorp</surname>     </name>
   </person>
 </contributor>
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>C.</formatted-initials>
-      <surname>Daboo</surname>
-    </name>
+    <name>        <formatted-initials>C.</formatted-initials>        <surname>Daboo</surname>     </name>
   </person>
 </contributor>
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>M.</formatted-initials>
-      <surname>Douglass</surname>
-    </name>
+    <name>        <formatted-initials>M.</formatted-initials>        <surname>Douglass</surname>     </name>
   </person>
 </contributor>
 </bibitem><bibitem id="WfRP" type="book">
-  <formattedref format="application/x-isodoc+xml">Russell, N., ter Hofstede, A.H.M., Edmond, T., van der Aalst,, W.M.P., <em>Workflow Resource Patterns</em>, Eindhoven University of Technology, 2004, <link target="http://www.workflowpatterns.com/patterns/resource/"/>. </formattedref>
+  <formattedref format="application/x-isodoc+xml">Russell, N.,
+ter Hofstede, A.H.M.,
+Edmond, T.,
+van der Aalst,, W.M.P.,
+<em>Workflow Resource Patterns</em>,
+Eindhoven University of Technology,
+2004,
+<link target="http://www.workflowpatterns.com/patterns/resource/"/>.
+</formattedref>
   
-  <title>
-  <em>Workflow Resource Patterns</em>
-</title>
+  <title>    <em>Workflow Resource Patterns</em></title>
   <uri type="src">http://www.workflowpatterns.com/patterns/resource/</uri>
   <docidentifier>WfRP</docidentifier>
   <date type="published">
@@ -1441,37 +1952,25 @@ is determined by the task organizer based on the "ATTENDEE" property status and 
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>N.</formatted-initials>
-      <surname>Russell</surname>
-    </name>
+    <name>        <formatted-initials>N.</formatted-initials>        <surname>Russell</surname>     </name>
   </person>
 </contributor>
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>A.H.M.</formatted-initials>
-      <surname>ter Hofstede</surname>
-    </name>
+    <name>        <formatted-initials>A.H.M.</formatted-initials>        <surname>ter Hofstede</surname>     </name>
   </person>
 </contributor>
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>T.</formatted-initials>
-      <surname>Edmond</surname>
-    </name>
+    <name>        <formatted-initials>T.</formatted-initials>        <surname>Edmond</surname>     </name>
   </person>
 </contributor>
   <contributor>
   <role type="author"/>
   <person>
-    <name>
-      <formatted-initials>W.M.P.</formatted-initials>
-      <surname>van der Aalst,</surname>
-    </name>
+    <name>        <formatted-initials>W.M.P.</formatted-initials>        <surname>van der Aalst,</surname>     </name>
   </person>
 </contributor>
   <contributor>

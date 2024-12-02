@@ -8,14 +8,40 @@ thead th { font-weight: bold; background-color: aqua; }
 .severity3 { font-style: italic; color: grey; }
 </style>
 </head><body><h1>sources/draft-ietf-calext-ical-tasks.err.html errors</h1>
-<h2>Relaton</h2>
+<ul><li><p><b><a href="#Relaton">Relaton</a></b>: Severity 3: <b>11</b> errors</p></li>
+
+<li><p><b><a href="#Style">Style</a></b>: Severity 2: <b>4</b> errors</p></li>
+
+<li><p><b><a href="#Document_Attributes">Document Attributes</a></b>: Severity 1: <b>1</b> errors</p></li>
+
+<li><p><b><a href="#Metanorma_XML_Syntax">Metanorma XML Syntax</a></b>: Severity 2: <b>9</b> errors</p></li>
+</ul>
+<h2 id="Relaton">Relaton</h2>
 <table border="1">
 <thead><th width="5%">Line</th><th width="20%">ID</th>
 <th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
 <tbody>
 <tr class="severity3">
+<td></td><th><code>--</code></th>
+<td>Downloaded index from <code>https://​raw.​githubusercontent.com/​relaton/​relaton-data-rfcs/​main/index-v1.zip</code></td><td><pre></pre></td><td>3</td></tr>
+<tr class="severity3">
 <td></td><th><code>(Cal­Connect Task Architecture V1.0</code></th>
 <td><code>(Cal­Connect Task Architecture V1.0</code> does not have a recognised prefix</td><td><pre></pre></td><td>3</td></tr>
+<tr class="severity3">
+<td></td><th><code>OMG BPMN 2.0.2</code></th>
+<td>Found: <code>OMG BPMN 2.0.2</code></td><td><pre></pre></td><td>3</td></tr>
+<tr class="severity3">
+<td></td><th><code>RFC 4791</code></th>
+<td>Found: <code>RFC 4791</code></td><td><pre></pre></td><td>3</td></tr>
+<tr class="severity3">
+<td></td><th><code>RFC 4918</code></th>
+<td>Found: <code>RFC 4918</code></td><td><pre></pre></td><td>3</td></tr>
+<tr class="severity3">
+<td></td><th><code>RFC 8174</code></th>
+<td>Found: <code>RFC 8174</code></td><td><pre></pre></td><td>3</td></tr>
+<tr class="severity3">
+<td></td><th><code>RFC 9074</code></th>
+<td>Found: <code>RFC 9074</code></td><td><pre></pre></td><td>3</td></tr>
 <tr class="severity3">
 <td></td><th><code>RFC5545</code></th>
 <td><code>RFC5545</code> does not have a recognised prefix</td><td><pre></pre></td><td>3</td></tr>
@@ -29,41 +55,41 @@ thead th { font-weight: bold; background-color: aqua; }
 <td></td><th><code>draft-ietf-calext-subscription-upgrade</code></th>
 <td><code>draft-ietf-calext-subscription-upgrade</code> does not have a recognised prefix</td><td><pre></pre></td><td>3</td></tr>
 </tbody></table>
-<h2>Style</h2>
+<h2 id="Style">Style</h2>
 <table border="1">
 <thead><th width="5%">Line</th><th width="20%">ID</th>
 <th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
 <tbody>
 <tr class="severity2">
-<td>000031</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#_introduction'>_​introduction</a></code></th>
+<td>000035</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#_introduction'>_​introduction</a></code></th>
 <td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;_introduction&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
 &lt;title&gt;Introduction&lt;/title&gt;
 &lt;p id=&quot;_99b259c5-536b-2212-29fb-dfa205a6eb6b&quot;&gt;This document specifies extensions to the existing Internet Calendaring and Scheduling Core Object Specification (iCalendar) &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt;, and associated protocols, in order to enhance the structured communication and execution of tasks. The enhancements allow for the communication, time planning and scheduling of tasks by and between automated systems (e.g. in smart power grids, business process management systems) as well as for human centered tasks.&lt;/p&gt;
 
 &lt;p id=&quot;_baa80340-ea14-cdb7-ec37-8a9dad6e962b&quot;&gt;A &quot;task&quot; is a representation of an item of work assigned to an individual or organization. In the iCalendar Object Model &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt; the representation of tasks is by &quot;VTODO&quot; calendar components. Tasks can be identified in a number of situations, either informally as ad-hoc tasks in personal &quot;to-do&quot; lists or more formally in:&lt;/p&gt;</pre></td><td>2</td></tr>
 <tr class="severity2">
-<td>000232</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#task-specification'>task-specification</a></code></th>
+<td>000298</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#task-specification'>task-specification</a></code></th>
 <td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;task-specification&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
 &lt;title&gt;Task Specification&lt;/title&gt;
-&lt;p id=&quot;_20962d09-f00b-ca47-e475-e0c2f4341097&quot;&gt;The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt; &quot;VTODO&quot; calendar component only provides for simple ad-hoc tasks or &apos;to do&apos; lists, and is therefore extended by this specification as follows:&lt;/p&gt;
+&lt;p id=&quot;_7d34a8cb-accd-1ac9-f182-d621a228c1fe&quot;&gt;The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The  &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt; &quot;VTODO&quot; calendar component only provides for simple ad-hoc tasks or &apos;to do&apos; lists, and is therefore extended by this specification as follows:&lt;/p&gt;
 
 &lt;dl id=&quot;_de073d3c-5264-38a0-44f9-1a435528b1cc&quot;&gt; &lt;dt&gt;Task type&lt;/dt&gt;</pre></td><td>2</td></tr>
 <tr class="severity2">
-<td>000814</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#caldav-support'>caldav-support</a></code></th>
+<td>001006</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#caldav-support'>caldav-support</a></code></th>
 <td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;caldav-support&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
 &lt;title&gt;CalDAV Support for Task Mode&lt;/title&gt;
 &lt;p id=&quot;_af710561-e720-81cb-9069-2c2e67257f6c&quot;&gt;The CalDAV &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC4791&quot; citeas=&quot;RFC 4791&quot;/&gt; calendar access protocol allows clients and servers to exchange iCalendar data. With the introduction of the &quot;TASK-MODE&quot; property in this specification, different automated task management behaviours may be delegated to the server by the Task Organizer depending upon the value of &quot;TASK-MODE&quot;.&lt;/p&gt;
 
 &lt;p id=&quot;_81045c8e-8478-2d32-05fd-a1e8e2d64741&quot;&gt;In order for a CalDAV client to know what task modes are available, a CalDAV server advertises a CALDAV:supported-task-mode-set WebDAV property on calendar home or calendar collections if it supports the use of the &quot;TASK-MODE&quot; property as described in this specification.  The server can advertise a specific set of supported task modes by including one or more CALDAV:supported-task-mode XML elements within the CALDAV:supported-task-mode-set XML element. If no CALDAV:supported-task-mode XML elements are included in the WebDAV property, then clients can try any task mode, but need to be prepared for a failure when attempting to store the calendar data.&lt;/p&gt;</pre></td><td>2</td></tr>
 <tr class="severity2">
-<td>000872</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#_new_and_updated_icalendar_elements_registration'>_new_and_​updated_​icalendar_​elements_​registration</a></code></th>
+<td>001064</td><th><code><a href='sources/draft-ietf-calext-ical-tasks.html#_new_and_updated_icalendar_elements_registration'>_new_and_​updated_​icalendar_​elements_​registration</a></code></th>
 <td>Hanging paragraph in clause</td><td><pre>&lt;clause id=&quot;_new_and_updated_icalendar_elements_registration&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;
 &lt;title&gt;New and updated iCalendar Elements Registration&lt;/title&gt;
 &lt;p id=&quot;_3d34ed84-e14c-860f-bc92-b8331536a1ff&quot;&gt;This specification updates &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;/&gt; by adding and updating a number of elements according to the procedures and templates specified in &lt;eref type=&quot;inline&quot; bibitemid=&quot;RFC5545&quot; citeas=&quot;RFC 5545&quot;&gt; &lt;localityStack&gt; &lt;locality type=&quot;section&quot;&gt; &lt;referenceFrom&gt;8.2&lt;/referenceFrom&gt; &lt;/locality&gt; &lt;/localityStack&gt; &lt;/eref&gt;.&lt;/p&gt;
 
 &lt;clause id=&quot;_update_of_the_status_registry&quot; inline-header=&quot;false&quot; obligation=&quot;normative&quot;&gt;</pre></td><td>2</td></tr>
 </tbody></table>
-<h2>Document Attributes</h2>
+<h2 id="Document_Attributes">Document Attributes</h2>
 <table border="1">
 <thead><th width="5%">Line</th><th width="20%">ID</th>
 <th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
@@ -72,226 +98,37 @@ thead th { font-weight: bold; background-color: aqua; }
 <td></td><th><code>--</code></th>
 <td>IETF: unrecognised working group calext</td><td><pre></pre></td><td>1</td></tr>
 </tbody></table>
-<h2>Metanorma XML Syntax</h2>
+<h2 id="Metanorma_XML_Syntax">Metanorma XML Syntax</h2>
 <table border="1">
 <thead><th width="5%">Line</th><th width="20%">ID</th>
 <th width="30%">Message</th><th width="40%">Context</th><th width="5%">Severity</th></thead>
 <tbody>
 <tr class="severity2">
-<td></td><th><code>XML Line 000004:54</code></th>
-<td>attribute "format" not allowed here; expected attribute "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "DlAttr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000029:75</code></th>
-<td>element "workgroup" not allowed here; expected the element end-tag or element "committee"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "Image­Attr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000408:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "Note­Attr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000458:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "OlAttr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000494:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "ParagraphAttrs" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000534:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "Pre­Attr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000571:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "SourceAttr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000627:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "Table­Attr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 <tr class="severity2">
-<td></td><th><code>XML Line 000736:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 000783:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 000851:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 000860:67</code></th>
-<td>attribute "lang" not allowed here; expected attribute "markers" or "number"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001083:83</code></th>
-<td>attribute "inline-header" not allowed here; expected attribute "language", "numbered", "obligation", "removeInRFC", "script" or "toc"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001087:227</code></th>
-<td>attribute "alt" not allowed here; expected attribute "align", "number" or "width"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001087:227</code></th>
-<td>attribute "summary" not allowed here; expected attribute "align", "number" or "width"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001234:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001241:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001243:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001245:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001247:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001250:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001261:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001263:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001265:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001268:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001275:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001278:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001280:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001283:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001290:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001292:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001294:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001297:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001304:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001306:98</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001308:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001310:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001313:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001320:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001321:98</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001323:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001325:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001327:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001330:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001337:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001339:98</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001341:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001343:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001346:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001355:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001357:98</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001359:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001361:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001364:40</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001371:148</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001372:98</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001374:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001376:28</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale",​ "script" or "type"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001378:114</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001378:184</code></th>
-<td>element "link" missing required attribute "target"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001391:68</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001392:420</code></th>
-<td>attribute "format" not allowed here; expected attribute "language", "locale" or "script"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001392:999</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001393:100</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001394:100</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001396:141</code></th>
-<td>element "link" missing required attribute "target"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001396:51</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001398:10</code></th>
-<td>element "title" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001401:19</code></th>
-<td>element "uri" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001402:18</code></th>
-<td>element "docidentifier" not allowed here; expected the element end-tag or element "abstract", "accesslocation", "classification", "contributor", "copyright", "date", "depiction", "edition", "extent",​ "keyword", "language", "license", "locale",​ "medium",​ "note", "place", "price", "relation", "script",​ "series",​ "size", "status",​ "validity" or "version"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001431:208</code></th>
-<td>element "link" missing required attribute "target"</td><td><pre></pre></td><td>2</td></tr>
-<tr class="severity2">
-<td></td><th><code>XML Line 001431:51</code></th>
-<td>found attribute "format",​ but no attributes allowed here</td><td><pre></pre></td><td>2</td></tr>
+<td></td><th><code>XML Line 000010:30</code></th>
+<td>definition of "UlAttr" in "include" does not override anything</td><td><pre></pre></td><td>2</td></tr>
 </tbody></table>
 </body></html>

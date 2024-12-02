@@ -12,19 +12,19 @@
        This document updates and defines extensions to VTODO to provide improved status tracking, scheduling and specification of tasks to allow its use in other contexts, such as process control and project management. 
        It also defines how Calendaring Extensions to WebDAV (CalDAV) (RFC 4791) servers can be extended to support certain automated task management behaviours. 
     " name="description">
-<meta content="xml2rfc 3.22.0" name="generator">
-<meta content="draft-ietf-calext-ical-tasks-10" name="ietf.draft">
+<meta content="xml2rfc 3.24.0" name="generator">
+<meta content="draft-ietf-calext-ical-tasks-11" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.22.0
+  xml2rfc 3.24.0
     Python 3.8.10
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
-    lxml 5.2.2
-    platformdirs 4.2.2
+    lxml 5.3.0
+    platformdirs 4.3.6
     pycountry 24.6.1
-    PyYAML 6.0.1
+    PyYAML 6.0.2
     requests 2.32.3
     setuptools 44.0.0
     wcwidth 0.2.13
@@ -1160,7 +1160,7 @@ section .olCompact {
 tt, code {
   background-color: transparent;
 }
-p tt, p code, li tt, li code {
+p tt, p code, li tt, li code, dt tt, dt code {
   background-color: #f8f8f8;
 }
 /* Tweak the pre margin -- 0px doesn't come out well */
@@ -1212,11 +1212,11 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Task Extensions to iCalendar</td>
-<td class="right">July 2024</td>
+<td class="right">December 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Apthorp &amp; Douglass</td>
-<td class="center">Expires 31 January 2025</td>
+<td class="center">Expires 4 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1226,7 +1226,7 @@ li > p:last-of-type:only-child {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">calext</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-calext-ical-tasks-10</dd>
+<dd class="internet-draft">draft-ietf-calext-ical-tasks-11</dd>
 <dt class="label-">:</dt>
 <dd></dd>
 <dt class="label-updates">Updates:</dt>
@@ -1234,12 +1234,12 @@ li > p:last-of-type:only-child {
 <a href="https://www.rfc-editor.org/rfc/rfcRFC5545" class="eref">RFC5545</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-30" class="published">30 July 2024</time>
+<time datetime="2024-12-01" class="published">1 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-01-31">31 January 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-04">4 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1287,7 +1287,7 @@ li > p:last-of-type:only-child {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 31 January 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1525,8 +1525,8 @@ li > p:last-of-type:only-child {
         <h3 id="name-terms-and-definitions">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-terms-and-definitions" class="section-name selfRef">Terms and Definitions</a>
         </h3>
-<div id="_dd08dd99-8ed3-42d0-a453-673d62f9a120">
-<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<div id="_2e835703-5dbc-1609-2be1-14ab8cc3772e">
+<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14  <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_9d0c0c24-5d55-cec1-f6d5-a26ebc088858">
 <p id="section-1.1-2">Calendaring and scheduling roles are referred to in quoted-strings of text with the first character of each word in upper case.  For example, "Organizer" refers to a role of a "Calendar User" (CU) within the scheduling protocol.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
@@ -1552,7 +1552,7 @@ li > p:last-of-type:only-child {
 <div id="terms">
 <p id="section-1.1-9">Terms defined and used in this specification include:<a href="#section-1.1-9" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_a27d6f63-27dd-c7c3-af03-3648a8e36a12">
+<span class="break"></span><div id="_5d1c832c-d567-b4ba-dd43-b722de7ddedd">
 <dl class="dlParallel" id="section-1.1-10">
           <dt id="section-1.1-10.1">Assignee</dt>
           <dd style="margin-left: 1.5em" id="section-1.1-10.2">
@@ -1599,8 +1599,8 @@ li > p:last-of-type:only-child {
           <dd class="break"></dd>
 <dt id="section-1.1-10.11">Organizer</dt>
           <dd style="margin-left: 1.5em" id="section-1.1-10.12">
-            <div id="_77961707-2863-1e42-c7af-6e23a8b612b9">
-<p id="section-1.1-10.12.1">A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an "Organizer" who invites "Attendees" <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-1.1-10.12.1" class="pilcrow">¶</a></p>
+            <div id="_9e38ae26-9587-a53a-576b-545610d9080c">
+<p id="section-1.1-10.12.1">A calendar user who creates a calendar item, requests free/busy information, or published free/busy information. It is an "Organizer" who invites "Attendees"  <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span>.<a href="#section-1.1-10.12.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -1636,8 +1636,8 @@ li > p:last-of-type:only-child {
       <h2 id="name-task-architecture">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-task-architecture" class="section-name selfRef">Task Architecture</a>
       </h2>
-<div id="_1f67d259-7b2f-f955-8055-7332b6f11d08">
-<p id="section-2-1">A reference architecture for task calendaring and scheduling is defined in order to identify the key logical elements involved in task management and the interfaces between them to enable interoperability. The logical elements identified here establish an appropriate separation of concerns and clarify the responsibilities of different elements. However, the architecture does not prescribe a binding or packaging of elements, i.e., software systems may be developed where some elements are tightly bound and the interfaces between bound elements are not exposed. The task architecture is also described in <span>[<a href="#TARCH" class="cite xref">TARCH</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<div id="_fb67bf9b-2a59-71ff-564b-26c450671c05">
+<p id="section-2-1">A reference architecture for task calendaring and scheduling is defined in order to identify the key logical elements involved in task management and the interfaces between them to enable interoperability. The logical elements identified here establish an appropriate separation of concerns and clarify the responsibilities of different elements. However, the architecture does not prescribe a binding or packaging of elements, i.e., software systems may be developed where some elements are tightly bound and the interfaces between bound elements are not exposed. The task architecture is also described in  <span>[<a href="#TARCH" class="cite xref">TARCH</a>]</span>.<a href="#section-2-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-task-architecture-diagram"></span><div id="_2bad07e9-7d07-cbdb-fa76-b5ac14dacdcd">
 <figure id="figure-1">
@@ -1706,7 +1706,7 @@ li > p:last-of-type:only-child {
 <div id="_b165eb21-77e0-4527-2f36-81cf5ae5ca66">
 <p id="section-3-1">The following logical elements form the task architecture that this specification is based on:<a href="#section-3-1" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_7c1991c0-38ad-b594-d265-db96e25a387a">
+<span class="break"></span><div id="_3351f52c-f372-de15-4979-22a44a670db8">
 <dl class="dlParallel" id="section-3-2">
         <dt id="section-3-2.1">Task Actors</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.2">
@@ -1752,8 +1752,8 @@ li > p:last-of-type:only-child {
         <dd class="break"></dd>
 <dt id="section-3-2.13">Task Assignment Rules</dt>
         <dd style="margin-left: 1.5em" id="section-3-2.14">
-          <div id="_aee9a2fd-11c4-3de6-8cbd-3162519d27f0">
-<p id="section-3-2.14.1">Govern how actors are assigned to a task. A range of different assignment patterns <span>[<a href="#WfRP" class="cite xref">WfRP</a>]</span> may be considered, including the two general cases:<a href="#section-3-2.14.1" class="pilcrow">¶</a></p>
+          <div id="_7dd0b881-c724-bc6b-334d-4c89939cf203">
+<p id="section-3-2.14.1">Govern how actors are assigned to a task. A range of different assignment patterns  <span>[<a href="#WfRP" class="cite xref">WfRP</a>]</span> may be considered, including the two general cases:<a href="#section-3-2.14.1" class="pilcrow">¶</a></p>
 </div>
 <div id="_e07c5881-b03b-0e3b-82b1-cca2a7a2520f">
 <ol start="1" type="a" class="normal type-a" id="section-3-2.14.2">
@@ -1808,11 +1808,11 @@ li > p:last-of-type:only-child {
       <h2 id="name-architecture-foundations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-architecture-foundations" class="section-name selfRef">Architecture Foundations</a>
       </h2>
-<div id="_4ef06a82-4102-dd27-126f-0c17f73b1610">
-<p id="section-4-1">The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar) <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and associated protocols. Task and task status are represented by the "VTODO" calendar component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP) <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV) <span>[<a href="#RFC4791" class="cite xref">RFC4791</a>]</span> for client server communication.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div id="_2f75486d-3027-a31f-c8b5-3e55020908cb">
+<p id="section-4-1">The key standards that enable interoperability between the logical elements of the architecture are the Internet Calendaring and Scheduling Core Object Specification (iCalendar)  <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and associated protocols. Task and task status are represented by the "VTODO" calendar component. Protocols include, in particular, the iCalendar Transport-Independent Interoperability Protocol (iTIP)  <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> for task assignment and scheduling, and Calendaring Extensions to WebDAV (CalDAV)  <span>[<a href="#RFC4791" class="cite xref">RFC4791</a>]</span> for client server communication.<a href="#section-4-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_2f74432c-8dd9-5f8a-6861-d4f5ca041578">
-<p id="section-4-2">Additionally, this specification uses definitions from Support for iCalendar Relationships <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span>. The "LINK", "REFID", "RELATED-TO" and "CONCEPT" properties enable context and a rich set of relationships between tasks and other calendar components to be specified.<a href="#section-4-2" class="pilcrow">¶</a></p>
+<div id="_7790b277-bdbc-e5ba-5d99-9752cd14a440">
+<p id="section-4-2">Additionally, this specification uses definitions from Support for iCalendar Relationships  <span>[<a href="#RFC9253" class="cite xref">RFC9253</a>]</span>. The "LINK", "REFID", "RELATED-TO" and "CONCEPT" properties enable context and a rich set of relationships between tasks and other calendar components to be specified.<a href="#section-4-2" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -1866,8 +1866,8 @@ li > p:last-of-type:only-child {
       <h2 id="name-task-specification">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-task-specification" class="section-name selfRef">Task Specification</a>
       </h2>
-<div id="_20962d09-f00b-ca47-e475-e0c2f4341097">
-<p id="section-6-1">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="_7d34a8cb-accd-1ac9-f182-d621a228c1fe">
+<p id="section-6-1">The specification of tasks must be semantically explicit in order for them to be managed within the context of a business process or project, and be understood by both humans and IT systems. The  <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> "VTODO" calendar component only provides for simple ad-hoc tasks or 'to do' lists, and is therefore extended by this specification as follows:<a href="#section-6-1" class="pilcrow">¶</a></p>
 </div>
 <span class="break"></span><div id="_de073d3c-5264-38a0-44f9-1a435528b1cc">
 <dl class="dlParallel" id="section-6-2">
@@ -1986,8 +1986,8 @@ REFID:1234567890</pre><a href="#section-6.2-5" class="pilcrow">¶</a>
         <h3 id="name-deadlines">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-deadlines" class="section-name selfRef">Deadlines</a>
         </h3>
-<div id="_450cfdf9-c624-f8c0-0473-2dfaf0bf9111">
-<p id="section-7.1-1">Deadlines for starting and finishing a task are defined by the "DTSTART", "DUE" and "DURATION" properties. The "DTSTART" property represents the earliest start time for beginning work on a task. The "DUE", or "DTSTART" + "DURATION" properties represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However, <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> provides no way to indicate how long the task is expected to take. This document defines a new "ESTIMATED-DURATION" property, in <a href="#prop-estimated-duration" class="auto internal xref">Section 12.1</a>, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<div id="_c780af21-49f4-3826-d2f6-5ce3cc12fae6">
+<p id="section-7.1-1">Deadlines for starting and finishing a task are defined by the "DTSTART", "DUE" and "DURATION" properties. The "DTSTART" property represents the earliest start time for beginning work on a task. The "DUE", or "DTSTART" + "DURATION" properties represent the latest finish time for a task. Thus, these properties define a "window" within which a task has to be performed. However,  <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> provides no way to indicate how long the task is expected to take. This document defines a new "ESTIMATED-DURATION" property, in  <a href="#prop-estimated-duration" class="auto internal xref">Section 12.1</a>, to allow the estimated time that a task should take to be specified separately from the deadlines for starting and finishing a task. This supports time planning by enabling calendar user agents to display when tasks should occur and therefore allow calendar users to visualize when tasks should be performed and allocate time to them.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
@@ -2008,8 +2008,8 @@ REFID:1234567890</pre><a href="#section-6.2-5" class="pilcrow">¶</a>
       <h2 id="name-task-scheduling-and-assignm">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-task-scheduling-and-assignm" class="section-name selfRef">Task Scheduling and Assignment</a>
       </h2>
-<div id="_0c32e1b9-17de-0dd3-7701-19482933a767">
-<p id="section-8-1">Tasks are assigned to actors using one or more <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> "ATTENDEE" properties and/or one or more <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> "PARTICIPANT" calendar components.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div id="_15f48f80-3e83-19e0-2411-31f30162f966">
+<p id="section-8-1">Tasks are assigned to actors using one or more <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> "ATTENDEE" properties and/or one or more  <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> "PARTICIPANT" calendar components.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </div>
 <div id="_c24d693c-41b5-6406-4136-9956085ceefd">
 <p id="section-8-2">Communication of task assignment or delegation to one or more actors who are allocated to a task by the organizer is directly supported by iTIP, i.e., all included "ATTENDEE" properties in an iTIP REQUEST are expected to perform the task.<a href="#section-8-2" class="pilcrow">¶</a></p>
@@ -2111,7 +2111,7 @@ END:PARTICIPANT</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
 <div id="_e4d8828a-29ae-22a5-b14d-4ddfdd0e04b5">
 <p id="section-9.4-1">Different needs to alert or notify task actors of pending or actual task status changes are recognized:<a href="#section-9.4-1" class="pilcrow">¶</a></p>
 </div>
-<span class="break"></span><div id="_1b4ed1e1-f151-3b6a-20d4-ab9286fc675b">
+<span class="break"></span><div id="_4ca3650f-bc0c-fb5b-c7ac-121ba5dc7877">
 <dl class="dlParallel" id="section-9.4-2">
           <dt id="section-9.4-2.1">Alarms</dt>
           <dd style="margin-left: 1.5em" id="section-9.4-2.2">
@@ -2132,8 +2132,8 @@ END:PARTICIPANT</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
           <dd class="break"></dd>
 <dt id="section-9.4-2.5">Notifications</dt>
           <dd style="margin-left: 1.5em" id="section-9.4-2.6">
-            <div id="_a94e4557-299e-d63d-2f70-5573fd8bad14">
-<p id="section-9.4-2.6.1">Task actors (observers) not directly involved in performing a task, but with a known interest in a given task's status, can be identified by the "PARTICIPANT" calendar component <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> against certain components e.g. the "VALARM" calendar component, to identify which task events the stakeholder/party is interested in. Notifications on shared calendars will allow task actors to register an interest in changes to tasks within a calendar (see <a href="#appendix-a" class="auto internal xref">Appendix A</a>).<a href="#section-9.4-2.6.1" class="pilcrow">¶</a></p>
+            <div id="_696e75f5-0e38-458f-ca68-8141644e3725">
+<p id="section-9.4-2.6.1">Task actors (observers) not directly involved in performing a task, but with a known interest in a given task's status, can be identified by the "PARTICIPANT" calendar component  <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> against certain components e.g. the "VALARM" calendar component, to identify which task events the stakeholder/party is interested in. Notifications on shared calendars will allow task actors to register an interest in changes to tasks within a calendar (see  <a href="#appendix-a" class="auto internal xref">Appendix A</a>).<a href="#section-9.4-2.6.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
         <dd class="break"></dd>
@@ -2158,10 +2158,10 @@ END:PARTICIPANT</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
       <h2 id="name-modifications-to-calendar-c">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-modifications-to-calendar-c" class="section-name selfRef">Modifications to Calendar Components</a>
       </h2>
-<div id="_7c06e2b6-4647-065c-1693-39de4bafc87a">
-<p id="section-10-1">The following changes to the syntax defined in iCalendar <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and Event Publishing Extensions to iCalendar <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> are made here. New elements are defined in subsequent sections.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<div id="_f66574fe-a93e-256d-9e79-b0664d2ae77f">
+<p id="section-10-1">The following changes to the syntax defined in iCalendar <span>[<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and Event Publishing Extensions to iCalendar  <span>[<a href="#RFC9073" class="cite xref">RFC9073</a>]</span> are made here. New elements are defined in subsequent sections.<a href="#section-10-1" class="pilcrow">¶</a></p>
 </div>
-<div id="_906f9181-189b-2557-bfa7-ce42ba9bb859">
+<div id="_b2adf083-4ec1-d34f-65d0-8dc725a5ffb9">
 <div class="lang-bnf sourcecode" id="section-10-2">
 <pre>; Addition of VSTATUS as a valid component for VEVENT
 eventc     = "BEGIN" ":" "VEVENT" CRLF
@@ -2197,8 +2197,9 @@ participantc = "BEGIN" ":" "PARTICIPANT" CRLF
                "END" ":" "PARTICIPANT" CRLF
 
 
-; Addition of propertY REASON to PARTICIPANT
-partprop =/ reason</pre><a href="#section-10-2" class="pilcrow">¶</a>
+; Addition of properties PERCENT-COMPLETE and REASON to PARTICIPANT
+partprop =/ percent / ; OPTIONAL but MUST NOT occur more than once.
+            reason    ; OPTIONAL but MUST NOT occur more than once.</pre><a href="#section-10-2" class="pilcrow">¶</a>
 </div>
 </div>
 </section>
@@ -2313,12 +2314,12 @@ partprop =/ reason</pre><a href="#section-10-2" class="pilcrow">¶</a>
 durparam      = *(";" other-param)</pre><a href="#section-12.1-2" class="pilcrow">¶</a>
 </div>
 </div>
-<span class="break"></span><div id="_494cfa94-d5c3-deae-9227-ad8a595eb35d">
+<span class="break"></span><div id="_f93b641d-a9ed-3a99-da43-1b2824fe63e0">
 <dl class="dlParallel" id="section-12.1-3">
           <dt id="section-12.1-3.1">Description</dt>
           <dd style="margin-left: 1.5em" id="section-12.1-3.2">
-            <div id="_03a7274f-969f-0191-b79b-45ac69e9f250">
-<p id="section-12.1-3.2.1">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed. When present, "DTSTART" and "DUE"/"DURATION" properties represent the window in which the task can be performed. The "ESTIMATED-DURATION" property SHOULD be passed from the organizer to the "Attendee" in iTIP <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> messages.<a href="#section-12.1-3.2.1" class="pilcrow">¶</a></p>
+            <div id="_9c03c630-b6d4-e0e5-54ce-398c26cdbad0">
+<p id="section-12.1-3.2.1">In a "VTODO" calendar component the property MAY be used to specify the estimated duration for the to-do, with or without an explicit time window in which the event should be started and completed. When present, "DTSTART" and "DUE"/"DURATION" properties represent the window in which the task can be performed. The "ESTIMATED-DURATION" property SHOULD be passed from the organizer to the "Attendee" in iTIP  <span>[<a href="#RFC5546" class="cite xref">RFC5546</a>]</span> messages.<a href="#section-12.1-3.2.1" class="pilcrow">¶</a></p>
 </div>
 </dd>
           <dd class="break"></dd>
@@ -2580,7 +2581,7 @@ END:VSTATUS</pre><a href="#section-12.3-4" class="pilcrow">¶</a>
 taskmodeparam      = *(";" other-param)</pre><a href="#section-12.4-2" class="pilcrow">¶</a>
 </div>
 </div>
-<span class="break"></span><div id="_d1306601-603e-ce54-4ae0-affc14c6eca9">
+<span class="break"></span><div id="_2578e829-9c19-59cb-6ade-290d16f6d404">
 <dl class="dlParallel" id="section-12.4-3">
           <dt id="section-12.4-3.1">Description</dt>
           <dd style="margin-left: 1.5em" id="section-12.4-3.2">
@@ -3320,8 +3321,8 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
           <h4 id="name-components-registry">
 <a href="#section-17.1.5" class="section-number selfRef">17.1.5. </a><a href="#name-components-registry" class="section-name selfRef">Components Registry</a>
           </h4>
-<div id="_3490ae3d-4262-ce23-94a5-0105140f979d">
-<p id="section-17.1.5-1">The following table has been used to update the Components registry defined in <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
+<div id="_ed95c00d-d4df-2c9d-acd4-b1c4a3af7235">
+<p id="section-17.1.5-1">The following table has been used to update the Components registry defined in  <span><a class="relref">Section 8.3.1</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.5-1" class="pilcrow">¶</a></p>
 </div>
 <span id="name-updated-components-registry"></span><div id="_b293ebda-88d9-4453-6807-4771886854a0">
 <table class="center" id="table-5">
@@ -3364,10 +3365,10 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
           <h4 id="name-properties-registry">
 <a href="#section-17.1.6" class="section-number selfRef">17.1.6. </a><a href="#name-properties-registry" class="section-name selfRef">Properties registry</a>
           </h4>
-<div id="_12a45e47-f826-8485-97d8-a8484eed7e1c">
-<p id="section-17.1.6-1">The following table has been used to update the Properties registry defined in <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
+<div id="_894022b8-5fd6-f66d-0b47-62e614db316d">
+<p id="section-17.1.6-1">The following table has been used to update the Properties registry defined in  <span><a class="relref">Section 8.3.2</a> of [<a href="#RFC5545" class="cite xref">RFC5545</a>]</span> and located here: <span><a href="https://www.iana.org/assignments/icalendar">https://www.iana.org/assignments/icalendar</a></span>&gt;.<a href="#section-17.1.6-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-updated-properties-registry"></span><div id="_e9c72a68-7521-d614-2ba8-7dbb59e588f1">
+<span id="name-updated-properties-registry"></span><div id="_33a27ee0-890c-2291-1f24-7144df43a153">
 <table class="center" id="table-6">
             <caption>
 <a href="#table-6" class="selfRef">Table 6</a>:
@@ -3383,8 +3384,8 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
             <tbody>
               <tr>
                 <td class="text-left" rowspan="1" colspan="1">
-                  <div id="_82ff7d2e-d100-558b-a95a-ded1ac539d3b">
-<p id="section-17.1.6-2.2.1.1.1">ESTIMATED_DURATION<a href="#section-17.1.6-2.2.1.1.1" class="pilcrow">¶</a></p>
+                  <div id="_56eb5075-2d0f-c757-7cb9-3688637f6694">
+<p id="section-17.1.6-2.2.1.1.1">ESTIMATED-DURATION<a href="#section-17.1.6-2.2.1.1.1" class="pilcrow">¶</a></p>
 </div>
 </td>
                 <td class="text-left" rowspan="1" colspan="1">
@@ -3641,7 +3642,7 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
 <div id="_4e3a4769-59f2-8909-1b23-7418992efc23">
 <p id="appendix-A.2-1">Example of status changes in assigning and performing a task with two attendees (A1 and A2).<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 </div>
-<span id="name-example-for-multiple-attende"></span><div id="_fdcfa421-88c0-758c-4a8b-3c2da0d96656">
+<span id="name-example-for-multiple-attende"></span><div id="_4e1f9ea0-2770-3bc9-515e-81a16a523840">
 <table class="center" id="table-8">
           <caption>
 <a href="#table-8" class="selfRef">Table 8</a>:
@@ -3730,10 +3731,9 @@ uppercase preferred --&gt;</pre><a href="#section-15.1-2" class="pilcrow">¶</a>
           </tbody>
         </table>
 </div>
-<div id="_82835b59-ef36-37ee-556b-333036790dd1">
+<div id="_ae40a6f8-26ca-43bb-9ebe-9ebf1c200026">
 <aside id="appendix-A.2-3">
-          <p id="appendix-A.2-3.1">NOTE: The logic for determining the status change to the "VTODO" calendar component
-is determined by the task organizer based on the "ATTENDEE" property status and other business logic.<a href="#appendix-A.2-3.1" class="pilcrow">¶</a></p>
+          <p id="appendix-A.2-3.1">NOTE: The logic for determining the status change to the "VTODO" calendar component is determined by the task organizer based on the "ATTENDEE" property status and other business logic.<a href="#appendix-A.2-3.1" class="pilcrow">¶</a></p>
 </aside>
 </div>
 </section>

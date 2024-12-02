@@ -6,11 +6,11 @@ calext                                                        A. Apthorp
 Internet-Draft                                               DHL Express
 Updates: RFC5545 (if approved)                               M. Douglass
 Intended status: Standards Track            Bedework Commercial Services
-Expires: 31 January 2025                                    30 July 2024
+Expires: 4 June 2025                                     1 December 2024
 
 
                       Task Extensions to iCalendar
-                    draft-ietf-calext-ical-tasks-10
+                    draft-ietf-calext-ical-tasks-11
 
 Abstract
 
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 January 2025.
+   This Internet-Draft will expire on 4 June 2025.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 1]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 1]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 2]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 2]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    17. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  26
@@ -165,9 +165,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 3]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 3]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 1.1.  Terms and Definitions
@@ -221,9 +221,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 4]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 4]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    BPMS  Business Process Management Software
@@ -277,9 +277,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 5]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 5]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    a binding or packaging of elements, i.e., software systems may be
@@ -333,9 +333,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 6]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 6]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
         Task        +-------+
@@ -389,9 +389,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 7]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 7]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
                     Figure 1: Task architecture diagram
@@ -445,9 +445,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 8]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 8]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
       Process Management System, Project Management System, Bug Tracking
@@ -501,9 +501,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025                [Page 9]
+Apthorp & Douglass         Expires 4 June 2025                  [Page 9]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 5.  Task Extensions
@@ -557,9 +557,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 10]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 10]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    CONCEPT:http://example.com/task/delivery
@@ -613,9 +613,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 11]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 11]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 7.1.  Deadlines
@@ -669,9 +669,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 12]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 12]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 9.1.  Improved granularity in status reporting information
@@ -725,9 +725,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 13]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 13]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 9.3.  Relating reason and comments to "ATTENDEE" property status
@@ -781,9 +781,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 14]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 14]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
       component, to identify which task events the stakeholder/party is
@@ -837,9 +837,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 15]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 15]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    ; Addition of VSTATUS as a valid component for VEVENT
@@ -876,8 +876,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
                   "END" ":" "PARTICIPANT" CRLF
 
 
-   ; Addition of propertY REASON to PARTICIPANT
-   partprop =/ reason
+   ; Addition of properties PERCENT-COMPLETE and REASON to PARTICIPANT
+   partprop =/ percent / ; OPTIONAL but MUST NOT occur more than once.
+               reason    ; OPTIONAL but MUST NOT occur more than once.
 
 11.  New Parameter Values
 
@@ -892,10 +893,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-
-Apthorp & Douglass       Expires 31 January 2025               [Page 16]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 16]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    partstat-todo    =/ *("FAILED")  ; To-do cannot be completed
@@ -949,9 +949,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 17]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 17]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 12.2.  Reason
@@ -1005,9 +1005,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 18]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 18]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
       notation:
@@ -1061,9 +1061,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 19]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 19]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    Property Parameters  IANA and non-standard property parameters can be
@@ -1117,9 +1117,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 20]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 20]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
       indicates to the server that it SHOULD change the "VTODO" calendar
@@ -1173,9 +1173,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 21]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 21]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    is replaced by
@@ -1229,9 +1229,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 22]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 22]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    STATUS:FAILED
@@ -1285,9 +1285,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 23]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 23]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    statusc = "BEGIN" ":" "VSTATUS" CRLF
@@ -1341,9 +1341,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 24]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 24]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    In order for a CalDAV client to know what task modes are available, a
@@ -1397,9 +1397,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 25]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 25]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    Example
@@ -1453,9 +1453,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 26]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 26]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
              +===========+=========+=========================+
@@ -1509,9 +1509,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 27]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 27]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 17.1.5.  Components Registry
@@ -1537,7 +1537,7 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
         +====================+=========+=========================+
         | Property           | Status  | Reference               |
         +====================+=========+=========================+
-        | ESTIMATED_DURATION | Current | This Spec, Section 12.1 |
+        | ESTIMATED-DURATION | Current | This Spec, Section 12.1 |
         +--------------------+---------+-------------------------+
         | REASON             | Current | This Spec, Section 12.2 |
         +--------------------+---------+-------------------------+
@@ -1565,9 +1565,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 28]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 28]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
@@ -1621,9 +1621,9 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 29]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 29]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 20.  Informative References
@@ -1677,9 +1677,9 @@ A.1.  Simple Case Status Change
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 30]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 30]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
 A.2.  Example for multiple Attendees
@@ -1733,9 +1733,9 @@ A.2.  Example for multiple Attendees
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 31]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 31]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    |    |              |              |              | reply          |
@@ -1789,9 +1789,9 @@ Authors' Addresses
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 32]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 32]
 
-Internet-Draft        Task Extensions to iCalendar             July 2024
+Internet-Draft        Task Extensions to iCalendar         December 2024
 
 
    Adrian Apthorp
@@ -1845,4 +1845,4 @@ Internet-Draft        Task Extensions to iCalendar             July 2024
 
 
 
-Apthorp & Douglass       Expires 31 January 2025               [Page 33]
+Apthorp & Douglass         Expires 4 June 2025                 [Page 33]
