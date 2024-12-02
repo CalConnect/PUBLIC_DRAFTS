@@ -92,7 +92,7 @@ defined in <<RFC5545, section=8.3.2>> and located here: <https://www.iana.org/as
 |===
 | Property           | Status  | Reference
 
-| ESTIMATED_DURATION | Current | This Spec, <<prop-estimated-duration>>
+| ESTIMATED-DURATION | Current | This Spec, <<prop-estimated-duration>>
 | REASON    | Current | This Spec, <<prop-reason>>
 | SUBSTATE  | Current | This Spec, <<prop-sub-state>>
 | STATUS             | Current | This Spec, <<prop-ext-status>>

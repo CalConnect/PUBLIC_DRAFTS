@@ -42,7 +42,8 @@ participantc = "BEGIN" ":" "PARTICIPANT" CRLF
                "END" ":" "PARTICIPANT" CRLF
 
 
-; Addition of propertY REASON to PARTICIPANT
-partprop =/ reason
+; Addition of properties PERCENT-COMPLETE and REASON to PARTICIPANT
+partprop =/ percent / ; OPTIONAL but MUST NOT occur more than once.
+            reason    ; OPTIONAL but MUST NOT occur more than once.
 
 ----
