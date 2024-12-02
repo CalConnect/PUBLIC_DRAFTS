@@ -1,0 +1,20 @@
+class Calendar {
+  definition {
+    A calendar.
+  }
+
+  identifier: String[1] {
+    definition {
+      Unique identifier of the calendar.
+
+      [example]
+      `calendar:1234` is a sample of a unique calendar identifier.
+    }
+  }
+
+  events: Event[0..*] {
+    definition {
+      Events.
+    }
+  }
+}
