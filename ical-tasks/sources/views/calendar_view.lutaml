@@ -1,0 +1,13 @@
+diagram CalendarView {
+  title 'Calendar and its models'
+  caption 'Calendar and its models'
+
+  include ../model/calendar.lutaml
+  include ../model/event.lutaml
+
+  association {
+    owner Calendar
+    member Event
+    owner_type association
+  }
+}

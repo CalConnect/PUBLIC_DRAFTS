@@ -69,6 +69,7 @@ include::sections/54-new-components.adoc[]
 
 include::sections/60-caldav.adoc[]
 
+include::sections/70-model.adoc[]
 
 include::sections/100-security.adoc[]
 
