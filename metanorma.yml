@@ -1,9 +1,0 @@
----
-metanorma:
-  source:
-    files:
-      - ical-tasks/sources/draft-ietf-calext-ical-tasks.adoc
-
-  collection:
-    organization: "CalConnect"
-    name: "Public drafts"

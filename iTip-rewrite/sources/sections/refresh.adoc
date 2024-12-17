@@ -1,7 +1,0 @@
-==== The REFRESH method
-
-This method is valid for
-
-* VEVENT
-* VTODO
-

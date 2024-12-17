@@ -1,8 +1,0 @@
-
-[[working-notes]]
-
-[appendix,obligation=informative]
-== Working Notes
-=== Subscribing to task updates
-
-Stakeholders should have the ability to subscribe to categories / types of tasks on an ongoing basis. Reference calendarserver.org notifications draft
