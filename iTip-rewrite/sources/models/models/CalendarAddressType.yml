@@ -1,5 +1,0 @@
-name: CalendarAddressType
-attributes:
-  calAdddress:
-    definition: Uniquely identifies the participant
-    type: uri

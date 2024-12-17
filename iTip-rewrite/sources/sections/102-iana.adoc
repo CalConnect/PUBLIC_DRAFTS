@@ -1,8 +1,0 @@
-
-[#iana]
-== IANA Considerations
-
-=== Initialization of the Status registry
-
-This specification updates <<RFC5545>> by adding a XXXXX value registry to the iCalendar Elements registry and initializing it as per <<RFC5545>>.
-
